@@ -170,7 +170,7 @@ export default function Landing() {
 
       {/* FOOTER */}
       <footer style={s.footer}>
-        <p>© 2025 Vertical Studio · <a href="mailto:hello@verticalstudio.app" style={{ color: "#5a7060" }}>Contact</a></p>
+        <p>© 2025 Vertical Studio · <a href="mailto:hello@studiovertical.app" style={{ color: "#5a7060" }}>Contact</a></p>
       </footer>
 
       <style>{`
