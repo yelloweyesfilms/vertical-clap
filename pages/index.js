@@ -63,7 +63,18 @@ export default function Landing() {
       {/* NAV */}
       <div style={{ borderBottom: "1px solid #E8E4DC" }}>
         <nav style={s.nav}>
-          <div style={s.logo}>VERTICAL STUDIO</div>
+          <div style={s.logo}>
+          <svg width="28" height="28" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" style={{marginRight:8,verticalAlign:"middle"}}>
+            <rect width="30" height="30" rx="7" fill="#E85C3A"/>
+            <rect x="6" y="14" width="18" height="11" rx="2" fill="white"/>
+            <rect x="6" y="10" width="18" height="5" rx="1" fill="white" opacity="0.9"/>
+            <line x1="10" y1="10" x2="8" y2="15" stroke="#E85C3A" strokeWidth="1.5"/>
+            <line x1="15" y1="10" x2="13" y2="15" stroke="#E85C3A" strokeWidth="1.5"/>
+            <line x1="20" y1="10" x2="18" y2="15" stroke="#E85C3A" strokeWidth="1.5"/>
+            <polygon points="13,17 13,23 20,20" fill="#E85C3A"/>
+          </svg>
+          <span style={{verticalAlign:"middle"}}>STUDIO VERTICAL</span>
+        </div>
           <div style={s.rec}>
             <div style={s.recDot} />
             <span style={s.recLabel}>REC</span>
