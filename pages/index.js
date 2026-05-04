@@ -27,7 +27,7 @@ const s = {
   pricing: { maxWidth: 480, margin: "0 auto", padding: "80px 40px", textAlign: "center", background: "#fff" },
   pCard: { background: "#fff", border: "2px solid #E85C3A", borderRadius: 24, padding: 40 },
   price: { fontFamily: "var(--serif)", fontSize: 56, fontWeight: 900, color: "#E85C3A", lineHeight: 1 },
-  perMonth: { color: "#6B6B68", fontSize: 15, marginBottom: 32 },
+  perMonth: { color: "#aaa", fontSize: 15, marginBottom: 32 },
   checkList: { textAlign: "left", marginBottom: 36 },
   checkItem: { display: "flex", alignItems: "center", gap: 12, marginBottom: 12, fontSize: 15 },
   footer: { background: "#0D0D0D", borderTop: "1px solid #222", padding: "24px 40px", textAlign: "center", color: "#444", fontSize: 13 },
@@ -162,7 +162,7 @@ export default function Landing() {
             ].map((item, i) => (
               <div key={i} style={s.checkItem}>
                 <span style={{ color: "#E85C3A", fontSize: 18 }}>✓</span>
-                <span style={{ color: "#ccc" }}>{item}</span>
+                <span style={{ color: "#fff" }}>{item}</span>
               </div>
             ))}
           </div>
