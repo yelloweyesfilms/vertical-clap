@@ -20,7 +20,7 @@ const s = {
   phoneNotch: { width: 80, height: 6, background: "#DDD8D0", borderRadius: 10, margin: "0 auto 20px" },
   features: { background: "#1A1A18", padding: "80px 40px" },
   featGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 },
-  featCard: { background: "#242424", border: "none", borderLeft: "4px solid #E85C3A", borderRadius: 16, padding: 28 },
+  featCard: { background: "#2E2E2E", border: "1px solid #3A3A3A", borderLeft: "4px solid #E85C3A", borderRadius: 16, padding: 28, boxShadow: "0 4px 20px rgba(0,0,0,.4)" },
   featIcon: { fontSize: 32, marginBottom: 16 },
   featTitle: { fontFamily: "var(--serif)", fontSize: 20, fontWeight: 700, marginBottom: 8, color: "#fff" },
   featDesc: { color: "#888", lineHeight: 1.65, fontSize: 14 },
