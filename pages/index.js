@@ -181,7 +181,7 @@ export default function Landing() {
 
       {/* FOOTER */}
       <footer style={s.footer}>
-        <p>© 2025 Vertical Studio · <a href="mailto:hello@studiovertical.app" style={{ color: "#6B6B68" }}>Contact</a></p>
+        <p>© 2026 Studio Vertical · Tous droits réservés · <a href="mailto:hello@studiovertical.app" style={{ color: "#666" }}>Contact</a> · <a href="/cgu" style={{ color: "#666" }}>CGU</a> · <a href="/confidentialite" style={{ color: "#666" }}>Confidentialité</a></p>
       </footer>
 
       <style>{`
