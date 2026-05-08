@@ -504,6 +504,14 @@ export default function App() {
   const [customerId, setCustomerId] = useState(null);
   const [checking, setChecking] = useState(true);
   const [screen, setScreen] = useState("mix");
+  const [darkMode, setDarkMode] = useState(() => {
+    try { return localStorage.getItem("vs_theme") === "dark"; } catch { return false; }
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "");
+    try { localStorage.setItem("vs_theme", darkMode ? "dark" : "light"); } catch {}
+  }, [darkMode]);
   const [state, setState] = useState({ mode: "fast", casting: OPTS.casting[0], univers: OPTS.univers_fast[0], secret: OPTS.secret_fast[0], format: 10, duree: 60 });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
@@ -768,7 +776,8 @@ export default function App() {
 
       {/* Logout */}
       {screen !== "tour" && (
-        <div style={{ position: "fixed", top: 14, right: 20, zIndex: 100 }}>
+        <div style={{ position: "fixed", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 12 }}>
+          <button onClick={() => setDarkMode(d => !d)} style={{ background: "none", border: "none", fontSize: 18, cursor: "pointer", lineHeight: 1 }} title={darkMode ? "Mode jour" : "Mode nuit"}>{darkMode ? "☀️" : "🌙"}</button>
           <button onClick={logout} style={{ background: "none", border: "none", fontSize: 12, color: "var(--mt)", cursor: "pointer" }}>Déconnexion</button>
         </div>
       )}
