@@ -259,19 +259,9 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
 
 function TournageView({ script, ep, duree, onBack }) {
   const [playing, setPlaying] = useState(true);
-  const [showList, setShowList] = useState(false);
   const ref = useRef(null);
   const iv = useRef(null);
   const spd = duree <= 60 ? 1.0 : duree <= 90 ? 0.8 : 0.6;
-
-  if (!script) return (
-    <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "#080E0B" }}>
-      <div style={{ textAlign: "center" }}>
-        <p style={{ color: "#5a7060", marginBottom: 20 }}>Script non disponible</p>
-        <button onClick={onBack} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "12px 24px", borderRadius: 10, cursor: "pointer", fontFamily: "var(--sans)", fontWeight: 700 }}>← Retour</button>
-      </div>
-    </div>
-  );
 
   useEffect(() => {
     if (playing && ref.current) iv.current = setInterval(() => { if (ref.current) ref.current.scrollTop += spd; }, 55);
@@ -284,6 +274,15 @@ function TournageView({ script, ep, duree, onBack }) {
   (script?.scenes || []).forEach(s => { lines.push({ t: "nm", v: s.perso }); lines.push({ t: "txt", v: s.dialogue }); lines.push({ t: "stg", v: s.visuel_916 }); });
   if (script?.cliffhanger_scene) { lines.push({ t: "lbl", v: "🎬 CLIFFHANGER" }); lines.push({ t: "txt", v: script.cliffhanger_scene.texte }); if (script.cliffhanger_scene.label) lines.push({ t: "hi", v: script.cliffhanger_scene.label }); }
 
+  if (!script) return (
+    <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "#000" }}>
+      <div style={{ textAlign: "center" }}>
+        <p style={{ color: "#888", marginBottom: 20 }}>Script non disponible</p>
+        <button onClick={onBack} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "12px 24px", borderRadius: 10, cursor: "pointer", fontFamily: "var(--sans)", fontWeight: 700 }}>← Retour</button>
+      </div>
+    </div>
+  );
+
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", background: "#000", color: "#fff" }}>
       {/* Barre du haut */}
@@ -294,8 +293,8 @@ function TournageView({ script, ep, duree, onBack }) {
           <span style={{ fontSize: 11, fontWeight: 800, color: "var(--r)", letterSpacing: 2 }}>REC</span>
           <span style={{ fontSize: 12, color: "#888" }}>Ép. {ep?.numero} · {ep?.titre}</span>
         </div>
-        <button onClick={() => setPlaying(!playing)} style={{ background: playing ? "#333" : "var(--r)", border: "none", cursor: "pointer", padding: "8px 16px", borderRadius: 8, fontSize: 16, color: "#fff" }}>
-          {playing ? "⏸" : "▶"}
+        <button onClick={() => setPlaying(!playing)} style={{ background: playing ? "#333" : "var(--r)", border: "none", cursor: "pointer", padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 700, color: "#fff", fontFamily: "var(--sans)", minWidth: 72 }}>
+          {playing ? "⏸ Pause" : "▶ Play"}
         </button>
       </div>
 
