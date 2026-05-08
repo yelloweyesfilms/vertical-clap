@@ -672,6 +672,24 @@ export default function App() {
     const addSpace = (h = 4) => { y += h; };
     const addLine = (color = [220, 220, 220]) => { doc.setDrawColor(...color); doc.line(margin, y, W - margin, y); addSpace(4); };
 
+    const addWatermark = () => {
+      const pageCount = doc.getNumberOfPages();
+      for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.saveGraphicsState();
+        doc.setGState(new doc.GState({ opacity: 0.07 }));
+        doc.setFontSize(38);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(232, 92, 58);
+        doc.text("VERTICAL STUDIO", W / 2, 148, { align: "center", angle: 45 });
+        doc.restoreGraphicsState();
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(180, 180, 180);
+        doc.text("vertical-studio.app", W / 2, 293, { align: "center" });
+      }
+    };
+
     // En-tête
     doc.setFillColor(...RED);
     doc.rect(0, 0, W, 12, "F");
@@ -724,10 +742,7 @@ export default function App() {
     addText(s.cliffhanger_scene?.visuel_916, { size: 9, italic: true, color: RED, maxWidth: contentW - 8 });
     addSpace(12);
 
-    // Pied de page
-    addLine();
-    addText("VERTICAL STUDIO", { size: 8, bold: true, color: RED });
-
+    addWatermark();
     doc.save(`${b.titre.replace(/\s+/g, "_")}_ep${ep.numero}.pdf`);
   };
 
