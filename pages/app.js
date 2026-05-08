@@ -285,51 +285,51 @@ function TournageView({ script, ep, duree, onBack }) {
   if (script?.cliffhanger_scene) { lines.push({ t: "lbl", v: "🎬 CLIFFHANGER" }); lines.push({ t: "txt", v: script.cliffhanger_scene.texte }); if (script.cliffhanger_scene.label) lines.push({ t: "hi", v: script.cliffhanger_scene.label }); }
 
   return (
-    <div style={{ flex: 1, display: "flex", flexDirection: "column", background: "#080E0B", color: "#fff" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 20px", borderBottom: "1px solid #1a2320", flexShrink: 0 }}>
-        <button onClick={onBack} style={{ background: "none", border: "1px solid #1a2320", color: "#5a7060", cursor: "pointer", padding: "8px 14px", borderRadius: 8, fontFamily: "var(--sans)", fontSize: 13 }}>← Studio</button>
+    <div style={{ flex: 1, display: "flex", flexDirection: "column", background: "#000", color: "#fff" }}>
+      {/* Barre du haut */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 20px", background: "#111", flexShrink: 0 }}>
+        <button onClick={onBack} style={{ background: "none", border: "1px solid #333", color: "#aaa", cursor: "pointer", padding: "8px 14px", borderRadius: 8, fontFamily: "var(--sans)", fontSize: 13 }}>← Retour</button>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--r)", animation: "pulse 1s infinite" }} />
           <span style={{ fontSize: 11, fontWeight: 800, color: "var(--r)", letterSpacing: 2 }}>REC</span>
-          <span style={{ fontSize: 11, color: "#3a5040", fontWeight: 700 }}>· {DUR_LABEL[duree]}</span>
+          <span style={{ fontSize: 12, color: "#888" }}>Ép. {ep?.numero} · {ep?.titre}</span>
         </div>
-        <button onClick={() => setShowList(!showList)} style={{ background: showList ? "#1a2320" : "none", border: "1px solid #1a2320", color: showList ? "#fff" : "#5a7060", cursor: "pointer", padding: "8px 14px", borderRadius: 8, fontFamily: "var(--sans)", fontSize: 13 }}>📋</button>
+        <button onClick={() => setPlaying(!playing)} style={{ background: playing ? "#333" : "var(--r)", border: "none", cursor: "pointer", padding: "8px 16px", borderRadius: 8, fontSize: 16, color: "#fff" }}>
+          {playing ? "⏸" : "▶"}
+        </button>
       </div>
-      <div style={{ padding: "8px 20px", background: "#0d1610", borderBottom: "1px solid #1a2320", flexShrink: 0 }}>
-        <p style={{ fontSize: 11, color: "#3a5040", textTransform: "uppercase", letterSpacing: 1 }}>Ép. {ep?.numero} · {ep?.titre}</p>
-      </div>
-      <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", gap: 18, zIndex: 10, opacity: 0.2 }}>
-          {["♥", "💬", "↗", "⋮"].map((ic, i) => <div key={i} style={{ width: 38, height: 38, background: "#1a2320", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15 }}>{ic}</div>)}
-        </div>
-        <div ref={ref} onClick={() => setPlaying(!playing)} style={{ height: "100%", overflowY: "scroll", padding: "0 70px 0 24px", cursor: "pointer", scrollbarWidth: "none" }}>
-          <div style={{ height: "22vh" }} />
+
+      {/* Ligne de focus centrale */}
+      <div style={{ position: "relative", flex: 1, overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: "42%", left: 0, right: 0, height: 3, background: "var(--r)", opacity: 0.5, zIndex: 10, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "40%", background: "linear-gradient(to bottom, #000 60%, transparent)", zIndex: 5, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "30%", background: "linear-gradient(to top, #000 60%, transparent)", zIndex: 5, pointerEvents: "none" }} />
+
+        <div ref={ref} onClick={() => setPlaying(!playing)} style={{ height: "100%", overflowY: "scroll", padding: "0 28px", cursor: "pointer", scrollbarWidth: "none" }}>
+          <div style={{ height: "45vh" }} />
           {lines.map((l, i) => {
-            if (l.t === "lbl") return <p key={i} style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2.5, textTransform: "uppercase", color: "var(--r)", marginBottom: 6, marginTop: 26 }}>{l.v}</p>;
-            if (l.t === "nm") return <p key={i} style={{ fontSize: 11, fontWeight: 700, color: "#3a5040", letterSpacing: 1, textTransform: "uppercase", marginBottom: 4, marginTop: 18 }}>{l.v}</p>;
-            if (l.t === "txt") return <p key={i} style={{ fontFamily: "var(--serif)", fontSize: 23, color: "#fff", lineHeight: 1.5, marginBottom: 6, fontWeight: 700 }}>{l.v}</p>;
-            if (l.t === "stg") return <p key={i} style={{ fontSize: 12, color: "#2a3a32", fontStyle: "italic", marginBottom: 18 }}>[{l.v}]</p>;
-            if (l.t === "hi") return <div key={i} style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "8px 16px", marginTop: 6, marginBottom: 18 }}><span style={{ fontSize: 15, fontWeight: 800, color: "#fff", letterSpacing: 2, textTransform: "uppercase" }}>{l.v}</span></div>;
+            if (l.t === "lbl") return (
+              <p key={i} style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "var(--r)", marginBottom: 8, marginTop: 36, textAlign: "center" }}>{l.v}</p>
+            );
+            if (l.t === "nm") return (
+              <p key={i} style={{ fontSize: 13, fontWeight: 700, color: "#facc15", letterSpacing: 2, textTransform: "uppercase", marginBottom: 6, marginTop: 28, textAlign: "center" }}>{l.v}</p>
+            );
+            if (l.t === "txt") return (
+              <p key={i} style={{ fontFamily: "var(--serif)", fontSize: 28, color: "#fff", lineHeight: 1.6, marginBottom: 10, fontWeight: 700, textAlign: "center" }}>{l.v}</p>
+            );
+            if (l.t === "stg") return (
+              <p key={i} style={{ fontSize: 13, color: "#666", fontStyle: "italic", marginBottom: 24, textAlign: "center" }}>[{l.v}]</p>
+            );
+            if (l.t === "hi") return (
+              <div key={i} style={{ textAlign: "center", marginTop: 8, marginBottom: 24 }}>
+                <span style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "8px 20px", fontSize: 16, fontWeight: 800, color: "#fff", letterSpacing: 2, textTransform: "uppercase" }}>{l.v}</span>
+              </div>
+            );
             return null;
           })}
-          <div style={{ height: "50vh" }} />
-        </div>
-        <div style={{ position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}>
-          <button onClick={() => setPlaying(!playing)} style={{ background: playing ? "#1a2320" : "var(--r)", border: "none", cursor: "pointer", width: 50, height: 50, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, color: "#fff", transition: "all .2s" }}>{playing ? "⏸" : "▶"}</button>
-          <span style={{ fontSize: 10, color: "#2a3a32" }}>Appuie pour {playing ? "pause" : "play"}</span>
+          <div style={{ height: "55vh" }} />
         </div>
       </div>
-      {showList && (
-        <div style={{ background: "#0d1610", borderTop: "2px solid var(--r)", padding: 20, maxHeight: "40vh", overflowY: "auto", flexShrink: 0 }}>
-          <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--r)", marginBottom: 14 }}>Checklist Tournage</p>
-          {(script?.checklist || []).map((item, i) => (
-            <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 10 }}>
-              <div style={{ width: 20, height: 20, borderRadius: 4, border: "2px solid #1a2320", flexShrink: 0 }} />
-              <span style={{ fontSize: 14, color: "#5a7a62" }}>{item}</span>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
