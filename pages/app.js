@@ -298,36 +298,27 @@ function TournageView({ script, ep, duree, onBack }) {
         </button>
       </div>
 
-      {/* Ligne de focus centrale */}
-      <div style={{ position: "relative", flex: 1, overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: "42%", left: 0, right: 0, height: 3, background: "var(--r)", opacity: 0.5, zIndex: 10, pointerEvents: "none" }} />
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "40%", background: "linear-gradient(to bottom, #000 60%, transparent)", zIndex: 5, pointerEvents: "none" }} />
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "30%", background: "linear-gradient(to top, #000 60%, transparent)", zIndex: 5, pointerEvents: "none" }} />
-
-        <div ref={ref} onClick={() => setPlaying(!playing)} style={{ height: "100%", overflowY: "scroll", padding: "0 28px", cursor: "pointer", scrollbarWidth: "none" }}>
-          <div style={{ height: "45vh" }} />
-          {lines.map((l, i) => {
-            if (l.t === "lbl") return (
-              <p key={i} style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "var(--r)", marginBottom: 8, marginTop: 36, textAlign: "center" }}>{l.v}</p>
-            );
-            if (l.t === "nm") return (
-              <p key={i} style={{ fontSize: 13, fontWeight: 700, color: "#facc15", letterSpacing: 2, textTransform: "uppercase", marginBottom: 6, marginTop: 28, textAlign: "center" }}>{l.v}</p>
-            );
-            if (l.t === "txt") return (
-              <p key={i} style={{ fontFamily: "var(--serif)", fontSize: 28, color: "#fff", lineHeight: 1.6, marginBottom: 10, fontWeight: 700, textAlign: "center" }}>{l.v}</p>
-            );
-            if (l.t === "stg") return (
-              <p key={i} style={{ fontSize: 13, color: "#666", fontStyle: "italic", marginBottom: 24, textAlign: "center" }}>[{l.v}]</p>
-            );
-            if (l.t === "hi") return (
-              <div key={i} style={{ textAlign: "center", marginTop: 8, marginBottom: 24 }}>
-                <span style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "8px 20px", fontSize: 16, fontWeight: 800, color: "#fff", letterSpacing: 2, textTransform: "uppercase" }}>{l.v}</span>
-              </div>
-            );
-            return null;
-          })}
-          <div style={{ height: "55vh" }} />
-        </div>
+      <div ref={ref} style={{ flex: 1, overflowY: "scroll", padding: "24px 28px 80px", scrollbarWidth: "none" }}>
+        {lines.map((l, i) => {
+          if (l.t === "lbl") return (
+            <p key={i} style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "var(--r)", marginBottom: 8, marginTop: 36, textAlign: "center" }}>{l.v}</p>
+          );
+          if (l.t === "nm") return (
+            <p key={i} style={{ fontSize: 13, fontWeight: 700, color: "#facc15", letterSpacing: 2, textTransform: "uppercase", marginBottom: 6, marginTop: 28, textAlign: "center" }}>{l.v}</p>
+          );
+          if (l.t === "txt") return (
+            <p key={i} style={{ fontFamily: "var(--serif)", fontSize: 28, color: "#fff", lineHeight: 1.6, marginBottom: 10, fontWeight: 700, textAlign: "center" }}>{l.v}</p>
+          );
+          if (l.t === "stg") return (
+            <p key={i} style={{ fontSize: 13, color: "#888", fontStyle: "italic", marginBottom: 24, textAlign: "center" }}>[{l.v}]</p>
+          );
+          if (l.t === "hi") return (
+            <div key={i} style={{ textAlign: "center", marginTop: 8, marginBottom: 24 }}>
+              <span style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "8px 20px", fontSize: 16, fontWeight: 800, color: "#fff", letterSpacing: 2, textTransform: "uppercase" }}>{l.v}</span>
+            </div>
+          );
+          return null;
+        })}
       </div>
     </div>
   );
