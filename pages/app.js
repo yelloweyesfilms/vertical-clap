@@ -142,10 +142,24 @@ function MesSeriesView({ onLoad, onBack }) {
 
 // ── SCREENS ──────────────────────────────────────────────────
 
+const CUSTOM_PREFIX = "__custom__";
+
 function Mixeur({ state, set, onGen, onMesSeries, hasSeries }) {
   const univOpts = state.mode === "fast" ? OPTS.univers_fast : OPTS.univers_prem;
   const secOpts = state.mode === "fast" ? OPTS.secret_fast : OPTS.secret_prem;
-  const totalMin = Math.round(state.format * state.duree / 60);
+  const [customInputs, setCustomInputs] = useState({ casting: "", univers: "", secret: "" });
+
+  const isCustom = (key) => state[key]?.startsWith(CUSTOM_PREFIX);
+  const customValue = (key) => isCustom(key) ? state[key].slice(CUSTOM_PREFIX.length) : customInputs[key];
+
+  const activateCustom = (key) => {
+    const val = customInputs[key] || "";
+    set({ [key]: CUSTOM_PREFIX + val });
+  };
+  const updateCustom = (key, val) => {
+    setCustomInputs(p => ({ ...p, [key]: val }));
+    set({ [key]: CUSTOM_PREFIX + val });
+  };
 
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
@@ -178,7 +192,18 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries }) {
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{label}</p>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {opts.map(o => <Chip key={o} label={o} active={state[key] === o} onClick={() => set({ [key]: o })} />)}
+              <Chip label="✏️ Perso." active={isCustom(key)} onClick={() => activateCustom(key)} />
             </div>
+            {isCustom(key) && (
+              <input
+                autoFocus
+                value={customValue(key)}
+                onChange={e => updateCustom(key, e.target.value)}
+                placeholder={`Ton ${label.toLowerCase()} personnalisé…`}
+                maxLength={100}
+                style={{ marginTop: 10, width: "100%", padding: "10px 14px", borderRadius: 10, border: "1.5px solid var(--r)", background: "var(--bg)", color: "var(--tx)", fontFamily: "var(--sans)", fontSize: 14, outline: "none" }}
+              />
+            )}
           </div>
         ))}
 
@@ -537,7 +562,13 @@ export default function App() {
   const [err, setErr] = useState(null);
   const [savedCount, setSavedCount] = useState(() => { try { return JSON.parse(localStorage.getItem(SAVE_KEY) || "[]").length; } catch { return 0; } });
 
-  const set = (patch) => setState(prev => ({ ...prev, ...patch }));
+  const set = (patch) => setState(prev => ({ ...prev, ...(typeof patch === "function" ? patch(prev) : patch) }));
+  const cleanState = (s) => ({
+    ...s,
+    casting: s.casting?.startsWith(CUSTOM_PREFIX) ? s.casting.slice(CUSTOM_PREFIX.length) : s.casting,
+    univers: s.univers?.startsWith(CUSTOM_PREFIX) ? s.univers.slice(CUSTOM_PREFIX.length) : s.univers,
+    secret: s.secret?.startsWith(CUSTOM_PREFIX) ? s.secret.slice(CUSTOM_PREFIX.length) : s.secret,
+  });
 
   // ── Auth: check Stripe session or stored customerId ──
   useEffect(() => {
@@ -578,7 +609,7 @@ export default function App() {
     setScreen("load");
     try {
       setLoadMsg("Création de la bible de la série…");
-      const b = await gen("bible", state, customerId);
+      const b = await gen("bible", cleanState(state), customerId);
       setBible(b);
 
       const totalBatches = Math.ceil(state.format / 10);
