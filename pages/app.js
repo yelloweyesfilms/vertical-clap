@@ -315,7 +315,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId }) {
   );
 }
 
-function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport }) {
+function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport, onVariations }) {
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
@@ -366,10 +366,55 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
                 <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "11px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
               ))}
             </div>
+            <button onClick={onVariations} disabled={loading} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", marginBottom: 10, fontFamily: "var(--sans)" }}>🎲 Générer 3 versions</button>
             <button onClick={onTournage} style={{ background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", marginBottom: 10, fontFamily: "var(--sans)" }}>📱 Mode Tournage</button>
             <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)" }}>📄 Exporter en PDF</button>
           </>
         ) : null}
+      </div>
+    </div>
+  );
+}
+
+function VariationsView({ variations, loading, ep, onSelect, onBack }) {
+  return (
+    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+      <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Studio</button>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>3 versions</h2>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre} — Choisissez la meilleure</p>
+      </div>
+      <div style={{ padding: "0 20px 40px", maxWidth: 520, margin: "0 auto" }}>
+        {loading ? (
+          <div style={{ textAlign: "center", padding: "60px 0" }}>
+            <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>🎲</div>
+            <p style={{ color: "var(--mt)" }}>Génération de 3 versions en parallèle…</p>
+          </div>
+        ) : (variations || []).map((v, i) => (
+          <div key={i} style={{ background: "var(--card)", borderRadius: 16, padding: 18, marginBottom: 16, border: "1.5px solid var(--bo)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+              <span style={{ fontSize: 16, fontWeight: 800 }}>{v.label}</span>
+              <button onClick={() => onSelect(v)} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
+                Choisir →
+              </button>
+            </div>
+            <div style={{ background: "#fff5f2", borderRadius: 10, padding: 12, marginBottom: 10 }}>
+              <p style={{ fontSize: 10, fontWeight: 700, color: "var(--r)", letterSpacing: 1, textTransform: "uppercase", marginBottom: 6 }}>⚡ Hook</p>
+              <p style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.4 }}>{v.hook_scene?.texte}</p>
+            </div>
+            {(v.scenes || []).slice(0, 2).map((s, j) => (
+              <div key={j} style={{ borderLeft: "2px solid var(--bo)", paddingLeft: 10, marginBottom: 8 }}>
+                <p style={{ fontSize: 10, fontWeight: 700, color: "var(--n)", textTransform: "uppercase", marginBottom: 3 }}>{s.perso} {s.jeu && <span style={{ fontStyle: "italic", fontWeight: 400, color: "var(--mt)" }}>· {s.jeu}</span>}</p>
+                <p style={{ fontSize: 13, lineHeight: 1.5 }}>{s.dialogue}</p>
+              </div>
+            ))}
+            {(v.scenes || []).length > 2 && <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic" }}>+ {v.scenes.length - 2} réplique(s)…</p>}
+            <div style={{ background: "var(--tx)", borderRadius: 10, padding: 12, marginTop: 10 }}>
+              <p style={{ fontSize: 10, fontWeight: 700, color: "var(--r)", letterSpacing: 1, textTransform: "uppercase", marginBottom: 6 }}>🎬 Cliffhanger</p>
+              <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", lineHeight: 1.4 }}>{v.cliffhanger_scene?.texte}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -551,6 +596,25 @@ export default function App() {
     setLoading(false);
   };
 
+  const [variations, setVariations] = useState(null);
+  const [loadingVariations, setLoadingVariations] = useState(false);
+
+  const genVariations = async () => {
+    setVariations(null);
+    setLoadingVariations(true);
+    setScreen("variations");
+    try {
+      const r = await gen("variations", { ep: episodes[epIdx], bible, mode: state.mode, duree: state.duree }, customerId);
+      setVariations(r.variations || []);
+    } catch (e) { console.error(e); }
+    setLoadingVariations(false);
+  };
+
+  const selectVariation = (v) => {
+    setScript(v);
+    setScreen("studio");
+  };
+
   const exportScript = async () => {
     const b = bible, ep = episodes[epIdx], s = script;
     if (!s) return;
@@ -676,7 +740,8 @@ export default function App() {
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} />}
       {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} />}
-      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} />}
+      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} />}
+      {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} />}
 
       {/* Logout */}

@@ -18,7 +18,7 @@ function isRateLimited(customerId) {
   return false;
 }
 
-const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres"];
+const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres", "variations"];
 const VALID_MODES = ["fast", "premium"];
 const VALID_DUREES = [60, 90, 120];
 const VALID_FORMATS = [10, 20, 40];
@@ -52,6 +52,12 @@ function validatePayload(action, payload) {
     if (!VALID_EDIT_TYPES.includes(type)) return "Type d'édition invalide";
     if (!VALID_DUREES.includes(duree)) return "Durée invalide";
     if (!script || typeof script !== "object") return "Script invalide";
+  } else if (action === "variations") {
+    const { ep, bible, mode, duree } = payload;
+    if (!VALID_MODES.includes(mode)) return "Mode invalide";
+    if (!VALID_DUREES.includes(duree)) return "Durée invalide";
+    if (!ep || typeof ep !== "object") return "Épisode invalide";
+    if (!bible || typeof bible !== "object") return "Bible invalide";
   } else if (action === "titres") {
     const { titre, logline, pitch, mode } = payload;
     if (!VALID_MODES.includes(mode)) return "Mode invalide";
@@ -152,6 +158,22 @@ JSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue
         2000
       );
       return res.json(result);
+    }
+
+    if (action === "variations") {
+      const { ep, bible, mode, duree } = payload;
+      const maxS = duree <= 60 ? 5 : duree <= 90 ? 7 : 10;
+      const persos = (bible.personnages || []).map(p => `${p.nom} (${p.role})`).join(", ");
+      const base = `Script ép.${ep.numero} "${ep.titre}". Série: ${bible.titre}. Persos: ${persos}. Cliffhanger: ${ep.cliffhanger}. RÈGLES: hook 1 phrase choc, ${maxS} échanges max 25 mots, max 2 acteurs. Le champ "jeu" = indication courte de jeu d'acteur. JSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`;
+      const styles = [
+        { label: "🌶 Intense", instr: "Version INTENSE: émotions à fleur de peau, confrontation directe, chaque réplique choque." },
+        { label: "🤫 Subtil", instr: "Version SUBTILE: sous-texte, non-dits, silences lourds, tension psychologique." },
+        { label: "⚡ Rapide", instr: "Version RAPIDE: répliques ultra-courtes (max 10 mots), rythme haletant, 100% action." },
+      ];
+      const results = await Promise.all(styles.map(({ instr }) =>
+        callClaude(`Scénariste expert micro-dramas 9:16. ${DUR_INSTR[duree]} JSON uniquement.`, `${instr}\n${base}`, 2000)
+      ));
+      return res.json({ variations: results.map((r, i) => ({ ...r, label: styles[i].label })) });
     }
 
     if (action === "titres") {
