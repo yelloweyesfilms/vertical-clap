@@ -43,9 +43,9 @@ const TESTIMONIALS = [
 ];
 
 const FAQ_ITEMS = [
-  { q: "C'est quoi un micro-drama vertical ?", r: "Un format vidéo court (1 à 2 min), filmé en 9:16 pour mobile, avec une structure dramatique forte : hook percutant, tension montante et cliffhanger final. Le format qui explose sur TikTok, Instagram Reels et YouTube Shorts." },
+  { q: "C'est quoi un micro-drama vertical ?", r: "Un format vidéo court (1 à 2 min), filmé en 9:16 pour mobile, avec une structure dramatique forte : hook percutant, tension montante et cliffhanger final. Le format qui explose sur TikTok, Instagram Reels et YouTube Shorts." },
   { q: "Combien de temps pour générer une série complète ?", r: "Moins de 5 minutes. La bible (titre, logline, personnages) se génère en streaming en quelques secondes. Les épisodes arrivent en parallèle. Le script d'un épisode prend 10 secondes." },
-  { q: "Quelle différence entre Fast Drama et Premium Suspense ?", r: "Fast Drama : émotions frontales, hooks agressifs, rythme maximal — idéal pour TikTok. Premium Suspense : tension psychologique, sous-texte, silences lourds — pour une audience plus mature et des séries premium." },
+  { q: "Quelle différence entre Fast Drama et Premium Suspense ?", r: "Fast Drama : émotions frontales, hooks agressifs, rythme maximal — idéal pour TikTok. Premium Suspense : tension psychologique, sous-texte, silences lourds — pour une audience plus mature et des séries premium." },
   { q: "Les scripts sont-ils vraiment prêts à tourner ?", r: "Oui. Chaque scène inclut le dialogue, l'indication de jeu d'acteur et la directive de cadrage 9:16. Le Mode Tournage intègre un téléprompteur auto-scroll et une checklist décors." },
   { q: "Mes séries sont-elles sauvegardées ?", r: "Elles sont sauvegardées localement sur ton appareil et synchronisées dans le cloud automatiquement. Tu y accèdes depuis n'importe quel appareil via l'onglet ☁️ Cloud." },
   { q: "Puis-je annuler mon abonnement ?", r: "Oui, à tout moment en un clic depuis ton espace Stripe. Aucun engagement, aucune pénalité. Tu gardes l'accès jusqu'à la fin de la période payée." },
@@ -54,7 +54,7 @@ const FAQ_ITEMS = [
 export default function Landing() {
   const [email, setEmail] = useState("");
   const [refCode, setRefCode] = useState("");
-  const [refValid, setRefValid] = useState(null); // null | true | false
+  const [refValid, setRefValid] = useState(null);
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
   const router = useRouter();
@@ -121,7 +121,10 @@ export default function Landing() {
             <div style={{ width: 8, height: 8, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
             REC
           </div>
-          <a href="/app" style={{ fontSize: 14, color: GRAY, textDecoration: "none", fontWeight: 600 }}>Se connecter →</a>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <a href="/exemples" style={{ fontSize: 14, color: GRAY, textDecoration: "none", fontWeight: 600 }}>Exemples</a>
+            <a href="/app" style={{ fontSize: 14, color: GRAY, textDecoration: "none", fontWeight: 600 }}>Se connecter →</a>
+          </div>
         </nav>
       </div>
 
@@ -255,7 +258,7 @@ export default function Landing() {
           <div className="testi-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {TESTIMONIALS.map((t, i) => (
               <div key={i} style={{ background: LIGHT, borderRadius: 20, padding: 28 }}>
-                <p style={{ fontSize: 13, color: RED, fontWeight: 800, marginBottom: 16, letterSpacing: 1 }}>{"★★★★★"}</p>
+                <p style={{ fontSize: 13, color: RED, fontWeight: 800, marginBottom: 16, letterSpacing: 1 }}>★★★★★</p>
                 <p style={{ fontSize: 15, lineHeight: 1.7, marginBottom: 20, color: DARK }}>« {t.text} »</p>
                 <div>
                   <p style={{ fontWeight: 700, fontSize: 14, marginBottom: 2 }}>{t.name}</p>
@@ -276,7 +279,6 @@ export default function Landing() {
             className="pricing-input"
             style={{ width: "100%", maxWidth: 400, display: "block", margin: "0 auto 32px", padding: "14px 18px", borderRadius: 10, border: "1px solid #ddd", background: "#fff", color: DARK, fontSize: 15, outline: "none" }} />
           <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
-            {/* Standard */}
             <div style={{ background: DARK, borderRadius: 24, padding: "36px 32px" }}>
               <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, color: "#888", textTransform: "uppercase", marginBottom: 8 }}>Standard</p>
               <div style={{ fontFamily: "var(--serif)", fontSize: 52, fontWeight: 900, color: "#fff", lineHeight: 1 }}>9€</div>
@@ -293,7 +295,6 @@ export default function Landing() {
                 {loading ? "Redirection…" : "Commencer →"}
               </button>
             </div>
-            {/* Premium */}
             <div style={{ background: DARK, border: `2px solid ${RED}`, borderRadius: 24, padding: "36px 32px", position: "relative" }}>
               <div style={{ position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)", background: RED, color: "#fff", fontSize: 11, fontWeight: 800, padding: "4px 14px", borderRadius: 20, letterSpacing: 1, whiteSpace: "nowrap" }}>⭐ RECOMMANDÉ</div>
               <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase", marginBottom: 8 }}>Premium</p>

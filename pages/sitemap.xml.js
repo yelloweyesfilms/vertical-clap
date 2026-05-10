@@ -4,6 +4,7 @@ export async function getServerSideProps({ res }) {
   const pages = [
     { path: "/", freq: "weekly", priority: "1.0" },
     { path: "/app", freq: "monthly", priority: "0.8" },
+    { path: "/exemples", freq: "monthly", priority: "0.7" },
     { path: "/cgu", freq: "yearly", priority: "0.3" },
     { path: "/confidentialite", freq: "yearly", priority: "0.3" },
   ];
