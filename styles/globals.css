@@ -10,6 +10,13 @@
   --serif: 'Playfair Display', Georgia, serif;
   --sans: 'DM Sans', system-ui, sans-serif;
 }
+[data-theme="dark"] {
+  --bg: #0F1A12;
+  --card: #1a2720;
+  --tx: #E8E0D5;
+  --mt: #6a7a6e;
+  --bo: #2a3a2e;
+}
 html { scroll-behavior: smooth; }
 body { font-family: var(--sans); background: var(--bg); color: var(--tx); -webkit-tap-highlight-color: transparent; }
 a { color: inherit; text-decoration: none; }

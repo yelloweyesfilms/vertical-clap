@@ -1,11 +1,13 @@
 import "../styles/globals.css";
 import Head from "next/head";
+import Script from "next/script";
 
 export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <meta name="google" content="notranslate" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,6 +15,7 @@ export default function App({ Component, pageProps }) {
         <title>Vertical Studio</title>
         <meta name="description" content="Crée tes micro-dramas verticaux en 5 minutes. Écris, structure et tourne." />
       </Head>
+      <Script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" strategy="afterInteractive" />
       <Component {...pageProps} />
     </>
   );
