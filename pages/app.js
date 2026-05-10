@@ -546,6 +546,60 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   const [titres, setTitres] = useState(null);
   const [loadingTitres, setLoadingTitres] = useState(false);
 
+  const exportSerie = () => {
+    const lines = [];
+    const sep = (c = "─", n = 50) => lines.push(c.repeat(n));
+    lines.push("VERTICAL STUDIO — Export série");
+    lines.push(`Généré le ${new Date().toLocaleDateString("fr-FR")}`);
+    sep("═");
+    lines.push("");
+    lines.push(`TITRE : ${bible.titre}`);
+    lines.push(`MODE  : ${mode === "fast" ? "Fast Drama" : "Premium Suspense"} · ${DUR_LABEL[duree]}/épisode`);
+    lines.push(`FORMAT: ${episodes.length} épisodes`);
+    lines.push("");
+    lines.push(`LOGLINE`);
+    lines.push(`« ${bible.logline} »`);
+    lines.push("");
+    lines.push(`PITCH`);
+    lines.push(bible.pitch || "");
+    lines.push("");
+    lines.push(`QUESTION CENTRALE`);
+    lines.push(`« ${bible.tension_centrale} »`);
+    lines.push("");
+    lines.push(`ACCROCHE TIKTOK`);
+    lines.push(bible.accroche || "");
+    sep();
+    lines.push("");
+    lines.push("PERSONNAGES");
+    lines.push("");
+    (bible.personnages || []).forEach(p => {
+      lines.push(`${p.nom.toUpperCase()} · ${p.role} · ${p.age} ans`);
+      lines.push(`Secret : ${p.secret}`);
+      if (p.arc) lines.push(`Arc    : ${p.arc}`);
+      lines.push("");
+    });
+    sep();
+    lines.push("");
+    lines.push(`SÉQUENCIER — ${episodes.length} ÉPISODES`);
+    lines.push("");
+    episodes.forEach(ep => {
+      lines.push(`ÉP. ${ep.numero} — ${ep.titre}`);
+      if (ep.tension) lines.push(`Tension     : ${ep.tension}`);
+      if (ep.cliffhanger) lines.push(`Cliffhanger : ${ep.cliffhanger}`);
+      lines.push("");
+    });
+    sep("═");
+    lines.push("studiovertical.app");
+
+    const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${bible.titre.replace(/\s+/g, "_")}_serie.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const genTitres = async () => {
     setTab("titres");
     setLoadingTitres(true);
@@ -602,8 +656,11 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>Question centrale</p>
               <p style={{ fontFamily: "var(--serif)", fontSize: 15, fontStyle: "italic", color: "#fff", lineHeight: 1.5 }}>« {bible.tension_centrale} »</p>
             </div>
-            <button onClick={() => setTab("seq")} style={{ background: "var(--r)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 700, cursor: "pointer" }}>
+            <button onClick={() => setTab("seq")} style={{ background: "var(--r)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 700, cursor: "pointer", marginBottom: 10 }}>
               Voir les {episodes.length} épisodes →
+            </button>
+            <button onClick={exportSerie} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)" }}>
+              ↓ Télécharger la série (.txt)
             </button>
           </>
         ) : tab === "titres" ? (
