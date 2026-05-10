@@ -58,12 +58,25 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "PUT") {
-    // Charger une série complète
     const { id } = req.query;
     if (!id) return res.status(400).json({ error: "ID manquant" });
     const serie = await kv.get(`serie:${customerId}:${id}`);
     if (!serie) return res.status(404).json({ error: "Série introuvable" });
     return res.json(serie);
+  }
+
+  if (req.method === "PATCH") {
+    const { id } = req.query;
+    const { titre } = req.body || {};
+    if (!id || !titre) return res.status(400).json({ error: "ID ou titre manquant" });
+    const serieKey = `serie:${customerId}:${id}`;
+    const serie = await kv.get(serieKey);
+    if (!serie) return res.status(404).json({ error: "Série introuvable" });
+    serie.bible.titre = String(titre).slice(0, 120);
+    await kv.set(serieKey, serie, { ex: 60 * 60 * 24 * 365 });
+    const index = (await kv.get(indexKey)) || [];
+    await kv.set(indexKey, index.map(s => String(s.id) === String(id) ? { ...s, titre: serie.bible.titre } : s), { ex: 60 * 60 * 24 * 365 });
+    return res.json({ ok: true });
   }
 
   return res.status(405).end();

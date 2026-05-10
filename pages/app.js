@@ -116,6 +116,16 @@ async function cloudLoad(id, customerId) {
   } catch { return null; }
 }
 
+async function cloudRename(id, titre, customerId) {
+  try {
+    await fetch(`/api/cloud-series?id=${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${customerId}` },
+      body: JSON.stringify({ titre }),
+    });
+  } catch {}
+}
+
 // ── SAUVEGARDE LOCALE ────────────────────────────────────────
 const SAVE_KEY = "vs_series";
 
@@ -133,6 +143,11 @@ function saveSerie(bible, episodes, state) {
 
 function deleteSerie(id) {
   const updated = loadSaved().filter(s => s.id !== id);
+  localStorage.setItem(SAVE_KEY, JSON.stringify(updated));
+}
+
+function renameSerieLocal(id, titre) {
+  const updated = loadSaved().map(s => s.id === id ? { ...s, bible: { ...s.bible, titre } } : s);
   localStorage.setItem(SAVE_KEY, JSON.stringify(updated));
 }
 
@@ -304,100 +319,154 @@ function ParrainageView({ customerId, onBack }) {
 
 // ── ÉCRAN MES SÉRIES ─────────────────────────────────────────
 function MesSeriesView({ onLoad, onBack, customerId }) {
-  const [series, setSeries] = useState(() => loadSaved());
-  const [cloudSeries, setCloudSeries] = useState([]);
+  const [local, setLocal] = useState(() => loadSaved());
+  const [cloud, setCloud] = useState([]);
   const [loadingCloud, setLoadingCloud] = useState(true);
-  const [tab, setTab] = useState("local");
+  const [confirmDelete, setConfirmDelete] = useState(null); // { id, source }
+  const [renaming, setRenaming] = useState(null); // { id, source, value }
+  const renameRef = useRef(null);
 
   useEffect(() => {
-    cloudList(customerId).then(list => {
-      setCloudSeries(list);
-      setLoadingCloud(false);
-    });
+    cloudList(customerId).then(list => { setCloud(list); setLoadingCloud(false); });
   }, [customerId]);
 
-  const handleDeleteLocal = (id) => {
-    deleteSerie(id);
-    setSeries(loadSaved());
+  useEffect(() => {
+    if (renaming) setTimeout(() => renameRef.current?.focus(), 50);
+  }, [renaming]);
+
+  // Liste unifiée : cloud en priorité, local dédupliqué par titre
+  const cloudTitres = new Set(cloud.map(s => s.titre || s.bible?.titre));
+  const localOnly = local.filter(s => !cloudTitres.has(s.bible?.titre || s.titre));
+  const merged = [
+    ...cloud.map(s => ({ ...s, _source: "cloud" })),
+    ...localOnly.map(s => ({ ...s, _source: "local" })),
+  ].sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt));
+
+  const doLoad = async (entry) => {
+    if (entry._source === "cloud") {
+      const full = await cloudLoad(entry.id, customerId);
+      if (full) onLoad(full);
+    } else {
+      onLoad(entry);
+    }
   };
 
-  const handleDeleteCloud = async (id) => {
-    await cloudDelete(id, customerId);
-    setCloudSeries(prev => prev.filter(s => String(s.id) !== String(id)));
+  const doDelete = async () => {
+    const { id, source } = confirmDelete;
+    if (source === "cloud") {
+      await cloudDelete(id, customerId);
+      setCloud(prev => prev.filter(s => String(s.id) !== String(id)));
+    } else {
+      deleteSerie(id);
+      setLocal(loadSaved());
+    }
+    setConfirmDelete(null);
   };
 
-  const handleLoadCloud = async (entry) => {
-    const full = await cloudLoad(entry.id, customerId);
-    if (full) onLoad(full);
+  const doRename = async () => {
+    const { id, source, value } = renaming;
+    if (!value.trim()) { setRenaming(null); return; }
+    if (source === "cloud") {
+      await cloudRename(id, value.trim(), customerId);
+      setCloud(prev => prev.map(s => String(s.id) === String(id) ? { ...s, titre: value.trim() } : s));
+    } else {
+      renameSerieLocal(id, value.trim());
+      setLocal(loadSaved());
+    }
+    setRenaming(null);
   };
 
-  const displayList = tab === "local" ? series : cloudSeries;
-  const isCloud = tab === "cloud";
-  const cloudAvailable = !loadingCloud;
+  const total = loadingCloud ? local.length : merged.length;
 
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ background: "var(--tx)", padding: "28px 20px 24px" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", color: "#3a5040", fontSize: 14, cursor: "pointer", padding: 0, marginBottom: 14 }}>← Retour</button>
-        <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>Mes Séries</h1>
-        <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
-          {["local", "cloud"].map(t => (
-            <button key={t} onClick={() => setTab(t)}
-              style={{ padding: "7px 14px", borderRadius: 20, border: "none", fontFamily: "var(--sans)", fontSize: 12, fontWeight: 700, cursor: "pointer", background: tab === t ? "var(--r)" : "#1a2a1e", color: tab === t ? "#fff" : "#3a5040" }}>
-              {t === "local" ? `💾 Local (${series.length})` : loadingCloud ? "☁️ Cloud…" : `☁️ Cloud (${cloudSeries.length})`}
-            </button>
-          ))}
-        </div>
+        <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>
+          Mes Séries {!loadingCloud && <span style={{ fontSize: 16, fontWeight: 400, color: "#3a5040" }}>({total})</span>}
+        </h1>
+        <p style={{ fontSize: 12, color: "#3a5040", marginTop: 6 }}>
+          {loadingCloud ? "Chargement du cloud…" : `${cloud.length} cloud · ${localOnly.length} local`}
+        </p>
       </div>
+
       <div style={{ padding: "20px", maxWidth: 520, margin: "0 auto" }}>
-        {isCloud && loadingCloud ? (
+        {loadingCloud && local.length === 0 ? (
           <div style={{ textAlign: "center", padding: "60px 0", color: "var(--mt)" }}>
             <p style={{ fontSize: 28, marginBottom: 12, animation: "pulse 1.2s infinite" }}>☁️</p>
-            <p>Chargement du cloud…</p>
+            <p>Chargement…</p>
           </div>
-        ) : isCloud && cloudSeries.length === 0 && !loadingCloud ? (
-          <div style={{ textAlign: "center", padding: "60px 0", color: "var(--mt)" }}>
-            <p style={{ fontSize: 32, marginBottom: 12 }}>☁️</p>
-            <p style={{ fontSize: 15 }}>Aucune série dans le cloud</p>
-            <p style={{ fontSize: 13, marginTop: 6 }}>Vos séries se sauvegardent automatiquement</p>
-          </div>
-        ) : displayList.length === 0 ? (
+        ) : merged.length === 0 ? (
           <div style={{ textAlign: "center", padding: "60px 0", color: "var(--mt)" }}>
             <p style={{ fontSize: 32, marginBottom: 12 }}>📂</p>
-            <p style={{ fontSize: 15 }}>Aucune série sauvegardée</p>
-            <p style={{ fontSize: 13, marginTop: 6 }}>Générez votre première série !</p>
+            <p style={{ fontSize: 15, fontWeight: 600 }}>Aucune série sauvegardée</p>
+            <p style={{ fontSize: 13, marginTop: 6 }}>Génère ta première série !</p>
           </div>
-        ) : displayList.map(s => (
-          <div key={s.id} style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 12, border: "1.5px solid var(--bo)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <h3 style={{ fontFamily: "var(--serif)", fontSize: 18, fontWeight: 800, marginBottom: 4 }}>{s.bible?.titre || s.titre}</h3>
-                <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5, marginBottom: 6 }}>{s.bible?.logline || s.logline}</p>
-                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                  <span style={{ fontSize: 11, background: (s.state?.mode || s.mode) === "fast" ? "#fff0ec" : "#e8edf2", color: (s.state?.mode || s.mode) === "fast" ? "var(--r)" : "var(--n)", padding: "2px 8px", borderRadius: 4, fontWeight: 700 }}>
-                    {(s.state?.mode || s.mode) === "fast" ? "⚡ Fast" : "🎭 Premium"}
-                  </span>
-                  <span style={{ fontSize: 11, background: "var(--bo)", padding: "2px 8px", borderRadius: 4, color: "var(--mt)" }}>
-                    {s.episodes?.length || s.episodesCount || "?"} ép.
-                  </span>
-                  <span style={{ fontSize: 11, color: "var(--mt)" }}>
-                    {new Date(s.savedAt).toLocaleDateString("fr-FR")}
-                  </span>
+        ) : merged.map(s => {
+          const id = s.id;
+          const source = s._source;
+          const titre = s.bible?.titre || s.titre || "Sans titre";
+          const logline = s.bible?.logline || s.logline || "";
+          const mode = s.state?.mode || s.mode;
+          const epCount = s.episodes?.length || s.episodesCount || "?";
+          const isRenaming = renaming?.id === id && renaming?.source === source;
+          const isConfirming = confirmDelete?.id === id && confirmDelete?.source === source;
+
+          return (
+            <div key={`${source}-${id}`} style={{ background: "var(--card)", borderRadius: 16, padding: 16, marginBottom: 12, border: `1.5px solid ${isConfirming ? "var(--r)" : "var(--bo)"}`, transition: "border-color .2s" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  {isRenaming ? (
+                    <input
+                      ref={renameRef}
+                      value={renaming.value}
+                      onChange={e => setRenaming(r => ({ ...r, value: e.target.value }))}
+                      onKeyDown={e => { if (e.key === "Enter") doRename(); if (e.key === "Escape") setRenaming(null); }}
+                      onBlur={doRename}
+                      style={{ fontFamily: "var(--serif)", fontSize: 17, fontWeight: 800, width: "100%", border: "none", borderBottom: "2px solid var(--r)", background: "transparent", color: "var(--tx)", outline: "none", padding: "2px 0", marginBottom: 6 }}
+                    />
+                  ) : (
+                    <h3
+                      onClick={() => setRenaming({ id, source, value: titre })}
+                      title="Appuyer pour renommer"
+                      style={{ fontFamily: "var(--serif)", fontSize: 17, fontWeight: 800, marginBottom: 6, cursor: "text", lineHeight: 1.3 }}>
+                      {titre}
+                    </h3>
+                  )}
+                  <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5, marginBottom: 8, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{logline}</p>
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+                    <span style={{ fontSize: 11, background: mode === "fast" ? "#fff0ec" : "#e8edf2", color: mode === "fast" ? "var(--r)" : "var(--n)", padding: "2px 8px", borderRadius: 4, fontWeight: 700 }}>
+                      {mode === "fast" ? "⚡ Fast" : "🎭 Premium"}
+                    </span>
+                    <span style={{ fontSize: 11, background: "var(--bo)", padding: "2px 8px", borderRadius: 4, color: "var(--mt)" }}>{epCount} ép.</span>
+                    <span style={{ fontSize: 11, color: "var(--mt)" }}>{new Date(s.savedAt).toLocaleDateString("fr-FR")}</span>
+                    <span style={{ fontSize: 11, color: source === "cloud" ? "#4ade80" : "var(--mt)", marginLeft: "auto" }}>{source === "cloud" ? "☁️" : "💾"}</span>
+                  </div>
                 </div>
               </div>
+
+              {isConfirming ? (
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <p style={{ fontSize: 13, color: "var(--r)", flex: 1, fontWeight: 600 }}>Supprimer définitivement ?</p>
+                  <button onClick={doDelete} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "10px 16px", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>Oui</button>
+                  <button onClick={() => setConfirmDelete(null)} style={{ background: "var(--card)", border: "1.5px solid var(--bo)", color: "var(--tx)", padding: "10px 14px", borderRadius: 10, fontSize: 13, cursor: "pointer", fontFamily: "var(--sans)" }}>Non</button>
+                </div>
+              ) : (
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button onClick={() => doLoad(s)} style={{ flex: 1, background: "var(--r)", color: "#fff", border: "none", padding: "11px 0", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
+                    Ouvrir →
+                  </button>
+                  <button onClick={() => setRenaming({ id, source, value: titre })} style={{ background: "var(--card)", border: "1.5px solid var(--bo)", color: "var(--mt)", padding: "11px 14px", borderRadius: 10, fontSize: 13, cursor: "pointer", fontFamily: "var(--sans)" }} title="Renommer">
+                    ✏️
+                  </button>
+                  <button onClick={() => setConfirmDelete({ id, source })} style={{ background: "var(--card)", border: "1.5px solid var(--bo)", color: "var(--mt)", padding: "11px 14px", borderRadius: 10, fontSize: 13, cursor: "pointer", fontFamily: "var(--sans)" }} title="Supprimer">
+                    🗑
+                  </button>
+                </div>
+              )}
             </div>
-            <div style={{ display: "flex", gap: 8 }}>
-              <button onClick={() => isCloud ? handleLoadCloud(s) : onLoad(s)}
-                style={{ flex: 1, background: "var(--r)", color: "#fff", border: "none", padding: "10px 0", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
-                Ouvrir →
-              </button>
-              <button onClick={() => isCloud ? handleDeleteCloud(s.id) : handleDeleteLocal(s.id)}
-                style={{ background: "none", border: "1.5px solid var(--bo)", color: "var(--mt)", padding: "10px 14px", borderRadius: 10, fontSize: 13, cursor: "pointer", fontFamily: "var(--sans)" }}>
-                🗑
-              </button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
