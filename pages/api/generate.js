@@ -112,9 +112,9 @@ function validatePayload(action, payload) {
 }
 
 const DUR_INSTR = {
-  60: "Format 1 MINUTE: 4 à 5 échanges, max 20 mots par réplique, une seule révélation percutante.",
-  90: "Format 1MIN30: 6 à 7 échanges, max 25 mots, montée progressive + retournement.",
-  120: "Format 2 MINUTES: 8 à 10 échanges, deux temps forts, cliffhanger inattendu.",
+  60: "DURÉE 1 MIN: 4-5 échanges, max 20 mots/réplique. Structure: CHOC d'ouverture → escalade → révélation unique → question sans réponse.",
+  90: "DURÉE 1MIN30: 6-7 échanges, max 25 mots/réplique. Structure: hook → tension montante → faux pivot → vraie révélation → cliffhanger.",
+  120: "DURÉE 2 MIN: 8-10 échanges, max 30 mots/réplique. Structure: hook → conflit → rebondissement mi-parcours → révélation → cliffhanger brutal.",
 };
 
 export default async function handler(req, res) {
@@ -158,13 +158,21 @@ export default async function handler(req, res) {
       const cached = getCached(ck);
       if (cached) return res.json(cached);
       const md = mode === "fast"
-        ? "Fast Drama: viralité immédiate, émotions frontales, hooks agressifs, cliffhangers choc"
-        : "Premium Suspense: tension psychologique, sous-texte, silences, réalisme";
+        ? "Fast Drama: viralité immédiate, émotions explosives, hooks agressifs, cliffhangers choc"
+        : "Premium Suspense: tension psychologique, sous-texte riche, silences éloquents, réalisme brut";
       const result = await callClaude(
-        `Showrunner expert micro-dramas verticaux 9:16. ${md}. ${DUR_INSTR[duree]} JSON uniquement.`,
-        `Bible. Casting: ${casting}. Univers: ${univers}. Secret: ${secret}. Format: ${format} épisodes.
-JSON: {"titre":"","logline":"","pitch":"","personnages":[{"nom":"","age":25,"role":"","secret":""},{"nom":"","age":28,"role":"","secret":""}],"tension_centrale":""}`,
-        1500
+        `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}
+Titre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.
+Logline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.
+Pitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.
+Secret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.
+arc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").
+tension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".
+accroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.
+JSON uniquement, aucun texte avant ou après.`,
+        `Casting: ${casting}. Univers: ${univers}. Secret moteur: ${secret}. Série de ${format} épisodes.
+JSON: {"titre":"","logline":"","pitch":"","personnages":[{"nom":"","age":25,"role":"","secret":"","arc":""},{"nom":"","age":28,"role":"","secret":"","arc":""}],"tension_centrale":"","accroche":""}`,
+        1800
       );
       if (!result.titre) result.titre = result.title || result.name || "Série sans titre";
       if (!result.logline) result.logline = result.logLine || result.description || "";
@@ -189,8 +197,13 @@ JSON: {"titre":"","logline":"","pitch":"","personnages":[{"nom":"","age":25,"rol
       const tFrom = Math.max(1, Math.round(from * 10 / total));
       const tTo = Math.min(10, Math.round(to * 10 / total));
       const result = await callClaude(
-        "Showrunner expert. JSON uniquement.",
-        `Série "${titre}". ${logline}. Mode: ${md}. Épisodes ${from} à ${to} (sur ${total}), tension ${tFrom} à ${tTo}. Titres 3 mots max.
+        `Tu es showrunner expert. JSON uniquement.
+Règles pour chaque épisode:
+- titre: 2-3 mots max, teaser sans spoiler, crée la curiosité (ex: "Le mensonge", "Elle sait", "Trop tard")
+- cliffhanger: action ou révélation coupée net qui oblige à regarder l'épisode suivant — phrase incomplète ou question suspendue, jamais de résolution
+- tension: entier 1-10 en progression logique sur la série`,
+        `Série "${titre}" — ${logline}. Mode: ${md}.
+Épisodes ${from} à ${to} (série de ${total} épisodes). Tension globale: ${tFrom} → ${tTo}/10.
 JSON: {"episodes":[{"numero":${from},"titre":"","cliffhanger":"","tension":${tFrom}}]}`,
         2500
       );
@@ -202,18 +215,26 @@ JSON: {"episodes":[{"numero":${from},"titre":"","cliffhanger":"","tension":${tFr
     if (action === "script") {
       const { ep, bible, mode, duree } = payload;
       const md = mode === "fast"
-        ? "Fast Drama: émotions frontales, hooks agressifs, cliffhangers choc"
-        : "Premium Suspense: sous-texte, silences, réalisme";
+        ? "Fast Drama: émotions explosives, confrontations directes, cliffhangers choc"
+        : "Premium Suspense: sous-texte intense, silences signifiants, tension qui monte progressivement";
       const maxS = duree <= 60 ? 5 : duree <= 90 ? 7 : 10;
-      const persos = (bible.personnages || []).map(p => `${p.nom} (${p.role})`).join(", ");
+      const persos = (bible.personnages || []).map(p => `${p.nom} (${p.role}${p.secret ? `, secret: ${p.secret}` : ""})`).join(", ");
       const result = await callClaude(
-        `Scénariste expert micro-dramas 9:16. ${DUR_INSTR[duree]} Mode: ${md}. JSON uniquement.`,
-        `Script ép.${ep.numero} "${ep.titre}". Série: ${bible.titre}. Persos: ${persos}.
-Cliffhanger: ${ep.cliffhanger}.
-RÈGLES: hook 1 phrase choc, ${maxS} échanges max 25 mots, cliffhanger brutal, max 2 acteurs, gros plans 9:16.
-Le champ "jeu" = indication de jeu d'acteur courte (ex: "voix brisée", "sourire forcé", "colère froide", "chuchote").
+        `Tu es scénariste de micro-dramas 9:16. ${DUR_INSTR[duree]} Mode: ${md}.
+RÈGLES ABSOLUES:
+• Commence IN MEDIAS RES — déjà en plein conflit, INTERDIT de commencer par "Bonjour", présentation ou question banale
+• Chaque réplique révèle OU cache quelque chose — aucune ligne neutre ou de remplissage
+• Max ${maxS} échanges, max 2 acteurs à l'écran, format 9:16 gros plans
+• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "contre-plongée regard dominant", "zoom lent sur main qui tremble", "cut rapide profil fuyant")
+• jeu: état interne ou physique court (ex: "retient ses larmes", "sourire qui cache la peur", "voix qui tremble de colère", "regarde ailleurs")
+• label du cliffhanger: la question que se pose le spectateur (ex: "Il sait?", "Elle va parler?", "C'était lui?")
+• checklist: 4 items évaluant "Hook percutant ✓/✗", "Tension qui monte ✓/✗", "Cliffhanger inattendu ✓/✗", "Max 2 acteurs ✓/✗"
+JSON uniquement.`,
+        `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.
+Tension de la série: ${bible.tension_centrale || ""}.
+Cliffhanger à atteindre: ${ep.cliffhanger}.
 JSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`,
-        2200
+        2400
       );
       trackAction("script", customerId);
       return res.json(result);
@@ -223,13 +244,13 @@ JSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue
       const { script, type, duree } = payload;
       const maxS = duree <= 60 ? 5 : duree <= 90 ? 7 : 10;
       const instr = {
-        pimenter: `Intensifie. Chaque réplique choque. Max ${maxS} échanges. Même JSON.`,
-        subtil: `Sous-texte fort, silences. Max ${maxS} échanges. Même JSON.`,
-        simplifier: `Répliques courtes, 1 décor. Max ${maxS}. Même JSON.`,
+        pimenter: `INTENSIFIE ce script au maximum. Remplace chaque réplique ordinaire par une révélation, une accusation ou une menace. Interdit: hésitations, politesse, questions vagues. Chaque ligne doit blesser ou exposer un secret. Max ${maxS} échanges. Retourne exactement la même structure JSON.`,
+        subtil: `RENDS ce script subtil et psychologique. Aucun personnage ne dit ce qu'il veut vraiment — tout passe par le sous-texte, les silences (indique "(silence)" dans jeu), les métaphores et les regards. Remplace les confrontations directes par des non-dits lourds. Max ${maxS} échanges. Même structure JSON.`,
+        simplifier: `SIMPLIFIE radicalement ce script. Un seul lieu. Une seule révélation centrale. Répliques 5-8 mots max, chaque mot compte. Supprime tout ce qui n'est pas essentiel à la tension principale. Max ${maxS} échanges. Même structure JSON.`,
       };
       const result = await callClaude(
-        "Scénariste expert. JSON uniquement, même structure.",
-        `${instr[type]}\n${JSON.stringify(script)}`,
+        "Tu es scénariste expert en micro-dramas 9:16. JSON uniquement, structure identique à l'original.",
+        `${instr[type]}\n\nScript original:\n${JSON.stringify(script)}`,
         2000
       );
       return res.json(result);
@@ -238,15 +259,18 @@ JSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue
     if (action === "variations") {
       const { ep, bible, mode, duree } = payload;
       const maxS = duree <= 60 ? 5 : duree <= 90 ? 7 : 10;
-      const persos = (bible.personnages || []).map(p => `${p.nom} (${p.role})`).join(", ");
-      const base = `Script ép.${ep.numero} "${ep.titre}". Série: ${bible.titre}. Persos: ${persos}. Cliffhanger: ${ep.cliffhanger}. RÈGLES: hook 1 phrase choc, ${maxS} échanges max 25 mots, max 2 acteurs. Le champ "jeu" = indication courte de jeu d'acteur. JSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`;
+      const persos = (bible.personnages || []).map(p => `${p.nom} (${p.role}${p.secret ? `, secret: ${p.secret}` : ""})`).join(", ");
+      const base = `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Persos: ${persos}. Tension: ${bible.tension_centrale || ""}. Cliffhanger: ${ep.cliffhanger}.
+RÈGLES: IN MEDIAS RES, ${maxS} échanges max 25 mots, max 2 acteurs, visuel_916 = nom du plan + émotion, jeu = état interne court.
+JSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`;
       const styles = [
-        { label: "🌶 Intense", instr: "Version INTENSE: émotions à fleur de peau, confrontation directe, chaque réplique choque." },
-        { label: "🤫 Subtil", instr: "Version SUBTILE: sous-texte, non-dits, silences lourds, tension psychologique." },
-        { label: "⚡ Rapide", instr: "Version RAPIDE: répliques ultra-courtes (max 10 mots), rythme haletant, 100% action." },
+        { label: "🌶 Intense", instr: "Version INTENSE: confrontation directe, accusations, révélations brutales. Chaque réplique choque ou blesse. Aucune politesse." },
+        { label: "🤫 Subtil", instr: "Version SUBTILE: tout passe par le sous-texte, jamais de confrontation directe. Les personnages parlent D'AUTRE CHOSE mais le vrai conflit est partout. Silences ('(silence)' dans jeu) significatifs." },
+        { label: "⚡ Rapide", instr: "Version RAPIDE: répliques 3-8 mots max, rythme haletant. Chaque échange coupe l'autre. Tension physique, mouvement, action." },
+        { label: "🌙 Sombre", instr: "Version SOMBRE: atmosphère lourde et enfermée, dialogue murmuré ou retenu, révélation finale dévastatrice, fin ambiguë qui laisse une question ouverte." },
       ];
       const results = await Promise.all(styles.map(({ instr }) =>
-        callClaude(`Scénariste expert micro-dramas 9:16. ${DUR_INSTR[duree]} JSON uniquement.`, `${instr}\n${base}`, 2000)
+        callClaude(`Tu es scénariste expert micro-dramas 9:16. ${DUR_INSTR[duree]} JSON uniquement.`, `${instr}\n\n${base}`, 2000)
       ));
       trackAction("variations", customerId);
       return res.json({ variations: results.map((r, i) => ({ ...r, label: styles[i].label })) });
@@ -255,11 +279,18 @@ JSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue
     if (action === "titres") {
       const { titre, logline, pitch, mode } = payload;
       const result = await callClaude(
-        "Expert en viralité des contenus courts (TikTok, Reels, Shorts). JSON uniquement.",
-        `Série micro-drama 9:16. Titre actuel: "${titre}". Logline: ${logline}. Pitch: ${pitch}. Mode: ${mode}.
-Génère 5 titres alternatifs ultra-viraux pour cette série. Chaque titre doit créer de la curiosité, du désir ou de la tension.
-JSON: {"titres":[{"titre":"","score":95,"accroche":"","pourquoi":""}]}`
-        , 1000
+        `Tu es expert en viralité des contenus courts (TikTok, Reels, Shorts). Tu maîtrises les 5 patterns de titres qui stoppent le scroll:
+RÉVÉLATION: expose un secret ("Il mentait depuis le début")
+QUESTION: pose une question impossible à ignorer ("Et si elle savait tout?")
+IDENTITÉ: menace l'identité d'un personnage ("Plus jamais sa femme")
+SECRET: suggère un secret explosif ("Ton patron sait tout")
+TWIST: annonce un retournement ("C'était elle")
+Règles: titre 2-5 mots, jamais de point d'exclamation, score = probabilité de stopper le scroll (1-100).
+JSON uniquement.`,
+        `Série micro-drama 9:16. Titre actuel: "${titre}". Logline: ${logline}. Pitch: ${pitch || ""}.
+Génère 5 titres viraux — exactement un par pattern (RÉVÉLATION, QUESTION, IDENTITÉ, SECRET, TWIST).
+JSON: {"titres":[{"titre":"","score":95,"accroche":"en quoi ce titre arrête le scroll","pourquoi":"mécanisme psychologique exploité","pattern":"RÉVÉLATION"}]}`,
+        1000
       );
       trackAction("titres", customerId);
       return res.json(result);
@@ -269,9 +300,15 @@ JSON: {"titres":[{"titre":"","score":95,"accroche":"","pourquoi":""}]}`
       const { script, langue } = payload;
       const noms = { en: "English", es: "Español", de: "Deutsch", pt: "Português", it: "Italiano", ar: "العربية" };
       const result = await callClaude(
-        `Expert script translator for vertical micro-dramas. Translate to ${noms[langue]}. Preserve tone, emotions, structure, and acting directions. Return the exact same JSON structure.`,
+        `Tu es expert en adaptation de scripts micro-dramas 9:16 pour ${noms[langue]}.
+Règles strictes:
+• Préserve le ton, les émotions et l'intensité dramatique — pas de traduction littérale plate
+• Les indications de jeu (champ "jeu") doivent sonner naturel en ${noms[langue]}, adaptées culturellement
+• Les dialogues doivent avoir le même punch dans la langue cible — si nécessaire, reformule pour garder l'impact
+• Conserve exactement la même structure JSON, ne modifie aucune clé
+• JSON uniquement, aucun texte avant ou après`,
         JSON.stringify(script),
-        2200
+        2400
       );
       trackAction("traduction", customerId);
       return res.json(result);

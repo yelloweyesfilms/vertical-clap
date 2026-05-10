@@ -4,9 +4,9 @@ import { requireSub } from "../../lib/auth";
 export const config = { api: { responseLimit: false } };
 
 const DUR_INSTR = {
-  60: "Format 1 MINUTE: 4 à 5 échanges, max 20 mots par réplique, une seule révélation percutante.",
-  90: "Format 1MIN30: 6 à 7 échanges, max 25 mots, montée progressive + retournement.",
-  120: "Format 2 MINUTES: 8 à 10 échanges, deux temps forts, cliffhanger inattendu.",
+  60: "DURÉE 1 MIN: 4-5 échanges, max 20 mots/réplique. Structure: CHOC d'ouverture → escalade → révélation unique → question sans réponse.",
+  90: "DURÉE 1MIN30: 6-7 échanges, max 25 mots/réplique. Structure: hook → tension montante → faux pivot → vraie révélation → cliffhanger.",
+  120: "DURÉE 2 MIN: 8-10 échanges, max 30 mots/réplique. Structure: hook → conflit → rebondissement mi-parcours → révélation → cliffhanger brutal.",
 };
 
 const VALID_MODES = ["fast", "premium"];
@@ -43,14 +43,22 @@ export default async function handler(req, res) {
 
   try {
     const md = mode === "fast"
-      ? "Fast Drama: viralité immédiate, émotions frontales, hooks agressifs, cliffhangers choc"
-      : "Premium Suspense: tension psychologique, sous-texte, silences, réalisme";
+      ? "Fast Drama: viralité immédiate, émotions explosives, hooks agressifs, cliffhangers choc"
+      : "Premium Suspense: tension psychologique, sous-texte riche, silences éloquents, réalisme brut";
 
     const result = await streamClaude(
-      `Showrunner expert micro-dramas verticaux 9:16. ${md}. ${DUR_INSTR[duree]} JSON uniquement.`,
-      `Bible. Casting: ${casting}. Univers: ${univers}. Secret: ${secret}. Format: ${format} épisodes.
-JSON: {"titre":"","logline":"","pitch":"","personnages":[{"nom":"","age":25,"role":"","secret":""},{"nom":"","age":28,"role":"","secret":""}],"tension_centrale":""}`,
-      1500,
+      `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}
+Titre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.
+Logline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.
+Pitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.
+Secret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.
+arc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").
+tension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".
+accroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.
+JSON uniquement, aucun texte avant ou après.`,
+      `Casting: ${casting}. Univers: ${univers}. Secret moteur: ${secret}. Série de ${format} épisodes.
+JSON: {"titre":"","logline":"","pitch":"","personnages":[{"nom":"","age":25,"role":"","secret":"","arc":""},{"nom":"","age":28,"role":"","secret":"","arc":""}],"tension_centrale":"","accroche":""}`,
+      1800,
       (chunk) => send({ chunk })
     );
 
