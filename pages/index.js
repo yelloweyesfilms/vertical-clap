@@ -121,7 +121,10 @@ export default function Landing() {
             <div style={{ width: 8, height: 8, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
             REC
           </div>
-          <a href="/app" style={{ fontSize: 14, color: GRAY, textDecoration: "none", fontWeight: 600 }}>Se connecter →</a>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <a href="/exemples" style={{ fontSize: 14, color: GRAY, textDecoration: "none", fontWeight: 600 }}>Exemples</a>
+            <a href="/app" style={{ fontSize: 14, color: GRAY, textDecoration: "none", fontWeight: 600 }}>Se connecter →</a>
+          </div>
         </nav>
       </div>
 
