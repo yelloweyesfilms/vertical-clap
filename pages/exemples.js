@@ -14,6 +14,7 @@ const SERIES = [
   {
     mode: "fast",
     platform: "TikTok",
+    genre: "Médical",
     mixeurParams: { mode: "fast", casting: "1 Femme + 1 Homme", univers: "Hôpital privé", secret: "Double vie", lieu: "Couloir vide" },
     bible: {
       titre: "Le Mensonge",
@@ -53,6 +54,7 @@ const SERIES = [
   {
     mode: "premium",
     platform: "Reels",
+    genre: "Finance",
     mixeurParams: { mode: "premium", casting: "1 Femme + 1 Homme", univers: "Finance internationale", secret: "Complot financier", lieu: "Cabinet privé" },
     bible: {
       titre: "Héritage",
@@ -92,6 +94,7 @@ const SERIES = [
   {
     mode: "fast",
     platform: "Shorts",
+    genre: "Famille",
     mixeurParams: { mode: "fast", casting: "1 Femme + 1 Homme", univers: "Famille recomposée", secret: "Double vie", lieu: "Salle d'attente" },
     bible: {
       titre: "Deux Vies",
@@ -131,6 +134,7 @@ const SERIES = [
   {
     mode: "fast",
     platform: "Shorts",
+    genre: "Romantique",
     mixeurParams: { mode: "fast", casting: "1 Femme + 1 Homme", univers: "Immeuble de luxe", secret: "Amour interdit", lieu: "Ascenseur" },
     bible: {
       titre: "7ème Étage",
@@ -170,6 +174,7 @@ const SERIES = [
   {
     mode: "premium",
     platform: "TikTok",
+    genre: "Trahison",
     mixeurParams: { mode: "premium", casting: "2 Femmes", univers: "Agence de communication", secret: "Trahison professionnelle", lieu: "Open space" },
     bible: {
       titre: "Associées",
@@ -417,6 +422,7 @@ function SerieCard({ serie }) {
 }
 
 export default function Exemples() {
+  const [activeFilter, setActiveFilter] = useState("all");
   const SITE = "https://studiovertical.app";
   const itemListSchema = {
     "@context": "https://schema.org",
@@ -499,17 +505,63 @@ export default function Exemples() {
             .
           </h1>
 
-          <p style={{ fontSize: 16, color: MUTED, maxWidth: 440, margin: "0 auto 0", lineHeight: 1.65 }}>
-            Bible complète, séquencier, scripts 9:16 tournables. 3 séries générées pour TikTok, Reels et Shorts.
+          <p style={{ fontSize: 16, color: MUTED, maxWidth: 480, margin: "0 auto 0", lineHeight: 1.65 }}>
+            Bible complète, séquencier, scripts 9:16 tournables. {SERIES.length} séries pour TikTok, Reels, Shorts et DramaBox.
           </p>
         </div>
       </div>
 
-      {/* SERIES */}
-      <div style={{ maxWidth: 820, margin: "0 auto", padding: "48px 32px" }} className="examples-grid">
-        {SERIES.map((serie, i) => (
-          <SerieCard key={i} serie={serie} />
-        ))}
+      {/* FILTRES */}
+      <div style={{ maxWidth: 820, margin: "0 auto", padding: "0 32px 8px" }} className="examples-grid">
+        {(() => {
+          const FILTERS = [
+            { id: "all", label: "Tous", color: TEXT },
+            { id: "fast", label: "⚡ Fast Drama", color: RED },
+            { id: "premium", label: "🎭 Premium", color: VIO },
+            { id: "TikTok", label: "♪ TikTok", color: "#69C9D0" },
+            { id: "Reels", label: "◈ Reels", color: VIO },
+            { id: "Shorts", label: "▶ Shorts", color: RED },
+            ...Array.from(new Set(SERIES.map(s => s.genre))).map(g => ({ id: `genre:${g}`, label: g, color: MUTED })),
+          ];
+          const filtered = SERIES.filter(s => {
+            if (activeFilter === "all") return true;
+            if (activeFilter === "fast" || activeFilter === "premium") return s.mode === activeFilter;
+            if (activeFilter.startsWith("genre:")) return s.genre === activeFilter.replace("genre:", "");
+            return s.platform === activeFilter;
+          });
+          return (
+            <>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", paddingBottom: 24 }}>
+                {FILTERS.map(({ id, label, color }) => {
+                  const active = activeFilter === id;
+                  return (
+                    <button key={id} onClick={() => setActiveFilter(id)} style={{
+                      padding: "7px 16px", borderRadius: 100, fontSize: 12, fontWeight: 700,
+                      background: active ? `${color}18` : "transparent",
+                      border: `1px solid ${active ? color : BORDER}`,
+                      color: active ? color : MUTED,
+                      cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif",
+                      transition: "all .15s", letterSpacing: 0.3,
+                    }}>
+                      {label}
+                    </button>
+                  );
+                })}
+                {activeFilter !== "all" && (
+                  <span style={{ display: "flex", alignItems: "center", fontSize: 12, color: MUTED, paddingLeft: 4 }}>
+                    {filtered.length} série{filtered.length > 1 ? "s" : ""}
+                  </span>
+                )}
+              </div>
+              {filtered.length === 0 ? (
+                <div style={{ textAlign: "center", padding: "48px 0", color: MUTED, fontSize: 14 }}>Aucune série pour ce filtre.</div>
+              ) : (
+                filtered.map((serie, i) => <SerieCard key={serie.bible.titre} serie={serie} />)
+              )}
+            </>
+          );
+        })()}
+
 
         {/* CTA */}
         <div style={{ borderRadius: 28, padding: "56px 40px", textAlign: "center", position: "relative", overflow: "hidden", background: SURFACE, border: `1px solid ${BORDER}` }}>
@@ -532,7 +584,7 @@ export default function Exemples() {
               boxShadow: `0 0 40px rgba(168,85,247,0.3), 0 0 20px rgba(232,92,58,0.2)`,
               letterSpacing: -0.3,
             }}>
-              Commencer — 9€/mois →
+              Commencer — dès 7,50€/mois →
             </a>
             <p style={{ color: MUTED, fontSize: 13, marginTop: 14 }}>Annulable à tout moment · Sans engagement</p>
           </div>
