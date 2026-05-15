@@ -83,6 +83,9 @@ export default function BlogPost({ post, otherPosts }) {
         <meta property="og:description" content={post.description} />
         <meta property="og:url" content={`${SITE}/blog/${post.slug}`} />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content={`${SITE}/api/og?title=${encodeURIComponent(post.title)}&sub=${encodeURIComponent(post.description.slice(0, 80))}&category=${encodeURIComponent(post.category)}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={`${SITE}/api/og?title=${encodeURIComponent(post.title)}&category=${encodeURIComponent(post.category)}`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       </Head>
 

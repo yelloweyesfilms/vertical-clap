@@ -125,6 +125,53 @@ const Check = ({ color = RED }) => (
   </svg>
 );
 
+function NewsletterSection() {
+  const [nlEmail, setNlEmail] = useState("");
+  const [nlState, setNlState] = useState("idle"); // idle | loading | done | error
+
+  const submit = async () => {
+    if (!nlEmail || !nlEmail.includes("@")) return;
+    setNlState("loading");
+    try {
+      const res = await fetch("/api/newsletter", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: nlEmail }) });
+      const data = await res.json();
+      setNlState(data.ok ? "done" : "error");
+    } catch { setNlState("error"); }
+  };
+
+  return (
+    <div style={{ borderTop: `1px solid ${BORDER}`, padding: "72px 40px", textAlign: "center", background: "rgba(255,255,255,0.01)" }}>
+      <div style={{ maxWidth: 480, margin: "0 auto" }}>
+        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>Restez informé</p>
+        <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(24px, 3vw, 38px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 12 }}>
+          Pas encore prêt ?<br /><span style={{ fontStyle: "italic", color: MUTED }}>On garde le contact.</span>
+        </h2>
+        <p style={{ color: MUTED, fontSize: 15, marginBottom: 28, lineHeight: 1.7 }}>
+          Reçois nos guides sur le micro-drama vertical, les nouvelles fonctionnalités et les astuces des créateurs.
+        </p>
+        {nlState === "done" ? (
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.25)", borderRadius: 14, padding: "16px 28px" }}>
+            <span style={{ color: "#4ade80", fontSize: 18 }}>✓</span>
+            <span style={{ color: "#4ade80", fontWeight: 700, fontSize: 15 }}>Tu es inscrit — à bientôt !</span>
+          </div>
+        ) : (
+          <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+            <input type="email" placeholder="ton@email.com" value={nlEmail} onChange={e => setNlEmail(e.target.value)}
+              onKeyDown={e => e.key === "Enter" && submit()}
+              style={{ padding: "14px 18px", borderRadius: 12, border: `1px solid ${nlState === "error" ? RED : BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 240, outline: "none" }} />
+            <button onClick={submit} disabled={nlState === "loading"}
+              style={{ background: SURFACE, border: `1px solid ${BORDER}`, color: TEXT, padding: "14px 24px", borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", transition: "all .2s" }}>
+              {nlState === "loading" ? "…" : "M'inscrire"}
+            </button>
+          </div>
+        )}
+        {nlState === "error" && <p style={{ color: RED, fontSize: 13, marginTop: 10 }}>Une erreur est survenue, réessaie.</p>}
+        <p style={{ color: MUTED, fontSize: 12, marginTop: 14 }}>Aucun spam. Désabonnement en 1 clic.</p>
+      </div>
+    </div>
+  );
+}
+
 const Label = ({ children, color = VIO }) => (
   <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color, marginBottom: 16, fontFamily: "'Space Grotesk', sans-serif" }}>{children}</p>
 );
@@ -923,6 +970,9 @@ export default function Landing() {
           </div>
         </div>
       </div>
+
+      {/* NEWSLETTER */}
+      <NewsletterSection />
 
       {/* CTA FINAL */}
       <div className="sec" style={{ padding: "100px 40px", textAlign: "center", borderTop: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
