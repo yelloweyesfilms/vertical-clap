@@ -1,4 +1,5 @@
 import { Redis } from "@upstash/redis";
+import { sendNewsletterWelcomeEmail } from "../../lib/email";
 
 function getRedis() {
   if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) return null;
@@ -22,6 +23,8 @@ export default async function handler(req, res) {
     await redis.sadd("newsletter:emails", normalized);
     await redis.incr("analytics:total:newsletter_signup");
   }
+
+  await sendNewsletterWelcomeEmail({ email: normalized });
 
   return res.json({ ok: true });
 }
