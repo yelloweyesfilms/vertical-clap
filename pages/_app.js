@@ -38,6 +38,21 @@ export default function App({ Component, pageProps }) {
         <meta name="twitter:description" content={DESC} />
         <meta name="twitter:image" content={OG_IMAGE} />
 
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": "Studio Vertical",
+          "description": DESC,
+          "url": SITE,
+          "applicationCategory": "CreativeApplication",
+          "operatingSystem": "Web",
+          "offers": [
+            { "@type": "Offer", "price": "9", "priceCurrency": "EUR", "name": "Standard", "description": "Génération de micro-dramas 9:16 avec IA, 10 épisodes par série" },
+            { "@type": "Offer", "price": "19", "priceCurrency": "EUR", "name": "Premium", "description": "Fast Drama + Premium Suspense, 90 épisodes, 3 variations par script" },
+          ],
+          "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "50" },
+        }) }} />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" />
