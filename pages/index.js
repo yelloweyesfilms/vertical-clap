@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
@@ -82,12 +82,22 @@ const Logo = ({ size = "md" }) => {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: sm ? 8 : 10, userSelect: "none" }}>
       <svg width={sm ? 20 : 26} height={sm ? 29 : 37} viewBox="0 0 26 37" fill="none">
-        <rect x="0.5" y="0.5" width="25" height="36" rx="5.5" fill={RED} />
-        <rect x="0.5" y="0.5" width="25" height="36" rx="5.5" stroke="rgba(255,255,255,0.15)" />
-        <rect x="4" y="4" width="18" height="29" rx="3" fill="rgba(0,0,0,0.25)" />
+        <defs>
+          <linearGradient id="logo-grad" x1="0" y1="0" x2="26" y2="37" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#E85C3A" />
+            <stop offset="100%" stopColor="#a855f7" />
+          </linearGradient>
+          <clipPath id="logo-clip">
+            <rect x="0.5" y="0.5" width="25" height="36" rx="5.5" />
+          </clipPath>
+        </defs>
+        <rect x="0.5" y="0.5" width="25" height="36" rx="5.5" fill="url(#logo-grad)" />
+        <rect x="0.5" y="0.5" width="25" height="36" rx="5.5" stroke="rgba(255,255,255,0.18)" />
+        <rect x="4" y="4" width="18" height="29" rx="3" fill="rgba(0,0,0,0.22)" />
         <polygon points="10,13 10,24 20,18.5" fill="white" />
         <rect x="4" y="31" width="6" height="1.5" rx="0.75" fill="rgba(255,255,255,0.4)" />
         <rect x="12" y="31" width="10" height="1.5" rx="0.75" fill="rgba(255,255,255,0.2)" />
+        <polygon points="0.5,0.5 25.5,0.5 25.5,12 0.5,20" fill="rgba(255,255,255,0.13)" clipPath="url(#logo-clip)" />
       </svg>
       <div style={{ lineHeight: 1 }}>
         <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: sm ? 9 : 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Studio</div>
@@ -115,6 +125,53 @@ const Check = ({ color = RED }) => (
   </svg>
 );
 
+function NewsletterSection() {
+  const [nlEmail, setNlEmail] = useState("");
+  const [nlState, setNlState] = useState("idle"); // idle | loading | done | error
+
+  const submit = async () => {
+    if (!nlEmail || !nlEmail.includes("@")) return;
+    setNlState("loading");
+    try {
+      const res = await fetch("/api/newsletter", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: nlEmail }) });
+      const data = await res.json();
+      setNlState(data.ok ? "done" : "error");
+    } catch { setNlState("error"); }
+  };
+
+  return (
+    <div style={{ borderTop: `1px solid ${BORDER}`, padding: "72px 40px", textAlign: "center", background: "rgba(255,255,255,0.01)" }}>
+      <div style={{ maxWidth: 480, margin: "0 auto" }}>
+        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>Restez informé</p>
+        <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(24px, 3vw, 38px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 12 }}>
+          Pas encore prêt ?<br /><span style={{ fontStyle: "italic", color: MUTED }}>On garde le contact.</span>
+        </h2>
+        <p style={{ color: MUTED, fontSize: 15, marginBottom: 28, lineHeight: 1.7 }}>
+          Reçois nos guides sur le micro-drama vertical, les nouvelles fonctionnalités et les astuces des créateurs.
+        </p>
+        {nlState === "done" ? (
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.25)", borderRadius: 14, padding: "16px 28px" }}>
+            <span style={{ color: "#4ade80", fontSize: 18 }}>✓</span>
+            <span style={{ color: "#4ade80", fontWeight: 700, fontSize: 15 }}>Tu es inscrit — à bientôt !</span>
+          </div>
+        ) : (
+          <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+            <input type="email" placeholder="ton@email.com" value={nlEmail} onChange={e => setNlEmail(e.target.value)}
+              onKeyDown={e => e.key === "Enter" && submit()}
+              style={{ padding: "14px 18px", borderRadius: 12, border: `1px solid ${nlState === "error" ? RED : BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 240, outline: "none" }} />
+            <button onClick={submit} disabled={nlState === "loading"}
+              style={{ background: SURFACE, border: `1px solid ${BORDER}`, color: TEXT, padding: "14px 24px", borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", transition: "all .2s" }}>
+              {nlState === "loading" ? "…" : "M'inscrire"}
+            </button>
+          </div>
+        )}
+        {nlState === "error" && <p style={{ color: RED, fontSize: 13, marginTop: 10 }}>Une erreur est survenue, réessaie.</p>}
+        <p style={{ color: MUTED, fontSize: 12, marginTop: 14 }}>Aucun spam. Désabonnement en 1 clic.</p>
+      </div>
+    </div>
+  );
+}
+
 const Label = ({ children, color = VIO }) => (
   <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color, marginBottom: 16, fontFamily: "'Space Grotesk', sans-serif" }}>{children}</p>
 );
@@ -129,60 +186,15 @@ export default function Landing() {
   const [refValid, setRefValid] = useState(null);
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
-  const [variant, setVariant] = useState("A");
   const [billing, setBilling] = useState("monthly");
-  const [demoPhase, setDemoPhase] = useState(0);
-  const [demoText, setDemoText] = useState("");
-  const demoRef = useRef(null);
   const router = useRouter();
   const canceled = router.query.canceled;
 
   const track = (event, meta = {}) => fetch("/api/analytics", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ event, meta }) }).catch(() => {});
 
-  const DEMO_SEQUENCES = [
-    { label: "TITRE", full: "Le Mensonge", color: TEXT },
-    { label: "LOGLINE", full: "Une infirmière cache une erreur médicale jusqu'au jour où la victime revient comme interne.", color: MUTED },
-    { label: "ACCROCHE", full: "Elle l'a presque tué. Il ne sait pas encore.", color: RED },
-    { label: "ÉP. 1", full: "Première garde · Tension ●●●○○○○○○○", color: VIO },
-    { label: "ÉP. 2", full: "Il sait · Tension ●●●●●●○○○○", color: VIO },
-    { label: "ÉP. 3", full: "Le chef de service · Tension ●●●●●●●●○○", color: VIO },
-    { label: "ÉP. 4", full: "Trop tard · Tension ●●●●●●●●●●", color: RED },
-  ];
-
   useEffect(() => {
-    // A/B test variant assignment
-    let v = typeof window !== "undefined" ? localStorage.getItem("hero_variant") : null;
-    if (!v) {
-      v = Math.random() < 0.5 ? "A" : "B";
-      localStorage.setItem("hero_variant", v);
-    }
-    setVariant(v);
-    track("page_view", { variant: v });
+    track("page_view");
   }, []);
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { obs.disconnect(); runDemo(0, 0); }
-    }, { threshold: 0.3 });
-    if (demoRef.current) obs.observe(demoRef.current);
-    return () => obs.disconnect();
-  }, []);
-
-  function runDemo(phaseIdx, charIdx) {
-    if (phaseIdx >= DEMO_SEQUENCES.length) {
-      setTimeout(() => { setDemoPhase(0); setDemoText(""); runDemo(0, 0); }, 3000);
-      return;
-    }
-    const seq = DEMO_SEQUENCES[phaseIdx];
-    if (charIdx <= seq.full.length) {
-      setDemoPhase(phaseIdx);
-      setDemoText(seq.full.slice(0, charIdx));
-      const delay = charIdx === 0 ? 600 : 28;
-      setTimeout(() => runDemo(phaseIdx, charIdx + 1), delay);
-    } else {
-      setTimeout(() => runDemo(phaseIdx + 1, 0), 300);
-    }
-  }
 
   const checkRefCode = async (code) => {
     setRefCode(code);
@@ -197,7 +209,7 @@ export default function Landing() {
     if (!email) { alert("Entre ton email pour continuer"); return; }
     const { trial = false, billingOverride } = opts;
     const b = billingOverride || billing;
-    track("checkout_started", { variant, position, plan, billing: b, trial });
+    track("checkout_started", { position, plan, billing: b, trial });
     setLoading(true);
     const res = await fetch("/api/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, plan, refCode: refValid ? refCode : undefined, billing: b, trial }) });
     const { url, error } = await res.json();
@@ -271,10 +283,9 @@ export default function Landing() {
           .feat-strip-item { width: 50% !important; border-right: none !important; border-bottom: 1px solid ${BORDER} !important; }
           .platform-row { gap: 20px !important; }
           .stats-bar { gap: 28px !important; padding: 28px 20px !important; }
-          .roi-arrow { display: none !important; }
-          .roi-grid { grid-template-columns: 1fr !important; }
-          .demo-footer { flex-wrap: wrap !important; gap: 12px !important; }
-          .footer-inner { padding: 28px 20px !important; }
+          .footer-inner { padding: 40px 20px 32px !important; }
+          .footer-inner > div:first-child { grid-template-columns: 1fr 1fr !important; }
+          @media (max-width: 480px) { .footer-inner > div:first-child { grid-template-columns: 1fr !important; } }
           .trust-row { gap: 12px !important; }
           .hero-v { display: none !important; }
         }
@@ -288,7 +299,12 @@ export default function Landing() {
             <div style={{ width: 7, height: 7, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
             REC
           </div>
-          <a href="/app" style={{ fontSize: 14, color: TEXT, fontWeight: 700, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>Se connecter →</a>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <a href="/exemples" style={{ fontSize: 13, color: MUTED, fontWeight: 600, display: "none" }} className="nav-link">Exemples</a>
+            <a href="/blog" style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>Blog</a>
+            <a href="/tarifs" style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>Tarifs</a>
+            <a href="/app" style={{ fontSize: 14, color: TEXT, fontWeight: 700, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>Se connecter →</a>
+          </div>
         </nav>
       </div>
 
@@ -312,33 +328,18 @@ export default function Landing() {
             Le studio IA des créateurs verticaux
           </div>
 
-          {variant === "A" ? (
-            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(38px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
-              De l'idée<br />
-              au{" "}
-              <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
-                cliffhanger
-              </span>
-              .<br />
-              En 5 minutes.
-            </h1>
-          ) : (
-            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(38px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
-              Ta série,<br />
-              prête à{" "}
-              <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
-                tourner
-              </span>
-              .<br />
-              En 5 minutes.
-            </h1>
-          )}
+          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(38px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
+            De l'idée<br />
+            à la{" "}
+            <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
+              série complète
+            </span>
+            .<br />
+            En 5 minutes.
+          </h1>
 
           <p style={{ fontSize: "clamp(15px, 2vw, 18px)", color: MUTED, maxWidth: 480, margin: "0 auto 52px", lineHeight: 1.7, fontWeight: 400 }}>
-            {variant === "A"
-              ? "Génère des micro-dramas 9:16 complets avec l'IA — bible, scripts, hooks, cliffhangers. Prêts pour TikTok, Reels, Shorts, DramaBox et ReelShort."
-              : "L'IA génère la bible, les scripts et les hooks en 5 minutes. Tu filmes. Tes concurrents passent encore des heures à écrire."
-            }
+            Génère des micro-dramas 9:16 complets avec l'IA — bible, scripts, hooks, cliffhangers. Prêts pour TikTok, Reels, Shorts, DramaBox et ReelShort.
           </p>
 
           {canceled && <p style={{ color: RED, marginBottom: 16, fontSize: 14 }}>Paiement annulé. Réessaie quand tu veux.</p>}
@@ -383,7 +384,7 @@ export default function Landing() {
             { Icon: BoltIcon, label: "Rapide", color: RED },
             { Icon: PhoneIcon, label: "Format 9:16", color: VIO },
             { Icon: ClapperIcon, label: "Scripts impactants", color: RED },
-            { Icon: ClockIcon, label: "5 min chrono", color: VIO },
+            { Icon: ClockIcon, label: "Sauvegarde cloud", color: VIO },
           ].map(({ Icon, label, color }, i, arr) => (
             <div key={i} className="feat-strip-item" style={{ display: "flex", alignItems: "center", gap: 10, padding: "20px 32px", borderRight: i < arr.length - 1 ? `1px solid ${BORDER}` : "none", flex: 1, justifyContent: "center" }}>
               <span style={{ color, display: "flex" }}><Icon size={20} /></span>
@@ -522,6 +523,125 @@ export default function Landing() {
         </div>
       </div>
 
+      {/* AFFICHES — visual showcase */}
+      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}`, overflow: "hidden" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <Label color={RED}>Affiches générées par l'IA</Label>
+          <Title>Des séries qui<br /><span style={{ fontStyle: "italic", color: MUTED }}>donnent envie de tourner.</span></Title>
+          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Studio Vertical génère aussi l'affiche officielle de ta série en 1 clic.</p>
+
+          <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
+
+            {/* Poster 1 — Le Mensonge */}
+            <div style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06)", position: "relative", cursor: "default" }}>
+              <div style={{ background: "linear-gradient(170deg, #1a0505 0%, #0d0000 40%, #09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "22px 18px 20px", position: "relative", overflow: "hidden" }}>
+                {/* BG texture */}
+                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 20%, rgba(232,92,58,0.18) 0%, transparent 55%), radial-gradient(ellipse at 80% 80%, rgba(232,92,58,0.08) 0%, transparent 50%)", pointerEvents: "none" }} />
+                {/* Top bar */}
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 14 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
+                    <span style={{ fontSize: 8, fontWeight: 800, color: RED, letterSpacing: 2, fontFamily: "monospace" }}>STUDIO VERTICAL</span>
+                  </div>
+                  <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 8 épisodes</div>
+                  <div style={{ height: 1, background: "rgba(232,92,58,0.3)", marginBottom: 16 }} />
+                </div>
+                {/* Center visual */}
+                <div style={{ position: "absolute", top: "30%", left: 0, right: 0, bottom: 0, zIndex: 0, overflow: "hidden" }}>
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 0%, #09090f 75%)" }} />
+                  <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.15 }}>
+                    <svg width="180" height="220" viewBox="0 0 180 220" fill="none">
+                      <ellipse cx="90" cy="80" rx="55" ry="65" fill={RED} />
+                      <rect x="30" y="130" width="120" height="90" rx="8" fill={RED} opacity="0.6" />
+                    </svg>
+                  </div>
+                </div>
+                {/* Bottom — title */}
+                <div style={{ position: "relative", zIndex: 2 }}>
+                  <div style={{ fontSize: 8, fontWeight: 700, color: MUTED, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>DRAME · THRILLER</div>
+                  <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 34, fontWeight: 900, color: TEXT, lineHeight: 1.0, letterSpacing: -1, marginBottom: 10 }}>Le<br />Mensonge</div>
+                  <div style={{ height: 2, width: 32, background: RED, borderRadius: 2, marginBottom: 10 }} />
+                  <div style={{ fontSize: 9, color: "rgba(255,255,255,0.4)", lineHeight: 1.5, fontStyle: "italic" }}>Elle cache une erreur médicale. Il revient comme interne.</div>
+                  <div style={{ marginTop: 14, display: "flex", gap: 6 }}>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: RED, border: `1px solid ${RED}40`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>9:16</span>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: MUTED, border: `1px solid ${BORDER}`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>EP.1→8</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Poster 2 — Héritage (centre, légèrement plus grand) */}
+            <div style={{ width: 240, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 40px 100px rgba(168,85,247,0.25), 0 0 0 1px rgba(168,85,247,0.2)", position: "relative", cursor: "default", transform: "translateY(-16px)" }}>
+              <div style={{ background: "linear-gradient(170deg, #0d0515 0%, #0a0510 40%, #09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "22px 18px 20px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 60% 25%, rgba(168,85,247,0.22) 0%, transparent 55%), radial-gradient(ellipse at 20% 85%, rgba(168,85,247,0.10) 0%, transparent 50%)", pointerEvents: "none" }} />
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 14 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: VIO, animation: "pulse 2s infinite" }} />
+                    <span style={{ fontSize: 8, fontWeight: 800, color: VIO, letterSpacing: 2, fontFamily: "monospace" }}>STUDIO VERTICAL</span>
+                  </div>
+                  <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 10 épisodes</div>
+                  <div style={{ height: 1, background: "rgba(168,85,247,0.3)", marginBottom: 16 }} />
+                </div>
+                {/* Decorative diamond */}
+                <div style={{ position: "absolute", top: "28%", left: "50%", transform: "translateX(-50%)", zIndex: 0, opacity: 0.08 }}>
+                  <svg width="200" height="240" viewBox="0 0 200 240" fill="none">
+                    <polygon points="100,10 190,100 100,230 10,100" fill={VIO} />
+                  </svg>
+                </div>
+                <div style={{ position: "absolute", top: "28%", left: 0, right: 0, bottom: 0, background: "linear-gradient(180deg, transparent 0%, #09090f 70%)", zIndex: 1 }} />
+                <div style={{ position: "relative", zIndex: 2 }}>
+                  <div style={{ fontSize: 8, fontWeight: 700, color: MUTED, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>DRAME · FAMILLE</div>
+                  <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 38, fontWeight: 900, color: TEXT, lineHeight: 1.0, letterSpacing: -1, marginBottom: 10 }}>Héri-<br />tage</div>
+                  <div style={{ height: 2, width: 32, background: VIO, borderRadius: 2, marginBottom: 10 }} />
+                  <div style={{ fontSize: 9, color: "rgba(255,255,255,0.4)", lineHeight: 1.5, fontStyle: "italic" }}>Un testament. Trois frères. Un secret vieux de 20 ans.</div>
+                  <div style={{ marginTop: 14, display: "flex", gap: 6 }}>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: VIO, border: `1px solid ${VIO}40`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>9:16</span>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: MUTED, border: `1px solid ${BORDER}`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>EP.1→10</span>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: VIO, background: `${VIO}15`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>PREMIUM</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Poster 3 — Deux Vies */}
+            <div style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06)", position: "relative", cursor: "default" }}>
+              <div style={{ background: "linear-gradient(170deg, #050d1a 0%, #030810 40%, #09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "22px 18px 20px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 70% 30%, rgba(96,165,250,0.14) 0%, transparent 55%)", pointerEvents: "none" }} />
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 14 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#60a5fa", animation: "pulse 1.8s infinite" }} />
+                    <span style={{ fontSize: 8, fontWeight: 800, color: "#60a5fa", letterSpacing: 2, fontFamily: "monospace" }}>STUDIO VERTICAL</span>
+                  </div>
+                  <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 6 épisodes</div>
+                  <div style={{ height: 1, background: "rgba(96,165,250,0.3)", marginBottom: 16 }} />
+                </div>
+                {/* Split visual */}
+                <div style={{ position: "absolute", top: "25%", left: 0, right: 0, height: "45%", zIndex: 0, overflow: "hidden" }}>
+                  <div style={{ position: "absolute", left: 0, top: 0, width: "50%", height: "100%", background: "rgba(232,92,58,0.06)", borderRight: "1px solid rgba(255,255,255,0.08)" }} />
+                  <div style={{ position: "absolute", right: 0, top: 0, width: "50%", height: "100%", background: "rgba(96,165,250,0.06)" }} />
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 0%, #09090f 85%)" }} />
+                </div>
+                <div style={{ position: "relative", zIndex: 2 }}>
+                  <div style={{ fontSize: 8, fontWeight: 700, color: MUTED, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>DRAME · IDENTITÉ</div>
+                  <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 34, fontWeight: 900, color: TEXT, lineHeight: 1.0, letterSpacing: -1, marginBottom: 10 }}>Deux<br />Vies</div>
+                  <div style={{ height: 2, width: 32, background: "#60a5fa", borderRadius: 2, marginBottom: 10 }} />
+                  <div style={{ fontSize: 9, color: "rgba(255,255,255,0.4)", lineHeight: 1.5, fontStyle: "italic" }}>Elle mène deux vies parallèles. L'une d'elles va s'effondrer.</div>
+                  <div style={{ marginTop: 14, display: "flex", gap: 6 }}>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: "#60a5fa", border: "1px solid rgba(96,165,250,0.4)", borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>9:16</span>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: MUTED, border: `1px solid ${BORDER}`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>EP.1→6</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <p style={{ textAlign: "center", color: MUTED, fontSize: 13, marginTop: 36 }}>
+            Chaque affiche est générée par l'IA en 1 clic · Format 9:16 prêt à publier
+          </p>
+        </div>
+      </div>
+
       {/* AVANT / APRÈS */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
@@ -585,55 +705,7 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* LIVE DEMO */}
-      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }} ref={demoRef}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <Label color={VIO}>En direct</Label>
-          <Title>Regarde l'IA écrire<br /><span style={{ fontStyle: "italic" }}>ta série en temps réel.</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, marginBottom: 48, fontSize: 15 }}>C'est exactement ce que tu vois dans l'app</p>
 
-          <div style={{ background: "#0a0a14", border: `1px solid rgba(168,85,247,0.25)`, borderRadius: 24, overflow: "hidden", boxShadow: `0 0 60px rgba(168,85,247,0.08)` }}>
-            {/* Terminal header */}
-            <div style={{ padding: "14px 20px", borderBottom: `1px solid ${BORDER}`, display: "flex", alignItems: "center", gap: 12 }}>
-              <div style={{ display: "flex", gap: 6 }}>
-                {["#E85C3A", "#f59e0b", "#22c55e"].map((c, i) => <div key={i} style={{ width: 10, height: 10, borderRadius: "50%", background: c }} />)}
-              </div>
-              <span style={{ fontSize: 12, color: MUTED, fontFamily: "monospace", marginLeft: 8 }}>Studio Vertical · Génération en cours…</span>
-              <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 6 }}>
-                <div style={{ width: 6, height: 6, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
-                <span style={{ fontSize: 10, fontWeight: 800, color: RED, letterSpacing: 2 }}>REC</span>
-              </div>
-            </div>
-
-            {/* Content */}
-            <div style={{ padding: "28px 28px", minHeight: 280 }}>
-              {DEMO_SEQUENCES.map((seq, i) => {
-                const done = i < demoPhase;
-                const active = i === demoPhase;
-                if (i > demoPhase) return null;
-                return (
-                  <div key={i} style={{ display: "flex", gap: 16, marginBottom: 18, opacity: done ? 0.6 : 1, transition: "opacity .3s" }}>
-                    <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: done ? MUTED : seq.color, fontFamily: "monospace", flexShrink: 0, paddingTop: 2, minWidth: 60 }}>{seq.label}</span>
-                    <p style={{ fontSize: 15, color: done ? MUTED : seq.color, lineHeight: 1.6, fontFamily: i < 2 ? "'Playfair Display', Georgia, serif" : "'Space Grotesk', sans-serif", fontWeight: i < 2 ? 700 : 500 }} className={active ? "cursor" : ""}>
-                      {active ? demoText : seq.full}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Footer bar */}
-            <div className="demo-footer" style={{ padding: "14px 28px", borderTop: `1px solid ${BORDER}`, display: "flex", gap: 24 }}>
-              {[["Univers", "Hôpital"], ["Secret", "Erreur médicale"], ["Mode", "Fast Drama"], ["Épisodes", "10"]].map(([k, v]) => (
-                <div key={k}>
-                  <span style={{ fontSize: 10, color: MUTED, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase" }}>{k} </span>
-                  <span style={{ fontSize: 11, color: TEXT, fontWeight: 700 }}>{v}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* POUR QUI */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
@@ -648,7 +720,7 @@ export default function Landing() {
                 iconColor: "#69C9D0",
                 title: "Créateur solo",
                 sub: "TikTok · Reels · Shorts",
-                desc: "Tu filmes seul avec ton téléphone. Studio Vertical génère toute la structure narrative — tu n'as plus qu'à tourner. Tes concurrents passent des jours sur un script. Toi, 5 minutes.",
+                desc: "Tu filmes seul avec ton téléphone. Studio Vertical génère la bible, les scripts et les hooks — structure narrative complète, prête à tourner sans réécriture.",
                 color: RED,
               },
               {
@@ -687,7 +759,7 @@ export default function Landing() {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={VIO}>Comment ça marche</Label>
           <Title>De zéro à une série<br /><span style={{ fontStyle: "italic" }}>en 3 étapes.</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Moins de 5 minutes, chrono</p>
+          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Du concept au script prêt à tourner</p>
           {/* Timeline */}
           <div style={{ position: "relative" }}>
             {/* Connecting line */}
@@ -727,7 +799,7 @@ export default function Landing() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
             {[
               { icon: <BoltIcon size={20} />, iconColor: RED, title: "Le Mixeur", desc: "12 univers, 16 secrets, 4 castings. Ou entre le tien. 12 packs thématiques pour démarrer en 1 clic." },
-              { icon: <ClapperIcon size={20} />, iconColor: VIO, title: "Bible express", desc: "Titre, logline, personnages avec secrets, tension centrale. Généré en streaming — tu vois la série prendre vie." },
+              { icon: <ClapperIcon size={20} />, iconColor: VIO, title: "Bible complète", desc: "Titre, logline, personnages avec secrets, tension centrale et séquencier. Tout ce qu'il faut pour commencer à tourner." },
               { icon: <PhoneIcon size={20} />, iconColor: RED, title: "Scripts prêts à tourner", desc: "Hook 3 secondes, dialogues, jeu d'acteur, cadrage 9:16. Fast Drama ou Premium Suspense selon ton style." },
               { icon: <ClockIcon size={20} />, iconColor: VIO, title: "3 variations par script", desc: "Intense, Subtil ou Rapide — 3 versions générées en parallèle pour choisir le ton parfait. Premium uniquement." },
               { icon: <TikTokIcon size={20} />, iconColor: "#69C9D0", title: "Traduction en 8 langues", desc: "Traduis n'importe quel script en Anglais, Espagnol, Allemand, Portugais, Italien, Arabe, Hébreu ou Chinois." },
@@ -744,69 +816,6 @@ export default function Landing() {
                 <p style={{ color: MUTED, lineHeight: 1.65, fontSize: 13 }}>{f.desc}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </div>
-
-      {/* TESTIMONIALS */}
-      {/* ROI */}
-      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <Label color={RED}>Gain de temps</Label>
-          <Title>8 heures.<br /><span style={{ fontStyle: "italic", background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Réduit à 5 minutes.</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, marginBottom: 48, fontSize: 15 }}>Chaque tâche d'écriture, accélérée ×96</p>
-
-          <div className="roi-grid" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 20, alignItems: "center" }}>
-            {/* Sans IA */}
-            <div style={{ background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}`, borderRadius: 20, padding: "28px 28px" }}>
-              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 20 }}>✗ Sans IA</p>
-              {[
-                ["Brainstorming", "2–3 heures"],
-                ["Bible complète", "3–4 heures"],
-                ["Script d'un épisode", "2 heures"],
-                ["Fiche de production", "1 heure"],
-              ].map(([task, time]) => (
-                <div key={task} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: `1px solid ${BORDER}` }}>
-                  <span style={{ fontSize: 14, color: MUTED }}>{task}</span>
-                  <span style={{ fontSize: 14, fontWeight: 700, color: MUTED, fontFamily: "monospace" }}>{time}</span>
-                </div>
-              ))}
-              <div style={{ marginTop: 20, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: MUTED }}>Total</span>
-                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 28, fontWeight: 900, color: MUTED, letterSpacing: -1 }}>8h+</span>
-              </div>
-            </div>
-
-            {/* Arrow */}
-            <div className="roi-arrow" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, padding: "0 8px" }}>
-              <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 28, fontWeight: 900, background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>×96</div>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={VIO} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-              <span style={{ fontSize: 10, color: MUTED, letterSpacing: 1, textTransform: "uppercase", fontWeight: 700 }}>plus rapide</span>
-            </div>
-
-            {/* Avec Studio Vertical */}
-            <div style={{ background: "rgba(168,85,247,0.04)", border: "1px solid rgba(168,85,247,0.2)", borderRadius: 20, padding: "28px 28px", position: "relative", overflow: "hidden" }}>
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${RED}, ${VIO})` }} />
-              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 20 }}>✓ Studio Vertical</p>
-              {[
-                ["Brainstorming", "10 sec"],
-                ["Bible complète", "30 sec"],
-                ["Script d'un épisode", "10 sec"],
-                ["Fiche de production", "20 sec"],
-              ].map(([task, time]) => (
-                <div key={task} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: `1px solid rgba(168,85,247,0.1)` }}>
-                  <span style={{ fontSize: 14, color: TEXT }}>{task}</span>
-                  <span style={{ fontSize: 14, fontWeight: 800, color: RED, fontFamily: "monospace" }}>⚡ {time}</span>
-                </div>
-              ))}
-              <div style={{ marginTop: 20, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: TEXT }}>Total</span>
-                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 28, fontWeight: 900, background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", letterSpacing: -1 }}>&lt; 5 min</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -964,6 +973,9 @@ export default function Landing() {
         </div>
       </div>
 
+      {/* NEWSLETTER */}
+      <NewsletterSection />
+
       {/* CTA FINAL */}
       <div className="sec" style={{ padding: "100px 40px", textAlign: "center", borderTop: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(168,85,247,0.07) 0%, transparent 60%)`, pointerEvents: "none" }} />
@@ -1000,18 +1012,77 @@ export default function Landing() {
       </div>
 
       {/* FOOTER */}
-      <footer style={{ borderTop: `1px solid ${BORDER}` }}>
-      <div className="footer-inner" style={{ padding: "32px 40px", textAlign: "center" }}>
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
-          <Logo size="sm" />
+      <footer style={{ borderTop: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.01)" }}>
+        <div className="footer-inner" style={{ maxWidth: 1100, margin: "0 auto", padding: "56px 40px 40px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 40, marginBottom: 48 }}>
+
+            {/* Colonne marque */}
+            <div>
+              <Logo size="sm" />
+              <p style={{ color: MUTED, fontSize: 13, lineHeight: 1.75, marginTop: 16, maxWidth: 240 }}>
+                Le studio IA pour créateurs de micro-dramas verticaux. De l'idée à la série complète en 5 minutes.
+              </p>
+              <div style={{ display: "flex", gap: 12, marginTop: 20 }}>
+                {[
+                  { href: "https://tiktok.com/@studiovertical", label: "TikTok" },
+                  { href: "https://instagram.com/studiovertical", label: "Instagram" },
+                ].map(({ href, label }) => (
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer"
+                    style={{ fontSize: 12, color: MUTED, fontWeight: 600, background: SURFACE, border: `1px solid ${BORDER}`, padding: "6px 12px", borderRadius: 8 }}>
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Colonne produit */}
+            <div>
+              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>Produit</p>
+              {[
+                { href: "/app", label: "Studio →" },
+                { href: "/tarifs", label: "Tarifs" },
+                { href: "/exemples", label: "Exemples" },
+                { href: "/parrainage", label: "Parrainage" },
+              ].map(({ href, label }) => (
+                <a key={href} href={href} style={{ display: "block", fontSize: 13, color: MUTED, marginBottom: 10, fontWeight: 500 }}>{label}</a>
+              ))}
+            </div>
+
+            {/* Colonne ressources */}
+            <div>
+              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>Ressources</p>
+              {[
+                { href: "/blog", label: "Blog" },
+                { href: "/blog/qu-est-ce-qu-un-micro-drama", label: "Guide micro-drama" },
+                { href: "/blog/comment-ecrire-un-hook-tiktok", label: "Écrire un hook" },
+                { href: "/blog/monetiser-micro-drama-dramabox-reelshort", label: "Monétiser sa série" },
+              ].map(({ href, label }) => (
+                <a key={href} href={href} style={{ display: "block", fontSize: 13, color: MUTED, marginBottom: 10, fontWeight: 500 }}>{label}</a>
+              ))}
+            </div>
+
+            {/* Colonne légal */}
+            <div>
+              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>Légal</p>
+              {[
+                { href: "/cgu", label: "CGU" },
+                { href: "/confidentialite", label: "Confidentialité" },
+                { href: "/contact", label: "Contact" },
+              ].map(({ href, label }) => (
+                <a key={href} href={href} style={{ display: "block", fontSize: 13, color: MUTED, marginBottom: 10, fontWeight: 500 }}>{label}</a>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+            <p style={{ color: MUTED, fontSize: 12 }}>© 2026 Studio Vertical — Tous droits réservés</p>
+            <div style={{ display: "flex", gap: 6 }}>
+              {["TikTok", "Reels", "Shorts", "DramaBox", "ReelShort"].map(p => (
+                <span key={p} style={{ fontSize: 10, color: MUTED, background: SURFACE, border: `1px solid ${BORDER}`, padding: "3px 8px", borderRadius: 6, fontWeight: 500 }}>{p}</span>
+              ))}
+            </div>
+          </div>
         </div>
-        <p style={{ color: MUTED, fontSize: 13 }}>
-          © 2026 Studio Vertical · Tous droits réservés ·{" "}
-          <a href="mailto:hello@studiovertical.app" style={{ color: MUTED }}>Contact</a> ·{" "}
-          <a href="/cgu" style={{ color: MUTED }}>CGU</a> ·{" "}
-          <a href="/confidentialite" style={{ color: MUTED }}>Confidentialité</a>
-        </p>
-      </div>
       </footer>
     </div>
     </>

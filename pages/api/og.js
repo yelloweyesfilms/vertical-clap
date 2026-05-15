@@ -2,7 +2,11 @@ import { ImageResponse } from "next/og";
 
 export const config = { runtime: "edge" };
 
-export default function handler() {
+export default function handler(req) {
+  const { searchParams } = new URL(req.url, "https://studiovertical.app");
+  const title = searchParams.get("title") || null;
+  const sub = searchParams.get("sub") || null;
+  const category = searchParams.get("category") || null;
   return new ImageResponse(
     (
       <div
@@ -43,16 +47,26 @@ export default function handler() {
             </div>
           </div>
 
-          {/* Headline */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-            <span style={{ fontSize: 80, fontWeight: 900, color: "#f1f5f9", letterSpacing: -4, lineHeight: 0.88, display: "flex" }}>De l'idée</span>
-            <div style={{ display: "flex", lineHeight: 0.88, marginTop: 4 }}>
-              <span style={{ fontSize: 80, fontWeight: 900, color: "#f1f5f9", letterSpacing: -4 }}>au&nbsp;</span>
-              <span style={{ fontSize: 80, fontWeight: 900, letterSpacing: -4, background: "linear-gradient(135deg, #E85C3A 30%, #a855f7)", backgroundClip: "text", color: "transparent" }}>cliffhanger</span>
-              <span style={{ fontSize: 80, fontWeight: 900, color: "#f1f5f9", letterSpacing: -4 }}>.</span>
+          {/* Headline — article ou default */}
+          {title ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              {category && (
+                <span style={{ fontSize: 14, fontWeight: 800, color: "#a855f7", letterSpacing: 3, textTransform: "uppercase", marginBottom: 16, display: "flex" }}>{category}</span>
+              )}
+              <span style={{ fontSize: title.length > 40 ? 52 : 68, fontWeight: 900, color: "#f1f5f9", letterSpacing: -2, lineHeight: 1.05, display: "flex", flexWrap: "wrap" }}>{title}</span>
+              {sub && <span style={{ fontSize: 22, color: "#64748b", marginTop: 20, display: "flex", lineHeight: 1.5 }}>{sub}</span>}
             </div>
-            <span style={{ fontSize: 80, fontWeight: 900, color: "#3a3a50", letterSpacing: -4, lineHeight: 0.88, marginTop: 4, display: "flex" }}>En 5 minutes.</span>
-          </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              <span style={{ fontSize: 80, fontWeight: 900, color: "#f1f5f9", letterSpacing: -4, lineHeight: 0.88, display: "flex" }}>De l'idée</span>
+              <div style={{ display: "flex", lineHeight: 0.88, marginTop: 4 }}>
+                <span style={{ fontSize: 80, fontWeight: 900, color: "#f1f5f9", letterSpacing: -4 }}>à la&nbsp;</span>
+                <span style={{ fontSize: 80, fontWeight: 900, letterSpacing: -4, background: "linear-gradient(135deg, #E85C3A 30%, #a855f7)", backgroundClip: "text", color: "transparent" }}>série complète</span>
+                <span style={{ fontSize: 80, fontWeight: 900, color: "#f1f5f9", letterSpacing: -4 }}>.</span>
+              </div>
+              <span style={{ fontSize: 80, fontWeight: 900, color: "#3a3a50", letterSpacing: -4, lineHeight: 0.88, marginTop: 4, display: "flex" }}>En 5 minutes.</span>
+            </div>
+          )}
 
           {/* Platform + price badges */}
           <div style={{ marginTop: 36, display: "flex", alignItems: "center", gap: 12 }}>
