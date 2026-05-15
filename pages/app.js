@@ -1,13 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
-// ── CONFIG ────────────────────────────────────────────────────────
+// ── CONFIG ──────────────────────────────────────────────────
 const OPTS = {
   casting: ["1 Femme + 1 Homme", "2 Femmes", "2 Hommes", "Trio mixte"],
   univers_fast: ["Hôpital privé", "Milieu corporate", "Famille recomposée", "Mode & Influence", "Sport élite", "École d'élite", "Backstage festival", "Maison de luxe"],
   univers_prem: ["Start-up IA", "Finance internationale", "Héritage familial", "Politique & Pouvoir", "Pharma & Biotech", "Diplomatie internationale", "Industrie musicale", "Justice & Tribunal"],
   secret_fast: ["Trahison amoureuse", "Double vie", "Vengeance planifiée", "Enfant caché", "Identité volée", "Addiction secrète", "Adoption cachée", "Crime passé"],
   secret_prem: ["Sabotage interne", "Espionnage industriel", "Héritage volé", "Manipulation psychologique", "Complot financier", "Corruption judiciaire", "Trahison d'État", "Chantage au sommet"],
+  genre: ["Romance", "Revenge Story", "Thriller Social", "Teen Drama", "Fantasy", "Soap Premium"],
+  lieu_fast: ["Ascenseur", "Chambre d'hôtel", "Voiture la nuit", "Couloir vide", "Toit d'immeuble", "Salle d'attente"],
+  lieu_prem: ["Cabinet privé", "Parking souterrain", "Loge d'artiste", "Jet privé", "Bibliothèque fermée", "Terrasse au crépuscule"],
+  ambiance: ["⚡ Intense & Direct", "💜 Émotionnel & Poétique", "🧠 Psychologique & Lent"],
 };
 const DUR_LABEL = { 60: "1 min", 90: "1 min 30", 120: "2 min" };
 const DUR_SCENES = { 60: 5, 90: 7, 120: 10 };
@@ -34,6 +38,8 @@ const LANGUES = [
   { code: "pt", flag: "🇵🇹", label: "Português" },
   { code: "it", flag: "🇮🇹", label: "Italiano" },
   { code: "ar", flag: "🇸🇦", label: "العربية" },
+  { code: "he", flag: "🇮🇱", label: "עברית" },
+  { code: "zh", flag: "🇨🇳", label: "中文" },
 ];
 
 // ── API HELPERS ──────────────────────────────────────────────
@@ -116,7 +122,17 @@ async function cloudLoad(id, customerId) {
   } catch { return null; }
 }
 
-// ── SAUVEGARDE LOCALE ────────────────────────────────────────────
+async function cloudRename(id, titre, customerId) {
+  try {
+    await fetch(`/api/cloud-series?id=${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${customerId}` },
+      body: JSON.stringify({ titre }),
+    });
+  } catch {}
+}
+
+// ── SAUVEGARDE LOCALE ────────────────────────────────────────
 const SAVE_KEY = "vs_series";
 
 function loadSaved() {
@@ -136,38 +152,78 @@ function deleteSerie(id) {
   localStorage.setItem(SAVE_KEY, JSON.stringify(updated));
 }
 
-// ── ONBOARDING ──────────────────────────────────────────────
-const ONBOARDING_STEPS = [
-  { icon: "🎲", titre: "Le Mixeur", desc: "Choisis ton casting, ton univers et ton secret central. En 1 clic, la série prend forme." },
-  { icon: "📖", titre: "La Bible", desc: "Titre viral, logline, personnages et séquencier complet. De l'idée à la bible pro en secondes." },
-  { icon: "📝", titre: "Les Scripts", desc: "Chaque épisode de 1 à 2 min : hook, dialogues, directions 9:16. Prêt à tourner." },
-  { icon: "📱", titre: "Mode Tournage", desc: "Téléprompteur auto-scroll, fond clair/sombre, réglage vitesse. Tout sur le plateau." },
+function renameSerieLocal(id, titre) {
+  const updated = loadSaved().map(s => s.id === id ? { ...s, bible: { ...s.bible, titre } } : s);
+  localStorage.setItem(SAVE_KEY, JSON.stringify(updated));
+}
+
+// ── STATS & REPRISE ──────────────────────────────────────────
+const STATS_KEY = "vs_stats";
+function getStats() {
+  try { return JSON.parse(localStorage.getItem(STATS_KEY) || '{"series":0,"scripts":0,"minutes":0}'); } catch { return { series: 0, scripts: 0, minutes: 0 }; }
+}
+function incStats(patch) {
+  const s = getStats();
+  Object.keys(patch).forEach(k => s[k] = (s[k] || 0) + patch[k]);
+  try { localStorage.setItem(STATS_KEY, JSON.stringify(s)); } catch {}
+}
+const LAST_KEY = "vs_last";
+function saveLastOpen(bible, episodes, state) {
+  try { localStorage.setItem(LAST_KEY, JSON.stringify({ bible, episodes, state })); } catch {}
+}
+function loadLastOpen() {
+  try { return JSON.parse(localStorage.getItem(LAST_KEY) || "null"); } catch { return null; }
+}
+
+// ── ONBOARDING ───────────────────────────────────────────────
+const ONBOARDING_PACKS = [
+  { emoji: "🏥", label: "Médical Secret",  mode: "fast",    casting: "1 Femme + 1 Homme", univers: "Hôpital privé",          secret: "Double vie",        desc: "Une infirmière cache une erreur qui peut tout faire basculer." },
+  { emoji: "👨‍👩‍👧", label: "Famille Brisée", mode: "fast",    casting: "Trio mixte",         univers: "Famille recomposée",     secret: "Enfant caché",      desc: "Un secret de famille remonte à la surface au pire moment." },
+  { emoji: "💼", label: "Corporate War",   mode: "fast",    casting: "2 Hommes",           univers: "Milieu corporate",       secret: "Trahison amoureuse", desc: "Deux associés, un seul pouvait rester." },
 ];
 
-function OnboardingModal({ onClose }) {
+function OnboardingModal({ onClose, onLaunch }) {
   const [step, setStep] = useState(0);
-  const current = ONBOARDING_STEPS[step];
-  return (
-    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
-      <div style={{ background: "var(--bg)", borderRadius: 20, padding: 32, maxWidth: 360, width: "100%", textAlign: "center", boxShadow: "0 24px 64px rgba(0,0,0,.4)" }}>
-        <div style={{ fontSize: 52, marginBottom: 16 }}>{current.icon}</div>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 10 }}>{current.titre}</h2>
-        <p style={{ fontSize: 14, color: "var(--mt)", lineHeight: 1.65, marginBottom: 28 }}>{current.desc}</p>
-        <div style={{ display: "flex", justifyContent: "center", gap: 7, marginBottom: 24 }}>
-          {ONBOARDING_STEPS.map((_, i) => (
-            <div key={i} style={{ width: 7, height: 7, borderRadius: "50%", background: i === step ? "var(--r)" : "var(--bo)", transition: "all .2s" }} />
-          ))}
-        </div>
-        <button
-          onClick={() => { if (step < ONBOARDING_STEPS.length - 1) setStep(s => s + 1); else onClose(); }}
-          style={{ background: "var(--r)", color: "#fff", border: "none", padding: "14px 0", borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", width: "100%", fontFamily: "var(--sans)" }}>
-          {step < ONBOARDING_STEPS.length - 1 ? "Suivant →" : "C'est parti !"}
+
+  if (step === 0) return (
+    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.82)", zIndex: 1000, display: "flex", alignItems: "flex-end", justifyContent: "center", padding: 0 }}>
+      <div style={{ background: "var(--bg)", borderRadius: "24px 24px 0 0", padding: "36px 28px 48px", maxWidth: 480, width: "100%", textAlign: "center", boxShadow: "0 -12px 64px rgba(0,0,0,.5)" }}>
+        <div style={{ width: 40, height: 4, background: "var(--bo)", borderRadius: 2, margin: "0 auto 28px" }} />
+        <div style={{ fontSize: 48, marginBottom: 16 }}>🎬</div>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 24, fontWeight: 900, marginBottom: 10, lineHeight: 1.2 }}>Ta première série<br/>en 30 secondes</h2>
+        <p style={{ fontSize: 14, color: "var(--mt)", lineHeight: 1.7, marginBottom: 10 }}>Vertical Studio génère une bible complète, un séquencier d'épisodes et des scripts prêts à tourner.</p>
+        <p style={{ fontSize: 13, color: "var(--mt)", lineHeight: 1.6, marginBottom: 32 }}>Choisis un thème et on s'occupe du reste.</p>
+        <button onClick={() => setStep(1)} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "16px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", width: "100%", fontFamily: "var(--sans)", marginBottom: 12 }}>
+          Choisir mon thème →
         </button>
-        {step === 0 && (
-          <button onClick={onClose} style={{ background: "none", border: "none", color: "var(--mt)", fontSize: 12, cursor: "pointer", marginTop: 12, fontFamily: "var(--sans)" }}>
-            Passer
+        <button onClick={onClose} style={{ background: "none", border: "none", color: "var(--mt)", fontSize: 13, cursor: "pointer", fontFamily: "var(--sans)" }}>
+          Je préfère configurer moi-même
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.82)", zIndex: 1000, display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
+      <div style={{ background: "var(--bg)", borderRadius: "24px 24px 0 0", padding: "36px 28px 48px", maxWidth: 480, width: "100%", boxShadow: "0 -12px 64px rgba(0,0,0,.5)" }}>
+        <div style={{ width: 40, height: 4, background: "var(--bo)", borderRadius: 2, margin: "0 auto 28px" }} />
+        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 16, textAlign: "center" }}>Choisis ton premier thème</p>
+        {ONBOARDING_PACKS.map((pack, i) => (
+          <button key={i} onClick={() => onLaunch(pack)}
+            style={{ display: "flex", alignItems: "center", gap: 14, width: "100%", background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 16, padding: "16px 18px", marginBottom: 10, cursor: "pointer", textAlign: "left", fontFamily: "var(--sans)", transition: "border-color .15s" }}
+            onMouseEnter={e => e.currentTarget.style.borderColor = "var(--r)"}
+            onMouseLeave={e => e.currentTarget.style.borderColor = "var(--bo)"}>
+            <span style={{ fontSize: 30, flexShrink: 0 }}>{pack.emoji}</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ fontWeight: 700, fontSize: 15, marginBottom: 4 }}>{pack.label}</p>
+              <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.4 }}>{pack.desc}</p>
+            </div>
+            <span style={{ color: "var(--r)", fontSize: 18, flexShrink: 0 }}>→</span>
           </button>
-        )}
+        ))}
+        <button onClick={onClose} style={{ background: "none", border: "none", color: "var(--mt)", fontSize: 13, cursor: "pointer", width: "100%", marginTop: 6, fontFamily: "var(--sans)" }}>
+          ← Retour
+        </button>
       </div>
     </div>
   );
@@ -208,7 +264,7 @@ function Chip({ label, active, onClick, block, sub }) {
   );
 }
 
-// ── ÉCRAN PARRAINAGE ─────────────────────────────────────────────
+// ── ÉCRAN PARRAINAGE ─────────────────────────────────────────
 function ParrainageView({ customerId, onBack }) {
   const [code, setCode] = useState(null);
   const [count, setCount] = useState(0);
@@ -277,7 +333,7 @@ function ParrainageView({ customerId, onBack }) {
         {/* Stats */}
         <div style={{ background: "var(--card)", borderRadius: 14, padding: 20, border: "1.5px solid var(--bo)", textAlign: "center" }}>
           <div style={{ fontFamily: "var(--serif)", fontSize: 48, fontWeight: 900, color: "var(--r)", lineHeight: 1 }}>{count}</div>
-          <p style={{ fontSize: 14, color: "var(--mt)", marginTop: 6 }}>ami{count !== 1 ? "s" : ""} parrainsé{count !== 1 ? "s" : ""}</p>
+          <p style={{ fontSize: 14, color: "var(--mt)", marginTop: 6 }}>ami{count !== 1 ? "s" : ""} parrainé{count !== 1 ? "s" : ""}</p>
           {count > 0 && <p style={{ fontSize: 12, color: "var(--r)", fontWeight: 700, marginTop: 8 }}>{count} mois offert{count !== 1 ? "s" : ""} sur ton abonnement</p>}
         </div>
       </div>
@@ -285,111 +341,353 @@ function ParrainageView({ customerId, onBack }) {
   );
 }
 
-// ── ÉCRAN MES SÉRIES ─────────────────────────────────────────────
+// ── ÉCRAN MES SÉRIES ─────────────────────────────────────────
 function MesSeriesView({ onLoad, onBack, customerId }) {
-  const [series, setSeries] = useState(() => loadSaved());
-  const [cloudSeries, setCloudSeries] = useState([]);
+  const [local, setLocal] = useState(() => loadSaved());
+  const [cloud, setCloud] = useState([]);
   const [loadingCloud, setLoadingCloud] = useState(true);
-  const [tab, setTab] = useState("local");
+  const [confirmDelete, setConfirmDelete] = useState(null); // { id, source }
+  const [renaming, setRenaming] = useState(null); // { id, source, value }
+  const renameRef = useRef(null);
 
   useEffect(() => {
-    cloudList(customerId).then(list => {
-      setCloudSeries(list);
-      setLoadingCloud(false);
-    });
+    cloudList(customerId).then(list => { setCloud(list); setLoadingCloud(false); });
   }, [customerId]);
 
-  const handleDeleteLocal = (id) => {
-    deleteSerie(id);
-    setSeries(loadSaved());
+  useEffect(() => {
+    if (renaming) setTimeout(() => renameRef.current?.focus(), 50);
+  }, [renaming]);
+
+  // Liste unifiée : cloud en priorité, local dédupliqué par titre
+  const cloudTitres = new Set(cloud.map(s => s.titre || s.bible?.titre));
+  const localOnly = local.filter(s => !cloudTitres.has(s.bible?.titre || s.titre));
+  const merged = [
+    ...cloud.map(s => ({ ...s, _source: "cloud" })),
+    ...localOnly.map(s => ({ ...s, _source: "local" })),
+  ].sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt));
+
+  const doLoad = async (entry) => {
+    if (entry._source === "cloud") {
+      const full = await cloudLoad(entry.id, customerId);
+      if (full) onLoad(full);
+    } else {
+      onLoad(entry);
+    }
   };
 
-  const handleDeleteCloud = async (id) => {
-    await cloudDelete(id, customerId);
-    setCloudSeries(prev => prev.filter(s => String(s.id) !== String(id)));
+  const doDelete = async () => {
+    const { id, source } = confirmDelete;
+    if (source === "cloud") {
+      await cloudDelete(id, customerId);
+      setCloud(prev => prev.filter(s => String(s.id) !== String(id)));
+    } else {
+      deleteSerie(id);
+      setLocal(loadSaved());
+    }
+    setConfirmDelete(null);
   };
 
-  const handleLoadCloud = async (entry) => {
-    const full = await cloudLoad(entry.id, customerId);
-    if (full) onLoad(full);
+  const doRename = async () => {
+    const { id, source, value } = renaming;
+    if (!value.trim()) { setRenaming(null); return; }
+    if (source === "cloud") {
+      await cloudRename(id, value.trim(), customerId);
+      setCloud(prev => prev.map(s => String(s.id) === String(id) ? { ...s, titre: value.trim() } : s));
+    } else {
+      renameSerieLocal(id, value.trim());
+      setLocal(loadSaved());
+    }
+    setRenaming(null);
   };
 
-  const displayList = tab === "local" ? series : cloudSeries;
-  const isCloud = tab === "cloud";
-  const cloudAvailable = !loadingCloud;
+  const total = loadingCloud ? local.length : merged.length;
 
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ background: "var(--tx)", padding: "28px 20px 24px" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", color: "#3a5040", fontSize: 14, cursor: "pointer", padding: 0, marginBottom: 14 }}>← Retour</button>
-        <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>Mes Séries</h1>
-        <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
-          {["local", "cloud"].map(t => (
-            <button key={t} onClick={() => setTab(t)}
-              style={{ padding: "7px 14px", borderRadius: 20, border: "none", fontFamily: "var(--sans)", fontSize: 12, fontWeight: 700, cursor: "pointer", background: tab === t ? "var(--r)" : "#1a2a1e", color: tab === t ? "#fff" : "#3a5040" }}>
-              {t === "local" ? `💾 Local (${series.length})` : loadingCloud ? "☁️ Cloud…" : `☁️ Cloud (${cloudSeries.length})`}
-            </button>
-          ))}
-        </div>
+        <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>
+          Mes Séries {!loadingCloud && <span style={{ fontSize: 16, fontWeight: 400, color: "#3a5040" }}>({total})</span>}
+        </h1>
+        <p style={{ fontSize: 12, color: "#3a5040", marginTop: 6 }}>
+          {loadingCloud ? "Chargement du cloud…" : `${cloud.length} cloud · ${localOnly.length} local`}
+        </p>
       </div>
+
       <div style={{ padding: "20px", maxWidth: 520, margin: "0 auto" }}>
-        {isCloud && loadingCloud ? (
+        {loadingCloud && local.length === 0 ? (
           <div style={{ textAlign: "center", padding: "60px 0", color: "var(--mt)" }}>
             <p style={{ fontSize: 28, marginBottom: 12, animation: "pulse 1.2s infinite" }}>☁️</p>
-            <p>Chargement du cloud…</p>
+            <p>Chargement…</p>
           </div>
-        ) : isCloud && cloudSeries.length === 0 && !loadingCloud ? (
-          <div style={{ textAlign: "center", padding: "60px 0", color: "var(--mt)" }}>
-            <p style={{ fontSize: 32, marginBottom: 12 }}>☁️</p>
-            <p style={{ fontSize: 15 }}>Aucune série dans le cloud</p>
-            <p style={{ fontSize: 13, marginTop: 6 }}>Vos séries se sauvegardent automatiquement</p>
-          </div>
-        ) : displayList.length === 0 ? (
+        ) : merged.length === 0 ? (
           <div style={{ textAlign: "center", padding: "60px 0", color: "var(--mt)" }}>
             <p style={{ fontSize: 32, marginBottom: 12 }}>📂</p>
-            <p style={{ fontSize: 15 }}>Aucune série sauvegardée</p>
-            <p style={{ fontSize: 13, marginTop: 6 }}>Générez votre première série !</p>
+            <p style={{ fontSize: 15, fontWeight: 600 }}>Aucune série sauvegardée</p>
+            <p style={{ fontSize: 13, marginTop: 6 }}>Génère ta première série !</p>
           </div>
-        ) : displayList.map(s => (
-          <div key={s.id} style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 12, border: "1.5px solid var(--bo)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <h3 style={{ fontFamily: "var(--serif)", fontSize: 18, fontWeight: 800, marginBottom: 4 }}>{s.bible?.titre || s.titre}</h3>
-                <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5, marginBottom: 6 }}>{s.bible?.logline || s.logline}</p>
-                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                  <span style={{ fontSize: 11, background: (s.state?.mode || s.mode) === "fast" ? "#fff0ec" : "#e8edf2", color: (s.state?.mode || s.mode) === "fast" ? "var(--r)" : "var(--n)", padding: "2px 8px", borderRadius: 4, fontWeight: 700 }}>
-                    {(s.state?.mode || s.mode) === "fast" ? "⚡ Fast" : "🎭 Premium"}
-                  </span>
-                  <span style={{ fontSize: 11, background: "var(--bo)", padding: "2px 8px", borderRadius: 4, color: "var(--mt)" }}>
-                    {s.episodes?.length || s.episodesCount || "?"} ép.
-                  </span>
-                  <span style={{ fontSize: 11, color: "var(--mt)" }}>
-                    {new Date(s.savedAt).toLocaleDateString("fr-FR")}
-                  </span>
+        ) : merged.map(s => {
+          const id = s.id;
+          const source = s._source;
+          const titre = s.bible?.titre || s.titre || "Sans titre";
+          const logline = s.bible?.logline || s.logline || "";
+          const mode = s.state?.mode || s.mode;
+          const epCount = s.episodes?.length || s.episodesCount || "?";
+          const isRenaming = renaming?.id === id && renaming?.source === source;
+          const isConfirming = confirmDelete?.id === id && confirmDelete?.source === source;
+
+          return (
+            <div key={`${source}-${id}`} style={{ background: "var(--card)", borderRadius: 16, padding: 16, marginBottom: 12, border: `1.5px solid ${isConfirming ? "var(--r)" : "var(--bo)"}`, transition: "border-color .2s" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  {isRenaming ? (
+                    <input
+                      ref={renameRef}
+                      value={renaming.value}
+                      onChange={e => setRenaming(r => ({ ...r, value: e.target.value }))}
+                      onKeyDown={e => { if (e.key === "Enter") doRename(); if (e.key === "Escape") setRenaming(null); }}
+                      onBlur={doRename}
+                      style={{ fontFamily: "var(--serif)", fontSize: 17, fontWeight: 800, width: "100%", border: "none", borderBottom: "2px solid var(--r)", background: "transparent", color: "var(--tx)", outline: "none", padding: "2px 0", marginBottom: 6 }}
+                    />
+                  ) : (
+                    <h3
+                      onClick={() => setRenaming({ id, source, value: titre })}
+                      title="Appuyer pour renommer"
+                      style={{ fontFamily: "var(--serif)", fontSize: 17, fontWeight: 800, marginBottom: 6, cursor: "text", lineHeight: 1.3 }}>
+                      {titre}
+                    </h3>
+                  )}
+                  <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5, marginBottom: 8, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{logline}</p>
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+                    <span style={{ fontSize: 11, background: mode === "fast" ? "#fff0ec" : "#e8edf2", color: mode === "fast" ? "var(--r)" : "var(--n)", padding: "2px 8px", borderRadius: 4, fontWeight: 700 }}>
+                      {mode === "fast" ? "⚡ Fast" : "🎭 Premium"}
+                    </span>
+                    <span style={{ fontSize: 11, background: "var(--bo)", padding: "2px 8px", borderRadius: 4, color: "var(--mt)" }}>{epCount} ép.</span>
+                    <span style={{ fontSize: 11, color: "var(--mt)" }}>{new Date(s.savedAt).toLocaleDateString("fr-FR")}</span>
+                    <span style={{ fontSize: 11, color: source === "cloud" ? "#4ade80" : "var(--mt)", marginLeft: "auto" }}>{source === "cloud" ? "☁️" : "💾"}</span>
+                  </div>
                 </div>
               </div>
+
+              {isConfirming ? (
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <p style={{ fontSize: 13, color: "var(--r)", flex: 1, fontWeight: 600 }}>Supprimer définitivement ?</p>
+                  <button onClick={doDelete} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "10px 16px", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>Oui</button>
+                  <button onClick={() => setConfirmDelete(null)} style={{ background: "var(--card)", border: "1.5px solid var(--bo)", color: "var(--tx)", padding: "10px 14px", borderRadius: 10, fontSize: 13, cursor: "pointer", fontFamily: "var(--sans)" }}>Non</button>
+                </div>
+              ) : (
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button onClick={() => doLoad(s)} style={{ flex: 1, background: "var(--r)", color: "#fff", border: "none", padding: "11px 0", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
+                    Ouvrir →
+                  </button>
+                  <button onClick={() => setRenaming({ id, source, value: titre })} style={{ background: "var(--card)", border: "1.5px solid var(--bo)", color: "var(--mt)", padding: "11px 14px", borderRadius: 10, fontSize: 13, cursor: "pointer", fontFamily: "var(--sans)" }} title="Renommer">
+                    ✏️
+                  </button>
+                  <button onClick={() => setConfirmDelete({ id, source })} style={{ background: "var(--card)", border: "1.5px solid var(--bo)", color: "var(--mt)", padding: "11px 14px", borderRadius: 10, fontSize: 13, cursor: "pointer", fontFamily: "var(--sans)" }} title="Supprimer">
+                    🗑
+                  </button>
+                </div>
+              )}
             </div>
-            <div style={{ display: "flex", gap: 8 }}>
-              <button onClick={() => isCloud ? handleLoadCloud(s) : onLoad(s)}
-                style={{ flex: 1, background: "var(--r)", color: "#fff", border: "none", padding: "10px 0", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
-                Ouvrir →
-              </button>
-              <button onClick={() => isCloud ? handleDeleteCloud(s.id) : handleDeleteLocal(s.id)}
-                style={{ background: "none", border: "1.5px solid var(--bo)", color: "var(--mt)", padding: "10px 14px", borderRadius: 10, fontSize: 13, cursor: "pointer", fontFamily: "var(--sans)" }}>
-                🗑
-              </button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
 }
 
 // ── SCREENS ──────────────────────────────────────────────────
+
+// ── AFFICHE ──────────────────────────────────────────────────
+function drawPoster(canvas, bible, episodes, mode) {
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width, H = canvas.height;
+  const PAD = 52, RED = "#E85C3A", DARK = "#0F1A12", WHITE = "#fff", GRAY = "#6a7a6e", LGRAY = "#9aaa9e";
+
+  // Fond
+  ctx.fillStyle = DARK;
+  ctx.fillRect(0, 0, W, H);
+
+  // Grain de texture subtil
+  for (let i = 0; i < 8000; i++) {
+    ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.018})`;
+    ctx.fillRect(Math.random() * W, Math.random() * H, 1, 1);
+  }
+
+  // Barre rouge top
+  ctx.fillStyle = RED;
+  ctx.fillRect(0, 0, W, 7);
+
+  // Gradient bas
+  const grad = ctx.createLinearGradient(0, H * 0.6, 0, H);
+  grad.addColorStop(0, "rgba(15,26,18,0)");
+  grad.addColorStop(1, "rgba(5,8,6,0.95)");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, H * 0.6, W, H * 0.4);
+
+  const wrap = (text, x, y, maxW, lineH, font, color, align = "left") => {
+    ctx.font = font;
+    ctx.fillStyle = color;
+    ctx.textAlign = align;
+    const xPos = align === "center" ? W / 2 : x;
+    const words = String(text || "").split(" ");
+    let line = "", lines = [];
+    for (const w of words) {
+      const test = line + w + " ";
+      if (ctx.measureText(test).width > maxW && line) { lines.push(line.trim()); line = w + " "; }
+      else line = test;
+    }
+    lines.push(line.trim());
+    lines.forEach((l, i) => ctx.fillText(l, xPos, y + i * lineH));
+    return lines.length * lineH;
+  };
+
+  let y = 56;
+
+  // Logo
+  ctx.font = "600 11px sans-serif";
+  ctx.fillStyle = GRAY;
+  ctx.textAlign = "left";
+  ctx.fillText("STUDIO  VERTICAL", PAD, y);
+
+  // Épisodes badge
+  ctx.font = "700 11px sans-serif";
+  ctx.fillStyle = GRAY;
+  ctx.textAlign = "right";
+  ctx.fillText(`${episodes.length} ÉP.`, W - PAD, y);
+  ctx.textAlign = "left";
+
+  y += 50;
+
+  // Mode badge
+  const modeLabel = mode === "fast" ? "⚡ FAST DRAMA" : "🎭 PREMIUM SUSPENSE";
+  const badgeW = ctx.measureText(modeLabel).width + 32;
+  ctx.fillStyle = mode === "fast" ? "#2a1a14" : "#1a2030";
+  roundRect(ctx, PAD, y - 16, badgeW, 28, 6);
+  ctx.fill();
+  ctx.font = "700 11px sans-serif";
+  ctx.fillStyle = mode === "fast" ? RED : "#7090c0";
+  ctx.fillText(modeLabel, PAD + 16, y + 4);
+
+  y += 52;
+
+  // Titre
+  const titleSize = bible.titre.length > 16 ? 68 : 80;
+  y += wrap(bible.titre.toUpperCase(), PAD, y, W - PAD * 2, titleSize * 1.1, `900 ${titleSize}px Georgia, serif`, WHITE);
+  y += 10;
+
+  // Ligne rouge
+  ctx.fillStyle = RED;
+  ctx.fillRect(PAD, y, 60, 4);
+  y += 28;
+
+  // Logline
+  y += wrap(`« ${bible.logline} »`, PAD, y, W - PAD * 2, 30, "italic 19px Georgia, serif", LGRAY);
+  y += 32;
+
+  // Séparateur
+  ctx.fillStyle = "#1e2e22";
+  ctx.fillRect(PAD, y, W - PAD * 2, 1);
+  y += 28;
+
+  // Personnages
+  ctx.font = "700 10px sans-serif";
+  ctx.fillStyle = RED;
+  ctx.fillText("PERSONNAGES", PAD, y);
+  y += 22;
+
+  for (const p of (bible.personnages || []).slice(0, 3)) {
+    ctx.font = "700 16px Georgia, serif";
+    ctx.fillStyle = WHITE;
+    ctx.fillText(p.nom, PAD, y);
+    ctx.font = "400 13px sans-serif";
+    ctx.fillStyle = GRAY;
+    ctx.fillText(`  ${p.role} · ${p.age} ans`, PAD + ctx.measureText(p.nom).width + 4, y);
+    y += 26;
+  }
+  y += 16;
+
+  // Séparateur
+  ctx.fillStyle = "#1e2e22";
+  ctx.fillRect(PAD, y, W - PAD * 2, 1);
+  y += 28;
+
+  // Tension centrale
+  ctx.font = "700 10px sans-serif";
+  ctx.fillStyle = RED;
+  ctx.fillText("QUESTION CENTRALE", PAD, y);
+  y += 22;
+  y += wrap(bible.tension_centrale || "", PAD, y, W - PAD * 2, 26, "italic 17px Georgia, serif", LGRAY);
+  y += 28;
+
+  // Accroche TikTok (grande, en bas)
+  const aY = H - 100;
+  ctx.fillStyle = "#1e2e22";
+  ctx.fillRect(PAD, aY - 20, W - PAD * 2, 1);
+  ctx.font = "700 10px sans-serif";
+  ctx.fillStyle = RED;
+  ctx.textAlign = "left";
+  ctx.fillText("ACCROCHE TIKTOK", PAD, aY);
+  wrap(bible.accroche || "", PAD, aY + 22, W - PAD * 2, 30, "italic bold 20px Georgia, serif", WHITE);
+
+  // Bas: studiovertical.app
+  ctx.font = "400 11px sans-serif";
+  ctx.fillStyle = "#2a3a2e";
+  ctx.textAlign = "center";
+  ctx.fillText("studiovertical.app", W / 2, H - 22);
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.arcTo(x + w, y, x + w, y + r, r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+  ctx.lineTo(x + r, y + h);
+  ctx.arcTo(x, y + h, x, y + h - r, r);
+  ctx.lineTo(x, y + r);
+  ctx.arcTo(x, y, x + r, y, r);
+  ctx.closePath();
+}
+
+function AfficheView({ bible, episodes, mode, onBack }) {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    if (canvasRef.current) drawPoster(canvasRef.current, bible, episodes, mode);
+  }, [bible, episodes, mode]);
+
+  const download = () => {
+    canvasRef.current.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${bible.titre.replace(/\s+/g, "_")}_affiche.png`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  };
+
+  return (
+    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch", background: "#080e09" }}>
+      <div style={{ padding: "16px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <button onClick={onBack} style={{ background: "none", border: "none", color: "#6a7a6e", fontSize: 14, cursor: "pointer", padding: 0 }}>← Retour</button>
+        <button onClick={download} style={{ background: "#E85C3A", color: "#fff", border: "none", padding: "10px 20px", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
+          ↓ Télécharger l'affiche
+        </button>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", padding: "0 20px 48px" }}>
+        <canvas ref={canvasRef} width={630} height={1120} style={{ maxWidth: "100%", borderRadius: 16, boxShadow: "0 24px 64px rgba(0,0,0,.8)" }} />
+      </div>
+    </div>
+  );
+}
+
+
 const CUSTOM_PREFIX = "__custom__";
 
-function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboarding, onParrainage, darkMode, onDarkMode, onLogout, onUpgrade }) {
+function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboarding, onParrainage, darkMode, onDarkMode, onLogout, onUpgrade, stats, lastSerie, onResume }) {
   const univOpts = state.mode === "fast" ? OPTS.univers_fast : OPTS.univers_prem;
   const secOpts = state.mode === "fast" ? OPTS.secret_fast : OPTS.secret_prem;
   const totalMin = Math.round(state.format * state.duree / 60);
@@ -426,7 +724,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
           {[{ k: "fast", l: "⚡ Fast Drama" }, { k: "premium", l: "🎭 Premium Suspense" }].map(({ k, l }) => {
             const locked = k === "premium" && plan === "standard";
             return (
-              <button key={k} onClick={() => { if (!locked) set(prev => ({ mode: k, univers: k === "fast" ? OPTS.univers_fast[0] : OPTS.univers_prem[0], secret: k === "fast" ? OPTS.secret_fast[0] : OPTS.secret_prem[0], format: k === "fast" && prev.format > 10 ? 10 : prev.format })); }}
+              <button key={k} onClick={() => { if (!locked) set(prev => ({ mode: k, univers: k === "fast" ? OPTS.univers_fast[0] : OPTS.univers_prem[0], secret: k === "fast" ? OPTS.secret_fast[0] : OPTS.secret_prem[0], lieu: k === "fast" ? OPTS.lieu_fast[0] : OPTS.lieu_prem[0], format: k === "fast" && prev.format > 10 ? 10 : prev.format })); }}
                 style={{ flex: 1, padding: "10px 12px", borderRadius: 9, border: "none", fontFamily: "var(--sans)", fontSize: 13, fontWeight: 700, background: state.mode === k ? (k === "fast" ? "var(--r)" : "var(--n)") : "transparent", color: locked ? "#3a5040" : state.mode === k ? "#fff" : "#3a5040", transition: "all .2s", cursor: locked ? "not-allowed" : "pointer", opacity: locked ? 0.5 : 1 }}>
                 {l}{locked && " 🔒"}
               </button>
@@ -470,6 +768,9 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
           { label: "Casting", opts: OPTS.casting, key: "casting" },
           { label: "Univers", opts: univOpts, key: "univers" },
           { label: "Secret central", opts: secOpts, key: "secret" },
+          { label: "Genre", opts: OPTS.genre, key: "genre" },
+          { label: "Lieu unique", opts: state.mode === "fast" ? OPTS.lieu_fast : OPTS.lieu_prem, key: "lieu" },
+          { label: "Ambiance narrative", opts: OPTS.ambiance, key: "ambiance" },
         ].map(({ label, opts, key }) => (
           <div key={key} style={{ marginBottom: 22 }}>
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{label}</p>
@@ -502,14 +803,15 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
         <div style={{ marginBottom: 28 }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>
             Nombre d'épisodes
-            {state.mode === "fast" && <span style={{ marginLeft: 8, fontSize: 10, color: "var(--r)", fontWeight: 700 }}>max 10 en Fast</span>}
+            {state.mode === "fast" && <span style={{ marginLeft: 8, fontSize: 10, color: "var(--r)", fontWeight: 700 }}>max 10 · 90 ép. en Premium</span>}
           </p>
           <div style={{ display: "flex", gap: 8 }}>
-            {[10, 20, 40].map(f => {
+            {[10, 20, 40, 90].map(f => {
               const locked = state.mode === "fast" && f > 10;
+              const premLocked = f === 90 && state.mode === "fast";
               return (
                 <div key={f} style={{ flex: 1, position: "relative" }}>
-                  <Chip label={`${f} ép.`} sub={locked ? "🎭 Premium" : `${Math.round(f * state.duree / 60)} min`} block active={state.format === f && !locked} onClick={() => { if (!locked) set({ format: f }); }} />
+                  <Chip label={`${f} ép.`} sub={locked ? "⚡ Fast" : f === 90 ? "🎭 Pro" : `${Math.round(f * state.duree / 60)} min`} block active={state.format === f && !locked} onClick={() => { if (!locked) set({ format: f }); }} />
                   {locked && <div style={{ position: "absolute", inset: 0, borderRadius: 14, background: "rgba(var(--bg-rgb,242,237,230),0.6)", cursor: "not-allowed" }} />}
                 </div>
               );
@@ -523,6 +825,16 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
         <p style={{ fontSize: 12, color: "var(--mt)", textAlign: "center", marginTop: 12 }}>
           {state.format} épisodes · {DUR_LABEL[state.duree]} · {totalMin} min de contenu
         </p>
+        {lastSerie && (
+          <button onClick={onResume} style={{ background: "var(--card)", border: "1.5px solid var(--r)", color: "var(--r)", padding: 14, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", marginTop: 10, fontFamily: "var(--sans)" }}>
+            ▶ Reprendre — {lastSerie.bible?.titre}
+          </button>
+        )}
+        {stats?.series > 0 && (
+          <p style={{ fontSize: 11, color: "var(--mt)", textAlign: "center", marginTop: 10 }}>
+            🎬 {stats.series} série{stats.series > 1 ? "s" : ""} · {stats.scripts} script{stats.scripts > 1 ? "s" : ""} · {stats.minutes} min générés
+          </p>
+        )}
         {hasSeries && (
           <button onClick={onMesSeries} style={{ background: "none", border: "1.5px solid var(--bo)", color: "var(--tx)", padding: 14, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", marginTop: 10, fontFamily: "var(--sans)" }}>
             📂 Mes séries sauvegardées
@@ -540,10 +852,68 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
   );
 }
 
-function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan }) {
+function BibleView({ bible, episodes, mode, duree, onEp, onBack, onAffiche, customerId, plan }) {
   const [tab, setTab] = useState("bible");
   const [titres, setTitres] = useState(null);
   const [loadingTitres, setLoadingTitres] = useState(false);
+  const [prod, setProd] = useState(null);
+  const [loadingProd, setLoadingProd] = useState(false);
+  const [checked, setChecked] = useState({});
+  const toggle = (key) => setChecked(p => ({ ...p, [key]: !p[key] }));
+
+  const exportSerie = () => {
+    const lines = [];
+    const sep = (c = "─", n = 50) => lines.push(c.repeat(n));
+    lines.push("VERTICAL STUDIO — Export série");
+    lines.push(`Généré le ${new Date().toLocaleDateString("fr-FR")}`);
+    sep("═");
+    lines.push("");
+    lines.push(`TITRE : ${bible.titre}`);
+    lines.push(`MODE  : ${mode === "fast" ? "Fast Drama" : "Premium Suspense"} · ${DUR_LABEL[duree]}/épisode`);
+    lines.push(`FORMAT: ${episodes.length} épisodes`);
+    lines.push("");
+    lines.push(`LOGLINE`);
+    lines.push(`« ${bible.logline} »`);
+    lines.push("");
+    lines.push(`PITCH`);
+    lines.push(bible.pitch || "");
+    lines.push("");
+    lines.push(`QUESTION CENTRALE`);
+    lines.push(`« ${bible.tension_centrale} »`);
+    lines.push("");
+    lines.push(`ACCROCHE TIKTOK`);
+    lines.push(bible.accroche || "");
+    sep();
+    lines.push("");
+    lines.push("PERSONNAGES");
+    lines.push("");
+    (bible.personnages || []).forEach(p => {
+      lines.push(`${p.nom.toUpperCase()} · ${p.role} · ${p.age} ans`);
+      lines.push(`Secret : ${p.secret}`);
+      if (p.arc) lines.push(`Arc    : ${p.arc}`);
+      lines.push("");
+    });
+    sep();
+    lines.push("");
+    lines.push(`SÉQUENCIER — ${episodes.length} ÉPISODES`);
+    lines.push("");
+    episodes.forEach(ep => {
+      lines.push(`ÉP. ${ep.numero} — ${ep.titre}`);
+      if (ep.tension) lines.push(`Tension     : ${ep.tension}`);
+      if (ep.cliffhanger) lines.push(`Cliffhanger : ${ep.cliffhanger}`);
+      lines.push("");
+    });
+    sep("═");
+    lines.push("studiovertical.app");
+
+    const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${bible.titre.replace(/\s+/g, "_")}_serie.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const genTitres = async () => {
     setTab("titres");
@@ -558,6 +928,20 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
     setLoadingTitres(false);
   };
 
+  const genProd = async () => {
+    setTab("prod");
+    if (prod) return;
+    setLoadingProd(true);
+    try {
+      const r = await gen("production", { titre: bible.titre, logline: bible.logline, personnages: bible.personnages, mode }, customerId);
+      setProd(r);
+    } catch (e) {
+      console.error(e);
+      setProd({});
+    }
+    setLoadingProd(false);
+  };
+
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
@@ -570,15 +954,34 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
             ⏱ {DUR_LABEL[duree]}/ép.
           </span>
         </div>
-        <h1 style={{ fontFamily: "var(--serif)", fontSize: 28, fontWeight: 900, letterSpacing: -1, lineHeight: 1.1, marginBottom: 10 }}>{bible.titre}</h1>
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10, marginBottom: 10 }}>
+          <h1 style={{ fontFamily: "var(--serif)", fontSize: 28, fontWeight: 900, letterSpacing: -1, lineHeight: 1.1, flex: 1, margin: 0 }}>{bible.titre}</h1>
+          <button onClick={() => {
+            const txt = `🎬 ${bible.titre}\n« ${bible.logline} »\n\nGénéré avec Vertical Studio — studiovertical.app`;
+            if (navigator.share) { navigator.share({ title: bible.titre, text: txt }).catch(() => {}); }
+            else { navigator.clipboard?.writeText(txt).then(() => alert("Copié !")); }
+          }} style={{ background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 10, padding: "8px 12px", fontSize: 13, cursor: "pointer", flexShrink: 0, fontFamily: "var(--sans)" }} title="Partager">
+            🔗 Partager
+          </button>
+        </div>
         <p style={{ fontFamily: "var(--serif)", fontSize: 15, fontStyle: "italic", color: "var(--mt)", lineHeight: 1.5, marginBottom: 12 }}>« {bible.logline} »</p>
         <p style={{ fontSize: 14, lineHeight: 1.7, marginBottom: 16 }}>{bible.pitch}</p>
         <div style={{ display: "flex", borderBottom: "2px solid var(--bo)", marginBottom: 0 }}>
-          {[{ k: "bible", l: "Bible" }, { k: "seq", l: `${episodes.length} ép.` }, { k: "titres", l: plan === "standard" ? "🔒 Titres" : "🔥 Titres" }].map(({ k, l }) => {
+          {[
+            { k: "bible", l: "Bible" },
+            { k: "seq", l: `${episodes.length} ép.` },
+            { k: "titres", l: plan === "standard" ? "🔒 Titres" : "🔥 Titres" },
+            { k: "prod", l: "🎬 Prod" },
+          ].map(({ k, l }) => {
             const locked = k === "titres" && plan === "standard";
+            const onClick = locked
+              ? () => alert("Les titres viraux sont réservés au plan Premium.")
+              : k === "titres" ? (titres ? () => setTab("titres") : genTitres)
+              : k === "prod" ? genProd
+              : () => setTab(k);
             return (
-              <button key={k} onClick={() => locked ? alert("Les titres viraux sont réservés au plan Premium.") : k === "titres" ? (titres ? setTab("titres") : genTitres()) : setTab(k)}
-                style={{ flex: 1, padding: "12px 0", border: "none", background: "none", cursor: locked ? "not-allowed" : "pointer", fontSize: 13, fontWeight: 700, color: locked ? "var(--bo)" : tab === k ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${tab === k && !locked ? "var(--r)" : "transparent"}`, marginBottom: -2, fontFamily: "var(--sans)" }}>{l}
+              <button key={k} onClick={onClick}
+                style={{ flex: 1, padding: "12px 0", border: "none", background: "none", cursor: locked ? "not-allowed" : "pointer", fontSize: 12, fontWeight: 700, color: locked ? "var(--bo)" : tab === k ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${tab === k && !locked ? "var(--r)" : "transparent"}`, marginBottom: -2, fontFamily: "var(--sans)" }}>{l}
               </button>
             );
           })}
@@ -601,8 +1004,14 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>Question centrale</p>
               <p style={{ fontFamily: "var(--serif)", fontSize: 15, fontStyle: "italic", color: "#fff", lineHeight: 1.5 }}>« {bible.tension_centrale} »</p>
             </div>
-            <button onClick={() => setTab("seq")} style={{ background: "var(--r)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 700, cursor: "pointer" }}>
+            <button onClick={() => setTab("seq")} style={{ background: "var(--r)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 700, cursor: "pointer", marginBottom: 10 }}>
               Voir les {episodes.length} épisodes →
+            </button>
+            <button onClick={exportSerie} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)", marginBottom: 10 }}>
+              ↓ Télécharger la série (.txt)
+            </button>
+            <button onClick={onAffiche} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)" }}>
+              🎬 Générer l'affiche
             </button>
           </>
         ) : tab === "titres" ? (
@@ -625,6 +1034,86 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               </div>
             ))}
           </>
+        ) : tab === "prod" ? (
+          loadingProd ? (
+            <div style={{ textAlign: "center", padding: "40px 0", color: "var(--mt)" }}>
+              <div style={{ fontSize: 28, marginBottom: 12, animation: "pulse 1.2s infinite" }}>🎬</div>
+              <p>Préparation de la fiche technique…</p>
+            </div>
+          ) : prod ? (
+            <>
+              {/* Checklist plateau */}
+              <div style={{ background: "var(--tx)", borderRadius: 12, padding: "12px 16px", marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", margin: 0 }}>✅ Checklist plateau</p>
+                <p style={{ fontSize: 11, color: "#3a5040", margin: 0 }}>{Object.values(checked).filter(Boolean).length}/{(prod.decors||[]).length + (prod.costumes||[]).length + (prod.lieux||[]).length} préparés</p>
+              </div>
+
+              {/* Décors */}
+              {(prod.decors || []).length > 0 && (
+                <>
+                  <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>🏗 Décors</p>
+                  {(prod.decors || []).map((d, i) => {
+                    const k = `d${i}`;
+                    return (
+                      <div key={i} onClick={() => toggle(k)} style={{ background: "var(--card)", borderRadius: 12, padding: 14, borderLeft: `4px solid ${checked[k] ? "#4ade80" : "var(--n)"}`, marginBottom: 10, cursor: "pointer", opacity: checked[k] ? 0.6 : 1, transition: "all .15s" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
+                          <span style={{ fontSize: 16 }}>{checked[k] ? "✅" : "⬜"}</span>
+                          <p style={{ fontSize: 14, fontWeight: 700, margin: 0 }}>{d.nom}</p>
+                        </div>
+                        <p style={{ fontSize: 13, color: "var(--mt)", lineHeight: 1.5, marginBottom: 4, marginLeft: 26 }}>{d.description}</p>
+                        {d.ambiance && <p style={{ fontSize: 12, fontStyle: "italic", color: "var(--r)", marginLeft: 26 }}>Ambiance : {d.ambiance}</p>}
+                        {d.conseil_tournage && <p style={{ fontSize: 12, color: "var(--mt)", marginTop: 4, marginLeft: 26 }}>💡 {d.conseil_tournage}</p>}
+                      </div>
+                    );
+                  })}
+                </>
+              )}
+
+              {/* Costumes */}
+              {(prod.costumes || []).length > 0 && (
+                <>
+                  <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", margin: "20px 0 10px" }}>👗 Costumes</p>
+                  {(prod.costumes || []).map((c, i) => {
+                    const k = `c${i}`;
+                    return (
+                      <div key={i} onClick={() => toggle(k)} style={{ background: "var(--card)", borderRadius: 12, padding: 14, borderLeft: `4px solid ${checked[k] ? "#4ade80" : i === 0 ? "var(--r)" : "var(--n)"}`, marginBottom: 10, cursor: "pointer", opacity: checked[k] ? 0.6 : 1, transition: "all .15s" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+                          <span style={{ fontSize: 16 }}>{checked[k] ? "✅" : "⬜"}</span>
+                          <p style={{ fontSize: 14, fontWeight: 700, margin: 0 }}>{c.personnage}</p>
+                          {c.couleurs && <span style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic" }}>{c.couleurs}</span>}
+                        </div>
+                        <p style={{ fontSize: 13, color: "var(--mt)", lineHeight: 1.5, marginBottom: c.symbolique ? 4 : 0, marginLeft: 26 }}>{c.look}</p>
+                        {c.symbolique && <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic", marginLeft: 26 }}>🎭 {c.symbolique}</p>}
+                      </div>
+                    );
+                  })}
+                </>
+              )}
+
+              {/* Lieux */}
+              {(prod.lieux || []).length > 0 && (
+                <>
+                  <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", margin: "20px 0 10px" }}>📍 Lieux de tournage</p>
+                  {(prod.lieux || []).map((l, i) => {
+                    const k = `l${i}`;
+                    return (
+                      <div key={i} onClick={() => toggle(k)} style={{ background: "var(--card)", borderRadius: 12, padding: 14, marginBottom: 10, border: `1.5px solid ${checked[k] ? "#4ade80" : "var(--bo)"}`, cursor: "pointer", opacity: checked[k] ? 0.6 : 1, transition: "all .15s" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+                          <span style={{ fontSize: 16 }}>{checked[k] ? "✅" : "⬜"}</span>
+                          <p style={{ fontSize: 13, fontWeight: 700, color: "var(--r)", margin: 0 }}>{l.type}</p>
+                        </div>
+                        {(l.exemples || []).map((e, j) => (
+                          <p key={j} style={{ fontSize: 13, color: "var(--mt)", lineHeight: 1.4, marginBottom: 2, marginLeft: 26 }}>· {e}</p>
+                        ))}
+                        {l.lumiere && <p style={{ fontSize: 12, marginTop: 6, color: "var(--tx)", marginLeft: 26 }}>☀️ Lumière : {l.lumiere}</p>}
+                        {l.heure_ideale && <p style={{ fontSize: 12, color: "var(--mt)", marginLeft: 26 }}>🕐 Idéal : {l.heure_ideale}</p>}
+                      </div>
+                    );
+                  })}
+                </>
+              )}
+            </>
+          ) : null
         ) : (
           (episodes || []).map((ep, i) => (
             <div key={i} onClick={() => onEp(i)} style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 16px", borderRadius: 14, background: "var(--card)", cursor: "pointer", border: "1.5px solid transparent", marginBottom: 8, transition: "all .15s" }}
@@ -739,9 +1228,14 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
                 <span style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "6px 12px", fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: 1, textTransform: "uppercase" }}>{displayScript.cliffhanger_scene.label}</span>
               )}
             </div>
-            <div className="edit-row" style={{ display: "flex", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
+            <div className="edit-row" style={{ display: "flex", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
               {[["pimenter", "🌶 Pimenter"], ["subtil", "🤫 Subtil"], ["simplifier", "🎬 Simple"]].map(([k, l]) => (
                 <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, minWidth: 80, padding: "12px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
+              ))}
+            </div>
+            <div className="edit-row" style={{ display: "flex", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
+              {[["rewrite_hook", "⚡ Nouveau hook"], ["rewrite_ending", "🔚 Nouvelle fin"]].map(([k, l]) => (
+                <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, minWidth: 100, padding: "12px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
               ))}
             </div>
             <button onClick={plan === "standard" ? () => alert("Les variations sont réservées au plan Premium.") : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "not-allowed" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? "🔒 Générer 4 versions" : "🎲 Générer 4 versions"}</button>
@@ -766,7 +1260,7 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
         {loading ? (
           <div style={{ textAlign: "center", padding: "60px 0" }}>
             <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>🎲</div>
-            <p style={{ color: "var(--mt)" }}>Génération de 4 versions en parallèle…</p>
+            <p style={{ color: "var(--mt)" }}>Génération de 3 versions en parallèle…</p>
           </div>
         ) : (variations || []).map((v, i) => (
           <div key={i} style={{ background: "var(--card)", borderRadius: 16, padding: 18, marginBottom: 16, border: "1.5px solid var(--bo)" }}>
@@ -911,7 +1405,7 @@ function TournageView({ script, ep, duree, onBack }) {
   );
 }
 
-// ── MAIN APP ───────────────────────────────────────────────────
+// ── MAIN APP ─────────────────────────────────────────────────
 export default function App() {
   const router = useRouter();
   const [customerId, setCustomerId] = useState(null);
@@ -921,6 +1415,8 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [savedCount, setSavedCount] = useState(0);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [stats, setStats] = useState({ series: 0, scripts: 0, minutes: 0 });
+  const [lastSerie, setLastSerie] = useState(null);
 
   // Streaming & loading
   const [loadProgress, setLoadProgress] = useState(0);
@@ -934,6 +1430,8 @@ export default function App() {
       const storedPlan = localStorage.getItem("vs_plan");
       if (storedPlan) setPlan(storedPlan);
       if (!localStorage.getItem("vs_onboarded")) setShowOnboarding(true);
+      setStats(getStats());
+      setLastSerie(loadLastOpen());
     } catch {}
   }, []);
 
@@ -947,7 +1445,13 @@ export default function App() {
     try { localStorage.setItem("vs_onboarded", "1"); } catch {}
   };
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.casting[0], univers: OPTS.univers_fast[0], secret: OPTS.secret_fast[0], format: 10, duree: 60 });
+  const launchOnboarding = (pack) => {
+    setState(s => ({ ...s, mode: pack.mode, casting: pack.casting, univers: pack.univers, secret: pack.secret }));
+    dismissOnboarding();
+    setTimeout(() => generate(pack), 50);
+  };
+
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.casting[0], univers: OPTS.univers_fast[0], secret: OPTS.secret_fast[0], genre: OPTS.genre[0], lieu: OPTS.lieu_fast[0], ambiance: OPTS.ambiance[0], format: 10, duree: 60 });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
@@ -1024,7 +1528,7 @@ export default function App() {
   };
 
   // Generation avec streaming bible
-  const generate = async () => {
+  const generate = async (overrideState) => {
     setErr(null);
     setScreen("load");
     setLoadMsg("Connexion au générateur…");
@@ -1032,11 +1536,13 @@ export default function App() {
     setRawStream("");
     setLoadProgress(0);
 
+    const activeState = overrideState ? { ...state, mode: overrideState.mode, casting: overrideState.casting, univers: overrideState.univers, secret: overrideState.secret } : state;
+
     try {
       setLoadMsg("Création de la bible…");
       let accumulated = "";
 
-      const b = await genBibleStream(cleanState(state), customerId, (chunk) => {
+      const b = await genBibleStream(cleanState(activeState), customerId, (chunk) => {
         accumulated += chunk;
         setRawStream(accumulated);
         // Extraire les champs visibles au fur et à mesure
@@ -1048,14 +1554,14 @@ export default function App() {
       setBible(b);
       setStreamBible(b);
 
-      const totalBatches = Math.ceil(state.format / 10);
+      const totalBatches = Math.ceil(activeState.format / 10);
       let completedBatches = 0;
       const batches = [];
       for (let i = 0; i < state.format; i += 10) {
-        const from = i + 1, to = Math.min(i + 10, state.format);
+        const from = i + 1, to = Math.min(i + 10, activeState.format);
         const batchNum = Math.floor(i / 10) + 1;
         batches.push(
-          gen("episodes", { titre: b.titre, logline: b.logline, mode: state.mode, from, to, total: state.format }, customerId)
+          gen("episodes", { titre: b.titre, logline: b.logline, mode: activeState.mode, from, to, total: activeState.format }, customerId)
             .then(result => {
               completedBatches++;
               setLoadProgress(Math.round((completedBatches / totalBatches) * 100));
@@ -1064,15 +1570,19 @@ export default function App() {
             })
         );
       }
-      setLoadMsg(`Génération des ${state.format} épisodes…`);
+      setLoadMsg(`Génération des ${activeState.format} épisodes…`);
       const results = await Promise.all(batches);
       const eps = results.flatMap(r => r.episodes || []);
       setEpisodes(eps);
 
-      saveSerie(b, eps, state);
+      saveSerie(b, eps, activeState);
+      saveLastOpen(b, eps, activeState);
+      incStats({ series: 1, minutes: Math.round(activeState.format * activeState.duree / 60) });
       setSavedCount(loadSaved().length);
+      setStats(getStats());
+      setLastSerie({ bible: b, episodes: eps, state: activeState });
       // Sync cloud (fire and forget)
-      cloudSave(b, eps, state, customerId);
+      cloudSave(b, eps, activeState, customerId);
 
       setScreen("bible");
     } catch (e) {
@@ -1084,6 +1594,8 @@ export default function App() {
     setBible(s.bible);
     setEpisodes(s.episodes);
     setState(prev => ({ ...prev, ...s.state }));
+    saveLastOpen(s.bible, s.episodes, s.state);
+    setLastSerie(s);
     setScript(null);
     setScreen("bible");
   };
@@ -1095,8 +1607,11 @@ export default function App() {
     setLoading(true);
     setErr(null);
     try {
-      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree }, customerId);
+      const prevEps = episodes.slice(0, idx).map(e => ({ numero: e.numero, titre: e.titre, cliffhanger: e.cliffhanger }));
+      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, prevEps }, customerId);
       setScript(s);
+      incStats({ scripts: 1 });
+      setStats(getStats());
     } catch (e) {
       console.error(e);
       setErr(e.message);
@@ -1247,7 +1762,7 @@ export default function App() {
         input, textarea, select { font-size: 16px !important; }
       `}</style>
 
-      {showOnboarding && <OnboardingModal onClose={dismissOnboarding} />}
+      {showOnboarding && <OnboardingModal onClose={dismissOnboarding} onLaunch={launchOnboarding} />}
 
       {/* Loading */}
       {screen === "load" && (
@@ -1283,10 +1798,11 @@ export default function App() {
         </div>
       )}
 
-      {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} onShowOnboarding={() => setShowOnboarding(true)} onParrainage={() => setScreen("parrainage")} darkMode={darkMode} onDarkMode={() => setDarkMode(d => !d)} onLogout={logout} onUpgrade={openPortal} />}
+      {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} onShowOnboarding={() => setShowOnboarding(true)} onParrainage={() => setScreen("parrainage")} darkMode={darkMode} onDarkMode={() => setDarkMode(d => !d)} onLogout={logout} onUpgrade={openPortal} stats={stats} lastSerie={lastSerie} onResume={() => lastSerie && loadSerie(lastSerie)} />}
       {screen === "parrainage" && <ParrainageView customerId={customerId} onBack={() => setScreen("mix")} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} customerId={customerId} />}
-      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} />}
+      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} onAffiche={() => setScreen("affiche")} customerId={customerId} plan={plan} />}
+      {screen === "affiche" && bible && <AfficheView bible={bible} episodes={episodes} mode={state.mode} onBack={() => setScreen("bible")} />}
       {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} customerId={customerId} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} />}
