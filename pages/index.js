@@ -288,6 +288,10 @@ export default function Landing() {
           @media (max-width: 480px) { .footer-inner > div:first-child { grid-template-columns: 1fr !important; } }
           .trust-row { gap: 12px !important; }
           .hero-v { display: none !important; }
+          .posters-row { gap: 12px !important; }
+          .poster-center { transform: translateY(0) !important; }
+          .poster-side { width: 150px !important; }
+          .poster-center-w { width: 165px !important; }
         }
       `}</style>
 
@@ -529,10 +533,10 @@ export default function Landing() {
           <Title>Des séries qui<br /><span style={{ fontStyle: "italic", color: MUTED }}>donnent envie de tourner.</span></Title>
           <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Studio Vertical génère aussi l'affiche officielle de ta série en 1 clic.</p>
 
-          <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
+          <div className="posters-row" style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap", alignItems: "flex-end" }}>
 
             {/* Poster 1 — Le Mensonge (hôpital) */}
-            <div style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.07)", position: "relative" }}>
+            <div className="poster-side" style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.07)", position: "relative" }}>
               <div style={{ background: "linear-gradient(175deg,#180606 0%,#0d0202 35%,#09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "18px 16px 18px", position: "relative", overflow: "hidden" }}>
                 {/* Ambient light */}
                 <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 60%,rgba(232,92,58,0.13) 0%,transparent 60%)", pointerEvents: "none" }} />
@@ -603,7 +607,7 @@ export default function Landing() {
             </div>
 
             {/* Poster 2 — Héritage (manoir) — centre, surélevé */}
-            <div style={{ width: 240, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 40px 100px rgba(168,85,247,0.3), 0 0 0 1px rgba(168,85,247,0.18)", position: "relative", transform: "translateY(-18px)" }}>
+            <div className="poster-center poster-center-w" style={{ width: 240, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 40px 100px rgba(168,85,247,0.3), 0 0 0 1px rgba(168,85,247,0.18)", position: "relative", transform: "translateY(-18px)" }}>
               <div style={{ background: "linear-gradient(175deg,#0e0518 0%,#080412 35%,#09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "18px 16px 18px", position: "relative", overflow: "hidden" }}>
                 <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 45%,rgba(168,85,247,0.16) 0%,transparent 60%)", pointerEvents: "none" }} />
                 {/* Location strip */}
@@ -677,7 +681,7 @@ export default function Landing() {
             </div>
 
             {/* Poster 3 — Deux Vies (appartement / bureau) */}
-            <div style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.07)", position: "relative" }}>
+            <div className="poster-side" style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.07)", position: "relative" }}>
               <div style={{ background: "linear-gradient(175deg,#05101a 0%,#030a12 35%,#09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "18px 16px 18px", position: "relative", overflow: "hidden" }}>
                 <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 50%,rgba(232,92,58,0.1) 0%,transparent 45%), radial-gradient(ellipse at 75% 50%,rgba(96,165,250,0.1) 0%,transparent 45%)", pointerEvents: "none" }} />
                 {/* Location strip */}
