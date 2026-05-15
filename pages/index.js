@@ -366,7 +366,7 @@ export default function Landing() {
             <div style={{ fontSize: "clamp(32px, 6vw, 76px)", lineHeight: 1.1, background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
               prête à tourner
             </div>
-            <div style={{ fontSize: "clamp(18px, 3vw, 38px)", lineHeight: 1.4, color: MUTED, fontStyle: "normal", fontWeight: 500, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: -1 }}>
+            <div style={{ fontSize: "clamp(52px, 10vw, 120px)", lineHeight: 0.95, color: TEXT }}>
               en 5 minutes.
             </div>
           </h1>
