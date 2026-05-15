@@ -214,7 +214,6 @@ function SerieCard({ serie }) {
 }
 
 export default function Exemples() {
-  const [activeFilter, setActiveFilter] = useState("all");
   const SITE = "https://studiovertical.app";
   const itemListSchema = {
     "@context": "https://schema.org",
@@ -303,56 +302,8 @@ export default function Exemples() {
         </div>
       </div>
 
-      {/* FILTRES */}
       <div style={{ maxWidth: 820, margin: "0 auto", padding: "0 32px 8px" }} className="examples-grid">
-        {(() => {
-          const FILTERS = [
-            { id: "all", label: "Tous", color: TEXT },
-            { id: "fast", label: "⚡ Fast Drama", color: RED },
-            { id: "premium", label: "🎭 Premium", color: VIO },
-            { id: "TikTok", label: "♪ TikTok", color: "#69C9D0" },
-            { id: "Reels", label: "◈ Reels", color: VIO },
-            { id: "Shorts", label: "▶ Shorts", color: RED },
-            ...Array.from(new Set(SERIES.map(s => s.genre))).map(g => ({ id: `genre:${g}`, label: g, color: MUTED })),
-          ];
-          const filtered = SERIES.filter(s => {
-            if (activeFilter === "all") return true;
-            if (activeFilter === "fast" || activeFilter === "premium") return s.mode === activeFilter;
-            if (activeFilter.startsWith("genre:")) return s.genre === activeFilter.replace("genre:", "");
-            return s.platform === activeFilter;
-          });
-          return (
-            <>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", paddingBottom: 24 }}>
-                {FILTERS.map(({ id, label, color }) => {
-                  const active = activeFilter === id;
-                  return (
-                    <button key={id} onClick={() => setActiveFilter(id)} style={{
-                      padding: "7px 16px", borderRadius: 100, fontSize: 12, fontWeight: 700,
-                      background: active ? `${color}18` : "transparent",
-                      border: `1px solid ${active ? color : BORDER}`,
-                      color: active ? color : MUTED,
-                      cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif",
-                      transition: "all .15s", letterSpacing: 0.3,
-                    }}>
-                      {label}
-                    </button>
-                  );
-                })}
-                {activeFilter !== "all" && (
-                  <span style={{ display: "flex", alignItems: "center", fontSize: 12, color: MUTED, paddingLeft: 4 }}>
-                    {filtered.length} série{filtered.length > 1 ? "s" : ""}
-                  </span>
-                )}
-              </div>
-              {filtered.length === 0 ? (
-                <div style={{ textAlign: "center", padding: "48px 0", color: MUTED, fontSize: 14 }}>Aucune série pour ce filtre.</div>
-              ) : (
-                filtered.map((serie, i) => <SerieCard key={serie.bible.titre} serie={serie} />)
-              )}
-            </>
-          );
-        })()}
+        {SERIES.map((serie, i) => <SerieCard key={serie.bible.titre} serie={serie} />)}
 
 
         {/* CTA */}
