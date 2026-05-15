@@ -1067,7 +1067,7 @@ export default function Landing() {
               {[
                 { href: "/cgu", label: "CGU" },
                 { href: "/confidentialite", label: "Confidentialité" },
-                { href: "mailto:hello@studiovertical.app", label: "Contact" },
+                { href: "/contact", label: "Contact" },
               ].map(({ href, label }) => (
                 <a key={href} href={href} style={{ display: "block", fontSize: 13, color: MUTED, marginBottom: 10, fontWeight: 500 }}>{label}</a>
               ))}
