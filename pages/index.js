@@ -280,9 +280,9 @@ export default function Landing() {
 
           <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(38px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
             De l'idée<br />
-            au{" "}
+            à la{" "}
             <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
-              cliffhanger
+              série complète
             </span>
             .<br />
             En 5 minutes.
