@@ -216,7 +216,7 @@ function OnboardingModal({ onClose, onLaunch }) {
         <div style={{ width: 40, height: 4, background: "var(--bo)", borderRadius: 2, margin: "0 auto 28px" }} />
         <div style={{ fontSize: 48, marginBottom: 16 }}>🎬</div>
         <h2 style={{ fontFamily: "var(--serif)", fontSize: 24, fontWeight: 900, marginBottom: 10, lineHeight: 1.2 }}>Ta première série<br/>en 30 secondes</h2>
-        <p style={{ fontSize: 14, color: "var(--mt)", lineHeight: 1.7, marginBottom: 10 }}>Vertical Studio génère une bible complète, un séquencier d'épisodes et des scripts prêts à tourner.</p>
+        <p style={{ fontSize: 14, color: "var(--mt)", lineHeight: 1.7, marginBottom: 10 }}>VerticalClap génère une bible complète, un séquencier d'épisodes et des scripts prêts à tourner.</p>
         <p style={{ fontSize: 13, color: "var(--mt)", lineHeight: 1.6, marginBottom: 32 }}>Choisis un thème et on s'occupe du reste.</p>
         <button onClick={() => setStep(1)} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "16px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", width: "100%", fontFamily: "var(--sans)", marginBottom: 12 }}>
           Choisir mon thème →
@@ -738,11 +738,11 @@ function drawPoster(canvas, bible, episodes, mode) {
   ctx.fillText("ACCROCHE TIKTOK", PAD, aY);
   wrap(bible.accroche || "", PAD, aY + 22, W - PAD * 2, 30, "italic bold 20px Georgia, serif", WHITE);
 
-  // Bas: studiovertical.app
+  // Bas: verticalclap.app
   ctx.font = "400 11px sans-serif";
   ctx.fillStyle = "#2a3a2e";
   ctx.textAlign = "center";
-  ctx.fillText("studiovertical.app", W / 2, H - 22);
+  ctx.fillText("verticalclap.app", W / 2, H - 22);
 }
 
 function roundRect(ctx, x, y, w, h, r) {
@@ -1172,7 +1172,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, onAffiche, cust
       lines.push("");
     });
     sep("═");
-    lines.push("studiovertical.app");
+    lines.push("verticalclap.app");
 
     const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -1225,7 +1225,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, onAffiche, cust
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10, marginBottom: 10 }}>
           <h1 style={{ fontFamily: "var(--serif)", fontSize: 28, fontWeight: 900, letterSpacing: -1, lineHeight: 1.1, flex: 1, margin: 0 }}>{bible.titre}</h1>
           <button onClick={() => {
-            const txt = `🎬 ${bible.titre}\n« ${bible.logline} »\n\nGénéré avec Vertical Studio — studiovertical.app`;
+            const txt = `🎬 ${bible.titre}\n« ${bible.logline} »\n\nGénéré avec VerticalClap — verticalclap.app`;
             if (navigator.share) { navigator.share({ title: bible.titre, text: txt }).catch(() => {}); }
             else { navigator.clipboard?.writeText(txt).then(() => alert("Copié !")); }
           }} style={{ background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 10, padding: "8px 12px", fontSize: 13, cursor: "pointer", flexShrink: 0, fontFamily: "var(--sans)" }} title="Partager">
@@ -1529,7 +1529,7 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Studio</button>
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← App</button>
         <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>4 versions</h2>
         <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre} — Choisissez la meilleure</p>
       </div>
@@ -2047,7 +2047,7 @@ export default function App() {
     return (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: 40, textAlign: "center", background: "var(--bg)" }}>
         <div>
-          <h1 style={{ fontFamily: "var(--serif)", fontSize: 32, fontWeight: 900, marginBottom: 12 }}>Vertical Studio</h1>
+          <h1 style={{ fontFamily: "var(--serif)", fontSize: 32, fontWeight: 900, marginBottom: 12 }}>VerticalClap</h1>
           <p style={{ color: "var(--mt)", marginBottom: 28, lineHeight: 1.6 }}>Un abonnement est requis pour accéder à l'application.</p>
           <a href="/" style={{ display: "inline-block", background: "var(--r)", color: "#fff", padding: "16px 32px", borderRadius: 12, fontWeight: 700, fontSize: 15 }}>Voir les tarifs →</a>
         </div>

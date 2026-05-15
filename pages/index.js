@@ -129,8 +129,8 @@ const Logo = ({ size = "md" }) => {
         <polygon points="0.5,0.5 25.5,0.5 25.5,12 0.5,20" fill="rgba(255,255,255,0.13)" clipPath="url(#logo-clip)" />
       </svg>
       <div style={{ lineHeight: 1 }}>
-        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: sm ? 9 : 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Studio</div>
-        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: sm ? 14 : 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Vertical</div>
+        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: sm ? 9 : 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Vertical</div>
+        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: sm ? 14 : 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Clap</div>
       </div>
     </div>
   );
@@ -247,7 +247,7 @@ export default function Landing() {
     }
   };
 
-  const SITE = "https://studiovertical.app";
+  const SITE = "https://verticalclap.app";
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -260,7 +260,7 @@ export default function Landing() {
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Studio Vertical",
+    "name": "VerticalClap",
     "url": SITE,
     "applicationCategory": "CreativeApplication",
     "operatingSystem": "Web",
@@ -276,7 +276,7 @@ export default function Landing() {
   return (
     <>
     <Head>
-      <title>Studio Vertical — Génère des micro-dramas 9:16 en 5 minutes avec l'IA</title>
+      <title>VerticalClap — Génère des micro-dramas 9:16 en 5 minutes avec l'IA</title>
       <meta name="description" content="Génère des micro-dramas verticaux complets avec l'IA : bible, scripts, hooks et cliffhangers. Prêts pour TikTok, Reels, Shorts, DramaBox, ReelShort et toutes les plateformes 9:16. Dès 7,50€/mois." />
       <link rel="canonical" href={SITE} />
       <meta property="og:url" content={SITE} />
@@ -553,7 +553,7 @@ export default function Landing() {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={RED}>Affiches générées par l'IA</Label>
           <Title>Des séries qui<br /><span style={{ fontStyle: "italic", color: MUTED }}>donnent envie de tourner.</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Studio Vertical génère aussi l'affiche officielle de ta série en 1 clic.</p>
+          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>VerticalClap génère aussi l'affiche officielle de ta série en 1 clic.</p>
 
           <div className="posters-row" style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap", alignItems: "flex-end" }}>
 
@@ -564,7 +564,7 @@ export default function Landing() {
                 <div style={{ position: "relative", zIndex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 20 }}>
                     <div style={{ width: 5, height: 5, borderRadius: "50%", background: RED }} />
-                    <span style={{ fontSize: 7, fontWeight: 800, color: RED, letterSpacing: 2.5, fontFamily: "monospace" }}>STUDIO VERTICAL</span>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: RED, letterSpacing: 2.5, fontFamily: "monospace" }}>verticalclap</span>
                   </div>
                   <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.28)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 10 }}>THRILLER MÉDICAL · 8 ÉPISODES</div>
                   <div style={{ height: "1px", background: `linear-gradient(90deg, ${RED}60, transparent)`, marginBottom: 22 }} />
@@ -595,7 +595,7 @@ export default function Landing() {
                 <div style={{ position: "relative", zIndex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 20 }}>
                     <div style={{ width: 5, height: 5, borderRadius: "50%", background: VIO }} />
-                    <span style={{ fontSize: 7, fontWeight: 800, color: VIO, letterSpacing: 2.5, fontFamily: "monospace" }}>STUDIO VERTICAL</span>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: VIO, letterSpacing: 2.5, fontFamily: "monospace" }}>verticalclap</span>
                   </div>
                   <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.28)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 10 }}>DRAME FAMILIAL · 10 ÉPISODES</div>
                   <div style={{ height: "1px", background: `linear-gradient(90deg, ${VIO}60, transparent)`, marginBottom: 22 }} />
@@ -637,7 +637,7 @@ export default function Landing() {
                 <div style={{ position: "relative", zIndex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 20 }}>
                     <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#60a5fa" }} />
-                    <span style={{ fontSize: 7, fontWeight: 800, color: "#60a5fa", letterSpacing: 2.5, fontFamily: "monospace" }}>STUDIO VERTICAL</span>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: "#60a5fa", letterSpacing: 2.5, fontFamily: "monospace" }}>verticalclap</span>
                   </div>
                   <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.28)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 10 }}>THRILLER · IDENTITÉ · 6 ÉP.</div>
                   <div style={{ height: "1px", background: "linear-gradient(90deg, rgba(96,165,250,0.5), transparent)", marginBottom: 22 }} />
@@ -701,7 +701,7 @@ export default function Landing() {
                 iconColor: "#69C9D0",
                 title: "Créateur solo",
                 sub: "TikTok · Reels · Shorts",
-                desc: "Tu filmes seul avec ton téléphone. Studio Vertical génère la bible, les scripts et les hooks — structure narrative complète, prête à tourner sans réécriture.",
+                desc: "Tu filmes seul avec ton téléphone. VerticalClap génère la bible, les scripts et les hooks — structure narrative complète, prête à tourner sans réécriture.",
                 color: RED,
               },
               {
@@ -804,7 +804,7 @@ export default function Landing() {
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={VIO}>Témoignages</Label>
-          <Title>Ils créent déjà<br /><span style={{ fontStyle: "italic" }}>avec Studio Vertical.</span></Title>
+          <Title>Ils créent déjà<br /><span style={{ fontStyle: "italic" }}>avec VerticalClap.</span></Title>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20, marginTop: 48 }}>
             {TESTIMONIALS.map((t, i) => (
               <div key={i} className="glass" style={{ borderRadius: 20, padding: 26, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
@@ -1004,8 +1004,8 @@ export default function Landing() {
               </p>
               <div style={{ display: "flex", gap: 12, marginTop: 20 }}>
                 {[
-                  { href: "https://tiktok.com/@studiovertical", label: "TikTok" },
-                  { href: "https://instagram.com/studiovertical", label: "Instagram" },
+                  { href: "https://tiktok.com/@verticalclap", label: "TikTok" },
+                  { href: "https://instagram.com/verticalclap", label: "Instagram" },
                 ].map(({ href, label }) => (
                   <a key={label} href={href} target="_blank" rel="noopener noreferrer"
                     style={{ fontSize: 12, color: MUTED, fontWeight: 600, background: SURFACE, border: `1px solid ${BORDER}`, padding: "6px 12px", borderRadius: 8 }}>
@@ -1019,7 +1019,7 @@ export default function Landing() {
             <div>
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>Produit</p>
               {[
-                { href: "/app", label: "Studio →" },
+                { href: "/app", label: "App →" },
                 { href: "/tarifs", label: "Tarifs" },
                 { href: "/exemples", label: "Exemples" },
               ].map(({ href, label }) => (
@@ -1054,7 +1054,7 @@ export default function Landing() {
           </div>
 
           <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-            <p style={{ color: MUTED, fontSize: 12 }}>© 2026 Studio Vertical — Tous droits réservés</p>
+            <p style={{ color: MUTED, fontSize: 12 }}>© 2026 VerticalClap — Tous droits réservés</p>
             <div style={{ display: "flex", gap: 6 }}>
               {["TikTok", "Reels", "Shorts", "DramaBox", "ReelShort"].map(p => (
                 <span key={p} style={{ fontSize: 10, color: MUTED, background: SURFACE, border: `1px solid ${BORDER}`, padding: "3px 8px", borderRadius: 6, fontWeight: 500 }}>{p}</span>

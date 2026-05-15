@@ -8,7 +8,7 @@ const SURFACE = "rgba(255,255,255,0.04)";
 const BORDER = "rgba(255,255,255,0.08)";
 const TEXT = "#f1f5f9";
 const MUTED = "#64748b";
-const SITE = "https://studiovertical.app";
+const SITE = "https://verticalclap.app";
 
 function Logo() {
   return (
@@ -32,8 +32,8 @@ function Logo() {
         <polygon points="0.5,0.5 25.5,0.5 25.5,12 0.5,20" fill="rgba(255,255,255,0.13)" clipPath="url(#logo-clip)" />
       </svg>
       <div style={{ lineHeight: 1 }}>
-        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Studio</div>
-        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Vertical</div>
+        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Vertical</div>
+        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Clap</div>
       </div>
     </div>
   );
@@ -67,8 +67,8 @@ export default function BlogPost({ post, otherPosts }) {
     "headline": post.title,
     "description": post.description,
     "datePublished": post.date,
-    "author": { "@type": "Organization", "name": "Studio Vertical" },
-    "publisher": { "@type": "Organization", "name": "Studio Vertical", "url": SITE },
+    "author": { "@type": "Organization", "name": "VerticalClap" },
+    "publisher": { "@type": "Organization", "name": "VerticalClap", "url": SITE },
     "url": `${SITE}/blog/${post.slug}`,
     "mainEntityOfPage": `${SITE}/blog/${post.slug}`,
   };
@@ -76,7 +76,7 @@ export default function BlogPost({ post, otherPosts }) {
   return (
     <>
       <Head>
-        <title>{post.title} — Studio Vertical</title>
+        <title>{post.title} — VerticalClap</title>
         <meta name="description" content={post.description} />
         <link rel="canonical" href={`${SITE}/blog/${post.slug}`} />
         <meta property="og:title" content={post.title} />

@@ -8,7 +8,7 @@ const SURFACE = "rgba(255,255,255,0.04)";
 const BORDER = "rgba(255,255,255,0.08)";
 const TEXT = "#f1f5f9";
 const MUTED = "#64748b";
-const SITE = "https://studiovertical.app";
+const SITE = "https://verticalclap.app";
 
 function Logo() {
   return (
@@ -32,8 +32,8 @@ function Logo() {
         <polygon points="0.5,0.5 25.5,0.5 25.5,12 0.5,20" fill="rgba(255,255,255,0.13)" clipPath="url(#logo-clip)" />
       </svg>
       <div style={{ lineHeight: 1 }}>
-        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Studio</div>
-        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Vertical</div>
+        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Vertical</div>
+        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Clap</div>
       </div>
     </div>
   );
@@ -42,7 +42,7 @@ function Logo() {
 const blogListSchema = {
   "@context": "https://schema.org",
   "@type": "Blog",
-  "name": "Blog Studio Vertical",
+  "name": "Blog VerticalClap",
   "url": `${SITE}/blog`,
   "description": "Guides et ressources sur le micro-drama vertical, l'écriture de scripts et les plateformes TikTok, DramaBox, ReelShort.",
 };
@@ -51,10 +51,10 @@ export default function BlogIndex() {
   return (
     <>
       <Head>
-        <title>Blog Studio Vertical — Guides micro-drama et écriture verticale</title>
+        <title>Blog VerticalClap — Guides micro-drama et écriture verticale</title>
         <meta name="description" content="Guides pratiques sur le micro-drama vertical : comment écrire un hook TikTok, structurer vos épisodes, choisir vos plateformes et générer des séries avec l'IA." />
         <link rel="canonical" href={`${SITE}/blog`} />
-        <meta property="og:title" content="Blog Studio Vertical — Guides micro-drama et écriture verticale" />
+        <meta property="og:title" content="Blog VerticalClap — Guides micro-drama et écriture verticale" />
         <meta property="og:url" content={`${SITE}/blog`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListSchema) }} />
       </Head>

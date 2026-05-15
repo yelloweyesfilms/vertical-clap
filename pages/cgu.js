@@ -14,7 +14,7 @@ const Logo = () => (
     </defs>
     <rect width="28" height="28" rx="7" fill="url(#lg-cgu)" />
     <text x="14" y="20" textAnchor="middle" fontFamily="Georgia,serif" fontSize="15" fontWeight="900" fill="#fff">▶</text>
-    <text x="38" y="20" fontFamily="Georgia,serif" fontSize="17" fontWeight="900" fill="#f1f5f9" letterSpacing="-0.5">Vertical</text>
+    <text x="38" y="20" fontFamily="Georgia,serif" fontSize="17" fontWeight="900" fill="#f1f5f9" letterSpacing="-0.5">Clap</text>
   </svg>
 );
 
@@ -45,7 +45,7 @@ export default function CGU() {
   return (
     <>
       <Head>
-        <title>CGU — Studio Vertical</title>
+        <title>CGU — VerticalClap</title>
         <meta name="robots" content="noindex" />
       </Head>
       <div style={{ minHeight: "100vh", background: DARK, color: "#f1f5f9", fontFamily: "'Space Grotesk',system-ui,sans-serif" }}>
@@ -54,7 +54,7 @@ export default function CGU() {
           <a href="/" style={{ textDecoration: "none" }}><Logo /></a>
           <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
             <a href="/tarifs" style={{ fontSize: 13, color: "#64748b", textDecoration: "none" }}>Tarifs</a>
-            <a href="/app" style={{ fontSize: 13, fontWeight: 700, color: "#f1f5f9", background: RED, padding: "7px 18px", borderRadius: 8, textDecoration: "none" }}>Studio →</a>
+            <a href="/app" style={{ fontSize: 13, fontWeight: 700, color: "#f1f5f9", background: RED, padding: "7px 18px", borderRadius: 8, textDecoration: "none" }}>App →</a>
           </div>
         </nav>
 
@@ -70,12 +70,12 @@ export default function CGU() {
           </div>
 
           <Section title="1. Objet">
-            <P>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation du service Studio Vertical, accessible à l'adresse studiovertical.app, édité par Sophie Attelann.</P>
+            <P>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation du service VerticalClap, accessible à l'adresse verticalclap.app, édité par Sophie Attelann.</P>
             <P>En accédant au service, vous acceptez sans réserve les présentes CGU.</P>
           </Section>
 
           <Section title="2. Description du service">
-            <P>Studio Vertical est un outil de création assistée par intelligence artificielle permettant aux créateurs de contenu de générer des scripts, bibles de séries et séquenciers pour des micro-dramas au format vertical 9:16, destinés aux plateformes TikTok, Instagram Reels, YouTube Shorts et DramaBox.</P>
+            <P>VerticalClap est un outil de création assistée par intelligence artificielle permettant aux créateurs de contenu de générer des scripts, bibles de séries et séquenciers pour des micro-dramas au format vertical 9:16, destinés aux plateformes TikTok, Instagram Reels, YouTube Shorts et DramaBox.</P>
           </Section>
 
           <Section title="3. Accès au service">
@@ -84,13 +84,13 @@ export default function CGU() {
           </Section>
 
           <Section title="4. Propriété intellectuelle">
-            <P>Les contenus générés via Studio Vertical (scripts, bibles, séquenciers) vous appartiennent intégralement. Studio Vertical ne revendique aucun droit sur vos créations.</P>
-            <P>La plateforme Studio Vertical (code, design, marque) est protégée par le droit de la propriété intellectuelle et appartient à Sophie Attelann.</P>
+            <P>Les contenus générés via VerticalClap (scripts, bibles, séquenciers) vous appartiennent intégralement. VerticalClap ne revendique aucun droit sur vos créations.</P>
+            <P>La plateforme VerticalClap (code, design, marque) est protégée par le droit de la propriété intellectuelle et appartient à Sophie Attelann.</P>
           </Section>
 
           <Section title="5. Responsabilité">
-            <P>Studio Vertical est un outil d'aide à la création. Les contenus générés par l'IA peuvent contenir des erreurs ou imprécisions. L'utilisateur est seul responsable de l'usage qu'il fait des contenus générés.</P>
-            <P>Studio Vertical ne peut être tenu responsable des dommages directs ou indirects résultant de l'utilisation du service.</P>
+            <P>VerticalClap est un outil d'aide à la création. Les contenus générés par l'IA peuvent contenir des erreurs ou imprécisions. L'utilisateur est seul responsable de l'usage qu'il fait des contenus générés.</P>
+            <P>VerticalClap ne peut être tenu responsable des dommages directs ou indirects résultant de l'utilisation du service.</P>
           </Section>
 
           <Section title="6. Résiliation">
@@ -102,17 +102,17 @@ export default function CGU() {
           </Section>
 
           <Section title="8. Contact">
-            <P>Pour toute question : <a href="mailto:hello@studiovertical.app" style={{ color: RED, textDecoration: "none" }}>hello@studiovertical.app</a></P>
+            <P>Pour toute question : <a href="mailto:hello@verticalclap.app" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.app</a></P>
           </Section>
         </div>
 
         {/* Footer */}
         <footer style={{ borderTop: "1px solid #1e1e2e", padding: "24px 32px", textAlign: "center" }}>
           <p style={{ fontSize: 12, color: "#475569", margin: 0 }}>
-            © 2026 Studio Vertical ·{" "}
+            © 2026 VerticalClap ·{" "}
             <a href="/confidentialite" style={{ color: "#475569", textDecoration: "none" }}>Confidentialité</a>
             {" "}·{" "}
-            <a href="mailto:hello@studiovertical.app" style={{ color: "#475569", textDecoration: "none" }}>Contact</a>
+            <a href="mailto:hello@verticalclap.app" style={{ color: "#475569", textDecoration: "none" }}>Contact</a>
           </p>
         </footer>
       </div>
