@@ -129,7 +129,6 @@ export default function Landing() {
   const [refValid, setRefValid] = useState(null);
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
-  const [variant, setVariant] = useState("A");
   const [billing, setBilling] = useState("monthly");
   const router = useRouter();
   const canceled = router.query.canceled;
@@ -137,14 +136,7 @@ export default function Landing() {
   const track = (event, meta = {}) => fetch("/api/analytics", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ event, meta }) }).catch(() => {});
 
   useEffect(() => {
-    // A/B test variant assignment
-    let v = typeof window !== "undefined" ? localStorage.getItem("hero_variant") : null;
-    if (!v) {
-      v = Math.random() < 0.5 ? "A" : "B";
-      localStorage.setItem("hero_variant", v);
-    }
-    setVariant(v);
-    track("page_view", { variant: v });
+    track("page_view");
   }, []);
 
   const checkRefCode = async (code) => {
@@ -160,7 +152,7 @@ export default function Landing() {
     if (!email) { alert("Entre ton email pour continuer"); return; }
     const { trial = false, billingOverride } = opts;
     const b = billingOverride || billing;
-    track("checkout_started", { variant, position, plan, billing: b, trial });
+    track("checkout_started", { position, plan, billing: b, trial });
     setLoading(true);
     const res = await fetch("/api/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, plan, refCode: refValid ? refCode : undefined, billing: b, trial }) });
     const { url, error } = await res.json();
@@ -276,33 +268,18 @@ export default function Landing() {
             Le studio IA des créateurs verticaux
           </div>
 
-          {variant === "A" ? (
-            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(38px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
-              De l'idée<br />
-              au{" "}
-              <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
-                cliffhanger
-              </span>
-              .<br />
-              En 5 minutes.
-            </h1>
-          ) : (
-            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(38px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
-              Ta série,<br />
-              prête à{" "}
-              <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
-                tourner
-              </span>
-              .<br />
-              En 5 minutes.
-            </h1>
-          )}
+          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(38px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
+            De l'idée<br />
+            au{" "}
+            <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
+              cliffhanger
+            </span>
+            .<br />
+            En 5 minutes.
+          </h1>
 
           <p style={{ fontSize: "clamp(15px, 2vw, 18px)", color: MUTED, maxWidth: 480, margin: "0 auto 52px", lineHeight: 1.7, fontWeight: 400 }}>
-            {variant === "A"
-              ? "Génère des micro-dramas 9:16 complets avec l'IA — bible, scripts, hooks, cliffhangers. Prêts pour TikTok, Reels, Shorts, DramaBox et ReelShort."
-              : "L'IA génère la bible, les scripts et les hooks en 5 minutes. Tu filmes. Tes concurrents passent encore des heures à écrire."
-            }
+            Génère des micro-dramas 9:16 complets avec l'IA — bible, scripts, hooks, cliffhangers. Prêts pour TikTok, Reels, Shorts, DramaBox et ReelShort.
           </p>
 
           {canceled && <p style={{ color: RED, marginBottom: 16, fontSize: 14 }}>Paiement annulé. Réessaie quand tu veux.</p>}
