@@ -653,12 +653,16 @@ function roundRect(ctx, x, y, w, h, r) {
 
 function AfficheView({ bible, episodes, mode, onBack }) {
   const canvasRef = useRef(null);
+  const [tab, setTab] = useState("canvas");
+  const [aiState, setAiState] = useState("idle"); // idle | loading | done | error
+  const [aiUrl, setAiUrl] = useState(null);
+  const [aiError, setAiError] = useState(null);
 
   useEffect(() => {
     if (canvasRef.current) drawPoster(canvasRef.current, bible, episodes, mode);
   }, [bible, episodes, mode]);
 
-  const download = () => {
+  const downloadCanvas = () => {
     canvasRef.current.toBlob(blob => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -669,17 +673,156 @@ function AfficheView({ bible, episodes, mode, onBack }) {
     });
   };
 
+  const downloadAi = () => {
+    if (!aiUrl) return;
+    const a = document.createElement("a");
+    a.href = aiUrl;
+    a.download = `${bible.titre.replace(/\s+/g, "_")}_affiche_ia.png`;
+    a.click();
+  };
+
+  const generateAi = async () => {
+    setAiState("loading");
+    setAiError(null);
+    try {
+      const res = await fetch("/api/poster", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          titre: bible.titre,
+          logline: bible.logline,
+          ambiance: bible.ambiance,
+          personnages: bible.personnages,
+          accroche: bible.accroche,
+          tension_centrale: bible.tension_centrale,
+          mode,
+        }),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Erreur génération");
+      }
+      const blob = await res.blob();
+      setAiUrl(URL.createObjectURL(blob));
+      setAiState("done");
+    } catch (e) {
+      setAiError(e.message);
+      setAiState("error");
+    }
+  };
+
+  const RED = "#E85C3A", VIO = "#a855f7", DARK = "#080e09", BORDER = "rgba(255,255,255,0.08)", MUTED = "#64748b", TEXT = "#f1f5f9";
+
   return (
-    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch", background: "#080e09" }}>
-      <div style={{ padding: "16px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", color: "#6a7a6e", fontSize: 14, cursor: "pointer", padding: 0 }}>← Retour</button>
-        <button onClick={download} style={{ background: "#E85C3A", color: "#fff", border: "none", padding: "10px 20px", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
-          ↓ Télécharger l'affiche
-        </button>
+    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch", background: DARK }}>
+      {/* Header */}
+      <div style={{ padding: "16px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${BORDER}` }}>
+        <button onClick={onBack} style={{ background: "none", border: "none", color: MUTED, fontSize: 14, cursor: "pointer", padding: 0, fontFamily: "var(--sans)" }}>← Retour</button>
+        {tab === "canvas"
+          ? <button onClick={downloadCanvas} style={{ background: RED, color: "#fff", border: "none", padding: "10px 20px", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>↓ Télécharger</button>
+          : aiState === "done"
+            ? <button onClick={downloadAi} style={{ background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", padding: "10px 20px", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>↓ Télécharger</button>
+            : null
+        }
       </div>
-      <div style={{ display: "flex", justifyContent: "center", padding: "0 20px 48px" }}>
-        <canvas ref={canvasRef} width={630} height={1120} style={{ maxWidth: "100%", borderRadius: 16, boxShadow: "0 24px 64px rgba(0,0,0,.8)" }} />
+
+      {/* Tab switcher */}
+      <div style={{ display: "flex", gap: 0, padding: "16px 20px 0", maxWidth: 630, margin: "0 auto" }}>
+        {[
+          { key: "canvas", label: "📝 Typographique" },
+          { key: "ai", label: "🎨 Affiche IA" },
+        ].map(({ key, label }) => (
+          <button key={key} onClick={() => setTab(key)} style={{
+            flex: 1, padding: "10px 0", border: "none", cursor: "pointer",
+            background: tab === key ? "rgba(255,255,255,0.06)" : "transparent",
+            borderBottom: `2px solid ${tab === key ? RED : "transparent"}`,
+            color: tab === key ? TEXT : MUTED,
+            fontSize: 13, fontWeight: 700, fontFamily: "var(--sans)", transition: "all .15s",
+          }}>{label}</button>
+        ))}
       </div>
+
+      {/* Canvas tab */}
+      {tab === "canvas" && (
+        <div style={{ display: "flex", justifyContent: "center", padding: "20px 20px 48px" }}>
+          <canvas ref={canvasRef} width={630} height={1120} style={{ maxWidth: "100%", borderRadius: 16, boxShadow: "0 24px 64px rgba(0,0,0,.8)" }} />
+        </div>
+      )}
+
+      {/* AI tab */}
+      {tab === "ai" && (
+        <div style={{ padding: "24px 20px 48px", maxWidth: 630, margin: "0 auto" }}>
+          {aiState === "idle" && (
+            <div style={{ textAlign: "center", padding: "48px 20px" }}>
+              <div style={{ fontSize: 48, marginBottom: 20 }}>🎬</div>
+              <h3 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, color: TEXT, marginBottom: 12, letterSpacing: -0.5 }}>
+                Affiche cinématique IA
+              </h3>
+              <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.7, marginBottom: 28, maxWidth: 320, margin: "0 auto 28px" }}>
+                DALL-E 3 génère un visuel 9:16 basé sur l'univers, les personnages et l'ambiance de ta série.
+              </p>
+              <button onClick={generateAi} style={{
+                background: `linear-gradient(135deg, ${RED}, ${VIO})`,
+                color: "#fff", border: "none", padding: "16px 36px", borderRadius: 14,
+                fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)",
+                boxShadow: `0 0 32px rgba(168,85,247,0.3), 0 0 16px rgba(232,92,58,0.2)`,
+              }}>
+                ✦ Générer l'affiche IA
+              </button>
+              <p style={{ fontSize: 12, color: MUTED, marginTop: 16 }}>~15 secondes · 1 crédit IA</p>
+            </div>
+          )}
+
+          {aiState === "loading" && (
+            <div style={{ textAlign: "center", padding: "80px 20px" }}>
+              <div style={{ width: 56, height: 56, borderRadius: "50%", border: `3px solid ${BORDER}`, borderTop: `3px solid ${RED}`, animation: "spin 1s linear infinite", margin: "0 auto 24px" }} />
+              <p style={{ fontSize: 15, color: MUTED, marginBottom: 8 }}>Génération en cours…</p>
+              <p style={{ fontSize: 13, color: MUTED, opacity: 0.6 }}>DALL-E 3 crée ton affiche 9:16</p>
+              <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
+            </div>
+          )}
+
+          {aiState === "error" && (
+            <div style={{ textAlign: "center", padding: "48px 20px" }}>
+              <p style={{ fontSize: 14, color: RED, marginBottom: 20 }}>⚠️ {aiError}</p>
+              <button onClick={generateAi} style={{ background: RED, color: "#fff", border: "none", padding: "12px 28px", borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
+                Réessayer
+              </button>
+            </div>
+          )}
+
+          {aiState === "done" && aiUrl && (
+            <div>
+              {/* Poster image */}
+              <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", boxShadow: "0 24px 64px rgba(0,0,0,.8)", marginBottom: 20 }}>
+                <img src={aiUrl} alt={bible.titre} style={{ width: "100%", display: "block", borderRadius: 16 }} />
+                {/* Title overlay */}
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "32px 24px 24px", background: "linear-gradient(transparent, rgba(0,0,0,0.88))" }}>
+                  <p style={{ fontSize: 10, fontWeight: 800, color: RED, letterSpacing: 2, textTransform: "uppercase", marginBottom: 6, fontFamily: "var(--sans)" }}>
+                    {mode === "fast" ? "⚡ FAST DRAMA" : "🎭 PREMIUM SUSPENSE"}
+                  </p>
+                  <h2 style={{ fontFamily: "var(--serif)", fontSize: 28, fontWeight: 900, color: "#fff", letterSpacing: -0.5, marginBottom: 8, lineHeight: 1.1 }}>
+                    {bible.titre}
+                  </h2>
+                  <p style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", fontStyle: "italic", lineHeight: 1.5 }}>
+                    {bible.accroche || bible.logline}
+                  </p>
+                  <p style={{ fontSize: 10, color: "rgba(255,255,255,0.3)", marginTop: 12, fontFamily: "var(--sans)", letterSpacing: 1 }}>
+                    STUDIOVERTICAL.APP
+                  </p>
+                </div>
+              </div>
+
+              {/* Regenerate */}
+              <div style={{ textAlign: "center" }}>
+                <button onClick={generateAi} style={{ background: "rgba(255,255,255,0.05)", border: `1px solid ${BORDER}`, color: MUTED, padding: "10px 20px", borderRadius: 10, fontSize: 13, cursor: "pointer", fontFamily: "var(--sans)" }}>
+                  ↻ Régénérer
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
