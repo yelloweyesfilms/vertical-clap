@@ -279,12 +279,12 @@ export default function Landing() {
             </h1>
           ) : (
             <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(48px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
-              Ta série{" "}
+              Ta série,<br />
+              prête à{" "}
               <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
-                TikTok
+                tourner
               </span>
-              ,<br />
-              prête à tourner.<br />
+              .<br />
               En 5 minutes.
             </h1>
           )}
