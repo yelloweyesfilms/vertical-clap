@@ -271,8 +271,6 @@ export default function Landing() {
           .feat-strip-item { width: 50% !important; border-right: none !important; border-bottom: 1px solid ${BORDER} !important; }
           .platform-row { gap: 20px !important; }
           .stats-bar { gap: 28px !important; padding: 28px 20px !important; }
-          .roi-arrow { display: none !important; }
-          .roi-grid { grid-template-columns: 1fr !important; }
           .demo-footer { flex-wrap: wrap !important; gap: 12px !important; }
           .footer-inner { padding: 28px 20px !important; }
           .trust-row { gap: 12px !important; }
@@ -383,7 +381,7 @@ export default function Landing() {
             { Icon: BoltIcon, label: "Rapide", color: RED },
             { Icon: PhoneIcon, label: "Format 9:16", color: VIO },
             { Icon: ClapperIcon, label: "Scripts impactants", color: RED },
-            { Icon: ClockIcon, label: "5 min chrono", color: VIO },
+            { Icon: ClockIcon, label: "Sauvegarde cloud", color: VIO },
           ].map(({ Icon, label, color }, i, arr) => (
             <div key={i} className="feat-strip-item" style={{ display: "flex", alignItems: "center", gap: 10, padding: "20px 32px", borderRight: i < arr.length - 1 ? `1px solid ${BORDER}` : "none", flex: 1, justifyContent: "center" }}>
               <span style={{ color, display: "flex" }}><Icon size={20} /></span>
@@ -589,7 +587,7 @@ export default function Landing() {
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }} ref={demoRef}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <Label color={VIO}>En direct</Label>
-          <Title>Regarde l'IA écrire<br /><span style={{ fontStyle: "italic" }}>ta série en temps réel.</span></Title>
+          <Title>Hook, dialogues, cadrage —<br /><span style={{ fontStyle: "italic" }}>scène par scène.</span></Title>
           <p style={{ textAlign: "center", color: MUTED, marginBottom: 48, fontSize: 15 }}>C'est exactement ce que tu vois dans l'app</p>
 
           <div style={{ background: "#0a0a14", border: `1px solid rgba(168,85,247,0.25)`, borderRadius: 24, overflow: "hidden", boxShadow: `0 0 60px rgba(168,85,247,0.08)` }}>
@@ -648,7 +646,7 @@ export default function Landing() {
                 iconColor: "#69C9D0",
                 title: "Créateur solo",
                 sub: "TikTok · Reels · Shorts",
-                desc: "Tu filmes seul avec ton téléphone. Studio Vertical génère toute la structure narrative — tu n'as plus qu'à tourner. Tes concurrents passent des jours sur un script. Toi, 5 minutes.",
+                desc: "Tu filmes seul avec ton téléphone. Studio Vertical génère la bible, les scripts et les hooks — structure narrative complète, prête à tourner sans réécriture.",
                 color: RED,
               },
               {
@@ -687,7 +685,7 @@ export default function Landing() {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={VIO}>Comment ça marche</Label>
           <Title>De zéro à une série<br /><span style={{ fontStyle: "italic" }}>en 3 étapes.</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Moins de 5 minutes, chrono</p>
+          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Du concept au script prêt à tourner</p>
           {/* Timeline */}
           <div style={{ position: "relative" }}>
             {/* Connecting line */}
@@ -727,7 +725,7 @@ export default function Landing() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
             {[
               { icon: <BoltIcon size={20} />, iconColor: RED, title: "Le Mixeur", desc: "12 univers, 16 secrets, 4 castings. Ou entre le tien. 12 packs thématiques pour démarrer en 1 clic." },
-              { icon: <ClapperIcon size={20} />, iconColor: VIO, title: "Bible express", desc: "Titre, logline, personnages avec secrets, tension centrale. Généré en streaming — tu vois la série prendre vie." },
+              { icon: <ClapperIcon size={20} />, iconColor: VIO, title: "Bible complète", desc: "Titre, logline, personnages avec secrets, tension centrale et séquencier. Tout ce qu'il faut pour commencer à tourner." },
               { icon: <PhoneIcon size={20} />, iconColor: RED, title: "Scripts prêts à tourner", desc: "Hook 3 secondes, dialogues, jeu d'acteur, cadrage 9:16. Fast Drama ou Premium Suspense selon ton style." },
               { icon: <ClockIcon size={20} />, iconColor: VIO, title: "3 variations par script", desc: "Intense, Subtil ou Rapide — 3 versions générées en parallèle pour choisir le ton parfait. Premium uniquement." },
               { icon: <TikTokIcon size={20} />, iconColor: "#69C9D0", title: "Traduction en 8 langues", desc: "Traduis n'importe quel script en Anglais, Espagnol, Allemand, Portugais, Italien, Arabe, Hébreu ou Chinois." },
@@ -744,69 +742,6 @@ export default function Landing() {
                 <p style={{ color: MUTED, lineHeight: 1.65, fontSize: 13 }}>{f.desc}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </div>
-
-      {/* TESTIMONIALS */}
-      {/* ROI */}
-      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <Label color={RED}>Gain de temps</Label>
-          <Title>8 heures.<br /><span style={{ fontStyle: "italic", background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Réduit à 5 minutes.</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, marginBottom: 48, fontSize: 15 }}>Chaque tâche d'écriture, accélérée ×96</p>
-
-          <div className="roi-grid" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 20, alignItems: "center" }}>
-            {/* Sans IA */}
-            <div style={{ background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}`, borderRadius: 20, padding: "28px 28px" }}>
-              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 20 }}>✗ Sans IA</p>
-              {[
-                ["Brainstorming", "2–3 heures"],
-                ["Bible complète", "3–4 heures"],
-                ["Script d'un épisode", "2 heures"],
-                ["Fiche de production", "1 heure"],
-              ].map(([task, time]) => (
-                <div key={task} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: `1px solid ${BORDER}` }}>
-                  <span style={{ fontSize: 14, color: MUTED }}>{task}</span>
-                  <span style={{ fontSize: 14, fontWeight: 700, color: MUTED, fontFamily: "monospace" }}>{time}</span>
-                </div>
-              ))}
-              <div style={{ marginTop: 20, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: MUTED }}>Total</span>
-                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 28, fontWeight: 900, color: MUTED, letterSpacing: -1 }}>8h+</span>
-              </div>
-            </div>
-
-            {/* Arrow */}
-            <div className="roi-arrow" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, padding: "0 8px" }}>
-              <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 28, fontWeight: 900, background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>×96</div>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={VIO} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-              <span style={{ fontSize: 10, color: MUTED, letterSpacing: 1, textTransform: "uppercase", fontWeight: 700 }}>plus rapide</span>
-            </div>
-
-            {/* Avec Studio Vertical */}
-            <div style={{ background: "rgba(168,85,247,0.04)", border: "1px solid rgba(168,85,247,0.2)", borderRadius: 20, padding: "28px 28px", position: "relative", overflow: "hidden" }}>
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${RED}, ${VIO})` }} />
-              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 20 }}>✓ Studio Vertical</p>
-              {[
-                ["Brainstorming", "10 sec"],
-                ["Bible complète", "30 sec"],
-                ["Script d'un épisode", "10 sec"],
-                ["Fiche de production", "20 sec"],
-              ].map(([task, time]) => (
-                <div key={task} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: `1px solid rgba(168,85,247,0.1)` }}>
-                  <span style={{ fontSize: 14, color: TEXT }}>{task}</span>
-                  <span style={{ fontSize: 14, fontWeight: 800, color: RED, fontFamily: "monospace" }}>⚡ {time}</span>
-                </div>
-              ))}
-              <div style={{ marginTop: 20, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: TEXT }}>Total</span>
-                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 28, fontWeight: 900, background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", letterSpacing: -1 }}>&lt; 5 min</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
