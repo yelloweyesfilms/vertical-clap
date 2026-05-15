@@ -213,7 +213,6 @@ export default function Landing() {
         @keyframes nodePop { from{transform:scale(0.6);opacity:0} to{transform:scale(1);opacity:1} }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
         .cursor::after { content: '|'; animation: blink .7s infinite; color: ${VIO}; margin-left: 1px; }
-        @media (max-width:640px) { .avant-apres { grid-template-columns:1fr !important; } .roi-grid { grid-template-columns:1fr !important; } }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         input { font-size: 16px !important; }
         input::placeholder { color: ${MUTED}; }
@@ -222,7 +221,7 @@ export default function Landing() {
         .glass { background: ${SURFACE}; border: 1px solid ${BORDER}; backdrop-filter: blur(12px); }
         @media (max-width: 640px) {
           .hero-row { flex-direction: column !important; }
-          .hero-row input, .hero-row button { width: 100% !important; }
+          .hero-row input, .hero-row button, .ref-input { width: 100% !important; max-width: 100% !important; }
           .grid-3 { grid-template-columns: 1fr !important; }
           .grid-2 { grid-template-columns: 1fr !important; }
           nav { padding: 14px 16px !important; }
@@ -232,6 +231,13 @@ export default function Landing() {
           .feat-strip { gap: 0 !important; flex-wrap: wrap; }
           .feat-strip-item { width: 50% !important; border-right: none !important; border-bottom: 1px solid ${BORDER} !important; }
           .platform-row { gap: 20px !important; }
+          .stats-bar { gap: 28px !important; padding: 28px 20px !important; }
+          .roi-arrow { display: none !important; }
+          .roi-grid { grid-template-columns: 1fr !important; }
+          .demo-footer { flex-wrap: wrap !important; gap: 12px !important; }
+          .footer-inner { padding: 28px 20px !important; }
+          .trust-row { gap: 12px !important; }
+          .hero-v { display: none !important; }
         }
       `}</style>
 
@@ -254,7 +260,7 @@ export default function Landing() {
         <div style={{ position: "absolute", top: 40, left: "10%", width: 600, height: 600, background: `radial-gradient(circle, rgba(168,85,247,0.09) 0%, transparent 70%)`, pointerEvents: "none" }} />
         <div style={{ position: "absolute", top: 120, right: "5%", width: 350, height: 350, background: `radial-gradient(circle, rgba(232,92,58,0.08) 0%, transparent 70%)`, pointerEvents: "none" }} />
         {/* Giant decorative V */}
-        <div style={{ position: "absolute", right: "-4%", top: "-8%", opacity: 0.035, pointerEvents: "none", userSelect: "none" }}>
+        <div className="hero-v" style={{ position: "absolute", right: "-4%", top: "-8%", opacity: 0.035, pointerEvents: "none", userSelect: "none" }}>
           <svg width="520" height="620" viewBox="0 0 520 620" fill="none">
             <path d="M20 20 L260 600 L500 20" stroke={RED} strokeWidth="72" strokeLinecap="round" strokeLinejoin="round" fill="none" />
           </svg>
@@ -268,7 +274,7 @@ export default function Landing() {
           </div>
 
           {variant === "A" ? (
-            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(48px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
+            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(38px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
               De l'idée<br />
               au{" "}
               <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
@@ -278,7 +284,7 @@ export default function Landing() {
               En 5 minutes.
             </h1>
           ) : (
-            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(48px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
+            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(38px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
               Ta série,<br />
               prête à{" "}
               <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
@@ -307,9 +313,9 @@ export default function Landing() {
           </div>
 
           <div style={{ display: "flex", justifyContent: "center", marginBottom: 10 }}>
-            <div style={{ position: "relative" }}>
+            <div className="ref-input" style={{ position: "relative", width: 220 }}>
               <input type="text" placeholder="Code parrainage (optionnel)" value={refCode} onChange={e => checkRefCode(e.target.value.toUpperCase())} maxLength={12}
-                style={{ padding: "10px 36px 10px 14px", borderRadius: 10, border: `1.5px solid ${refValid === true ? "#4ade80" : refValid === false ? RED : BORDER}`, background: SURFACE, color: TEXT, fontSize: 13, width: 220, outline: "none", fontFamily: "monospace", letterSpacing: 2 }} />
+                style={{ padding: "10px 36px 10px 14px", borderRadius: 10, border: `1.5px solid ${refValid === true ? "#4ade80" : refValid === false ? RED : BORDER}`, background: SURFACE, color: TEXT, fontSize: 13, width: "100%", outline: "none", fontFamily: "monospace", letterSpacing: 2 }} />
               {refValid === true && <span style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", color: "#4ade80" }}>✓</span>}
               {refValid === false && <span style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", color: RED }}>✗</span>}
             </div>
@@ -363,7 +369,7 @@ export default function Landing() {
       </div>
 
       {/* PLATFORMS */}
-      <div style={{ padding: "56px 40px", borderBottom: `1px solid ${BORDER}`, textAlign: "center" }}>
+      <div className="sec" style={{ padding: "56px 40px", borderBottom: `1px solid ${BORDER}`, textAlign: "center" }}>
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 36 }}>Conçu pour les 3 grandes plateformes</p>
         <div className="platform-row" style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap" }}>
           {[
@@ -386,7 +392,7 @@ export default function Landing() {
 
       {/* STATS BAR */}
       <div style={{ borderBottom: `1px solid ${BORDER}`, padding: "28px 40px", background: "rgba(255,255,255,0.015)" }}>
-        <div style={{ maxWidth: 860, margin: "0 auto", display: "flex", justifyContent: "center", gap: 56, flexWrap: "wrap" }}>
+        <div className="stats-bar" style={{ maxWidth: 860, margin: "0 auto", display: "flex", justifyContent: "center", gap: 56, flexWrap: "wrap" }}>
           {[["2 000+", "séries générées"], ["50+", "créateurs actifs"], ["< 5 min", "par série complète"], ["8 langues", "de traduction"]].map(([val, label]) => (
             <div key={label} style={{ textAlign: "center" }}>
               <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 32, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -1 }}>{val}</div>
@@ -558,7 +564,7 @@ export default function Landing() {
             </div>
 
             {/* Footer bar */}
-            <div style={{ padding: "14px 28px", borderTop: `1px solid ${BORDER}`, display: "flex", gap: 24 }}>
+            <div className="demo-footer" style={{ padding: "14px 28px", borderTop: `1px solid ${BORDER}`, display: "flex", gap: 24 }}>
               {[["Univers", "Hôpital"], ["Secret", "Erreur médicale"], ["Mode", "Fast Drama"], ["Épisodes", "10"]].map(([k, v]) => (
                 <div key={k}>
                   <span style={{ fontSize: 10, color: MUTED, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase" }}>{k} </span>
@@ -713,7 +719,7 @@ export default function Landing() {
             </div>
 
             {/* Arrow */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, padding: "0 8px" }}>
+            <div className="roi-arrow" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, padding: "0 8px" }}>
               <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 28, fontWeight: 900, background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>×96</div>
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={VIO} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12" />
@@ -809,7 +815,7 @@ export default function Landing() {
               </GlowBtn>
             </div>
           </div>
-          <div style={{ display: "flex", justifyContent: "center", gap: 28, flexWrap: "wrap", marginTop: 28 }}>
+          <div className="trust-row" style={{ display: "flex", justifyContent: "center", gap: 28, flexWrap: "wrap", marginTop: 28 }}>
             {[
               { icon: "🔒", label: "Stripe · Paiement sécurisé" },
               { icon: "✓", label: "Annulable en 1 clic" },
@@ -865,7 +871,7 @@ export default function Landing() {
               {loading ? "Redirection…" : "Commencer →"}
             </GlowBtn>
           </div>
-          <div style={{ marginTop: 20, display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap" }}>
+          <div className="trust-row" style={{ marginTop: 20, display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap" }}>
             {[
               { icon: "🔒", label: "Paiement sécurisé Stripe" },
               { icon: "✓", label: "Sans engagement" },
@@ -881,7 +887,8 @@ export default function Landing() {
       </div>
 
       {/* FOOTER */}
-      <footer style={{ borderTop: `1px solid ${BORDER}`, padding: "32px 40px", textAlign: "center" }}>
+      <footer style={{ borderTop: `1px solid ${BORDER}` }}>
+      <div className="footer-inner" style={{ padding: "32px 40px", textAlign: "center" }}>
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
           <Logo size="sm" />
         </div>
@@ -891,6 +898,7 @@ export default function Landing() {
           <a href="/cgu" style={{ color: MUTED }}>CGU</a> ·{" "}
           <a href="/confidentialite" style={{ color: MUTED }}>Confidentialité</a>
         </p>
+      </div>
       </footer>
     </div>
   );
