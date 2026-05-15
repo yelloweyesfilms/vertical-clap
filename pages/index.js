@@ -185,10 +185,7 @@ export default function Landing() {
             <div style={{ width: 7, height: 7, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
             REC
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-            <a href="/exemples" style={{ fontSize: 14, color: MUTED, fontWeight: 600, transition: "color .15s" }} onMouseEnter={e => e.target.style.color = TEXT} onMouseLeave={e => e.target.style.color = MUTED}>Exemples</a>
-            <a href="/app" style={{ fontSize: 14, color: TEXT, fontWeight: 700, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>Se connecter →</a>
-          </div>
+          <a href="/app" style={{ fontSize: 14, color: TEXT, fontWeight: 700, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>Se connecter →</a>
         </nav>
       </div>
 
