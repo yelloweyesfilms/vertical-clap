@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
 import { POSTS } from "../../lib/posts";
 
@@ -50,11 +48,6 @@ const blogListSchema = {
 };
 
 export default function BlogIndex() {
-  const router = useRouter();
-  useEffect(() => {
-    if (!localStorage.getItem("vs_customer")) router.replace("/tarifs");
-  }, []);
-
   return (
     <>
       <Head>
