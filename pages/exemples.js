@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const RED = "#E85C3A";
 const VIO = "#a855f7";
@@ -124,6 +125,84 @@ const SERIES = [
         texte: "Sophie tend la main pour prendre le téléphone. Lucas le referme. Il ne le lâche pas.",
         visuel_916: "Deux mains sur le téléphone, plan serré, ni l'un ni l'autre ne cède",
         label: "Il veut quoi ?",
+      },
+    },
+  },
+  {
+    mode: "fast",
+    platform: "Shorts",
+    mixeurParams: { mode: "fast", casting: "1 Femme + 1 Homme", univers: "Immeuble de luxe", secret: "Amour interdit", lieu: "Ascenseur" },
+    bible: {
+      titre: "7ème Étage",
+      logline: "Un gardien d'immeuble tombe amoureux d'une résidente milliardaire — mais son mari est le propriétaire qui veut le licencier.",
+      pitch: "Dans un immeuble haussmannien du 8e arrondissement, Karim et Diane se retrouvent chaque matin dans le même ascenseur. Trente secondes. Chaque jour. Jusqu'au soir où l'ascenseur tombe en panne entre le 4e et le 5e étage. Deux heures. Tout change.",
+      tension_centrale: "Peuvent-ils s'aimer sans que l'un des deux perde tout ?",
+      accroche: "Il répare tout dans cet immeuble. Sauf ce qu'elle a brisé.",
+      personnages: [
+        { nom: "Karim", age: 31, role: "Gardien / Ancien architecte", secret: "A quitté une carrière brillante après un burnout — personne ne le sait" },
+        { nom: "Diane", age: 38, role: "Résidente — femme de l'associé principal", secret: "Négocie en secret son divorce depuis 6 mois" },
+      ],
+    },
+    episodes: [
+      { numero: 1, titre: "Panne", cliffhanger: "L'ascenseur s'arrête. Diane rit. Karim reconnaît ses plans d'archi accrochés dans le couloir.", tension: 3 },
+      { numero: 2, titre: "Le mari", cliffhanger: "Le mari de Diane appelle Karim pour 'une conversation'. Diane l'a vu composer le numéro.", tension: 6 },
+      { numero: 3, titre: "Licencié", cliffhanger: "Karim reçoit sa lettre de licenciement. Signée par Diane.", tension: 9 },
+      { numero: 4, titre: "La vraie raison", cliffhanger: "Diane glisse une enveloppe sous la porte de Karim. C'est le bail de l'immeuble — à son nom.", tension: 10 },
+    ],
+    script: {
+      hook_scene: {
+        texte: "L'ascenseur s'arrête brutalement. Karim regarde le tableau de bord. Diane regarde Karim. Le silence dure trois secondes de trop.",
+        visuel_916: "Plan serré deux visages dans le miroir de l'ascenseur, néons qui vacillent",
+      },
+      scenes: [
+        { perso: "DIANE", dialogue: "Vous savez combien de temps ça va durer ?", jeu: "feint le calme, serre son sac", visuel_916: "Plan poitrine, elle adossée à la paroi" },
+        { perso: "KARIM", dialogue: "Ça dépend de ce que vous voulez réparer.", jeu: "regarde le tableau, évite son regard", visuel_916: "Plan dos, mains sur les commandes" },
+        { perso: "DIANE", dialogue: "Je ne vous ai pas demandé une métaphore.", jeu: "sourire involontaire, le regarde enfin", visuel_916: "Contre-champ, leurs reflets superposés" },
+        { perso: "KARIM", dialogue: "Deux heures. Peut-être moins si vous arrêtez de parler.", jeu: "léger sourire de côté", visuel_916: "Zoom très lent sur son profil" },
+      ],
+      cliffhanger_scene: {
+        texte: "Les portes s'ouvrent enfin. Le mari de Diane est là, dans le couloir. Il regarde Karim. Puis Diane. Puis Karim.",
+        visuel_916: "Plan large porte qui s'ouvre, silhouette mari en contre-jour, cut brutal",
+        label: "Il a attendu.",
+      },
+    },
+  },
+  {
+    mode: "premium",
+    platform: "TikTok",
+    mixeurParams: { mode: "premium", casting: "2 Femmes", univers: "Agence de communication", secret: "Trahison professionnelle", lieu: "Open space" },
+    bible: {
+      titre: "Associées",
+      logline: "Deux amies fondent une agence ensemble — jusqu'au jour où l'une découvre que l'autre lui vole ses clients depuis le début.",
+      pitch: "Léa et Inès ont tout construit ensemble : l'agence, les clients, la réputation. Cinq ans de complicité. Mais quand Léa tombe sur un email effacé dans la corbeille, elle comprend que son associée ne partage pas seulement les bureaux — elle duplique ses stratégies et les revend à la concurrence. En silence. Depuis deux ans.",
+      tension_centrale: "Léa va-t-elle la confronter ou la piéger à son propre jeu ?",
+      accroche: "Elle lui a tout appris. Elle aurait dû garder quelque chose pour elle.",
+      personnages: [
+        { nom: "Léa", age: 34, role: "Fondatrice créative", secret: "A découvert la trahison il y a 3 semaines — et n'a rien dit" },
+        { nom: "Inès", age: 33, role: "Associée / Directrice commerciale", secret: "Prépare son départ en montant une agence concurrente" },
+      ],
+    },
+    episodes: [
+      { numero: 1, titre: "L'email", cliffhanger: "Léa relit l'email supprimé. Le destinataire : Nexus Agency — leur principal concurrent.", tension: 4 },
+      { numero: 2, titre: "La réunion", cliffhanger: "Inès présente la stratégie de Léa comme 'sa nouvelle approche'. Le client applaudit.", tension: 6 },
+      { numero: 3, titre: "Le piège", cliffhanger: "Léa envoie une fausse stratégie. Si elle la retrouve chez Nexus, c'est confirmé.", tension: 8 },
+      { numero: 4, titre: "Démission", cliffhanger: "Inès pose sa démission. Léa sort les documents du notaire — elle a racheté ses parts hier.", tension: 10 },
+    ],
+    script: {
+      hook_scene: {
+        texte: "Léa fait défiler la corbeille. Un email d'Inès à Nexus Agency. Objet : 'Stratégie Q3 — confidentiel'. Date : il y a 14 mois.",
+        visuel_916: "Gros plan écran d'ordinateur, reflet de Léa dans l'écran, souris qui se fige",
+      },
+      scenes: [
+        { perso: "INÈS", dialogue: "Tu as l'air fatiguée. Tout va bien ?", jeu: "sourire sincère, pose une main sur son épaule", visuel_916: "Plan américain open space, collègues flous derrière" },
+        { perso: "LÉA", dialogue: "Très bien. Je repassais les dossiers Nexus.", jeu: "ne lève pas les yeux, voix parfaitement neutre", visuel_916: "Plan serré mains sur clavier" },
+        { perso: "INÈS", dialogue: "Nexus ? Pour quoi faire ?", jeu: "infime variation dans la voix — hésitation d'une seconde", visuel_916: "Contre-champ, visage d'Inès en légère tension" },
+        { perso: "LÉA", dialogue: "Curiosité.", jeu: "lève les yeux, sourit — le même sourire qu'Inès", visuel_916: "Zoom imperceptible, duel de regards" },
+      ],
+      cliffhanger_scene: {
+        texte: "Léa envoie l'email piégé. Elle pose son téléphone face visible sur le bureau. Elle attend.",
+        visuel_916: "Plan fixe téléphone sur bureau, notification qui n'arrive pas, puis… vibration",
+        label: "Elle a cliqué.",
       },
     },
   },
@@ -338,7 +417,33 @@ function SerieCard({ serie }) {
 }
 
 export default function Exemples() {
+  const SITE = "https://studiovertical.app";
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Exemples de micro-dramas générés par Studio Vertical",
+    "url": `${SITE}/exemples`,
+    "numberOfItems": SERIES.length,
+    "itemListElement": SERIES.map((s, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": s.bible.titre,
+      "description": s.bible.logline,
+      "url": `${SITE}/exemples`,
+    })),
+  };
+
   return (
+    <>
+    <Head>
+      <title>Exemples de micro-dramas — Studio Vertical</title>
+      <meta name="description" content={`Découvrez ${SERIES.length} exemples complets de micro-dramas 9:16 générés par l'IA : bible, scripts, hooks et cliffhangers prêts à tourner sur TikTok, Reels et Shorts.`} />
+      <link rel="canonical" href={`${SITE}/exemples`} />
+      <meta property="og:url" content={`${SITE}/exemples`} />
+      <meta property="og:title" content="Exemples de micro-dramas — Studio Vertical" />
+      <meta property="og:description" content={`${SERIES.length} séries complètes générées par l'IA : suspense médical, drame familial, thriller financier. Scripts prêts à tourner en 9:16.`} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+    </Head>
     <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "'Space Grotesk', system-ui, sans-serif" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap');
@@ -446,5 +551,6 @@ export default function Exemples() {
         </p>
       </footer>
     </div>
+    </>
   );
 }

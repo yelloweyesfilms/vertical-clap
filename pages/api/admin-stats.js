@@ -25,23 +25,36 @@ export default async function handler(req, res) {
       expand: ["data.customer", "data.items.data.price"],
     });
 
-    let standard = 0, premium = 0, mrr = 0;
+    let standard = 0, premium = 0, annuel = 0, mensuel = 0, mrr = 0;
     const abonnes = [];
+    const PREMIUM_IDS = new Set([
+      process.env.STRIPE_PRICE_ID_PREMIUM,
+      process.env.STRIPE_PRICE_ID_PREMIUM_ANNUAL,
+    ].filter(Boolean));
     for (const sub of subs.data) {
-      const priceId = sub.items.data[0]?.price?.id;
-      const isPremium = priceId === process.env.STRIPE_PRICE_ID_PREMIUM;
-      const amount = (sub.items.data[0]?.price?.unit_amount || 0) / 100;
+      const price = sub.items.data[0]?.price;
+      const priceId = price?.id;
+      const isPremium = PREMIUM_IDS.has(priceId);
+      const isAnnual = price?.recurring?.interval === "year";
+      const rawAmount = (price?.unit_amount || 0) / 100;
+      const mrrAmount = isAnnual ? rawAmount / 12 : rawAmount;
       if (isPremium) premium++; else standard++;
-      mrr += amount;
+      if (isAnnual) annuel++; else mensuel++;
+      mrr += mrrAmount;
       abonnes.push({
         email: sub.customer?.email || "—",
         plan: isPremium ? "premium" : "standard",
+        billing: isAnnual ? "annual" : "monthly",
         createdAt: sub.created,
-        montant: amount,
-        currency: sub.items.data[0]?.price?.currency || "eur",
+        montant: rawAmount,
+        mrrAmount,
+        currency: price?.currency || "eur",
+        status: sub.status,
+        trialEnd: sub.trial_end,
       });
     }
     abonnes.sort((a, b) => b.createdAt - a.createdAt);
+    const arr = Math.round(mrr * 12 * 100) / 100;
 
     // Analytics Redis
     let analytics = { totaux: {}, jours: [] };
@@ -117,8 +130,9 @@ export default async function handler(req, res) {
     }
 
     return res.json({
-      total: subs.data.length, standard, premium,
+      total: subs.data.length, standard, premium, annuel, mensuel,
       mrr: Math.round(mrr * 100) / 100,
+      arr,
       abonnes: abonnes.slice(0, 50),
       analytics,
       ab,
