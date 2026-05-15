@@ -208,7 +208,7 @@ export default function SeriePage({ serie }) {
               }}>
                 ✦ Générer une série similaire →
               </button>
-              <p style={{ color: MUTED, fontSize: 12, marginTop: 14 }}>Essai 24h gratuit · Sans engagement · Dès 7,50€/mois</p>
+              <p style={{ color: MUTED, fontSize: 12, marginTop: 14 }}>Sans engagement · Dès 7,50€/mois</p>
             </div>
           </div>
 

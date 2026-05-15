@@ -73,7 +73,6 @@ const FEATURES = [
 const FAQ = [
   { q: "Quelle est la différence entre Fast Drama et Premium Suspense ?", r: "Fast Drama génère des dialogues directs, des hooks agressifs et un rythme maximal — parfait pour TikTok. Premium Suspense travaille la tension psychologique, les non-dits et les sous-textes. Disponible uniquement en Premium." },
   { q: "Puis-je passer de Standard à Premium à tout moment ?", r: "Oui, en un clic depuis ton espace Stripe. La différence de prix est proratisée automatiquement." },
-  { q: "L'essai 24h débite-t-il ma carte ?", r: "Non. Aucun débit pendant l'essai. Si tu n'annules pas avant minuit, l'abonnement démarre automatiquement." },
   { q: "Puis-je annuler mon abonnement ?", r: "Oui, à tout moment depuis ton espace Stripe. Aucun engagement. Tu gardes l'accès jusqu'à la fin de la période payée." },
   { q: "L'abonnement annuel est-il remboursable ?", r: "Oui, dans les 7 jours suivant le débit annuel. Contacte-nous via le chat." },
 ];
@@ -106,19 +105,6 @@ export default function Tarifs() {
     window.location.href = url;
   };
 
-  const startTrial = async (plan) => {
-    if (!email) { alert("Entre ton email pour continuer"); return; }
-    setLoading(true);
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, plan, billing: "monthly", trial: true }),
-    });
-    const { url, error } = await res.json();
-    if (error) { alert(error); setLoading(false); return; }
-    window.location.href = url;
-  };
-
   const pricingSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -138,10 +124,10 @@ export default function Tarifs() {
     <>
       <Head>
         <title>Tarifs Studio Vertical — Micro-drama IA dès 7,50€/mois</title>
-        <meta name="description" content="Comparez les plans Standard (9€/mois) et Premium (19€/mois) de Studio Vertical. Générez des micro-dramas 9:16 complets pour TikTok, Reels, Shorts et DramaBox. Essai 24h sans engagement." />
+        <meta name="description" content="Comparez les plans Standard (9€/mois) et Premium (19€/mois) de Studio Vertical. Générez des micro-dramas 9:16 complets pour TikTok, Reels, Shorts et DramaBox. Sans engagement." />
         <link rel="canonical" href={`${SITE}/tarifs`} />
         <meta property="og:title" content="Tarifs Studio Vertical — Micro-drama IA dès 7,50€/mois" />
-        <meta property="og:description" content="Standard 9€/mois ou Premium 19€/mois. Générez des séries complètes pour TikTok, DramaBox, ReelShort. Essai 24h gratuit." />
+        <meta property="og:description" content="Standard 9€/mois ou Premium 19€/mois. Générez des séries complètes pour TikTok, DramaBox, ReelShort. Sans engagement." />
         <meta property="og:url" content={`${SITE}/tarifs`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }} />
       </Head>
@@ -256,12 +242,8 @@ export default function Tarifs() {
               <p style={{ color: MUTED, fontSize: 14, marginBottom: billing === "annual" ? 6 : 32 }}>/mois</p>
               {billing === "annual" && <p style={{ fontSize: 13, color: "#4ade80", fontWeight: 600, marginBottom: 28 }}>facturé 90€/an</p>}
               <button onClick={() => startCheckout("standard", "tarifs")} disabled={loading}
-                style={{ width: "100%", background: RED, color: "#fff", border: "none", padding: "15px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", marginBottom: 10, fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 24px rgba(232,92,58,0.35)`, transition: "all .2s" }}>
+                style={{ width: "100%", background: RED, color: "#fff", border: "none", padding: "15px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 24px rgba(232,92,58,0.35)`, transition: "all .2s" }}>
                 {loading ? "Redirection…" : "Commencer Standard →"}
-              </button>
-              <button onClick={() => startTrial("standard")} disabled={loading}
-                style={{ width: "100%", background: "none", border: `1px solid ${BORDER}`, color: MUTED, padding: "11px 0", borderRadius: 12, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif" }}>
-                Essayer 24h gratuitement →
               </button>
               <div style={{ height: 1, background: BORDER, margin: "28px 0" }} />
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -297,12 +279,8 @@ export default function Tarifs() {
               <p style={{ color: MUTED, fontSize: 14, marginBottom: billing === "annual" ? 6 : 32 }}>/mois</p>
               {billing === "annual" && <p style={{ fontSize: 13, color: "#4ade80", fontWeight: 600, marginBottom: 28 }}>facturé 179€/an</p>}
               <button onClick={() => startCheckout("premium", "tarifs")} disabled={loading}
-                style={{ width: "100%", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", padding: "15px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", marginBottom: 10, fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 32px rgba(168,85,247,0.3), 0 0 16px rgba(232,92,58,0.2)`, transition: "all .2s" }}>
+                style={{ width: "100%", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", padding: "15px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 32px rgba(168,85,247,0.3), 0 0 16px rgba(232,92,58,0.2)`, transition: "all .2s" }}>
                 {loading ? "Redirection…" : "Commencer Premium →"}
-              </button>
-              <button onClick={() => startTrial("premium")} disabled={loading}
-                style={{ width: "100%", background: "none", border: "1px solid rgba(168,85,247,0.25)", color: VIO, padding: "11px 0", borderRadius: 12, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif" }}>
-                Essayer 24h gratuitement →
               </button>
               <div style={{ height: 1, background: "rgba(168,85,247,0.15)", margin: "28px 0" }} />
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -343,7 +321,7 @@ export default function Tarifs() {
             ))}
           </div>
           <p style={{ textAlign: "center", fontSize: 12, color: MUTED, marginTop: 12 }}>
-            Essai 24h : carte bancaire requise, aucun débit pendant l'essai. Annulable avant minuit.
+            Teste gratuitement dans les <a href="/exemples" style={{ color: VIO, fontWeight: 600 }}>Exemples</a> avant de t'abonner.
           </p>
         </div>
 
