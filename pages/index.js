@@ -329,10 +329,9 @@ export default function Landing() {
           </div>
 
           <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(38px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
-            De l'idée<br />
-            à la{" "}
+            Ta série{" "}
             <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
-              série complète
+              prête à tourner
             </span>
             .<br />
             En 5 minutes.
@@ -532,103 +531,215 @@ export default function Landing() {
 
           <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
 
-            {/* Poster 1 — Le Mensonge */}
-            <div style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06)", position: "relative", cursor: "default" }}>
-              <div style={{ background: "linear-gradient(170deg, #1a0505 0%, #0d0000 40%, #09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "22px 18px 20px", position: "relative", overflow: "hidden" }}>
-                {/* BG texture */}
-                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 20%, rgba(232,92,58,0.18) 0%, transparent 55%), radial-gradient(ellipse at 80% 80%, rgba(232,92,58,0.08) 0%, transparent 50%)", pointerEvents: "none" }} />
-                {/* Top bar */}
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 14 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
-                    <span style={{ fontSize: 8, fontWeight: 800, color: RED, letterSpacing: 2, fontFamily: "monospace" }}>STUDIO VERTICAL</span>
+            {/* Poster 1 — Le Mensonge (hôpital) */}
+            <div style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.07)", position: "relative" }}>
+              <div style={{ background: "linear-gradient(175deg,#180606 0%,#0d0202 35%,#09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "18px 16px 18px", position: "relative", overflow: "hidden" }}>
+                {/* Ambient light */}
+                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 60%,rgba(232,92,58,0.13) 0%,transparent 60%)", pointerEvents: "none" }} />
+                {/* Location strip */}
+                <div style={{ position: "relative", zIndex: 3 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: RED, letterSpacing: 2, fontFamily: "monospace" }}>◉ STUDIO VERTICAL</span>
+                    <span style={{ fontSize: 7, color: "rgba(255,255,255,0.3)", letterSpacing: 1 }}>8 ÉP.</span>
                   </div>
-                  <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 8 épisodes</div>
-                  <div style={{ height: 1, background: "rgba(232,92,58,0.3)", marginBottom: 16 }} />
-                </div>
-                {/* Center visual */}
-                <div style={{ position: "absolute", top: "30%", left: 0, right: 0, bottom: 0, zIndex: 0, overflow: "hidden" }}>
-                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 0%, #09090f 75%)" }} />
-                  <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.15 }}>
-                    <svg width="180" height="220" viewBox="0 0 180 220" fill="none">
-                      <ellipse cx="90" cy="80" rx="55" ry="65" fill={RED} />
-                      <rect x="30" y="130" width="120" height="90" rx="8" fill={RED} opacity="0.6" />
-                    </svg>
+                  <div style={{ background: "rgba(232,92,58,0.12)", border: "1px solid rgba(232,92,58,0.25)", borderRadius: 6, padding: "4px 8px", display: "inline-flex", alignItems: "center", gap: 5 }}>
+                    <span style={{ fontSize: 8 }}>🏥</span>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: "rgba(255,255,255,0.6)", letterSpacing: 1.5, textTransform: "uppercase" }}>Hôpital St-Louis · Paris</span>
                   </div>
                 </div>
-                {/* Bottom — title */}
-                <div style={{ position: "relative", zIndex: 2 }}>
-                  <div style={{ fontSize: 8, fontWeight: 700, color: MUTED, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>DRAME · THRILLER</div>
-                  <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 34, fontWeight: 900, color: TEXT, lineHeight: 1.0, letterSpacing: -1, marginBottom: 10 }}>Le<br />Mensonge</div>
-                  <div style={{ height: 2, width: 32, background: RED, borderRadius: 2, marginBottom: 10 }} />
-                  <div style={{ fontSize: 9, color: "rgba(255,255,255,0.4)", lineHeight: 1.5, fontStyle: "italic" }}>Elle cache une erreur médicale. Il revient comme interne.</div>
-                  <div style={{ marginTop: 14, display: "flex", gap: 6 }}>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: RED, border: `1px solid ${RED}40`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>9:16</span>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: MUTED, border: `1px solid ${BORDER}`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>EP.1→8</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Poster 2 — Héritage (centre, légèrement plus grand) */}
-            <div style={{ width: 240, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 40px 100px rgba(168,85,247,0.25), 0 0 0 1px rgba(168,85,247,0.2)", position: "relative", cursor: "default", transform: "translateY(-16px)" }}>
-              <div style={{ background: "linear-gradient(170deg, #0d0515 0%, #0a0510 40%, #09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "22px 18px 20px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 60% 25%, rgba(168,85,247,0.22) 0%, transparent 55%), radial-gradient(ellipse at 20% 85%, rgba(168,85,247,0.10) 0%, transparent 50%)", pointerEvents: "none" }} />
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 14 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: VIO, animation: "pulse 2s infinite" }} />
-                    <span style={{ fontSize: 8, fontWeight: 800, color: VIO, letterSpacing: 2, fontFamily: "monospace" }}>STUDIO VERTICAL</span>
-                  </div>
-                  <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 10 épisodes</div>
-                  <div style={{ height: 1, background: "rgba(168,85,247,0.3)", marginBottom: 16 }} />
-                </div>
-                {/* Decorative diamond */}
-                <div style={{ position: "absolute", top: "28%", left: "50%", transform: "translateX(-50%)", zIndex: 0, opacity: 0.08 }}>
-                  <svg width="200" height="240" viewBox="0 0 200 240" fill="none">
-                    <polygon points="100,10 190,100 100,230 10,100" fill={VIO} />
+                {/* Characters SVG — infirmière + interne face à face */}
+                <div style={{ position: "absolute", left: 0, right: 0, top: "18%", bottom: "28%", zIndex: 1, overflow: "hidden" }}>
+                  <svg viewBox="0 0 220 280" fill="none" style={{ width: "100%", height: "100%", display: "block" }}>
+                    {/* Couloir hôpital en perspective */}
+                    <rect x="0" y="120" width="220" height="160" fill="#0a0a0a" opacity="0.6" />
+                    <line x1="110" y1="90" x2="0" y2="280" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+                    <line x1="110" y1="90" x2="220" y2="280" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+                    <line x1="110" y1="90" x2="110" y2="280" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                    {/* Lumière de couloir */}
+                    <ellipse cx="110" cy="90" rx="40" ry="15" fill="rgba(232,92,58,0.15)" />
+                    {/* Personnage 1 — infirmière (gauche, de dos) */}
+                    <ellipse cx="68" cy="108" rx="14" ry="16" fill="#e0d0c8" />
+                    <path d="M54 124 Q58 118 68 120 Q78 118 82 124 L86 200 L50 200 Z" fill="#f1f5f9" opacity="0.9" />
+                    <path d="M54 124 L46 165 L52 166 L56 140 Z" fill="#f1f5f9" opacity="0.85" />
+                    <path d="M82 124 L90 165 L84 166 L80 140 Z" fill="#f1f5f9" opacity="0.85" />
+                    {/* Croix infirmière */}
+                    <rect x="65" y="138" width="6" height="2" fill={RED} opacity="0.8" rx="1" />
+                    <rect x="67" y="136" width="2" height="6" fill={RED} opacity="0.8" rx="1" />
+                    {/* Personnage 2 — interne (droite, face) */}
+                    <ellipse cx="152" cy="105" rx="15" ry="17" fill="#d4b896" />
+                    {/* Cheveux */}
+                    <path d="M137 100 Q140 86 152 85 Q164 86 167 100 Q162 92 152 91 Q142 92 137 100Z" fill="#2a1a0a" />
+                    {/* Blouse */}
+                    <path d="M137 122 Q141 116 152 118 Q163 116 167 122 L172 200 L132 200 Z" fill="#f8fafc" opacity="0.95" />
+                    <path d="M137 122 L128 165 L134 167 L139 145 Z" fill="#f8fafc" opacity="0.9" />
+                    <path d="M167 122 L176 165 L170 167 L165 145 Z" fill="#f8fafc" opacity="0.9" />
+                    {/* Stéthoscope */}
+                    <path d="M148 128 Q144 136 148 142 Q152 146 156 142 Q160 136 156 128" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" fill="none" />
+                    {/* Ombre de tension entre les deux */}
+                    <line x1="90" y1="155" x2="132" y2="155" stroke="rgba(232,92,58,0.2)" strokeWidth="1" strokeDasharray="3,3" />
+                    {/* Fondu bas */}
+                    <defs>
+                      <linearGradient id="fade1" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="transparent" />
+                        <stop offset="75%" stopColor="#09090f" />
+                        <stop offset="100%" stopColor="#09090f" />
+                      </linearGradient>
+                    </defs>
+                    <rect x="0" y="0" width="220" height="280" fill="url(#fade1)" />
                   </svg>
                 </div>
-                <div style={{ position: "absolute", top: "28%", left: 0, right: 0, bottom: 0, background: "linear-gradient(180deg, transparent 0%, #09090f 70%)", zIndex: 1 }} />
-                <div style={{ position: "relative", zIndex: 2 }}>
-                  <div style={{ fontSize: 8, fontWeight: 700, color: MUTED, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>DRAME · FAMILLE</div>
-                  <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 38, fontWeight: 900, color: TEXT, lineHeight: 1.0, letterSpacing: -1, marginBottom: 10 }}>Héri-<br />tage</div>
-                  <div style={{ height: 2, width: 32, background: VIO, borderRadius: 2, marginBottom: 10 }} />
-                  <div style={{ fontSize: 9, color: "rgba(255,255,255,0.4)", lineHeight: 1.5, fontStyle: "italic" }}>Un testament. Trois frères. Un secret vieux de 20 ans.</div>
-                  <div style={{ marginTop: 14, display: "flex", gap: 6 }}>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: VIO, border: `1px solid ${VIO}40`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>9:16</span>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: MUTED, border: `1px solid ${BORDER}`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>EP.1→10</span>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: VIO, background: `${VIO}15`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>PREMIUM</span>
+                {/* Title block */}
+                <div style={{ position: "relative", zIndex: 3 }}>
+                  <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: 2.5, textTransform: "uppercase", marginBottom: 6 }}>THRILLER MÉDICAL</div>
+                  <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 32, fontWeight: 900, color: TEXT, lineHeight: 1.0, letterSpacing: -1, marginBottom: 8 }}>Le<br />Mensonge</div>
+                  <div style={{ height: 2, width: 28, background: RED, borderRadius: 2, marginBottom: 8 }} />
+                  <div style={{ fontSize: 8.5, color: "rgba(255,255,255,0.4)", lineHeight: 1.55, fontStyle: "italic" }}>Elle cache une erreur qui peut tout faire basculer.</div>
+                  <div style={{ marginTop: 12, display: "flex", gap: 5 }}>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: RED, border: `1px solid ${RED}50`, borderRadius: 4, padding: "2px 6px", letterSpacing: 1 }}>9:16</span>
+                    <span style={{ fontSize: 7, color: MUTED, border: `1px solid ${BORDER}`, borderRadius: 4, padding: "2px 6px" }}>8 épisodes</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Poster 3 — Deux Vies */}
-            <div style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06)", position: "relative", cursor: "default" }}>
-              <div style={{ background: "linear-gradient(170deg, #050d1a 0%, #030810 40%, #09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "22px 18px 20px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 70% 30%, rgba(96,165,250,0.14) 0%, transparent 55%)", pointerEvents: "none" }} />
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 14 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#60a5fa", animation: "pulse 1.8s infinite" }} />
-                    <span style={{ fontSize: 8, fontWeight: 800, color: "#60a5fa", letterSpacing: 2, fontFamily: "monospace" }}>STUDIO VERTICAL</span>
+            {/* Poster 2 — Héritage (manoir) — centre, surélevé */}
+            <div style={{ width: 240, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 40px 100px rgba(168,85,247,0.3), 0 0 0 1px rgba(168,85,247,0.18)", position: "relative", transform: "translateY(-18px)" }}>
+              <div style={{ background: "linear-gradient(175deg,#0e0518 0%,#080412 35%,#09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "18px 16px 18px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 45%,rgba(168,85,247,0.16) 0%,transparent 60%)", pointerEvents: "none" }} />
+                {/* Location strip */}
+                <div style={{ position: "relative", zIndex: 3 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: VIO, letterSpacing: 2, fontFamily: "monospace" }}>◉ STUDIO VERTICAL</span>
+                    <span style={{ fontSize: 7, color: "rgba(255,255,255,0.3)", letterSpacing: 1 }}>10 ÉP.</span>
                   </div>
-                  <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 6 épisodes</div>
-                  <div style={{ height: 1, background: "rgba(96,165,250,0.3)", marginBottom: 16 }} />
+                  <div style={{ background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.28)", borderRadius: 6, padding: "4px 8px", display: "inline-flex", alignItems: "center", gap: 5 }}>
+                    <span style={{ fontSize: 8 }}>🏰</span>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: "rgba(255,255,255,0.6)", letterSpacing: 1.5, textTransform: "uppercase" }}>Manoir des Aubry · Normandie</span>
+                  </div>
                 </div>
-                {/* Split visual */}
-                <div style={{ position: "absolute", top: "25%", left: 0, right: 0, height: "45%", zIndex: 0, overflow: "hidden" }}>
-                  <div style={{ position: "absolute", left: 0, top: 0, width: "50%", height: "100%", background: "rgba(232,92,58,0.06)", borderRight: "1px solid rgba(255,255,255,0.08)" }} />
-                  <div style={{ position: "absolute", right: 0, top: 0, width: "50%", height: "100%", background: "rgba(96,165,250,0.06)" }} />
-                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 0%, #09090f 85%)" }} />
+                {/* Characters SVG — 3 frères devant manoir */}
+                <div style={{ position: "absolute", left: 0, right: 0, top: "16%", bottom: "26%", zIndex: 1, overflow: "hidden" }}>
+                  <svg viewBox="0 0 240 310" fill="none" style={{ width: "100%", height: "100%", display: "block" }}>
+                    {/* Manoir silhouette en fond */}
+                    <rect x="60" y="60" width="120" height="140" fill="rgba(168,85,247,0.06)" />
+                    <rect x="80" y="40" width="80" height="30" fill="rgba(168,85,247,0.06)" />
+                    <polygon points="120,15 80,40 160,40" fill="rgba(168,85,247,0.08)" />
+                    {/* Fenêtres manoir */}
+                    <rect x="80" y="75" width="18" height="22" rx="2" fill="rgba(168,85,247,0.15)" />
+                    <rect x="111" y="75" width="18" height="22" rx="2" fill="rgba(255,200,50,0.12)" />
+                    <rect x="142" y="75" width="18" height="22" rx="2" fill="rgba(168,85,247,0.15)" />
+                    <rect x="95" y="110" width="50" height="30" rx="2" fill="rgba(168,85,247,0.1)" />
+                    {/* Personnage gauche — frère 1 (costume, bras croisés) */}
+                    <ellipse cx="72" cy="168" rx="12" ry="14" fill="#c8a882" />
+                    <path d="M60 182 Q64 176 72 178 Q80 176 84 182 L86 240 L58 240 Z" fill="#1a1a2e" />
+                    <path d="M60 182 L52 195 L55 196 L61 185 Z" fill="#1a1a2e" />
+                    <path d="M84 182 L56 195 L59 196 L63 186 Z" fill="#1a1a2e" />
+                    {/* Bras croisés */}
+                    <path d="M57 198 Q72 204 87 198" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="none" />
+                    {/* Personnage centre — frère 2 (plus grand, dominant) */}
+                    <ellipse cx="120" cy="160" rx="14" ry="16" fill="#b8906a" />
+                    <path d="M106 176 Q110 170 120 172 Q130 170 134 176 L138 250 L102 250 Z" fill="#2a1030" />
+                    <path d="M106 176 L97 194 L101 195 L107 180 Z" fill="#2a1030" />
+                    <path d="M134 176 L143 194 L139 195 L133 180 Z" fill="#2a1030" />
+                    {/* Personnage droite — frère 3 (tourne la tête) */}
+                    <ellipse cx="168" cy="168" rx="12" ry="14" fill="#d4b090" />
+                    <path d="M156 182 Q160 176 168 178 Q176 176 180 182 L182 240 L154 240 Z" fill="#1a1a2e" />
+                    <path d="M156 182 L148 195 L151 196 L157 185 Z" fill="#1a1a2e" />
+                    <path d="M180 182 L188 195 L185 196 L179 185 Z" fill="#1a1a2e" />
+                    {/* Document testament */}
+                    <rect x="108" y="190" width="24" height="30" rx="2" fill="rgba(255,255,255,0.12)" />
+                    <line x1="112" y1="197" x2="128" y2="197" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+                    <line x1="112" y1="202" x2="128" y2="202" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+                    <line x1="112" y1="207" x2="122" y2="207" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
+                    <defs>
+                      <linearGradient id="fade2" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="transparent" />
+                        <stop offset="70%" stopColor="#09090f" />
+                        <stop offset="100%" stopColor="#09090f" />
+                      </linearGradient>
+                    </defs>
+                    <rect x="0" y="0" width="240" height="310" fill="url(#fade2)" />
+                  </svg>
                 </div>
-                <div style={{ position: "relative", zIndex: 2 }}>
-                  <div style={{ fontSize: 8, fontWeight: 700, color: MUTED, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>DRAME · IDENTITÉ</div>
-                  <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 34, fontWeight: 900, color: TEXT, lineHeight: 1.0, letterSpacing: -1, marginBottom: 10 }}>Deux<br />Vies</div>
-                  <div style={{ height: 2, width: 32, background: "#60a5fa", borderRadius: 2, marginBottom: 10 }} />
-                  <div style={{ fontSize: 9, color: "rgba(255,255,255,0.4)", lineHeight: 1.5, fontStyle: "italic" }}>Elle mène deux vies parallèles. L'une d'elles va s'effondrer.</div>
-                  <div style={{ marginTop: 14, display: "flex", gap: 6 }}>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: "#60a5fa", border: "1px solid rgba(96,165,250,0.4)", borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>9:16</span>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: MUTED, border: `1px solid ${BORDER}`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>EP.1→6</span>
+                {/* Title */}
+                <div style={{ position: "relative", zIndex: 3 }}>
+                  <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: 2.5, textTransform: "uppercase", marginBottom: 6 }}>DRAME FAMILIAL</div>
+                  <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 36, fontWeight: 900, color: TEXT, lineHeight: 1.0, letterSpacing: -1, marginBottom: 8 }}>Héri-<br />tage</div>
+                  <div style={{ height: 2, width: 28, background: VIO, borderRadius: 2, marginBottom: 8 }} />
+                  <div style={{ fontSize: 8.5, color: "rgba(255,255,255,0.4)", lineHeight: 1.55, fontStyle: "italic" }}>Un testament. Trois frères. Un secret vieux de 20 ans.</div>
+                  <div style={{ marginTop: 12, display: "flex", gap: 5 }}>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: VIO, border: `1px solid ${VIO}50`, borderRadius: 4, padding: "2px 6px", letterSpacing: 1 }}>9:16</span>
+                    <span style={{ fontSize: 7, color: MUTED, border: `1px solid ${BORDER}`, borderRadius: 4, padding: "2px 6px" }}>10 épisodes</span>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: VIO, background: `${VIO}18`, borderRadius: 4, padding: "2px 6px" }}>PREMIUM</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Poster 3 — Deux Vies (appartement / bureau) */}
+            <div style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.07)", position: "relative" }}>
+              <div style={{ background: "linear-gradient(175deg,#05101a 0%,#030a12 35%,#09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "18px 16px 18px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 50%,rgba(232,92,58,0.1) 0%,transparent 45%), radial-gradient(ellipse at 75% 50%,rgba(96,165,250,0.1) 0%,transparent 45%)", pointerEvents: "none" }} />
+                {/* Location strip */}
+                <div style={{ position: "relative", zIndex: 3 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: "#60a5fa", letterSpacing: 2, fontFamily: "monospace" }}>◉ STUDIO VERTICAL</span>
+                    <span style={{ fontSize: 7, color: "rgba(255,255,255,0.3)", letterSpacing: 1 }}>6 ÉP.</span>
+                  </div>
+                  <div style={{ background: "rgba(96,165,250,0.1)", border: "1px solid rgba(96,165,250,0.25)", borderRadius: 6, padding: "4px 8px", display: "inline-flex", alignItems: "center", gap: 5 }}>
+                    <span style={{ fontSize: 8 }}>🌆</span>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: "rgba(255,255,255,0.6)", letterSpacing: 1.5, textTransform: "uppercase" }}>Paris · Lyon · Double vie</span>
+                  </div>
+                </div>
+                {/* Characters SVG — femme dédoublée */}
+                <div style={{ position: "absolute", left: 0, right: 0, top: "17%", bottom: "27%", zIndex: 1, overflow: "hidden" }}>
+                  <svg viewBox="0 0 220 285" fill="none" style={{ width: "100%", height: "100%", display: "block" }}>
+                    {/* Ligne de séparation centrale */}
+                    <line x1="110" y1="0" x2="110" y2="285" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
+                    {/* Fond gauche — appartement chaleureux */}
+                    <rect x="0" y="60" width="110" height="225" fill="rgba(232,92,58,0.04)" />
+                    <rect x="15" y="80" width="35" height="45" rx="2" fill="rgba(255,200,100,0.1)" />
+                    <rect x="58" y="80" width="35" height="45" rx="2" fill="rgba(255,200,100,0.08)" />
+                    <rect x="20" y="140" width="70" height="8" rx="2" fill="rgba(255,255,255,0.05)" />
+                    {/* Fond droit — bureau froid */}
+                    <rect x="110" y="60" width="110" height="225" fill="rgba(96,165,250,0.04)" />
+                    <rect x="115" y="75" width="80" height="3" rx="1" fill="rgba(96,165,250,0.15)" />
+                    <rect x="115" y="82" width="60" height="2" rx="1" fill="rgba(96,165,250,0.1)" />
+                    <rect x="115" y="89" width="70" height="2" rx="1" fill="rgba(96,165,250,0.1)" />
+                    <rect x="120" y="100" width="75" height="50" rx="3" fill="rgba(96,165,250,0.08)" />
+                    {/* Personnage gauche — tenue décontractée */}
+                    <ellipse cx="65" cy="158" rx="13" ry="15" fill="#d4a882" />
+                    <path d="M52 173 Q56 167 65 169 Q74 167 78 173 L80 245 L50 245 Z" fill="#e85c3a" opacity="0.7" />
+                    <path d="M52 173 L44 188 L48 190 L53 178 Z" fill="#e85c3a" opacity="0.7" />
+                    <path d="M78 173 L86 188 L82 190 L77 178 Z" fill="#e85c3a" opacity="0.7" />
+                    {/* Personnage droit — tenue professionnelle */}
+                    <ellipse cx="155" cy="158" rx="13" ry="15" fill="#d4a882" />
+                    {/* Chignon */}
+                    <path d="M143 150 Q146 142 155 141 Q164 142 167 150 Q163 145 155 144 Q147 145 143 150Z" fill="#1a0a02" />
+                    <path d="M142 173 Q146 167 155 169 Q164 167 168 173 L170 245 L140 245 Z" fill="#1e293b" opacity="0.9" />
+                    <path d="M142 173 L134 188 L138 190 L143 178 Z" fill="#1e293b" opacity="0.9" />
+                    <path d="M168 173 L176 188 L172 190 L167 178 Z" fill="#1e293b" opacity="0.9" />
+                    {/* Miroir / reflet entre les deux */}
+                    <line x1="110" y1="155" x2="110" y2="250" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" strokeDasharray="4,4" />
+                    <defs>
+                      <linearGradient id="fade3" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="transparent" />
+                        <stop offset="72%" stopColor="#09090f" />
+                        <stop offset="100%" stopColor="#09090f" />
+                      </linearGradient>
+                    </defs>
+                    <rect x="0" y="0" width="220" height="285" fill="url(#fade3)" />
+                  </svg>
+                </div>
+                {/* Title */}
+                <div style={{ position: "relative", zIndex: 3 }}>
+                  <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: 2.5, textTransform: "uppercase", marginBottom: 6 }}>THRILLER · IDENTITÉ</div>
+                  <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 32, fontWeight: 900, color: TEXT, lineHeight: 1.0, letterSpacing: -1, marginBottom: 8 }}>Deux<br />Vies</div>
+                  <div style={{ height: 2, width: 28, background: "#60a5fa", borderRadius: 2, marginBottom: 8 }} />
+                  <div style={{ fontSize: 8.5, color: "rgba(255,255,255,0.4)", lineHeight: 1.55, fontStyle: "italic" }}>Elle mène deux vies parallèles. L'une d'elles va s'effondrer.</div>
+                  <div style={{ marginTop: 12, display: "flex", gap: 5 }}>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: "#60a5fa", border: "1px solid rgba(96,165,250,0.4)", borderRadius: 4, padding: "2px 6px", letterSpacing: 1 }}>9:16</span>
+                    <span style={{ fontSize: 7, color: MUTED, border: `1px solid ${BORDER}`, borderRadius: 4, padding: "2px 6px" }}>6 épisodes</span>
                   </div>
                 </div>
               </div>
