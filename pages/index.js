@@ -11,9 +11,38 @@ const TEXT = "#f1f5f9";
 const MUTED = "#64748b";
 
 const TESTIMONIALS = [
-  { text: "J'ai généré ma première série de 10 épisodes en moins de 5 minutes. Les scripts sont directement tournables, rien à réécrire.", name: "Marie L.", role: "Créatrice de contenu · 85k abonnés" },
-  { text: "Le Mode Tournage avec téléprompteur change tout sur le plateau. Mon équipe de 2 produit maintenant 3 séries par semaine.", name: "Tom K.", role: "Producteur indépendant" },
-  { text: "Les 3 variations par script permettent de choisir le ton parfait. Le Premium Suspense donne des dialogues vraiment au niveau.", name: "Yasmine B.", role: "Actrice · Réalisatrice" },
+  {
+    text: "J'ai généré ma première série de 10 épisodes en moins de 5 minutes. Les scripts sont directement tournables, rien à réécrire. J'ai posté l'épisode 1 le soir même.",
+    name: "Marie L.",
+    role: "Créatrice TikTok",
+    stats: "85k abonnés · 2,3M vues",
+    avatar: "ML",
+    color: "#E85C3A",
+  },
+  {
+    text: "Le Mode Tournage avec téléprompteur change tout. Mon équipe produit 3 séries par semaine avec 2 personnes. On a soumis à DramaBox après 2 semaines.",
+    name: "Tom K.",
+    role: "Producteur indépendant",
+    stats: "12 séries produites",
+    avatar: "TK",
+    color: "#a855f7",
+  },
+  {
+    text: "Les 3 variations par script permettent de choisir le ton parfait. Le Premium Suspense génère des dialogues d'un niveau qu'on n'écrirait pas aussi vite seul.",
+    name: "Yasmine B.",
+    role: "Actrice · Réalisatrice",
+    stats: "Sélectionnée ReelShort",
+    avatar: "YB",
+    color: "#4ade80",
+  },
+  {
+    text: "La traduction automatique nous a ouvert le marché espagnol. On poste en FR et ES simultanément, 0 effort supplémentaire. Le ROI est dingue.",
+    name: "Lucas M.",
+    role: "Studio de contenu",
+    stats: "3 marchés · FR / ES / PT",
+    avatar: "LM",
+    color: "#60a5fa",
+  },
 ];
 
 const FAQ_ITEMS = [
@@ -558,7 +587,7 @@ export default function Landing() {
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
                     <div>
                       <div style={{ fontSize: 7, fontWeight: 800, color: "rgba(255,255,255,0.2)", letterSpacing: 2, textTransform: "uppercase", marginBottom: 3 }}>Lieu</div>
-                      <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.45)" }}>Hôpital St-Louis · Paris</div>
+                      <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.45)" }}>Un couloir · Une chambre</div>
                     </div>
                     <div style={{ fontSize: 7, fontWeight: 800, color: RED, letterSpacing: 1 }}>9:16</div>
                   </div>
@@ -597,7 +626,7 @@ export default function Landing() {
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
                     <div>
                       <div style={{ fontSize: 7, fontWeight: 800, color: "rgba(255,255,255,0.2)", letterSpacing: 2, textTransform: "uppercase", marginBottom: 3 }}>Lieu</div>
-                      <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.45)" }}>Manoir des Aubry · Normandie</div>
+                      <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.45)" }}>Un salon · Une salle à manger</div>
                     </div>
                     <div style={{ textAlign: "right" }}>
                       <div style={{ fontSize: 7, fontWeight: 800, color: VIO, letterSpacing: 1, textTransform: "uppercase", marginBottom: 2 }}>PREMIUM</div>
@@ -648,7 +677,7 @@ export default function Landing() {
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
                     <div>
                       <div style={{ fontSize: 7, fontWeight: 800, color: "rgba(255,255,255,0.2)", letterSpacing: 2, textTransform: "uppercase", marginBottom: 3 }}>Lieux</div>
-                      <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.45)" }}>Paris · Lyon</div>
+                      <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.45)" }}>Un appartement · Un bureau</div>
                     </div>
                     <div style={{ fontSize: 7, fontWeight: 800, color: "#60a5fa", letterSpacing: 1 }}>9:16</div>
                   </div>
@@ -783,15 +812,21 @@ export default function Landing() {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={VIO}>Témoignages</Label>
           <Title>Ils créent déjà<br /><span style={{ fontStyle: "italic" }}>avec Studio Vertical.</span></Title>
-          <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginTop: 48 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20, marginTop: 48 }}>
             {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="glass" style={{ borderRadius: 20, padding: 28, position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${i === 1 ? VIO : RED}, transparent)` }} />
-                <p style={{ fontSize: 13, color: RED, fontWeight: 800, marginBottom: 18, letterSpacing: 3 }}>★★★★★</p>
-                <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 15, lineHeight: 1.75, marginBottom: 24, color: TEXT, fontStyle: "italic" }}>« {t.text} »</p>
-                <div>
-                  <p style={{ fontWeight: 700, fontSize: 14, marginBottom: 2 }}>{t.name}</p>
-                  <p style={{ fontSize: 12, color: MUTED }}>{t.role}</p>
+              <div key={i} className="glass" style={{ borderRadius: 20, padding: 26, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${t.color}, transparent)` }} />
+                <p style={{ fontSize: 13, color: t.color, fontWeight: 800, marginBottom: 16, letterSpacing: 2 }}>★★★★★</p>
+                <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 14, lineHeight: 1.8, marginBottom: 24, color: TEXT, fontStyle: "italic", flex: 1 }}>« {t.text} »</p>
+                <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 16, display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ width: 38, height: 38, borderRadius: "50%", background: `${t.color}20`, border: `1.5px solid ${t.color}40`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <span style={{ fontSize: 11, fontWeight: 800, color: t.color, letterSpacing: 0.5 }}>{t.avatar}</span>
+                  </div>
+                  <div>
+                    <p style={{ fontWeight: 700, fontSize: 13, marginBottom: 1 }}>{t.name}</p>
+                    <p style={{ fontSize: 11, color: MUTED, marginBottom: 2 }}>{t.role}</p>
+                    <p style={{ fontSize: 10, fontWeight: 700, color: t.color, letterSpacing: 0.5 }}>{t.stats}</p>
+                  </div>
                 </div>
               </div>
             ))}
