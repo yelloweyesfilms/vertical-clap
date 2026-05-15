@@ -240,6 +240,64 @@ function Dots({ t = 0 }) {
   );
 }
 
+const UPSELL_CONTENT = {
+  mode_premium: {
+    icon: "🎭",
+    title: "Premium Suspense",
+    desc: "Tension psychologique, sous-texte, silences lourds. Des dialogues au niveau des meilleures séries Netflix — pour une audience qui veut plus que du divertissement.",
+    feature: "Mode de génération Premium",
+  },
+  titres: {
+    icon: "🔥",
+    title: "Titres viraux",
+    desc: "5 titres alternatifs avec score de viralité, accroche émotionnelle et analyse psychologique de l'impact. Choisis celui qui cartonne.",
+    feature: "Générateur de titres viraux",
+  },
+  variations: {
+    icon: "🎲",
+    title: "4 variations du script",
+    desc: "Intense, subtil ou rapide — 3 versions générées en parallèle pour la même scène. Plus jamais de blocage créatif sur le ton.",
+    feature: "Variations de scripts",
+  },
+  episodes: {
+    icon: "📺",
+    title: "Jusqu'à 90 épisodes",
+    desc: "Le plan Standard est limité à 10 épisodes par série. Premium permet d'aller jusqu'à 90 épisodes — pour des sagas longues qui fidélisent ton audience.",
+    feature: "90 épisodes par série",
+  },
+};
+
+function UpsellModal({ feature, onUpgrade, onClose }) {
+  const c = UPSELL_CONTENT[feature] || UPSELL_CONTENT.mode_premium;
+  return (
+    <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 2000, display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
+      <div onClick={e => e.stopPropagation()} style={{ background: "var(--bg)", borderRadius: "24px 24px 0 0", padding: "36px 28px 52px", maxWidth: 480, width: "100%", boxShadow: "0 -24px 80px rgba(0,0,0,.6)" }}>
+        <div style={{ width: 40, height: 4, background: "var(--bo)", borderRadius: 2, margin: "0 auto 32px" }} />
+        <div style={{ width: 64, height: 64, borderRadius: 20, background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.25)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, margin: "0 auto 20px" }}>{c.icon}</div>
+        <p style={{ textAlign: "center", fontSize: 10, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "#a855f7", marginBottom: 10, fontFamily: "var(--sans)" }}>Fonctionnalité Premium</p>
+        <h2 style={{ textAlign: "center", fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, marginBottom: 12, color: "var(--tx)" }}>{c.title}</h2>
+        <p style={{ textAlign: "center", fontSize: 14, color: "var(--mt)", lineHeight: 1.7, marginBottom: 28 }}>{c.desc}</p>
+        <div style={{ background: "rgba(168,85,247,0.06)", border: "1px solid rgba(168,85,247,0.18)", borderRadius: 14, padding: "16px 18px", marginBottom: 24, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+          <div>
+            <p style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)", marginBottom: 2 }}>Plan Premium</p>
+            <p style={{ fontSize: 12, color: "var(--mt)" }}>Fast Drama + Premium Suspense, 90 épisodes, 4 variations, titres viraux</p>
+          </div>
+          <div style={{ textAlign: "right", flexShrink: 0 }}>
+            <p style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "var(--tx)", lineHeight: 1 }}>19€</p>
+            <p style={{ fontSize: 11, color: "var(--mt)" }}>/mois</p>
+          </div>
+        </div>
+        <button onClick={onUpgrade} style={{ width: "100%", background: "linear-gradient(135deg, #E85C3A, #a855f7)", color: "#fff", border: "none", padding: "16px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", marginBottom: 12, boxShadow: "0 0 28px rgba(168,85,247,0.3)" }}>
+          Passer à Premium →
+        </button>
+        <button onClick={onClose} style={{ width: "100%", background: "none", border: "none", color: "var(--mt)", fontSize: 14, cursor: "pointer", padding: "8px 0", fontFamily: "var(--sans)" }}>
+          Peut-être plus tard
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function Chip({ label, active, onClick, block, sub }) {
   return (
     <div
@@ -830,7 +888,7 @@ function AfficheView({ bible, episodes, mode, onBack, customerId }) {
 
 const CUSTOM_PREFIX = "__custom__";
 
-function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboarding, onParrainage, darkMode, onDarkMode, onLogout, onUpgrade, stats, lastSerie, onResume }) {
+function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboarding, onParrainage, darkMode, onDarkMode, onLogout, onUpgrade, onUpsell, stats, lastSerie, onResume }) {
   const univOpts = state.mode === "fast" ? OPTS.univers_fast : OPTS.univers_prem;
   const secOpts = state.mode === "fast" ? OPTS.secret_fast : OPTS.secret_prem;
   const totalMin = Math.round(state.format * state.duree / 60);
@@ -867,7 +925,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
           {[{ k: "fast", l: "⚡ Fast Drama" }, { k: "premium", l: "🎭 Premium Suspense" }].map(({ k, l }) => {
             const locked = k === "premium" && plan === "standard";
             return (
-              <button key={k} onClick={() => { if (!locked) set(prev => ({ mode: k, univers: k === "fast" ? OPTS.univers_fast[0] : OPTS.univers_prem[0], secret: k === "fast" ? OPTS.secret_fast[0] : OPTS.secret_prem[0], lieu: k === "fast" ? OPTS.lieu_fast[0] : OPTS.lieu_prem[0], format: k === "fast" && prev.format > 10 ? 10 : prev.format })); }}
+              <button key={k} onClick={() => { if (locked) { onUpsell?.("mode_premium"); } else set(prev => ({ mode: k, univers: k === "fast" ? OPTS.univers_fast[0] : OPTS.univers_prem[0], secret: k === "fast" ? OPTS.secret_fast[0] : OPTS.secret_prem[0], lieu: k === "fast" ? OPTS.lieu_fast[0] : OPTS.lieu_prem[0], format: k === "fast" && prev.format > 10 ? 10 : prev.format })); }}
                 style={{ flex: 1, padding: "10px 12px", borderRadius: 9, border: "none", fontFamily: "var(--sans)", fontSize: 13, fontWeight: 700, background: state.mode === k ? (k === "fast" ? "var(--r)" : "var(--n)") : "transparent", color: locked ? "#3a5040" : state.mode === k ? "#fff" : "#3a5040", transition: "all .2s", cursor: locked ? "not-allowed" : "pointer", opacity: locked ? 0.5 : 1 }}>
                 {l}{locked && " 🔒"}
               </button>
@@ -995,7 +1053,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
   );
 }
 
-function BibleView({ bible, episodes, mode, duree, onEp, onBack, onAffiche, customerId, plan }) {
+function BibleView({ bible, episodes, mode, duree, onEp, onBack, onAffiche, customerId, plan, onUpsell }) {
   const [tab, setTab] = useState("bible");
   const [titres, setTitres] = useState(null);
   const [loadingTitres, setLoadingTitres] = useState(false);
@@ -1118,7 +1176,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, onAffiche, cust
           ].map(({ k, l }) => {
             const locked = k === "titres" && plan === "standard";
             const onClick = locked
-              ? () => alert("Les titres viraux sont réservés au plan Premium.")
+              ? () => onUpsell?.("titres")
               : k === "titres" ? (titres ? () => setTab("titres") : genTitres)
               : k === "prod" ? genProd
               : () => setTab(k);
@@ -1279,7 +1337,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, onAffiche, cust
   );
 }
 
-function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport, onVariations, plan, customerId }) {
+function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport, onVariations, plan, customerId, onUpsell }) {
   const [showTrad, setShowTrad] = useState(false);
   const [tradLoading, setTradLoading] = useState(false);
   const [tradScript, setTradScript] = useState(null);
@@ -1381,7 +1439,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
                 <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, minWidth: 100, padding: "12px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
               ))}
             </div>
-            <button onClick={plan === "standard" ? () => alert("Les variations sont réservées au plan Premium.") : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "not-allowed" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? "🔒 Générer 4 versions" : "🎲 Générer 4 versions"}</button>
+            <button onClick={plan === "standard" ? () => onUpsell?.("variations") : onVariations} disabled={loading} style={{ background: plan === "standard" ? "rgba(168,85,247,0.06)" : "var(--card)", color: plan === "standard" ? "#a855f7" : "var(--tx)", border: `1.5px solid ${plan === "standard" ? "rgba(168,85,247,0.25)" : "var(--bo)"}`, padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", marginBottom: 10, fontFamily: "var(--sans)" }}>{plan === "standard" ? "✦ Générer 4 versions — Premium" : "🎲 Générer 4 versions"}</button>
             <button onClick={onTournage} style={{ background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", marginBottom: 10, fontFamily: "var(--sans)" }}>📱 Mode Tournage</button>
             <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)" }}>📄 Exporter en PDF</button>
           </>
@@ -1560,6 +1618,7 @@ export default function App() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [stats, setStats] = useState({ series: 0, scripts: 0, minutes: 0 });
   const [lastSerie, setLastSerie] = useState(null);
+  const [upsell, setUpsell] = useState(null);
 
   // Streaming & loading
   const [loadProgress, setLoadProgress] = useState(0);
@@ -1941,14 +2000,16 @@ export default function App() {
         </div>
       )}
 
-      {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} onShowOnboarding={() => setShowOnboarding(true)} onParrainage={() => setScreen("parrainage")} darkMode={darkMode} onDarkMode={() => setDarkMode(d => !d)} onLogout={logout} onUpgrade={openPortal} stats={stats} lastSerie={lastSerie} onResume={() => lastSerie && loadSerie(lastSerie)} />}
+      {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} onShowOnboarding={() => setShowOnboarding(true)} onParrainage={() => setScreen("parrainage")} darkMode={darkMode} onDarkMode={() => setDarkMode(d => !d)} onLogout={logout} onUpgrade={openPortal} onUpsell={setUpsell} stats={stats} lastSerie={lastSerie} onResume={() => lastSerie && loadSerie(lastSerie)} />}
       {screen === "parrainage" && <ParrainageView customerId={customerId} onBack={() => setScreen("mix")} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} customerId={customerId} />}
-      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} onAffiche={() => setScreen("affiche")} customerId={customerId} plan={plan} />}
+      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} onAffiche={() => setScreen("affiche")} customerId={customerId} plan={plan} onUpsell={setUpsell} />}
       {screen === "affiche" && bible && <AfficheView bible={bible} episodes={episodes} mode={state.mode} onBack={() => setScreen("bible")} customerId={customerId} />}
-      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} customerId={customerId} />}
+      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} customerId={customerId} onUpsell={setUpsell} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} />}
+
+      {upsell && <UpsellModal feature={upsell} onUpgrade={() => { setUpsell(null); openPortal(); }} onClose={() => setUpsell(null)} />}
 
       {/* Logout + dark mode (hidden on mix — gérés dans Mixeur) */}
       {screen !== "tour" && screen !== "mix" && (
