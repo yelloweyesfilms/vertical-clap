@@ -116,17 +116,19 @@ export default function Admin() {
       </nav>
 
       {/* Stripe stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 14, padding: "24px 32px 0" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 14, padding: "24px 32px 0" }}>
         {[
           { val: stats.total, label: "Abonnés actifs", color: "#fff" },
-          { val: stats.standard, label: "Standard", color: RED },
-          { val: stats.premium, label: "Premium", color: "#4ade80" },
-          { val: `${stats.mrr.toFixed(0)} €`, label: "MRR estimé", color: stats.mrr > 500 ? "#4ade80" : stats.mrr > 100 ? "#facc15" : RED },
+          { val: stats.standard, label: "⚡ Standard", color: RED },
+          { val: stats.premium, label: "🎭 Premium", color: "#4ade80" },
+          { val: `${(stats.mensuel || 0)}`, label: "Mensuel", color: "#60a5fa" },
+          { val: `${(stats.annuel || 0)}`, label: "Annuel", color: "#a78bfa" },
+          { val: `${stats.mrr.toFixed(0)} €`, label: "MRR", color: stats.mrr > 500 ? "#4ade80" : stats.mrr > 100 ? "#facc15" : RED },
+          { val: `${(stats.arr || 0).toFixed(0)} €`, label: "ARR", color: stats.arr > 6000 ? "#4ade80" : stats.arr > 1200 ? "#facc15" : MUTED },
           { val: totaux.activeToday || 0, label: "Actifs aujourd'hui", color: "#60a5fa" },
-          { val: totalGenerations, label: "Générations totales", color: "#c084fc" },
         ].map(({ val, label, color }) => (
           <div key={label} style={{ ...s.card, textAlign: "center", padding: "20px 16px" }}>
-            <div style={{ fontFamily: "var(--serif)", fontSize: 36, fontWeight: 900, color, lineHeight: 1 }}>{val}</div>
+            <div style={{ fontFamily: "var(--serif)", fontSize: 34, fontWeight: 900, color, lineHeight: 1 }}>{val}</div>
             <div style={{ fontSize: 11, color: MUTED, marginTop: 6, fontWeight: 600 }}>{label}</div>
           </div>
         ))}
@@ -264,22 +266,31 @@ export default function Admin() {
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
               <thead>
                 <tr>
-                  {["Email", "Plan", "Montant", "Date"].map(h => <th key={h} style={s.th}>{h}</th>)}
+                  {["Email", "Plan", "Billing", "MRR", "Date"].map(h => <th key={h} style={s.th}>{h}</th>)}
                 </tr>
               </thead>
               <tbody>
-                {(stats.abonnes || []).map((a, i) => (
+                {(stats.abonnes || []).map((a, i) => {
+                  const isTrial = a.trialEnd && a.trialEnd * 1000 > Date.now();
+                  return (
                   <tr key={i} style={{ background: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)" }}>
                     <td style={s.td}>{a.email}</td>
                     <td style={s.td}>
                       <span style={{ background: a.plan === "premium" ? "#1a2e22" : "#2a1a12", color: a.plan === "premium" ? "#4ade80" : RED, padding: "3px 8px", borderRadius: 4, fontSize: 11, fontWeight: 700 }}>
                         {a.plan === "premium" ? "🎭 Premium" : "⚡ Standard"}
                       </span>
+                      {isTrial && <span style={{ marginLeft: 5, background: "#422006", color: "#fbbf24", padding: "2px 6px", borderRadius: 4, fontSize: 10, fontWeight: 700 }}>ESSAI</span>}
                     </td>
-                    <td style={s.td}>{a.montant.toFixed(2)} {a.currency?.toUpperCase()}</td>
+                    <td style={s.td}>
+                      <span style={{ color: a.billing === "annual" ? "#a78bfa" : MUTED, fontSize: 11, fontWeight: 700 }}>
+                        {a.billing === "annual" ? "📅 Annuel" : "Mensuel"}
+                      </span>
+                    </td>
+                    <td style={{ ...s.td, color: "#e8e4dc", fontWeight: 600 }}>{(a.mrrAmount || 0).toFixed(2)} €</td>
                     <td style={{ ...s.td, color: MUTED }}>{new Date(a.createdAt * 1000).toLocaleDateString("fr-FR")}</td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>
