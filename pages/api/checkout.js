@@ -33,7 +33,7 @@ export default async function handler(req, res) {
       payment_method_types: ["card"],
       customer_email: email || undefined,
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${url}/app?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}&plan=${plan || "standard"}`,
       cancel_url: `${url}/?canceled=1`,
       allow_promotion_codes: true,
     };

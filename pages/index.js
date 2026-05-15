@@ -128,11 +128,14 @@ export default function Landing() {
   const [refValid, setRefValid] = useState(null);
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
+  const [variant, setVariant] = useState("A");
   const [demoPhase, setDemoPhase] = useState(0);
   const [demoText, setDemoText] = useState("");
   const demoRef = useRef(null);
   const router = useRouter();
   const canceled = router.query.canceled;
+
+  const track = (event, meta = {}) => fetch("/api/analytics", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ event, meta }) }).catch(() => {});
 
   const DEMO_SEQUENCES = [
     { label: "TITRE", full: "Le Mensonge", color: TEXT },
@@ -143,6 +146,17 @@ export default function Landing() {
     { label: "ÉP. 3", full: "Le chef de service · Tension ●●●●●●●●○○", color: VIO },
     { label: "ÉP. 4", full: "Trop tard · Tension ●●●●●●●●●●", color: RED },
   ];
+
+  useEffect(() => {
+    // A/B test variant assignment
+    let v = typeof window !== "undefined" ? localStorage.getItem("hero_variant") : null;
+    if (!v) {
+      v = Math.random() < 0.5 ? "A" : "B";
+      localStorage.setItem("hero_variant", v);
+    }
+    setVariant(v);
+    track("page_view", { variant: v });
+  }, []);
 
   useEffect(() => {
     const obs = new IntersectionObserver(([e]) => {
@@ -177,8 +191,9 @@ export default function Landing() {
     } catch { setRefValid(false); }
   };
 
-  const startCheckout = async (plan = "standard") => {
+  const startCheckout = async (plan = "standard", position = "unknown") => {
     if (!email) { alert("Entre ton email pour continuer"); return; }
+    track("checkout_started", { variant, position, plan });
     setLoading(true);
     const res = await fetch("/api/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, plan, refCode: refValid ? refCode : undefined }) });
     const { url, error } = await res.json();
@@ -252,18 +267,33 @@ export default function Landing() {
             Le studio IA des créateurs verticaux
           </div>
 
-          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(48px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
-            De l'idée<br />
-            au{" "}
-            <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
-              cliffhanger
-            </span>
-            .<br />
-            En 5 minutes.
-          </h1>
+          {variant === "A" ? (
+            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(48px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
+              De l'idée<br />
+              au{" "}
+              <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
+                cliffhanger
+              </span>
+              .<br />
+              En 5 minutes.
+            </h1>
+          ) : (
+            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(48px, 8vw, 96px)", fontWeight: 900, lineHeight: 0.95, letterSpacing: -3, marginBottom: 32, color: TEXT }}>
+              Ta série{" "}
+              <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
+                TikTok
+              </span>
+              ,<br />
+              prête à tourner.<br />
+              En 5 minutes.
+            </h1>
+          )}
 
           <p style={{ fontSize: "clamp(15px, 2vw, 18px)", color: MUTED, maxWidth: 480, margin: "0 auto 52px", lineHeight: 1.7, fontWeight: 400 }}>
-            Génère des micro-dramas 9:16 complets avec l'IA — bible, scripts, hooks, cliffhangers. Prêts à tourner sur TikTok, Reels et Shorts.
+            {variant === "A"
+              ? "Génère des micro-dramas 9:16 complets avec l'IA — bible, scripts, hooks, cliffhangers. Prêts à tourner sur TikTok, Reels et Shorts."
+              : "L'IA génère la bible, les scripts et les hooks en 5 minutes. Tu filmes. Tes concurrents passent encore des heures à écrire."
+            }
           </p>
 
           {canceled && <p style={{ color: RED, marginBottom: 16, fontSize: 14 }}>Paiement annulé. Réessaie quand tu veux.</p>}
@@ -271,7 +301,7 @@ export default function Landing() {
           <div className="hero-row" style={{ display: "flex", gap: 10, justifyContent: "center", alignItems: "center", flexWrap: "wrap", marginBottom: 14 }}>
             <input type="email" placeholder="ton@email.com" value={email} onChange={e => setEmail(e.target.value)} onKeyDown={e => e.key === "Enter" && startCheckout()}
               style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 240, outline: "none", backdropFilter: "blur(8px)" }} />
-            <GlowBtn onClick={() => startCheckout()} disabled={loading} gradient>
+            <GlowBtn onClick={() => startCheckout("standard", "hero")} disabled={loading} gradient>
               {loading ? "Redirection…" : "Commencer →"}
             </GlowBtn>
           </div>
@@ -757,7 +787,7 @@ export default function Landing() {
                   </div>
                 ))}
               </div>
-              <GlowBtn onClick={() => startCheckout("standard")} disabled={loading} style={{ width: "100%", fontSize: 15, padding: 16 }}>
+              <GlowBtn onClick={() => startCheckout("standard", "pricing")} disabled={loading} style={{ width: "100%", fontSize: 15, padding: 16 }}>
                 {loading ? "Redirection…" : "Commencer →"}
               </GlowBtn>
             </div>
@@ -774,7 +804,7 @@ export default function Landing() {
                   </div>
                 ))}
               </div>
-              <GlowBtn onClick={() => startCheckout("premium")} disabled={loading} gradient style={{ width: "100%", fontSize: 15, padding: 16 }}>
+              <GlowBtn onClick={() => startCheckout("premium", "pricing")} disabled={loading} gradient style={{ width: "100%", fontSize: 15, padding: 16 }}>
                 {loading ? "Redirection…" : "Commencer Premium →"}
               </GlowBtn>
             </div>
@@ -831,7 +861,7 @@ export default function Landing() {
           <div className="hero-row" style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
             <input type="email" placeholder="ton@email.com" value={email} onChange={e => setEmail(e.target.value)}
               style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 240, outline: "none" }} />
-            <GlowBtn onClick={() => startCheckout()} disabled={loading} gradient>
+            <GlowBtn onClick={() => startCheckout("standard", "cta_final")} disabled={loading} gradient>
               {loading ? "Redirection…" : "Commencer →"}
             </GlowBtn>
           </div>
