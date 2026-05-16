@@ -12,9 +12,9 @@
 }
 [data-theme="dark"] {
   --bg: #09090f;
-  --card: #12121c;
+  --card: #14141f;
   --tx: #f1f5f9;
-  --mt: #71717a;
+  --mt: #94a3b8;
   --bo: #1e1e2e;
 }
 html { scroll-behavior: smooth; }
