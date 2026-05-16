@@ -398,7 +398,12 @@ export default function Landing() {
           </div>
         </div>
       </div>
-
+{/* HERO VISUAL */}
+<div style={{ maxWidth: 900, margin: "0 auto 0", padding: "0 40px 80px" }}>
+  <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", boxShadow: "0 0 80px rgba(168,85,247,0.15), 0 0 40px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)", border: "1px solid rgba(168,85,247,0.2)" }}>
+    <img src="/api/og?v=2" alt="VerticalClap" style={{ width: "100%", display: "block", borderRadius: 20 }} />
+  </div>
+</div>
       {/* FEATURE STRIP — inspired by the banner */}
       <div style={{ borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.02)" }}>
         <div className="feat-strip" style={{ maxWidth: 860, margin: "0 auto", display: "flex", justifyContent: "center" }}>
