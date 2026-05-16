@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { POSTS } from "../lib/posts";
 
 const RED = "#E85C3A";
 const VIO = "#a855f7";
@@ -404,7 +405,7 @@ export default function Landing() {
     <img src="/api/og?v=2" alt="VerticalClap" style={{ width: "100%", display: "block", borderRadius: 20 }} />
   </div>
 </div>
-      {/* FEATURE STRIP — inspired by the banner */}
+      {/* FEATURE STRIP */}
       <div style={{ borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.02)" }}>
         <div className="feat-strip" style={{ maxWidth: 860, margin: "0 auto", display: "flex", justifyContent: "center" }}>
           {[
@@ -477,11 +478,8 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* STATS BAR */}
-
-      {/* MOCK PHONE — cinematic */}
+      {/* MOCK PHONE */}
       <div className="mock-phone" style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 40px", display: "flex", justifyContent: "center", alignItems: "center", gap: 80 }}>
-        {/* Left text */}
         <div style={{ maxWidth: 340 }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: RED, marginBottom: 16 }}>Prêt à tourner</p>
           <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(28px, 3vw, 42px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.15, marginBottom: 20 }}>
@@ -490,21 +488,15 @@ export default function Landing() {
           <p style={{ color: MUTED, fontSize: 14, lineHeight: 1.75 }}>Hook percutant, dialogues, indications de jeu, cadrage 9:16 — tout est là. Ouvre le Mode Tournage et tourne directement depuis l'écran.</p>
         </div>
 
-        {/* Phone mockup */}
         <div style={{ position: "relative", flexShrink: 0 }}>
-          {/* Glow rings */}
           <div style={{ position: "absolute", inset: -40, borderRadius: "50%", background: `radial-gradient(circle, rgba(232,92,58,0.12) 0%, transparent 70%)`, pointerEvents: "none" }} />
           <div style={{ position: "absolute", inset: -20, borderRadius: 60, background: `radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 80%)`, pointerEvents: "none" }} />
 
           <div style={{ width: 240, background: "#0a0a14", border: `1.5px solid rgba(168,85,247,0.3)`, borderRadius: 44, padding: "28px 18px 24px", boxShadow: `0 0 60px rgba(168,85,247,0.15), 0 0 30px rgba(232,92,58,0.1), 0 48px 80px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,0.06)` }}>
-            {/* Notch */}
             <div style={{ width: 52, height: 5, background: "rgba(255,255,255,0.08)", borderRadius: 10, margin: "0 auto 22px" }} />
 
-            {/* Cinematic screen content */}
             <div style={{ background: "linear-gradient(180deg, #1a0a05 0%, #0d0505 60%, #09090f 100%)", borderRadius: 18, padding: "16px 14px", marginBottom: 14, position: "relative", overflow: "hidden", minHeight: 160 }}>
-              {/* Orange glow from bottom */}
               <div style={{ position: "absolute", bottom: -20, left: "50%", transform: "translateX(-50%)", width: 160, height: 80, background: `radial-gradient(ellipse, rgba(232,92,58,0.25) 0%, transparent 70%)`, pointerEvents: "none" }} />
-              {/* Scene label */}
               <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 10 }}>
                 <div style={{ width: 5, height: 5, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
                 <span style={{ fontSize: 7, fontWeight: 800, color: RED, letterSpacing: 2, textTransform: "uppercase", fontFamily: "monospace" }}>REC · EP.01</span>
@@ -518,12 +510,10 @@ export default function Landing() {
               <p style={{ fontSize: 9, color: MUTED, fontStyle: "italic" }}>[9:16] Insert téléphone, notif qui clignote</p>
             </div>
 
-            {/* Cliffhanger chip */}
             <div style={{ background: `linear-gradient(135deg, ${RED}22, ${VIO}22)`, border: `1px solid ${RED}40`, borderRadius: 10, padding: "8px 12px", display: "flex", alignItems: "center", gap: 6 }}>
               <span style={{ fontSize: 9, fontWeight: 800, color: RED, letterSpacing: 1, textTransform: "uppercase", fontFamily: "monospace" }}>🎬 CLIFFHANGER</span>
             </div>
 
-            {/* Bottom bar */}
             <div style={{ marginTop: 14, display: "flex", justifyContent: "center", gap: 4 }}>
               {[1, 0.4, 0.2, 0.15, 0.1].map((o, i) => (
                 <div key={i} style={{ width: i === 0 ? 18 : 5, height: 5, borderRadius: 10, background: `rgba(255,255,255,${o})` }} />
@@ -531,7 +521,6 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* 9:16 label */}
           <div style={{ position: "absolute", right: -36, top: "50%", transform: "translateY(-50%) rotate(90deg)", display: "flex", alignItems: "center", gap: 6 }}>
             <div style={{ width: 20, height: 1, background: RED }} />
             <span style={{ fontSize: 10, fontWeight: 800, color: RED, letterSpacing: 2 }}>9:16</span>
@@ -540,131 +529,73 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* AFFICHES — visual showcase */}
+      {/* AFFICHES */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}`, overflow: "hidden" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <Label color={RED}>Affiches générées par l'IA</Label>
+          <Label color={RED}>Exemples d'affiches</Label>
           <Title>Des séries qui<br /><span style={{ fontStyle: "italic", color: MUTED }}>donnent envie de tourner.</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>VerticalClap génère aussi l'affiche officielle de ta série en 1 clic.</p>
+          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>L'affiche typographique de ta série, générée en 1 clic.</p>
 
           <div className="posters-row" style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap", alignItems: "flex-end" }}>
 
             {/* Poster 1 — Le Mensonge */}
-            <div className="poster-side" style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.07)" }}>
-              <div style={{ background: "#0c0404", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "24px 20px 22px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 100%, rgba(232,92,58,0.12) 0%, transparent 65%)", pointerEvents: "none" }} />
+            <div className="poster-side" style={{ width: 200, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(232,92,58,0.15)" }}>
+              <div style={{ background: "#09090f", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "22px 18px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "60%", background: "radial-gradient(ellipse at 50% 100%, rgba(232,92,58,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
                 <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 20 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: RED }} />
-                    <span style={{ fontSize: 7, fontWeight: 800, color: RED, letterSpacing: 2.5, fontFamily: "monospace" }}>verticalclap</span>
-                  </div>
-                  <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.28)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 10 }}>THRILLER MÉDICAL · 8 ÉPISODES</div>
-                  <div style={{ height: "1px", background: `linear-gradient(90deg, ${RED}60, transparent)`, marginBottom: 22 }} />
-                  <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 52, fontWeight: 900, color: "#fff", lineHeight: 0.92, letterSpacing: -2 }}>Le<br />Men-<br />songe</div>
+                  <div style={{ fontSize: 7, fontWeight: 800, color: "rgba(232,92,58,0.6)", letterSpacing: 2.5, textTransform: "uppercase", marginBottom: 16 }}>Thriller médical · 8 ép.</div>
+                  <div style={{ width: 28, height: 2, background: RED, marginBottom: 20 }} />
+                  <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 48, fontWeight: 900, color: "#fff", lineHeight: 0.92, letterSpacing: -2 }}>Le<br />Men-<br />songe</div>
                 </div>
-                <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", alignItems: "center" }}>
-                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.38)", lineHeight: 1.7, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif" }}>
-                    "Elle a caché une erreur<br />qui peut tout détruire.<br />Il revient. Il sait."
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", lineHeight: 1.7, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif", marginBottom: 16 }}>
+                    "Il revient.<br />Il sait tout."
                   </p>
-                </div>
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ height: "1px", background: `linear-gradient(90deg, transparent, ${RED}40, transparent)`, marginBottom: 14 }} />
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-                    <div>
-                      <div style={{ fontSize: 7, fontWeight: 800, color: "rgba(255,255,255,0.2)", letterSpacing: 2, textTransform: "uppercase", marginBottom: 3 }}>Lieu</div>
-                      <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.45)" }}>Un couloir · Une chambre</div>
-                    </div>
-                    <div style={{ fontSize: 7, fontWeight: 800, color: RED, letterSpacing: 1 }}>9:16</div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: "rgba(255,255,255,0.2)", letterSpacing: 1.5 }}>VERTICALCLAP</span>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: RED, letterSpacing: 1 }}>9:16</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Poster 2 — Héritage — centre, surélevé */}
-            <div className="poster-center poster-center-w" style={{ width: 240, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 40px 100px rgba(168,85,247,0.32), 0 0 0 1px rgba(168,85,247,0.2)", transform: "translateY(-18px)" }}>
-              <div style={{ background: "#080412", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "24px 20px 22px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 100%, rgba(168,85,247,0.14) 0%, transparent 65%), radial-gradient(ellipse at 50% 0%, rgba(168,85,247,0.06) 0%, transparent 50%)", pointerEvents: "none" }} />
+            {/* Poster 2 — Héritage */}
+            <div className="poster-center poster-center-w" style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 40px 100px rgba(168,85,247,0.3), 0 0 0 1px rgba(168,85,247,0.2)", transform: "translateY(-18px)" }}>
+              <div style={{ background: "#09090f", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "22px 18px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "60%", background: "radial-gradient(ellipse at 50% 100%, rgba(168,85,247,0.2) 0%, transparent 70%)", pointerEvents: "none" }} />
                 <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 20 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: VIO }} />
-                    <span style={{ fontSize: 7, fontWeight: 800, color: VIO, letterSpacing: 2.5, fontFamily: "monospace" }}>verticalclap</span>
-                  </div>
-                  <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.28)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 10 }}>DRAME FAMILIAL · 10 ÉPISODES</div>
-                  <div style={{ height: "1px", background: `linear-gradient(90deg, ${VIO}60, transparent)`, marginBottom: 22 }} />
-                  <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 58, fontWeight: 900, color: "#fff", lineHeight: 0.90, letterSpacing: -2 }}>Héri-<br />tage</div>
+                  <div style={{ fontSize: 7, fontWeight: 800, color: "rgba(168,85,247,0.7)", letterSpacing: 2.5, textTransform: "uppercase", marginBottom: 16 }}>Drame familial · 10 ép.</div>
+                  <div style={{ width: 28, height: 2, background: VIO, marginBottom: 20 }} />
+                  <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 54, fontWeight: 900, color: "#fff", lineHeight: 0.90, letterSpacing: -2 }}>Héri-<br />tage</div>
                 </div>
-                <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", gap: 14 }}>
-                  <div style={{ display: "flex", gap: 8 }}>
-                    {["Marc", "Thomas", "Élie"].map((n, i) => (
-                      <div key={n} style={{ flex: 1, background: `${VIO}10`, border: `1px solid ${VIO}20`, borderRadius: 6, padding: "6px 0", textAlign: "center" }}>
-                        <div style={{ fontSize: 8, fontWeight: 800, color: VIO, letterSpacing: 1 }}>{n}</div>
-                        <div style={{ fontSize: 7, color: "rgba(255,255,255,0.25)", marginTop: 1 }}>frère {i + 1}</div>
-                      </div>
-                    ))}
-                  </div>
-                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.38)", lineHeight: 1.7, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif" }}>
-                    "Un testament.<br />Trois frères.<br />Un secret de 20 ans."
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", lineHeight: 1.7, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif", marginBottom: 16 }}>
+                    "Un testament.<br />Trois frères.<br />Un secret."
                   </p>
-                </div>
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ height: "1px", background: `linear-gradient(90deg, transparent, ${VIO}40, transparent)`, marginBottom: 14 }} />
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-                    <div>
-                      <div style={{ fontSize: 7, fontWeight: 800, color: "rgba(255,255,255,0.2)", letterSpacing: 2, textTransform: "uppercase", marginBottom: 3 }}>Lieu</div>
-                      <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.45)" }}>Un salon · Une salle à manger</div>
-                    </div>
-                    <div style={{ textAlign: "right" }}>
-                      <div style={{ fontSize: 7, fontWeight: 800, color: VIO, letterSpacing: 1, textTransform: "uppercase", marginBottom: 2 }}>PREMIUM</div>
-                      <div style={{ fontSize: 7, fontWeight: 800, color: "rgba(255,255,255,0.3)", letterSpacing: 1 }}>9:16</div>
-                    </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: "rgba(255,255,255,0.2)", letterSpacing: 1.5 }}>VERTICALCLAP</span>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: VIO, letterSpacing: 1 }}>9:16</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Poster 3 — Deux Vies */}
-            <div className="poster-side" style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.07)" }}>
-              <div style={{ background: "#04080f", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "24px 20px 22px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 100%, rgba(96,165,250,0.1) 0%, transparent 65%)", pointerEvents: "none" }} />
+            <div className="poster-side" style={{ width: 200, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.85), 0 0 0 1px rgba(232,92,58,0.15)" }}>
+              <div style={{ background: "#09090f", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "22px 18px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "60%", background: "radial-gradient(ellipse at 30% 100%, rgba(232,92,58,0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 100%, rgba(168,85,247,0.12) 0%, transparent 60%)", pointerEvents: "none" }} />
                 <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 20 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#60a5fa" }} />
-                    <span style={{ fontSize: 7, fontWeight: 800, color: "#60a5fa", letterSpacing: 2.5, fontFamily: "monospace" }}>verticalclap</span>
-                  </div>
-                  <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.28)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 10 }}>THRILLER · IDENTITÉ · 6 ÉP.</div>
-                  <div style={{ height: "1px", background: "linear-gradient(90deg, rgba(96,165,250,0.5), transparent)", marginBottom: 22 }} />
-                  <div style={{ fontFamily: "'Playfair Display',Georgia,serif", lineHeight: 0.92, letterSpacing: -1.5 }}>
-                    <div style={{ fontSize: 52, fontWeight: 900, color: "#fff" }}>Deux</div>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <div style={{ fontSize: 52, fontWeight: 900, color: "rgba(255,255,255,0.35)" }}>V</div>
-                      <div style={{ width: 1, height: 44, background: "rgba(96,165,250,0.4)", margin: "0 3px" }} />
-                      <div style={{ fontSize: 52, fontWeight: 900, color: "#fff" }}>ies</div>
-                    </div>
-                  </div>
+                  <div style={{ fontSize: 7, fontWeight: 800, color: "rgba(232,92,58,0.6)", letterSpacing: 2.5, textTransform: "uppercase", marginBottom: 16 }}>Thriller · Identité · 6 ép.</div>
+                  <div style={{ width: 28, height: 2, background: `linear-gradient(to right, ${RED}, ${VIO})`, marginBottom: 20 }} />
+                  <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 48, fontWeight: 900, color: "#fff", lineHeight: 0.92, letterSpacing: -2 }}>Deux<br />Vies</div>
                 </div>
-                <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", gap: 10 }}>
-                  <div style={{ display: "flex", gap: 6 }}>
-                    <div style={{ flex: 1, padding: "8px 10px", background: "rgba(232,92,58,0.08)", border: "1px solid rgba(232,92,58,0.2)", borderRadius: 8 }}>
-                      <div style={{ fontSize: 7, fontWeight: 800, color: RED, letterSpacing: 1, marginBottom: 3 }}>VIE A</div>
-                      <div style={{ fontSize: 8, color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>Mère au foyer<br />Paris 15e</div>
-                    </div>
-                    <div style={{ flex: 1, padding: "8px 10px", background: "rgba(96,165,250,0.08)", border: "1px solid rgba(96,165,250,0.2)", borderRadius: 8 }}>
-                      <div style={{ fontSize: 7, fontWeight: 800, color: "#60a5fa", letterSpacing: 1, marginBottom: 3 }}>VIE B</div>
-                      <div style={{ fontSize: 8, color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>Avocate<br />Lyon</div>
-                    </div>
-                  </div>
-                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", lineHeight: 1.65, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif" }}>
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", lineHeight: 1.7, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif", marginBottom: 16 }}>
                     "L'une d'elles<br />va s'effondrer."
                   </p>
-                </div>
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(96,165,250,0.35), transparent)", marginBottom: 14 }} />
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-                    <div>
-                      <div style={{ fontSize: 7, fontWeight: 800, color: "rgba(255,255,255,0.2)", letterSpacing: 2, textTransform: "uppercase", marginBottom: 3 }}>Lieux</div>
-                      <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.45)" }}>Un appartement · Un bureau</div>
-                    </div>
-                    <div style={{ fontSize: 7, fontWeight: 800, color: "#60a5fa", letterSpacing: 1 }}>9:16</div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: "rgba(255,255,255,0.2)", letterSpacing: 1.5 }}>VERTICALCLAP</span>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: RED, letterSpacing: 1 }}>9:16</span>
                   </div>
                 </div>
               </div>
@@ -672,13 +603,11 @@ export default function Landing() {
 
           </div>
 
-          <p style={{ textAlign: "center", color: MUTED, fontSize: 13, marginTop: 36 }}>
-            Chaque affiche est générée par l'IA en 1 clic · Format 9:16 prêt à publier
+          <p style={{ textAlign: "center", fontSize: 12, color: "rgba(255,255,255,0.2)", marginTop: 32, letterSpacing: 1 }}>
+            Affiche générée automatiquement · Format 9:16 prêt à publier
           </p>
         </div>
       </div>
-
-
 
       {/* POUR QUI */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
@@ -733,9 +662,7 @@ export default function Landing() {
           <Label color={VIO}>Comment ça marche</Label>
           <Title>De zéro à une série<br /><span style={{ fontStyle: "italic" }}>en 3 étapes.</span></Title>
           <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Du concept au script prêt à tourner</p>
-          {/* Timeline */}
           <div style={{ position: "relative" }}>
-            {/* Connecting line */}
             <div className="timeline-line" style={{ position: "absolute", top: 28, left: "calc(16.66% - 1px)", right: "calc(16.66% - 1px)", height: 2, background: BORDER, zIndex: 0 }}>
               <div style={{ height: "100%", background: `linear-gradient(90deg, ${RED}, ${VIO})`, animation: "lineGrow 1.8s ease forwards 0.3s", width: 0 }} />
             </div>
@@ -746,11 +673,9 @@ export default function Landing() {
                 { step: "03", Icon: PhoneIcon, iconColor: RED, title: "Tourne avec le script", desc: "Ouvre un épisode, génère le script en 10s. Mode Tournage avec téléprompteur, fond clair/sombre, vitesse réglable. Prêt à filmer.", delay: "1s" },
               ].map(({ step, Icon, iconColor, title, desc, delay }) => (
                 <div key={step} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  {/* Node */}
                   <div style={{ width: 56, height: 56, borderRadius: "50%", background: `linear-gradient(135deg, ${iconColor}20, ${iconColor}08)`, border: `2px solid ${iconColor}`, display: "flex", alignItems: "center", justifyContent: "center", color: iconColor, marginBottom: 24, animation: `nodePop 0.5s ease forwards ${delay}`, opacity: 0, boxShadow: `0 0 20px ${iconColor}30`, zIndex: 2 }}>
                     <Icon size={22} />
                   </div>
-                  {/* Card */}
                   <div className="glass" style={{ borderRadius: 20, padding: "24px 24px", width: "100%", textAlign: "center", position: "relative", overflow: "hidden" }}>
                     <span style={{ fontSize: 10, fontWeight: 800, color: MUTED, letterSpacing: 3, fontFamily: "monospace", display: "block", marginBottom: 10 }}>{step}</span>
                     <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 19, fontWeight: 700, marginBottom: 10, letterSpacing: -0.3 }}>{title}</h3>
@@ -799,7 +724,6 @@ export default function Landing() {
           <Label color={VIO}>Tarifs</Label>
           <Title>Choisissez votre plan.</Title>
 
-          {/* Billing toggle */}
           <div style={{ display: "flex", justifyContent: "center", marginBottom: 36 }}>
             <div style={{ display: "inline-flex", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 14, padding: 4, gap: 4 }}>
               {[
@@ -921,6 +845,39 @@ export default function Landing() {
 
       {/* NEWSLETTER */}
       <NewsletterSection />
+
+      {/* RESSOURCES / BLOG */}
+      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <Label color={VIO}>Ressources</Label>
+          <Title>Guides pour créateurs<br /><span style={{ fontStyle: "italic", color: MUTED }}>qui veulent progresser.</span></Title>
+          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Écriture, hooks, plateformes, monétisation — tout ce qu'il faut savoir.</p>
+
+          <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginBottom: 40 }}>
+            {POSTS.slice(0, 3).map((post) => (
+              <a key={post.slug} href={`/blog/${post.slug}`} style={{ display: "flex", flexDirection: "column", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, padding: "28px 24px", textDecoration: "none", color: "inherit", transition: "border-color .2s" }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = `${post.categoryColor}40`}
+                onMouseLeave={e => e.currentTarget.style.borderColor = BORDER}>
+                <div style={{ marginBottom: 16 }}>
+                  <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: post.categoryColor, background: `${post.categoryColor}12`, border: `1px solid ${post.categoryColor}25`, padding: "3px 10px", borderRadius: 6 }}>{post.category}</span>
+                </div>
+                <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, color: TEXT, letterSpacing: -0.3, lineHeight: 1.3, marginBottom: 12, flex: 1 }}>{post.title}</h3>
+                <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.6, marginBottom: 20 }}>{post.description.slice(0, 100)}…</p>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: 12, color: MUTED }}>{post.readTime} de lecture</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: post.categoryColor }}>Lire →</span>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div style={{ textAlign: "center" }}>
+            <a href="/blog" style={{ display: "inline-block", border: `1px solid ${BORDER}`, color: TEXT, padding: "12px 28px", borderRadius: 12, fontSize: 14, fontWeight: 700, textDecoration: "none", background: SURFACE }}>
+              Voir tous les guides →
+            </a>
+          </div>
+        </div>
+      </div>
 
       {/* CTA FINAL */}
       <div className="sec" style={{ padding: "100px 40px", textAlign: "center", borderTop: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
