@@ -68,7 +68,7 @@ export default function SeriePage({ serie }) {
         <div style={{ position: "sticky", top: 0, zIndex: 50, borderBottom: `1px solid ${BORDER}`, background: "rgba(9,9,15,0.9)", backdropFilter: "blur(20px)" }}>
           <nav style={{ maxWidth: 860, margin: "0 auto", padding: "14px 32px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <a href="/" style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 17, fontWeight: 900, color: TEXT }}>Vertical</a>
+              <a href="/" style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 17, fontWeight: 900, color: TEXT }}>VerticalClap</a>
               <span style={{ color: BORDER }}>›</span>
               <a href="/exemples" style={{ fontSize: 13, color: MUTED }}>Exemples</a>
               <span style={{ color: BORDER }}>›</span>
