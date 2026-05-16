@@ -17,7 +17,7 @@ Studio de micro-dramas verticaux avec IA. Scripts 1-2 min, format 9:16, prÃªts Ã
 ### 2. Mettre le projet sur GitHub
 
 ```bash
-# Dans le dossier vertical-studio :
+# Dans le dossier vertical-app :
 git init
 git add .
 git commit -m "Initial commit"
