@@ -463,16 +463,6 @@ export default function Landing() {
       </div>
 
       {/* STATS BAR */}
-      <div style={{ borderBottom: `1px solid ${BORDER}`, padding: "28px 40px", background: "rgba(255,255,255,0.015)" }}>
-        <div className="stats-bar" style={{ maxWidth: 860, margin: "0 auto", display: "flex", justifyContent: "center", gap: 56, flexWrap: "wrap" }}>
-          {[["2 000+", "séries générées"], ["50+", "créateurs actifs"], ["< 5 min", "par série complète"], ["8 langues", "de traduction"]].map(([val, label]) => (
-            <div key={label} style={{ textAlign: "center" }}>
-              <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 32, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -1 }}>{val}</div>
-              <div style={{ fontSize: 11, color: MUTED, marginTop: 6, fontWeight: 500, letterSpacing: 1 }}>{label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* MOCK PHONE — cinematic */}
       <div className="mock-phone" style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 40px", display: "flex", justifyContent: "center", alignItems: "center", gap: 80 }}>
