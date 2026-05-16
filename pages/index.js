@@ -788,32 +788,6 @@ export default function Landing() {
         </div>
       </div>
 
-      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <Label color={VIO}>Témoignages</Label>
-          <Title>Ils créent déjà<br /><span style={{ fontStyle: "italic" }}>avec VerticalClap.</span></Title>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20, marginTop: 48 }}>
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="glass" style={{ borderRadius: 20, padding: 26, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${t.color}, transparent)` }} />
-                <p style={{ fontSize: 13, color: t.color, fontWeight: 800, marginBottom: 16, letterSpacing: 2 }}>★★★★★</p>
-                <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 14, lineHeight: 1.8, marginBottom: 24, color: TEXT, fontStyle: "italic", flex: 1 }}>« {t.text} »</p>
-                <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 16, display: "flex", alignItems: "center", gap: 12 }}>
-                  <div style={{ width: 38, height: 38, borderRadius: "50%", background: `${t.color}20`, border: `1.5px solid ${t.color}40`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <span style={{ fontSize: 11, fontWeight: 800, color: t.color, letterSpacing: 0.5 }}>{t.avatar}</span>
-                  </div>
-                  <div>
-                    <p style={{ fontWeight: 700, fontSize: 13, marginBottom: 1 }}>{t.name}</p>
-                    <p style={{ fontSize: 11, color: MUTED, marginBottom: 2 }}>{t.role}</p>
-                    <p style={{ fontSize: 10, fontWeight: 700, color: t.color, letterSpacing: 0.5 }}>{t.stats}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* PRICING */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 860, margin: "0 auto" }}>
