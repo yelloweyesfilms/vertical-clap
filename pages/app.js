@@ -1238,7 +1238,6 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, onAffiche, cust
           {[
             { k: "bible", l: "Bible" },
             { k: "seq", l: `${episodes.length} ép.` },
-            { k: "titres", l: plan === "standard" ? "🔒 Titres" : "🔥 Titres" },
             { k: "prod", l: "🎬 Prod" },
           ].map(({ k, l }) => {
             const locked = k === "titres" && plan === "standard";
