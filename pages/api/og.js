@@ -6,116 +6,114 @@ export default function handler(req) {
   const { searchParams } = new URL(req.url, "https://verticalclap.app");
   const title = searchParams.get("title") || null;
   const sub = searchParams.get("sub") || null;
-  const category = searchParams.get("category") || null;
+
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: "1200px",
-          height: "630px",
-          background: "#09090f",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 80px",
-          fontFamily: "sans-serif",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        {/* Background glows */}
-        <div style={{ position: "absolute", top: -120, left: 80, width: 520, height: 520, background: "radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%)", display: "flex" }} />
-        <div style={{ position: "absolute", bottom: -100, right: 220, width: 420, height: 420, background: "radial-gradient(circle, rgba(232,92,58,0.09) 0%, transparent 70%)", display: "flex" }} />
+      <div style={{
+        width: "1200px", height: "630px",
+        background: "#09090f",
+        display: "flex", alignItems: "stretch",
+        fontFamily: "sans-serif",
+        position: "relative", overflow: "hidden",
+      }}>
+        {/* Orange glow bottom right */}
+        <div style={{ position: "absolute", bottom: -80, right: 180, width: 600, height: 600, background: "radial-gradient(circle, rgba(232,92,58,0.28) 0%, transparent 65%)", display: "flex" }} />
+        {/* Subtle left glow */}
+        <div style={{ position: "absolute", top: -100, left: -60, width: 400, height: 400, background: "radial-gradient(circle, rgba(232,92,58,0.08) 0%, transparent 70%)", display: "flex" }} />
 
-        {/* Giant decorative V */}
-        <div style={{ position: "absolute", right: 260, top: -50, opacity: 0.045, display: "flex" }}>
-          <svg width="440" height="540" viewBox="0 0 520 620" fill="none">
-            <path d="M20 20 L260 600 L500 20" stroke="#E85C3A" strokeWidth="72" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
+        {/* Left: content */}
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "60px 0 60px 72px", flex: 1, zIndex: 1 }}>
 
-        {/* Left: text */}
-        <div style={{ display: "flex", flexDirection: "column", maxWidth: 620, zIndex: 1 }}>
           {/* Logo */}
-          <div style={{ display: "flex", alignItems: "stretch", gap: 14, marginBottom: 44 }}>
-            <div style={{ width: 4, borderRadius: 2, background: "linear-gradient(to bottom, #ff8c42, #E85C3A)", display: "flex" }} />
-            <svg width="22" height="36" viewBox="0 0 17 28" fill="none" style={{ alignSelf: "center", display: "flex" }}>
-              <rect x="1" y="1" width="15" height="26" rx="3" stroke="white" strokeWidth="1.5"/>
-              <circle cx="8.5" cy="23.5" r="1.1" fill="white" opacity="0.5"/>
-              <rect x="5.5" y="3.5" width="6" height="1" rx="0.5" fill="white" opacity="0.4"/>
-            </svg>
-            <div style={{ display: "flex", flexDirection: "column", gap: 2, alignSelf: "center" }}>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.45)", letterSpacing: 4, textTransform: "uppercase" }}>VERTICAL</span>
-              <span style={{ fontSize: 26, fontWeight: 900, letterSpacing: -1, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", backgroundClip: "text", color: "transparent" }}>CLAP</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ width: 4, height: 40, borderRadius: 2, background: "linear-gradient(to bottom, #ff8c42, #E85C3A)", display: "flex" }} />
+            <div style={{ display: "flex", flexDirection: "column", gap: 1 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: 4 }}>VERTICAL</span>
+              <span style={{ fontSize: 22, fontWeight: 900, color: "#E85C3A", letterSpacing: -0.5 }}>CLAP</span>
             </div>
           </div>
 
-          {/* Headline — article ou default */}
+          {/* Main headline */}
           {title ? (
-            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-              {category && (
-                <span style={{ fontSize: 14, fontWeight: 800, color: "#a855f7", letterSpacing: 3, textTransform: "uppercase", marginBottom: 16, display: "flex" }}>{category}</span>
-              )}
-              <span style={{ fontSize: title.length > 40 ? 52 : 68, fontWeight: 900, color: "#f1f5f9", letterSpacing: -2, lineHeight: 1.05, display: "flex", flexWrap: "wrap" }}>{title}</span>
-              {sub && <span style={{ fontSize: 22, color: "#64748b", marginTop: 20, display: "flex", lineHeight: 1.5 }}>{sub}</span>}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <span style={{ fontSize: title.length > 30 ? 64 : 82, fontWeight: 900, color: "#f1f5f9", letterSpacing: -3, lineHeight: 0.9, display: "flex", flexWrap: "wrap", maxWidth: 580 }}>{title}</span>
+              {sub && <span style={{ fontSize: 22, color: "#94a3b8", marginTop: 20, display: "flex" }}>{sub}</span>}
             </div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-              <span style={{ fontSize: 80, fontWeight: 900, color: "#f1f5f9", letterSpacing: -4, lineHeight: 0.88, display: "flex" }}>De l'idée</span>
-              <div style={{ display: "flex", lineHeight: 0.88, marginTop: 4 }}>
-                <span style={{ fontSize: 80, fontWeight: 900, color: "#f1f5f9", letterSpacing: -4 }}>à la&nbsp;</span>
-                <span style={{ fontSize: 80, fontWeight: 900, letterSpacing: -4, background: "linear-gradient(135deg, #E85C3A 30%, #a855f7)", backgroundClip: "text", color: "transparent" }}>série complète</span>
-                <span style={{ fontSize: 80, fontWeight: 900, color: "#f1f5f9", letterSpacing: -4 }}>.</span>
-              </div>
-              <span style={{ fontSize: 80, fontWeight: 900, color: "#94a3b8", letterSpacing: -4, lineHeight: 0.88, marginTop: 4, display: "flex" }}>En 5 minutes.</span>
+              <span style={{ fontSize: 110, fontWeight: 900, color: "#ffffff", letterSpacing: -5, lineHeight: 0.85, display: "flex" }}>VERTICAL</span>
+              <span style={{ fontSize: 110, fontWeight: 900, color: "#E85C3A", letterSpacing: -5, lineHeight: 0.85, display: "flex" }}>CLAP</span>
+              <div style={{ width: 80, height: 3, background: "#E85C3A", marginTop: 24, marginBottom: 20, display: "flex" }} />
+              <span style={{ fontSize: 26, fontWeight: 700, color: "#E85C3A", letterSpacing: 0, display: "flex" }}>Micro-dramas 9:16 en 5 minutes</span>
             </div>
           )}
 
-          {/* Platform + price badges */}
-          <div style={{ marginTop: 36, display: "flex", alignItems: "center", gap: 12 }}>
+          {/* Bottom features */}
+          <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
             {[
-              { label: "TikTok", color: "#69C9D0" },
-              { label: "Reels", color: "#a855f7" },
-              { label: "Shorts", color: "#E85C3A" },
-            ].map(({ label, color }) => (
-              <div key={label} style={{ background: `${color}15`, border: `1px solid ${color}30`, borderRadius: 8, padding: "7px 16px", fontSize: 13, fontWeight: 700, color, display: "flex" }}>
-                {label}
+              { icon: "⚡", label: "RAPIDE" },
+              { icon: "📱", label: "FORMAT 9:16" },
+              { icon: "🎬", label: "SCRIPTS PRÊTS" },
+              { icon: "⏱", label: "5 MIN CHRONO" },
+            ].map(({ icon, label }) => (
+              <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+                <span style={{ fontSize: 22 }}>{icon}</span>
+                <span style={{ fontSize: 10, fontWeight: 800, color: "#94a3b8", letterSpacing: 1.5 }}>{label}</span>
               </div>
             ))}
-            <span style={{ fontSize: 14, color: "#94a3b8", marginLeft: 8 }}>· Dès 9€/mois · Sans engagement</span>
           </div>
         </div>
 
-        {/* Right: phone mockup */}
-        <div style={{ display: "flex", position: "relative", zIndex: 1, flexShrink: 0 }}>
-          <div style={{ position: "absolute", inset: -60, background: "radial-gradient(circle, rgba(232,92,58,0.35) 0%, transparent 65%)", display: "flex", borderRadius: "50%" }} />
-          <div style={{ width: 210, background: "#16101a", border: "2px solid rgba(232,92,58,0.7)", borderRadius: 40, padding: "24px 16px 20px", display: "flex", flexDirection: "column", boxShadow: "0 0 80px rgba(232,92,58,0.45), 0 0 140px rgba(168,85,247,0.25), 0 20px 60px rgba(0,0,0,0.6)", position: "relative" }}>
-            {/* Notch */}
-            <div style={{ width: 48, height: 5, background: "rgba(255,255,255,0.15)", borderRadius: 10, alignSelf: "center", marginBottom: 20, display: "flex" }} />
-            {/* Screen area */}
-            <div style={{ background: "linear-gradient(180deg, #2a0c05 0%, #160606 55%, #0d0a14 100%)", borderRadius: 16, padding: "14px 12px", marginBottom: 12, display: "flex", flexDirection: "column", gap: 7 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#E85C3A", display: "flex" }} />
-                <span style={{ fontSize: 8, fontWeight: 800, color: "#E85C3A", letterSpacing: 2, textTransform: "uppercase" }}>REC · EP.01</span>
+        {/* Right: phone */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 340, position: "relative", zIndex: 1, flexShrink: 0 }}>
+          {/* Glow behind phone */}
+          <div style={{ position: "absolute", inset: -20, background: "radial-gradient(circle, rgba(232,92,58,0.4) 0%, transparent 60%)", display: "flex" }} />
+          {/* Phone shell */}
+          <div style={{
+            width: 220, height: 480,
+            background: "#111",
+            border: "2.5px solid rgba(232,92,58,0.8)",
+            borderRadius: 44,
+            display: "flex", flexDirection: "column", alignItems: "center",
+            boxShadow: "0 0 100px rgba(232,92,58,0.5), 0 0 40px rgba(232,92,58,0.3), inset 0 0 30px rgba(232,92,58,0.05)",
+            position: "relative", overflow: "hidden",
+          }}>
+            {/* Screen gradient simulating cinematic scene */}
+            <div style={{
+              position: "absolute", inset: 0,
+              background: "linear-gradient(180deg, #1a0800 0%, #2d0e02 25%, #1a0500 50%, #0a0304 75%, #060108 100%)",
+              display: "flex",
+            }} />
+            {/* Orange atmosphere */}
+            <div style={{ position: "absolute", top: "20%", left: "10%", width: "80%", height: "50%", background: "radial-gradient(ellipse, rgba(232,92,58,0.6) 0%, transparent 70%)", display: "flex" }} />
+            {/* Silhouette figure */}
+            <div style={{ position: "absolute", bottom: "18%", left: "50%", display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#1a0800", display: "flex", marginBottom: 2 }} />
+              <div style={{ width: 18, height: 28, background: "#1a0800", borderRadius: "3px 3px 0 0", display: "flex" }} />
+              <div style={{ display: "flex", gap: 3 }}>
+                <div style={{ width: 7, height: 20, background: "#1a0800", borderRadius: "0 0 3px 3px", display: "flex" }} />
+                <div style={{ width: 7, height: 20, background: "#1a0800", borderRadius: "0 0 3px 3px", display: "flex" }} />
               </div>
-              <span style={{ fontSize: 8, fontWeight: 800, color: "#ff8c42", letterSpacing: 1.5, textTransform: "uppercase" }}>⚡ HOOK — 3 SEC</span>
-              <span style={{ fontSize: 12, fontWeight: 600, color: "#f1f5f9", lineHeight: 1.45 }}>« Si vous regardez ça... c'est que j'ai pas réussi. »</span>
-              <span style={{ fontSize: 9, color: "#94a3b8", fontStyle: "italic" }}>[9:16] Gros plan, yeux dans l'objectif</span>
-              <div style={{ height: 1, background: "rgba(255,255,255,0.12)", display: "flex" }} />
-              <span style={{ fontSize: 9, fontWeight: 800, color: "#c084fc", letterSpacing: 2 }}>MAYA</span>
-              <span style={{ fontSize: 12, color: "#f1f5f9", lineHeight: 1.45 }}>Tu as réussi. Regarde ce que j'ai trouvé.</span>
-              <span style={{ fontSize: 9, color: "#94a3b8", fontStyle: "italic" }}>[9:16] Insert téléphone, notif</span>
             </div>
-            {/* Cliffhanger chip */}
-            <div style={{ background: "rgba(232,92,58,0.18)", border: "1px solid rgba(232,92,58,0.6)", borderRadius: 10, padding: "8px 12px", display: "flex" }}>
-              <span style={{ fontSize: 9, fontWeight: 800, color: "#ff8c42", letterSpacing: 1, textTransform: "uppercase" }}>🎬 CLIFFHANGER</span>
+            {/* Notch */}
+            <div style={{ width: 60, height: 6, background: "#000", borderRadius: 10, marginTop: 14, zIndex: 2, display: "flex" }} />
+            {/* REC badge */}
+            <div style={{ position: "absolute", top: 36, right: 14, background: "rgba(232,92,58,0.9)", borderRadius: 6, padding: "3px 8px", display: "flex", alignItems: "center", gap: 4, zIndex: 2 }}>
+              <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#fff", display: "flex" }} />
+              <span style={{ fontSize: 8, fontWeight: 800, color: "#fff", letterSpacing: 1 }}>REC</span>
             </div>
             {/* 9:16 label */}
-            <div style={{ marginTop: 14, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
-              <div style={{ width: 16, height: 1, background: "#E85C3A", display: "flex" }} />
-              <span style={{ fontSize: 10, fontWeight: 800, color: "#E85C3A", letterSpacing: 2 }}>9:16</span>
-              <div style={{ width: 16, height: 1, background: "#E85C3A", display: "flex" }} />
+            <div style={{ position: "absolute", bottom: 20, right: 14, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, zIndex: 2 }}>
+              <div style={{ width: 1, height: 16, background: "#E85C3A", display: "flex" }} />
+              <span style={{ fontSize: 9, fontWeight: 800, color: "#E85C3A", letterSpacing: 1, writingMode: "vertical-rl" }}>9:16</span>
+              <div style={{ width: 1, height: 16, background: "#E85C3A", display: "flex" }} />
             </div>
+          </div>
+          {/* V shape behind phone */}
+          <div style={{ position: "absolute", zIndex: 0, display: "flex" }}>
+            <svg width="300" height="500" viewBox="0 0 300 500" fill="none">
+              <path d="M10 10 L150 490 L290 10" stroke="#E85C3A" strokeWidth="3" strokeLinecap="round" opacity="0.6"/>
+            </svg>
           </div>
         </div>
       </div>
