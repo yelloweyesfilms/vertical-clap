@@ -20,10 +20,12 @@ export default function App({ Component, pageProps }) {
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="mobile-web-app-capable" content="yes" />
+
         <title>{TITLE}</title>
         <meta name="description" content={DESC} />
         <meta name="keywords" content="micro-drama, vertical, 9:16, TikTok, Reels, Shorts, scénario, script, IA, générateur" />
         <link rel="canonical" href={SITE} />
+
         <meta property="og:type" content="website" />
         <meta property="og:url" content={SITE} />
         <meta property="og:title" content={TITLE} />
@@ -33,10 +35,12 @@ export default function App({ Component, pageProps }) {
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:site_name" content="VerticalClap" />
+
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={TITLE} />
         <meta name="twitter:description" content={DESC} />
         <meta name="twitter:image" content={OG_IMAGE} />
+
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
@@ -51,6 +55,7 @@ export default function App({ Component, pageProps }) {
           ],
           "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "50" },
         }) }} />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" />
