@@ -962,29 +962,16 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <svg width="38" height="44" viewBox="0 0 38 44" fill="none" style={{ flexShrink: 0 }}>
-                <defs>
-                  <linearGradient id="screenGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#ff8c42"/>
-                    <stop offset="100%" stopColor="#E85C3A"/>
-                  </linearGradient>
-                </defs>
-                {/* Screen / phone */}
-                <rect x="9" y="10" width="22" height="32" rx="3.5" fill="url(#screenGrad)"/>
-                {/* Shadow layer behind */}
-                <rect x="5" y="13" width="22" height="32" rx="3.5" fill="rgba(232,92,58,0.18)" />
-                {/* Play button */}
-                <polygon points="17,22 17,32 26,27" fill="#1a0a04" opacity="0.75"/>
-                {/* Clap arm */}
-                <rect x="7" y="4" width="20" height="5" rx="1.5" fill="#f5ede0" transform="rotate(-18 7 4)"/>
-                <rect x="7" y="4" width="4.5" height="5" rx="1" fill="#2a1a0e" transform="rotate(-18 7 4)"/>
-                <rect x="13.5" y="2.8" width="4.5" height="5" rx="1" fill="#2a1a0e" transform="rotate(-18 7 4)"/>
-                <rect x="20" y="1.6" width="4.5" height="5" rx="1" fill="#2a1a0e" transform="rotate(-18 7 4)"/>
-                {/* Clap base top */}
-                <rect x="9" y="10" width="22" height="4" rx="0" fill="rgba(0,0,0,0.25)"/>
+              <svg width="42" height="44" viewBox="0 0 42 44" fill="none" style={{ flexShrink: 0 }}>
+                {/* Left arm of V */}
+                <path d="M4 6 L21 38" stroke="white" strokeWidth="6.5" strokeLinecap="round"/>
+                {/* Right arm of V going up */}
+                <path d="M21 38 L33 12" stroke="white" strokeWidth="6.5" strokeLinecap="round"/>
+                {/* C curve from top of right arm */}
+                <path d="M33 12 Q44 22 33 34" stroke="var(--r)" strokeWidth="6.5" strokeLinecap="round" fill="none"/>
               </svg>
               <div style={{ lineHeight: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", marginBottom: 2, fontFamily: "var(--sans)" }}>VERTICAL</div>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", marginBottom: 3, fontFamily: "var(--sans)" }}>VERTICAL</div>
                 <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -1, margin: 0, lineHeight: 1 }}>CLAP</h1>
               </div>
             </div>
