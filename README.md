@@ -1,4 +1,4 @@
-# 🎬 Vertical Studio
+# 🎬 Vertical Clap
 
 Studio de micro-dramas verticaux avec IA. Scripts 1-2 min, format 9:16, prêts à tourner.
 
