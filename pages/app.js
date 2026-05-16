@@ -961,7 +961,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
       <div style={{ background: "var(--tx)", padding: "28px 20px 24px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
           <div>
-            <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>VERTICAL STUDIO</h1>
+            <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>VERTICALCLAP</h1>
             <p style={{ fontSize: 12, color: "#3a5040", marginTop: 2 }}>Micro-dramas · 1 à 2 min · 9:16</p>
           </div>
           <div className="header-actions" style={{ display: "flex", gap: 8, alignItems: "center" }}>
@@ -1132,7 +1132,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, onAffiche, cust
   const exportSerie = () => {
     const lines = [];
     const sep = (c = "─", n = 50) => lines.push(c.repeat(n));
-    lines.push("VERTICAL STUDIO — Export série");
+    lines.push("VERTICALCLAP — Export série");
     lines.push(`Généré le ${new Date().toLocaleDateString("fr-FR")}`);
     sep("═");
     lines.push("");
@@ -1980,7 +1980,7 @@ export default function App() {
         doc.saveGraphicsState();
         doc.setGState(new doc.GState({ opacity: 0.07 }));
         doc.setFontSize(38); doc.setFont("helvetica", "bold"); doc.setTextColor(232, 92, 58);
-        doc.text("VERTICAL STUDIO", W / 2, 148, { align: "center", angle: 45 });
+        doc.text("VERTICALCLAP", W / 2, 148, { align: "center", angle: 45 });
         doc.restoreGraphicsState();
         doc.setFontSize(8); doc.setFont("helvetica", "normal"); doc.setTextColor(180, 180, 180);
         doc.text("vertical-studio.app", W / 2, 293, { align: "center" });
@@ -1990,7 +1990,7 @@ export default function App() {
     doc.setFillColor(...RED);
     doc.rect(0, 0, W, 12, "F");
     doc.setFontSize(8); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
-    doc.text("VERTICAL STUDIO", margin, 8);
+    doc.text("VERTICALCLAP", margin, 8);
     doc.text(`${b.titre} — Ép. ${ep.numero}`, W - margin, 8, { align: "right" });
     y = 22;
 
