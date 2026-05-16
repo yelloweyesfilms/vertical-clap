@@ -610,48 +610,9 @@ function MesSeriesView({ onLoad, onBack, customerId }) {
 function drawPoster(canvas, bible, episodes, mode) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
-  const PAD = 56;
+  const PAD = 52;
   const RED = "#E85C3A", ORANGE = "#ff8c42";
-  const WHITE = "#f1f5f9", MUTED = "#94a3b8", DIM = "#475569";
-  const BG = "#09090f";
-
-  // — Fond noir —
-  ctx.fillStyle = BG;
-  ctx.fillRect(0, 0, W, H);
-
-  // — Glow orange bas-droit —
-  const glowBR = ctx.createRadialGradient(W * 0.75, H * 0.85, 0, W * 0.75, H * 0.85, W * 0.7);
-  glowBR.addColorStop(0, "rgba(232,92,58,0.22)");
-  glowBR.addColorStop(1, "rgba(232,92,58,0)");
-  ctx.fillStyle = glowBR;
-  ctx.fillRect(0, 0, W, H);
-
-  // — Glow orange haut-gauche (subtil) —
-  const glowTL = ctx.createRadialGradient(0, 0, 0, 0, 0, W * 0.5);
-  glowTL.addColorStop(0, "rgba(232,92,58,0.07)");
-  glowTL.addColorStop(1, "rgba(232,92,58,0)");
-  ctx.fillStyle = glowTL;
-  ctx.fillRect(0, 0, W, H);
-
-  // — Grain de texture —
-  for (let i = 0; i < 6000; i++) {
-    ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.015})`;
-    ctx.fillRect(Math.random() * W, Math.random() * H, 1, 1);
-  }
-
-  // — Gradient vignette bas —
-  const vignette = ctx.createLinearGradient(0, H * 0.55, 0, H);
-  vignette.addColorStop(0, "rgba(9,9,15,0)");
-  vignette.addColorStop(1, "rgba(9,9,15,0.92)");
-  ctx.fillStyle = vignette;
-  ctx.fillRect(0, 0, W, H);
-
-  // — Barre gradient haut —
-  const barGrad = ctx.createLinearGradient(0, 0, W * 0.5, 0);
-  barGrad.addColorStop(0, ORANGE);
-  barGrad.addColorStop(1, RED);
-  ctx.fillStyle = barGrad;
-  ctx.fillRect(0, 0, W, 6);
+  const WHITE = "#f1f5f9", MUTED = "#94a3b8", DIM = "rgba(148,163,184,0.5)";
 
   const wrap = (text, x, y, maxW, lineH, font, color, align = "left") => {
     ctx.font = font;
@@ -670,118 +631,176 @@ function drawPoster(canvas, bible, episodes, mode) {
     return lines.length * lineH;
   };
 
-  let y = 58;
+  // ── FOND ──────────────────────────────────────────────
+  ctx.fillStyle = "#09090f";
+  ctx.fillRect(0, 0, W, H);
 
-  // — Logo VERTICALCLAP —
-  ctx.font = "700 10px sans-serif";
-  ctx.fillStyle = "rgba(255,255,255,0.35)";
+  // Glow centre-bas (ambiance scène)
+  const glowMain = ctx.createRadialGradient(W / 2, H * 0.55, 0, W / 2, H * 0.55, W * 0.85);
+  glowMain.addColorStop(0, "rgba(232,92,58,0.18)");
+  glowMain.addColorStop(0.5, "rgba(232,92,58,0.06)");
+  glowMain.addColorStop(1, "rgba(232,92,58,0)");
+  ctx.fillStyle = glowMain;
+  ctx.fillRect(0, 0, W, H);
+
+  // Vignette bords
+  const vig = ctx.createRadialGradient(W / 2, H / 2, H * 0.2, W / 2, H / 2, H * 0.85);
+  vig.addColorStop(0, "rgba(0,0,0,0)");
+  vig.addColorStop(1, "rgba(0,0,0,0.55)");
+  ctx.fillStyle = vig;
+  ctx.fillRect(0, 0, W, H);
+
+  // Grain subtil
+  for (let i = 0; i < 5000; i++) {
+    ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.013})`;
+    ctx.fillRect(Math.random() * W, Math.random() * H, 1, 1);
+  }
+
+  // ── BANDE LATÉRALE GAUCHE ─────────────────────────────
+  const sideGrad = ctx.createLinearGradient(0, 0, 0, H * 0.6);
+  sideGrad.addColorStop(0, ORANGE);
+  sideGrad.addColorStop(1, RED);
+  ctx.fillStyle = sideGrad;
+  ctx.fillRect(0, 0, 5, H * 0.6);
+
+  // ── TOP : LOGO + INFOS ────────────────────────────────
+  const TOP = 52;
+  ctx.font = "600 11px sans-serif";
+  ctx.fillStyle = "rgba(255,255,255,0.3)";
   ctx.textAlign = "left";
-  ctx.letterSpacing = "3px";
-  ctx.fillText("VERTICAL", PAD, y);
-  ctx.letterSpacing = "0px";
-  const vW = ctx.measureText("VERTICAL").width + 6;
-  const clapGrad = ctx.createLinearGradient(PAD + vW, 0, PAD + vW + 50, 0);
-  clapGrad.addColorStop(0, ORANGE);
-  clapGrad.addColorStop(1, RED);
-  ctx.fillStyle = clapGrad;
-  ctx.font = "800 10px sans-serif";
-  ctx.fillText("CLAP", PAD + vW, y);
-
-  // — Badge épisodes —
-  ctx.font = "700 10px sans-serif";
+  ctx.fillText("VERTICAL", PAD, TOP);
+  const vW = ctx.measureText("VERTICAL").width + 1;
+  ctx.font = "800 11px sans-serif";
   ctx.fillStyle = RED;
+  ctx.fillText("CLAP", PAD + vW, TOP);
+
+  ctx.font = "600 11px sans-serif";
+  ctx.fillStyle = DIM;
   ctx.textAlign = "right";
-  ctx.fillText(`${episodes.length} ÉP. · 9:16`, W - PAD, y);
+  ctx.fillText(`${episodes.length} ép. · 9:16`, W - PAD, TOP);
   ctx.textAlign = "left";
 
-  y += 62;
+  // ── ZONE TITRE (grande, centrée verticalement dans le tiers haut) ──
+  const TITLE_Y = H * 0.12;
+  const titre = bible.titre.toUpperCase();
+  const titleSize = titre.length > 20 ? 72 : titre.length > 14 ? 84 : titre.length > 9 ? 96 : 108;
+  ctx.font = `900 ${titleSize}px Georgia, serif`;
+  ctx.fillStyle = WHITE;
+  ctx.textAlign = "left";
+  // Dessin ligne par ligne pour gérer le retour à la ligne manuellement
+  const titleWords = titre.split(" ");
+  let titleLines = [], tLine = "";
+  for (const tw of titleWords) {
+    const test = tLine + tw + " ";
+    if (ctx.measureText(test).width > W - PAD * 2 && tLine) { titleLines.push(tLine.trim()); tLine = tw + " "; }
+    else tLine = test;
+  }
+  titleLines.push(tLine.trim());
+  const titleLineH = titleSize * 1.0;
+  titleLines.forEach((l, i) => ctx.fillText(l, PAD, TITLE_Y + i * titleLineH));
+  const titleBottom = TITLE_Y + titleLines.length * titleLineH;
 
-  // — Badge mode —
-  const modeLabel = mode === "fast" ? "FAST DRAMA" : "PREMIUM SUSPENSE";
+  // ── LIGNE ACCENT ──────────────────────────────────────
+  const lineY = titleBottom + 18;
+  const lg = ctx.createLinearGradient(PAD, 0, PAD + 100, 0);
+  lg.addColorStop(0, RED); lg.addColorStop(1, "rgba(232,92,58,0)");
+  ctx.fillStyle = lg;
+  ctx.fillRect(PAD, lineY, 100, 3);
+
+  // ── LOGLINE ───────────────────────────────────────────
+  const logY = lineY + 28;
+  const logH = wrap(`« ${bible.logline} »`, PAD, logY, W - PAD * 2, 30, "italic 19px Georgia, serif", MUTED);
+
+  // ── BADGE MODE ────────────────────────────────────────
+  const badgeY = logY + logH + 28;
+  const modeLabel = mode === "fast" ? "⚡  FAST DRAMA" : "✦  PREMIUM SUSPENSE";
   ctx.font = "700 10px sans-serif";
-  const badgeW = ctx.measureText(modeLabel).width + 28;
-  ctx.fillStyle = "rgba(232,92,58,0.15)";
-  roundRect(ctx, PAD, y - 14, badgeW, 24, 5);
-  ctx.fill();
-  ctx.strokeStyle = "rgba(232,92,58,0.4)";
-  ctx.lineWidth = 1;
-  roundRect(ctx, PAD, y - 14, badgeW, 24, 5);
-  ctx.stroke();
-  ctx.fillStyle = RED;
-  ctx.fillText(modeLabel, PAD + 14, y + 4);
+  const bW = ctx.measureText(modeLabel).width + 28;
+  ctx.fillStyle = "rgba(232,92,58,0.12)";
+  roundRect(ctx, PAD, badgeY - 13, bW, 22, 4); ctx.fill();
+  ctx.strokeStyle = "rgba(232,92,58,0.35)"; ctx.lineWidth = 1;
+  roundRect(ctx, PAD, badgeY - 13, bW, 22, 4); ctx.stroke();
+  ctx.fillStyle = RED; ctx.fillText(modeLabel, PAD + 14, badgeY + 3);
 
-  y += 48;
+  // ── SÉPARATEUR ────────────────────────────────────────
+  const sep1Y = badgeY + 36;
+  ctx.fillStyle = "rgba(255,255,255,0.07)";
+  ctx.fillRect(PAD, sep1Y, W - PAD * 2, 1);
 
-  // — Titre —
-  const titleSize = bible.titre.length > 18 ? 64 : bible.titre.length > 12 ? 76 : 88;
-  const titleH = wrap(bible.titre.toUpperCase(), PAD, y, W - PAD * 2, titleSize * 1.05, `900 ${titleSize}px Georgia, serif`, WHITE);
-  y += titleH + 8;
-
-  // — Ligne rouge —
-  const lineGrad = ctx.createLinearGradient(PAD, 0, PAD + 80, 0);
-  lineGrad.addColorStop(0, RED);
-  lineGrad.addColorStop(1, "rgba(232,92,58,0)");
-  ctx.fillStyle = lineGrad;
-  ctx.fillRect(PAD, y, 80, 3);
-  y += 26;
-
-  // — Logline —
-  y += wrap(`« ${bible.logline} »`, PAD, y, W - PAD * 2, 28, "italic 18px Georgia, serif", MUTED);
-  y += 40;
-
-  // — Séparateur —
-  ctx.fillStyle = "rgba(255,255,255,0.06)";
-  ctx.fillRect(PAD, y, W - PAD * 2, 1);
-  y += 28;
-
-  // — Personnages —
+  // ── PERSONNAGES ───────────────────────────────────────
+  const persY = sep1Y + 28;
   ctx.font = "700 9px sans-serif";
   ctx.fillStyle = RED;
-  ctx.letterSpacing = "2px";
-  ctx.fillText("PERSONNAGES", PAD, y);
-  ctx.letterSpacing = "0px";
-  y += 24;
-
+  ctx.textAlign = "left";
+  ctx.fillText("PERSONNAGES", PAD, persY);
+  let py = persY + 22;
   for (const p of (bible.personnages || []).slice(0, 3)) {
-    ctx.font = "700 16px Georgia, serif";
+    ctx.font = "700 15px Georgia, serif";
     ctx.fillStyle = WHITE;
-    ctx.fillText(p.nom, PAD, y);
-    const nomW = ctx.measureText(p.nom).width;
+    ctx.fillText(p.nom, PAD, py);
+    const nW = ctx.measureText(p.nom).width;
     ctx.font = "400 12px sans-serif";
     ctx.fillStyle = DIM;
-    ctx.fillText(`  ${p.role} · ${p.age} ans`, PAD + nomW + 4, y);
-    y += 28;
+    ctx.fillText(`  ${p.role} · ${p.age} ans`, PAD + nW + 4, py);
+    py += 26;
   }
-  y += 16;
 
-  // — Séparateur —
-  ctx.fillStyle = "rgba(255,255,255,0.06)";
-  ctx.fillRect(PAD, y, W - PAD * 2, 1);
-  y += 28;
+  // ── SÉPARATEUR ────────────────────────────────────────
+  const sep2Y = py + 16;
+  ctx.fillStyle = "rgba(255,255,255,0.07)";
+  ctx.fillRect(PAD, sep2Y, W - PAD * 2, 1);
 
-  // — Question centrale —
+  // ── QUESTION CENTRALE ─────────────────────────────────
+  const qY = sep2Y + 28;
   ctx.font = "700 9px sans-serif";
   ctx.fillStyle = RED;
-  ctx.letterSpacing = "2px";
-  ctx.fillText("QUESTION CENTRALE", PAD, y);
-  ctx.letterSpacing = "0px";
-  y += 24;
-  y += wrap(bible.tension_centrale || "", PAD, y, W - PAD * 2, 26, "italic 17px Georgia, serif", MUTED);
+  ctx.fillText("QUESTION CENTRALE", PAD, qY);
+  const qH = wrap(bible.tension_centrale || "", PAD, qY + 22, W - PAD * 2, 27, "italic 17px Georgia, serif", MUTED);
 
-  // — Accroche TikTok en bas —
-  const bottomY = H - 110;
-  ctx.fillStyle = "rgba(255,255,255,0.05)";
-  ctx.fillRect(PAD, bottomY - 24, W - PAD * 2, 1);
+  // ── ÉPISODES (liste compacte) ─────────────────────────
+  const epStartY = qY + 22 + qH + 24;
+  const epList = (episodes || []).slice(0, 5);
+  if (epList.length > 0) {
+    ctx.fillStyle = "rgba(255,255,255,0.07)";
+    ctx.fillRect(PAD, epStartY - 4, W - PAD * 2, 1);
+    ctx.font = "700 9px sans-serif";
+    ctx.fillStyle = RED;
+    ctx.fillText("SÉQUENCIER", PAD, epStartY + 16);
+    epList.forEach((ep, i) => {
+      const ey = epStartY + 36 + i * 22;
+      ctx.font = "600 11px sans-serif";
+      ctx.fillStyle = "rgba(255,255,255,0.2)";
+      ctx.fillText(`${ep.numero < 10 ? "0" : ""}${ep.numero}`, PAD, ey);
+      ctx.font = "400 12px sans-serif";
+      ctx.fillStyle = "rgba(255,255,255,0.55)";
+      const epTitle = ep.titre || "";
+      const maxEpW = W - PAD * 2 - 30;
+      const clipped = ctx.measureText(epTitle).width > maxEpW
+        ? epTitle.slice(0, Math.floor(epTitle.length * maxEpW / ctx.measureText(epTitle).width) - 1) + "…"
+        : epTitle;
+      ctx.fillText(clipped, PAD + 30, ey);
+    });
+  }
+
+  // ── BLOC BAS : ACCROCHE ───────────────────────────────
+  const accrY = H - 148;
+  // Gradient remontant
+  const accrGrad = ctx.createLinearGradient(0, accrY - 60, 0, H);
+  accrGrad.addColorStop(0, "rgba(9,9,15,0)");
+  accrGrad.addColorStop(0.4, "rgba(9,9,15,0.96)");
+  accrGrad.addColorStop(1, "rgba(9,9,15,1)");
+  ctx.fillStyle = accrGrad;
+  ctx.fillRect(0, accrY - 60, W, H - accrY + 60);
+
   ctx.font = "700 9px sans-serif";
   ctx.fillStyle = RED;
-  ctx.letterSpacing = "2px";
-  ctx.fillText("ACCROCHE", PAD, bottomY);
-  ctx.letterSpacing = "0px";
-  wrap(bible.accroche || "", PAD, bottomY + 22, W - PAD * 2, 30, "italic bold 19px Georgia, serif", WHITE);
+  ctx.textAlign = "left";
+  ctx.fillText("ACCROCHE", PAD, accrY);
+  wrap(bible.accroche || "", PAD, accrY + 22, W - PAD * 2, 32, "italic bold 21px Georgia, serif", WHITE);
 
-  // — URL bas centré —
+  // URL
   ctx.font = "400 10px sans-serif";
-  ctx.fillStyle = "rgba(255,255,255,0.18)";
+  ctx.fillStyle = "rgba(255,255,255,0.15)";
   ctx.textAlign = "center";
   ctx.fillText("verticalclap.app", W / 2, H - 20);
 }
