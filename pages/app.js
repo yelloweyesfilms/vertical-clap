@@ -654,26 +654,10 @@ function drawPoster(canvas, bible, episodes, mode) {
   ctx.fillStyle = barG;
   ctx.fillRect(0, 0, W, 6);
 
-  // ── LOGO ──────────────────────────────────────────────
-  const LOGO_Y = 52;
-  ctx.font = "600 11px sans-serif";
-  ctx.fillStyle = "rgba(255,255,255,0.28)";
-  ctx.textAlign = "left";
-  ctx.fillText("VERTICAL", PAD, LOGO_Y);
-  const vW = ctx.measureText("VERTICAL").width + 2;
-  ctx.font = "800 11px sans-serif";
-  ctx.fillStyle = RED;
-  ctx.fillText("CLAP", PAD + vW, LOGO_Y);
-
-  ctx.font = "500 11px sans-serif";
-  ctx.fillStyle = "rgba(148,163,184,0.5)";
-  ctx.textAlign = "right";
-  ctx.fillText(`${episodes.length} ép. · 9:16`, W - PAD, LOGO_Y);
-  ctx.textAlign = "left";
-
-  // ── TITRE ─────────────────────────────────────────────
+  // ── MESURE DU CONTENU pour centrage vertical ──────────
   const titre = bible.titre.toUpperCase();
   const titleSize = titre.length > 20 ? 80 : titre.length > 14 ? 92 : titre.length > 9 ? 104 : 116;
+  const titleLineH = titleSize * 1.0;
   ctx.font = `900 ${titleSize}px Georgia, serif`;
   const titleWords = titre.split(" ");
   let titleLines = [], tLine = "";
@@ -683,40 +667,92 @@ function drawPoster(canvas, bible, episodes, mode) {
     else tLine = test;
   }
   titleLines.push(tLine.trim());
-  const titleLineH = titleSize * 1.0;
-  const TITLE_Y = H * 0.11;
+  const titleBlockH = titleLines.length * titleLineH;
+
+  // Mesure pitch
+  ctx.font = "italic bold 26px Georgia, serif";
+  const pitchText = bible.accroche || "";
+  const pitchWords = pitchText.split(" ");
+  let pitchLines = [], pLine = "";
+  for (const pw of pitchWords) {
+    const test = pLine + pw + " ";
+    if (ctx.measureText(test).width > W - PAD * 2 && pLine) { pitchLines.push(pLine.trim()); pLine = pw + " "; }
+    else pLine = test;
+  }
+  pitchLines.push(pLine.trim());
+  const pitchBlockH = pitchLines.length * 38;
+
+  // Mesure logline
+  ctx.font = "italic 19px Georgia, serif";
+  const logText = `« ${bible.logline} »`;
+  const logWords = logText.split(" ");
+  let logLines2 = [], lLine = "";
+  for (const lw of logWords) {
+    const test = lLine + lw + " ";
+    if (ctx.measureText(test).width > W - PAD * 2 && lLine) { logLines2.push(lLine.trim()); lLine = lw + " "; }
+    else lLine = test;
+  }
+  logLines2.push(lLine.trim());
+  const logBlockH = logLines2.length * 30;
+
+  // Hauteur totale du bloc central
+  const BLOCK_H = titleBlockH + 28 + 3 + 44 + pitchBlockH + 40 + 1 + 36 + logBlockH;
+  const USABLE = H - 110 - 110; // 110px top logo + 110px bas branding
+  const START_Y = 110 + Math.max(0, (USABLE - BLOCK_H) / 2);
+
+  // ── LOGO HAUT ─────────────────────────────────────────
+  ctx.font = "600 11px sans-serif";
+  ctx.fillStyle = "rgba(255,255,255,0.28)";
+  ctx.textAlign = "left";
+  ctx.fillText("VERTICAL", PAD, 52);
+  const vW = ctx.measureText("VERTICAL").width + 2;
+  ctx.font = "800 11px sans-serif";
+  ctx.fillStyle = RED;
+  ctx.fillText("CLAP", PAD + vW, 52);
+  ctx.font = "500 11px sans-serif";
+  ctx.fillStyle = "rgba(148,163,184,0.45)";
+  ctx.textAlign = "right";
+  ctx.fillText(`${episodes.length} ép. · 9:16`, W - PAD, 52);
+  ctx.textAlign = "left";
+
+  // ── TITRE ─────────────────────────────────────────────
+  let y = START_Y;
+  ctx.font = `900 ${titleSize}px Georgia, serif`;
   ctx.fillStyle = WHITE;
-  titleLines.forEach((l, i) => ctx.fillText(l, PAD, TITLE_Y + i * titleLineH));
-  const titleBottom = TITLE_Y + titleLines.length * titleLineH;
+  titleLines.forEach((l, i) => ctx.fillText(l, PAD, y + i * titleLineH));
+  y += titleBlockH;
 
   // ── LIGNE ACCENT ──────────────────────────────────────
+  y += 28;
   const lg = ctx.createLinearGradient(PAD, 0, PAD + 90, 0);
   lg.addColorStop(0, RED); lg.addColorStop(1, "rgba(232,92,58,0)");
   ctx.fillStyle = lg;
-  ctx.fillRect(PAD, titleBottom + 20, 90, 3);
+  ctx.fillRect(PAD, y, 90, 3);
+  y += 44;
 
-  // ── PITCH (accroche courte) ────────────────────────────
-  const PITCH_Y = titleBottom + 56;
-  const pitchH = wrap(bible.accroche || "", PAD, PITCH_Y, W - PAD * 2, 38, `italic bold 26px Georgia, serif`, WHITE);
+  // ── PITCH ─────────────────────────────────────────────
+  ctx.font = "italic bold 26px Georgia, serif";
+  ctx.fillStyle = WHITE;
+  pitchLines.forEach((l, i) => ctx.fillText(l, PAD, y + i * 38));
+  y += pitchBlockH + 40;
 
   // ── SÉPARATEUR ────────────────────────────────────────
-  const SEP_Y = PITCH_Y + pitchH + 44;
   ctx.fillStyle = "rgba(255,255,255,0.08)";
-  ctx.fillRect(PAD, SEP_Y, W - PAD * 2, 1);
+  ctx.fillRect(PAD, y, W - PAD * 2, 1);
+  y += 36;
 
   // ── LOGLINE ───────────────────────────────────────────
-  const LOG_Y = SEP_Y + 36;
-  wrap(`« ${bible.logline} »`, PAD, LOG_Y, W - PAD * 2, 30, "italic 19px Georgia, serif", MUTED);
+  ctx.font = "italic 19px Georgia, serif";
+  ctx.fillStyle = MUTED;
+  logLines2.forEach((l, i) => ctx.fillText(l, PAD, y + i * 30));
 
-  // ── BAS : LOGO + BRANDING ─────────────────────────────
-  // Gradient vignette bas
-  const botG = ctx.createLinearGradient(0, H * 0.75, 0, H);
+  // ── BRANDING BAS ──────────────────────────────────────
+  const botG = ctx.createLinearGradient(0, H * 0.82, 0, H);
   botG.addColorStop(0, "rgba(9,9,15,0)");
-  botG.addColorStop(1, "rgba(9,9,15,0.98)");
+  botG.addColorStop(1, "rgba(9,9,15,1)");
   ctx.fillStyle = botG;
-  ctx.fillRect(0, H * 0.75, W, H * 0.25);
+  ctx.fillRect(0, H * 0.82, W, H * 0.18);
 
-  // Barre gradient bas
   const barB = ctx.createLinearGradient(0, 0, W * 0.4, 0);
   barB.addColorStop(0, ORANGE); barB.addColorStop(1, RED);
   ctx.fillStyle = barB;
@@ -729,15 +765,13 @@ function drawPoster(canvas, bible, episodes, mode) {
   const vW2 = ctx.measureText("VERTICAL").width + 2;
   ctx.fillStyle = RED;
   ctx.fillText("CLAP", PAD + vW2, H - 44);
-
   ctx.font = "400 11px sans-serif";
-  ctx.fillStyle = "rgba(148,163,184,0.4)";
+  ctx.fillStyle = "rgba(148,163,184,0.35)";
   ctx.fillText("verticalclap.app", PAD, H - 22);
 
-  // Mode badge bas droite
   const modeLabel = mode === "fast" ? "FAST DRAMA" : "PREMIUM SUSPENSE";
   ctx.font = "700 10px sans-serif";
-  ctx.fillStyle = "rgba(232,92,58,0.7)";
+  ctx.fillStyle = "rgba(232,92,58,0.65)";
   ctx.textAlign = "right";
   ctx.fillText(modeLabel, W - PAD, H - 44);
   ctx.textAlign = "left";
