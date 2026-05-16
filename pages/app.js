@@ -2115,11 +2115,11 @@ export default function App() {
         <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 40, textAlign: "center" }}>
           {err ? (
             <>
-              <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#2a3a2e", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 24, fontSize: 26 }}>⚠️</div>
+              <div style={{ width: 64, height: 64, borderRadius: "50%", background: "rgba(232,92,58,0.12)", border: "1.5px solid rgba(232,92,58,0.3)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 24, fontSize: 26 }}>⚠️</div>
               <p style={{ color: "var(--r)", fontSize: 14, lineHeight: 1.7, marginBottom: 28, maxWidth: 340 }}>{err}</p>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center" }}>
                 <button onClick={() => { setErr(null); generate(); }} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "14px 24px", borderRadius: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", fontSize: 14 }}>↻ Réessayer</button>
-                <button onClick={() => { setErr(null); setScreen("mix"); }} style={{ background: "none", border: "1.5px solid var(--bo)", color: "var(--mt)", padding: "14px 24px", borderRadius: 12, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)", fontSize: 14 }}>← Retour</button>
+                <button onClick={() => { setErr(null); setScreen("mix"); }} style={{ background: "none", border: "1.5px solid var(--bo)", color: "var(--tx)", padding: "14px 24px", borderRadius: 12, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)", fontSize: 14 }}>← Retour</button>
               </div>
             </>
           ) : (
