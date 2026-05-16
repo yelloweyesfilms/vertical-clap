@@ -963,15 +963,15 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
           <div>
             <div style={{ display: "flex", alignItems: "stretch", gap: 10 }}>
               <div style={{ width: 3, borderRadius: 2, background: "var(--r)", flexShrink: 0 }} />
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style={{ flexShrink: 0, alignSelf: "center" }}>
-                <rect x="2" y="10" width="24" height="16" rx="2" fill="none" stroke="white" strokeWidth="1.5"/>
-                <rect x="2" y="4" width="24" height="7" rx="2" fill="var(--r)"/>
-                <line x1="9" y1="4" x2="7" y2="11" stroke="white" strokeWidth="1.2"/>
-                <line x1="16" y1="4" x2="14" y2="11" stroke="white" strokeWidth="1.2"/>
-                <line x1="23" y1="4" x2="21" y2="11" stroke="white" strokeWidth="1.2"/>
+              <svg width="18" height="30" viewBox="0 0 18 30" fill="none" style={{ flexShrink: 0, alignSelf: "center" }}>
+                <rect x="1" y="1" width="16" height="28" rx="3" stroke="white" strokeWidth="1.5"/>
+                <circle cx="9" cy="25.5" r="1.2" fill="white" opacity="0.5"/>
+                <rect x="6" y="3.5" width="6" height="1" rx="0.5" fill="white" opacity="0.4"/>
               </svg>
               <div>
-                <h1 style={{ fontFamily: "var(--sans)", fontSize: 20, fontWeight: 800, color: "#fff", letterSpacing: -0.5, margin: 0, lineHeight: 1.1 }}>VERTICAL CLAP</h1>
+                <h1 style={{ fontFamily: "var(--sans)", fontSize: 20, fontWeight: 800, letterSpacing: -0.5, margin: 0, lineHeight: 1.1 }}>
+                  <span style={{ color: "#fff" }}>VERTICAL </span><span style={{ color: "var(--r)" }}>CLAP</span>
+                </h1>
                 <p style={{ fontSize: 11, color: "var(--mt)", marginTop: 4, fontFamily: "var(--sans)", letterSpacing: 0.5 }}>Micro-dramas · 1 à 2 min · 9:16</p>
               </div>
             </div>
