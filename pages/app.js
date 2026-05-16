@@ -966,8 +966,8 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
                 <span style={{ fontFamily: "var(--serif)", fontSize: 17, fontWeight: 900, color: "#fff", letterSpacing: -1 }}>VC</span>
               </div>
               <div style={{ lineHeight: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", marginBottom: 3, fontFamily: "var(--sans)" }}>VERTICAL</div>
-                <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -1, margin: 0, lineHeight: 1 }}>CLAP</h1>
+                <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -1, margin: 0, lineHeight: 1 }}>VERTICAL</h1>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", marginTop: 3, fontFamily: "var(--sans)" }}>CLAP</div>
               </div>
             </div>
           </div>
