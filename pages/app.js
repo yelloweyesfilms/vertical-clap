@@ -961,18 +961,18 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
       <div style={{ background: "#0f1a14", padding: "28px 20px 24px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <svg width="42" height="44" viewBox="0 0 42 44" fill="none" style={{ flexShrink: 0 }}>
-                {/* Left arm of V */}
-                <path d="M4 6 L21 38" stroke="white" strokeWidth="6.5" strokeLinecap="round"/>
-                {/* Right arm of V going up */}
-                <path d="M21 38 L33 12" stroke="white" strokeWidth="6.5" strokeLinecap="round"/>
-                {/* C curve from top of right arm */}
-                <path d="M33 12 Q44 22 33 34" stroke="var(--r)" strokeWidth="6.5" strokeLinecap="round" fill="none"/>
+            <div style={{ display: "flex", alignItems: "stretch", gap: 10 }}>
+              <div style={{ width: 3, borderRadius: 2, background: "var(--r)", flexShrink: 0 }} />
+              <svg width="18" height="30" viewBox="0 0 18 30" fill="none" style={{ flexShrink: 0, alignSelf: "center" }}>
+                <rect x="1" y="1" width="16" height="28" rx="3" stroke="white" strokeWidth="1.5"/>
+                <circle cx="9" cy="25.5" r="1.2" fill="white" opacity="0.5"/>
+                <rect x="6" y="3.5" width="6" height="1" rx="0.5" fill="white" opacity="0.4"/>
               </svg>
-              <div style={{ lineHeight: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", marginBottom: 3, fontFamily: "var(--sans)" }}>VERTICAL</div>
-                <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -1, margin: 0, lineHeight: 1 }}>CLAP</h1>
+              <div style={{ alignSelf: "center" }}>
+                <h1 style={{ fontFamily: "var(--sans)", fontSize: 20, fontWeight: 800, letterSpacing: -0.5, margin: 0, lineHeight: 1.1 }}>
+                  <span style={{ color: "#fff" }}>VERTICAL </span><span style={{ color: "var(--r)" }}>CLAP</span>
+                </h1>
+                <p style={{ fontSize: 11, color: "var(--mt)", marginTop: 3, fontFamily: "var(--sans)", letterSpacing: 0.5 }}>Micro-dramas · 1 à 2 min · 9:16</p>
               </div>
             </div>
           </div>
