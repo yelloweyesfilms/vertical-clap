@@ -750,17 +750,75 @@ function drawPoster(canvas, bible, episodes, mode, genre) {
   y += 22;
 
   // ── TITRE ─────────────────────────────────────────────────
-  const titleSize = bible.titre.length > 16 ? 66 : 80;
-  y += wrap(bible.titre.toUpperCase(), PAD, y, W - PAD * 2, titleSize * 1.08, `900 ${titleSize}px Georgia, serif`, WHITE);
-  y += 12;
+  const titleSize = bible.titre.length > 16 ? 62 : 76;
+  const titleText = bible.titre.toUpperCase();
+  const titleMaxW = W - PAD * 2;
+  const titleLineH = Math.round(titleSize * 1.12);
+  ctx.font = `900 ${titleSize}px Georgia, serif`;
+  // Word-wrap
+  {
+    const words = titleText.split(" ");
+    let line = "", titleLines = [];
+    for (const w of words) {
+      const test = line + w + " ";
+      if (ctx.measureText(test).width > titleMaxW && line) { titleLines.push(line.trim()); line = w + " "; }
+      else line = test;
+    }
+    titleLines.push(line.trim());
 
-  // Ligne dégradée orange→violet
-  const lineG = ctx.createLinearGradient(PAD, 0, PAD + 80, 0);
+    titleLines.forEach((ln, i) => {
+      const lY = y + i * titleLineH;
+      const lineW = Math.min(ctx.measureText(ln).width, titleMaxW);
+
+      // Dark drop-shadow for 3D relief
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,0.7)";
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetX = 3;
+      ctx.shadowOffsetY = 5;
+      ctx.fillStyle = "rgba(0,0,0,0.55)";
+      ctx.textAlign = "left";
+      ctx.fillText(ln, PAD, lY);
+      ctx.restore();
+
+      // Outer orange glow pass
+      ctx.save();
+      ctx.shadowColor = "rgba(232,92,58,0.75)";
+      ctx.shadowBlur = 28;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      const tG = ctx.createLinearGradient(PAD, 0, PAD + lineW, 0);
+      tG.addColorStop(0, ORANGE);
+      tG.addColorStop(0.55, "#f7c26b");
+      tG.addColorStop(1, VIO);
+      ctx.fillStyle = tG;
+      ctx.textAlign = "left";
+      ctx.fillText(ln, PAD, lY);
+      ctx.restore();
+
+      // Sharp gradient text on top (no blur)
+      ctx.save();
+      const tG2 = ctx.createLinearGradient(PAD, 0, PAD + lineW, 0);
+      tG2.addColorStop(0, "#ff9c6e");
+      tG2.addColorStop(0.4, "#fff0d0");
+      tG2.addColorStop(1, "#c084fc");
+      ctx.fillStyle = tG2;
+      ctx.textAlign = "left";
+      ctx.fillText(ln, PAD, lY);
+      ctx.restore();
+    });
+    y += titleLines.length * titleLineH;
+  }
+  y += 14;
+
+  // Ligne dégradée orange→violet (plus large et plus visible)
+  const lineG = ctx.createLinearGradient(PAD, 0, PAD + 120, 0);
   lineG.addColorStop(0, ORANGE);
-  lineG.addColorStop(1, VIO);
+  lineG.addColorStop(0.6, VIO);
+  lineG.addColorStop(1, "rgba(168,85,247,0)");
   ctx.fillStyle = lineG;
-  ctx.fillRect(PAD, y, 80, 4);
-  y += 28;
+  ctx.fillRect(PAD, y, 120, 3);
+  y += 26;
 
   // ── LOGLINE ───────────────────────────────────────────────
   y += wrap(`« ${bible.logline} »`, PAD, y, W - PAD * 2, 30, "italic 19px Georgia, serif", MUTED);
