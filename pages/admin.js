@@ -16,7 +16,7 @@ const s = {
   td: { padding: "11px 16px", borderBottom: `1px solid #0f1a12`, fontSize: 13 },
 };
 
-const LABEL = { bible: "Séries", script: "Scripts", episodes: "Épisodes", traduction: "Traductions", variations: "Variations", titres: "Titres viraux", poster: "Affiches IA" };
+const LABEL = { bible: "Séries", script: "Scripts", episodes: "Épisodes", traduction: "Traductions", variations: "Variations", titres: "Titres", poster: "Affiches IA" };
 const COLOR = { bible: RED, script: "#4ade80", episodes: "#60a5fa", traduction: "#f59e0b", variations: "#c084fc", titres: "#fb7185", poster: "#e879f9" };
 
 function MiniBar({ value, max, color }) {
@@ -81,7 +81,7 @@ export default function Admin() {
 
   if (!stats) return (
     <div style={s.page}>
-      <nav style={s.nav}><span style={{ fontFamily: "var(--serif)", fontSize: 15, fontWeight: 900, color: RED }}>VERTICAL STUDIO · ADMIN</span></nav>
+      <nav style={s.nav}><span style={{ fontFamily: "var(--serif)", fontSize: 15, fontWeight: 900, color: RED }}>VERTICALCLAP · ADMIN</span></nav>
       <div style={{ maxWidth: 400, margin: "120px auto 0", padding: "0 24px" }}>
         <div style={s.card}>
           <p style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 6 }}>Dashboard Admin</p>
@@ -103,7 +103,7 @@ export default function Admin() {
   return (
     <div style={s.page}>
       <nav style={s.nav}>
-        <span style={{ fontFamily: "var(--serif)", fontSize: 15, fontWeight: 900, color: RED }}>VERTICAL STUDIO · ADMIN</span>
+        <span style={{ fontFamily: "var(--serif)", fontSize: 15, fontWeight: 900, color: RED }}>VERTICALCLAP · ADMIN</span>
         <div style={{ display: "flex", gap: 10 }}>
           {[7, 14, 30].map(d => (
             <button key={d} onClick={() => { setDays(d); load(d); }}
