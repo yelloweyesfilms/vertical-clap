@@ -390,7 +390,9 @@ function ParrainageView({ customerId, onBack }) {
 
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-      <div style={{ background: "#0f0f1a", padding: "28px 20px 24px" }}>
+      <div style={{ background: "linear-gradient(180deg, #0f0f1a 0%, #0a0a16 100%)", padding: "28px 20px 24px", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: -40, right: -40, width: 140, height: 140, borderRadius: "50%", background: "radial-gradient(circle, rgba(105,201,208,0.10) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, rgba(105,201,208,0.5), rgba(168,85,247,0.4), transparent)" }} />
         <button onClick={onBack} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.45)", fontSize: 14, cursor: "pointer", padding: 0, marginBottom: 14 }}>← Retour</button>
         <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>Parrainage</h1>
         <p style={{ fontSize: 12, color: "rgba(255,255,255,0.45)", marginTop: 4 }}>Gagne 1 mois offert par ami parrainé</p>
@@ -506,7 +508,9 @@ function MesSeriesView({ onLoad, onBack, customerId }) {
 
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-      <div style={{ background: "#0f0f1a", padding: "28px 20px 24px" }}>
+      <div style={{ background: "linear-gradient(180deg, #0f0f1a 0%, #0a0a16 100%)", padding: "28px 20px 24px", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: -40, right: -40, width: 140, height: 140, borderRadius: "50%", background: "radial-gradient(circle, rgba(168,85,247,0.10) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, rgba(168,85,247,0.5), rgba(232,92,58,0.4), transparent)" }} />
         <button onClick={onBack} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.45)", fontSize: 14, cursor: "pointer", padding: 0, marginBottom: 14 }}>← Retour</button>
         <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>
           Mes Séries {!loadingCloud && <span style={{ fontSize: 16, fontWeight: 400, color: "rgba(255,255,255,0.45)" }}>({total})</span>}
@@ -1037,8 +1041,11 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
 
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-      <div style={{ background: "#0f0f1a", padding: "28px 20px 24px" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+      <div style={{ background: "linear-gradient(180deg, #0f0f1a 0%, #0a0a16 100%)", padding: "28px 20px 24px", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: -40, right: -40, width: 160, height: 160, borderRadius: "50%", background: "radial-gradient(circle, rgba(232,92,58,0.12) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: -20, left: -20, width: 120, height: 120, borderRadius: "50%", background: "radial-gradient(circle, rgba(168,85,247,0.10) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: "linear-gradient(90deg, rgba(232,92,58,0.4), rgba(168,85,247,0.4), transparent)" }} />
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20, position: "relative" }}>
           <div>
             <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>VERTICALCLAP</h1>
             <p style={{ fontSize: 12, color: "rgba(255,255,255,0.45)", marginTop: 2 }}>Micro-dramas · 1 à 2 min · 9:16</p>
@@ -1050,7 +1057,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
             </div>
           </div>
         </div>
-        <div style={{ display: "flex", background: "rgba(255,255,255,0.06)", borderRadius: 12, padding: 4 }}>
+        <div style={{ display: "flex", background: "rgba(255,255,255,0.06)", borderRadius: 12, padding: 4, position: "relative" }}>
           {[{ k: "fast", l: "⚡ Fast Drama" }, { k: "premium", l: "🎭 Premium Suspense" }].map(({ k, l }) => {
             const locked = k === "premium" && plan === "standard";
             return (
@@ -1063,7 +1070,10 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
         </div>
       </div>
 
-      <div style={{ padding: "24px 20px", maxWidth: 520, margin: "0 auto" }}>
+      <div style={{ padding: "24px 20px", maxWidth: 520, margin: "0 auto", position: "relative" }}>
+        {/* Subtle gradient blobs for visual depth */}
+        <div style={{ position: "fixed", top: 0, right: 0, width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle, rgba(232,92,58,0.06) 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
+        <div style={{ position: "fixed", bottom: 80, left: -60, width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
         {plan === "standard" && (
           <div style={{ background: "var(--n)", borderRadius: 14, padding: "14px 16px", marginBottom: 20, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
             <div>
@@ -1076,8 +1086,8 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
           </div>
         )}
         <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>
-            🎬 Packs rapides <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>— remplit tout en 1 clic</span>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "#69C9D0", marginBottom: 10 }}>
+            🎬 Packs rapides <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0, color: "var(--mt)" }}>— remplit tout en 1 clic</span>
           </p>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {PACKS.map(p => {
@@ -1095,15 +1105,15 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
         </div>
 
         {[
-          { label: "Casting", opts: OPTS.casting, key: "casting" },
-          { label: "Univers", opts: univOpts, key: "univers" },
-          { label: "Secret central", opts: secOpts, key: "secret" },
-          { label: "Genre", opts: OPTS.genre, key: "genre" },
-          { label: "Lieu unique", opts: state.mode === "fast" ? OPTS.lieu_fast : OPTS.lieu_prem, key: "lieu" },
-          { label: "Ambiance narrative", opts: OPTS.ambiance, key: "ambiance" },
-        ].map(({ label, opts, key }) => (
+          { label: "Casting", opts: OPTS.casting, key: "casting", accent: "var(--r)" },
+          { label: "Univers", opts: univOpts, key: "univers", accent: "var(--n)" },
+          { label: "Secret central", opts: secOpts, key: "secret", accent: "var(--r)" },
+          { label: "Genre", opts: OPTS.genre, key: "genre", accent: "#69C9D0" },
+          { label: "Lieu unique", opts: state.mode === "fast" ? OPTS.lieu_fast : OPTS.lieu_prem, key: "lieu", accent: "var(--n)" },
+          { label: "Ambiance narrative", opts: OPTS.ambiance, key: "ambiance", accent: "#69C9D0" },
+        ].map(({ label, opts, key, accent }) => (
           <div key={key} style={{ marginBottom: 22 }}>
-            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{label}</p>
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: accent, marginBottom: 10 }}>{label}</p>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {opts.map(o => <Chip key={o} label={o} active={state[key] === o} onClick={() => set({ [key]: o })} />)}
               <Chip label="✏️ Perso." active={isCustom(key)} onClick={() => activateCustom(key)} />
@@ -1122,7 +1132,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
         ))}
 
         <div style={{ marginBottom: 22 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>Durée par épisode</p>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 10 }}>Durée par épisode</p>
           <div style={{ display: "flex", gap: 8 }}>
             {[{ v: 60, l: "1 min", s: "Standard" }, { v: 90, l: "1 min 30", s: "Intense" }, { v: 120, l: "2 min", s: "Épique" }].map(({ v, l, s }) => (
               <Chip key={v} label={l} sub={s} block active={state.duree === v} onClick={() => set({ duree: v })} />
@@ -1131,7 +1141,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
         </div>
 
         <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--n)", marginBottom: 10 }}>
             Nombre d'épisodes
             {state.mode === "fast" && <span style={{ marginLeft: 8, fontSize: 10, color: "var(--r)", fontWeight: 700 }}>max 10 · 90 ép. en Premium</span>}
           </p>

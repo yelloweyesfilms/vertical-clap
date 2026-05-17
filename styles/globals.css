@@ -12,10 +12,10 @@
 }
 [data-theme="dark"] {
   --bg: #09090f;
-  --card: #12121c;
+  --card: #14142a;
   --tx: #f1f5f9;
   --mt: #71717a;
-  --bo: #1e1e2e;
+  --bo: #2a2a44;
 }
 html { scroll-behavior: smooth; }
 body { font-family: var(--sans); background: var(--bg); color: var(--tx); -webkit-tap-highlight-color: transparent; }
