@@ -40,7 +40,7 @@ function BarChart({ data, metric = "total" }) {
         const val = d[metric] || 0;
         const h = Math.round((val / max) * 72);
         const isToday = i === data.length - 1;
-        const label = d.date?.slice(5); // MM-DD
+        const label = d.date?.slice(5);
         return (
           <div key={d.date} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
             <span style={{ fontSize: 9, color: val > 0 ? "#e8e4dc" : MUTED }}>{val > 0 ? val : ""}</span>
@@ -81,7 +81,7 @@ export default function Admin() {
 
   if (!stats) return (
     <div style={s.page}>
-      <nav style={s.nav}><span style={{ fontFamily: "var(--serif)", fontSize: 15, fontWeight: 900, color: RED }}>VERTICAL STUDIO · ADMIN</span></nav>
+      <nav style={s.nav}><span style={{ fontFamily: "var(--serif)", fontSize: 15, fontWeight: 900, color: RED }}>VERTICALCLAP · ADMIN</span></nav>
       <div style={{ maxWidth: 400, margin: "120px auto 0", padding: "0 24px" }}>
         <div style={s.card}>
           <p style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 6 }}>Dashboard Admin</p>
@@ -103,7 +103,7 @@ export default function Admin() {
   return (
     <div style={s.page}>
       <nav style={s.nav}>
-        <span style={{ fontFamily: "var(--serif)", fontSize: 15, fontWeight: 900, color: RED }}>VERTICAL STUDIO · ADMIN</span>
+        <span style={{ fontFamily: "var(--serif)", fontSize: 15, fontWeight: 900, color: RED }}>VERTICALCLAP · ADMIN</span>
         <div style={{ display: "flex", gap: 10 }}>
           {[7, 14, 30].map(d => (
             <button key={d} onClick={() => { setDays(d); load(d); }}
@@ -115,7 +115,6 @@ export default function Admin() {
         </div>
       </nav>
 
-      {/* Stripe stats */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 14, padding: "24px 32px 0" }}>
         {[
           { val: stats.total, label: "Abonnés actifs", color: "#fff" },
@@ -135,7 +134,6 @@ export default function Admin() {
         ))}
       </div>
 
-      {/* Graphique activité */}
       <div style={{ margin: "20px 32px 0" }}>
         <div style={s.card}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
@@ -153,7 +151,6 @@ export default function Admin() {
         </div>
       </div>
 
-      {/* Totaux par action */}
       <div style={{ margin: "20px 32px 0" }}>
         <div style={s.card}>
           <p style={{ fontWeight: 700, fontSize: 14, marginBottom: 16 }}>Totaux par type</p>
@@ -171,7 +168,6 @@ export default function Admin() {
         </div>
       </div>
 
-      {/* Newsletter emails */}
       {stats.newsletter?.emails?.length > 0 && (
         <div style={{ margin: "20px 32px 0" }}>
           <div style={{ ...s.card, padding: 0, overflow: "hidden" }}>
@@ -193,7 +189,6 @@ export default function Admin() {
         </div>
       )}
 
-      {/* Funnel conversions */}
       {stats.ab && (
         <div style={{ margin: "20px 32px 0" }}>
           <div style={s.card}>
@@ -218,7 +213,6 @@ export default function Admin() {
         </div>
       )}
 
-      {/* Table abonnés */}
       <div style={{ margin: "20px 32px 0" }}>
         <div style={{ ...s.card, padding: 0, overflow: "hidden" }}>
           <div style={{ padding: "16px 20px", borderBottom: `1px solid ${BORDER}` }}>

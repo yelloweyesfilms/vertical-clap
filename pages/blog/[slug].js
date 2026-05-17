@@ -86,7 +86,6 @@ export default function BlogPost({ post, otherPosts }) {
           @media (max-width: 640px) { nav { padding: 14px 20px !important; } .article-pad { padding: 48px 20px !important; } }
         `}</style>
 
-        {/* NAV */}
         <div style={{ position: "sticky", top: 0, zIndex: 50, borderBottom: `1px solid ${BORDER}`, background: "rgba(9,9,15,0.9)", backdropFilter: "blur(20px)" }}>
           <nav style={{ maxWidth: 1100, margin: "0 auto", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <a href="/"><Logo /></a>
@@ -97,7 +96,6 @@ export default function BlogPost({ post, otherPosts }) {
           </nav>
         </div>
 
-        {/* ARTICLE HEADER */}
         <div className="article-pad" style={{ padding: "72px 40px 0", maxWidth: 760, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
             <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: post.categoryColor, background: `${post.categoryColor}12`, border: `1px solid ${post.categoryColor}25`, padding: "3px 10px", borderRadius: 6 }}>{post.category}</span>
@@ -114,7 +112,6 @@ export default function BlogPost({ post, otherPosts }) {
           </p>
         </div>
 
-        {/* ARTICLE BODY */}
         <div className="article-pad" style={{ padding: "0 40px 80px", maxWidth: 760, margin: "0 auto" }}>
           {post.sections.map((section, i) => (
             <div key={i} style={{ marginBottom: 48 }}>
@@ -125,17 +122,15 @@ export default function BlogPost({ post, otherPosts }) {
             </div>
           ))}
 
-          {/* CTA IN-ARTICLE */}
           <div style={{ background: "rgba(168,85,247,0.05)", border: "1px solid rgba(168,85,247,0.2)", borderRadius: 24, padding: "36px", textAlign: "center", margin: "48px 0" }}>
             <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 900, color: TEXT, marginBottom: 12, letterSpacing: -0.5 }}>{post.cta.text}</p>
             <p style={{ color: MUTED, fontSize: 14, marginBottom: 24 }}>{post.cta.sub}</p>
-            <a href="/tarifs" style={{ display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "14px 28px", borderRadius: 12, fontSize: 15, fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 24px rgba(168,85,247,0.25)` }}>
-              Essayer gratuitement →
+            <a href="/exemples" style={{ display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "14px 28px", borderRadius: 12, fontSize: 15, fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 24px rgba(168,85,247,0.25)` }}>
+              Voir les exemples →
             </a>
           </div>
         </div>
 
-        {/* AUTRES ARTICLES */}
         {otherPosts.length > 0 && (
           <div style={{ borderTop: `1px solid ${BORDER}`, padding: "64px 40px" }}>
             <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -153,7 +148,6 @@ export default function BlogPost({ post, otherPosts }) {
           </div>
         )}
 
-        {/* FOOTER */}
         <div style={{ borderTop: `1px solid ${BORDER}`, padding: "28px 40px", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 16, alignItems: "center" }}>
           <Logo />
           <div style={{ display: "flex", gap: 20, fontSize: 13, color: MUTED }}>
