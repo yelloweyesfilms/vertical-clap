@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 const RED = "#E85C3A";
 const VIO = "#a855f7";
+const TEAL = "#69C9D0";
 const DARK = "#09090f";
 const SURFACE = "rgba(255,255,255,0.04)";
 const BORDER = "rgba(255,255,255,0.08)";
@@ -394,6 +395,48 @@ export default function Tarifs() {
           </div>
         </div>
 
+        {/* PARRAINAGE */}
+        <div style={{ borderTop: `1px solid ${BORDER}`, padding: "80px 40px" }}>
+          <div style={{ maxWidth: 860, margin: "0 auto" }}>
+            <div style={{ borderRadius: 24, padding: "48px 40px", position: "relative", overflow: "hidden", background: `linear-gradient(135deg, rgba(105,201,208,0.07) 0%, rgba(168,85,247,0.07) 100%)`, border: `1.5px solid rgba(105,201,208,0.22)` }}>
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${TEAL}, ${VIO})` }} />
+              <div style={{ position: "absolute", top: -80, right: -80, width: 220, height: 220, borderRadius: "50%", background: `radial-gradient(circle, rgba(105,201,208,0.12) 0%, transparent 70%)`, pointerEvents: "none" }} />
+              <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 32 }}>
+                <div style={{ flex: 1, minWidth: 260 }}>
+                  <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: TEAL, marginBottom: 14 }}>🎁 Programme de Parrainage</p>
+                  <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(24px, 3.5vw, 38px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.15, marginBottom: 16 }}>
+                    Invite tes amis,<br />
+                    <span style={{ background: `linear-gradient(135deg, ${TEAL}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
+                      gagnez ensemble.
+                    </span>
+                  </h2>
+                  <p style={{ color: MUTED, fontSize: 15, lineHeight: 1.7, maxWidth: 420 }}>
+                    Partage ton lien unique. Pour chaque ami qui s'abonne, <strong style={{ color: TEXT }}>tu gagnes 1 mois offert</strong> et il reçoit <strong style={{ color: TEXT }}>7 jours d'essai gratuit</strong> au lieu de 24h.
+                  </p>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 200 }}>
+                  {[
+                    { icon: "🔗", label: "Lien unique à partager", sub: "Généré automatiquement" },
+                    { icon: "🎯", label: "+1 mois offert", sub: "Par ami parrainé" },
+                    { icon: "⭐", label: "7j d'essai pour ton filleul", sub: "Au lieu de 24h standard" },
+                  ].map(({ icon, label, sub }) => (
+                    <div key={label} style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                      <div style={{ width: 40, height: 40, borderRadius: 12, background: `rgba(105,201,208,0.12)`, border: `1px solid rgba(105,201,208,0.22)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>{icon}</div>
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: TEXT }}>{label}</div>
+                        <div style={{ fontSize: 12, color: MUTED }}>{sub}</div>
+                      </div>
+                    </div>
+                  ))}
+                  <a href="/app" style={{ display: "block", marginTop: 8, textAlign: "center", background: `linear-gradient(135deg, ${TEAL}, ${VIO})`, color: "#fff", border: "none", padding: "14px 28px", borderRadius: 14, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", textDecoration: "none", boxShadow: `0 0 24px rgba(105,201,208,0.25)` }}>
+                    Accéder au parrainage →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* CTA FINAL */}
         <div style={{ borderTop: `1px solid ${BORDER}`, padding: "80px 40px", textAlign: "center", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(168,85,247,0.06) 0%, transparent 60%)`, pointerEvents: "none" }} />
@@ -425,6 +468,7 @@ export default function Tarifs() {
           <div style={{ display: "flex", gap: 20, fontSize: 13, color: MUTED }}>
             <a href="/">Accueil</a>
             <a href="/exemples">Exemples</a>
+            <a href="/parrainage" style={{ color: TEAL, fontWeight: 600 }}>Parrainage</a>
             <a href="/cgu">CGU</a>
             <a href="/confidentialite">Confidentialité</a>
           </div>

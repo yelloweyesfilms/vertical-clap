@@ -4,6 +4,7 @@ import Head from "next/head";
 
 const RED = "#E85C3A";
 const VIO = "#a855f7";
+const TEAL = "#69C9D0";
 const DARK = "#09090f";
 const SURFACE = "rgba(255,255,255,0.04)";
 const BORDER = "rgba(255,255,255,0.08)";
@@ -384,7 +385,7 @@ export default function Landing() {
             { Icon: BoltIcon, label: "Rapide", color: RED },
             { Icon: PhoneIcon, label: "Format 9:16", color: VIO },
             { Icon: ClapperIcon, label: "Scripts impactants", color: RED },
-            { Icon: ClockIcon, label: "Sauvegarde cloud", color: VIO },
+            { Icon: ClockIcon, label: "Sauvegarde cloud", color: TEAL },
           ].map(({ Icon, label, color }, i, arr) => (
             <div key={i} className="feat-strip-item" style={{ display: "flex", alignItems: "center", gap: 10, padding: "20px 32px", borderRight: i < arr.length - 1 ? `1px solid ${BORDER}` : "none", flex: 1, justifyContent: "center" }}>
               <span style={{ color, display: "flex" }}><Icon size={20} /></span>
@@ -400,7 +401,7 @@ export default function Landing() {
           {[...Array(2)].map((_, rep) => (
             ["Le Mensonge", "Héritage", "Deux Vies", "La Trahison", "Le Dernier Appel", "Secrets de Famille", "Le Pacte", "Double Jeu", "La Chute", "Huis Clos", "Rupture", "Le Témoin", "Zone Rouge", "L'Imposteur", "Sous Pression"].map((t, i) => (
               <span key={`${rep}-${i}`} style={{ display: "inline-flex", alignItems: "center", gap: 20, padding: "0 20px", fontSize: 13, fontWeight: 600, color: i % 3 === 0 ? TEXT : MUTED, letterSpacing: 0.5 }}>
-                <span style={{ width: 4, height: 4, borderRadius: "50%", background: i % 5 === 0 ? RED : i % 5 === 2 ? VIO : BORDER, display: "inline-block", flexShrink: 0 }} />
+                <span style={{ width: 4, height: 4, borderRadius: "50%", background: i % 5 === 0 ? RED : i % 5 === 2 ? VIO : i % 5 === 4 ? TEAL : BORDER, display: "inline-block", flexShrink: 0 }} />
                 {t}
               </span>
             ))
@@ -787,11 +788,11 @@ export default function Landing() {
               },
               {
                 icon: <PhoneIcon size={28} />,
-                iconColor: RED,
+                iconColor: TEAL,
                 title: "Acteur · Réalisateur",
                 sub: "Pro du plateau",
                 desc: "Tu veux des scripts au niveau. Premium Suspense génère des dialogues avec sous-texte, jeu d'acteur précis et cadrage 9:16. Le Mode Tournage remplace le prompteur sur le plateau.",
-                color: RED,
+                color: TEAL,
               },
             ].map(({ icon, iconColor, title, sub, desc, color }, i) => (
               <div key={i} className="glass" style={{ borderRadius: 20, padding: "32px 28px", position: "relative", overflow: "hidden" }}>
@@ -824,7 +825,7 @@ export default function Landing() {
               {[
                 { step: "01", Icon: BoltIcon, iconColor: RED, title: "Configure le Mixeur", desc: "Choisis ton casting, ton univers et ton secret central — ou utilise un pack thématique en 1 clic. 12 univers, 16 secrets disponibles.", delay: "0s" },
                 { step: "02", Icon: ClapperIcon, iconColor: VIO, title: "La bible se génère en live", desc: "Titre viral, logline, personnages et séquencier complet apparaissent en temps réel. Les épisodes arrivent en parallèle automatiquement.", delay: "0.5s" },
-                { step: "03", Icon: PhoneIcon, iconColor: RED, title: "Tourne avec le script", desc: "Ouvre un épisode, génère le script en 10s. Mode Tournage avec téléprompteur, fond clair/sombre, vitesse réglable. Prêt à filmer.", delay: "1s" },
+                { step: "03", Icon: PhoneIcon, iconColor: TEAL, title: "Tourne avec le script", desc: "Ouvre un épisode, génère le script en 10s. Mode Tournage avec téléprompteur, fond clair/sombre, vitesse réglable. Prêt à filmer.", delay: "1s" },
               ].map(({ step, Icon, iconColor, title, desc, delay }) => (
                 <div key={step} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                   {/* Node */}
@@ -861,7 +862,7 @@ export default function Landing() {
               { icon: <ShortsIcon size={20} />, iconColor: RED, title: "Mode Tournage", desc: "Téléprompteur auto-scroll, fond clair ou sombre, vitesse réglable, barre de progression. Rien à imprimer." },
               { icon: <ClockIcon size={20} />, iconColor: VIO, title: "Sauvegarde cloud", desc: "Tes séries synchronisées sur tous tes appareils automatiquement. Accès depuis n'importe où." },
             ].map((f, i) => (
-              <div key={i} className="glass" style={{ borderRadius: 16, padding: 22, borderLeft: `3px solid ${i % 2 === 0 ? RED : VIO}` }}>
+              <div key={i} className="glass" style={{ borderRadius: 16, padding: 22, borderLeft: `3px solid ${i % 3 === 0 ? RED : i % 3 === 1 ? VIO : TEAL}` }}>
                 <div style={{ width: 38, height: 38, borderRadius: 10, background: `${f.iconColor}14`, border: `1px solid ${f.iconColor}22`, display: "flex", alignItems: "center", justifyContent: "center", color: f.iconColor, marginBottom: 14 }}>
                   {f.icon}
                 </div>
