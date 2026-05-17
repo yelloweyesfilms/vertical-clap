@@ -31,8 +31,8 @@ const Logo = () => (
       <polygon points="0.5,0.5 25.5,0.5 25.5,12 0.5,20" fill="rgba(255,255,255,0.13)" clipPath="url(#logo-clip)" />
     </svg>
     <div style={{ lineHeight: 1 }}>
-      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Studio</div>
-      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Vertical</div>
+      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Vertical</div>
+      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Clap</div>
     </div>
   </div>
 );
@@ -80,7 +80,7 @@ export default function Success() {
   return (
     <>
       <Head>
-        <title>Bienvenue sur Studio Vertical 🎬</title>
+        <title>Bienvenue sur VerticalClap 🎬</title>
         <meta name="robots" content="noindex" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -147,7 +147,7 @@ export default function Success() {
             <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, marginBottom: 16 }}>
               Bienvenue dans<br />
               <span style={{ background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
-                Studio Vertical.
+                VerticalClap.
               </span>
             </h1>
             <p style={{ color: MUTED, fontSize: 16, lineHeight: 1.7 }}>
@@ -187,7 +187,7 @@ export default function Success() {
               Créer ma première série →
             </a>
             <p style={{ color: MUTED, fontSize: 13, marginTop: 16 }}>
-              Un doute ? <a href="mailto:hello@studiovertical.app" style={{ color: VIO, fontWeight: 600 }}>hello@studiovertical.app</a>
+              Un doute ? <a href="mailto:hello@verticalclap.app" style={{ color: VIO, fontWeight: 600 }}>hello@verticalclap.app</a>
             </p>
           </div>
         </div>

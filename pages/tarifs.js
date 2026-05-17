@@ -10,7 +10,7 @@ const SURFACE = "rgba(255,255,255,0.04)";
 const BORDER = "rgba(255,255,255,0.08)";
 const TEXT = "#f1f5f9";
 const MUTED = "#64748b";
-const SITE = "https://studiovertical.app";
+const SITE = "https://verticalclap.app";
 
 const Check = ({ color = RED }) => (
   <svg width="16" height="16" viewBox="0 0 18 18" fill="none" style={{ flexShrink: 0 }}>
@@ -47,8 +47,8 @@ const Logo = () => (
       <polygon points="0.5,0.5 25.5,0.5 25.5,12 0.5,20" fill="rgba(255,255,255,0.13)" clipPath="url(#logo-clip)" />
     </svg>
     <div style={{ lineHeight: 1 }}>
-      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Studio</div>
-      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Vertical</div>
+      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Vertical</div>
+      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Clap</div>
     </div>
   </div>
 );
@@ -122,7 +122,7 @@ export default function Tarifs() {
   const pricingSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Studio Vertical",
+    "name": "VerticalClap",
     "url": SITE,
     "applicationCategory": "CreativeApplication",
     "operatingSystem": "Web",
@@ -137,10 +137,10 @@ export default function Tarifs() {
   return (
     <>
       <Head>
-        <title>Tarifs Studio Vertical — Micro-drama IA dès 7,50€/mois</title>
-        <meta name="description" content="Comparez les plans Standard (9€/mois) et Premium (19€/mois) de Studio Vertical. Générez des micro-dramas 9:16 complets pour TikTok, Reels, Shorts et DramaBox. Essai 24h sans engagement." />
+        <title>Tarifs VerticalClap — Micro-drama IA dès 7,50€/mois</title>
+        <meta name="description" content="Comparez les plans Standard (9€/mois) et Premium (19€/mois) de VerticalClap. Générez des micro-dramas 9:16 complets pour TikTok, Reels, Shorts et DramaBox. Essai 24h sans engagement." />
         <link rel="canonical" href={`${SITE}/tarifs`} />
-        <meta property="og:title" content="Tarifs Studio Vertical — Micro-drama IA dès 7,50€/mois" />
+        <meta property="og:title" content="Tarifs VerticalClap — Micro-drama IA dès 7,50€/mois" />
         <meta property="og:description" content="Standard 9€/mois ou Premium 19€/mois. Générez des séries complètes pour TikTok, DramaBox, ReelShort. Essai 24h gratuit." />
         <meta property="og:url" content={`${SITE}/tarifs`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }} />

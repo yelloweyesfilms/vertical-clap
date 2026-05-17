@@ -14,7 +14,7 @@ const Logo = () => (
     </defs>
     <rect width="28" height="28" rx="7" fill="url(#lg-conf)" />
     <text x="14" y="20" textAnchor="middle" fontFamily="Georgia,serif" fontSize="15" fontWeight="900" fill="#fff">▶</text>
-    <text x="38" y="20" fontFamily="Georgia,serif" fontSize="17" fontWeight="900" fill="#f1f5f9" letterSpacing="-0.5">Vertical</text>
+    <text x="38" y="20" fontFamily="Georgia,serif" fontSize="17" fontWeight="900" fill="#f1f5f9" letterSpacing="-0.5">VerticalClap</text>
   </svg>
 );
 
@@ -37,7 +37,7 @@ export default function Confidentialite() {
   return (
     <>
       <Head>
-        <title>Politique de confidentialité — Studio Vertical</title>
+        <title>Politique de confidentialité — VerticalClap</title>
         <meta name="robots" content="noindex" />
       </Head>
       <div style={{ minHeight: "100vh", background: DARK, color: "#f1f5f9", fontFamily: "'Space Grotesk',system-ui,sans-serif" }}>
@@ -63,14 +63,14 @@ export default function Confidentialite() {
 
           <Section title="1. Responsable du traitement">
             <P>
-              Le responsable du traitement des données personnelles est Sophie Attelann, éditrice de Studio Vertical (studiovertical.app).
-              Contact : <a href="mailto:hello@studiovertical.app" style={{ color: RED, textDecoration: "none" }}>hello@studiovertical.app</a>
+              Le responsable du traitement des données personnelles est Sophie Attelann, éditrice de VerticalClap (verticalclap.app).
+              Contact : <a href="mailto:hello@verticalclap.app" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.app</a>
             </P>
           </Section>
 
           <Section title="2. Données collectées">
             <P><strong style={{ color: "#f1f5f9" }}>Données de compte :</strong> adresse email, fournie lors de l'abonnement via Stripe.</P>
-            <P><strong style={{ color: "#f1f5f9" }}>Données de paiement :</strong> gérées exclusivement par Stripe. Studio Vertical ne stocke aucune donnée bancaire.</P>
+            <P><strong style={{ color: "#f1f5f9" }}>Données de paiement :</strong> gérées exclusivement par Stripe. VerticalClap ne stocke aucune donnée bancaire.</P>
             <P><strong style={{ color: "#f1f5f9" }}>Données d'utilisation :</strong> compteurs anonymes d'utilisation des fonctionnalités (via Upstash Redis). Aucun contenu généré n'est conservé sur nos serveurs au-delà de la session.</P>
             <P><strong style={{ color: "#f1f5f9" }}>Séries sauvegardées :</strong> si vous activez la sauvegarde cloud, vos bibles et scripts sont stockés de façon chiffrée et associés à votre identifiant Stripe.</P>
           </Section>
@@ -84,7 +84,7 @@ export default function Confidentialite() {
           </Section>
 
           <Section title="4. Base légale">
-            <P>Le traitement de vos données est fondé sur l'exécution du contrat d'abonnement souscrit avec Studio Vertical (art. 6.1.b RGPD). L'envoi d'emails marketing repose sur votre intérêt légitime et/ou votre consentement.</P>
+            <P>Le traitement de vos données est fondé sur l'exécution du contrat d'abonnement souscrit avec VerticalClap (art. 6.1.b RGPD). L'envoi d'emails marketing repose sur votre intérêt légitime et/ou votre consentement.</P>
           </Section>
 
           <Section title="5. Durée de conservation">
@@ -95,7 +95,7 @@ export default function Confidentialite() {
             <P><strong style={{ color: "#f1f5f9" }}>Stripe</strong> — pour le traitement des paiements et la gestion des abonnements.</P>
             <P><strong style={{ color: "#f1f5f9" }}>Anthropic</strong> — pour la génération de contenu par IA (Claude). Les prompts sont traités sans être conservés conformément à leur politique enterprise.</P>
             <P><strong style={{ color: "#f1f5f9" }}>Resend</strong> — pour l'envoi d'emails transactionnels.</P>
-            <P>Studio Vertical ne vend aucune donnée personnelle à des tiers.</P>
+            <P>VerticalClap ne vend aucune donnée personnelle à des tiers.</P>
           </Section>
 
           <Section title="7. Vos droits (RGPD)">
@@ -107,22 +107,22 @@ export default function Confidentialite() {
             <P style={{ paddingLeft: 16 }}><span style={{ color: RED, marginRight: 8 }}>—</span>Droit d'opposition</P>
             <P>
               Pour exercer ces droits :{" "}
-              <a href="mailto:hello@studiovertical.app" style={{ color: RED, textDecoration: "none" }}>hello@studiovertical.app</a>
+              <a href="mailto:hello@verticalclap.app" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.app</a>
             </P>
           </Section>
 
           <Section title="8. Cookies">
-            <P>Studio Vertical utilise uniquement des cookies techniques nécessaires au fonctionnement du service (session, préférences). Aucun cookie publicitaire ou de tracking tiers n'est déposé.</P>
+            <P>VerticalClap utilise uniquement des cookies techniques nécessaires au fonctionnement du service (session, préférences). Aucun cookie publicitaire ou de tracking tiers n'est déposé.</P>
           </Section>
 
           <Section title="9. Sécurité">
-            <P>Studio Vertical met en œuvre des mesures techniques appropriées : HTTPS, chiffrement des données au repos, accès restreints aux bases de données. Les incidents de sécurité sont notifiés à la CNIL dans les 72h si requis.</P>
+            <P>VerticalClap met en œuvre des mesures techniques appropriées : HTTPS, chiffrement des données au repos, accès restreints aux bases de données. Les incidents de sécurité sont notifiés à la CNIL dans les 72h si requis.</P>
           </Section>
 
           <Section title="10. Contact et réclamations">
             <P>
               Pour toute question :{" "}
-              <a href="mailto:hello@studiovertical.app" style={{ color: RED, textDecoration: "none" }}>hello@studiovertical.app</a>
+              <a href="mailto:hello@verticalclap.app" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.app</a>
             </P>
             <P>
               Vous avez le droit d'introduire une réclamation auprès de la CNIL :{" "}
@@ -134,10 +134,10 @@ export default function Confidentialite() {
         {/* Footer */}
         <footer style={{ borderTop: "1px solid #1e1e2e", padding: "24px 32px", textAlign: "center" }}>
           <p style={{ fontSize: 12, color: "#475569", margin: 0 }}>
-            © 2026 Studio Vertical ·{" "}
+            © 2026 VerticalClap ·{" "}
             <a href="/cgu" style={{ color: "#475569", textDecoration: "none" }}>CGU</a>
             {" "}·{" "}
-            <a href="mailto:hello@studiovertical.app" style={{ color: "#475569", textDecoration: "none" }}>Contact</a>
+            <a href="mailto:hello@verticalclap.app" style={{ color: "#475569", textDecoration: "none" }}>Contact</a>
           </p>
         </footer>
       </div>

@@ -9,7 +9,7 @@ const SURFACE = "rgba(255,255,255,0.04)";
 const BORDER = "rgba(255,255,255,0.08)";
 const TEXT = "#f1f5f9";
 const MUTED = "#64748b";
-const SITE = "https://studiovertical.app";
+const SITE = "https://verticalclap.app";
 
 const PLATFORM_COLORS = { TikTok: "#69C9D0", Reels: VIO, Shorts: RED };
 const PLATFORM_ICONS = { TikTok: "♪", Reels: "◈", Shorts: "▶" };
@@ -48,18 +48,18 @@ export default function SeriePage({ serie }) {
     "headline": `${bible.titre} — Exemple de micro-drama 9:16`,
     "description": bible.logline,
     "url": `${SITE}/exemples/${slug}`,
-    "author": { "@type": "Organization", "name": "Studio Vertical" },
-    "publisher": { "@type": "Organization", "name": "Studio Vertical", "url": SITE },
+    "author": { "@type": "Organization", "name": "VerticalClap" },
+    "publisher": { "@type": "Organization", "name": "VerticalClap", "url": SITE },
   };
 
   return (
     <>
       <Head>
-        <title>{bible.titre} — Exemple micro-drama 9:16 · Studio Vertical</title>
+        <title>{bible.titre} — Exemple micro-drama 9:16 · VerticalClap</title>
         <meta name="description" content={`${bible.logline} ${bible.accroche} Script complet pour TikTok, Reels et Shorts généré par IA.`} />
         <link rel="canonical" href={`${SITE}/exemples/${slug}`} />
         <meta property="og:url" content={`${SITE}/exemples/${slug}`} />
-        <meta property="og:title" content={`${bible.titre} — Micro-drama 9:16 · Studio Vertical`} />
+        <meta property="og:title" content={`${bible.titre} — Micro-drama 9:16 · VerticalClap`} />
         <meta property="og:description" content={bible.pitch} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaArticle) }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -73,7 +73,7 @@ export default function SeriePage({ serie }) {
         <div style={{ position: "sticky", top: 0, zIndex: 50, borderBottom: `1px solid ${BORDER}`, background: "rgba(9,9,15,0.9)", backdropFilter: "blur(20px)" }}>
           <nav style={{ maxWidth: 860, margin: "0 auto", padding: "14px 32px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <a href="/" style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 17, fontWeight: 900, color: TEXT }}>Vertical</a>
+              <a href="/" style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 17, fontWeight: 900, color: TEXT }}>VerticalClap</a>
               <span style={{ color: BORDER }}>›</span>
               <a href="/exemples" style={{ fontSize: 13, color: MUTED }}>Exemples</a>
               <span style={{ color: BORDER }}>›</span>
@@ -239,7 +239,7 @@ export default function SeriePage({ serie }) {
 
         <footer style={{ borderTop: `1px solid ${BORDER}`, padding: "24px 32px", textAlign: "center" }}>
           <p style={{ color: MUTED, fontSize: 13 }}>
-            © 2026 Studio Vertical ·{" "}
+            © 2026 VerticalClap ·{" "}
             <a href="/exemples" style={{ color: MUTED }}>Exemples</a> ·{" "}
             <a href="/" style={{ color: MUTED }}>Accueil</a>
           </p>

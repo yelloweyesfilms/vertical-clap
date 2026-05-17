@@ -1252,7 +1252,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, onAffiche, cust
       lines.push("");
     });
     sep("═");
-    lines.push("studiovertical.app");
+    lines.push("verticalclap.app");
 
     const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -1292,7 +1292,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, onAffiche, cust
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10, marginBottom: 10 }}>
           <h1 style={{ fontFamily: "var(--serif)", fontSize: 28, fontWeight: 900, letterSpacing: -1, lineHeight: 1.1, flex: 1, margin: 0 }}>{bible.titre}</h1>
           <button onClick={() => {
-            const txt = `🎬 ${bible.titre}\n« ${bible.logline} »\n\nGénéré avec Vertical Studio — studiovertical.app`;
+            const txt = `🎬 ${bible.titre}\n« ${bible.logline} »\n\nGénéré avec Vertical Studio — verticalclap.app`;
             if (navigator.share) { navigator.share({ title: bible.titre, text: txt }).catch(() => {}); }
             else { navigator.clipboard?.writeText(txt).then(() => alert("Copié !")); }
           }} style={{ background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 10, padding: "8px 12px", fontSize: 13, cursor: "pointer", flexShrink: 0, fontFamily: "var(--sans)" }} title="Partager">

@@ -101,8 +101,8 @@ const Logo = ({ size = "md" }) => {
         <polygon points="0.5,0.5 25.5,0.5 25.5,12 0.5,20" fill="rgba(255,255,255,0.13)" clipPath="url(#logo-clip)" />
       </svg>
       <div style={{ lineHeight: 1 }}>
-        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: sm ? 9 : 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Studio</div>
-        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: sm ? 14 : 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Vertical</div>
+        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: sm ? 9 : 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Vertical</div>
+        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: sm ? 14 : 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Clap</div>
       </div>
     </div>
   );
@@ -218,7 +218,7 @@ export default function Landing() {
     window.location.href = url;
   };
 
-  const SITE = "https://studiovertical.app";
+  const SITE = "https://verticalclap.app";
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -231,7 +231,7 @@ export default function Landing() {
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Studio Vertical",
+    "name": "VerticalClap",
     "url": SITE,
     "applicationCategory": "CreativeApplication",
     "operatingSystem": "Web",
@@ -247,7 +247,7 @@ export default function Landing() {
   return (
     <>
     <Head>
-      <title>Studio Vertical — Génère des micro-dramas 9:16 en 5 minutes avec l'IA</title>
+      <title>VerticalClap — Génère des micro-dramas 9:16 en 5 minutes avec l'IA</title>
       <meta name="description" content="Génère des micro-dramas verticaux complets avec l'IA : bible, scripts, hooks et cliffhangers. Prêts pour TikTok, Reels, Shorts, DramaBox, ReelShort et toutes les plateformes 9:16. Dès 7,50€/mois." />
       <link rel="canonical" href={SITE} />
       <meta property="og:url" content={SITE} />
@@ -529,7 +529,7 @@ export default function Landing() {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={RED}>Affiches générées par l'IA</Label>
           <Title>Des séries qui<br /><span style={{ fontStyle: "italic", color: MUTED }}>donnent envie de tourner.</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Studio Vertical génère aussi l'affiche officielle de ta série en 1 clic.</p>
+          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>VerticalClap génère aussi l'affiche officielle de ta série en 1 clic.</p>
 
           <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
 
@@ -556,8 +556,8 @@ export default function Landing() {
                       <rect x="12" y="31" width="10" height="1.5" rx="0.75" fill="rgba(255,255,255,0.25)" />
                     </svg>
                     <div style={{ lineHeight: 1 }}>
-                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 6, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 1 }}>Studio</div>
-                      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 9, fontWeight: 900, color: "rgba(255,255,255,0.75)", letterSpacing: -0.3 }}>Vertical</div>
+                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 6, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 1 }}>Vertical</div>
+                      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 9, fontWeight: 900, color: "rgba(255,255,255,0.75)", letterSpacing: -0.3 }}>Clap</div>
                     </div>
                   </div>
                   <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.25)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 8 épisodes</div>
@@ -608,8 +608,8 @@ export default function Landing() {
                       <rect x="12" y="31" width="10" height="1.5" rx="0.75" fill="rgba(255,255,255,0.25)" />
                     </svg>
                     <div style={{ lineHeight: 1 }}>
-                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 6, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 1 }}>Studio</div>
-                      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 10, fontWeight: 900, color: "rgba(255,255,255,0.8)", letterSpacing: -0.3 }}>Vertical</div>
+                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 6, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 1 }}>Vertical</div>
+                      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 10, fontWeight: 900, color: "rgba(255,255,255,0.8)", letterSpacing: -0.3 }}>Clap</div>
                     </div>
                   </div>
                   <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.25)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 10 épisodes</div>
@@ -658,8 +658,8 @@ export default function Landing() {
                       <rect x="12" y="31" width="10" height="1.5" rx="0.75" fill="rgba(255,255,255,0.25)" />
                     </svg>
                     <div style={{ lineHeight: 1 }}>
-                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 6, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 1 }}>Studio</div>
-                      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 9, fontWeight: 900, color: "rgba(255,255,255,0.75)", letterSpacing: -0.3 }}>Vertical</div>
+                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 6, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 1 }}>Vertical</div>
+                      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 9, fontWeight: 900, color: "rgba(255,255,255,0.75)", letterSpacing: -0.3 }}>Clap</div>
                     </div>
                   </div>
                   <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.25)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 6 épisodes</div>
@@ -707,7 +707,7 @@ export default function Landing() {
             {/* AVANT */}
             <div style={{ background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}`, borderRadius: 20, padding: "28px 28px", position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "rgba(255,255,255,0.06)" }} />
-              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 20 }}>✗ Sans Studio Vertical</p>
+              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 20 }}>✗ Sans VerticalClap</p>
               <div style={{ fontFamily: "monospace", fontSize: 13, lineHeight: 2, color: MUTED }}>
                 {[
                   { t: "idée : infirmière qui cache un secret", strike: false },
@@ -734,7 +734,7 @@ export default function Landing() {
             {/* APRÈS */}
             <div style={{ background: "rgba(168,85,247,0.04)", border: `1px solid rgba(168,85,247,0.2)`, borderRadius: 20, padding: "28px 28px", position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${RED}, ${VIO})` }} />
-              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 20 }}>✓ Avec Studio Vertical</p>
+              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 20 }}>✓ Avec VerticalClap</p>
               <div style={{ display: "flex", flex: 1, flexDirection: "column", gap: 10 }}>
                 <div style={{ background: "rgba(232,92,58,0.08)", border: `1px solid rgba(232,92,58,0.18)`, borderRadius: 10, padding: "10px 14px" }}>
                   <p style={{ fontSize: 9, fontWeight: 800, color: RED, letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>⚡ Hook — 3 sec</p>
@@ -775,7 +775,7 @@ export default function Landing() {
                 iconColor: "#69C9D0",
                 title: "Créateur solo",
                 sub: "TikTok · Reels · Shorts",
-                desc: "Tu filmes seul avec ton téléphone. Studio Vertical génère la bible, les scripts et les hooks — structure narrative complète, prête à tourner sans réécriture.",
+                desc: "Tu filmes seul avec ton téléphone. VerticalClap génère la bible, les scripts et les hooks — structure narrative complète, prête à tourner sans réécriture.",
                 color: RED,
               },
               {
@@ -877,7 +877,7 @@ export default function Landing() {
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={VIO}>Témoignages</Label>
-          <Title>Ils créent déjà<br /><span style={{ fontStyle: "italic" }}>avec Studio Vertical.</span></Title>
+          <Title>Ils créent déjà<br /><span style={{ fontStyle: "italic" }}>avec VerticalClap.</span></Title>
           <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginTop: 48 }}>
             {TESTIMONIALS.map((t, i) => (
               <div key={i} className="glass" style={{ borderRadius: 20, padding: 28, position: "relative", overflow: "hidden" }}>
@@ -1078,8 +1078,8 @@ export default function Landing() {
               </p>
               <div style={{ display: "flex", gap: 12, marginTop: 20 }}>
                 {[
-                  { href: "https://tiktok.com/@studiovertical", label: "TikTok" },
-                  { href: "https://instagram.com/studiovertical", label: "Instagram" },
+                  { href: "https://tiktok.com/@verticalclap", label: "TikTok" },
+                  { href: "https://instagram.com/verticalclap", label: "Instagram" },
                 ].map(({ href, label }) => (
                   <a key={label} href={href} target="_blank" rel="noopener noreferrer"
                     style={{ fontSize: 12, color: MUTED, fontWeight: 600, background: SURFACE, border: `1px solid ${BORDER}`, padding: "6px 12px", borderRadius: 8 }}>
@@ -1093,7 +1093,7 @@ export default function Landing() {
             <div>
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>Produit</p>
               {[
-                { href: "/app", label: "Studio →" },
+                { href: "/app", label: "App →" },
                 { href: "/tarifs", label: "Tarifs" },
                 { href: "/exemples", label: "Exemples" },
                 { href: "/parrainage", label: "Parrainage" },
@@ -1129,7 +1129,7 @@ export default function Landing() {
           </div>
 
           <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-            <p style={{ color: MUTED, fontSize: 12 }}>© 2026 Studio Vertical — Tous droits réservés</p>
+            <p style={{ color: MUTED, fontSize: 12 }}>© 2026 VerticalClap — Tous droits réservés</p>
             <div style={{ display: "flex", gap: 6 }}>
               {["TikTok", "Reels", "Shorts", "DramaBox", "ReelShort"].map(p => (
                 <span key={p} style={{ fontSize: 10, color: MUTED, background: SURFACE, border: `1px solid ${BORDER}`, padding: "3px 8px", borderRadius: 6, fontWeight: 500 }}>{p}</span>

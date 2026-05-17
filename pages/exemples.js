@@ -29,8 +29,8 @@ const Logo = ({ size = "md" }) => {
         <rect x="12" y="31" width="10" height="1.5" rx="0.75" fill="rgba(255,255,255,0.2)" />
       </svg>
       <div style={{ lineHeight: 1 }}>
-        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: sm ? 9 : 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Studio</div>
-        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: sm ? 14 : 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Vertical</div>
+        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: sm ? 9 : 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Vertical</div>
+        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: sm ? 14 : 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Clap</div>
       </div>
     </div>
   );
@@ -234,11 +234,11 @@ function SerieCard({ serie }) {
 
 export default function Exemples() {
   const [activeFilter, setActiveFilter] = useState("all");
-  const SITE = "https://studiovertical.app";
+  const SITE = "https://verticalclap.app";
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": "Exemples de micro-dramas générés par Studio Vertical",
+    "name": "Exemples de micro-dramas générés par VerticalClap",
     "url": `${SITE}/exemples`,
     "numberOfItems": SERIES.length,
     "itemListElement": SERIES.map((s, i) => ({
@@ -253,11 +253,11 @@ export default function Exemples() {
   return (
     <>
     <Head>
-      <title>Exemples de micro-dramas — Studio Vertical</title>
+      <title>Exemples de micro-dramas — VerticalClap</title>
       <meta name="description" content={`Découvrez ${SERIES.length} exemples complets de micro-dramas 9:16 générés par l'IA : bible, scripts, hooks et cliffhangers prêts à tourner sur TikTok, Reels et Shorts.`} />
       <link rel="canonical" href={`${SITE}/exemples`} />
       <meta property="og:url" content={`${SITE}/exemples`} />
-      <meta property="og:title" content="Exemples de micro-dramas — Studio Vertical" />
+      <meta property="og:title" content="Exemples de micro-dramas — VerticalClap" />
       <meta property="og:description" content={`${SERIES.length} séries complètes générées par l'IA : suspense médical, drame familial, thriller financier. Scripts prêts à tourner en 9:16.`} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
     </Head>
@@ -408,9 +408,9 @@ export default function Exemples() {
           <Logo size="sm" />
         </div>
         <p style={{ color: MUTED, fontSize: 13 }}>
-          © 2026 Studio Vertical ·{" "}
+          © 2026 VerticalClap ·{" "}
           <a href="/" style={{ color: MUTED }}>Accueil</a> ·{" "}
-          <a href="mailto:hello@studiovertical.app" style={{ color: MUTED }}>Contact</a>
+          <a href="mailto:hello@verticalclap.app" style={{ color: MUTED }}>Contact</a>
         </p>
       </footer>
     </div>

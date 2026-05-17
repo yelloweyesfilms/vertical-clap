@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const config = { runtime: "edge" };
 
 export default function handler(req) {
-  const { searchParams } = new URL(req.url, "https://studiovertical.app");
+  const { searchParams } = new URL(req.url, "https://verticalclap.app");
   const title = searchParams.get("title") || null;
   const sub = searchParams.get("sub") || null;
   const category = searchParams.get("category") || null;
@@ -42,8 +42,8 @@ export default function handler(req) {
               <div style={{ width: 0, height: 0, borderTop: "8px solid transparent", borderBottom: "8px solid transparent", borderLeft: "14px solid white", marginLeft: 3, display: "flex" }} />
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 1 }}>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "#64748b", letterSpacing: 4, textTransform: "uppercase" }}>Studio</span>
-              <span style={{ fontSize: 24, fontWeight: 900, color: "#f1f5f9", letterSpacing: -1 }}>Vertical</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: "#64748b", letterSpacing: 4, textTransform: "uppercase" }}>Vertical</span>
+              <span style={{ fontSize: 24, fontWeight: 900, color: "#f1f5f9", letterSpacing: -1 }}>Clap</span>
             </div>
           </div>
 

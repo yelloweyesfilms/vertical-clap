@@ -14,7 +14,7 @@ const Logo = () => (
     </defs>
     <rect width="28" height="28" rx="7" fill="url(#lg-contact)" />
     <text x="14" y="20" textAnchor="middle" fontFamily="Georgia,serif" fontSize="15" fontWeight="900" fill="#fff">▶</text>
-    <text x="38" y="20" fontFamily="Georgia,serif" fontSize="17" fontWeight="900" fill="#f1f5f9" letterSpacing="-0.5">Vertical</text>
+    <text x="38" y="20" fontFamily="Georgia,serif" fontSize="17" fontWeight="900" fill="#f1f5f9" letterSpacing="-0.5">VerticalClap</text>
   </svg>
 );
 
@@ -23,21 +23,21 @@ const CHANNELS = [
     icon: "✉️",
     title: "Email général",
     desc: "Questions, suggestions, partenariats.",
-    link: "mailto:hello@studiovertical.app",
-    label: "hello@studiovertical.app",
+    link: "mailto:hello@verticalclap.app",
+    label: "hello@verticalclap.app",
   },
   {
     icon: "🛠️",
     title: "Support technique",
     desc: "Bug, problème d'accès, erreur de génération.",
-    link: "mailto:support@studiovertical.app",
-    label: "support@studiovertical.app",
+    link: "mailto:support@verticalclap.app",
+    label: "support@verticalclap.app",
   },
   {
     icon: "⚖️",
     title: "Données personnelles",
     desc: "Exercer vos droits RGPD, demande de suppression.",
-    link: "mailto:hello@studiovertical.app?subject=RGPD%20—%20demande",
+    link: "mailto:hello@verticalclap.app?subject=RGPD%20—%20demande",
     label: "Envoyer une demande RGPD →",
   },
 ];
@@ -49,7 +49,7 @@ const FAQS = [
   },
   {
     q: "J'ai été débité mais je n'arrive pas à me connecter.",
-    a: "Vérifie que tu utilises bien l'adresse email avec laquelle tu as souscrit. Si le problème persiste, écris-nous à support@studiovertical.app avec ton email de paiement.",
+    a: "Vérifie que tu utilises bien l'adresse email avec laquelle tu as souscrit. Si le problème persiste, écris-nous à support@verticalclap.app avec ton email de paiement.",
   },
   {
     q: "Puis-je changer de plan (Standard → Premium) ?",
@@ -57,7 +57,7 @@ const FAQS = [
   },
   {
     q: "Les contenus générés m'appartiennent-ils ?",
-    a: "Oui, intégralement. Bibles, scripts, séquenciers — tout ce que tu génères avec Studio Vertical t'appartient et peut être utilisé commercialement sans restriction.",
+    a: "Oui, intégralement. Bibles, scripts, séquenciers — tout ce que tu génères avec VerticalClap t'appartient et peut être utilisé commercialement sans restriction.",
   },
 ];
 
@@ -65,8 +65,8 @@ export default function Contact() {
   return (
     <>
       <Head>
-        <title>Contact — Studio Vertical</title>
-        <meta name="description" content="Contactez l'équipe Studio Vertical pour toute question, support technique ou demande RGPD." />
+        <title>Contact — VerticalClap</title>
+        <meta name="description" content="Contactez l'équipe VerticalClap pour toute question, support technique ou demande RGPD." />
       </Head>
       <div style={{ minHeight: "100vh", background: DARK, color: "#f1f5f9", fontFamily: "'Space Grotesk',system-ui,sans-serif" }}>
 
@@ -145,7 +145,7 @@ export default function Contact() {
         {/* Footer */}
         <footer style={{ borderTop: "1px solid #1e1e2e", padding: "24px 32px", textAlign: "center" }}>
           <p style={{ fontSize: 12, color: "#475569", margin: 0 }}>
-            © 2026 Studio Vertical ·{" "}
+            © 2026 VerticalClap ·{" "}
             <a href="/cgu" style={{ color: "#475569", textDecoration: "none" }}>CGU</a>
             {" "}·{" "}
             <a href="/confidentialite" style={{ color: "#475569", textDecoration: "none" }}>Confidentialité</a>

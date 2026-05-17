@@ -9,7 +9,7 @@ const BORDER = "rgba(255,255,255,0.08)";
 const TEXT = "#f1f5f9";
 const MUTED = "#64748b";
 const GREEN = "#4ade80";
-const SITE = "https://studiovertical.app";
+const SITE = "https://verticalclap.app";
 
 const Logo = () => (
   <div style={{ display: "flex", alignItems: "center", gap: 10, userSelect: "none" }}>
@@ -32,8 +32,8 @@ const Logo = () => (
       <polygon points="0.5,0.5 25.5,0.5 25.5,12 0.5,20" fill="rgba(255,255,255,0.13)" clipPath="url(#logo-clip)" />
     </svg>
     <div style={{ lineHeight: 1 }}>
-      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Studio</div>
-      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Vertical</div>
+      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Vertical</div>
+      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Clap</div>
     </div>
   </div>
 );
@@ -50,7 +50,7 @@ function CodeDisplay({ code }) {
   };
 
   const share = async () => {
-    const text = `Rejoins Studio Vertical avec mon code ${code} — tu as 30 jours offerts ! ${SITE}`;
+    const text = `Rejoins VerticalClap avec mon code ${code} — tu as 30 jours offerts ! ${SITE}`;
     if (navigator.share) {
       try { await navigator.share({ text }); setShareOk(true); setTimeout(() => setShareOk(false), 2000); }
       catch {}
@@ -139,8 +139,8 @@ export default function Parrainage() {
   return (
     <>
       <Head>
-        <title>Parrainage Studio Vertical — 30 jours offerts pour ton filleul</title>
-        <meta name="description" content="Parraine un créateur avec ton code Studio Vertical : il reçoit 30 jours gratuits, tu gagnes 1 mois de crédit. Programme de parrainage illimité." />
+        <title>Parrainage VerticalClap — 30 jours offerts pour ton filleul</title>
+        <meta name="description" content="Parraine un créateur avec ton code VerticalClap : il reçoit 30 jours gratuits, tu gagnes 1 mois de crédit. Programme de parrainage illimité." />
         <link rel="canonical" href={`${SITE}/parrainage`} />
       </Head>
 
@@ -212,7 +212,7 @@ export default function Parrainage() {
                   emoji: "🎬",
                   color: VIO,
                   title: "Ton filleul s'abonne",
-                  desc: "Il entre ton code au moment du paiement sur Studio Vertical. Il reçoit automatiquement 30 jours offerts.",
+                  desc: "Il entre ton code au moment du paiement sur VerticalClap. Il reçoit automatiquement 30 jours offerts.",
                 },
                 {
                   num: "03",
