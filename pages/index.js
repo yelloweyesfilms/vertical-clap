@@ -533,37 +533,53 @@ export default function Landing() {
           <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap" }}>
 
             {/* Poster 1 — Le Mensonge */}
-            <div style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06)", position: "relative", cursor: "default" }}>
-              <div style={{ background: "linear-gradient(170deg, #1a0505 0%, #0d0000 40%, #09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "22px 18px 20px", position: "relative", overflow: "hidden" }}>
-                {/* BG texture */}
-                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 20%, rgba(232,92,58,0.18) 0%, transparent 55%), radial-gradient(ellipse at 80% 80%, rgba(232,92,58,0.08) 0%, transparent 50%)", pointerEvents: "none" }} />
-                {/* Top bar */}
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 14 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
-                    <span style={{ fontSize: 8, fontWeight: 800, color: RED, letterSpacing: 2, fontFamily: "monospace" }}>STUDIO VERTICAL</span>
+            <div style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(232,92,58,0.25), 0 0 0 1px rgba(232,92,58,0.15)", position: "relative", cursor: "default" }}>
+              <div style={{ background: "linear-gradient(160deg, #1c0808 0%, #120510 50%, #09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "0 0 20px", position: "relative", overflow: "hidden" }}>
+                {/* Gradient bar top */}
+                <div style={{ height: 3, background: "linear-gradient(90deg, #ff8c42, #E85C3A, #a855f7)", flexShrink: 0 }} />
+                {/* BG glow */}
+                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 25%, rgba(232,92,58,0.22) 0%, transparent 55%), radial-gradient(ellipse at 80% 75%, rgba(168,85,247,0.12) 0%, transparent 50%)", pointerEvents: "none" }} />
+                {/* Top logo zone */}
+                <div style={{ position: "relative", zIndex: 1, padding: "14px 18px 0" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 12 }}>
+                    <svg width="10" height="14" viewBox="0 0 26 37" fill="none">
+                      <defs>
+                        <linearGradient id="pg1-g" x1="0" y1="0" x2="26" y2="37" gradientUnits="userSpaceOnUse">
+                          <stop offset="0%" stopColor="#ff8c42" /><stop offset="100%" stopColor="#a855f7" />
+                        </linearGradient>
+                      </defs>
+                      <rect x="0.5" y="0.5" width="25" height="36" rx="5.5" fill="url(#pg1-g)" />
+                      <rect x="4" y="4" width="18" height="29" rx="3" fill="rgba(0,0,0,0.25)" />
+                      <polygon points="10,13 10,24 20,18.5" fill="white" />
+                      <rect x="4" y="31" width="6" height="1.5" rx="0.75" fill="rgba(255,255,255,0.5)" />
+                      <rect x="12" y="31" width="10" height="1.5" rx="0.75" fill="rgba(255,255,255,0.25)" />
+                    </svg>
+                    <div style={{ lineHeight: 1 }}>
+                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 6, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 1 }}>Studio</div>
+                      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 9, fontWeight: 900, color: "rgba(255,255,255,0.75)", letterSpacing: -0.3 }}>Vertical</div>
+                    </div>
                   </div>
-                  <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 8 épisodes</div>
-                  <div style={{ height: 1, background: "rgba(232,92,58,0.3)", marginBottom: 16 }} />
+                  <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.25)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 8 épisodes</div>
+                  <div style={{ height: 1, background: "linear-gradient(90deg, rgba(232,92,58,0.5), transparent)", marginBottom: 0 }} />
                 </div>
                 {/* Center visual */}
                 <div style={{ position: "absolute", top: "30%", left: 0, right: 0, bottom: 0, zIndex: 0, overflow: "hidden" }}>
-                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 0%, #09090f 75%)" }} />
-                  <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.15 }}>
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 0%, #09090f 72%)" }} />
+                  <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.12 }}>
                     <svg width="180" height="220" viewBox="0 0 180 220" fill="none">
-                      <ellipse cx="90" cy="80" rx="55" ry="65" fill={RED} />
+                      <ellipse cx="90" cy="80" rx="55" ry="65" fill="url(#pg1-g)" />
                       <rect x="30" y="130" width="120" height="90" rx="8" fill={RED} opacity="0.6" />
                     </svg>
                   </div>
                 </div>
-                {/* Bottom — title */}
-                <div style={{ position: "relative", zIndex: 2 }}>
-                  <div style={{ fontSize: 8, fontWeight: 700, color: MUTED, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>DRAME · THRILLER</div>
+                {/* Bottom */}
+                <div style={{ position: "relative", zIndex: 2, padding: "0 18px" }}>
+                  <div style={{ fontSize: 8, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8, background: `linear-gradient(90deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>DRAME · THRILLER</div>
                   <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 34, fontWeight: 900, color: TEXT, lineHeight: 1.0, letterSpacing: -1, marginBottom: 10 }}>Le<br />Mensonge</div>
-                  <div style={{ height: 2, width: 32, background: RED, borderRadius: 2, marginBottom: 10 }} />
+                  <div style={{ height: 2, width: 32, background: `linear-gradient(90deg, ${RED}, ${VIO})`, borderRadius: 2, marginBottom: 10 }} />
                   <div style={{ fontSize: 9, color: "rgba(255,255,255,0.4)", lineHeight: 1.5, fontStyle: "italic" }}>Elle cache une erreur médicale. Il revient comme interne.</div>
                   <div style={{ marginTop: 14, display: "flex", gap: 6 }}>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: RED, border: `1px solid ${RED}40`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>9:16</span>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: RED, border: `1px solid ${RED}50`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>9:16</span>
                     <span style={{ fontSize: 7, fontWeight: 700, color: MUTED, border: `1px solid ${BORDER}`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>EP.1→8</span>
                   </div>
                 </div>
@@ -571,63 +587,96 @@ export default function Landing() {
             </div>
 
             {/* Poster 2 — Héritage (centre, légèrement plus grand) */}
-            <div style={{ width: 240, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 40px 100px rgba(168,85,247,0.25), 0 0 0 1px rgba(168,85,247,0.2)", position: "relative", cursor: "default", transform: "translateY(-16px)" }}>
-              <div style={{ background: "linear-gradient(170deg, #0d0515 0%, #0a0510 40%, #09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "22px 18px 20px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 60% 25%, rgba(168,85,247,0.22) 0%, transparent 55%), radial-gradient(ellipse at 20% 85%, rgba(168,85,247,0.10) 0%, transparent 50%)", pointerEvents: "none" }} />
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 14 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: VIO, animation: "pulse 2s infinite" }} />
-                    <span style={{ fontSize: 8, fontWeight: 800, color: VIO, letterSpacing: 2, fontFamily: "monospace" }}>STUDIO VERTICAL</span>
+            <div style={{ width: 240, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 40px 100px rgba(168,85,247,0.35), 0 0 60px rgba(232,92,58,0.1), 0 0 0 1px rgba(168,85,247,0.25)", position: "relative", cursor: "default", transform: "translateY(-16px)" }}>
+              <div style={{ background: "linear-gradient(160deg, #0d0518 0%, #0c0812 50%, #09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "0 0 20px", position: "relative", overflow: "hidden" }}>
+                {/* Gradient bar top */}
+                <div style={{ height: 3, background: "linear-gradient(90deg, #a855f7, #E85C3A, #ff8c42)", flexShrink: 0 }} />
+                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 60% 25%, rgba(168,85,247,0.28) 0%, transparent 55%), radial-gradient(ellipse at 20% 80%, rgba(232,92,58,0.15) 0%, transparent 50%)", pointerEvents: "none" }} />
+                <div style={{ position: "relative", zIndex: 1, padding: "14px 18px 0" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 12 }}>
+                    <svg width="11" height="15" viewBox="0 0 26 37" fill="none">
+                      <defs>
+                        <linearGradient id="pg2-g" x1="0" y1="0" x2="26" y2="37" gradientUnits="userSpaceOnUse">
+                          <stop offset="0%" stopColor="#a855f7" /><stop offset="100%" stopColor="#ff8c42" />
+                        </linearGradient>
+                      </defs>
+                      <rect x="0.5" y="0.5" width="25" height="36" rx="5.5" fill="url(#pg2-g)" />
+                      <rect x="4" y="4" width="18" height="29" rx="3" fill="rgba(0,0,0,0.25)" />
+                      <polygon points="10,13 10,24 20,18.5" fill="white" />
+                      <rect x="4" y="31" width="6" height="1.5" rx="0.75" fill="rgba(255,255,255,0.5)" />
+                      <rect x="12" y="31" width="10" height="1.5" rx="0.75" fill="rgba(255,255,255,0.25)" />
+                    </svg>
+                    <div style={{ lineHeight: 1 }}>
+                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 6, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 1 }}>Studio</div>
+                      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 10, fontWeight: 900, color: "rgba(255,255,255,0.8)", letterSpacing: -0.3 }}>Vertical</div>
+                    </div>
                   </div>
-                  <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 10 épisodes</div>
-                  <div style={{ height: 1, background: "rgba(168,85,247,0.3)", marginBottom: 16 }} />
+                  <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.25)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 10 épisodes</div>
+                  <div style={{ height: 1, background: "linear-gradient(90deg, rgba(168,85,247,0.6), transparent)", marginBottom: 0 }} />
                 </div>
                 {/* Decorative diamond */}
-                <div style={{ position: "absolute", top: "28%", left: "50%", transform: "translateX(-50%)", zIndex: 0, opacity: 0.08 }}>
+                <div style={{ position: "absolute", top: "28%", left: "50%", transform: "translateX(-50%)", zIndex: 0, opacity: 0.07 }}>
                   <svg width="200" height="240" viewBox="0 0 200 240" fill="none">
-                    <polygon points="100,10 190,100 100,230 10,100" fill={VIO} />
+                    <defs><linearGradient id="pg2-dia" x1="0" y1="0" x2="200" y2="240" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#a855f7"/><stop offset="100%" stopColor="#E85C3A"/></linearGradient></defs>
+                    <polygon points="100,10 190,100 100,230 10,100" fill="url(#pg2-dia)" />
                   </svg>
                 </div>
                 <div style={{ position: "absolute", top: "28%", left: 0, right: 0, bottom: 0, background: "linear-gradient(180deg, transparent 0%, #09090f 70%)", zIndex: 1 }} />
-                <div style={{ position: "relative", zIndex: 2 }}>
-                  <div style={{ fontSize: 8, fontWeight: 700, color: MUTED, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>DRAME · FAMILLE</div>
+                <div style={{ position: "relative", zIndex: 2, padding: "0 18px" }}>
+                  <div style={{ fontSize: 8, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8, background: `linear-gradient(90deg, ${VIO}, ${RED})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>DRAME · FAMILLE</div>
                   <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 38, fontWeight: 900, color: TEXT, lineHeight: 1.0, letterSpacing: -1, marginBottom: 10 }}>Héri-<br />tage</div>
-                  <div style={{ height: 2, width: 32, background: VIO, borderRadius: 2, marginBottom: 10 }} />
+                  <div style={{ height: 2, width: 32, background: `linear-gradient(90deg, ${VIO}, ${RED})`, borderRadius: 2, marginBottom: 10 }} />
                   <div style={{ fontSize: 9, color: "rgba(255,255,255,0.4)", lineHeight: 1.5, fontStyle: "italic" }}>Un testament. Trois frères. Un secret vieux de 20 ans.</div>
                   <div style={{ marginTop: 14, display: "flex", gap: 6 }}>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: VIO, border: `1px solid ${VIO}40`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>9:16</span>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: VIO, border: `1px solid ${VIO}50`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>9:16</span>
                     <span style={{ fontSize: 7, fontWeight: 700, color: MUTED, border: `1px solid ${BORDER}`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>EP.1→10</span>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: VIO, background: `${VIO}15`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>PREMIUM</span>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: VIO, background: `${VIO}18`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>PREMIUM</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Poster 3 — Deux Vies */}
-            <div style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06)", position: "relative", cursor: "default" }}>
-              <div style={{ background: "linear-gradient(170deg, #050d1a 0%, #030810 40%, #09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "22px 18px 20px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 70% 30%, rgba(96,165,250,0.14) 0%, transparent 55%)", pointerEvents: "none" }} />
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 14 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#60a5fa", animation: "pulse 1.8s infinite" }} />
-                    <span style={{ fontSize: 8, fontWeight: 800, color: "#60a5fa", letterSpacing: 2, fontFamily: "monospace" }}>STUDIO VERTICAL</span>
+            <div style={{ width: 220, flexShrink: 0, borderRadius: 18, overflow: "hidden", boxShadow: "0 32px 80px rgba(232,92,58,0.2), 0 0 0 1px rgba(168,85,247,0.12)", position: "relative", cursor: "default" }}>
+              <div style={{ background: "linear-gradient(160deg, #0f0518 0%, #0a0310 50%, #09090f 100%)", aspectRatio: "9/16", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "0 0 20px", position: "relative", overflow: "hidden" }}>
+                {/* Gradient bar top */}
+                <div style={{ height: 3, background: "linear-gradient(90deg, #E85C3A, #a855f7, #ff8c42)", flexShrink: 0 }} />
+                <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 70% 30%, rgba(168,85,247,0.18) 0%, transparent 55%), radial-gradient(ellipse at 20% 75%, rgba(232,92,58,0.12) 0%, transparent 50%)", pointerEvents: "none" }} />
+                <div style={{ position: "relative", zIndex: 1, padding: "14px 18px 0" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 12 }}>
+                    <svg width="10" height="14" viewBox="0 0 26 37" fill="none">
+                      <defs>
+                        <linearGradient id="pg3-g" x1="0" y1="0" x2="26" y2="37" gradientUnits="userSpaceOnUse">
+                          <stop offset="0%" stopColor="#E85C3A" /><stop offset="100%" stopColor="#a855f7" />
+                        </linearGradient>
+                      </defs>
+                      <rect x="0.5" y="0.5" width="25" height="36" rx="5.5" fill="url(#pg3-g)" />
+                      <rect x="4" y="4" width="18" height="29" rx="3" fill="rgba(0,0,0,0.25)" />
+                      <polygon points="10,13 10,24 20,18.5" fill="white" />
+                      <rect x="4" y="31" width="6" height="1.5" rx="0.75" fill="rgba(255,255,255,0.5)" />
+                      <rect x="12" y="31" width="10" height="1.5" rx="0.75" fill="rgba(255,255,255,0.25)" />
+                    </svg>
+                    <div style={{ lineHeight: 1 }}>
+                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 6, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 1 }}>Studio</div>
+                      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 9, fontWeight: 900, color: "rgba(255,255,255,0.75)", letterSpacing: -0.3 }}>Vertical</div>
+                    </div>
                   </div>
-                  <div style={{ fontSize: 9, fontWeight: 700, color: "rgba(255,255,255,0.35)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 6 épisodes</div>
-                  <div style={{ height: 1, background: "rgba(96,165,250,0.3)", marginBottom: 16 }} />
+                  <div style={{ fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.25)", letterSpacing: 3, textTransform: "uppercase", marginBottom: 6 }}>Série originale · 6 épisodes</div>
+                  <div style={{ height: 1, background: "linear-gradient(90deg, rgba(232,92,58,0.4), rgba(168,85,247,0.2), transparent)", marginBottom: 0 }} />
                 </div>
                 {/* Split visual */}
                 <div style={{ position: "absolute", top: "25%", left: 0, right: 0, height: "45%", zIndex: 0, overflow: "hidden" }}>
-                  <div style={{ position: "absolute", left: 0, top: 0, width: "50%", height: "100%", background: "rgba(232,92,58,0.06)", borderRight: "1px solid rgba(255,255,255,0.08)" }} />
-                  <div style={{ position: "absolute", right: 0, top: 0, width: "50%", height: "100%", background: "rgba(96,165,250,0.06)" }} />
+                  <div style={{ position: "absolute", left: 0, top: 0, width: "50%", height: "100%", background: "rgba(232,92,58,0.07)", borderRight: "1px solid rgba(255,255,255,0.06)" }} />
+                  <div style={{ position: "absolute", right: 0, top: 0, width: "50%", height: "100%", background: "rgba(168,85,247,0.07)" }} />
                   <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 0%, #09090f 85%)" }} />
                 </div>
-                <div style={{ position: "relative", zIndex: 2 }}>
-                  <div style={{ fontSize: 8, fontWeight: 700, color: MUTED, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8 }}>DRAME · IDENTITÉ</div>
+                <div style={{ position: "relative", zIndex: 2, padding: "0 18px" }}>
+                  <div style={{ fontSize: 8, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", marginBottom: 8, background: `linear-gradient(90deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>DRAME · IDENTITÉ</div>
                   <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 34, fontWeight: 900, color: TEXT, lineHeight: 1.0, letterSpacing: -1, marginBottom: 10 }}>Deux<br />Vies</div>
-                  <div style={{ height: 2, width: 32, background: "#60a5fa", borderRadius: 2, marginBottom: 10 }} />
+                  <div style={{ height: 2, width: 32, background: `linear-gradient(90deg, ${RED}, ${VIO})`, borderRadius: 2, marginBottom: 10 }} />
                   <div style={{ fontSize: 9, color: "rgba(255,255,255,0.4)", lineHeight: 1.5, fontStyle: "italic" }}>Elle mène deux vies parallèles. L'une d'elles va s'effondrer.</div>
                   <div style={{ marginTop: 14, display: "flex", gap: 6 }}>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: "#60a5fa", border: "1px solid rgba(96,165,250,0.4)", borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>9:16</span>
+                    <span style={{ fontSize: 7, fontWeight: 700, color: RED, border: `1px solid ${RED}50`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>9:16</span>
                     <span style={{ fontSize: 7, fontWeight: 700, color: MUTED, border: `1px solid ${BORDER}`, borderRadius: 4, padding: "2px 7px", letterSpacing: 1 }}>EP.1→6</span>
                   </div>
                 </div>
