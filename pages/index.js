@@ -809,7 +809,7 @@ export default function Landing() {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={VIO}>3 variations par script</Label>
           <Title>Intense, Subtil ou Rapide.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>Le bon ton, du premier coup.</span></Title>
-          <img src="/varation%20de%20script.png" alt="3 variations par script — Intense, Subtil, Rapide" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
+          <img src="/variation%20de%20script.png" alt="3 variations par script — Intense, Subtil, Rapide" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
         </div>
       </div>
 
