@@ -1,1 +1,0 @@
-python3 -c "import base64,sys; sys.stdout.write(base64.b64encode(open('public/banniere-hero.jpg','rb').read()).decode())"
