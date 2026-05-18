@@ -289,6 +289,7 @@ export default function Landing() {
         @keyframes glow { 0%,100%{opacity:.7} 50%{opacity:1} }
         @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
         @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+        @keyframes scrollComments { 0%{transform:translateY(0)} 100%{transform:translateY(-50%)} }
         @keyframes lineGrow { from{width:0} to{width:100%} }
         @keyframes nodePop { from{transform:scale(0.6);opacity:0} to{transform:scale(1);opacity:1} }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
@@ -410,6 +411,120 @@ export default function Landing() {
           <img src="/cliffhangers%20.png" alt="Cliffhangers — scènes impossibles à scroller" style={{ width: "100%", display: "block", borderRadius: 16 }} />
         </div>
         <p style={{ color: MUTED, fontSize: 14, marginTop: 32 }}>Chaque épisode généré se termine par un cliffhanger conçu pour retenir l'audience.</p>
+      </div>
+
+      {/* ADDICTION NARRATIVE */}
+      <div style={{ padding: "100px 40px", borderTop: `1px solid ${BORDER}`, overflow: "hidden", position: "relative" }}>
+        <div style={{ position: "absolute", top: "30%", left: "20%", width: 500, height: 500, background: "radial-gradient(circle, rgba(232,92,58,0.05) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: "20%", right: "15%", width: 600, height: 600, background: "radial-gradient(circle, rgba(168,85,247,0.05) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div className="addiction-layout" style={{ maxWidth: 1100, margin: "0 auto", display: "flex", gap: 64, alignItems: "center", justifyContent: "center" }}>
+
+          {/* Texte gauche */}
+          <div style={{ maxWidth: 320, flexShrink: 0 }}>
+            <Label color={VIO}>L'addiction narrative</Label>
+            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(30px, 3.5vw, 48px)", fontWeight: 900, color: TEXT, letterSpacing: -2, lineHeight: 1.05, marginBottom: 20 }}>
+              Tu vends un épisode.<br />
+              <span style={{ fontStyle: "italic", color: MUTED }}>Ils reviennent pour dix.</span>
+            </h2>
+            <p style={{ color: MUTED, fontSize: 14, lineHeight: 1.8, marginBottom: 32 }}>Chaque script se termine par un cliffhanger calculé pour provoquer une réaction physique. Le scroll s'arrête. Le commentaire arrive. L'épisode suivant se lance.</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {[
+                { label: "Watch time moyen", value: "94%", color: VIO },
+                { label: "Commentaires / épisode", value: "2.1k", color: RED },
+                { label: "Retour épisode suivant", value: "78%", color: VIO },
+              ].map(({ label, value, color }) => (
+                <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px", background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}`, borderRadius: 10 }}>
+                  <span style={{ fontSize: 12, color: MUTED }}>{label}</span>
+                  <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 20, fontWeight: 900, color }}>{value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Téléphone central */}
+          <div style={{ position: "relative", flexShrink: 0 }}>
+            <div style={{ position: "absolute", inset: -80, borderRadius: "50%", background: "radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 65%)", pointerEvents: "none" }} />
+            <div style={{ width: 255, borderRadius: 36, overflow: "hidden", background: "#080610", boxShadow: "0 0 0 1px rgba(168,85,247,0.28), 0 0 60px rgba(168,85,247,0.18), 0 48px 100px rgba(0,0,0,0.85)", position: "relative", zIndex: 1 }}>
+              <div style={{ height: 26, background: "#050308", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: 56, height: 4, background: "rgba(255,255,255,0.07)", borderRadius: 2 }} />
+              </div>
+              <div style={{ position: "relative", aspectRatio: "9/16", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, #0d0818 0%, #1a0828 45%, #0d0818 100%)" }} />
+                <div style={{ position: "absolute", top: "15%", left: "50%", transform: "translateX(-50%)", width: 220, height: 220, background: "radial-gradient(circle, rgba(168,85,247,0.28) 0%, transparent 60%)", pointerEvents: "none" }} />
+                <div style={{ position: "relative", zIndex: 2, padding: "14px 16px 0", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                  <div>
+                    <div style={{ fontSize: 7, color: "rgba(255,255,255,0.35)", letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 700, marginBottom: 3 }}>Héritage Maudit</div>
+                    <div style={{ fontSize: 8, color: VIO, fontWeight: 700 }}>Épisode 8 · Saison 1</div>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
+                    <span style={{ fontSize: 7, color: RED, fontWeight: 800, letterSpacing: 1 }}>LIVE</span>
+                  </div>
+                </div>
+                <div style={{ position: "relative", zIndex: 2, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 20px" }}>
+                  <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 22, fontWeight: 900, color: "#fff", lineHeight: 1.2, letterSpacing: -0.5, marginBottom: 14, textShadow: "0 0 40px rgba(168,85,247,0.5)" }}>
+                    "Tu m'as menti<br />depuis le début."
+                  </div>
+                  <div style={{ fontSize: 9, color: "rgba(255,255,255,0.3)", fontStyle: "italic", fontFamily: "'Playfair Display', Georgia, serif" }}>— Élodie découvre le dossier</div>
+                </div>
+                <div style={{ position: "relative", zIndex: 2, padding: "0 16px 10px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+                    <span style={{ fontSize: 7, color: "rgba(255,255,255,0.28)", fontWeight: 600 }}>ÉP. 8 / 10</span>
+                    <span style={{ fontSize: 7, color: "rgba(255,255,255,0.28)", fontWeight: 600 }}>94%</span>
+                  </div>
+                  <div style={{ height: 2, background: "rgba(255,255,255,0.07)", borderRadius: 1 }}>
+                    <div style={{ width: "94%", height: "100%", background: `linear-gradient(90deg, ${VIO}, ${RED})`, borderRadius: 1 }} />
+                  </div>
+                </div>
+                <div style={{ position: "relative", zIndex: 2, padding: "8px 16px 14px", display: "flex", justifyContent: "space-around", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+                  {[["❤️","47.2k"],["💬","2.1k"],["🔗","Partager"],["▶️","Ép. 9 →"]].map(([icon, val], i) => (
+                    <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+                      <span style={{ fontSize: 13 }}>{icon}</span>
+                      <span style={{ fontSize: 7, color: i === 3 ? VIO : "rgba(255,255,255,0.4)", fontWeight: i === 3 ? 800 : 600 }}>{val}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div style={{ height: 18, background: "#050308", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: 72, height: 3, background: "rgba(255,255,255,0.1)", borderRadius: 2 }} />
+              </div>
+            </div>
+          </div>
+
+          {/* Commentaires défilants */}
+          <div style={{ width: 210, flexShrink: 0, height: 420, overflow: "hidden", position: "relative" }}>
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 64, background: `linear-gradient(to bottom, ${DARK}, transparent)`, zIndex: 2, pointerEvents: "none" }} />
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 64, background: `linear-gradient(to top, ${DARK}, transparent)`, zIndex: 2, pointerEvents: "none" }} />
+            <div style={{ animation: "scrollComments 22s linear infinite", display: "flex", flexDirection: "column", gap: 10 }}>
+              {[
+                { user: "sofia_makes", comment: "omg j'ai pas vu venir ça 😱", likes: "847", color: VIO },
+                { user: "théo.tourne", comment: "Élodie savait depuis l'épisode 3 !! 🤯", likes: "1.2k", color: RED },
+                { user: "laure_content", comment: "le cliffhanger… j'ai lâché mon téléphone", likes: "562", color: "#60a5fa" },
+                { user: "marc_prod", comment: "épisode 9 MAINTENANT je peux pas attendre", likes: "2.9k", color: VIO },
+                { user: "créa.studio", comment: "comment ils écrivent aussi bien ?? 🔥", likes: "445", color: RED },
+                { user: "youssef.films", comment: "j'ai montré à ma mère elle est accro aussi 😂", likes: "738", color: "#4ade80" },
+                { user: "nadia.réalise", comment: "le regard à 2:34… oscar mérité", likes: "1.8k", color: VIO },
+                { user: "tom_kl", comment: "cette série c'est du crack narratif", likes: "3.2k", color: RED },
+                { user: "ines.crea", comment: "j'ai regardé les 8 épisodes en 1h", likes: "992", color: "#60a5fa" },
+                { user: "alexis.vertical", comment: "quand saison 2 ?? 🙏🙏", likes: "4.1k", color: VIO },
+                { user: "sofia_makes", comment: "omg j'ai pas vu venir ça 😱", likes: "847", color: VIO },
+                { user: "théo.tourne", comment: "Élodie savait depuis l'épisode 3 !! 🤯", likes: "1.2k", color: RED },
+                { user: "laure_content", comment: "le cliffhanger… j'ai lâché mon téléphone", likes: "562", color: "#60a5fa" },
+                { user: "marc_prod", comment: "épisode 9 MAINTENANT je peux pas attendre", likes: "2.9k", color: VIO },
+                { user: "créa.studio", comment: "comment ils écrivent aussi bien ?? 🔥", likes: "445", color: RED },
+              ].map((c, i) => (
+                <div key={i} style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${BORDER}`, borderRadius: 12, padding: "10px 12px", flexShrink: 0 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
+                    <span style={{ fontSize: 10, fontWeight: 700, color: c.color }}>@{c.user}</span>
+                    <span style={{ fontSize: 9, color: MUTED }}>❤️ {c.likes}</span>
+                  </div>
+                  <p style={{ fontSize: 12, color: TEXT, lineHeight: 1.45, margin: 0 }}>{c.comment}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
       </div>
 
       {/* FEATURE STRIP */}
