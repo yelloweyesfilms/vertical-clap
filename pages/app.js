@@ -1151,18 +1151,22 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
           </div>
         )}
         <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "#69C9D0", marginBottom: 10 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "#69C9D0", marginBottom: 12 }}>
             🎬 Packs rapides <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0, color: "var(--mt)" }}>— remplit tout en 1 clic</span>
           </p>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
             {PACKS.map(p => {
               const locked = p.mode === "premium" && plan === "standard";
+              const isPrem = p.mode === "premium";
               return (
-                <button key={p.label} className="pack-pill"
+                <button key={p.label}
                   onClick={() => { if (!locked) set({ mode: p.mode, casting: p.casting, univers: p.univers, secret: p.secret, format: p.mode === "fast" ? 10 : state.format }); }}
-                  style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 12px", borderRadius: 20, border: `1.5px solid ${p.mode === "premium" ? "var(--n)" : "var(--bo)"}`, background: p.mode === "premium" ? "var(--n)" : "var(--card)", color: p.mode === "premium" ? "#fff" : "var(--tx)", fontSize: 12, fontWeight: 600, cursor: locked ? "not-allowed" : "pointer", fontFamily: "var(--sans)", whiteSpace: "nowrap", opacity: locked ? 0.45 : 1 }}>
-                  <span>{p.emoji}</span><span>{p.label}</span>
-                  {p.mode === "premium" && <span style={{ fontSize: 9, background: "rgba(255,255,255,0.2)", padding: "1px 5px", borderRadius: 4, fontWeight: 700, letterSpacing: 0.5 }}>{locked ? "🔒" : "PRO"}</span>}
+                  style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 14px", borderRadius: 14, border: `1.5px solid ${isPrem ? "rgba(109,40,217,0.4)" : "var(--bo)"}`, background: isPrem ? "rgba(109,40,217,0.1)" : "var(--card)", cursor: locked ? "not-allowed" : "pointer", textAlign: "left", opacity: locked ? 0.5 : 1, transition: "opacity .15s", fontFamily: "var(--sans)" }}>
+                  <span style={{ fontSize: 22, flexShrink: 0 }}>{p.emoji}</span>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.label}</div>
+                    <div style={{ fontSize: 10, color: isPrem ? "rgba(168,85,247,0.8)" : "var(--mt)", marginTop: 2, fontWeight: 600, letterSpacing: 0.3 }}>{locked ? "🔒 PRO" : isPrem ? "✦ PRO" : "⚡ Fast"}</div>
+                  </div>
                 </button>
               );
             })}
@@ -1637,6 +1641,12 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
               {tourStep === 3 && <div style={{ position: "absolute", top: 8, right: -8 }}><TourBeacon text="Tourne avec le téléprompteur auto-scroll →" side="left" onDismiss={onTourDismiss} /></div>}
             </div>
             <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)" }}>📄 Exporter en PDF</button>
+
+            {epIdx < episodesTotal - 1 && (
+              <button onClick={onNextEp} disabled={loading} style={{ background: "linear-gradient(135deg, #E85C3A, #a855f7)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", marginTop: 14, boxShadow: "0 0 28px rgba(168,85,247,0.25)", letterSpacing: 0.3 }}>
+                Épisode {epIdx + 2} →
+              </button>
+            )}
           </>
         ) : null}
       </div>
