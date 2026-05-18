@@ -11,7 +11,6 @@ export async function getServerSideProps({ res }) {
     { path: "/blog", freq: "weekly", priority: "0.8" },
     ...POSTS.map(p => ({ path: `/blog/${p.slug}`, freq: "monthly", priority: "0.7" })),
     { path: "/tarifs", freq: "weekly", priority: "0.9" },
-    { path: "/app", freq: "monthly", priority: "0.7" },
     { path: "/cgu", freq: "yearly", priority: "0.3" },
     { path: "/confidentialite", freq: "yearly", priority: "0.3" },
     { path: "/contact", freq: "yearly", priority: "0.4" },

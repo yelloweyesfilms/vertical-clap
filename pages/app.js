@@ -513,11 +513,11 @@ function MesSeriesView({ onLoad, onBack, customerId }) {
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ background: "var(--tx)", padding: "28px 20px 24px" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", color: "var(--mt)", fontSize: 14, cursor: "pointer", padding: 0, marginBottom: 14 }}>← Retour</button>
-        <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>
-          Mes Séries {!loadingCloud && <span style={{ fontSize: 16, fontWeight: 400, color: "var(--mt)" }}>({total})</span>}
+        <button onClick={onBack} style={{ background: "none", border: "none", color: "var(--bg)", fontSize: 14, cursor: "pointer", padding: 0, marginBottom: 14, opacity: 0.6 }}>← Retour</button>
+        <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "var(--bg)", letterSpacing: -0.5 }}>
+          Mes Séries {!loadingCloud && <span style={{ fontSize: 16, fontWeight: 400, opacity: 0.5 }}>({total})</span>}
         </h1>
-        <p style={{ fontSize: 12, color: "var(--mt)", marginTop: 6 }}>
+        <p style={{ fontSize: 12, color: "var(--bg)", opacity: 0.5, marginTop: 6 }}>
           {loadingCloud ? "Chargement du cloud…" : `${cloud.length} cloud · ${localOnly.length} local`}
         </p>
       </div>
@@ -611,7 +611,7 @@ function drawPoster(canvas, bible, episodes, mode) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
   const PAD = 56;
-  const RED = "#E85C3A", ORANGE = "#ff8c42";
+  const RED = "#E85C3A", ORANGE = "#ff8c42", VIO = "#a855f7";
   const WHITE = "#f1f5f9", MUTED = "#94a3b8";
 
   const wrap = (text, x, y, maxW, lineH, font, color, align = "left") => {
@@ -718,16 +718,54 @@ function drawPoster(canvas, bible, episodes, mode) {
   // ── TITRE ─────────────────────────────────────────────
   let y = START_Y;
   ctx.font = `900 ${titleSize}px Georgia, serif`;
-  ctx.fillStyle = WHITE;
-  titleLines.forEach((l, i) => ctx.fillText(l, PAD, y + i * titleLineH));
+  titleLines.forEach((ln, i) => {
+    const lY = y + i * titleLineH;
+    const lineW = Math.min(ctx.measureText(ln).width, W - PAD * 2);
+
+    // Dark offset for 3D relief
+    ctx.save();
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 3;
+    ctx.shadowOffsetY = 5;
+    ctx.fillStyle = "rgba(0,0,0,0.55)";
+    ctx.textAlign = "left";
+    ctx.fillText(ln, PAD, lY);
+    ctx.restore();
+
+    // Orange glow halo
+    ctx.save();
+    ctx.shadowColor = "rgba(232,92,58,0.75)";
+    ctx.shadowBlur = 28;
+    const tG = ctx.createLinearGradient(PAD, 0, PAD + lineW, 0);
+    tG.addColorStop(0, ORANGE);
+    tG.addColorStop(0.55, "#f7c26b");
+    tG.addColorStop(1, VIO);
+    ctx.fillStyle = tG;
+    ctx.textAlign = "left";
+    ctx.fillText(ln, PAD, lY);
+    ctx.restore();
+
+    // Sharp gradient text on top
+    ctx.save();
+    const tG2 = ctx.createLinearGradient(PAD, 0, PAD + lineW, 0);
+    tG2.addColorStop(0, "#ff9c6e");
+    tG2.addColorStop(0.4, "#fff0d0");
+    tG2.addColorStop(1, "#c084fc");
+    ctx.fillStyle = tG2;
+    ctx.textAlign = "left";
+    ctx.fillText(ln, PAD, lY);
+    ctx.restore();
+  });
   y += titleBlockH;
 
   // ── LIGNE ACCENT ──────────────────────────────────────
   y += 28;
-  const lg = ctx.createLinearGradient(PAD, 0, PAD + 90, 0);
-  lg.addColorStop(0, RED); lg.addColorStop(1, "rgba(232,92,58,0)");
+  const lg = ctx.createLinearGradient(PAD, 0, PAD + 120, 0);
+  lg.addColorStop(0, ORANGE);
+  lg.addColorStop(0.6, VIO);
+  lg.addColorStop(1, "rgba(168,85,247,0)");
   ctx.fillStyle = lg;
-  ctx.fillRect(PAD, y, 90, 3);
+  ctx.fillRect(PAD, y, 120, 3);
   y += 44;
 
   // ── PITCH ─────────────────────────────────────────────
@@ -947,7 +985,7 @@ function AfficheView({ bible, episodes, mode, onBack, customerId }) {
                     {bible.accroche || bible.logline}
                   </p>
                   <p style={{ fontSize: 10, color: "rgba(255,255,255,0.3)", marginTop: 12, fontFamily: "var(--sans)", letterSpacing: 1 }}>
-                    STUDIOVERTICAL.APP
+                    VERTICALCLAP.APP
                   </p>
                 </div>
               </div>
@@ -988,7 +1026,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
   };
 
   return (
-    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch", paddingBottom: 70 }}>
       <div style={{ background: "#0f1a14", padding: "28px 20px 24px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
           <div>
@@ -1008,7 +1046,8 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, onShowOnboard
             </div>
           </div>
           <div className="header-actions" style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <button onClick={onShowOnboarding} style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", color: "var(--mt)", width: 32, height: 32, borderRadius: "50%", cursor: "pointer", fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--sans)" }}>?</button>
+            <button onClick={onDarkMode} style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", color: "var(--mt)", width: 34, height: 34, borderRadius: 10, cursor: "pointer", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center" }} title={darkMode ? "Mode jour" : "Mode nuit"}>{darkMode ? "☀️" : "🌙"}</button>
+            <button onClick={onShowOnboarding} style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", color: "var(--mt)", width: 34, height: 34, borderRadius: 10, cursor: "pointer", fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--sans)" }}>?</button>
             <div style={{ width: 44, height: 44, borderRadius: "50%", background: "var(--r)", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ color: "#fff", fontSize: 9, fontWeight: 800, letterSpacing: 0.5 }}>REC</span>
             </div>
@@ -1271,7 +1310,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, onAffiche, cust
             const txt = `🎬 ${bible.titre}\n« ${bible.logline} »\n\nGénéré avec VerticalClap — verticalclap.app`;
             if (navigator.share) { navigator.share({ title: bible.titre, text: txt }).catch(() => {}); }
             else { navigator.clipboard?.writeText(txt).then(() => alert("Copié !")); }
-          }} style={{ background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 10, padding: "8px 12px", fontSize: 13, cursor: "pointer", flexShrink: 0, fontFamily: "var(--sans)" }} title="Partager">
+          }} style={{ background: "var(--card)", border: "1.5px solid var(--bo)", color: "var(--tx)", borderRadius: 10, padding: "8px 12px", fontSize: 13, cursor: "pointer", flexShrink: 0, fontFamily: "var(--sans)" }} title="Partager">
             🔗 Partager
           </button>
         </div>
@@ -2229,11 +2268,31 @@ export default function App() {
 
       {upsell && <UpsellModal feature={upsell} onUpgrade={() => { setUpsell(null); openPortal(); }} onClose={() => setUpsell(null)} />}
 
-      {/* Logout + dark mode (hidden on mix — gérés dans Mixeur) */}
+      {/* Logout + dark mode (hidden on mix/tour) */}
       {screen !== "tour" && screen !== "mix" && (
         <div style={{ position: "fixed", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 12 }}>
-          <button onClick={() => setDarkMode(d => !d)} style={{ background: "none", border: "none", fontSize: 18, cursor: "pointer", lineHeight: 1 }} title={darkMode ? "Mode jour" : "Mode nuit"}>{darkMode ? "☀️" : "🌙"}</button>
+          <button onClick={() => setDarkMode(d => !d)} style={{ background: "var(--card)", border: "1px solid var(--bo)", borderRadius: 10, width: 34, height: 34, fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }} title={darkMode ? "Mode jour" : "Mode nuit"}>{darkMode ? "☀️" : "🌙"}</button>
           <button onClick={logout} style={{ background: "none", border: "none", fontSize: 12, color: "var(--mt)", cursor: "pointer" }}>Déconnexion</button>
+        </div>
+      )}
+
+      {/* BARRE D'ONGLETS */}
+      {screen !== "tour" && (
+        <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 90, background: "var(--bg)", borderTop: "1px solid var(--bo)", display: "flex", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
+          {[
+            { id: "mix", icon: "🎬", label: "Studio" },
+            { id: "mes-series", icon: "📂", label: "Mes séries" },
+          ].map(({ id, icon, label }) => {
+            const active = screen === id || (id === "mix" && ["load","bible","affiche","studio","variations"].includes(screen));
+            return (
+              <button key={id} onClick={() => { if (id === "mix") { if (["bible","affiche","studio","variations"].includes(screen)) {} else setScreen("mix"); } else setScreen(id); }}
+                style={{ flex: 1, background: "none", border: "none", padding: "12px 8px 10px", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+                <span style={{ fontSize: 20 }}>{icon}</span>
+                <span style={{ fontSize: 10, fontWeight: active ? 800 : 600, color: active ? "var(--r)" : "var(--mt)", fontFamily: "var(--sans)", letterSpacing: 0.3 }}>{label}</span>
+                {active && <div style={{ width: 24, height: 2, borderRadius: 1, background: "var(--r)" }} />}
+              </button>
+            );
+          })}
         </div>
       )}
     </div>
