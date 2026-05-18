@@ -399,7 +399,7 @@ export default function Landing() {
 {/* HERO VISUAL */}
 <div style={{ maxWidth: 900, margin: "0 auto 0", padding: "0 40px 80px" }}>
   <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", boxShadow: "0 0 80px rgba(168,85,247,0.15), 0 0 40px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)", border: "1px solid rgba(168,85,247,0.2)" }}>
-    <img src="/banniere%20hero.png" alt="VerticalClap — Ta série prête à tourner en 5 minutes" style={{ width: "100%", display: "block", borderRadius: 20 }} />
+    <img src="/banniere-hero.png" alt="VerticalClap — Ta série prête à tourner en 5 minutes" style={{ width: "100%", display: "block", borderRadius: 20 }} />
   </div>
 </div>
 
@@ -504,7 +504,7 @@ export default function Landing() {
 
         <div style={{ position: "relative", flexShrink: 0, maxWidth: 300 }}>
           <div style={{ position: "absolute", inset: -40, borderRadius: "50%", background: `radial-gradient(circle, rgba(232,92,58,0.12) 0%, transparent 70%)`, pointerEvents: "none" }} />
-          <img src="/script%20%C3%A0%20l'%C3%A9cran.png" alt="Script à l'écran — Mode Tournage VerticalClap" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 48px 80px rgba(0,0,0,0.8)" }} />
+          <img src="/script-ecran.png" alt="Script à l'écran — Mode Tournage VerticalClap" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 48px 80px rgba(0,0,0,0.8)" }} />
         </div>
       </div>
 
@@ -518,7 +518,7 @@ export default function Landing() {
       {/* LE MIXEUR */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <img src="/le%20mixeur.png" alt="Le Mixeur — 12 univers, 16 secrets, 4 castings" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
+          <img src="/le-mixeur.png" alt="Le Mixeur — 12 univers, 16 secrets, 4 castings" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
         </div>
       </div>
 
@@ -672,7 +672,7 @@ export default function Landing() {
       {/* VARIATIONS */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <img src="/varation%20de%20script.png" alt="3 variations par script — Intense, Subtil, Rapide" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)" }} />
+          <img src="/varation-de-script.png" alt="3 variations par script — Intense, Subtil, Rapide" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)" }} />
         </div>
       </div>
 
