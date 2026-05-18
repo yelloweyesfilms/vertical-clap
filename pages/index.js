@@ -511,7 +511,7 @@ export default function Landing() {
       {/* VIRAL STATS */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.01)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <img src="/serie-virale.jpg" alt="Conçu pour percer — 1 épisode = 1 cliffhanger, TikTok Reels Shorts" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
+          <img src="/serie%20virale.png" alt="Conçu pour percer — 1 épisode = 1 cliffhanger, TikTok Reels Shorts" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
         </div>
       </div>
 
