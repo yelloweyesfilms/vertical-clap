@@ -486,9 +486,11 @@ export default function Landing() {
       </div>
 
       {/* BIBLE COMPLETE */}
-      <div className="sec" style={{ padding: "0 40px 80px", borderTop: `1px solid ${BORDER}` }}>
+      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <img src="/bible%20complete%20.png" alt="Bible complète — titre, logline, personnages, séquencier" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
+          <Label color={VIO}>Bible complète</Label>
+          <Title>Titre, personnages, séquencier.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>Tout généré en une fois.</span></Title>
+          <img src="/bible%20complete%20.png" alt="Bible complète — titre, logline, personnages, séquencier" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
         </div>
       </div>
 
@@ -511,14 +513,18 @@ export default function Landing() {
       {/* VIRAL STATS */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.01)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <img src="/serie%20virale.png" alt="Conçu pour percer — 1 épisode = 1 cliffhanger, TikTok Reels Shorts" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
+          <Label color={RED}>Conçu pour percer</Label>
+          <Title>1 épisode = 1 cliffhanger.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>L'audience revient toujours.</span></Title>
+          <img src="/serie%20virale.png" alt="Conçu pour percer — 1 épisode = 1 cliffhanger, TikTok Reels Shorts" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
         </div>
       </div>
 
       {/* LE MIXEUR */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <img src="/le%20mixeur.png" alt="Le Mixeur — 12 univers, 16 secrets, 4 castings" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
+          <Label color={RED}>Le Mixeur</Label>
+          <Title>12 univers, 16 secrets, 4 castings.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>Ou entre le tien.</span></Title>
+          <img src="/le%20mixeur.png" alt="Le Mixeur — 12 univers, 16 secrets, 4 castings" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.12), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
         </div>
       </div>
 
@@ -629,14 +635,18 @@ export default function Landing() {
       {/* POUR QUI */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <img src="/les%20createurs.png" alt="Fait pour les créateurs qui tournent vraiment — solo, équipe, pro" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)" }} />
+          <Label color={RED}>Fait pour toi</Label>
+          <Title>Solo, équipe ou studio.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>Tu tournes, on écrit.</span></Title>
+          <img src="/les%20createurs.png" alt="Fait pour les créateurs qui tournent vraiment — solo, équipe, pro" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
         </div>
       </div>
 
       {/* PIPELINE */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <img src="/pipeline.png" alt="Le pipeline créatif — du concept au tournage en 5 étapes" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.1), 0 32px 80px rgba(0,0,0,0.5)" }} />
+          <Label color={VIO}>De l'idée au tournage</Label>
+          <Title>5 minutes. Série complète.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>Du concept au script prêt à tourner.</span></Title>
+          <img src="/pipeline.png" alt="Le pipeline créatif — du concept au tournage en 5 étapes" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.1), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
         </div>
       </div>
 
@@ -644,7 +654,7 @@ export default function Landing() {
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={RED}>Fonctionnalités</Label>
-          <Title>Le pipeline créatif<br /><span style={{ fontStyle: "italic" }}>du concept au tournage.</span></Title>
+          <Title>Tout ce qu'il te faut.<br /><span style={{ fontStyle: "italic" }}>Rien de superflu.</span></Title>
           <p style={{ textAlign: "center", color: MUTED, marginBottom: 48, fontSize: 15 }}>Tout ce qu'il faut, rien de superflu</p>
           <div style={{ display: "flex", gap: 16, overflowX: "auto", paddingBottom: 8, scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}>
             {[
@@ -672,7 +682,9 @@ export default function Landing() {
       {/* VARIATIONS */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <img src="/varation%20de%20script.png" alt="3 variations par script — Intense, Subtil, Rapide" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)" }} />
+          <Label color={VIO}>3 variations par script</Label>
+          <Title>Intense, Subtil ou Rapide.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>Le bon ton, du premier coup.</span></Title>
+          <img src="/varation%20de%20script.png" alt="3 variations par script — Intense, Subtil, Rapide" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
         </div>
       </div>
 
