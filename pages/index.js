@@ -354,7 +354,7 @@ export default function Landing() {
         <div style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(168,85,247,0.08)", border: "1px solid rgba(168,85,247,0.2)", color: VIO, padding: "7px 18px", borderRadius: 100, fontSize: 12, fontWeight: 600, marginBottom: 40, animation: "glow 3s infinite", letterSpacing: 1 }}>
             <span style={{ width: 5, height: 5, borderRadius: "50%", background: VIO, display: "inline-block" }} />
-            Le studio IA conçu pour les micro-dramas
+            Le studio IA des créateurs verticaux
           </div>
 
           <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 900, letterSpacing: -3, marginBottom: 32, color: TEXT, lineHeight: 1 }}>
@@ -368,7 +368,7 @@ export default function Landing() {
           </h1>
 
           <p style={{ fontSize: "clamp(15px, 2vw, 18px)", color: MUTED, maxWidth: 480, margin: "0 auto 52px", lineHeight: 1.7, fontWeight: 400 }}>
-            Le premier studio IA pensé pour créer des séries verticales virales — bible, scripts, hooks, cliffhangers. Prêts pour TikTok, Reels, DramaBox et ReelShort.
+            Génère des micro-dramas 9:16 complets avec l'IA — bible, scripts, hooks, cliffhangers. Prêts pour TikTok, Reels, Shorts, DramaBox et ReelShort.
           </p>
 
           {canceled && <p style={{ color: RED, marginBottom: 16, fontSize: 14 }}>Paiement annulé. Réessaie quand tu veux.</p>}
@@ -810,26 +810,6 @@ export default function Landing() {
           <Label color={VIO}>3 variations par script</Label>
           <Title>Intense, Subtil ou Rapide.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>Le bon ton, du premier coup.</span></Title>
           <img src="/variation%20de%20script.png" alt="3 variations par script — Intense, Subtil, Rapide" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
-        </div>
-      </div>
-
-      {/* RESPIRATION */}
-      <div style={{ padding: "140px 40px", background: DARK, position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 800, height: 800, background: "radial-gradient(circle, rgba(168,85,247,0.07) 0%, transparent 65%)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", top: "30%", right: "10%", width: 400, height: 400, background: "radial-gradient(circle, rgba(232,92,58,0.05) 0%, transparent 70%)", pointerEvents: "none" }} />
-        <div style={{ maxWidth: 760, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 1 }}>
-          <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, fontWeight: 600, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 48, opacity: 0.7 }}>Ce que tu crées</p>
-          <blockquote style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 900, lineHeight: 1.1, letterSpacing: -2, color: TEXT, margin: "0 0 24px", fontStyle: "italic" }}>
-            "Tu m'as menti<br />depuis le début."
-          </blockquote>
-          <p style={{ fontSize: 16, color: MUTED, marginBottom: 56, lineHeight: 1.8, maxWidth: 420, margin: "0 auto 56px" }}>
-            Une réplique. Un silence. 47 000 commentaires.<br />
-            <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 14 }}>Héritage Maudit · Épisode 8 · généré en 12 secondes.</span>
-          </p>
-          <GlowBtn onClick={() => startCheckout("standard", "respiration")} gradient>
-            Créer ma série maintenant →
-          </GlowBtn>
-          <p style={{ color: MUTED, fontSize: 13, marginTop: 16 }}>9€/mois · Annulable à tout moment</p>
         </div>
       </div>
 

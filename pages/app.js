@@ -2102,7 +2102,7 @@ export default function App() {
         doc.text("VERTICALCLAP", W / 2, 148, { align: "center", angle: 45 });
         doc.restoreGraphicsState();
         doc.setFontSize(8); doc.setFont("helvetica", "normal"); doc.setTextColor(180, 180, 180);
-        doc.text("vertical-studio.app", W / 2, 293, { align: "center" });
+        doc.text("verticalclap.app", W / 2, 293, { align: "center" });
       }
     };
 
