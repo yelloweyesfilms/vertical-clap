@@ -529,96 +529,83 @@ export default function Landing() {
       </div>
 
       {/* SÉRIES EXEMPLES */}
-      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}`, overflow: "hidden" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="sec" style={{ padding: "100px 40px 80px", borderTop: `1px solid ${BORDER}`, overflow: "hidden", position: "relative", background: "linear-gradient(180deg, rgba(168,85,247,0.04) 0%, transparent 60%)" }}>
+        <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 1000, height: 500, background: "radial-gradient(ellipse, rgba(168,85,247,0.07) 0%, transparent 65%)", pointerEvents: "none" }} />
+        <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 1 }}>
           <Label color={RED}>Exemples de séries</Label>
           <Title>De l'idée à la série<br /><span style={{ fontStyle: "italic", color: MUTED }}>en quelques secondes.</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Chaque série est générée avec titre, bible complète et scripts prêts à tourner.</p>
+          <p style={{ textAlign: "center", color: MUTED, marginBottom: 72, fontSize: 15, maxWidth: 500, margin: "12px auto 72px" }}>Titre, bible, personnages, scripts — tout généré et prêt à tourner.</p>
 
-          <div className="posters-row" style={{ display: "flex", gap: 24, justifyContent: "center", flexWrap: "wrap", alignItems: "flex-end" }}>
+          {/* Posters row */}
+          <div style={{ display: "flex", gap: 20, justifyContent: "center", alignItems: "flex-end", marginBottom: 40 }}>
 
-            {/* Série 1 — Le Dernier Pacte */}
-            <div className="poster-side" style={{ width: 210, flexShrink: 0, borderRadius: 20, overflow: "hidden", boxShadow: "0 40px 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(232,92,58,0.2)" }}>
-              <div style={{ background: "#0a0608", aspectRatio: "9/16", display: "flex", flexDirection: "column", padding: "20px 16px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: -40, left: "50%", transform: "translateX(-50%)", width: 200, height: 200, background: "radial-gradient(circle, rgba(232,92,58,0.22) 0%, transparent 70%)", pointerEvents: "none" }} />
-                <div style={{ position: "absolute", bottom: -20, left: 0, right: 0, height: "50%", background: "linear-gradient(to top, rgba(232,92,58,0.12) 0%, transparent 100%)", pointerEvents: "none" }} />
-                <div style={{ position: "absolute", inset: 0, opacity: 0.03, backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundSize: "200px" }} />
-
+            {/* Poster gauche */}
+            <div style={{ width: 195, flexShrink: 0, borderRadius: 20, overflow: "hidden", boxShadow: "0 32px 64px rgba(0,0,0,0.85), 0 0 0 1px rgba(232,92,58,0.12)", opacity: 0.6, transform: "translateY(28px) rotate(-3deg)", transformOrigin: "bottom center" }}>
+              <div style={{ background: "#0a0608", aspectRatio: "9/16", display: "flex", flexDirection: "column", padding: "18px 14px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: -40, left: "50%", transform: "translateX(-50%)", width: 180, height: 180, background: "radial-gradient(circle, rgba(232,92,58,0.2) 0%, transparent 70%)", pointerEvents: "none" }} />
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "55%", background: "linear-gradient(to top, rgba(232,92,58,0.1) 0%, transparent 100%)", pointerEvents: "none" }} />
                 <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", flexDirection: "column" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-                    <span style={{ fontSize: 7, fontWeight: 800, color: RED, background: "rgba(232,92,58,0.12)", border: "1px solid rgba(232,92,58,0.25)", padding: "3px 8px", borderRadius: 4, letterSpacing: 1.5, textTransform: "uppercase" }}>Thriller</span>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: 1 }}>8 ÉP.</span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: RED, background: "rgba(232,92,58,0.12)", border: "1px solid rgba(232,92,58,0.2)", padding: "3px 8px", borderRadius: 4, letterSpacing: 1.5, textTransform: "uppercase" }}>Thriller</span>
+                    <span style={{ fontSize: 7, color: "rgba(255,255,255,0.25)", letterSpacing: 1, fontWeight: 600 }}>8 ÉP.</span>
                   </div>
-
                   <div style={{ flex: 1 }}>
-                    <div style={{ width: 32, height: 2, background: RED, marginBottom: 16 }} />
-                    <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 52, fontWeight: 900, color: "#fff", lineHeight: 0.88, letterSpacing: -2, marginBottom: 20 }}>Le<br />Der-<br />nier<br />Pacte</div>
+                    <div style={{ width: 28, height: 2, background: RED, marginBottom: 14 }} />
+                    <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 38, fontWeight: 900, color: "#fff", lineHeight: 0.9, letterSpacing: -1.5, marginBottom: 16 }}>Le Dernier Pacte</div>
                   </div>
-
                   <div>
-                    <p style={{ fontSize: 10, color: "rgba(255,255,255,0.35)", lineHeight: 1.7, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif", marginBottom: 14 }}>
-                      « Il a tout signé.<br />Il ne savait pas. »
-                    </p>
-                    <div style={{ height: 1, background: "rgba(232,92,58,0.15)", marginBottom: 10 }} />
-                    <div style={{ fontSize: 7, color: "rgba(255,255,255,0.15)", letterSpacing: 2, fontWeight: 700 }}>GÉNÉRÉ PAR VERTICALCLAP</div>
+                    <p style={{ fontSize: 9, color: "rgba(255,255,255,0.3)", lineHeight: 1.7, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif", marginBottom: 12 }}>« Il a tout signé.<br />Il ne savait pas. »</p>
+                    <div style={{ height: 1, background: "rgba(232,92,58,0.12)", marginBottom: 8 }} />
+                    <div style={{ fontSize: 6, color: "rgba(255,255,255,0.12)", letterSpacing: 2, fontWeight: 700 }}>GÉNÉRÉ PAR VERTICALCLAP</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Série 2 — Héritage Maudit (centre) */}
-            <div className="poster-center poster-center-w" style={{ width: 230, flexShrink: 0, borderRadius: 20, overflow: "hidden", boxShadow: "0 48px 100px rgba(168,85,247,0.35), 0 0 60px rgba(168,85,247,0.1), 0 0 0 1px rgba(168,85,247,0.25)", transform: "translateY(-24px)" }}>
-              <div style={{ background: "#080610", aspectRatio: "9/16", display: "flex", flexDirection: "column", padding: "20px 16px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: -40, left: "50%", transform: "translateX(-50%)", width: 240, height: 240, background: "radial-gradient(circle, rgba(168,85,247,0.25) 0%, transparent 70%)", pointerEvents: "none" }} />
-                <div style={{ position: "absolute", bottom: -20, left: 0, right: 0, height: "55%", background: "linear-gradient(to top, rgba(168,85,247,0.15) 0%, transparent 100%)", pointerEvents: "none" }} />
-                <div style={{ position: "absolute", inset: 0, opacity: 0.03, backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundSize: "200px" }} />
-
+            {/* Poster centre — mise en avant */}
+            <div style={{ width: 255, flexShrink: 0, borderRadius: 24, overflow: "hidden", boxShadow: "0 0 80px rgba(168,85,247,0.35), 0 0 160px rgba(168,85,247,0.1), 0 64px 120px rgba(0,0,0,0.9), 0 0 0 1px rgba(168,85,247,0.3)", transform: "translateY(-20px)", position: "relative", zIndex: 2 }}>
+              <div style={{ background: "#080610", aspectRatio: "9/16", display: "flex", flexDirection: "column", padding: "22px 18px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: -60, left: "50%", transform: "translateX(-50%)", width: 280, height: 280, background: "radial-gradient(circle, rgba(168,85,247,0.28) 0%, transparent 70%)", pointerEvents: "none" }} />
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "60%", background: "linear-gradient(to top, rgba(168,85,247,0.18) 0%, transparent 100%)", pointerEvents: "none" }} />
+                <div style={{ position: "absolute", inset: 0, opacity: 0.04, backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundSize: "200px" }} />
                 <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", flexDirection: "column" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-                    <span style={{ fontSize: 7, fontWeight: 800, color: VIO, background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.3)", padding: "3px 8px", borderRadius: 4, letterSpacing: 1.5, textTransform: "uppercase" }}>Drame familial</span>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: 1 }}>10 ÉP.</span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 28 }}>
+                    <span style={{ fontSize: 8, fontWeight: 800, color: VIO, background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.28)", padding: "4px 10px", borderRadius: 5, letterSpacing: 1.5, textTransform: "uppercase" }}>Drame familial</span>
+                    <span style={{ fontSize: 8, color: "rgba(255,255,255,0.3)", letterSpacing: 1, fontWeight: 600 }}>10 ÉP.</span>
                   </div>
-
                   <div style={{ flex: 1 }}>
-                    <div style={{ width: 32, height: 2, background: VIO, marginBottom: 16 }} />
-                    <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 56, fontWeight: 900, color: "#fff", lineHeight: 0.88, letterSpacing: -2, marginBottom: 20 }}>Héri-<br />tage<br />Mau-<br />dit</div>
+                    <div style={{ width: 36, height: 2, background: VIO, marginBottom: 18 }} />
+                    <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 48, fontWeight: 900, color: "#fff", lineHeight: 0.88, letterSpacing: -2, marginBottom: 22 }}>Héritage Maudit</div>
                   </div>
-
                   <div>
-                    <p style={{ fontSize: 10, color: "rgba(255,255,255,0.35)", lineHeight: 1.7, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif", marginBottom: 14 }}>
+                    <p style={{ fontSize: 11, color: "rgba(255,255,255,0.38)", lineHeight: 1.75, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif", marginBottom: 16 }}>
                       « Un testament.<br />Trois frères.<br />Un seul survivra. »
                     </p>
-                    <div style={{ height: 1, background: "rgba(168,85,247,0.2)", marginBottom: 10 }} />
-                    <div style={{ fontSize: 7, color: "rgba(255,255,255,0.15)", letterSpacing: 2, fontWeight: 700 }}>GÉNÉRÉ PAR VERTICALCLAP</div>
+                    <div style={{ height: 1, background: "rgba(168,85,247,0.18)", marginBottom: 12 }} />
+                    <div style={{ fontSize: 7, color: "rgba(255,255,255,0.18)", letterSpacing: 2, fontWeight: 700 }}>GÉNÉRÉ PAR VERTICALCLAP</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Série 3 — Double Jeu */}
-            <div className="poster-side" style={{ width: 210, flexShrink: 0, borderRadius: 20, overflow: "hidden", boxShadow: "0 40px 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(96,165,250,0.2)" }}>
-              <div style={{ background: "#060810", aspectRatio: "9/16", display: "flex", flexDirection: "column", padding: "20px 16px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: -40, left: "50%", transform: "translateX(-50%)", width: 200, height: 200, background: "radial-gradient(circle, rgba(96,165,250,0.2) 0%, transparent 70%)", pointerEvents: "none" }} />
-                <div style={{ position: "absolute", bottom: -20, left: 0, right: 0, height: "50%", background: "linear-gradient(to top, rgba(96,165,250,0.1) 0%, transparent 100%)", pointerEvents: "none" }} />
-                <div style={{ position: "absolute", inset: 0, opacity: 0.03, backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundSize: "200px" }} />
-
+            {/* Poster droite */}
+            <div style={{ width: 195, flexShrink: 0, borderRadius: 20, overflow: "hidden", boxShadow: "0 32px 64px rgba(0,0,0,0.85), 0 0 0 1px rgba(96,165,250,0.12)", opacity: 0.6, transform: "translateY(28px) rotate(3deg)", transformOrigin: "bottom center" }}>
+              <div style={{ background: "#060810", aspectRatio: "9/16", display: "flex", flexDirection: "column", padding: "18px 14px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: -40, left: "50%", transform: "translateX(-50%)", width: 180, height: 180, background: "radial-gradient(circle, rgba(96,165,250,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "55%", background: "linear-gradient(to top, rgba(96,165,250,0.08) 0%, transparent 100%)", pointerEvents: "none" }} />
                 <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", flexDirection: "column" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-                    <span style={{ fontSize: 7, fontWeight: 800, color: "#60a5fa", background: "rgba(96,165,250,0.1)", border: "1px solid rgba(96,165,250,0.25)", padding: "3px 8px", borderRadius: 4, letterSpacing: 1.5, textTransform: "uppercase" }}>Suspense</span>
-                    <span style={{ fontSize: 7, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: 1 }}>6 ÉP.</span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                    <span style={{ fontSize: 7, fontWeight: 800, color: "#60a5fa", background: "rgba(96,165,250,0.08)", border: "1px solid rgba(96,165,250,0.2)", padding: "3px 8px", borderRadius: 4, letterSpacing: 1.5, textTransform: "uppercase" }}>Suspense</span>
+                    <span style={{ fontSize: 7, color: "rgba(255,255,255,0.25)", letterSpacing: 1, fontWeight: 600 }}>6 ÉP.</span>
                   </div>
-
                   <div style={{ flex: 1 }}>
-                    <div style={{ width: 32, height: 2, background: "#60a5fa", marginBottom: 16 }} />
-                    <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 52, fontWeight: 900, color: "#fff", lineHeight: 0.88, letterSpacing: -2, marginBottom: 20 }}>Dou-<br />ble<br />Jeu</div>
+                    <div style={{ width: 28, height: 2, background: "#60a5fa", marginBottom: 14 }} />
+                    <div style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 38, fontWeight: 900, color: "#fff", lineHeight: 0.9, letterSpacing: -1.5, marginBottom: 16 }}>Double Jeu</div>
                   </div>
-
                   <div>
-                    <p style={{ fontSize: 10, color: "rgba(255,255,255,0.35)", lineHeight: 1.7, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif", marginBottom: 14 }}>
-                      « Elle ment.<br />Mais pour<br />qui ? »
-                    </p>
-                    <div style={{ height: 1, background: "rgba(96,165,250,0.15)", marginBottom: 10 }} />
-                    <div style={{ fontSize: 7, color: "rgba(255,255,255,0.15)", letterSpacing: 2, fontWeight: 700 }}>GÉNÉRÉ PAR VERTICALCLAP</div>
+                    <p style={{ fontSize: 9, color: "rgba(255,255,255,0.3)", lineHeight: 1.7, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif", marginBottom: 12 }}>« Elle ment.<br />Mais pour qui ? »</p>
+                    <div style={{ height: 1, background: "rgba(96,165,250,0.12)", marginBottom: 8 }} />
+                    <div style={{ fontSize: 6, color: "rgba(255,255,255,0.12)", letterSpacing: 2, fontWeight: 700 }}>GÉNÉRÉ PAR VERTICALCLAP</div>
                   </div>
                 </div>
               </div>
@@ -626,8 +613,31 @@ export default function Landing() {
 
           </div>
 
-          <p style={{ textAlign: "center", fontSize: 12, color: "rgba(255,255,255,0.18)", marginTop: 36, letterSpacing: 1 }}>
-            Présentation générée automatiquement · Bible + scripts inclus · Format 9:16
+          {/* Contenu généré — 3 cartes bible */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, maxWidth: 860, margin: "0 auto 48px" }}>
+            {[
+              { title: "Le Dernier Pacte", genre: "Thriller", eps: 8, logline: "Un homme signe un contrat sans lire les clauses. Sa vie entière était dans ce document.", chars: ["Maxime", "Sarah", "Le Notaire"], color: RED },
+              { title: "Héritage Maudit", genre: "Drame familial", eps: 10, logline: "Trois frères héritent d'un manoir et d'un secret que leur père a emporté dans la tombe.", chars: ["Étienne", "Clara", "Vincent"], color: VIO, featured: true },
+              { title: "Double Jeu", genre: "Suspense", eps: 6, logline: "Elle travaille pour deux camps opposés. Personne ne sait encore.", chars: ["Laure", "Marco", "L'Inspecteur"], color: "#60a5fa" },
+            ].map((s, i) => (
+              <div key={i} style={{ borderRadius: 16, padding: "20px", background: s.featured ? "rgba(168,85,247,0.06)" : "rgba(255,255,255,0.02)", border: `1px solid ${s.featured ? "rgba(168,85,247,0.2)" : BORDER}`, boxShadow: s.featured ? "0 0 32px rgba(168,85,247,0.07)" : "none" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                  <span style={{ fontSize: 8, fontWeight: 800, color: s.color, background: `${s.color}14`, border: `1px solid ${s.color}28`, padding: "3px 9px", borderRadius: 5, letterSpacing: 1.5, textTransform: "uppercase" }}>{s.genre}</span>
+                  <span style={{ fontSize: 11, color: MUTED, fontWeight: 600 }}>{s.eps} ép.</span>
+                </div>
+                <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 15, fontWeight: 700, color: TEXT, marginBottom: 8, lineHeight: 1.25 }}>{s.title}</p>
+                <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.65, marginBottom: 14, fontStyle: "italic" }}>{s.logline}</p>
+                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                  {s.chars.map(c => (
+                    <span key={c} style={{ fontSize: 10, color: "rgba(255,255,255,0.28)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", padding: "3px 8px", borderRadius: 6 }}>{c}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p style={{ textAlign: "center", fontSize: 10, color: "rgba(255,255,255,0.14)", letterSpacing: 2, textTransform: "uppercase", fontWeight: 600 }}>
+            Bible · Scripts · Variations · Format 9:16 · Généré automatiquement
           </p>
         </div>
       </div>
