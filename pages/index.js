@@ -485,6 +485,13 @@ export default function Landing() {
         </div>
       </div>
 
+      {/* BIBLE COMPLETE */}
+      <div className="sec" style={{ padding: "0 40px 80px", borderTop: `1px solid ${BORDER}` }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <img src="/bible-complete.jpg" alt="Bible complète — titre, logline, personnages, séquencier" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
+        </div>
+      </div>
+
       {/* MOCK PHONE */}
       <div className="mock-phone" style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 40px", display: "flex", justifyContent: "center", alignItems: "center", gap: 80 }}>
         <div style={{ maxWidth: 340 }}>
@@ -503,62 +510,15 @@ export default function Landing() {
 
       {/* VIRAL STATS */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.01)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", gap: 80, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
-          <div style={{ maxWidth: 340 }}>
-            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 16 }}>Conçu pour percer</p>
-            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(28px, 3vw, 42px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.15, marginBottom: 20 }}>
-              Écris une série<br /><span style={{ fontStyle: "italic", color: MUTED }}>virale.</span>
-            </h2>
-            <p style={{ color: MUTED, fontSize: 14, lineHeight: 1.75, marginBottom: 24 }}>1 épisode = 1 cliffhanger. Structure narrative conçue pour retenir l'audience jusqu'à la fin — et la faire revenir.</p>
-            {[
-              { label: "Prêt pour TikTok / Reels / Shorts", color: "#69C9D0" },
-              { label: "Soumissible à DramaBox & ReelShort", color: VIO },
-              { label: "80 épisodes générés en 1 heure", color: RED },
-            ].map(({ label, color }) => (
-              <div key={label} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: color, flexShrink: 0 }} />
-                <span style={{ color: TEXT, fontSize: 14, fontWeight: 600 }}>{label}</span>
-              </div>
-            ))}
-          </div>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <img src="/serie-virale.jpg" alt="Conçu pour percer — 1 épisode = 1 cliffhanger, TikTok Reels Shorts" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
+        </div>
+      </div>
 
-          <div style={{ position: "relative", flexShrink: 0 }}>
-            <div style={{ position: "absolute", inset: -40, borderRadius: "50%", background: `radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 70%)`, pointerEvents: "none" }} />
-            <div style={{ width: 220, background: "#000", borderRadius: 36, border: "2px solid rgba(255,255,255,0.12)", padding: "14px 0 20px", boxShadow: "0 0 60px rgba(168,85,247,0.2), 0 48px 80px rgba(0,0,0,0.8)", overflow: "hidden", position: "relative" }}>
-              <div style={{ background: "linear-gradient(180deg, #1a0510 0%, #0d0020 50%, #000 100%)", height: 340, position: "relative", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "0 14px 16px" }}>
-                <div style={{ position: "absolute", top: 16, right: 14, display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
-                  {[
-                    { icon: "♥", val: "284k", color: RED },
-                    { icon: "💬", val: "4.2k", color: TEXT },
-                    { icon: "↗", val: "Partager", color: TEXT },
-                  ].map(({ icon, val, color }) => (
-                    <div key={val} style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: 22, color }}>{icon}</div>
-                      <div style={{ fontSize: 9, color: "rgba(255,255,255,0.7)", fontWeight: 700, marginTop: 2 }}>{val}</div>
-                    </div>
-                  ))}
-                </div>
-                <div style={{ background: "rgba(255,255,255,0.06)", borderRadius: 8, padding: "6px 10px", marginBottom: 10, backdropFilter: "blur(10px)" }}>
-                  <p style={{ fontSize: 9, color: "rgba(255,255,255,0.5)", margin: "0 0 3px", fontWeight: 600 }}>💬 les_fans_de_drama</p>
-                  <p style={{ fontSize: 10, color: TEXT, margin: 0 }}>NOOOON j'avais pas vu venir 😱</p>
-                </div>
-                <div style={{ background: "rgba(255,255,255,0.06)", borderRadius: 8, padding: "6px 10px", backdropFilter: "blur(10px)" }}>
-                  <p style={{ fontSize: 9, color: "rgba(255,255,255,0.5)", margin: "0 0 3px", fontWeight: 600 }}>💬 drama_addict_officiel</p>
-                  <p style={{ fontSize: 10, color: TEXT, margin: 0 }}>Épisode 2 MAINTENANT 🔥</p>
-                </div>
-                <div style={{ marginTop: 10 }}>
-                  <p style={{ fontSize: 12, fontWeight: 800, color: TEXT, margin: "0 0 2px" }}>@verticalclap_studio</p>
-                  <p style={{ fontSize: 10, color: "rgba(255,255,255,0.6)", margin: 0, fontStyle: "italic" }}>Épisode 3 — « Il savait depuis le début »</p>
-                </div>
-              </div>
-              <div style={{ background: "#000", padding: "10px 14px 0", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <span style={{ fontSize: 9, fontWeight: 800, color: "rgba(255,255,255,0.3)", letterSpacing: 1 }}>2.3M VUES</span>
-                <div style={{ background: RED, borderRadius: 4, padding: "3px 8px" }}>
-                  <span style={{ fontSize: 9, fontWeight: 800, color: "#fff", letterSpacing: 0.5 }}>SUIVRE</span>
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* LE MIXEUR */}
+      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <img src="/le%20mixeur.png" alt="Le Mixeur — 12 univers, 16 secrets, 4 castings" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
         </div>
       </div>
 
@@ -669,79 +629,14 @@ export default function Landing() {
       {/* POUR QUI */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <Label color={RED}>Pour qui</Label>
-          <Title>Fait pour les créateurs<br /><span style={{ fontStyle: "italic", color: MUTED }}>qui tournent vraiment.</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Peu importe ton niveau ou ton équipe</p>
-          <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
-            {[
-              {
-                icon: <TikTokIcon size={28} />,
-                iconColor: "#69C9D0",
-                title: "Créateur solo",
-                sub: "TikTok · Reels · Shorts",
-                desc: "Tu filmes seul avec ton téléphone. VerticalClap gènère la bible, les scripts et les hooks — structure narrative complète, prête à tourner sans réécriture.",
-                color: RED,
-              },
-              {
-                icon: <ClapperIcon size={28} />,
-                iconColor: VIO,
-                title: "Équipe de production",
-                sub: "2 à 5 personnes",
-                desc: "Votre équipe produit plusieurs séries par semaine. Le Mixeur garde la cohérence de ton univers, le cloud synchronise tout. Jusqu'à 90 épisodes et 4 variations par script.",
-                color: VIO,
-              },
-              {
-                icon: <PhoneIcon size={28} />,
-                iconColor: RED,
-                title: "Acteur · Réalisateur",
-                sub: "Pro du plateau",
-                desc: "Tu veux des scripts au niveau. Premium Suspense génère des dialogues avec sous-texte, jeu d'acteur précis et cadrage 9:16. Le Mode Tournage remplace le prompteur sur le plateau.",
-                color: RED,
-              },
-            ].map(({ icon, iconColor, title, sub, desc, color }, i) => (
-              <div key={i} className="glass" style={{ borderRadius: 20, padding: "32px 28px", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${i === 1 ? VIO : RED}, transparent)` }} />
-                <div style={{ width: 52, height: 52, borderRadius: 16, background: `${iconColor}14`, border: `1px solid ${iconColor}25`, display: "flex", alignItems: "center", justifyContent: "center", color: iconColor, marginBottom: 20 }}>
-                  {icon}
-                </div>
-                <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 22, fontWeight: 900, marginBottom: 4, letterSpacing: -0.5 }}>{title}</h3>
-                <p style={{ fontSize: 11, color, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", marginBottom: 16 }}>{sub}</p>
-                <p style={{ color: MUTED, lineHeight: 1.7, fontSize: 14 }}>{desc}</p>
-              </div>
-            ))}
-          </div>
+          <img src="/les-createurs.jpg" alt="Fait pour les créateurs qui tournent vraiment — solo, équipe, pro" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)" }} />
         </div>
       </div>
 
-      {/* COMMENT ÇA MARCHE */}
+      {/* PIPELINE */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <Label color={VIO}>Comment ça marche</Label>
-          <Title>De zéro à une série<br /><span style={{ fontStyle: "italic" }}>en 3 étapes.</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>Du concept au script prêt à tourner</p>
-          <div style={{ position: "relative" }}>
-            <div className="timeline-line" style={{ position: "absolute", top: 28, left: "calc(16.66% - 1px)", right: "calc(16.66% - 1px)", height: 2, background: BORDER, zIndex: 0 }}>
-              <div style={{ height: "100%", background: `linear-gradient(90deg, ${RED}, ${VIO})`, animation: "lineGrow 1.8s ease forwards 0.3s", width: 0 }} />
-            </div>
-            <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, position: "relative", zIndex: 1 }}>
-              {[
-                { step: "01", Icon: BoltIcon, iconColor: RED, title: "Configure le Mixeur", desc: "Choisis ton casting, ton univers et ton secret central — ou utilise un pack thématique en 1 clic. 12 univers, 16 secrets disponibles.", delay: "0s" },
-                { step: "02", Icon: ClapperIcon, iconColor: VIO, title: "La bible se génère en live", desc: "Titre viral, logline, personnages et séquencier complet apparaissent en temps réel. Les épisodes arrivent en parallèle automatiquement.", delay: "0.5s" },
-                { step: "03", Icon: PhoneIcon, iconColor: RED, title: "Tourne avec le script", desc: "Ouvre un épisode, génère le script en 10s. Mode Tournage avec téléprompteur, fond clair/sombre, vitesse réglable. Prêt à filmer.", delay: "1s" },
-              ].map(({ step, Icon, iconColor, title, desc, delay }) => (
-                <div key={step} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <div style={{ width: 56, height: 56, borderRadius: "50%", background: `linear-gradient(135deg, ${iconColor}20, ${iconColor}08)`, border: `2px solid ${iconColor}`, display: "flex", alignItems: "center", justifyContent: "center", color: iconColor, marginBottom: 24, animation: `nodePop 0.5s ease forwards ${delay}`, opacity: 0, boxShadow: `0 0 20px ${iconColor}30`, zIndex: 2 }}>
-                    <Icon size={22} />
-                  </div>
-                  <div className="glass" style={{ borderRadius: 20, padding: "24px 24px", width: "100%", textAlign: "center", position: "relative", overflow: "hidden" }}>
-                    <span style={{ fontSize: 10, fontWeight: 800, color: MUTED, letterSpacing: 3, fontFamily: "monospace", display: "block", marginBottom: 10 }}>{step}</span>
-                    <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 19, fontWeight: 700, marginBottom: 10, letterSpacing: -0.3 }}>{title}</h3>
-                    <p style={{ color: MUTED, lineHeight: 1.65, fontSize: 13 }}>{desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <img src="/pipeline.png" alt="Le pipeline créatif — du concept au tournage en 5 étapes" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.1), 0 32px 80px rgba(0,0,0,0.5)" }} />
         </div>
       </div>
 
@@ -771,6 +666,13 @@ export default function Landing() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* VARIATIONS */}
+      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <img src="/varation%20de%20script.png" alt="3 variations par script — Intense, Subtil, Rapide" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)" }} />
         </div>
       </div>
 
