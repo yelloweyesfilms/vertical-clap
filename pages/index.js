@@ -407,7 +407,7 @@ export default function Landing() {
       <div style={{ padding: "60px 40px", textAlign: "center", background: "linear-gradient(180deg, rgba(168,85,247,0.04) 0%, transparent 100%)", borderBottom: `1px solid ${BORDER}` }}>
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 32, fontFamily: "'Space Grotesk', sans-serif" }}>Des vidéos impossibles à scroller</p>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <img src="/cliffhangers%20.png" alt="Cliffhangers — scènes impossibles à scroller" style={{ width: "100%", display: "block", borderRadius: 16 }} />
+          <img src="/cliffhangers.jpg" alt="Cliffhangers — scènes impossibles à scroller" style={{ width: "100%", display: "block", borderRadius: 16 }} />
         </div>
         <p style={{ color: MUTED, fontSize: 14, marginTop: 32 }}>Chaque épisode généré se termine par un cliffhanger conçu pour retenir l'audience.</p>
       </div>
