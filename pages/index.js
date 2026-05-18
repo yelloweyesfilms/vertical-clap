@@ -488,7 +488,7 @@ export default function Landing() {
       {/* BIBLE COMPLETE */}
       <div className="sec" style={{ padding: "0 40px 80px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <img src="/bible-complete.jpg" alt="Bible complète — titre, logline, personnages, séquencier" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
+          <img src="/bible%20complete%20.png" alt="Bible complète — titre, logline, personnages, séquencier" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
         </div>
       </div>
 
@@ -511,7 +511,7 @@ export default function Landing() {
       {/* VIRAL STATS */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.01)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <img src="/serie-virale.jpg" alt="Conçu pour percer — 1 épisode = 1 cliffhanger, TikTok Reels Shorts" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
+          <img src="/serie%20virale.png" alt="Conçu pour percer — 1 épisode = 1 cliffhanger, TikTok Reels Shorts" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)" }} />
         </div>
       </div>
 
@@ -629,7 +629,7 @@ export default function Landing() {
       {/* POUR QUI */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <img src="/les-createurs.jpg" alt="Fait pour les créateurs qui tournent vraiment — solo, équipe, pro" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)" }} />
+          <img src="/les%20createurs.png" alt="Fait pour les créateurs qui tournent vraiment — solo, équipe, pro" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)" }} />
         </div>
       </div>
 
