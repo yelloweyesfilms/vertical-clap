@@ -399,26 +399,15 @@ export default function Landing() {
 {/* HERO VISUAL */}
 <div style={{ maxWidth: 900, margin: "0 auto 0", padding: "0 40px 80px" }}>
   <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", boxShadow: "0 0 80px rgba(168,85,247,0.15), 0 0 40px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)", border: "1px solid rgba(168,85,247,0.2)" }}>
-    <img src="/hero.png" alt="VerticalClap — Génère tes scripts verticaux en 5 min" style={{ width: "100%", display: "block", borderRadius: 20 }} />
+    <img src="/banniere%20hero.png" alt="VerticalClap — Ta série prête à tourner en 5 minutes" style={{ width: "100%", display: "block", borderRadius: 20 }} />
   </div>
 </div>
 
       {/* CLIFFHANGERS */}
       <div style={{ padding: "60px 40px", textAlign: "center", background: "linear-gradient(180deg, rgba(168,85,247,0.04) 0%, transparent 100%)", borderBottom: `1px solid ${BORDER}` }}>
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 32, fontFamily: "'Space Grotesk', sans-serif" }}>Des vidéos impossibles à scroller</p>
-        <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", flexDirection: "column", gap: 0 }}>
-          {[
-            { text: "Il ouvre le message. Son nom apparaît.", color: RED },
-            { text: "Ce bébé n'est pas le tien.", color: VIO },
-            { text: "Elle reconnaît la voix.", color: "#60a5fa" },
-            { text: "6 mois plus tard.", color: MUTED },
-            { text: "Elle ment depuis le début.", color: RED },
-          ].map((c, i) => (
-            <div key={i} style={{ padding: "14px 0", borderBottom: i < 4 ? `1px solid ${BORDER}` : "none", display: "flex", alignItems: "center", gap: 20, justifyContent: "center" }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: c.color, flexShrink: 0, boxShadow: `0 0 10px ${c.color}` }} />
-              <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(20px, 3vw, 36px)", fontWeight: 900, color: TEXT, letterSpacing: -0.5, margin: 0, fontStyle: "italic" }}>{c.text}</p>
-            </div>
-          ))}
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <img src="/cliffhangers%20.png" alt="Cliffhangers — scènes impossibles à scroller" style={{ width: "100%", display: "block", borderRadius: 16 }} />
         </div>
         <p style={{ color: MUTED, fontSize: 14, marginTop: 32 }}>Chaque épisode généré se termine par un cliffhanger conçu pour retenir l'audience.</p>
       </div>
@@ -506,44 +495,9 @@ export default function Landing() {
           <p style={{ color: MUTED, fontSize: 14, lineHeight: 1.75 }}>Hook percutant, dialogues, indications de jeu, cadrage 9:16 — tout est là. Ouvre le Mode Tournage et tourne directement depuis l'écran.</p>
         </div>
 
-        <div style={{ position: "relative", flexShrink: 0 }}>
+        <div style={{ position: "relative", flexShrink: 0, maxWidth: 300 }}>
           <div style={{ position: "absolute", inset: -40, borderRadius: "50%", background: `radial-gradient(circle, rgba(232,92,58,0.12) 0%, transparent 70%)`, pointerEvents: "none" }} />
-          <div style={{ position: "absolute", inset: -20, borderRadius: 60, background: `radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 80%)`, pointerEvents: "none" }} />
-
-          <div style={{ width: 240, background: "#0a0a14", border: `1.5px solid rgba(168,85,247,0.3)`, borderRadius: 44, padding: "28px 18px 24px", boxShadow: `0 0 60px rgba(168,85,247,0.15), 0 0 30px rgba(232,92,58,0.1), 0 48px 80px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,0.06)` }}>
-            <div style={{ width: 52, height: 5, background: "rgba(255,255,255,0.08)", borderRadius: 10, margin: "0 auto 22px" }} />
-
-            <div style={{ background: "linear-gradient(180deg, #1a0a05 0%, #0d0505 60%, #09090f 100%)", borderRadius: 18, padding: "16px 14px", marginBottom: 14, position: "relative", overflow: "hidden", minHeight: 160 }}>
-              <div style={{ position: "absolute", bottom: -20, left: "50%", transform: "translateX(-50%)", width: 160, height: 80, background: `radial-gradient(ellipse, rgba(232,92,58,0.25) 0%, transparent 70%)`, pointerEvents: "none" }} />
-              <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 10 }}>
-                <div style={{ width: 5, height: 5, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
-                <span style={{ fontSize: 7, fontWeight: 800, color: RED, letterSpacing: 2, textTransform: "uppercase", fontFamily: "monospace" }}>REC · EP.01</span>
-              </div>
-              <p style={{ fontSize: 7, fontWeight: 800, color: RED, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 6, fontFamily: "monospace" }}>⚡ Hook — 3 sec</p>
-              <p style={{ fontSize: 11, fontWeight: 600, color: TEXT, lineHeight: 1.5, marginBottom: 8 }}>« Si vous regardez ça... c'est que j'ai pas réussi. »</p>
-              <p style={{ fontSize: 9, color: MUTED, fontStyle: "italic", marginBottom: 10 }}>[9:16] Gros plan, yeux dans l'objectif</p>
-              <div style={{ height: 1, background: BORDER, marginBottom: 10 }} />
-              <p style={{ fontSize: 8, fontWeight: 800, color: VIO, letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>MAYA</p>
-              <p style={{ fontSize: 11, fontWeight: 500, color: TEXT, lineHeight: 1.5, marginBottom: 4 }}>Tu as réussi. Regarde ce que j'ai trouvé.</p>
-              <p style={{ fontSize: 9, color: MUTED, fontStyle: "italic" }}>[9:16] Insert téléphone, notif qui clignote</p>
-            </div>
-
-            <div style={{ background: `linear-gradient(135deg, ${RED}22, ${VIO}22)`, border: `1px solid ${RED}40`, borderRadius: 10, padding: "8px 12px", display: "flex", alignItems: "center", gap: 6 }}>
-              <span style={{ fontSize: 9, fontWeight: 800, color: RED, letterSpacing: 1, textTransform: "uppercase", fontFamily: "monospace" }}>🎬 CLIFFHANGER</span>
-            </div>
-
-            <div style={{ marginTop: 14, display: "flex", justifyContent: "center", gap: 4 }}>
-              {[1, 0.4, 0.2, 0.15, 0.1].map((o, i) => (
-                <div key={i} style={{ width: i === 0 ? 18 : 5, height: 5, borderRadius: 10, background: `rgba(255,255,255,${o})` }} />
-              ))}
-            </div>
-          </div>
-
-          <div style={{ position: "absolute", right: -36, top: "50%", transform: "translateY(-50%) rotate(90deg)", display: "flex", alignItems: "center", gap: 6 }}>
-            <div style={{ width: 20, height: 1, background: RED }} />
-            <span style={{ fontSize: 10, fontWeight: 800, color: RED, letterSpacing: 2 }}>9:16</span>
-            <div style={{ width: 20, height: 1, background: RED }} />
-          </div>
+          <img src="/script%20%C3%A0%20l'%C3%A9cran.png" alt="Script à l'écran — Mode Tournage VerticalClap" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 48px 80px rgba(0,0,0,0.8)" }} />
         </div>
       </div>
 
