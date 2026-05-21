@@ -66,6 +66,9 @@ const COPY = {
     annualSavings: "2 mois offerts par rapport au mensuel",
     billedStandardAnnual: "facturé 90€/an",
     billedPremiumAnnual: "facturé 179€/an",
+    perMonth: "/mois",
+    planStandard: "Standard",
+    planPremium: "Premium",
     standardFeatures: [
       "⚡ Fast Drama uniquement",
       "10 épisodes par série",
@@ -234,6 +237,9 @@ const COPY = {
     annualSavings: "2 months free compared to monthly",
     billedStandardAnnual: "billed €90/year",
     billedPremiumAnnual: "billed €179/year",
+    perMonth: "/month",
+    planStandard: "Standard",
+    planPremium: "Premium",
     standardFeatures: [
       "⚡ Fast Drama only",
       "10 episodes per series",
@@ -921,14 +927,14 @@ export default function RichLandingPage({ lang = "fr" }) {
 
           <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
             <div className="glass" style={{ borderRadius: 24, padding: "36px 32px", position: "relative" }}>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 12 }}>Standard</p>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 12 }}>{c.planStandard}</p>
               <div style={{ display: "flex", alignItems: "flex-end", gap: 6, marginBottom: 4 }}>
                 <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 58, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                   {billing === "annual" ? "7.5€" : "9€"}
                 </div>
                 {billing === "annual" && <span style={{ fontSize: 14, color: MUTED, marginBottom: 10, textDecoration: "line-through" }}>9€</span>}
               </div>
-              <p style={{ color: MUTED, fontSize: 13, marginBottom: billing === "annual" ? 6 : 28 }}>/mois</p>
+              <p style={{ color: MUTED, fontSize: 13, marginBottom: billing === "annual" ? 6 : 28 }}>{c.perMonth}</p>
               {billing === "annual" && <p style={{ fontSize: 12, color: "#4ade80", fontWeight: 600, marginBottom: 22 }}>{c.billedStandardAnnual}</p>}
               <div style={{ marginBottom: 28 }}>
                 {c.standardFeatures.map((item, i) => (
@@ -945,14 +951,14 @@ export default function RichLandingPage({ lang = "fr" }) {
 
             <div style={{ borderRadius: 24, padding: "36px 32px", position: "relative", background: "rgba(168,85,247,0.05)", border: "1px solid rgba(168,85,247,0.25)", boxShadow: "0 0 48px rgba(168,85,247,0.08)" }}>
               <div style={{ position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 16px", borderRadius: 20, letterSpacing: 1.5, whiteSpace: "nowrap" }}>⭐ RECOMMANDÉ</div>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 12 }}>Premium</p>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 12 }}>{c.planPremium}</p>
               <div style={{ display: "flex", alignItems: "flex-end", gap: 6, marginBottom: 4 }}>
                 <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 58, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                   {billing === "annual" ? "14.9€" : "19€"}
                 </div>
                 {billing === "annual" && <span style={{ fontSize: 14, color: MUTED, marginBottom: 10, textDecoration: "line-through" }}>19€</span>}
               </div>
-              <p style={{ color: MUTED, fontSize: 13, marginBottom: billing === "annual" ? 6 : 28 }}>/mois</p>
+              <p style={{ color: MUTED, fontSize: 13, marginBottom: billing === "annual" ? 6 : 28 }}>{c.perMonth}</p>
               {billing === "annual" && <p style={{ fontSize: 12, color: "#4ade80", fontWeight: 600, marginBottom: 22 }}>{c.billedPremiumAnnual}</p>}
               <div style={{ marginBottom: 28 }}>
                 {c.premiumFeatures.map((item, i) => (
