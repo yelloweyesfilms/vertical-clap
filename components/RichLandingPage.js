@@ -126,7 +126,14 @@ const COPY = {
     resourcesBody: "Écriture, hooks, plateformes, monétisation — tout ce qu'il faut savoir.",
     readTime: "de lecture",
     viewAllGuides: "Voir tous les guides →",
+    footerBlogLinks: [
+      { href: "/blog", label: "Blog" },
+      { href: "/blog/qu-est-ce-qu-un-micro-drama", label: "Guide micro-drama" },
+      { href: "/blog/comment-ecrire-un-hook-tiktok", label: "Écrire un hook" },
+      { href: "/blog/monetiser-micro-drama-dramabox-reelshort", label: "Monétiser sa série" },
+    ],
     ctaFinalTitle1: "Ta première série,",
+    ctaFinalConnector: "dans",
     ctaFinalTitle2: "5 minutes",
     ctaFinalSubtitle: "Rejoins les créateurs qui produisent plus vite avec l'IA.",
     ctaFinalTrustItems: [
@@ -298,7 +305,14 @@ const COPY = {
     resourcesBody: "Writing, hooks, platforms, monetization — everything you need to know.",
     readTime: "read",
     viewAllGuides: "View all guides →",
+    footerBlogLinks: [
+      { href: "/en/blog", label: "Blog" },
+      { href: "/en/blog/qu-est-ce-qu-un-micro-drama", label: "Micro-drama guide" },
+      { href: "/en/blog/comment-ecrire-un-hook-tiktok", label: "Write a hook" },
+      { href: "/en/blog/tiktok-vs-dramabox-vs-reelshort-ou-publier-micro-drama", label: "Monetize your series" },
+    ],
     ctaFinalTitle1: "Your first series,",
+    ctaFinalConnector: "in",
     ctaFinalTitle2: "5 minutes",
     ctaFinalSubtitle: "Join creators who produce faster with AI.",
     ctaFinalTrustItems: [
@@ -1022,7 +1036,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>{c.resourcesBody}</p>
           <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginBottom: 40 }}>
             {(lang === "en" ? POSTS_EN : POSTS).slice(0, 3).map((post) => (
-              <a key={post.slug} href={`/blog/${post.slug}`} style={{ display: "flex", flexDirection: "column", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, padding: "28px 24px", textDecoration: "none", color: "inherit", transition: "border-color .2s" }}>
+              <a key={post.slug} href={lang === "en" ? `/en/blog/${post.slug}` : `/blog/${post.slug}`} style={{ display: "flex", flexDirection: "column", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, padding: "28px 24px", textDecoration: "none", color: "inherit", transition: "border-color .2s" }}>
                 <div style={{ marginBottom: 16 }}>
                   <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: post.categoryColor, background: `${post.categoryColor}12`, border: `1px solid ${post.categoryColor}25`, padding: "3px 10px", borderRadius: 6 }}>{post.category}</span>
                 </div>
@@ -1036,7 +1050,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             ))}
           </div>
           <div style={{ textAlign: "center" }}>
-            <a href="/blog" style={{ display: "inline-block", border: `1px solid ${BORDER}`, color: TEXT, padding: "12px 28px", borderRadius: 12, fontSize: 14, fontWeight: 700, textDecoration: "none", background: SURFACE }}>
+            <a href={lang === "en" ? "/en/blog" : "/blog"} style={{ display: "inline-block", border: `1px solid ${BORDER}`, color: TEXT, padding: "12px 28px", borderRadius: 12, fontSize: 14, fontWeight: 700, textDecoration: "none", background: SURFACE }}>
               {c.viewAllGuides}
             </a>
           </div>
@@ -1049,7 +1063,7 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ position: "relative", zIndex: 1 }}>
           <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 900, marginBottom: 20, letterSpacing: -2, lineHeight: 1.0 }}>
             {c.ctaFinalTitle1}<br />
-            dans{" "}
+            {c.ctaFinalConnector}{" "}
             <span style={{ background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
               {c.ctaFinalTitle2}
             </span>
@@ -1092,12 +1106,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             </div>
             <div>
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>{c.footerRessources}</p>
-              {[
-                { href: "/blog", label: "Blog" },
-                { href: "/blog/qu-est-ce-qu-un-micro-drama", label: "Guide micro-drama" },
-                { href: "/blog/comment-ecrire-un-hook-tiktok", label: "Écrire un hook" },
-                { href: "/blog/monetiser-micro-drama-dramabox-reelshort", label: "Monétiser sa série" },
-              ].map(({ href, label }) => (
+              {c.footerBlogLinks.map(({ href, label }) => (
                 <a key={href} href={href} style={{ display: "block", fontSize: 13, color: MUTED, marginBottom: 10, fontWeight: 500 }}>{label}</a>
               ))}
             </div>
