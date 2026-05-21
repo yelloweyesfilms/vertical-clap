@@ -3,14 +3,22 @@ import { useRouter } from "next/router";
 import { CONTENT } from "../lib/content";
 
 const LOGO = (
-  <svg width="24" height="24" viewBox="0 0 30 30" fill="none">
-    <rect width="30" height="30" rx="7" fill="#E85C3A"/>
-    <rect x="6" y="14" width="18" height="11" rx="2" fill="white"/>
-    <rect x="6" y="10" width="18" height="5" rx="1" fill="white" opacity="0.9"/>
-    <line x1="10" y1="10" x2="8" y2="15" stroke="#E85C3A" strokeWidth="1.5"/>
-    <line x1="15" y1="10" x2="13" y2="15" stroke="#E85C3A" strokeWidth="1.5"/>
-    <line x1="20" y1="10" x2="18" y2="15" stroke="#E85C3A" strokeWidth="1.5"/>
-    <polygon points="13,17 13,23 20,20" fill="#E85C3A"/>
+  <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+    {/* Fond arrondi */}
+    <rect width="32" height="32" rx="8" fill="#E85C3A"/>
+    {/* Corps du clapperboard — format vertical 9:16 */}
+    <rect x="9" y="14" width="14" height="13" rx="2" fill="white"/>
+    {/* Barre du haut avec stries */}
+    <rect x="9" y="10" width="14" height="5" rx="1.5" fill="white"/>
+    {/* Stries noires diagonales */}
+    <line x1="11" y1="10" x2="13.5" y2="15" stroke="#E85C3A" strokeWidth="1.8" strokeLinecap="round"/>
+    <line x1="15" y1="10" x2="17.5" y2="15" stroke="#E85C3A" strokeWidth="1.8" strokeLinecap="round"/>
+    <line x1="19" y1="10" x2="21" y2="15" stroke="#E85C3A" strokeWidth="1.8" strokeLinecap="round"/>
+    {/* Charnière gauche */}
+    <circle cx="10" cy="10" r="1.2" fill="#c0392b"/>
+    {/* Lignes de script dans le corps */}
+    <line x1="12" y1="18" x2="20" y2="18" stroke="#E85C3A" strokeWidth="1" strokeLinecap="round" opacity="0.5"/>
+    <line x1="12" y1="21" x2="17" y2="21" stroke="#E85C3A" strokeWidth="1" strokeLinecap="round" opacity="0.5"/>
   </svg>
 );
 
