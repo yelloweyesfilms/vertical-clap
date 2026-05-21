@@ -9,7 +9,7 @@ function getRedis() {
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
 
-  const { email } = req.body || {};
+  const { email, lang = "fr" } = req.body || {};
   if (!email || typeof email !== "string" || !email.includes("@")) {
     return res.status(400).json({ error: "Email invalide" });
   }
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
 
   // Toujours envoyer le mail de bienvenue (même si déjà inscrit, au cas où il ne l'a pas reçu)
   try {
-    await sendNewsletterWelcomeEmail({ email: normalized });
+    await sendNewsletterWelcomeEmail({ email: normalized, lang });
   } catch (e) {
     console.error("[newsletter] sendNewsletterWelcomeEmail failed:", e?.message || e);
     return res.json({ ok: true, already: !isNew, emailError: e?.message });

@@ -392,7 +392,7 @@ function NewsletterSection({ lang = "fr" }) {
     if (!nlEmail || !nlEmail.includes("@")) return;
     setNlState("loading");
     try {
-      const res = await fetch("/api/newsletter", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: nlEmail }) });
+      const res = await fetch("/api/newsletter", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: nlEmail, lang }) });
       const data = await res.json();
       setNlState(data.ok ? "done" : "error");
     } catch { setNlState("error"); }
