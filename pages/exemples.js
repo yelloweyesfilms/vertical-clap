@@ -128,7 +128,7 @@ export default function Exemples() {
       <div style={{ borderBottom: "1px solid #E8E4DC" }}>
         <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 40px", maxWidth: 1100, margin: "0 auto" }}>
           <a href="/" style={{ fontFamily: "var(--serif)", fontSize: 15, fontWeight: 900, textDecoration: "none", color: "#1A1A18" }}>
-            ← VERTICAL STUDIO
+            ← VERTICALCLAP
           </a>
           <a href="/app" style={{ fontSize: 14, color: "#6B6B68", textDecoration: "none" }}>Se connecter</a>
         </nav>

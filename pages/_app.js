@@ -12,8 +12,8 @@ export default function App({ Component, pageProps }) {
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-        <title>Vertical Studio</title>
-        <meta name="description" content="Crée tes micro-dramas verticaux en 5 minutes. Écris, structure et tourne." />
+        <title>VerticalClap</title>
+        <meta name="description" content="The studio for addictive vertical dramas. Generate scripts, bibles and cliffhangers in seconds." />
       </Head>
       <Script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" strategy="afterInteractive" />
       <Component {...pageProps} />
