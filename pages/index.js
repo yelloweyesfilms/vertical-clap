@@ -88,32 +88,20 @@ export default function Landing() {
       <div style={s.hero}>
         <div style={s.tag}>🎬 Le studio mobile des séries verticales</div>
         <h1 style={s.h1}>
-          De l'idée<br />au <span style={s.accent}>cliffhanger</span>.<br />En 5 minutes.
+          De l'idée à la série<br />en <span style={s.accent}>quelques secondes</span>.
         </h1>
         <p style={s.sub}>
-          Écris, structure et prépare tes micro-dramas 9:16 avec l'IA. Scripts complets, hooks percutants, prêts à tourner sur mobile.
+          Titre, bible, personnages, scripts — tout généré et prêt à tourner.
         </p>
         {canceled && <p style={{ color: "#E85C3A", marginBottom: 16, fontSize: 14 }}>Paiement annulé. Réessaie quand tu veux.</p>}
-        <div style={s.ctaRow}>
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <input
-              type="email"
-              placeholder="ton@email.com"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && startCheckout()}
-              style={{ padding: "16px 20px", borderRadius: 12, border: "1px solid #2a3a2e", background: "#fff", color: "#1A1A18", fontSize: 15, width: 240, outline: "none" }}
-            />
-            <button style={{ ...s.btnRed, opacity: loading ? .7 : 1 }} onClick={startCheckout} disabled={loading}>
-              {loading ? "Redirection…" : "Commencer →"}
-            </button>
-          </div>
+        <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
+          <a href="#demo" style={{ ...s.btnRed, textDecoration: "none", display: "inline-block" }}>Voir un exemple ↓</a>
+          <a href="#tarifs" style={{ color: "#6B6B68", fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Voir les tarifs →</a>
         </div>
-        <p style={{ color: "#AAA8A4", fontSize: 13, marginTop: 14 }}>9€/mois · Annulable à tout moment · Aucun engagement</p>
       </div>
 
       {/* MOCK PHONE */}
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 40px 60px" }}>
+      <div id="demo" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 40px 60px" }}>
         <div style={s.phone}>
           <div style={s.phoneNotch} />
           {["⚡ HOOK — 3 PREMIÈRES SECONDES", "MAYA", "Si vous regardez ça... c'est que j'ai pas réussi.", "[9:16] Gros plan face caméra", "LUCA", "Tu as réussi. Regarde ce que j'ai trouvé.", "[9:16] Insert téléphone, notification", "🎬 CLIFFHANGER", "L'écran s'allume. ACCESS GRANTED."].map((line, i) => (
@@ -132,12 +120,15 @@ export default function Landing() {
 
       {/* FEATURES */}
       <div style={s.features}>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 36, fontWeight: 900, textAlign: "center", marginBottom: 48, color: "#fff" }}>
-          Le pipeline créatif complet
-        </h2>
-        <div style={s.featGrid}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 48 }}>
+          <h2 style={{ fontFamily: "var(--serif)", fontSize: 36, fontWeight: 900, color: "#fff", margin: 0 }}>
+            Le pipeline créatif complet
+          </h2>
+          <span style={{ color: "#E85C3A", fontSize: 22, fontWeight: 700, flexShrink: 0 }}>→</span>
+        </div>
+        <div style={{ display: "flex", gap: 20, overflowX: "auto", paddingBottom: 12, scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }}>
           {FEATURES.map((f, i) => (
-            <div key={i} style={s.featCard}>
+            <div key={i} style={{ ...s.featCard, minWidth: 260, flexShrink: 0 }}>
               <div style={s.featIcon}>{f.icon}</div>
               <h3 style={s.featTitle}>{f.title}</h3>
               <p style={s.featDesc}>{f.desc}</p>
@@ -147,7 +138,7 @@ export default function Landing() {
       </div>
 
       {/* PRICING */}
-      <div style={{ ...s.pricing, maxWidth: 860 }}>
+      <div id="tarifs" style={{ ...s.pricing, maxWidth: 860 }}>
         <h2 style={{ fontFamily: "var(--serif)", fontSize: 34, fontWeight: 900, marginBottom: 12, color: "#1A1A18" }}>Choisissez votre plan</h2>
         <p style={{ color: "#6B6B68", marginBottom: 36, fontSize: 15 }}>Annulable à tout moment · Sans engagement</p>
         <input type="email" placeholder="ton@email.com" value={email} onChange={e => setEmail(e.target.value)}
