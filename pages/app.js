@@ -486,18 +486,21 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
             </div>
             <div style={{ background: "#fff5f2", borderRadius: 10, padding: 12, marginBottom: 10 }}>
               <p style={{ fontSize: 10, fontWeight: 700, color: "var(--r)", letterSpacing: 1, textTransform: "uppercase", marginBottom: 6 }}>⚡ Hook</p>
-              <p style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.4 }}>{v.hook_scene?.texte}</p>
+              <p style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.4, marginBottom: 4 }}>{v.hook_scene?.texte}</p>
+              {v.hook_scene?.visuel_916 && <p style={{ fontSize: 11, color: "var(--r)", fontStyle: "italic" }}>[9:16] {v.hook_scene.visuel_916}</p>}
             </div>
             {(v.scenes || []).slice(0, 2).map((s, j) => (
               <div key={j} style={{ borderLeft: "2px solid var(--bo)", paddingLeft: 10, marginBottom: 8 }}>
                 <p style={{ fontSize: 10, fontWeight: 700, color: "var(--n)", textTransform: "uppercase", marginBottom: 3 }}>{s.perso} {s.jeu && <span style={{ fontStyle: "italic", fontWeight: 400, color: "var(--mt)" }}>· {s.jeu}</span>}</p>
-                <p style={{ fontSize: 13, lineHeight: 1.5 }}>{s.dialogue}</p>
+                <p style={{ fontSize: 13, lineHeight: 1.5, marginBottom: 3 }}>{s.dialogue}</p>
+                {s.visuel_916 && <p style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {s.visuel_916}</p>}
               </div>
             ))}
             {(v.scenes || []).length > 2 && <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic" }}>+ {v.scenes.length - 2} réplique(s)…</p>}
             <div style={{ background: "var(--tx)", borderRadius: 10, padding: 12, marginTop: 10 }}>
               <p style={{ fontSize: 10, fontWeight: 700, color: "var(--r)", letterSpacing: 1, textTransform: "uppercase", marginBottom: 6 }}>🎬 Cliffhanger</p>
-              <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", lineHeight: 1.4 }}>{v.cliffhanger_scene?.texte}</p>
+              <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", lineHeight: 1.4, marginBottom: 4 }}>{v.cliffhanger_scene?.texte}</p>
+              {v.cliffhanger_scene?.visuel_916 && <p style={{ fontSize: 11, color: "var(--r)", fontStyle: "italic" }}>[9:16] {v.cliffhanger_scene.visuel_916}</p>}
             </div>
           </div>
         ))}
