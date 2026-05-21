@@ -1,0 +1,26 @@
+import { stripe } from "../../lib/stripe";
+import { requireSub } from "../../lib/auth";
+import * as Sentry from "@sentry/nextjs";
+
+const RETURN_URL = process.env.NEXT_PUBLIC_URL
+  ? `${process.env.NEXT_PUBLIC_URL}/app`
+  : "https://verticalclap.app/app";
+
+export default async function handler(req, res) {
+  if (req.method !== "POST") return res.status(405).end();
+
+  const sub = await requireSub(req, res);
+  if (!sub) return;
+  const { customerId } = sub;
+
+  try {
+    const session = await stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: RETURN_URL,
+    });
+    res.json({ url: session.url });
+  } catch (e) {
+    Sentry.captureException(e);
+    res.status(500).json({ error: e.message });
+  }
+}

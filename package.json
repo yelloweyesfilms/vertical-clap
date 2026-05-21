@@ -7,13 +7,19 @@
     "build": "next build",
     "start": "next start"
   },
-  "engines": { "node": ">=18.0.0 <22.0.0" },
+  "engines": {
+    "node": ">=18.0.0 <22.0.0"
+  },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.0",
+    "@sentry/nextjs": "^10.53.1",
+    "@upstash/redis": "^1.38.0",
+    "@vercel/og": "^0.11.1",
+    "micro": "^10.0.1",
     "next": "14.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "@anthropic-ai/sdk": "^0.24.0",
-    "stripe": "^14.0.0",
-    "micro": "^10.0.1"
+    "resend": "^6.12.3",
+    "stripe": "^14.0.0"
   }
 }

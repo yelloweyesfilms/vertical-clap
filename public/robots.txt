@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /app
+Disallow: /success
+
+Sitemap: https://verticalclap.app/sitemap.xml
