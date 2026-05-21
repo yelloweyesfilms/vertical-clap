@@ -1,371 +1,240 @@
 import { useState } from "react";
-import Head from "next/head";
-import { SERIES as SERIES_DATA } from "../lib/series";
 
-const RED = "#E85C3A";
-const VIO = "#a855f7";
-const DARK = "#09090f";
-const SURFACE = "rgba(255,255,255,0.04)";
-const BORDER = "rgba(255,255,255,0.08)";
-const TEXT = "#f1f5f9";
-const MUTED = "#64748b";
+const EXEMPLES = [
+  {
+    mode: "fast",
+    modeLabel: "⚡ Fast Drama",
+    casting: "1 Femme + 1 Homme",
+    univers: "Hôpital privé",
+    secret: "Double vie",
+    bible: {
+      titre: "Le Syndrome du Mensonge",
+      logline: "Une cardiologue découvre que son mari, chef de chirurgie, mène une double vie — et que son prochain patient est son autre famille.",
+      pitch: "Dans un hôpital privé parisien, Sofia croit tout contrôler : sa carrière, son couple, ses émotions. Jusqu'au jour où un homme inconnu arrive aux urgences avec son nom de famille tatoué sur le poignet. En cherchant à comprendre, elle va démanteler dix ans de mensonges — et mettre en danger une vie qu'elle ne savait pas protéger.",
+      personnages: [
+        { nom: "Sofia", age: 38, role: "Cardiologue cheffe de service", secret: "Elle sait depuis 6 mois. Elle n'a rien dit." },
+        { nom: "Marc", age: 42, role: "Chef de chirurgie, mari de Sofia", secret: "Il a une fille de 7 ans avec une autre femme — dans le même hôpital." },
+      ],
+      tension_centrale: "Peut-on sauver la vie de quelqu'un qu'on veut voir mourir ?",
+      episodes: 10,
+    },
+    script: {
+      numero: 1,
+      titre: "Le tatouage",
+      hook_scene: {
+        texte: "Un homme inconnu. Mon nom de famille. Sur son poignet.",
+        visuel_916: "Gros plan poignet, tatouage net, mains de Sofia qui tremblent au-dessus",
+      },
+      scenes: [
+        { perso: "SOFIA", dialogue: "Qui êtes-vous ? Ce nom... c'est le mien.", jeu: "voix plate, choc intérieur", visuel_916: "Face caméra, yeux fixes" },
+        { perso: "MARC", dialogue: "Sofia. Sors de cette salle. Maintenant.", jeu: "panique froide", visuel_916: "Plan épaule, il bloque le couloir" },
+        { perso: "SOFIA", dialogue: "Tu le connais. Tu le connais et tu ne m'as rien dit.", jeu: "colère retenue", visuel_916: "Zoom lent sur son visage" },
+      ],
+      cliffhanger_scene: {
+        texte: "L'homme ouvre les yeux. Il murmure : « Papa... »",
+        visuel_916: "Insert visage patient, regard vers Marc hors-champ",
+        label: "ÉP. 2 : LA VÉRITÉ",
+      },
+    },
+  },
+  {
+    mode: "premium",
+    modeLabel: "🎭 Premium Suspense",
+    casting: "2 Hommes",
+    univers: "Finance internationale",
+    secret: "Sabotage interne",
+    bible: {
+      titre: "L'Héritier",
+      logline: "Deux associés fondateurs d'un fonds d'investissement : l'un prépare une OPA hostile sur l'entreprise de l'autre — sans qu'il le sache.",
+      pitch: "Thomas et Karim ont tout bâti ensemble. Quinze ans d'amitié, cent millions sous gestion, un bureau au 32e étage. Mais Thomas sait quelque chose que Karim ignore : le fonds qu'ils dirigent est en train d'acheter en secret les parts de l'entreprise familiale de Karim. Dans 72 heures, Karim sera dépossédé de tout. Et il devra décider s'il peut encore faire confiance à l'homme qui a tout organisé.",
+      personnages: [
+        { nom: "Thomas", age: 44, role: "Associé gérant, stratège", secret: "Il sabote Karim sur ordre d'un investisseur étranger — ou il mourra." },
+        { nom: "Karim", age: 41, role: "Associé opérationnel, héritier", secret: "Il a déjà découvert une partie du plan. Il attend de voir jusqu'où Thomas ira." },
+      ],
+      tension_centrale: "Entre trahison et survie, lequel des deux est vraiment la victime ?",
+      episodes: 10,
+    },
+    script: {
+      numero: 3,
+      titre: "72 heures",
+      hook_scene: {
+        texte: "J'ai signé. Pour toi. Maintenant je ne peux plus rien arrêter.",
+        visuel_916: "Gros plan main sur contrat, stylo posé, pas de regard caméra",
+      },
+      scenes: [
+        { perso: "KARIM", dialogue: "Tu m'as appelé à 3h du matin pour me dire ça.", jeu: "calme dangereux", visuel_916: "Contre-plongée, fenêtre nuit derrière" },
+        { perso: "THOMAS", dialogue: "Ils ont ma femme. Karim. Ils ont ma femme depuis hier soir.", jeu: "voix brisée, premier signe de fissure", visuel_916: "Plan serré épaule, il ne regarde pas" },
+        { perso: "KARIM", dialogue: "Et tu crois que ça change quelque chose pour moi ?", jeu: "silence lourd avant de parler", visuel_916: "Zoom très lent, regard direct caméra" },
+      ],
+      cliffhanger_scene: {
+        texte: "Karim pose une enveloppe sur la table. « Je sais depuis le début. »",
+        visuel_916: "Insert enveloppe, photos visibles à l'intérieur, Thomas pâlit",
+        label: "ÉP. 4 : LE RETOURNEMENT",
+      },
+    },
+  },
+  {
+    mode: "fast",
+    modeLabel: "⚡ Fast Drama",
+    casting: "Trio mixte",
+    univers: "Famille recomposée",
+    secret: "Enfant caché",
+    bible: {
+      titre: "Notre Sang",
+      logline: "Une mère découvre que l'enfant de son nouveau mari est en réalité le fils qu'elle a abandonné à la naissance — il y a dix-sept ans.",
+      pitch: "Laure a refait sa vie. Nouveau mari, nouvelle maison, nouvelle chance. Jusqu'à ce que Nathan, 17 ans, beau-fils parfait, retrouve son acte de naissance dans les affaires de son père. Et que les dates ne mentent pas. Trois personnes. Un secret qui change tout. Et une question que personne n'ose poser : est-ce qu'on peut aimer quelqu'un qu'on a choisi d'abandonner ?",
+      personnages: [
+        { nom: "Laure", age: 36, role: "Belle-mère, ancienne infirmière", secret: "Elle a abandonné un enfant à 19 ans. Elle n'en a jamais parlé." },
+        { nom: "Nathan", age: 17, role: "Beau-fils, lycéen", secret: "Il a trouvé l'acte de naissance. Il attend que Laure lui dise la vérité." },
+        { nom: "Éric", age: 40, role: "Père de Nathan, mari de Laure", secret: "Il sait. Il a tout organisé pour que Laure et Nathan se retrouvent." },
+      ],
+      tension_centrale: "Quand le mensonge devient famille, la vérité peut-elle encore réparer ?",
+      episodes: 10,
+    },
+    script: {
+      numero: 2,
+      titre: "Le papier",
+      hook_scene: {
+        texte: "Nathan pose une feuille sur la table. Il ne dit rien. Il attend.",
+        visuel_916: "Plan large table de cuisine, mains de Nathan, Laure debout en fond",
+      },
+      scenes: [
+        { perso: "LAURE", dialogue: "C'est quoi ça ?", jeu: "sourire forcé qui se fige", visuel_916: "Gros plan visage, elle lit sans bouger" },
+        { perso: "NATHAN", dialogue: "Tu le sais très bien.", jeu: "voix posée, dix-sept ans de retenue", visuel_916: "Face caméra, bras croisés" },
+        { perso: "LAURE", dialogue: "Nathan... je t'en supplie, laisse-moi t'expliquer.", jeu: "effondrement, larmes retenues", visuel_916: "Elle s'assoit, plan poitrine" },
+      ],
+      cliffhanger_scene: {
+        texte: "Nathan : « Éric est au courant depuis combien de temps ? »",
+        visuel_916: "Insert porte entrouverte, ombre d'Éric dans le couloir",
+        label: "ÉP. 3 : LE PÈRE",
+      },
+    },
+  },
+];
 
-const SERIES = SERIES_DATA;
-
-const PLATFORM_COLORS = { TikTok: "#69C9D0", Reels: VIO, Shorts: RED };
-const PLATFORM_ICONS = { TikTok: "♪", Reels: "◈", Shorts: "▶" };
-
-const Logo = ({ size = "md" }) => {
-  const sm = size === "sm";
-  return (
-    <div style={{ display: "flex", alignItems: "stretch", gap: sm ? 7 : 10, userSelect: "none" }}>
-      <div style={{ width: 3, borderRadius: 2, background: "linear-gradient(to bottom, #ff8c42, #E85C3A)", flexShrink: 0 }} />
-      <svg width={sm ? 13 : 17} height={sm ? 22 : 28} viewBox="0 0 17 28" fill="none" style={{ flexShrink: 0, alignSelf: "center" }}>
-        <rect x="1" y="1" width="15" height="26" rx="3" stroke="white" strokeWidth="1.5"/>
-        <circle cx="8.5" cy="23.5" r="1.1" fill="white" opacity="0.5"/>
-        <rect x="5.5" y="3.5" width="6" height="1" rx="0.5" fill="white" opacity="0.4"/>
-      </svg>
-      <div style={{ alignSelf: "center", lineHeight: 1 }}>
-        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: sm ? 8 : 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
-        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: sm ? 13 : 18, fontWeight: 800, letterSpacing: -0.5, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1 }}>CLAP</div>
-      </div>
-    </div>
-  );
+const TAG_STYLE = {
+  fast: { bg: "#FFF0EC", color: "#E85C3A", border: "1px solid #FBD5C8" },
+  premium: { bg: "#E8EDF2", color: "#2a3a2e", border: "1px solid #c8d5c8" },
 };
 
-function TensionBar({ t = 0 }) {
-  return (
-    <div style={{ display: "flex", gap: 3 }}>
-      {[...Array(10)].map((_, i) => (
-        <div key={i} style={{
-          width: 5, height: 5, borderRadius: "50%",
-          background: i < t
-            ? `linear-gradient(135deg, ${RED}, ${VIO})`
-            : BORDER,
-          transition: "background .2s",
-        }} />
-      ))}
-    </div>
-  );
-}
-
-function ModeBadge({ mode }) {
-  return (
-    <span style={{
-      display: "inline-block", padding: "4px 12px", borderRadius: 6,
-      background: mode === "fast" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)",
-      border: `1px solid ${mode === "fast" ? "rgba(232,92,58,0.25)" : "rgba(168,85,247,0.25)"}`,
-      color: mode === "fast" ? RED : VIO,
-      fontSize: 10, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase",
-    }}>
-      {mode === "fast" ? "⚡ Fast Drama" : "🎭 Premium Suspense"}
-    </span>
-  );
-}
-
-function PlatformBadge({ platform }) {
-  const color = PLATFORM_COLORS[platform] || MUTED;
-  const icon = PLATFORM_ICONS[platform] || "▶";
-  return (
-    <span style={{
-      display: "inline-block", padding: "4px 12px", borderRadius: 6,
-      background: `${color}18`,
-      border: `1px solid ${color}30`,
-      color, fontSize: 10, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase",
-    }}>
-      {icon} {platform}
-    </span>
-  );
-}
-
-function SerieCard({ serie }) {
-  const { bible, episodes, script, mode, platform, mixeurParams, slug } = serie;
-  const [showScript, setShowScript] = useState(false);
-
-
-  return (
-    <div style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 24, overflow: "hidden", marginBottom: 28, backdropFilter: "blur(12px)" }}>
-      {/* Header */}
-      <div style={{ padding: "28px 32px", borderBottom: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${mode === "fast" ? RED : VIO}, transparent)` }} />
-        <div style={{ position: "absolute", top: 0, right: 0, width: 200, height: 200, background: `radial-gradient(circle, ${mode === "fast" ? "rgba(232,92,58,0.06)" : "rgba(168,85,247,0.06)"} 0%, transparent 70%)`, pointerEvents: "none" }} />
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
-          <ModeBadge mode={mode} />
-          <PlatformBadge platform={platform} />
-        </div>
-        <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(24px, 4vw, 38px)", fontWeight: 900, color: TEXT, letterSpacing: -1, marginBottom: 8, lineHeight: 1.1 }}>
-          {bible.titre}
-        </h2>
-        <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 14, fontStyle: "italic", color: MUTED, lineHeight: 1.6, marginBottom: 16 }}>
-          « {bible.logline} »
-        </p>
-        <div style={{ display: "inline-block", background: "rgba(232,92,58,0.1)", border: "1px solid rgba(232,92,58,0.2)", borderRadius: 10, padding: "10px 16px" }}>
-          <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: RED, marginBottom: 4 }}>Hook TikTok</p>
-          <p style={{ fontSize: 14, color: TEXT, fontWeight: 700 }}>{bible.accroche}</p>
-        </div>
-      </div>
-
-      <div style={{ padding: "28px 32px" }}>
-        {/* Pitch */}
-        <p style={{ fontSize: 14, lineHeight: 1.75, color: MUTED, marginBottom: 28 }}>{bible.pitch}</p>
-
-        {/* Characters */}
-        <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 12 }}>Personnages</p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12, marginBottom: 28 }}>
-          {bible.personnages.map((p, i) => (
-            <div key={i} style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${BORDER}`, borderRadius: 14, padding: "16px 18px", borderLeft: `3px solid ${i === 0 ? RED : VIO}` }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 17, fontWeight: 700, color: TEXT }}>{p.nom}</span>
-                <span style={{ fontSize: 11, color: i === 0 ? RED : VIO, fontWeight: 700 }}>{p.age} ans</span>
-              </div>
-              <p style={{ fontSize: 12, color: MUTED, marginBottom: 8 }}>{p.role}</p>
-              <p style={{ fontSize: 12, color: TEXT, opacity: 0.7 }}>🔒 {p.secret}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Tension centrale */}
-        <div style={{ background: "rgba(168,85,247,0.05)", border: "1px solid rgba(168,85,247,0.15)", borderRadius: 14, padding: "14px 18px", marginBottom: 28 }}>
-          <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: VIO, marginBottom: 6 }}>Question centrale</p>
-          <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 15, fontStyle: "italic", color: TEXT }}>« {bible.tension_centrale} »</p>
-        </div>
-
-        {/* Episodes */}
-        <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 12 }}>{episodes.length} épisodes</p>
-        <div style={{ marginBottom: 28 }}>
-          {episodes.map((ep, i) => (
-            <div key={i} style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", borderRadius: 14, background: "rgba(255,255,255,0.03)", border: `1px solid ${BORDER}`, marginBottom: 8 }}>
-              <div style={{ width: 34, height: 34, borderRadius: 10, background: `linear-gradient(135deg, ${RED}, ${VIO})`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 13, fontWeight: 900, color: "#fff" }}>{ep.numero}</span>
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: 14, fontWeight: 700, color: TEXT, marginBottom: 6 }}>{ep.titre}</p>
-                <TensionBar t={ep.tension} />
-                <p style={{ fontSize: 12, color: MUTED, marginTop: 6, overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>🎬 {ep.cliffhanger}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {slug && (
-          <div style={{ marginBottom: 12 }}>
-            <a href={`/exemples/${slug}`} style={{
-              display: "inline-flex", alignItems: "center", padding: "13px 20px", borderRadius: 14, fontSize: 14, fontWeight: 700,
-              background: SURFACE, border: `1px solid ${BORDER}`, color: TEXT,
-              textDecoration: "none",
-            }}>
-              Voir la page complète →
-            </a>
-          </div>
-        )}
-
-        {/* Script toggle */}
-        <button
-          onClick={() => setShowScript(s => !s)}
-          style={{
-            width: "100%", padding: "14px 20px", borderRadius: 12, fontSize: 14, fontWeight: 700,
-            background: showScript ? "rgba(232,92,58,0.1)" : SURFACE,
-            border: `1px solid ${showScript ? "rgba(232,92,58,0.3)" : BORDER}`,
-            color: showScript ? RED : TEXT,
-            cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif",
-            transition: "all .2s", marginBottom: showScript ? 20 : 0,
-          }}>
-          {showScript ? "Masquer le script ↑" : "📝 Voir le script de l'épisode 1 →"}
-        </button>
-
-        {showScript && (
-          <div>
-            {/* Hook */}
-            <div style={{ background: "rgba(232,92,58,0.06)", border: `1px solid rgba(232,92,58,0.2)`, borderRadius: 16, padding: 20, marginBottom: 14 }}>
-              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: RED, marginBottom: 10 }}>⚡ Hook — 3 premières secondes</p>
-              <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.5, color: TEXT, marginBottom: 10 }}>{script.hook_scene.texte}</p>
-              <p style={{ fontSize: 12, color: RED, fontStyle: "italic" }}>[9:16] {script.hook_scene.visuel_916}</p>
-            </div>
-
-            <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 10 }}>Script · {script.scenes.length} répliques</p>
-            {script.scenes.map((sc, i) => (
-              <div key={i} style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${BORDER}`, borderRadius: 14, padding: 16, borderLeft: `3px solid ${BORDER}`, marginBottom: 10 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                  <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: VIO }}>{sc.perso}</p>
-                  {sc.jeu && <span style={{ fontSize: 10, background: "rgba(168,85,247,0.1)", color: VIO, padding: "2px 10px", borderRadius: 20, fontStyle: "italic" }}>{sc.jeu}</span>}
-                </div>
-                <p style={{ fontSize: 14, lineHeight: 1.6, color: TEXT, marginBottom: 8, fontWeight: 500 }}>{sc.dialogue}</p>
-                <p style={{ fontSize: 12, color: MUTED, fontStyle: "italic" }}>[9:16] {sc.visuel_916}</p>
-              </div>
-            ))}
-
-            {/* Cliffhanger */}
-            <div style={{ background: "rgba(255,255,255,0.03)", border: `1px solid rgba(232,92,58,0.2)`, borderRadius: 16, padding: 20, position: "relative", overflow: "hidden" }}>
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${RED}, ${VIO})` }} />
-              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: RED, marginBottom: 10 }}>🎬 Cliffhanger</p>
-              <p style={{ fontSize: 15, fontWeight: 700, color: TEXT, marginBottom: 10, lineHeight: 1.5 }}>{script.cliffhanger_scene.texte}</p>
-              <p style={{ fontSize: 12, color: RED, fontStyle: "italic", marginBottom: 14 }}>[9:16] {script.cliffhanger_scene.visuel_916}</p>
-              <span style={{ display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, borderRadius: 8, padding: "6px 14px", fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: 1, textTransform: "uppercase" }}>
-                {script.cliffhanger_scene.label}
-              </span>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
 export default function Exemples() {
-  const SITE = "https://verticalclap.app";
-  const itemListSchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Exemples de micro-dramas générés par VerticalClap",
-    "url": `${SITE}/exemples`,
-    "numberOfItems": SERIES.length,
-    "itemListElement": SERIES.map((s, i) => ({
-      "@type": "ListItem",
-      "position": i + 1,
-      "name": s.bible.titre,
-      "description": s.bible.logline,
-      "url": `${SITE}/exemples`,
-    })),
-  };
+  const [active, setActive] = useState(0);
+  const ex = EXEMPLES[active];
+  const tag = TAG_STYLE[ex.mode];
 
   return (
-    <>
-    <Head>
-      <title>Exemples de micro-dramas — VerticalClap</title>
-      <meta name="description" content={`Découvrez ${SERIES.length} exemples complets de micro-dramas 9:16 générés par l'IA : bible, scripts, hooks et cliffhangers prêts à tourner sur TikTok, Reels et Shorts.`} />
-      <link rel="canonical" href={`${SITE}/exemples`} />
-      <meta property="og:url" content={`${SITE}/exemples`} />
-      <meta property="og:title" content="Exemples de micro-dramas — VerticalClap" />
-      <meta property="og:description" content={`${SERIES.length} séries complètes générées par l'IA : suspense médical, drame familial, thriller financier. Scripts prêts à tourner en 9:16.`} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
-    </Head>
-    <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "'Space Grotesk', system-ui, sans-serif" }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap');
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        a { text-decoration: none; color: inherit; }
-        button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
-        @media (max-width: 640px) {
-          .examples-grid { padding: 20px 16px !important; }
-          .hero-examples { padding: 48px 20px 40px !important; }
-          nav { padding: 12px 16px !important; }
-        }
-      `}</style>
-
+    <div style={{ minHeight: "100vh", background: "#fff", color: "#1A1A18", fontFamily: "var(--sans)" }}>
       {/* NAV */}
-      <div style={{ position: "sticky", top: 0, zIndex: 50, borderBottom: `1px solid ${BORDER}`, background: "rgba(9,9,15,0.85)", backdropFilter: "blur(20px)" }}>
-        <nav style={{ maxWidth: 1100, margin: "0 auto", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <a href="/"><Logo /></a>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, color: RED, letterSpacing: 2 }}>
-            <div style={{ width: 7, height: 7, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
-            REC
-          </div>
-          <a href="/" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "10px 20px", borderRadius: 12, fontSize: 14, fontWeight: 700, boxShadow: `0 0 24px rgba(232,92,58,0.3)`, letterSpacing: -0.3 }}>
-            Créer ma série →
+      <div style={{ borderBottom: "1px solid #E8E4DC" }}>
+        <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 40px", maxWidth: 1100, margin: "0 auto" }}>
+          <a href="/" style={{ fontFamily: "var(--serif)", fontSize: 15, fontWeight: 900, textDecoration: "none", color: "#1A1A18" }}>
+            ← VERTICALCLAP
           </a>
+          <a href="/app" style={{ fontSize: 14, color: "#6B6B68", textDecoration: "none" }}>Se connecter</a>
         </nav>
       </div>
 
-      {/* HERO */}
-      <div style={{ padding: "80px 40px 56px", textAlign: "center", position: "relative", overflow: "hidden" }} className="hero-examples">
-        <div style={{ position: "absolute", top: 0, left: "20%", width: 400, height: 400, background: "radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 70%)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", top: 60, right: "15%", width: 300, height: 300, background: "radial-gradient(circle, rgba(232,92,58,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
+      {/* HEADER */}
+      <div style={{ maxWidth: 860, margin: "0 auto", padding: "60px 24px 40px", textAlign: "center" }}>
+        <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, color: "#E85C3A", textTransform: "uppercase", marginBottom: 12 }}>Exemples générés</p>
+        <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(28px, 5vw, 48px)", fontWeight: 900, lineHeight: 1.1, letterSpacing: -1, marginBottom: 16 }}>
+          3 séries prêtes à tourner
+        </h1>
+        <p style={{ color: "#6B6B68", fontSize: 15, lineHeight: 1.6, maxWidth: 520, margin: "0 auto 40px" }}>
+          Médical, finance, famille — chaque série est générée en moins de 30 secondes avec Vertical Studio.
+        </p>
 
-        <div style={{ position: "relative", zIndex: 1 }}>
-          {/* Platform badges */}
-          <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 32, flexWrap: "wrap" }}>
-            {[
-              { name: "TikTok", color: "#69C9D0", icon: "♪" },
-              { name: "Instagram Reels", color: VIO, icon: "◈" },
-              { name: "YouTube Shorts", color: RED, icon: "▶" },
-            ].map(({ name, color, icon }) => (
-              <span key={name} style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 14px", borderRadius: 100, background: `${color}12`, border: `1px solid ${color}25`, color, fontSize: 12, fontWeight: 700, letterSpacing: 0.5 }}>
-                {icon} {name}
-              </span>
-            ))}
-          </div>
-
-          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(36px, 6vw, 64px)", fontWeight: 900, color: TEXT, letterSpacing: -2, lineHeight: 1.05, marginBottom: 20 }}>
-            Ce que l'IA crée<br />
-            <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
-              en 5 minutes
-            </span>
-            .
-          </h1>
-
-          <p style={{ fontSize: 16, color: MUTED, maxWidth: 480, margin: "0 auto 0", lineHeight: 1.65 }}>
-            Bible complète, séquencier, scripts 9:16 tournables. {SERIES.length} séries pour TikTok, Reels, Shorts et DramaBox.
-          </p>
-        </div>
-      </div>
-
-      <div style={{ maxWidth: 820, margin: "0 auto", padding: "0 32px 8px" }} className="examples-grid">
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", paddingBottom: 24 }}>
-          {[
-            { label: "Tous", color: TEXT },
-            { label: "⚡ Fast Drama", color: RED },
-            { label: "🎭 Premium", color: VIO },
-            { label: "♪ TikTok", color: "#69C9D0" },
-            { label: "◈ Reels", color: VIO },
-            { label: "▶ Shorts", color: RED },
-            { label: "Médical", color: MUTED },
-          ].map(({ label, color }, i) => (
-            <button key={label} disabled style={{
-              padding: "7px 16px", borderRadius: 100, fontSize: 12, fontWeight: 700,
-              background: i === 0 ? `${TEXT}12` : "transparent",
-              border: `1px solid ${i === 0 ? TEXT : BORDER}`,
-              color: i === 0 ? TEXT : MUTED,
-              cursor: "default", fontFamily: "'Space Grotesk', sans-serif",
-              letterSpacing: 0.3,
-            }}>
-              {label}
+        {/* TABS */}
+        <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
+          {EXEMPLES.map((e, i) => (
+            <button key={i} onClick={() => setActive(i)}
+              style={{ padding: "10px 20px", borderRadius: 100, border: `1.5px solid ${active === i ? "#E85C3A" : "#E8E4DC"}`, background: active === i ? "#E85C3A" : "#fff", color: active === i ? "#fff" : "#1A1A18", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s" }}>
+              {e.bible.titre}
             </button>
           ))}
         </div>
-        {SERIES.map((serie) => <SerieCard key={serie.bible.titre} serie={serie} />)}
+      </div>
 
+      {/* CONTENT */}
+      <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 80px" }}>
+
+        {/* MODE + META */}
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 24, alignItems: "center" }}>
+          <span style={{ display: "inline-block", padding: "5px 12px", borderRadius: 100, background: tag.bg, color: tag.color, border: tag.border, fontSize: 12, fontWeight: 700 }}>{ex.modeLabel}</span>
+          <span style={{ fontSize: 13, color: "#6B6B68" }}>{ex.casting}</span>
+          <span style={{ fontSize: 13, color: "#aaa" }}>·</span>
+          <span style={{ fontSize: 13, color: "#6B6B68" }}>{ex.univers}</span>
+          <span style={{ fontSize: 13, color: "#aaa" }}>·</span>
+          <span style={{ fontSize: 13, color: "#6B6B68" }}>{ex.bible.episodes} épisodes</span>
+        </div>
+
+        {/* BIBLE */}
+        <div style={{ background: "#1A1A18", borderRadius: 20, padding: "32px", marginBottom: 28 }}>
+          <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: "#E85C3A", textTransform: "uppercase", marginBottom: 16 }}>La Bible</p>
+          <h2 style={{ fontFamily: "var(--serif)", fontSize: 28, fontWeight: 900, color: "#fff", marginBottom: 10, letterSpacing: -0.5 }}>{ex.bible.titre}</h2>
+          <p style={{ fontFamily: "var(--serif)", fontSize: 15, fontStyle: "italic", color: "#aaa", lineHeight: 1.5, marginBottom: 16 }}>« {ex.bible.logline} »</p>
+          <p style={{ fontSize: 14, color: "#ccc", lineHeight: 1.7, marginBottom: 24 }}>{ex.bible.pitch}</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12, marginBottom: 20 }}>
+            {ex.bible.personnages.map((p, i) => (
+              <div key={i} style={{ background: "#2a2a28", borderRadius: 12, padding: 16, borderLeft: `3px solid ${i === 0 ? "#E85C3A" : "#4a6a4e"}` }}>
+                <p style={{ fontFamily: "var(--serif)", fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 4 }}>{p.nom}</p>
+                <p style={{ fontSize: 11, color: "#E85C3A", fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 8 }}>{p.role} · {p.age} ans</p>
+                <p style={{ fontSize: 12, color: "#888", lineHeight: 1.5 }}>🔒 {p.secret}</p>
+              </div>
+            ))}
+          </div>
+          <div style={{ background: "#111", borderRadius: 10, padding: "14px 16px" }}>
+            <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: "#E85C3A", textTransform: "uppercase", marginBottom: 6 }}>Question centrale</p>
+            <p style={{ fontFamily: "var(--serif)", fontSize: 14, fontStyle: "italic", color: "#fff", lineHeight: 1.5 }}>« {ex.bible.tension_centrale} »</p>
+          </div>
+        </div>
+
+        {/* SCRIPT */}
+        <div style={{ background: "#F7F5F2", borderRadius: 20, padding: "28px 28px" }}>
+          <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 20, flexWrap: "wrap" }}>
+            <span style={{ background: "#E85C3A", color: "#fff", borderRadius: 6, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>ÉP. {ex.script.numero}</span>
+            <span style={{ fontFamily: "var(--serif)", fontSize: 18, fontWeight: 700 }}>{ex.script.titre}</span>
+          </div>
+
+          {/* Hook */}
+          <div style={{ background: "#FFF0EC", border: "2px solid #E85C3A", borderRadius: 12, padding: 16, marginBottom: 16 }}>
+            <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: "#E85C3A", textTransform: "uppercase", marginBottom: 8 }}>⚡ Hook — 3 premières secondes</p>
+            <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 6 }}>{ex.script.hook_scene.texte}</p>
+            <p style={{ fontSize: 11, color: "#E85C3A", fontStyle: "italic" }}>[9:16] {ex.script.hook_scene.visuel_916}</p>
+          </div>
+
+          {/* Scènes */}
+          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, color: "#888", textTransform: "uppercase", marginBottom: 10 }}>Script</p>
+          {ex.script.scenes.map((sc, i) => (
+            <div key={i} style={{ background: "#fff", borderRadius: 10, padding: 14, borderLeft: "3px solid #E8E4DC", marginBottom: 10 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#2a3a2e" }}>{sc.perso}</p>
+                {sc.jeu && <span style={{ fontSize: 10, background: "#F0F4F0", color: "#2a3a2e", padding: "2px 8px", borderRadius: 20, fontStyle: "italic" }}>{sc.jeu}</span>}
+              </div>
+              <p style={{ fontSize: 14, lineHeight: 1.55, marginBottom: 6, fontWeight: 500 }}>{sc.dialogue}</p>
+              <p style={{ fontSize: 11, color: "#aaa", fontStyle: "italic" }}>[9:16] {sc.visuel_916}</p>
+            </div>
+          ))}
+
+          {/* Cliffhanger */}
+          <div style={{ background: "#1A1A18", borderRadius: 12, padding: 16, marginTop: 6 }}>
+            <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: "#E85C3A", textTransform: "uppercase", marginBottom: 8 }}>🎬 Cliffhanger</p>
+            <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 6, lineHeight: 1.4 }}>{ex.script.cliffhanger_scene.texte}</p>
+            <p style={{ fontSize: 11, color: "#E85C3A", fontStyle: "italic", marginBottom: ex.script.cliffhanger_scene.label ? 10 : 0 }}>[9:16] {ex.script.cliffhanger_scene.visuel_916}</p>
+            {ex.script.cliffhanger_scene.label && (
+              <span style={{ display: "inline-block", background: "#E85C3A", borderRadius: 6, padding: "5px 12px", fontSize: 11, fontWeight: 800, color: "#fff", letterSpacing: 1, textTransform: "uppercase" }}>{ex.script.cliffhanger_scene.label}</span>
+            )}
+          </div>
+        </div>
 
         {/* CTA */}
-        <div style={{ borderRadius: 28, padding: "56px 40px", textAlign: "center", position: "relative", overflow: "hidden", background: SURFACE, border: `1px solid ${BORDER}` }}>
-          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(168,85,247,0.07) 0%, transparent 60%)", pointerEvents: "none" }} />
-          <div style={{ position: "relative", zIndex: 1 }}>
-            <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 20 }}>Prêt à tourner ?</p>
-            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(28px, 5vw, 46px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, marginBottom: 16, lineHeight: 1.1 }}>
-              Ta première série,<br />
-              <span style={{ background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
-                dans 5 minutes
-              </span>
-              .
-            </h2>
-            <p style={{ color: MUTED, fontSize: 15, marginBottom: 36, lineHeight: 1.6 }}>
-              Bible, épisodes, scripts 9:16, mode tournage, traduction en 8 langues.
-            </p>
-            <a href="/" style={{
-              display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff",
-              padding: "16px 40px", borderRadius: 16, fontSize: 16, fontWeight: 700,
-              boxShadow: `0 0 40px rgba(168,85,247,0.3), 0 0 20px rgba(232,92,58,0.2)`,
-              letterSpacing: -0.3,
-            }}>
-              Commencer — dès 7,50€/mois →
-            </a>
-            <p style={{ color: MUTED, fontSize: 13, marginTop: 14 }}>Annulable à tout moment · Sans engagement</p>
-          </div>
+        <div style={{ textAlign: "center", marginTop: 48 }}>
+          <p style={{ color: "#6B6B68", fontSize: 14, marginBottom: 20 }}>Génère ta propre série en moins de 30 secondes.</p>
+          <a href="/#tarifs" style={{ display: "inline-block", background: "#E85C3A", color: "#fff", padding: "16px 36px", borderRadius: 12, fontWeight: 700, fontSize: 15, textDecoration: "none" }}>Commencer →</a>
         </div>
       </div>
 
-      {/* FOOTER */}
-      <footer style={{ borderTop: `1px solid ${BORDER}`, padding: "32px 40px", textAlign: "center" }}>
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
-          <Logo size="sm" />
-        </div>
-        <p style={{ color: MUTED, fontSize: 13 }}>
-          © 2026 VerticalClap ·{" "}
-          <a href="/" style={{ color: MUTED }}>Accueil</a> ·{" "}
-          <a href="mailto:hello@verticalclap.app" style={{ color: MUTED }}>Contact</a>
-        </p>
-      </footer>
+      <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}`}</style>
     </div>
-    </>
   );
 }
