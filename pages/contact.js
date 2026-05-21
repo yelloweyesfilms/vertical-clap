@@ -25,21 +25,21 @@ const CHANNELS = [
     icon: "✉️",
     title: "Email général",
     desc: "Questions, suggestions, partenariats.",
-    link: "mailto:hello@verticalclap.app",
-    label: "hello@verticalclap.app",
+    link: "mailto:hello@verticalclap.com",
+    label: "hello@verticalclap.com",
   },
   {
     icon: "🛠️",
     title: "Support technique",
     desc: "Bug, problème d'accès, erreur de génération.",
-    link: "mailto:support@verticalclap.app",
-    label: "support@verticalclap.app",
+    link: "mailto:support@verticalclap.com",
+    label: "support@verticalclap.com",
   },
   {
     icon: "⚖️",
     title: "Données personnelles",
     desc: "Exercer vos droits RGPD, demande de suppression.",
-    link: "mailto:hello@verticalclap.app?subject=RGPD%20—%20demande",
+    link: "mailto:hello@verticalclap.com?subject=RGPD%20—%20demande",
     label: "Envoyer une demande RGPD →",
   },
 ];
@@ -51,7 +51,7 @@ const FAQS = [
   },
   {
     q: "J'ai été débité mais je n'arrive pas à me connecter.",
-    a: "Vérifie que tu utilises bien l'adresse email avec laquelle tu as souscrit. Si le problème persiste, écris-nous à support@verticalclap.app avec ton email de paiement.",
+    a: "Vérifie que tu utilises bien l'adresse email avec laquelle tu as souscrit. Si le problème persiste, écris-nous à support@verticalclap.com avec ton email de paiement.",
   },
   {
     q: "Puis-je changer de plan (Standard → Premium) ?",
@@ -167,7 +167,7 @@ export default function Contact() {
                   />
                 </div>
                 {status === "error" && (
-                  <p style={{ fontSize: 13, color: RED, margin: 0 }}>Une erreur s'est produite. Réessaie ou écris directement à hello@verticalclap.app.</p>
+                  <p style={{ fontSize: 13, color: RED, margin: 0 }}>Une erreur s'est produite. Réessaie ou écris directement à hello@verticalclap.com.</p>
                 )}
                 <button
                   type="submit" disabled={status === "sending"}

@@ -103,7 +103,7 @@ export default function CGU() {
           </Section>
 
           <Section title="8. Contact">
-            <P>Pour toute question : <a href="mailto:hello@verticalclap.app" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.app</a></P>
+            <P>Pour toute question : <a href="mailto:hello@verticalclap.com" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.com</a></P>
           </Section>
         </div>
 
@@ -113,7 +113,7 @@ export default function CGU() {
             © 2026 VerticalClap ·{" "}
             <a href="/confidentialite" style={{ color: "#475569", textDecoration: "none" }}>Confidentialité</a>
             {" "}·{" "}
-            <a href="mailto:hello@verticalclap.app" style={{ color: "#475569", textDecoration: "none" }}>Contact</a>
+            <a href="mailto:hello@verticalclap.com" style={{ color: "#475569", textDecoration: "none" }}>Contact</a>
           </p>
         </footer>
       </div>
