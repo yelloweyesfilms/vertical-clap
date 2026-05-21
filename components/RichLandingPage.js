@@ -1000,7 +1000,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             ))}
           </div>
           <p style={{ textAlign: "center", fontSize: 12, color: MUTED, marginTop: 16 }}>
-            {c.tryFreeText1}<a href="/exemples" style={{ color: VIO, fontWeight: 600 }}>{c.tryFreeLink}</a>{c.tryFreeText2}
+            {c.tryFreeText1}<a href={lang === "en" ? "/en/exemples" : "/exemples"} style={{ color: VIO, fontWeight: 600 }}>{c.tryFreeLink}</a>{c.tryFreeText2}
           </p>
         </div>
       </div>
@@ -1100,7 +1100,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             </div>
             <div>
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>{c.footerProduit}</p>
-              {[{ href: lang === "en" ? "/en#tarifs" : "/tarifs", label: c.footerTarifs }, { href: "/exemples", label: c.footerExemples }].map(({ href, label }) => (
+              {[{ href: lang === "en" ? "/en#tarifs" : "/tarifs", label: c.footerTarifs }, { href: lang === "en" ? "/en/exemples" : "/exemples", label: c.footerExemples }].map(({ href, label }) => (
                 <a key={href} href={href} style={{ display: "block", fontSize: 13, color: MUTED, marginBottom: 10, fontWeight: 500 }}>{label}</a>
               ))}
             </div>
