@@ -144,7 +144,7 @@ export default function BlogEnPost({ post, otherPosts }) {
           <div style={{ display: "flex", gap: 20, fontSize: 13, color: MUTED }}>
             <a href="/en">Home</a>
             <a href="/en/blog">Blog</a>
-            <a href="/tarifs">Pricing</a>
+            <a href="/en#tarifs">Pricing</a>
             <a href="/cgu">Terms</a>
           </div>
         </div>

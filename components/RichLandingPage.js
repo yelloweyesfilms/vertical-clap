@@ -607,7 +607,7 @@ export default function RichLandingPage({ lang = "fr" }) {
               <a href="/" style={{ padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 800, color: lang === "fr" ? "#fff" : MUTED, background: lang === "fr" ? "rgba(255,255,255,0.1)" : "transparent", textDecoration: "none", letterSpacing: 0.5 }}>FR</a>
               <a href="/en" style={{ padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: lang === "en" ? 800 : 700, color: lang === "en" ? "#fff" : MUTED, background: lang === "en" ? "rgba(255,255,255,0.1)" : "transparent", textDecoration: "none", letterSpacing: 0.5 }}>EN</a>
             </div>
-            <a href="/tarifs" style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>{c.navPricing}</a>
+            <a href={lang === "en" ? "/en#tarifs" : "/tarifs"} style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>{c.navPricing}</a>
             <a href="/app" style={{ fontSize: 14, color: TEXT, fontWeight: 700, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>{c.navSignin}</a>
           </div>
         </nav>
@@ -1100,7 +1100,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             </div>
             <div>
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>{c.footerProduit}</p>
-              {[{ href: "/tarifs", label: c.footerTarifs }, { href: "/exemples", label: c.footerExemples }].map(({ href, label }) => (
+              {[{ href: lang === "en" ? "/en#tarifs" : "/tarifs", label: c.footerTarifs }, { href: "/exemples", label: c.footerExemples }].map(({ href, label }) => (
                 <a key={href} href={href} style={{ display: "block", fontSize: 13, color: MUTED, marginBottom: 10, fontWeight: 500 }}>{label}</a>
               ))}
             </div>

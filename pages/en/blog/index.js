@@ -54,7 +54,7 @@ export default function BlogEnIndex() {
             <a href="/en"><Logo /></a>
             <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
               <a href="/exemples" style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>Examples</a>
-              <a href="/tarifs" style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>Pricing</a>
+              <a href="/en#tarifs" style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>Pricing</a>
               <a href="/app" style={{ fontSize: 14, color: TEXT, fontWeight: 700, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>Sign in →</a>
             </div>
           </nav>
