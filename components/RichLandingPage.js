@@ -285,15 +285,15 @@ const COPY = {
     navSignin: "Sign in →",
     emailError: "Enter your email to continue",
     networkError: "Network error. Please try again.",
-    imgHero: "/Banniere%20EN.png",
+    imgHero: "/banniere%20EN.png",
     imgCliffhangers: "/cliffhangers%20EN.png",
-    imgBible: "/la%20bible%20compkete%20EN.png",
+    imgBible: "/la%20bible%20complete%20EN.png",
     imgScript: "/du%20script%20a%20lecran%20EN.png",
     imgViral: "/pour%20percer%20EN.png",
     imgMixeur: "/le%20mixeur%20EN.png",
     imgCreateurs: "/les%20createurs%20EN.png",
     imgPipeline: "/pipeline.png",
-    imgVariations: "/3%20variation%20EN.png",
+    imgVariations: "/3%20variations%20EN.png",
   },
 };
 
