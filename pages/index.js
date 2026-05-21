@@ -95,7 +95,7 @@ export default function Landing() {
         </p>
         {canceled && <p style={{ color: "#E85C3A", marginBottom: 16, fontSize: 14 }}>Paiement annulé. Réessaie quand tu veux.</p>}
         <div style={{ display: "flex", gap: 20, justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
-          <a href="#demo" style={{ ...s.btnRed, textDecoration: "none", display: "inline-block" }}>Voir un exemple ↓</a>
+          <a href="/exemples" style={{ ...s.btnRed, textDecoration: "none", display: "inline-block" }}>Voir un exemple ↓</a>
           <a href="#tarifs" style={{ color: "#6B6B68", fontSize: 15, fontWeight: 600, textDecoration: "none" }}>Voir les tarifs →</a>
         </div>
       </div>
