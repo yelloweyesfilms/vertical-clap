@@ -90,6 +90,7 @@ const COPY = {
       "☁️ Sauvegarde cloud",
       "📄 Export PDF",
     ],
+    recommendedBadge: "⭐ RECOMMANDÉ",
     ctaBtnPremium: "Commencer Premium →",
     trustItems: [
       { icon: "🔒", label: "Stripe · Paiement sécurisé" },
@@ -261,6 +262,7 @@ const COPY = {
       "☁️ Cloud save",
       "📄 PDF Export",
     ],
+    recommendedBadge: "⭐ RECOMMENDED",
     ctaBtnPremium: "Get started Premium →",
     trustItems: [
       { icon: "🔒", label: "Stripe · Secure payment" },
@@ -951,7 +953,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             </div>
 
             <div style={{ borderRadius: 24, padding: "36px 32px", position: "relative", background: "rgba(168,85,247,0.05)", border: "1px solid rgba(168,85,247,0.25)", boxShadow: "0 0 48px rgba(168,85,247,0.08)" }}>
-              <div style={{ position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 16px", borderRadius: 20, letterSpacing: 1.5, whiteSpace: "nowrap" }}>⭐ RECOMMANDÉ</div>
+              <div style={{ position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 16px", borderRadius: 20, letterSpacing: 1.5, whiteSpace: "nowrap" }}>{c.recommendedBadge}</div>
               <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 12 }}>{c.planPremium}</p>
               <div style={{ display: "flex", alignItems: "flex-end", gap: 6, marginBottom: 4 }}>
                 <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 58, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>

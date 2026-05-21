@@ -9,7 +9,7 @@ const SURFACE = "rgba(255,255,255,0.04)";
 const BORDER = "rgba(255,255,255,0.08)";
 const TEXT = "#f1f5f9";
 const MUTED = "#64748b";
-const SITE = "https://verticalclap.app";
+const SITE = "https://verticalclap.com";
 
 const Check = ({ color = RED }) => (
   <svg width="16" height="16" viewBox="0 0 18 18" fill="none" style={{ flexShrink: 0 }}>

@@ -64,7 +64,7 @@ export default function Confidentialite() {
 
           <Section title="1. Responsable du traitement">
             <P>
-              Le responsable du traitement des données personnelles est Sophie Attelann, éditrice de VerticalClap (verticalclap.app).
+              Le responsable du traitement des données personnelles est Sophie Attelann, éditrice de VerticalClap (verticalclap.com).
               Contact : <a href="mailto:hello@verticalclap.app" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.app</a>
             </P>
           </Section>

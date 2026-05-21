@@ -4,7 +4,7 @@ import * as Sentry from "@sentry/nextjs";
 
 const RETURN_URL = process.env.NEXT_PUBLIC_URL
   ? `${process.env.NEXT_PUBLIC_URL}/app`
-  : "https://verticalclap.app/app";
+  : "https://verticalclap.com/app";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();

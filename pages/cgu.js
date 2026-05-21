@@ -71,7 +71,7 @@ export default function CGU() {
           </div>
 
           <Section title="1. Objet">
-            <P>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation du service VerticalClap, accessible à l'adresse verticalclap.app, édité par Sophie Attelann.</P>
+            <P>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation du service VerticalClap, accessible à l'adresse verticalclap.com, édité par Sophie Attelann.</P>
             <P>En accédant au service, vous acceptez sans réserve les présentes CGU.</P>
           </Section>
 
