@@ -155,7 +155,7 @@ export default function ExemplesEn() {
 
       {/* VISUAL */}
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px 48px" }}>
-        <img src="/cliffhangers%20EN.png" alt="Example series" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)" }} />
+        <img src="/ecran.png" alt="Example series" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)" }} />
       </div>
 
       <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 48px", textAlign: "center" }}>
