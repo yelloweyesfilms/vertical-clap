@@ -9,7 +9,7 @@ const SURFACE = "rgba(255,255,255,0.04)";
 const BORDER = "rgba(255,255,255,0.08)";
 const TEXT = "#f1f5f9";
 const MUTED = "#64748b";
-const SITE = "https://verticalclap.app";
+const SITE = "https://verticalclap.com";
 
 const PLATFORM_COLORS = { TikTok: "#69C9D0", Reels: VIO, Shorts: RED };
 const PLATFORM_ICONS = { TikTok: "♪", Reels: "◈", Shorts: "▶" };

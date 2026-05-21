@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const config = { runtime: "edge" };
 
 export default function handler(req) {
-  const { searchParams } = new URL(req.url, "https://verticalclap.app");
+  const { searchParams } = new URL(req.url, "https://verticalclap.com");
   const title = searchParams.get("title") || null;
   const sub = searchParams.get("sub") || null;
 

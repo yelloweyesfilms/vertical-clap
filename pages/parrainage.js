@@ -9,7 +9,7 @@ const BORDER = "rgba(255,255,255,0.08)";
 const TEXT = "#f1f5f9";
 const MUTED = "#64748b";
 const GREEN = "#4ade80";
-const SITE = "https://verticalclap.app";
+const SITE = "https://verticalclap.com";
 
 const Logo = () => (
   <div style={{ display: "flex", alignItems: "stretch", gap: 10, userSelect: "none" }}>
