@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { POSTS } from "../lib/posts";
+import { POSTS_EN } from "../lib/posts-en";
 
 const RED = "#E85C3A";
 const VIO = "#a855f7";
@@ -1018,7 +1019,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           <Title>{c.resourcesTitle}<br /><span style={{ fontStyle: "italic", color: MUTED }}>{c.resourcesTitleItalic}</span></Title>
           <p style={{ textAlign: "center", color: MUTED, marginBottom: 56, fontSize: 15 }}>{c.resourcesBody}</p>
           <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginBottom: 40 }}>
-            {POSTS.slice(0, 3).map((post) => (
+            {(lang === "en" ? POSTS_EN : POSTS).slice(0, 3).map((post) => (
               <a key={post.slug} href={`/blog/${post.slug}`} style={{ display: "flex", flexDirection: "column", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, padding: "28px 24px", textDecoration: "none", color: "inherit", transition: "border-color .2s" }}>
                 <div style={{ marginBottom: 16 }}>
                   <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: post.categoryColor, background: `${post.categoryColor}12`, border: `1px solid ${post.categoryColor}25`, padding: "3px 10px", borderRadius: 6 }}>{post.category}</span>
