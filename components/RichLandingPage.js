@@ -541,7 +541,7 @@ export default function RichLandingPage({ lang = "fr" }) {
     track("checkout_started", { position, plan, billing: b, trial });
     setLoading(true);
     try {
-      const res = await fetch("/api/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, plan, billing: b, trial }) });
+      const res = await fetch("/api/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, plan, billing: b, trial, lang }) });
       const { url, error } = await res.json();
       if (error) { alert(error); setLoading(false); return; }
       window.location.href = url;
