@@ -143,6 +143,32 @@ const COPY = {
     navSignin: "Se connecter →",
     emailError: "Entre ton email pour continuer",
     networkError: "Erreur réseau. Réessaie.",
+    readMore: "Lire →",
+    featLabels: ["Rapide", "Format 9:16", "Scripts impactants", "Sauvegarde cloud"],
+    marqueeItems: ["Le Mensonge", "Héritage", "Deux Vies", "La Trahison", "Le Dernier Appel", "Secrets de Famille", "Le Pacte", "Double Jeu", "La Chute", "Huis Clos", "Rupture", "Le Témoin", "Zone Rouge", "L'Imposteur", "Sous Pression"],
+    phoneSeriesTitle: "Héritage Maudit",
+    phoneEpisode: "Épisode 8 · Saison 1",
+    phoneQuote: "\"Tu m'as menti\ndepuis le début.\"",
+    phoneProgress: "ÉP. 8 / 10",
+    phoneShare: "Partager",
+    phoneNext: "Ép. 9 →",
+    phoneComments: [
+      { user: "sofia_makes", comment: "omg j'ai pas vu venir ça 😱", likes: "847", color: VIO },
+      { user: "théo.tourne", comment: "Élodie savait depuis l'épisode 3 !! 🤯", likes: "1.2k", color: RED },
+      { user: "laure_content", comment: "le cliffhanger… j'ai lâché mon téléphone", likes: "562", color: "#60a5fa" },
+      { user: "marc_prod", comment: "épisode 9 MAINTENANT je peux pas attendre", likes: "2.9k", color: VIO },
+      { user: "créa.studio", comment: "comment ils écrivent aussi bien ?? 🔥", likes: "445", color: RED },
+      { user: "youssef.films", comment: "j'ai montré à ma mère elle est accro aussi 😂", likes: "738", color: "#4ade80" },
+      { user: "nadia.réalise", comment: "le regard à 2:34… oscar mérité", likes: "1.8k", color: VIO },
+      { user: "tom_kl", comment: "cette série c'est du crack narratif", likes: "3.2k", color: RED },
+      { user: "ines.crea", comment: "j'ai regardé les 8 épisodes en 1h", likes: "992", color: "#60a5fa" },
+      { user: "alexis.vertical", comment: "quand saison 2 ?? 🙏🙏", likes: "4.1k", color: VIO },
+      { user: "sofia_makes", comment: "omg j'ai pas vu venir ça 😱", likes: "847", color: VIO },
+      { user: "théo.tourne", comment: "Élodie savait depuis l'épisode 3 !! 🤯", likes: "1.2k", color: RED },
+      { user: "laure_content", comment: "le cliffhanger… j'ai lâché mon téléphone", likes: "562", color: "#60a5fa" },
+      { user: "marc_prod", comment: "épisode 9 MAINTENANT je peux pas attendre", likes: "2.9k", color: VIO },
+      { user: "créa.studio", comment: "comment ils écrivent aussi bien ?? 🔥", likes: "445", color: RED },
+    ],
     imgHero: "/banniere%20hero.png",
     imgCliffhangers: "/cliffhangers%20.png",
     imgBible: "/bible%20complete%20.png",
@@ -285,6 +311,32 @@ const COPY = {
     navSignin: "Sign in →",
     emailError: "Enter your email to continue",
     networkError: "Network error. Please try again.",
+    readMore: "Read →",
+    featLabels: ["Fast", "9:16 Format", "Impactful scripts", "Cloud save"],
+    marqueeItems: ["The Lie", "Legacy", "Two Lives", "The Betrayal", "The Last Call", "Family Secrets", "The Pact", "Double Game", "The Fall", "Locked In", "Rupture", "The Witness", "Red Zone", "The Impostor", "Under Pressure"],
+    phoneSeriesTitle: "Cursed Legacy",
+    phoneEpisode: "Episode 8 · Season 1",
+    phoneQuote: "\"You've been lying\nto me all along.\"",
+    phoneProgress: "EP. 8 / 10",
+    phoneShare: "Share",
+    phoneNext: "Ep. 9 →",
+    phoneComments: [
+      { user: "sofia_makes", comment: "omg did NOT see that coming 😱", likes: "847", color: VIO },
+      { user: "theo.films", comment: "Elodie knew since episode 3!! 🤯", likes: "1.2k", color: RED },
+      { user: "laure_content", comment: "that cliffhanger… dropped my phone", likes: "562", color: "#60a5fa" },
+      { user: "marc_prod", comment: "episode 9 NOW i can't wait", likes: "2.9k", color: VIO },
+      { user: "crea.studio", comment: "how do they write this well?? 🔥", likes: "445", color: RED },
+      { user: "youssef.films", comment: "showed my mom and she's hooked too 😂", likes: "738", color: "#4ade80" },
+      { user: "nadia.directs", comment: "that look at 2:34… oscar worthy", likes: "1.8k", color: VIO },
+      { user: "tom_kl", comment: "this series is narrative crack", likes: "3.2k", color: RED },
+      { user: "ines.crea", comment: "watched all 8 episodes in 1 hour", likes: "992", color: "#60a5fa" },
+      { user: "alexis.vertical", comment: "when is season 2?? 🙏🙏", likes: "4.1k", color: VIO },
+      { user: "sofia_makes", comment: "omg did NOT see that coming 😱", likes: "847", color: VIO },
+      { user: "theo.films", comment: "Elodie knew since episode 3!! 🤯", likes: "1.2k", color: RED },
+      { user: "laure_content", comment: "that cliffhanger… dropped my phone", likes: "562", color: "#60a5fa" },
+      { user: "marc_prod", comment: "episode 9 NOW i can't wait", likes: "2.9k", color: VIO },
+      { user: "crea.studio", comment: "how do they write this well?? 🔥", likes: "445", color: RED },
+    ],
     imgHero: "/banniere%20EN.png",
     imgCliffhangers: "/cliffhangers%20EN.png",
     imgBible: "/la%20bible%20complete%20EN.png",
@@ -292,7 +344,7 @@ const COPY = {
     imgViral: "/pour%20percer%20EN.png",
     imgMixeur: "/le%20mixeur%20EN.png",
     imgCreateurs: "/les%20createurs%20EN.png",
-    imgPipeline: "/pipeline.png",
+    imgPipeline: "/pipeline%20EN.png",
     imgVariations: "/3%20variations%20EN.png",
   },
 };
@@ -637,8 +689,8 @@ export default function RichLandingPage({ lang = "fr" }) {
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, #0d0818 0%, #1a0828 45%, #0d0818 100%)" }} />
                 <div style={{ position: "relative", zIndex: 2, padding: "14px 16px 0", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                   <div>
-                    <div style={{ fontSize: 7, color: "rgba(255,255,255,0.35)", letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 700, marginBottom: 3 }}>Héritage Maudit</div>
-                    <div style={{ fontSize: 8, color: VIO, fontWeight: 700 }}>Épisode 8 · Saison 1</div>
+                    <div style={{ fontSize: 7, color: "rgba(255,255,255,0.35)", letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 700, marginBottom: 3 }}>{c.phoneSeriesTitle}</div>
+                    <div style={{ fontSize: 8, color: VIO, fontWeight: 700 }}>{c.phoneEpisode}</div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
                     <div style={{ width: 5, height: 5, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
@@ -647,12 +699,12 @@ export default function RichLandingPage({ lang = "fr" }) {
                 </div>
                 <div style={{ position: "relative", zIndex: 2, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 20px" }}>
                   <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 22, fontWeight: 900, color: "#fff", lineHeight: 1.2, letterSpacing: -0.5, marginBottom: 14, textShadow: "0 0 40px rgba(168,85,247,0.5)" }}>
-                    &quot;Tu m&apos;as menti<br />depuis le début.&quot;
+                    {c.phoneQuote.split("\n").map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
                   </div>
                 </div>
                 <div style={{ position: "relative", zIndex: 2, padding: "0 16px 10px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                    <span style={{ fontSize: 7, color: "rgba(255,255,255,0.28)", fontWeight: 600 }}>ÉP. 8 / 10</span>
+                    <span style={{ fontSize: 7, color: "rgba(255,255,255,0.28)", fontWeight: 600 }}>{c.phoneProgress}</span>
                     <span style={{ fontSize: 7, color: "rgba(255,255,255,0.28)", fontWeight: 600 }}>94%</span>
                   </div>
                   <div style={{ height: 2, background: "rgba(255,255,255,0.07)", borderRadius: 1 }}>
@@ -660,7 +712,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                   </div>
                 </div>
                 <div style={{ position: "relative", zIndex: 2, padding: "8px 16px 14px", display: "flex", justifyContent: "space-around", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-                  {[["❤️","47.2k"],["💬","2.1k"],["🔗","Partager"],["▶️","Ép. 9 →"]].map(([icon, val], i) => (
+                  {[["❤️","47.2k"],["💬","2.1k"],["🔗",c.phoneShare],["▶️",c.phoneNext]].map(([icon, val], i) => (
                     <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
                       <span style={{ fontSize: 13 }}>{icon}</span>
                       <span style={{ fontSize: 7, color: i === 3 ? VIO : "rgba(255,255,255,0.4)", fontWeight: i === 3 ? 800 : 600 }}>{val}</span>
@@ -678,23 +730,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 64, background: `linear-gradient(to bottom, ${DARK}, transparent)`, zIndex: 2, pointerEvents: "none" }} />
             <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 64, background: `linear-gradient(to top, ${DARK}, transparent)`, zIndex: 2, pointerEvents: "none" }} />
             <div style={{ animation: "scrollComments 22s linear infinite", display: "flex", flexDirection: "column", gap: 10 }}>
-              {[
-                { user: "sofia_makes", comment: "omg j'ai pas vu venir ça 😱", likes: "847", color: VIO },
-                { user: "théo.tourne", comment: "Élodie savait depuis l'épisode 3 !! 🤯", likes: "1.2k", color: RED },
-                { user: "laure_content", comment: "le cliffhanger… j'ai lâché mon téléphone", likes: "562", color: "#60a5fa" },
-                { user: "marc_prod", comment: "épisode 9 MAINTENANT je peux pas attendre", likes: "2.9k", color: VIO },
-                { user: "créa.studio", comment: "comment ils écrivent aussi bien ?? 🔥", likes: "445", color: RED },
-                { user: "youssef.films", comment: "j'ai montré à ma mère elle est accro aussi 😂", likes: "738", color: "#4ade80" },
-                { user: "nadia.réalise", comment: "le regard à 2:34… oscar mérité", likes: "1.8k", color: VIO },
-                { user: "tom_kl", comment: "cette série c'est du crack narratif", likes: "3.2k", color: RED },
-                { user: "ines.crea", comment: "j'ai regardé les 8 épisodes en 1h", likes: "992", color: "#60a5fa" },
-                { user: "alexis.vertical", comment: "quand saison 2 ?? 🙏🙏", likes: "4.1k", color: VIO },
-                { user: "sofia_makes", comment: "omg j'ai pas vu venir ça 😱", likes: "847", color: VIO },
-                { user: "théo.tourne", comment: "Élodie savait depuis l'épisode 3 !! 🤯", likes: "1.2k", color: RED },
-                { user: "laure_content", comment: "le cliffhanger… j'ai lâché mon téléphone", likes: "562", color: "#60a5fa" },
-                { user: "marc_prod", comment: "épisode 9 MAINTENANT je peux pas attendre", likes: "2.9k", color: VIO },
-                { user: "créa.studio", comment: "comment ils écrivent aussi bien ?? 🔥", likes: "445", color: RED },
-              ].map((comment, i) => (
+              {c.phoneComments.map((comment, i) => (
                 <div key={i} style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${BORDER}`, borderRadius: 12, padding: "10px 12px", flexShrink: 0 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
                     <span style={{ fontSize: 10, fontWeight: 700, color: comment.color }}>@{comment.user}</span>
@@ -712,10 +748,10 @@ export default function RichLandingPage({ lang = "fr" }) {
       <div style={{ borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.02)" }}>
         <div className="feat-strip" style={{ maxWidth: 860, margin: "0 auto", display: "flex", justifyContent: "center" }}>
           {[
-            { Icon: BoltIcon, label: "Rapide", color: RED },
-            { Icon: PhoneIcon, label: "Format 9:16", color: VIO },
-            { Icon: ClapperIcon, label: "Scripts impactants", color: RED },
-            { Icon: ClockIcon, label: "Sauvegarde cloud", color: VIO },
+            { Icon: BoltIcon, label: c.featLabels[0], color: RED },
+            { Icon: PhoneIcon, label: c.featLabels[1], color: VIO },
+            { Icon: ClapperIcon, label: c.featLabels[2], color: RED },
+            { Icon: ClockIcon, label: c.featLabels[3], color: VIO },
           ].map(({ Icon, label, color }, i, arr) => (
             <div key={i} className="feat-strip-item" style={{ display: "flex", alignItems: "center", gap: 10, padding: "20px 32px", borderRight: i < arr.length - 1 ? `1px solid ${BORDER}` : "none", flex: 1, justifyContent: "center" }}>
               <span style={{ color, display: "flex" }}><Icon size={20} /></span>
@@ -729,7 +765,7 @@ export default function RichLandingPage({ lang = "fr" }) {
       <div style={{ overflow: "hidden", borderBottom: `1px solid ${BORDER}`, padding: "16px 0", background: "rgba(255,255,255,0.01)", userSelect: "none" }}>
         <div style={{ display: "flex", gap: 0, animation: "marquee 40s linear infinite", whiteSpace: "nowrap", width: "max-content" }}>
           {[...Array(2)].map((_, rep) => (
-            ["Le Mensonge", "Héritage", "Deux Vies", "La Trahison", "Le Dernier Appel", "Secrets de Famille", "Le Pacte", "Double Jeu", "La Chute", "Huis Clos", "Rupture", "Le Témoin", "Zone Rouge", "L'Imposteur", "Sous Pression"].map((t, i) => (
+            c.marqueeItems.map((t, i) => (
               <span key={`${rep}-${i}`} style={{ display: "inline-flex", alignItems: "center", gap: 20, padding: "0 20px", fontSize: 13, fontWeight: 600, color: i % 3 === 0 ? TEXT : MUTED, letterSpacing: 0.5 }}>
                 <span style={{ width: 4, height: 4, borderRadius: "50%", background: i % 5 === 0 ? RED : i % 5 === 2 ? VIO : BORDER, display: "inline-block", flexShrink: 0 }} />
                 {t}
@@ -985,7 +1021,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.6, marginBottom: 20 }}>{post.description.slice(0, 100)}…</p>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontSize: 12, color: MUTED }}>{post.readTime} {c.readTime}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: post.categoryColor }}>Lire →</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: post.categoryColor }}>{c.readMore}</span>
                 </div>
               </a>
             ))}
