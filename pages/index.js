@@ -282,7 +282,11 @@ export default function Landing() {
             <div style={{ width: 7, height: 7, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
             REC
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ display: "flex", background: "rgba(255,255,255,0.04)", border: `1px solid ${BORDER}`, borderRadius: 8, padding: 3, gap: 2 }}>
+              <a href="/" style={{ padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 800, color: "#fff", background: "rgba(255,255,255,0.1)", textDecoration: "none", letterSpacing: 0.5 }}>FR</a>
+              <a href="/en" style={{ padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700, color: MUTED, textDecoration: "none", letterSpacing: 0.5 }}>EN</a>
+            </div>
             <a href="/tarifs" style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>Tarifs</a>
             <a href="/app" style={{ fontSize: 14, color: TEXT, fontWeight: 700, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>Se connecter →</a>
           </div>
