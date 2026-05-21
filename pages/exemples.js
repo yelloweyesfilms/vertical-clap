@@ -137,15 +137,22 @@ export default function Exemples() {
       </div>
 
       {/* HEADER */}
-      <div style={{ maxWidth: 860, margin: "0 auto", padding: "72px 24px 48px", textAlign: "center" }}>
+      <div style={{ maxWidth: 860, margin: "0 auto", padding: "72px 24px 0", textAlign: "center" }}>
         <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, color: RED, textTransform: "uppercase", marginBottom: 16 }}>Exemples générés</p>
         <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: -2, marginBottom: 16, color: TEXT }}>
           3 séries prêtes à tourner
         </h1>
-        <p style={{ color: MUTED, fontSize: 15, lineHeight: 1.7, maxWidth: 480, margin: "0 auto 48px" }}>
+        <p style={{ color: MUTED, fontSize: 15, lineHeight: 1.7, maxWidth: 480, margin: "0 auto 40px" }}>
           Médical, finance, famille — chaque série générée en moins de 30 secondes.
         </p>
+      </div>
 
+      {/* VISUAL */}
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px 48px" }}>
+        <img src="/ecran.png" alt="Séries exemples" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)" }} />
+      </div>
+
+      <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 48px", textAlign: "center" }}>
         {/* TABS */}
         <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginBottom: 56 }}>
           {EXEMPLES.map((e, i) => (
