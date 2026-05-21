@@ -1,5 +1,12 @@
 import { useState } from "react";
 
+const RED = "#E85C3A";
+const VIO = "#a855f7";
+const DARK = "#09090f";
+const BORDER = "rgba(255,255,255,0.08)";
+const TEXT = "#f1f5f9";
+const MUTED = "#94a3b8";
+
 const EXEMPLES = [
   {
     mode: "fast",
@@ -112,43 +119,45 @@ const EXEMPLES = [
   },
 ];
 
-const TAG_STYLE = {
-  fast: { bg: "#FFF0EC", color: "#E85C3A", border: "1px solid #FBD5C8" },
-  premium: { bg: "#E8EDF2", color: "#2a3a2e", border: "1px solid #c8d5c8" },
-};
-
 export default function Exemples() {
   const [active, setActive] = useState(0);
   const ex = EXEMPLES[active];
-  const tag = TAG_STYLE[ex.mode];
+  const isPremium = ex.mode === "premium";
 
   return (
-    <div style={{ minHeight: "100vh", background: "#fff", color: "#1A1A18", fontFamily: "var(--sans)" }}>
+    <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}>
       {/* NAV */}
-      <div style={{ borderBottom: "1px solid #E8E4DC" }}>
+      <div style={{ borderBottom: `1px solid ${BORDER}`, background: "rgba(9,9,15,0.95)", backdropFilter: "blur(12px)", position: "sticky", top: 0, zIndex: 50 }}>
         <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 40px", maxWidth: 1100, margin: "0 auto" }}>
-          <a href="/" style={{ fontFamily: "var(--serif)", fontSize: 15, fontWeight: 900, textDecoration: "none", color: "#1A1A18" }}>
-            ← VERTICALCLAP
+          <a href="/" style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 15, fontWeight: 900, textDecoration: "none", color: TEXT, letterSpacing: -0.5 }}>
+            ← VerticalClap
           </a>
-          <a href="/app" style={{ fontSize: 14, color: "#6B6B68", textDecoration: "none" }}>Se connecter</a>
+          <a href="/app" style={{ fontSize: 13, color: MUTED, textDecoration: "none", fontWeight: 500 }}>Se connecter →</a>
         </nav>
       </div>
 
       {/* HEADER */}
-      <div style={{ maxWidth: 860, margin: "0 auto", padding: "60px 24px 40px", textAlign: "center" }}>
-        <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, color: "#E85C3A", textTransform: "uppercase", marginBottom: 12 }}>Exemples générés</p>
-        <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(28px, 5vw, 48px)", fontWeight: 900, lineHeight: 1.1, letterSpacing: -1, marginBottom: 16 }}>
+      <div style={{ maxWidth: 860, margin: "0 auto", padding: "72px 24px 48px", textAlign: "center" }}>
+        <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, color: RED, textTransform: "uppercase", marginBottom: 16 }}>Exemples générés</p>
+        <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: -2, marginBottom: 16, color: TEXT }}>
           3 séries prêtes à tourner
         </h1>
-        <p style={{ color: "#6B6B68", fontSize: 15, lineHeight: 1.6, maxWidth: 520, margin: "0 auto 40px" }}>
-          Médical, finance, famille — chaque série est générée en moins de 30 secondes avec Vertical Studio.
+        <p style={{ color: MUTED, fontSize: 15, lineHeight: 1.7, maxWidth: 480, margin: "0 auto 48px" }}>
+          Médical, finance, famille — chaque série générée en moins de 30 secondes.
         </p>
 
         {/* TABS */}
-        <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
+        <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginBottom: 56 }}>
           {EXEMPLES.map((e, i) => (
             <button key={i} onClick={() => setActive(i)}
-              style={{ padding: "10px 20px", borderRadius: 100, border: `1.5px solid ${active === i ? "#E85C3A" : "#E8E4DC"}`, background: active === i ? "#E85C3A" : "#fff", color: active === i ? "#fff" : "#1A1A18", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s" }}>
+              style={{
+                padding: "10px 22px", borderRadius: 100,
+                border: `1px solid ${active === i ? RED : BORDER}`,
+                background: active === i ? RED : "rgba(255,255,255,0.04)",
+                color: active === i ? "#fff" : MUTED,
+                fontSize: 14, fontWeight: 600, cursor: "pointer",
+                fontFamily: "'Inter', sans-serif", transition: "all .2s",
+              }}>
               {e.bible.titre}
             </button>
           ))}
@@ -156,85 +165,90 @@ export default function Exemples() {
       </div>
 
       {/* CONTENT */}
-      <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 80px" }}>
+      <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 100px" }}>
 
         {/* MODE + META */}
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 24, alignItems: "center" }}>
-          <span style={{ display: "inline-block", padding: "5px 12px", borderRadius: 100, background: tag.bg, color: tag.color, border: tag.border, fontSize: 12, fontWeight: 700 }}>{ex.modeLabel}</span>
-          <span style={{ fontSize: 13, color: "#6B6B68" }}>{ex.casting}</span>
-          <span style={{ fontSize: 13, color: "#aaa" }}>·</span>
-          <span style={{ fontSize: 13, color: "#6B6B68" }}>{ex.univers}</span>
-          <span style={{ fontSize: 13, color: "#aaa" }}>·</span>
-          <span style={{ fontSize: 13, color: "#6B6B68" }}>{ex.bible.episodes} épisodes</span>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 28, alignItems: "center" }}>
+          <span style={{
+            display: "inline-block", padding: "5px 14px", borderRadius: 100,
+            background: isPremium ? "rgba(168,85,247,0.12)" : "rgba(232,92,58,0.12)",
+            color: isPremium ? VIO : RED,
+            border: `1px solid ${isPremium ? "rgba(168,85,247,0.3)" : "rgba(232,92,58,0.3)"}`,
+            fontSize: 12, fontWeight: 700,
+          }}>{ex.modeLabel}</span>
+          <span style={{ fontSize: 13, color: MUTED }}>{ex.casting}</span>
+          <span style={{ fontSize: 13, color: BORDER }}>·</span>
+          <span style={{ fontSize: 13, color: MUTED }}>{ex.univers}</span>
+          <span style={{ fontSize: 13, color: BORDER }}>·</span>
+          <span style={{ fontSize: 13, color: MUTED }}>{ex.bible.episodes} épisodes</span>
         </div>
 
         {/* BIBLE */}
-        <div style={{ background: "#1A1A18", borderRadius: 20, padding: "32px", marginBottom: 28 }}>
-          <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: "#E85C3A", textTransform: "uppercase", marginBottom: 16 }}>La Bible</p>
-          <h2 style={{ fontFamily: "var(--serif)", fontSize: 28, fontWeight: 900, color: "#fff", marginBottom: 10, letterSpacing: -0.5 }}>{ex.bible.titre}</h2>
-          <p style={{ fontFamily: "var(--serif)", fontSize: 15, fontStyle: "italic", color: "#aaa", lineHeight: 1.5, marginBottom: 16 }}>« {ex.bible.logline} »</p>
-          <p style={{ fontSize: 14, color: "#ccc", lineHeight: 1.7, marginBottom: 24 }}>{ex.bible.pitch}</p>
+        <div style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${BORDER}`, borderRadius: 20, padding: "32px", marginBottom: 16, position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, background: `radial-gradient(circle, ${isPremium ? "rgba(168,85,247,0.08)" : "rgba(232,92,58,0.08)"} 0%, transparent 70%)`, pointerEvents: "none" }} />
+          <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase", marginBottom: 16 }}>La Bible</p>
+          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 28, fontWeight: 900, color: TEXT, marginBottom: 12, letterSpacing: -0.5, lineHeight: 1.1 }}>{ex.bible.titre}</h2>
+          <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 15, fontStyle: "italic", color: MUTED, lineHeight: 1.6, marginBottom: 20 }}>« {ex.bible.logline} »</p>
+          <p style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.75, marginBottom: 28 }}>{ex.bible.pitch}</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12, marginBottom: 20 }}>
             {ex.bible.personnages.map((p, i) => (
-              <div key={i} style={{ background: "#2a2a28", borderRadius: 12, padding: 16, borderLeft: `3px solid ${i === 0 ? "#E85C3A" : "#4a6a4e"}` }}>
-                <p style={{ fontFamily: "var(--serif)", fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 4 }}>{p.nom}</p>
-                <p style={{ fontSize: 11, color: "#E85C3A", fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 8 }}>{p.role} · {p.age} ans</p>
-                <p style={{ fontSize: 12, color: "#888", lineHeight: 1.5 }}>🔒 {p.secret}</p>
+              <div key={i} style={{ background: "rgba(255,255,255,0.04)", borderRadius: 12, padding: 16, borderLeft: `3px solid ${i === 0 ? RED : VIO}` }}>
+                <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 16, fontWeight: 700, color: TEXT, marginBottom: 4 }}>{p.nom}</p>
+                <p style={{ fontSize: 11, color: i === 0 ? RED : VIO, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 8 }}>{p.role} · {p.age} ans</p>
+                <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.55 }}>🔒 {p.secret}</p>
               </div>
             ))}
           </div>
-          <div style={{ background: "#111", borderRadius: 10, padding: "14px 16px" }}>
-            <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: "#E85C3A", textTransform: "uppercase", marginBottom: 6 }}>Question centrale</p>
-            <p style={{ fontFamily: "var(--serif)", fontSize: 14, fontStyle: "italic", color: "#fff", lineHeight: 1.5 }}>« {ex.bible.tension_centrale} »</p>
+          <div style={{ background: "rgba(0,0,0,0.3)", borderRadius: 10, padding: "16px 20px", border: `1px solid ${BORDER}` }}>
+            <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: isPremium ? VIO : RED, textTransform: "uppercase", marginBottom: 8 }}>Question centrale</p>
+            <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 14, fontStyle: "italic", color: TEXT, lineHeight: 1.6 }}>« {ex.bible.tension_centrale} »</p>
           </div>
         </div>
 
         {/* SCRIPT */}
-        <div style={{ background: "#F7F5F2", borderRadius: 20, padding: "28px 28px" }}>
-          <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 20, flexWrap: "wrap" }}>
-            <span style={{ background: "#E85C3A", color: "#fff", borderRadius: 6, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>ÉP. {ex.script.numero}</span>
-            <span style={{ fontFamily: "var(--serif)", fontSize: 18, fontWeight: 700 }}>{ex.script.titre}</span>
+        <div style={{ background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}`, borderRadius: 20, padding: "28px" }}>
+          <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 24, flexWrap: "wrap" }}>
+            <span style={{ background: RED, color: "#fff", borderRadius: 8, padding: "5px 12px", fontSize: 11, fontWeight: 800, letterSpacing: 1 }}>ÉP. {ex.script.numero}</span>
+            <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 700, color: TEXT }}>{ex.script.titre}</span>
           </div>
 
           {/* Hook */}
-          <div style={{ background: "#FFF0EC", border: "2px solid #E85C3A", borderRadius: 12, padding: 16, marginBottom: 16 }}>
-            <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: "#E85C3A", textTransform: "uppercase", marginBottom: 8 }}>⚡ Hook — 3 premières secondes</p>
-            <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 6 }}>{ex.script.hook_scene.texte}</p>
-            <p style={{ fontSize: 11, color: "#E85C3A", fontStyle: "italic" }}>[9:16] {ex.script.hook_scene.visuel_916}</p>
+          <div style={{ background: "rgba(232,92,58,0.08)", border: `1px solid rgba(232,92,58,0.25)`, borderRadius: 12, padding: 18, marginBottom: 20 }}>
+            <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase", marginBottom: 10 }}>⚡ Hook — 3 premières secondes</p>
+            <p style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.45, marginBottom: 8, color: TEXT }}>{ex.script.hook_scene.texte}</p>
+            <p style={{ fontSize: 11, color: RED, fontStyle: "italic" }}>[9:16] {ex.script.hook_scene.visuel_916}</p>
           </div>
 
           {/* Scènes */}
-          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, color: "#888", textTransform: "uppercase", marginBottom: 10 }}>Script</p>
+          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, color: MUTED, textTransform: "uppercase", marginBottom: 12 }}>Script</p>
           {ex.script.scenes.map((sc, i) => (
-            <div key={i} style={{ background: "#fff", borderRadius: 10, padding: 14, borderLeft: "3px solid #E8E4DC", marginBottom: 10 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-                <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#2a3a2e" }}>{sc.perso}</p>
-                {sc.jeu && <span style={{ fontSize: 10, background: "#F0F4F0", color: "#2a3a2e", padding: "2px 8px", borderRadius: 20, fontStyle: "italic" }}>{sc.jeu}</span>}
+            <div key={i} style={{ background: "rgba(255,255,255,0.03)", borderRadius: 10, padding: 16, borderLeft: `3px solid ${BORDER}`, marginBottom: 10 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: isPremium ? VIO : RED }}>{sc.perso}</p>
+                {sc.jeu && <span style={{ fontSize: 10, background: "rgba(255,255,255,0.06)", color: MUTED, padding: "2px 8px", borderRadius: 20, fontStyle: "italic" }}>{sc.jeu}</span>}
               </div>
-              <p style={{ fontSize: 14, lineHeight: 1.55, marginBottom: 6, fontWeight: 500 }}>{sc.dialogue}</p>
-              <p style={{ fontSize: 11, color: "#aaa", fontStyle: "italic" }}>[9:16] {sc.visuel_916}</p>
+              <p style={{ fontSize: 14, lineHeight: 1.65, marginBottom: 6, fontWeight: 500, color: TEXT }}>{sc.dialogue}</p>
+              <p style={{ fontSize: 11, color: MUTED, fontStyle: "italic" }}>[9:16] {sc.visuel_916}</p>
             </div>
           ))}
 
           {/* Cliffhanger */}
-          <div style={{ background: "#1A1A18", borderRadius: 12, padding: 16, marginTop: 6 }}>
-            <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: "#E85C3A", textTransform: "uppercase", marginBottom: 8 }}>🎬 Cliffhanger</p>
-            <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 6, lineHeight: 1.4 }}>{ex.script.cliffhanger_scene.texte}</p>
-            <p style={{ fontSize: 11, color: "#E85C3A", fontStyle: "italic", marginBottom: ex.script.cliffhanger_scene.label ? 10 : 0 }}>[9:16] {ex.script.cliffhanger_scene.visuel_916}</p>
+          <div style={{ background: "rgba(232,92,58,0.06)", borderRadius: 12, padding: 20, marginTop: 8, border: `1px solid rgba(232,92,58,0.2)` }}>
+            <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase", marginBottom: 10 }}>🎬 Cliffhanger</p>
+            <p style={{ fontSize: 16, fontWeight: 700, color: TEXT, marginBottom: 8, lineHeight: 1.45 }}>{ex.script.cliffhanger_scene.texte}</p>
+            <p style={{ fontSize: 11, color: RED, fontStyle: "italic", marginBottom: ex.script.cliffhanger_scene.label ? 14 : 0 }}>[9:16] {ex.script.cliffhanger_scene.visuel_916}</p>
             {ex.script.cliffhanger_scene.label && (
-              <span style={{ display: "inline-block", background: "#E85C3A", borderRadius: 6, padding: "5px 12px", fontSize: 11, fontWeight: 800, color: "#fff", letterSpacing: 1, textTransform: "uppercase" }}>{ex.script.cliffhanger_scene.label}</span>
+              <span style={{ display: "inline-block", background: RED, borderRadius: 6, padding: "6px 14px", fontSize: 11, fontWeight: 800, color: "#fff", letterSpacing: 1.5, textTransform: "uppercase" }}>{ex.script.cliffhanger_scene.label}</span>
             )}
           </div>
         </div>
 
         {/* CTA */}
-        <div style={{ textAlign: "center", marginTop: 48 }}>
-          <p style={{ color: "#6B6B68", fontSize: 14, marginBottom: 20 }}>Génère ta propre série en moins de 30 secondes.</p>
-          <a href="/#tarifs" style={{ display: "inline-block", background: "#E85C3A", color: "#fff", padding: "16px 36px", borderRadius: 12, fontWeight: 700, fontSize: 15, textDecoration: "none" }}>Commencer →</a>
+        <div style={{ textAlign: "center", marginTop: 60 }}>
+          <p style={{ color: MUTED, fontSize: 14, marginBottom: 24 }}>Génère ta propre série en moins de 30 secondes.</p>
+          <a href="/#tarifs" style={{ display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "16px 40px", borderRadius: 14, fontWeight: 700, fontSize: 15, textDecoration: "none", letterSpacing: -0.2 }}>Commencer →</a>
         </div>
       </div>
-
-      <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}`}</style>
     </div>
   );
 }
