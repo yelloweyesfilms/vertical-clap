@@ -9,7 +9,7 @@ export default function Home() {
         <link rel="canonical" href="https://verticalclap.com" />
         <link rel="alternate" hrefLang="fr" href="https://verticalclap.com" />
         <link rel="alternate" hrefLang="en" href="https://verticalclap.com/en" />
-        <meta property="og:image" content="https://verticalclap.com/hero.png" />
+        <meta property="og:image" content="https://verticalclap.com/banniere%20hero.png" />
       </Head>
       <RichLandingPage lang="fr" />
     </>
