@@ -11,7 +11,7 @@ const PRICE_MAP = {
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
 
-  const { email, plan = "standard", refCode, billing = "monthly", trial = false } = req.body;
+  const { email, plan = "standard", refCode, billing = "monthly", trial = false, lang = "fr" } = req.body;
   const url = (process.env.NEXT_PUBLIC_URL || "https://verticalclap.com").replace(/\/$/, "");
 
   const planKey = billing === "annual" ? `${plan}_annual` : plan;
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
       payment_method_types: ["card"],
       customer_email: email || undefined,
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}&plan=${plan}${trial ? "&trial=1" : ""}`,
+      success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}&plan=${plan}${trial ? "&trial=1" : ""}${lang === "en" ? "&lang=en" : ""}`,
       cancel_url: `${url}/?canceled=1`,
       allow_promotion_codes: true,
       metadata: { plan, billing },

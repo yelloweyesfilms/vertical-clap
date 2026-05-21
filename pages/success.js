@@ -25,33 +25,51 @@ const Logo = () => (
   </div>
 );
 
-const STEPS = [
-  {
-    n: "01",
-    color: RED,
-    title: "Ouvre le Mixeur",
-    desc: "Choisis un univers, un secret et un casting — ou tape directement ton idée. 12 packs thématiques disponibles en 1 clic.",
-    action: "Dans l'app → onglet 🎲 Mixeur",
+const COPY = {
+  fr: {
+    title: "Bienvenue sur VerticalClap 🎬",
+    openApp: "Ouvrir l'app →",
+    trialTitle: "Essai 24h en cours",
+    trialBody: "Aucun débit avant demain. Si tu veux annuler, va dans l'app → ",
+    trialBodyBold: "Mon compte → Gérer l'abonnement",
+    trialBodyEnd: " avant minuit.",
+    confirmed: "Paiement confirmé",
+    welcome: "Bienvenue dans",
+    subtitle: "Ton accès est actif. Ta première série est à 5 minutes.",
+    whereToStart: "Par où commencer",
+    cta: "Créer ma première série →",
+    doubt: "Un doute ?",
+    steps: [
+      { n: "01", color: RED, title: "Ouvre le Mixeur", desc: "Choisis un univers, un secret et un casting — ou tape directement ton idée. 12 packs thématiques disponibles en 1 clic.", action: "Dans l'app → onglet 🎲 Mixeur" },
+      { n: "02", color: VIO, title: "Génère ta bible", desc: "Clique sur Générer. Le titre, la logline, les personnages et les 10 épisodes apparaissent en streaming en moins de 30 secondes.", action: "Dans l'app → bouton Générer la bible" },
+      { n: "03", color: RED, title: "Lance le script & tourne", desc: "Ouvre un épisode, génère le script en 10 sec. Active le Mode Tournage pour le téléprompteur auto-scroll. Ton téléphone devient ton plateau.", action: "Dans l'app → épisode → Script → Mode Tournage" },
+    ],
   },
-  {
-    n: "02",
-    color: VIO,
-    title: "Génère ta bible",
-    desc: "Clique sur Générer. Le titre, la logline, les personnages et les 10 épisodes apparaissent en streaming en moins de 30 secondes.",
-    action: "Dans l'app → bouton Générer la bible",
+  en: {
+    title: "Welcome to VerticalClap 🎬",
+    openApp: "Open the app →",
+    trialTitle: "24h trial in progress",
+    trialBody: "No charge until tomorrow. To cancel, go to the app → ",
+    trialBodyBold: "My account → Manage subscription",
+    trialBodyEnd: " before midnight.",
+    confirmed: "Payment confirmed",
+    welcome: "Welcome to",
+    subtitle: "Your access is active. Your first series is 5 minutes away.",
+    whereToStart: "Where to start",
+    cta: "Create my first series →",
+    doubt: "Any questions?",
+    steps: [
+      { n: "01", color: RED, title: "Open the Mixer", desc: "Choose a universe, a secret and a cast — or type your idea directly. 12 thematic packs available in 1 click.", action: "In the app → 🎲 Mixer tab" },
+      { n: "02", color: VIO, title: "Generate your bible", desc: "Click Generate. The title, logline, characters and 10 episodes appear in streaming in under 30 seconds.", action: "In the app → Generate bible button" },
+      { n: "03", color: RED, title: "Generate the script & shoot", desc: "Open an episode, generate the script in 10 sec. Activate Shoot Mode for the auto-scroll teleprompter. Your phone becomes your set.", action: "In the app → episode → Script → Shoot Mode" },
+    ],
   },
-  {
-    n: "03",
-    color: RED,
-    title: "Lance le script & tourne",
-    desc: "Ouvre un épisode, génère le script en 10 sec. Active le Mode Tournage pour le téléprompteur auto-scroll. Ton téléphone devient ton plateau.",
-    action: "Dans l'app → épisode → Script → Mode Tournage",
-  },
-];
+};
 
 export default function Success() {
   const router = useRouter();
-  const { session_id, plan, trial } = router.query;
+  const { session_id, plan, trial, lang = "fr" } = router.query;
+  const c = COPY[lang] || COPY.fr;
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -68,7 +86,7 @@ export default function Success() {
   return (
     <>
       <Head>
-        <title>Bienvenue sur VerticalClap 🎬</title>
+        <title>{c.title}</title>
         <meta name="robots" content="noindex" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -105,7 +123,7 @@ export default function Success() {
         {/* Nav */}
         <div style={{ borderBottom: `1px solid ${BORDER}`, padding: "16px 40px", display: "flex", justifyContent: "space-between", alignItems: "center", background: "rgba(9,9,15,0.9)", backdropFilter: "blur(20px)", position: "sticky", top: 0, zIndex: 10 }}>
           <Logo />
-          <a href={appUrl} style={{ fontSize: 14, fontWeight: 700, color: TEXT, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>Ouvrir l'app →</a>
+          <a href={appUrl} style={{ fontSize: 14, fontWeight: 700, color: TEXT, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>{c.openApp}</a>
         </div>
 
         {/* Content */}
@@ -116,9 +134,9 @@ export default function Success() {
             <div className="fade" style={{ animationDelay: "0s", background: "rgba(234,179,8,0.08)", border: "1px solid rgba(234,179,8,0.25)", borderRadius: 14, padding: "14px 20px", marginBottom: 28, display: "flex", gap: 12, alignItems: "flex-start" }}>
               <span style={{ fontSize: 20, flexShrink: 0 }}>⏱</span>
               <div>
-                <p style={{ fontSize: 14, fontWeight: 700, color: "#fbbf24", marginBottom: 4 }}>Essai 24h en cours</p>
-                <p style={{ fontSize: 13, color: "#92400e", color: "#fcd34d", lineHeight: 1.6, opacity: 0.8 }}>
-                  Aucun débit avant demain. Si tu veux annuler, va dans l'app → <strong>Mon compte → Gérer l'abonnement</strong> avant minuit.
+                <p style={{ fontSize: 14, fontWeight: 700, color: "#fbbf24", marginBottom: 4 }}>{c.trialTitle}</p>
+                <p style={{ fontSize: 13, color: "#fcd34d", lineHeight: 1.6, opacity: 0.8 }}>
+                  {c.trialBody}<strong>{c.trialBodyBold}</strong>{c.trialBodyEnd}
                 </p>
               </div>
             </div>
@@ -131,23 +149,21 @@ export default function Success() {
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
-            <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "#4ade80", marginBottom: 16 }}>Paiement confirmé</p>
+            <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "#4ade80", marginBottom: 16 }}>{c.confirmed}</p>
             <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, marginBottom: 16 }}>
-              Bienvenue dans<br />
+              {c.welcome}<br />
               <span style={{ background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
                 VerticalClap.
               </span>
             </h1>
-            <p style={{ color: MUTED, fontSize: 16, lineHeight: 1.7 }}>
-              Ton accès est actif. Ta première série est à 5 minutes.
-            </p>
+            <p style={{ color: MUTED, fontSize: 16, lineHeight: 1.7 }}>{c.subtitle}</p>
           </div>
 
           {/* Onboarding steps */}
           <div className="fade" style={{ animationDelay: "0.2s", marginBottom: 48 }}>
-            <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 24, textAlign: "center" }}>Par où commencer</p>
+            <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 24, textAlign: "center" }}>{c.whereToStart}</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              {STEPS.map(({ n, color, title, desc, action }, i) => (
+              {c.steps.map(({ n, color, title, desc, action }, i) => (
                 <div key={i} style={{ display: "flex", gap: 20, background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 18, padding: "24px 24px", position: "relative", overflow: "hidden" }}>
                   <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: 3, background: `linear-gradient(180deg, ${color}, transparent)` }} />
                   <div style={{ width: 44, height: 44, borderRadius: 14, background: `${color}14`, border: `1px solid ${color}25`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
@@ -172,10 +188,10 @@ export default function Success() {
               boxShadow: `0 0 40px rgba(168,85,247,0.3), 0 0 20px rgba(232,92,58,0.2)`,
               letterSpacing: -0.3,
             }}>
-              Créer ma première série →
+              {c.cta}
             </a>
             <p style={{ color: MUTED, fontSize: 13, marginTop: 16 }}>
-              Un doute ? <a href="mailto:hello@verticalclap.app" style={{ color: VIO, fontWeight: 600 }}>hello@verticalclap.app</a>
+              {c.doubt} <a href="mailto:hello@verticalclap.com" style={{ color: VIO, fontWeight: 600 }}>hello@verticalclap.com</a>
             </p>
           </div>
         </div>
