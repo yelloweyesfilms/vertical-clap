@@ -367,7 +367,7 @@ const COPY = {
     imgViral: "/pour%20percer%20EN.png",
     imgMixeur: "/le%20mixeur%20EN.png",
     imgCreateurs: "/les%20createurs%20EN.png",
-    imgPipeline: "/pipeline%20EN.png",
+    imgPipeline: "/le%20pippeline%20EN.png",
     imgVariations: "/3%20variations%20EN.png",
   },
 };

@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
 
   const { email, plan = "standard", refCode, billing = "monthly", trial = false } = req.body;
-  const url = process.env.NEXT_PUBLIC_URL;
+  const url = (process.env.NEXT_PUBLIC_URL || "https://verticalclap.com").replace(/\/$/, "");
 
   const planKey = billing === "annual" ? `${plan}_annual` : plan;
   const priceId = PRICE_MAP[planKey]?.() || PRICE_MAP[plan]?.();
