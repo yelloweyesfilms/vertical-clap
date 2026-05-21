@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
   try {
     await resend.emails.send({
-      from: "VerticalClap <hello@verticalclap.app>",
+      from: "VerticalClap <hello@verticalclap.com>",
       to: "verticalclapapp@gmail.com",
       reply_to: email,
       subject: `Contact — ${name}`,

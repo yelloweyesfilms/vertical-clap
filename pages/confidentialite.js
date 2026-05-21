@@ -65,7 +65,7 @@ export default function Confidentialite() {
           <Section title="1. Responsable du traitement">
             <P>
               Le responsable du traitement des données personnelles est Sophie Attelann, éditrice de VerticalClap (verticalclap.com).
-              Contact : <a href="mailto:hello@verticalclap.app" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.app</a>
+              Contact : <a href="mailto:hello@verticalclap.com" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.com</a>
             </P>
           </Section>
 
@@ -108,7 +108,7 @@ export default function Confidentialite() {
             <P style={{ paddingLeft: 16 }}><span style={{ color: RED, marginRight: 8 }}>—</span>Droit d'opposition</P>
             <P>
               Pour exercer ces droits :{" "}
-              <a href="mailto:hello@verticalclap.app" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.app</a>
+              <a href="mailto:hello@verticalclap.com" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.com</a>
             </P>
           </Section>
 
@@ -123,7 +123,7 @@ export default function Confidentialite() {
           <Section title="10. Contact et réclamations">
             <P>
               Pour toute question :{" "}
-              <a href="mailto:hello@verticalclap.app" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.app</a>
+              <a href="mailto:hello@verticalclap.com" style={{ color: RED, textDecoration: "none" }}>hello@verticalclap.com</a>
             </P>
             <P>
               Vous avez le droit d'introduire une réclamation auprès de la CNIL :{" "}
@@ -138,7 +138,7 @@ export default function Confidentialite() {
             © 2026 VerticalClap ·{" "}
             <a href="/cgu" style={{ color: "#475569", textDecoration: "none" }}>CGU</a>
             {" "}·{" "}
-            <a href="mailto:hello@verticalclap.app" style={{ color: "#475569", textDecoration: "none" }}>Contact</a>
+            <a href="mailto:hello@verticalclap.com" style={{ color: "#475569", textDecoration: "none" }}>Contact</a>
           </p>
         </footer>
       </div>
