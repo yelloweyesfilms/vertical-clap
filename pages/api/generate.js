@@ -386,7 +386,7 @@ export default async function handler(req, res) {
       const persosList = (personnages || []).map(p => `${p.nom} (${p.role})`).join(", ");
       const result = await callClaude(
         `Tu es directeur artistique expert en posters de séries verticales 9:16 (TikTok, Reels). JSON uniquement.`,
-        `Série "${titre}". Genre: ${genre || "Drama"}. Ambiance: ${ambiance || ""}. Logline: ${logline}. Casting: ${persosList}.\nJSON: {"tagline":"accroche poster 3-6 mots, choc","sous_titre":"complément émotionnel 5-8 mots","palette":["#hex1","#hex2","#hex3"],"style_visuel":"description artistique 2 phrases — composition, lumière, ambiance","prompt_ia":"prompt Midjourney en anglais, ultra-détaillé, style cinématique vertical 9:16, 50 mots max","typographie":"style typo recommandé pour le titre (ex: serif condensé blanc sur fond sombre)"}`,
+        `Série "${titre}". Genre: ${genre || "Drama"}. Ambiance: ${ambiance || ""}. Logline: ${logline}. Casting: ${persosList}.\nJSON: {"tagline":"accroche poster 3-6 mots, choc","sous_titre":"complément émotionnel 5-8 mots","palette":["#hex1","#hex2","#hex3"],"style_visuel":"description artistique 2 phrases — composition, lumière, ambiance","prompt_ia":"image generation prompt in English, compatible with Midjourney/DALL-E/Gemini, cinematic vertical 9:16 style, ultra-detailed, 50 words max","typographie":"style typo recommandé pour le titre (ex: serif condensé blanc sur fond sombre)"}`,
         700
       );
       trackAction("affiche", customerId);

@@ -806,7 +806,7 @@ function AfficheView({ affiche, loading, bible, onBack }) {
             {affiche.prompt_ia && (
               <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, border: "1.5px solid var(--bo)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                  <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)" }}>Prompt Midjourney</p>
+                  <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)" }}>Prompt IA — Midjourney · DALL-E · Gemini</p>
                   <button onClick={() => navigator.clipboard?.writeText(affiche.prompt_ia)} style={{ background: "var(--r)", border: "none", color: "#fff", padding: "6px 12px", borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>Copier</button>
                 </div>
                 <p style={{ fontSize: 12, lineHeight: 1.6, color: "var(--tx)", fontFamily: "monospace", background: "var(--bg)", borderRadius: 8, padding: "10px 12px" }}>{affiche.prompt_ia}</p>
