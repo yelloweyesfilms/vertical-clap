@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import { jsPDF } from "jspdf";
 
 // ── CONFIG ──────────────────────────────────────────────────
 const OPTS = {
@@ -786,8 +787,6 @@ export default function App() {
     const b = bible, ep = episodes[epIdx], s = script;
     if (!s) return;
 
-    const jsPDF = window.jspdf?.jsPDF;
-    if (!jsPDF) { alert("PDF non disponible, réessayez dans quelques secondes."); return; }
     const doc = new jsPDF({ unit: "mm", format: "a4" });
     const W = 210, margin = 20, contentW = W - margin * 2;
     const RED = [232, 92, 58], DARK = [15, 26, 18], GRAY = [120, 120, 120];
