@@ -107,9 +107,27 @@ function validatePayload(action, payload) {
 }
 
 const DUR_INSTR = {
-  60: "DURÉE 1 MIN: 6-8 échanges minimum, 15-30 mots/réplique — JAMAIS moins de 15 mots par réplique. Structure: CHOC d'ouverture → escalade → révélation unique → question sans réponse. Total visé: 130-150 mots de dialogue.",
-  90: "DURÉE 1MIN30: 9-11 échanges minimum, 20-35 mots/réplique — JAMAIS moins de 20 mots par réplique. Structure: hook → tension montante → faux pivot → vraie révélation → cliffhanger. Total visé: 200-230 mots de dialogue.",
-  120: "DURÉE 2 MIN: 12-15 échanges minimum, 25-40 mots/réplique — JAMAIS moins de 25 mots par réplique. Structure: hook → conflit → rebondissement mi-parcours → révélation → cliffhanger brutal. Total visé: 280-320 mots de dialogue.",
+  60: `DURÉE 1 MIN — Structure temporelle OBLIGATOIRE:
+• 0–5s: HOOK — 1 phrase choc max 10 mots, in medias res, jamais de bonjour
+• 5–20s: Conflit immédiat — 2-3 répliques courtes, tension explose
+• 20–40s: Escalade / révélation — 3-4 répliques, secret révélé ou menace
+• 40–55s: Explosion émotionnelle — 2-3 répliques, pic dramatique
+• 55–60s: CLIFFHANGER — 1 phrase qui coupe net, question sans réponse
+RÈGLES: phrases ULTRA courtes (5-12 mots max), aucune exposition, aucune politesse, chaque réplique révèle ou cache quelque chose. 1 SEULE idée forte par épisode.`,
+  90: `DURÉE 1MIN30 — Structure temporelle OBLIGATOIRE:
+• 0–5s: HOOK — 1 phrase choc, situation déjà explosive
+• 5–25s: Conflit — 3-4 répliques courtes, tension immédiate
+• 25–55s: Escalade — 4-5 répliques, faux pivot puis vraie révélation
+• 55–80s: Explosion — 3-4 répliques, conséquence émotionnelle
+• 80–90s: CLIFFHANGER — retournement brutal, question ouverte
+RÈGLES: phrases courtes (8-15 mots), sous-texte riche, silences pesants, 1 idée centrale maximum.`,
+  120: `DURÉE 2 MIN — Structure temporelle OBLIGATOIRE:
+• 0–5s: HOOK — situation déjà en crise
+• 5–30s: Conflit — 4-5 répliques, contexte minimal par l'action
+• 30–70s: Escalade — 5-6 répliques, rebondissement à mi-parcours obligatoire
+• 70–105s: Révélation — 4-5 répliques, tout s'effondre
+• 105–120s: CLIFFHANGER — double révélation ou question dévastatrice
+RÈGLES: phrases moyennes (10-20 mots), une seule intrigue centrale, 2 acteurs max.`,
 };
 
 export default async function handler(req, res) {
@@ -208,9 +226,15 @@ export default async function handler(req, res) {
       const prevEpsInstr = prevEps && prevEps.length > 0
         ? `\nCONTINUITÉ: Les épisodes précédents se sont terminés ainsi — ${prevEps.map(e => `ép.${e.numero} "${e.titre}": ${e.cliffhanger}`).join(" / ")}. Assure la cohérence narrative et fais des références implicites aux événements passés.`
         : "";
+      const styleMap = {
+        "🎬 Cinéma": "Style CINÉMA: silences pesants, regards caméra, peu de mots — chaque réplique est un événement. Phrases 5-10 mots. Pauses et émotions > dialogue.",
+        "⚡ TikTok Drama": "Style TIKTOK DRAMA: rythme haletant, punchlines, interruptions, voix off possible. Phrases 8-15 mots. Cuts rapides. Émotion brute et immédiate.",
+        "🎭 Soap Opera": "Style SOAP OPERA: dialogues plus développés, révélations multiples, retournements. Phrases 12-20 mots. Tension qui s'accumule.",
+      };
+      const styleInstr = payload.style && styleMap[payload.style] ? styleMap[payload.style] : styleMap["⚡ TikTok Drama"];
       const result = await callClaude(
-        `Tu es scénariste de micro-dramas 9:16. ${DUR_INSTR[duree]} Mode: ${md}.\nRÈGLES ABSOLUES:\n• Commence IN MEDIAS RES — déjà en plein conflit, INTERDIT de commencer par "Bonjour", présentation ou question banale\n• Chaque réplique révèle OU cache quelque chose — aucune ligne neutre ou de remplissage\n• Max ${maxS} échanges, max 2 acteurs à l'écran, format 9:16 gros plans\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "contre-plongée regard dominant", "zoom lent sur main qui tremble", "cut rapide profil fuyant")\n• jeu: état interne ou physique court (ex: "retient ses larmes", "sourire qui cache la peur", "voix qui tremble de colère", "regarde ailleurs")\n• label du cliffhanger: la question que se pose le spectateur (ex: "Il sait?", "Elle va parler?", "C'était lui?")\n• checklist: 4 items évaluant "Hook percutant ✓/✗", "Tension qui monte ✓/✗", "Cliffhanger inattendu ✓/✗", "Max 2 acteurs ✓/✗"\nJSON uniquement.`,
-        `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.\nTension de la série: ${bible.tension_centrale || ""}.\nCliffhanger à atteindre: ${ep.cliffhanger}.${prevEpsInstr}\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`,
+        `Tu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}\nRÈGLES ABSOLUES:\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• IN MEDIAS RES — déjà en plein conflit, INTERDIT: "Bonjour", exposition, question banale\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
+        `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.\nTension: ${bible.tension_centrale || ""}.\nCliffhanger cible: ${ep.cliffhanger}.${prevEpsInstr}\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`,
         2400
       );
       trackAction("script", customerId);
