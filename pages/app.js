@@ -1202,6 +1202,15 @@ export default function App() {
     try { localStorage.setItem("vs_lang", next); } catch {}
   };
 
+  useEffect(() => {
+    setState(prev => ({
+      ...prev,
+      casting: OPTS[lang].casting[0],
+      univers: prev.mode === "fast" ? OPTS[lang].univers_fast[0] : OPTS[lang].univers_prem[0],
+      secret: prev.mode === "fast" ? OPTS[lang].secret_fast[0] : OPTS[lang].secret_prem[0],
+    }));
+  }, [lang]);
+
   const t = T[lang];
   const opts = OPTS[lang];
 
