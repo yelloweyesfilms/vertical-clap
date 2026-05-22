@@ -877,11 +877,11 @@ export default function App() {
       doc.setFont("helvetica", bold && italic ? "bolditalic" : bold ? "bold" : italic ? "italic" : "normal");
       doc.setTextColor(...color);
       const lines = doc.splitTextToSize(String(text || ""), maxWidth);
-      const lineH = size * 0.4;
+      const lineH = size * 0.52;
       if (y + lines.length * lineH > 280) { doc.addPage(); y = margin; }
       doc.text(lines, align === "center" ? W / 2 : margin, y, { align });
-      y += lines.length * lineH + 2;
-      return lines.length * lineH + 2;
+      y += lines.length * lineH + 3;
+      return lines.length * lineH + 3;
     };
 
     const addSpace = (h = 4) => { y += h; };
@@ -939,9 +939,12 @@ export default function App() {
     addSpace(3);
     (s.scenes || []).forEach(sc => {
       addText(sc.perso, { size: 9, bold: true, color: DARK });
+      if (sc.jeu) addText(sc.jeu, { size: 8, italic: true, color: GRAY });
+      addSpace(1);
       addText(sc.dialogue, { size: 12 });
+      addSpace(2);
       addText(`[9:16] ${sc.visuel_916}`, { size: 9, italic: true, color: GRAY });
-      addSpace(4);
+      addSpace(6);
       addLine();
     });
 
