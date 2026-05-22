@@ -44,7 +44,7 @@ function setCached(key, data) {
 const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres", "variations", "traduire", "production"];
 const VALID_MODES = ["fast", "premium"];
 const VALID_DUREES = [60, 90, 120];
-const VALID_FORMATS = [10, 20, 40, 90];
+const VALID_FORMATS = [10, 20, 40, 60, 90];
 const VALID_EDIT_TYPES = ["pimenter", "subtil", "simplifier", "rewrite_hook", "rewrite_ending"];
 
 function validatePayload(action, payload) {
@@ -61,6 +61,7 @@ function validatePayload(action, payload) {
     if (genre !== undefined && (typeof genre !== "string" || genre.length > 100)) return "Genre invalide";
     if (lieu !== undefined && (typeof lieu !== "string" || lieu.length > 100)) return "Lieu invalide";
     if (payload.ambiance !== undefined && (typeof payload.ambiance !== "string" || payload.ambiance.length > 100)) return "Ambiance invalide";
+    if (payload.tropes !== undefined && (typeof payload.tropes !== "string" || payload.tropes.length > 300)) return "Tropes invalides";
   } else if (action === "episodes") {
     const { titre, logline, mode, from, to, total } = payload;
     if (!VALID_MODES.includes(mode)) return "Mode invalide";
@@ -148,8 +149,8 @@ export default async function handler(req, res) {
 
   try {
     if (action === "bible") {
-      const { mode, casting, univers, secret, format, duree, genre, lieu, ambiance } = payload;
-      const ck = `bible:${mode}:${casting}:${univers}:${secret}:${format}:${duree}:${genre || ""}:${lieu || ""}:${ambiance || ""}`;
+      const { mode, casting, univers, secret, format, duree, genre, lieu, ambiance, tropes } = payload;
+      const ck = `bible:${mode}:${casting}:${univers}:${secret}:${format}:${duree}:${genre || ""}:${lieu || ""}:${ambiance || ""}:${tropes || ""}`;
       const cached = getCached(ck);
       if (cached) return res.json(cached);
       const md = mode === "fast"
@@ -159,8 +160,9 @@ export default async function handler(req, res) {
       const lieuInstr = lieu ? `Lieu principal: "${lieu}" — les scènes se déroulent dans ce lieu limité, exploite l'espace pour créer la tension et la claustrophobie dramatique.` : "";
       const ambianceMap = { "⚡ Intense & Direct": "Ton INTENSE ET DIRECT: dialogues percutants, confrontations frontales, émotions à fleur de peau, rythme rapide.", "💜 Émotionnel & Poétique": "Ton ÉMOTIONNEL ET POÉTIQUE: dialogues touchants, métaphores, profondeur des sentiments, moments de vulnérabilité.", "🧠 Psychologique & Lent": "Ton PSYCHOLOGIQUE ET LENT: sous-texte riche, silences significatifs, manipulation subtile, tension qui monte sans éclater." };
       const ambianceInstr = ambiance && ambianceMap[ambiance] ? ambianceMap[ambiance] : "";
+      const tropesInstr = tropes ? `Tropes & codes narratifs du pack: ${tropes}. Respecte ces codes comme ADN de la série.` : "";
       const result = await callClaude(
-        `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}\n${genreInstr}\n${lieuInstr}\n${ambianceInstr}\nTitre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.\nLogline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.\nPitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.\nSecret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.\narc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").\ntension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".\naccroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.\nJSON uniquement, aucun texte avant ou après.`,
+        `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}\n${genreInstr}\n${lieuInstr}\n${ambianceInstr}\n${tropesInstr}\nTitre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.\nLogline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.\nPitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.\nSecret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.\narc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").\ntension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".\naccroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.\nJSON uniquement, aucun texte avant ou après.`,
         `Casting: ${casting}. Univers: ${univers}. Secret moteur: ${secret}. Série de ${format} épisodes.\nJSON: {"titre":"","logline":"","pitch":"","personnages":[{"nom":"","age":25,"role":"","secret":"","arc":""},{"nom":"","age":28,"role":"","secret":"","arc":""}],"tension_centrale":"","accroche":""}`,
         1800
       );
