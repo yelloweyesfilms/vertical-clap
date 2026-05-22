@@ -56,6 +56,16 @@ const T = {
     packs_label: "🎬 Packs d'univers", packs_sub: "— tout configuré en 1 clic",
     logout: "Déconnexion", custom: "✏️ Perso.",
     choose_lang: "Choisir la langue", back: "← Retour", my_series_title: "Mes Séries",
+    affiche_title: "🎨 Dossier de présentation", affiche_sub: "Ton kit visuel complet — affiche + direction artistique + image IA",
+    affiche_loading: "Création de la direction artistique…",
+    affiche_sec1_title: "01 — Affiche de présentation", affiche_sec1_sub: "Imprime-la ou joins-la à ton PDF d'épisodes pour présenter ta série.",
+    affiche_sec2_title: "02 — Direction artistique", affiche_sec2_sub: "L'ambiance visuelle de ta série — pour briefer un DA, un graphiste ou une IA.",
+    affiche_sec3_title: "03 — Générer l'image de couverture", affiche_sec3_sub: "Copie ce prompt et colle-le dans Midjourney, DALL-E (ChatGPT), Gemini ou Ideogram pour générer l'affiche.",
+    affiche_copy: "📋 Copier le prompt", affiche_tools: "Midjourney → /imagine + colle · ChatGPT → \"Génère cette image :\" + colle · Gemini → même chose",
+    vc_presents: "VERTICAL CLAP PRESENTS",
+    social_title: "📱 Contenu Social", social_loading: "Génération du contenu social…",
+    social_tiktok_legend: "📣 Légende TikTok", social_copy: "Copier",
+    social_sms: "💬 SMS entre personnages", social_comments: "🎵 Commentaires TikTok",
   },
   en: {
     mode_fast: "⚡ Fast Drama", mode_premium: "🎭 Premium Suspense",
@@ -89,6 +99,16 @@ const T = {
     packs_label: "🎬 Universe packs", packs_sub: "— all set in 1 click",
     logout: "Sign out", custom: "✏️ Custom",
     choose_lang: "Choose language", back: "← Back", my_series_title: "My Series",
+    affiche_title: "🎨 Presentation kit", affiche_sub: "Your complete visual kit — poster + art direction + AI image",
+    affiche_loading: "Creating art direction…",
+    affiche_sec1_title: "01 — Presentation poster", affiche_sec1_sub: "Print it or attach it to your episode PDF to present your series.",
+    affiche_sec2_title: "02 — Art direction", affiche_sec2_sub: "Your series visual identity — to brief a designer, an art director, or an AI.",
+    affiche_sec3_title: "03 — Generate cover image", affiche_sec3_sub: "Copy this prompt and paste it into Midjourney, DALL-E (ChatGPT), Gemini or Ideogram to generate the poster.",
+    affiche_copy: "📋 Copy prompt", affiche_tools: "Midjourney → /imagine + paste · ChatGPT → \"Generate this image:\" + paste · Gemini → same",
+    vc_presents: "VERTICAL CLAP PRESENTS",
+    social_title: "📱 Social Content", social_loading: "Generating social content…",
+    social_tiktok_legend: "📣 TikTok Caption", social_copy: "Copy",
+    social_sms: "💬 SMS between characters", social_comments: "🎵 TikTok Comments",
   },
 };
 
@@ -109,66 +129,66 @@ const PACKS = [
 // ── UNIVERSE PACKS ───────────────────────────────────────────
 const UNIVERSE_PACKS = [
   {
-    id: "love-betrayal", emoji: "❤️", label: "Love & Betrayal", mode: "fast",
-    tag: "Romance toxique",
-    desc: "Triangle amoureux, meilleure amie toxique, secrets de grossesse — ultra TikTok.",
-    casting: "1 Femme + 1 Homme", univers: "Mode & Influence", secret: "Trahison amoureuse",
+    id: "love-betrayal", emoji: "❤️", mode: "fast",
+    label: { fr: "Love & Betrayal", en: "Love & Betrayal" },
+    desc: { fr: "Triangle amoureux, meilleure amie toxique, secrets de grossesse — ultra TikTok.", en: "Love triangle, toxic best friend, pregnancy secrets — ultra TikTok." },
+    casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Mode & Influence", en: "Fashion & Influence" }, secret: { fr: "Trahison amoureuse", en: "Love betrayal" },
     genre: "Romance dramatique", ambiance: "⚡ Intense & Direct",
     tropes: "enemies to lovers, fake dating, forbidden love, secret pregnancy, best friend betrayal, rich vs poor, arranged marriage",
   },
   {
-    id: "lycee-elite", emoji: "🔥", label: "Lycée Élite", mode: "fast",
-    tag: "Teen drama",
-    desc: "Secrets anonymes, scandales, influenceurs scolaires — style Elite × Euphoria.",
-    casting: "Trio Teenagers", univers: "Lycée & Secrets", secret: "Relation interdite au lycée",
+    id: "lycee-elite", emoji: "🔥", mode: "fast",
+    label: { fr: "Lycée Élite", en: "Elite High School" },
+    desc: { fr: "Secrets anonymes, scandales, influenceurs scolaires — style Elite × Euphoria.", en: "Anonymous secrets, scandals, school influencers — Elite × Euphoria vibes." },
+    casting: { fr: "Trio Teenagers", en: "Teen trio" }, univers: { fr: "Lycée & Secrets", en: "High school secrets" }, secret: { fr: "Relation interdite au lycée", en: "Forbidden school romance" },
     genre: "Teen drama", ambiance: "⚡ Intense & Direct",
     tropes: "rumeur anonyme, revenge porn, jalousie scolaire, élève riche vs pauvre, prof interdit, fête qui dérape, secret divulgué en live",
   },
   {
-    id: "thriller-psycho", emoji: "🧠", label: "Thriller Psycho", mode: "premium",
-    tag: "Suspense pur",
-    desc: "Double personnalité, faux souvenirs, manipulation — chaque perso cache quelque chose.",
-    casting: "1 Femme + 1 Homme", univers: "Héritage familial", secret: "Manipulation psychologique",
+    id: "thriller-psycho", emoji: "🧠", mode: "premium",
+    label: { fr: "Thriller Psycho", en: "Psych Thriller" },
+    desc: { fr: "Double personnalité, faux souvenirs, manipulation — chaque perso cache quelque chose.", en: "Split personality, false memories, manipulation — everyone is hiding something." },
+    casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Héritage familial", en: "Family inheritance" }, secret: { fr: "Manipulation psychologique", en: "Psychological manipulation" },
     genre: "Thriller psychologique", ambiance: "🧠 Psychologique & Lent",
     tropes: "unreliable narrator, hidden identity, faux souvenir, secte, huis clos, gaslighting, le meurtrier est connu du personnage",
   },
   {
-    id: "influenceurs", emoji: "💄", label: "Influenceurs", mode: "fast",
-    tag: "Réseaux sociaux",
-    desc: "Villa TikTok, faux couple pour les vues, bad buzz, leak privé — drama en direct.",
-    casting: "Trio mixte", univers: "Réseau social viral", secret: "Double vie",
+    id: "influenceurs", emoji: "💄", mode: "fast",
+    label: { fr: "Influenceurs", en: "Influencers" },
+    desc: { fr: "Villa TikTok, faux couple pour les vues, bad buzz, leak privé — drama en direct.", en: "TikTok villa, fake couple for clout, scandal, private leak — live drama." },
+    casting: { fr: "Trio mixte", en: "Mixed trio" }, univers: { fr: "Réseau social viral", en: "Viral social media" }, secret: { fr: "Double vie", en: "Double life" },
     genre: "Reality drama", ambiance: "⚡ Intense & Direct",
     tropes: "faux couple pour les followers, scandale live, bad buzz, leak de DM privés, rivalité créateurs, fan obsessionnel, cancel culture",
   },
   {
-    id: "royal-dark", emoji: "👑", label: "Royal Dark Romance", mode: "premium",
-    tag: "Dark romance",
-    desc: "Prince héritier, garde du corps, mariage forcé — luxe noir et tension maximale.",
-    casting: "1 Femme + 1 Homme", univers: "Politique & Pouvoir", secret: "Identité volée",
+    id: "royal-dark", emoji: "👑", mode: "premium",
+    label: { fr: "Royal Dark Romance", en: "Royal Dark Romance" },
+    desc: { fr: "Prince héritier, garde du corps, mariage forcé — luxe noir et tension maximale.", en: "Crown prince, bodyguard, forced marriage — dark luxury and maximum tension." },
+    casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Politique & Pouvoir", en: "Politics & Power" }, secret: { fr: "Identité volée", en: "Stolen identity" },
     genre: "Dark romance royale", ambiance: "💜 Émotionnel & Poétique",
     tropes: "prince héritier x roturière, garde du corps protecteur, mariage forcé, héritière rebelle, mafia royale, contrat amoureux, esthétique noir et or",
   },
   {
-    id: "mafia-gang", emoji: "🩸", label: "Mafia & Gang", mode: "premium",
-    tag: "Crime & trahison",
-    desc: "Dette familiale, chef dangereux, infiltrée — loyauté ou vengeance.",
-    casting: "2 Hommes", univers: "Finance internationale", secret: "Complot financier",
+    id: "mafia-gang", emoji: "🩸", mode: "premium",
+    label: { fr: "Mafia & Gang", en: "Mafia & Gang" },
+    desc: { fr: "Dette familiale, chef dangereux, infiltrée — loyauté ou vengeance.", en: "Family debt, dangerous boss, undercover love — loyalty or revenge." },
+    casting: { fr: "2 Hommes", en: "2 Men" }, univers: { fr: "Finance internationale", en: "International finance" }, secret: { fr: "Complot financier", en: "Financial conspiracy" },
     genre: "Crime drama", ambiance: "🧠 Psychologique & Lent",
     tropes: "dette de sang, chef charismatique et dangereux, infiltrée amoureuse, vengeance familiale, cartel, prison, trahison du lieutenant de confiance",
   },
   {
-    id: "horreur", emoji: "👻", label: "Horreur Virale", mode: "fast",
-    tag: "POV horreur",
-    desc: "Caméra retrouvée, rituel TikTok, école hantée — cliffhangers qui glacent.",
-    casting: "Trio Teenagers", univers: "Collège & Cliques", secret: "Gang secret entre ados",
+    id: "horreur", emoji: "👻", mode: "fast",
+    label: { fr: "Horreur Virale", en: "Viral Horror" },
+    desc: { fr: "Caméra retrouvée, rituel TikTok, école hantée — cliffhangers qui glacent.", en: "Found footage, TikTok ritual, haunted school — spine-chilling cliffhangers." },
+    casting: { fr: "Trio Teenagers", en: "Teen trio" }, univers: { fr: "Collège & Cliques", en: "College cliques" }, secret: { fr: "Gang secret entre ados", en: "Secret teen gang" },
     genre: "Horreur POV", ambiance: "🧠 Psychologique & Lent",
     tropes: "found footage, défi interdit qui tourne mal, esprit vengeur, école hantée, rituel TikTok, disparition inexpliquée, message d'outre-tombe",
   },
   {
-    id: "scifi-ia", emoji: "🤖", label: "Sci-Fi & IA", mode: "premium",
-    tag: "Futur immédiat",
-    desc: "IA qui devient humaine, clone, souvenirs vendus — le futur qui fait peur.",
-    casting: "1 Femme + 1 Homme", univers: "Start-up IA", secret: "Espionnage industriel",
+    id: "scifi-ia", emoji: "🤖", mode: "premium",
+    label: { fr: "Sci-Fi & IA", en: "Sci-Fi & AI" },
+    desc: { fr: "IA qui devient humaine, clone, souvenirs vendus — le futur qui fait peur.", en: "AI going human, clones, sold memories — the future that terrifies." },
+    casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Start-up IA", en: "AI startup" }, secret: { fr: "Espionnage industriel", en: "Industrial espionage" },
     genre: "Sci-fi dramatique", ambiance: "🧠 Psychologique & Lent",
     tropes: "IA qui développe des émotions, clone identique, réalité simulée, souvenirs implantés ou vendus, influenceur virtuel, surveillance totale, humanité questionnée",
   },
@@ -389,18 +409,23 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             {UNIVERSE_PACKS.map(p => {
               const locked = p.mode === "premium" && plan === "standard";
               const active = state.packId === p.id;
+              const pLabel = typeof p.label === "object" ? (p.label[lang] || p.label.fr) : p.label;
+              const pDesc = typeof p.desc === "object" ? (p.desc[lang] || p.desc.fr) : p.desc;
+              const pCasting = typeof p.casting === "object" ? (p.casting[lang] || p.casting.fr) : p.casting;
+              const pUnivers = typeof p.univers === "object" ? (p.univers[lang] || p.univers.fr) : p.univers;
+              const pSecret = typeof p.secret === "object" ? (p.secret[lang] || p.secret.fr) : p.secret;
               return (
                 <button key={p.id} onClick={() => {
                   if (locked) return;
-                  set({ mode: p.mode, casting: p.casting, univers: p.univers, secret: p.secret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 20 : state.format });
+                  set({ mode: p.mode, casting: pCasting, univers: pUnivers, secret: pSecret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 20 : state.format });
                 }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${active ? "var(--r)" : "var(--bo)"}`, background: active ? "var(--r)" : "var(--card)", cursor: locked ? "not-allowed" : "pointer", fontFamily: "var(--sans)", textAlign: "left", opacity: locked ? 0.45 : 1, transition: "all .15s" }}>
                   <span style={{ fontSize: 28, flexShrink: 0 }}>{p.emoji}</span>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
-                      <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#fff" : "var(--tx)" }}>{p.label}</span>
+                      <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#fff" : "var(--tx)" }}>{pLabel}</span>
                       <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: p.mode === "premium" ? "var(--n)" : "#e8f0e8", color: p.mode === "premium" ? "#fff" : "var(--n)", fontWeight: 700, letterSpacing: 0.5 }}>{locked ? "🔒 PRO" : p.mode === "premium" ? "PRO" : "FAST"}</span>
                     </div>
-                    <span style={{ fontSize: 11, color: active ? "rgba(255,255,255,0.8)" : "var(--mt)", lineHeight: 1.3 }}>{p.desc}</span>
+                    <span style={{ fontSize: 11, color: active ? "rgba(255,255,255,0.8)" : "var(--mt)", lineHeight: 1.3 }}>{pDesc}</span>
                   </div>
                 </button>
               );
@@ -905,31 +930,31 @@ function SectionTitle({ accent, title, sub }) {
   );
 }
 
-function AfficheView({ affiche, loading, bible, onBack }) {
+function AfficheView({ affiche, loading, bible, onBack, t }) {
   const accent = affiche?.palette?.[0] || "var(--r)";
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Bible</button>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>🎨 Dossier de présentation</h2>
-        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ton kit visuel complet — affiche + direction artistique + image IA</p>
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_bible}</button>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{t.affiche_title}</h2>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{t.affiche_sub}</p>
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
           <div style={{ textAlign: "center", padding: "60px 0" }}>
             <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>🎨</div>
-            <p style={{ color: "var(--mt)" }}>Création de la direction artistique…</p>
+            <p style={{ color: "var(--mt)" }}>{t.affiche_loading}</p>
           </div>
         ) : affiche ? (
           <>
             {/* — 1. AFFICHE — */}
-            <SectionTitle accent={accent} title="01 — Affiche de présentation" sub="Imprime-la ou joins-la à ton PDF d'épisodes pour présenter ta série." />
+            <SectionTitle accent={accent} title={t.affiche_sec1_title} sub={t.affiche_sec1_sub} />
             <div style={{ background: "#fff", borderRadius: 20, padding: "40px 28px 32px", marginBottom: 28, textAlign: "center", aspectRatio: "9/14", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", boxShadow: "0 4px 32px rgba(0,0,0,0.15)" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 6, background: `linear-gradient(90deg, ${affiche.palette?.[0] || "#E85C3A"}, ${affiche.palette?.[1] || "#ff8c42"})` }} />
               {affiche.palette?.[0] && (
                 <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 50% 40%, ${affiche.palette[0]}12 0%, transparent 65%)`, pointerEvents: "none" }} />
               )}
-              <p style={{ fontSize: 8, letterSpacing: 4, textTransform: "uppercase", color: affiche.palette?.[0] || "#E85C3A", marginBottom: 24, fontWeight: 700, position: "relative" }}>VERTICAL CLAP PRESENTS</p>
+              <p style={{ fontSize: 8, letterSpacing: 4, textTransform: "uppercase", color: affiche.palette?.[0] || "#E85C3A", marginBottom: 24, fontWeight: 700, position: "relative" }}>{t.vc_presents}</p>
               <h1 style={{ fontFamily: "var(--serif)", fontSize: 44, fontWeight: 900, color: "#0a0a0f", lineHeight: 1, marginBottom: 18, letterSpacing: -1, position: "relative" }}>{bible?.titre}</h1>
               {affiche.tagline && (
                 <div style={{ position: "relative", marginBottom: 14 }}>
@@ -946,7 +971,7 @@ function AfficheView({ affiche, loading, bible, onBack }) {
             {/* — 2. DIRECTION ARTISTIQUE — */}
             {affiche.style_visuel && (
               <>
-                <SectionTitle accent={accent} title="02 — Direction artistique" sub="L'ambiance visuelle de ta série — pour briefer un DA, un graphiste ou une IA." />
+                <SectionTitle accent={accent} title={t.affiche_sec2_title} sub={t.affiche_sec2_sub} />
                 <div style={{ background: "var(--card)", borderRadius: 14, padding: 18, marginBottom: 28, border: "1.5px solid var(--bo)" }}>
                   <p style={{ fontSize: 14, lineHeight: 1.7, marginBottom: affiche.typographie ? 12 : 0 }}>{affiche.style_visuel}</p>
                   {affiche.typographie && (
@@ -962,15 +987,15 @@ function AfficheView({ affiche, loading, bible, onBack }) {
             {/* — 3. PROMPT IA — */}
             {affiche.prompt_ia && (
               <>
-                <SectionTitle accent={accent} title="03 — Générer l'image de couverture" sub="Copie ce prompt et colle-le dans Midjourney, DALL-E (ChatGPT), Gemini ou Ideogram pour générer l'affiche." />
+                <SectionTitle accent={accent} title={t.affiche_sec3_title} sub={t.affiche_sec3_sub} />
                 <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, border: `2px solid ${accent}33`, marginBottom: 12 }}>
                   <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--tx)", fontFamily: "monospace", marginBottom: 14 }}>{affiche.prompt_ia}</p>
                   <button onClick={() => navigator.clipboard?.writeText(affiche.prompt_ia)} style={{ background: accent, border: "none", color: "#fff", padding: "12px 20px", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", width: "100%" }}>
-                    📋 Copier le prompt
+                    {t.affiche_copy}
                   </button>
                 </div>
                 <p style={{ fontSize: 11, color: "var(--mt)", textAlign: "center", lineHeight: 1.5 }}>
-                  Midjourney → /imagine + colle · ChatGPT → "Génère cette image :" + colle · Gemini → même chose
+                  {t.affiche_tools}
                 </p>
               </>
             )}
@@ -981,34 +1006,34 @@ function AfficheView({ affiche, loading, bible, onBack }) {
   );
 }
 
-function SocialView({ social, loading, ep, bible, onBack }) {
+function SocialView({ social, loading, ep, bible, onBack, t }) {
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Studio</button>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>📱 Contenu Social</h2>
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_studio}</button>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{t.social_title}</h2>
         <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre}</p>
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
           <div style={{ textAlign: "center", padding: "60px 0" }}>
             <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>📱</div>
-            <p style={{ color: "var(--mt)" }}>Génération du contenu social…</p>
+            <p style={{ color: "var(--mt)" }}>{t.social_loading}</p>
           </div>
         ) : social ? (
           <>
             {/* Légende TikTok */}
             {social.legende && (
               <div style={{ background: "linear-gradient(135deg, #ff0050, #ff6b6b)", borderRadius: 16, padding: 18, marginBottom: 20 }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 8 }}>📣 Légende TikTok</p>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 8 }}>{t.social_tiktok_legend}</p>
                 <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", lineHeight: 1.5 }}>{social.legende}</p>
-                <button onClick={() => navigator.clipboard?.writeText(social.legende)} style={{ marginTop: 12, background: "rgba(255,255,255,0.2)", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>Copier</button>
+                <button onClick={() => navigator.clipboard?.writeText(social.legende)} style={{ marginTop: 12, background: "rgba(255,255,255,0.2)", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.social_copy}</button>
               </div>
             )}
             {/* SMS */}
             {(social.sms || []).length > 0 && (
               <div style={{ marginBottom: 20 }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>💬 SMS entre personnages</p>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>{t.social_sms}</p>
                 <div style={{ background: "#1a1a1a", borderRadius: 16, padding: 16, display: "flex", flexDirection: "column", gap: 10 }}>
                   {(social.sms || []).map((m, i) => {
                     const isRight = i % 2 === 0;
@@ -1027,7 +1052,7 @@ function SocialView({ social, loading, ep, bible, onBack }) {
             {/* Commentaires TikTok */}
             {(social.commentaires || []).length > 0 && (
               <div>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>🎵 Commentaires TikTok</p>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>{t.social_comments}</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {(social.commentaires || []).map((c, i) => (
                     <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: "12px 14px", border: "1.5px solid var(--bo)", display: "flex", alignItems: "flex-start", gap: 10 }}>
@@ -1374,7 +1399,7 @@ export default function App() {
     setLoadingSocial(true);
     setScreen("social");
     try {
-      const r = await gen("social", { ep: episodes[epIdx], bible, mode: state.mode }, customerId);
+      const r = await gen("social", { ep: episodes[epIdx], bible, mode: state.mode, lang }, customerId);
       setSocial(r);
     } catch (e) { console.error(e); }
     setLoadingSocial(false);
@@ -1385,7 +1410,7 @@ export default function App() {
     setLoadingAffiche(true);
     setScreen("affiche");
     try {
-      const r = await gen("affiche", { titre: bible.titre, logline: bible.logline, personnages: bible.personnages || [], genre: state.genre, ambiance: state.ambiance }, customerId);
+      const r = await gen("affiche", { titre: bible.titre, logline: bible.logline, personnages: bible.personnages || [], genre: state.genre, ambiance: state.ambiance, lang }, customerId);
       setAffiche(r);
     } catch (e) { console.error(e); }
     setLoadingAffiche(false);
