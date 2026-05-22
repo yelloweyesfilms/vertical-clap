@@ -381,6 +381,39 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
           </div>
         </div>
 
+        {/* Drama Engine */}
+        <div style={{ marginBottom: 24 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 4 }}>
+            🎚 Drama Engine
+          </p>
+          <p style={{ fontSize: 11, color: "var(--mt)", marginBottom: 14 }}>Dose les ingrédients de ta série</p>
+          {[
+            { key: "romance", label: "💕 Romance", lo: "Neutre", hi: "Passion brûlante" },
+            { key: "toxicite", label: "☠️ Toxicité", lo: "Sain", hi: "Manipulation totale" },
+            { key: "mystere", label: "🔍 Mystère", lo: "Transparent", hi: "Rien n'est vrai" },
+            { key: "humour", label: "😈 Humour noir", lo: "Pur drame", hi: "Comédie noire" },
+            { key: "violence", label: "💥 Violence", lo: "Aucune", hi: "Confrontations dures" },
+            { key: "spicy", label: "🔥 Spicy", lo: "Tous publics", hi: "Tension maximale" },
+          ].map(({ key, label, lo, hi }) => {
+            const val = state.drama?.[key] ?? 5;
+            return (
+              <div key={key} style={{ marginBottom: 14 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: "var(--tx)" }}>{label}</span>
+                  <span style={{ fontSize: 11, fontWeight: 800, color: val >= 7 ? "var(--r)" : val <= 3 ? "var(--mt)" : "var(--n)", minWidth: 20, textAlign: "right" }}>{val}</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ fontSize: 10, color: "var(--mt)", minWidth: 62, textAlign: "right" }}>{lo}</span>
+                  <input type="range" min={0} max={10} value={val}
+                    onChange={e => set({ drama: { ...(state.drama || {}), [key]: Number(e.target.value) } })}
+                    style={{ flex: 1, accentColor: val >= 7 ? "var(--r)" : "var(--n)", cursor: "pointer" }} />
+                  <span style={{ fontSize: 10, color: "var(--mt)", minWidth: 80 }}>{hi}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
         <button onClick={onGen} style={{ background: "var(--r)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 700, cursor: "pointer" }}>
           ▶ Générer la série
         </button>
@@ -721,7 +754,7 @@ export default function App() {
     try { localStorage.setItem("vs_theme", darkMode ? "dark" : "light"); } catch {}
   }, [darkMode]);
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.casting[0], univers: OPTS.univers_fast[0], secret: OPTS.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", packId: null, style: "⚡ TikTok Drama" });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.casting[0], univers: OPTS.univers_fast[0], secret: OPTS.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
@@ -839,7 +872,7 @@ export default function App() {
     setLoading(true);
     setErr(null);
     try {
-      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style }, customerId);
+      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama }, customerId);
       setScript(s);
     } catch (e) {
       console.error(e);
