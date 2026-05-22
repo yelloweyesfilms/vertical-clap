@@ -364,6 +364,23 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
           </div>
         </div>
 
+        {/* Style de script */}
+        <div style={{ marginBottom: 20 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>Style de script</p>
+          <div style={{ display: "flex", gap: 8 }}>
+            {[
+              { v: "🎬 Cinéma", s: "Silences & regards" },
+              { v: "⚡ TikTok Drama", s: "Rythme haletant" },
+              { v: "🎭 Soap Opera", s: "Révélations multiples" },
+            ].map(({ v, s }) => (
+              <button key={v} onClick={() => set({ style: v })} style={{ flex: 1, padding: "10px 8px", borderRadius: 12, border: `2px solid ${state.style === v ? "var(--r)" : "var(--bo)"}`, background: state.style === v ? "var(--r)" : "var(--card)", color: state.style === v ? "#fff" : "var(--tx)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "center" }}>
+                <div style={{ fontSize: 13, fontWeight: 700 }}>{v}</div>
+                <div style={{ fontSize: 10, opacity: 0.8, marginTop: 2 }}>{s}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+
         <button onClick={onGen} style={{ background: "var(--r)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 700, cursor: "pointer" }}>
           ▶ Générer la série
         </button>
@@ -704,7 +721,7 @@ export default function App() {
     try { localStorage.setItem("vs_theme", darkMode ? "dark" : "light"); } catch {}
   }, [darkMode]);
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.casting[0], univers: OPTS.univers_fast[0], secret: OPTS.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", packId: null });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.casting[0], univers: OPTS.univers_fast[0], secret: OPTS.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", packId: null, style: "⚡ TikTok Drama" });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
@@ -822,7 +839,7 @@ export default function App() {
     setLoading(true);
     setErr(null);
     try {
-      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree }, customerId);
+      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style }, customerId);
       setScript(s);
     } catch (e) {
       console.error(e);
