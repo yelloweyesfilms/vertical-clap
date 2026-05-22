@@ -772,26 +772,27 @@ function AfficheView({ affiche, loading, bible, onBack }) {
           </div>
         ) : affiche ? (
           <>
-            {/* Poster mockup */}
-            <div style={{ background: "#0a0a0f", borderRadius: 20, padding: "48px 28px 36px", marginBottom: 20, textAlign: "center", aspectRatio: "9/14", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
-              {/* Gradient overlay using palette colors */}
+            {/* Poster mockup — fond blanc, print-friendly */}
+            <div style={{ background: "#fff", borderRadius: 20, padding: "40px 28px 32px", marginBottom: 20, textAlign: "center", aspectRatio: "9/14", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", boxShadow: "0 4px 32px rgba(0,0,0,0.15)" }}>
+              {/* Bande couleur en haut */}
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 6, background: `linear-gradient(90deg, ${affiche.palette?.[0] || "#E85C3A"}, ${affiche.palette?.[1] || "#ff8c42"})` }} />
+              {/* Fond léger teinté palette */}
               {affiche.palette?.[0] && (
-                <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 30% 20%, ${affiche.palette[0]}55 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, ${affiche.palette[1] || affiche.palette[0]}33 0%, transparent 50%)`, pointerEvents: "none" }} />
+                <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 50% 40%, ${affiche.palette[0]}12 0%, transparent 65%)`, pointerEvents: "none" }} />
               )}
-              {/* Decorative line */}
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, transparent, ${affiche.palette?.[0] || "#E85C3A"}, ${affiche.palette?.[1] || "#ff8c42"}, transparent)` }} />
-              <p style={{ fontSize: 9, letterSpacing: 4, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 28, fontWeight: 600, position: "relative" }}>VERTICAL CLAP PRESENTS</p>
-              <h1 style={{ fontFamily: "var(--serif)", fontSize: 44, fontWeight: 900, color: "#fff", lineHeight: 1, marginBottom: 20, letterSpacing: -1, position: "relative", textShadow: "0 2px 20px rgba(0,0,0,0.8)" }}>{bible?.titre}</h1>
+              <p style={{ fontSize: 8, letterSpacing: 4, textTransform: "uppercase", color: affiche.palette?.[0] || "#E85C3A", marginBottom: 24, fontWeight: 700, position: "relative" }}>VERTICAL CLAP PRESENTS</p>
+              <h1 style={{ fontFamily: "var(--serif)", fontSize: 44, fontWeight: 900, color: "#0a0a0f", lineHeight: 1, marginBottom: 18, letterSpacing: -1, position: "relative" }}>{bible?.titre}</h1>
               {affiche.tagline && (
-                <div style={{ position: "relative", marginBottom: 16 }}>
-                  <div style={{ width: 40, height: 2, background: affiche.palette?.[0] || "#E85C3A", margin: "0 auto 14px" }} />
-                  <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", letterSpacing: 0.5 }}>{affiche.tagline}</p>
+                <div style={{ position: "relative", marginBottom: 14 }}>
+                  <div style={{ width: 40, height: 2, background: affiche.palette?.[0] || "#E85C3A", margin: "0 auto 12px" }} />
+                  <p style={{ fontSize: 15, fontWeight: 700, color: "#1a1a1a", letterSpacing: 0.3 }}>{affiche.tagline}</p>
                 </div>
               )}
-              {affiche.sous_titre && <p style={{ fontSize: 12, color: "rgba(255,255,255,0.55)", fontStyle: "italic", lineHeight: 1.5, position: "relative" }}>{affiche.sous_titre}</p>}
-              {/* Palette dots */}
-              <div style={{ position: "absolute", bottom: 20, left: 0, right: 0, display: "flex", justifyContent: "center", gap: 8 }}>
-                {(affiche.palette || []).map((c, i) => <div key={i} style={{ width: 14, height: 14, borderRadius: "50%", background: c, border: "1.5px solid rgba(255,255,255,0.25)" }} />)}
+              {affiche.sous_titre && <p style={{ fontSize: 12, color: "#666", fontStyle: "italic", lineHeight: 1.5, position: "relative" }}>{affiche.sous_titre}</p>}
+              {/* Bande couleur en bas + palette dots */}
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 36, background: affiche.palette?.[0] || "#0a0a0f", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+                <span style={{ fontSize: 8, letterSpacing: 2, fontWeight: 700, color: "rgba(255,255,255,0.6)", textTransform: "uppercase" }}>verticalclap.com</span>
+                {(affiche.palette || []).map((c, i) => <div key={i} style={{ width: 10, height: 10, borderRadius: "50%", background: "#fff", opacity: 0.4 }} />)}
               </div>
             </div>
             {/* Style visuel */}
