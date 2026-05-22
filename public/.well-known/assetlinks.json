@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.verticalclap.twa",
+    "sha256_cert_fingerprints": ["13:F3:14:E1:50:02:ED:19:55:9B:7D:59:E8:B4:09:2D:80:0F:F6:6C:E7:02:0D:AB:67:BE:A8:C6:70:43:61:08"]
+  }
+}]
