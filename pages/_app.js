@@ -72,6 +72,7 @@ export default function App({ Component, pageProps }) {
         <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" /></noscript>
       </Head>
       <Component {...pageProps} />
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" strategy="lazyOnload" />
     </>
   );
 }

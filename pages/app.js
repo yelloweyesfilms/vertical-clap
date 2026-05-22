@@ -82,11 +82,15 @@ function loadSaved() {
 }
 
 function saveSerie(bible, episodes, state) {
-  const saved = loadSaved();
-  const entry = { id: Date.now(), savedAt: new Date().toISOString(), bible, episodes, state };
-  const updated = [entry, ...saved].slice(0, 20);
-  localStorage.setItem(SAVE_KEY, JSON.stringify(updated));
-  return entry.id;
+  try {
+    const saved = loadSaved();
+    const entry = { id: Date.now(), savedAt: new Date().toISOString(), bible, episodes, state };
+    const updated = [entry, ...saved].slice(0, 10);
+    localStorage.setItem(SAVE_KEY, JSON.stringify(updated));
+    return entry.id;
+  } catch (e) {
+    console.error("Sauvegarde impossible (localStorage plein)", e);
+  }
 }
 
 function deleteSerie(id) {
