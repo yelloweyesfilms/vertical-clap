@@ -297,12 +297,14 @@ export default async function handler(req, res) {
     if (action === "edit") {
       const { script, type, duree, lang } = payload;
       const maxS = duree <= 60 ? 8 : duree <= 90 ? 11 : 15;
+      const currentHook = script?.hook_scene?.texte || "";
+      const currentCliff = script?.cliffhanger_scene?.texte || "";
       const instr = {
         pimenter: `INTENSIFIE ce script au maximum. Remplace chaque réplique ordinaire par une révélation, une accusation ou une menace. Interdit: hésitations, politesse, questions vagues. Chaque ligne doit blesser ou exposer un secret. Max ${maxS} échanges. Retourne exactement la même structure JSON.`,
         subtil: `RENDS ce script subtil et psychologique. Aucun personnage ne dit ce qu'il veut vraiment — tout passe par le sous-texte, les silences (indique "(silence)" dans jeu), les métaphores et les regards. Remplace les confrontations directes par des non-dits lourds. Max ${maxS} échanges. Même structure JSON.`,
         simplifier: `SIMPLIFIE radicalement ce script. Un seul lieu. Une seule révélation centrale. Répliques 5-8 mots max, chaque mot compte. Supprime tout ce qui n'est pas essentiel à la tension principale. Max ${maxS} échanges. Même structure JSON.`,
-        rewrite_hook: `RÉÉCRIS UNIQUEMENT le hook d'ouverture (hook_scene). Crée une nouvelle scène d'ouverture complètement différente — autre situation, autre dynamique, mais même tension et mêmes personnages. Le reste du script reste identique. Même structure JSON.`,
-        rewrite_ending: `RÉÉCRIS UNIQUEMENT la fin (cliffhanger_scene). Crée un nouveau cliffhanger inattendu, plus choquant ou plus ambigu. Le hook et les scènes du milieu restent identiques. Même structure JSON.`,
+        rewrite_hook: `RÉÉCRIS UNIQUEMENT le hook d'ouverture (hook_scene). Le hook actuel est: "${currentHook}" — tu DOIS produire quelque chose de radicalement différent: autre situation de départ, autre émotion d'ouverture, autre dynamique entre les personnages. INTERDIT de reprendre les mêmes mots ou la même situation. Le reste du script (scenes + cliffhanger_scene) reste identique. Même structure JSON.`,
+        rewrite_ending: `RÉÉCRIS UNIQUEMENT la fin (cliffhanger_scene). Le cliffhanger actuel est: "${currentCliff}" — tu DOIS produire quelque chose de complètement différent: autre révélation, autre retournement, autre question laissée ouverte. INTERDIT de reprendre les mêmes mots ou la même situation. Pense: trahison inattendue, révélation d'identité, objet découvert, mensonge exposé, arrivée surprise. Le hook et les scenes du milieu restent identiques. Même structure JSON.`,
       };
       const langInstr = buildLangInstr(lang);
       const result = await callClaude(
