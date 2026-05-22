@@ -111,6 +111,23 @@ async function gen(action, payload, customerId) {
 }
 
 // ── COMPONENTS ───────────────────────────────────────────────
+function VCLogo() {
+  return (
+    <div style={{ display: "flex", alignItems: "stretch", gap: 10, userSelect: "none" }}>
+      <div style={{ width: 3, borderRadius: 2, background: "linear-gradient(to bottom, #ff8c42, #E85C3A)", flexShrink: 0 }} />
+      <svg width={17} height={28} viewBox="0 0 17 28" fill="none" style={{ flexShrink: 0, alignSelf: "center" }}>
+        <rect x="1" y="1" width="15" height="26" rx="3" stroke="white" strokeWidth="1.5"/>
+        <circle cx="8.5" cy="23.5" r="1.1" fill="white" opacity="0.5"/>
+        <rect x="5.5" y="3.5" width="6" height="1" rx="0.5" fill="white" opacity="0.4"/>
+      </svg>
+      <div style={{ alignSelf: "center", lineHeight: 1 }}>
+        <div style={{ fontFamily: "var(--sans)", fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
+        <div style={{ fontFamily: "var(--sans)", fontSize: 18, fontWeight: 800, letterSpacing: -0.5, lineHeight: 1, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>CLAP</div>
+      </div>
+    </div>
+  );
+}
+
 function Dots({ t = 0 }) {
   return (
     <div style={{ display: "flex", gap: 3 }}>
@@ -153,16 +170,26 @@ function loadSaved() {
   try { return JSON.parse(localStorage.getItem(SAVE_KEY) || "[]"); } catch { return []; }
 }
 
-function saveSerie(bible, episodes, state) {
+function saveSerie(bible, episodes, state, scripts) {
   try {
     const saved = loadSaved();
-    const entry = { id: Date.now(), savedAt: new Date().toISOString(), bible, episodes, state };
+    const entry = { id: Date.now(), savedAt: new Date().toISOString(), bible, episodes, state, scripts: scripts || {} };
     const updated = [entry, ...saved].slice(0, 10);
     localStorage.setItem(SAVE_KEY, JSON.stringify(updated));
     return entry.id;
   } catch (e) {
     console.error("Sauvegarde impossible (localStorage plein)", e);
   }
+}
+
+function updateSerieScripts(bible, scripts) {
+  try {
+    const saved = loadSaved();
+    const idx = saved.findIndex(s => s.bible?.titre === bible?.titre);
+    if (idx === -1) return;
+    saved[idx].scripts = { ...(saved[idx].scripts || {}), ...scripts };
+    localStorage.setItem(SAVE_KEY, JSON.stringify(saved));
+  } catch {}
 }
 
 function deleteSerie(id) {
@@ -254,10 +281,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
       {/* Header */}
       <div style={{ background: "var(--tx)", padding: "28px 20px 24px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
-          <div>
-            <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>VERTICALCLAP</h1>
-            <p style={{ fontSize: 12, color: "#3a5040", marginTop: 2 }}>Micro-dramas · 1 à 2 min · 9:16</p>
-          </div>
+          <VCLogo />
           <div style={{ width: 44, height: 44, borderRadius: "50%", background: "var(--r)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <span style={{ color: "#fff", fontSize: 9, fontWeight: 800, letterSpacing: 0.5 }}>REC</span>
           </div>
@@ -266,7 +290,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
           {[{ k: "fast", l: "⚡ Fast Drama" }, { k: "premium", l: "🎭 Premium Suspense" }].map(({ k, l }) => {
             const locked = k === "premium" && plan === "standard";
             return (
-              <button key={k} onClick={() => { if (!locked) set(prev => ({ mode: k, univers: k === "fast" ? OPTS.univers_fast[0] : OPTS.univers_prem[0], secret: k === "fast" ? OPTS.secret_fast[0] : OPTS.secret_prem[0], format: k === "fast" && prev.format > 10 ? 10 : prev.format })); }}
+              <button key={k} onClick={() => { if (!locked) set(prev => ({ mode: k, univers: k === "fast" ? OPTS.univers_fast[0] : OPTS.univers_prem[0], secret: k === "fast" ? OPTS.secret_fast[0] : OPTS.secret_prem[0], format: k === "fast" && prev.format > 20 ? 20 : prev.format })); }}
                 style={{ flex: 1, padding: "10px 12px", borderRadius: 9, border: "none", fontFamily: "var(--sans)", fontSize: 13, fontWeight: 700, background: state.mode === k ? (k === "fast" ? "var(--r)" : "var(--n)") : "transparent", color: locked ? "#3a5040" : state.mode === k ? "#fff" : "#3a5040", transition: "all .2s", cursor: locked ? "not-allowed" : "pointer", opacity: locked ? 0.5 : 1 }}>
                 {l}{locked && " 🔒"}
               </button>
@@ -289,7 +313,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
               return (
                 <button key={p.id} onClick={() => {
                   if (locked) return;
-                  set({ mode: p.mode, casting: p.casting, univers: p.univers, secret: p.secret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 10 : state.format });
+                  set({ mode: p.mode, casting: p.casting, univers: p.univers, secret: p.secret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 20 : state.format });
                 }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${active ? "var(--r)" : "var(--bo)"}`, background: active ? "var(--r)" : "var(--card)", cursor: locked ? "not-allowed" : "pointer", fontFamily: "var(--sans)", textAlign: "left", opacity: locked ? 0.45 : 1, transition: "all .15s" }}>
                   <span style={{ fontSize: 28, flexShrink: 0 }}>{p.emoji}</span>
                   <div style={{ flex: 1, minWidth: 0 }}>
@@ -341,11 +365,11 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
         <div style={{ marginBottom: 28 }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>
             Nombre d'épisodes
-            {state.mode === "fast" && <span style={{ marginLeft: 8, fontSize: 10, color: "var(--r)", fontWeight: 700 }}>max 10 en Fast</span>}
+            {state.mode === "fast" && <span style={{ marginLeft: 8, fontSize: 10, color: "var(--r)", fontWeight: 700 }}>max 20 en Fast</span>}
           </p>
           <div style={{ display: "flex", gap: 8 }}>
             {[10, 20, 40, 60, 90].map(f => {
-              const lockedFast = state.mode === "fast" && f > 10;
+              const lockedFast = state.mode === "fast" && f > 20;
               const lockedPlan = plan === "standard" && f > 20;
               const locked = lockedFast || lockedPlan;
               return (
@@ -968,7 +992,9 @@ export default function App() {
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
+  const epReqRef = useRef(0);
   const [script, setScript] = useState(null);
+  const [scripts, setScripts] = useState({});
   const [loading, setLoading] = useState(false);
   const [loadMsg, setLoadMsg] = useState("Initialisation…");
   const [err, setErr] = useState(null);
@@ -1059,7 +1085,8 @@ export default function App() {
       const results = await Promise.all(batches);
       const eps = results.flatMap(r => r.episodes || []);
       setEpisodes(eps);
-      saveSerie(b, eps, state);
+      setScripts({});
+      saveSerie(b, eps, state, {});
       setSavedCount(loadSaved().length);
       setScreen("bible");
     } catch (e) {
@@ -1070,26 +1097,45 @@ export default function App() {
   const loadSerie = (s) => {
     setBible(s.bible);
     setEpisodes(s.episodes);
+    setScripts(s.scripts || {});
     setState(prev => ({ ...prev, ...s.state }));
     setScript(null);
     setScreen("bible");
   };
 
   const openEp = async (idx) => {
+    const reqId = ++epReqRef.current;
     setEpIdx(idx);
-    setScript(null);
     setScreen("studio");
-    setLoading(true);
     setErr(null);
+
+    // Use cached script if available
+    if (scripts[idx]) {
+      setScript(scripts[idx]);
+      setLoading(false);
+      return;
+    }
+
+    setScript(null);
+    setLoading(true);
     try {
       const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama }, customerId);
-      setScript(s);
+      if (epReqRef.current === reqId) {
+        setScript(s);
+        setScripts(prev => {
+          const updated = { ...prev, [idx]: s };
+          updateSerieScripts(bible, { [idx]: s });
+          return updated;
+        });
+      }
     } catch (e) {
       console.error(e);
-      setErr(e.message);
-      setScreen("bible");
+      if (epReqRef.current === reqId) {
+        setErr(e.message);
+        setScreen("bible");
+      }
     }
-    setLoading(false);
+    if (epReqRef.current === reqId) setLoading(false);
   };
 
   const editScript = async (type) => {
@@ -1097,6 +1143,11 @@ export default function App() {
     try {
       const u = await gen("edit", { script, type, duree: state.duree }, customerId);
       setScript(u);
+      setScripts(prev => {
+        const updated = { ...prev, [epIdx]: u };
+        updateSerieScripts(bible, { [epIdx]: u });
+        return updated;
+      });
     } catch (e) {
       console.error(e);
     }
