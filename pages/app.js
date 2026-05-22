@@ -434,9 +434,9 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
           </div>
         ) : script ? (
           <>
-            <div style={{ background: "#fff5f2", border: "2px solid var(--r)", borderRadius: 14, padding: 16, marginBottom: 16 }}>
+            <div style={{ background: "var(--card)", border: "2px solid var(--r)", borderRadius: 14, padding: 16, marginBottom: 16 }}>
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>⚡ Hook — 3 premières secondes</p>
-              <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 8 }}>{script.hook_scene?.texte}</p>
+              <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 8, color: "var(--tx)" }}>{script.hook_scene?.texte}</p>
               <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic" }}>[9:16] {script.hook_scene?.visuel_916}</p>
             </div>
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>
@@ -446,13 +446,13 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
               <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: 14, borderLeft: "3px solid var(--bo)", marginBottom: 10 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
                   <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--n)" }}>{s.perso}</p>
-                  {s.jeu && <span style={{ fontSize: 10, background: "#f0f4f0", color: "var(--n)", padding: "2px 8px", borderRadius: 20, fontStyle: "italic" }}>{s.jeu}</span>}
+                  {s.jeu && <span style={{ fontSize: 10, background: "var(--bo)", color: "var(--tx)", padding: "2px 8px", borderRadius: 20, fontStyle: "italic" }}>{s.jeu}</span>}
                 </div>
                 <p style={{ fontSize: 14, lineHeight: 1.55, marginBottom: 6, fontWeight: 500 }}>{s.dialogue}</p>
                 <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {s.visuel_916}</p>
               </div>
             ))}
-            <div style={{ background: "var(--tx)", borderRadius: 14, padding: 16, marginBottom: 20 }}>
+            <div style={{ background: "#1a1a2e", borderRadius: 14, padding: 16, marginBottom: 20 }}>
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>🎬 Cliffhanger</p>
               <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8, lineHeight: 1.4 }}>{script.cliffhanger_scene?.texte}</p>
               <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic", marginBottom: script.cliffhanger_scene?.label ? 10 : 0 }}>[9:16] {script.cliffhanger_scene?.visuel_916}</p>
