@@ -27,6 +27,74 @@ const PACKS = [
   { emoji: "🏆", label: "Cheat Code",      mode: "fast",    casting: "Teenager + Adulte",  univers: "Compétition scolaire",     secret: "Triche scolaire organisée" },
 ];
 
+// ── UNIVERSE PACKS ───────────────────────────────────────────
+const UNIVERSE_PACKS = [
+  {
+    id: "love-betrayal", emoji: "❤️", label: "Love & Betrayal", mode: "fast",
+    tag: "Romance toxique",
+    desc: "Triangle amoureux, meilleure amie toxique, secrets de grossesse — ultra TikTok.",
+    casting: "1 Femme + 1 Homme", univers: "Mode & Influence", secret: "Trahison amoureuse",
+    genre: "Romance dramatique", ambiance: "⚡ Intense & Direct",
+    tropes: "enemies to lovers, fake dating, forbidden love, secret pregnancy, best friend betrayal, rich vs poor, arranged marriage",
+  },
+  {
+    id: "lycee-elite", emoji: "🔥", label: "Lycée Élite", mode: "fast",
+    tag: "Teen drama",
+    desc: "Secrets anonymes, scandales, influenceurs scolaires — style Elite × Euphoria.",
+    casting: "Trio Teenagers", univers: "Lycée & Secrets", secret: "Relation interdite au lycée",
+    genre: "Teen drama", ambiance: "⚡ Intense & Direct",
+    tropes: "rumeur anonyme, revenge porn, jalousie scolaire, élève riche vs pauvre, prof interdit, fête qui dérape, secret divulgué en live",
+  },
+  {
+    id: "thriller-psycho", emoji: "🧠", label: "Thriller Psycho", mode: "premium",
+    tag: "Suspense pur",
+    desc: "Double personnalité, faux souvenirs, manipulation — chaque perso cache quelque chose.",
+    casting: "1 Femme + 1 Homme", univers: "Héritage familial", secret: "Manipulation psychologique",
+    genre: "Thriller psychologique", ambiance: "🧠 Psychologique & Lent",
+    tropes: "unreliable narrator, hidden identity, faux souvenir, secte, huis clos, gaslighting, le meurtrier est connu du personnage",
+  },
+  {
+    id: "influenceurs", emoji: "💄", label: "Influenceurs", mode: "fast",
+    tag: "Réseaux sociaux",
+    desc: "Villa TikTok, faux couple pour les vues, bad buzz, leak privé — drama en direct.",
+    casting: "Trio mixte", univers: "Réseau social viral", secret: "Double vie",
+    genre: "Reality drama", ambiance: "⚡ Intense & Direct",
+    tropes: "faux couple pour les followers, scandale live, bad buzz, leak de DM privés, rivalité créateurs, fan obsessionnel, cancel culture",
+  },
+  {
+    id: "royal-dark", emoji: "👑", label: "Royal Dark Romance", mode: "premium",
+    tag: "Dark romance",
+    desc: "Prince héritier, garde du corps, mariage forcé — luxe noir et tension maximale.",
+    casting: "1 Femme + 1 Homme", univers: "Politique & Pouvoir", secret: "Identité volée",
+    genre: "Dark romance royale", ambiance: "💜 Émotionnel & Poétique",
+    tropes: "prince héritier x roturière, garde du corps protecteur, mariage forcé, héritière rebelle, mafia royale, contrat amoureux, esthétique noir et or",
+  },
+  {
+    id: "mafia-gang", emoji: "🩸", label: "Mafia & Gang", mode: "premium",
+    tag: "Crime & trahison",
+    desc: "Dette familiale, chef dangereux, infiltrée — loyauté ou vengeance.",
+    casting: "2 Hommes", univers: "Finance internationale", secret: "Complot financier",
+    genre: "Crime drama", ambiance: "🧠 Psychologique & Lent",
+    tropes: "dette de sang, chef charismatique et dangereux, infiltrée amoureuse, vengeance familiale, cartel, prison, trahison du lieutenant de confiance",
+  },
+  {
+    id: "horreur", emoji: "👻", label: "Horreur Virale", mode: "fast",
+    tag: "POV horreur",
+    desc: "Caméra retrouvée, rituel TikTok, école hantée — cliffhangers qui glacent.",
+    casting: "Trio Teenagers", univers: "Collège & Cliques", secret: "Gang secret entre ados",
+    genre: "Horreur POV", ambiance: "🧠 Psychologique & Lent",
+    tropes: "found footage, défi interdit qui tourne mal, esprit vengeur, école hantée, rituel TikTok, disparition inexpliquée, message d'outre-tombe",
+  },
+  {
+    id: "scifi-ia", emoji: "🤖", label: "Sci-Fi & IA", mode: "premium",
+    tag: "Futur immédiat",
+    desc: "IA qui devient humaine, clone, souvenirs vendus — le futur qui fait peur.",
+    casting: "1 Femme + 1 Homme", univers: "Start-up IA", secret: "Espionnage industriel",
+    genre: "Sci-fi dramatique", ambiance: "🧠 Psychologique & Lent",
+    tropes: "IA qui développe des émotions, clone identique, réalité simulée, souvenirs implantés ou vendus, influenceur virtuel, surveillance totale, humanité questionnée",
+  },
+];
+
 // ── API HELPER ───────────────────────────────────────────────
 async function gen(action, payload, customerId) {
   const res = await fetch("/api/generate", {
@@ -209,20 +277,28 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
 
       <div style={{ padding: "24px 20px", maxWidth: 520, margin: "0 auto" }}>
 
-        {/* Packs thématiques */}
+        {/* Universe Packs */}
         <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>
-            🎬 Packs rapides <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>— remplit tout en 1 clic</span>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
+            🎬 Packs d'univers <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>— tout configuré en 1 clic</span>
           </p>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {PACKS.map(p => {
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {UNIVERSE_PACKS.map(p => {
               const locked = p.mode === "premium" && plan === "standard";
+              const active = state.packId === p.id;
               return (
-                <button key={p.label}
-                  onClick={() => { if (!locked) set({ mode: p.mode, casting: p.casting, univers: p.univers, secret: p.secret, format: p.mode === "fast" ? 10 : state.format }); }}
-                  style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 12px", borderRadius: 20, border: `1.5px solid ${p.mode === "premium" ? "var(--n)" : "var(--bo)"}`, background: p.mode === "premium" ? "var(--n)" : "var(--card)", color: p.mode === "premium" ? "#fff" : "var(--tx)", fontSize: 12, fontWeight: 600, cursor: locked ? "not-allowed" : "pointer", fontFamily: "var(--sans)", whiteSpace: "nowrap", opacity: locked ? 0.45 : 1 }}>
-                  <span>{p.emoji}</span><span>{p.label}</span>
-                  {p.mode === "premium" && <span style={{ fontSize: 9, background: "rgba(255,255,255,0.2)", padding: "1px 5px", borderRadius: 4, fontWeight: 700, letterSpacing: 0.5 }}>{locked ? "🔒" : "PRO"}</span>}
+                <button key={p.id} onClick={() => {
+                  if (locked) return;
+                  set({ mode: p.mode, casting: p.casting, univers: p.univers, secret: p.secret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 10 : state.format });
+                }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${active ? "var(--r)" : "var(--bo)"}`, background: active ? "var(--r)" : "var(--card)", cursor: locked ? "not-allowed" : "pointer", fontFamily: "var(--sans)", textAlign: "left", opacity: locked ? 0.45 : 1, transition: "all .15s" }}>
+                  <span style={{ fontSize: 28, flexShrink: 0 }}>{p.emoji}</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
+                      <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#fff" : "var(--tx)" }}>{p.label}</span>
+                      <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: p.mode === "premium" ? "var(--n)" : "#e8f0e8", color: p.mode === "premium" ? "#fff" : "var(--n)", fontWeight: 700, letterSpacing: 0.5 }}>{locked ? "🔒 PRO" : p.mode === "premium" ? "PRO" : "FAST"}</span>
+                    </div>
+                    <span style={{ fontSize: 11, color: active ? "rgba(255,255,255,0.8)" : "var(--mt)", lineHeight: 1.3 }}>{p.desc}</span>
+                  </div>
                 </button>
               );
             })}
@@ -628,7 +704,7 @@ export default function App() {
     try { localStorage.setItem("vs_theme", darkMode ? "dark" : "light"); } catch {}
   }, [darkMode]);
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.casting[0], univers: OPTS.univers_fast[0], secret: OPTS.secret_fast[0], format: 10, duree: 60 });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.casting[0], univers: OPTS.univers_fast[0], secret: OPTS.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", packId: null });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
