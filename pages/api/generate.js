@@ -295,7 +295,7 @@ export default async function handler(req, res) {
     }
 
     if (action === "edit") {
-      const { script, type, duree } = payload;
+      const { script, type, duree, lang } = payload;
       const maxS = duree <= 60 ? 8 : duree <= 90 ? 11 : 15;
       const instr = {
         pimenter: `INTENSIFIE ce script au maximum. Remplace chaque réplique ordinaire par une révélation, une accusation ou une menace. Interdit: hésitations, politesse, questions vagues. Chaque ligne doit blesser ou exposer un secret. Max ${maxS} échanges. Retourne exactement la même structure JSON.`,
@@ -304,8 +304,9 @@ export default async function handler(req, res) {
         rewrite_hook: `RÉÉCRIS UNIQUEMENT le hook d'ouverture (hook_scene). Crée une nouvelle scène d'ouverture complètement différente — autre situation, autre dynamique, mais même tension et mêmes personnages. Le reste du script reste identique. Même structure JSON.`,
         rewrite_ending: `RÉÉCRIS UNIQUEMENT la fin (cliffhanger_scene). Crée un nouveau cliffhanger inattendu, plus choquant ou plus ambigu. Le hook et les scènes du milieu restent identiques. Même structure JSON.`,
       };
+      const langInstr = buildLangInstr(lang);
       const result = await callClaude(
-        "Tu es scénariste expert en micro-dramas 9:16. JSON uniquement, structure identique à l'original.",
+        `Tu es scénariste expert en micro-dramas 9:16. JSON uniquement, structure identique à l'original.${langInstr}`,
         `${instr[type]}\n\nScript original:\n${JSON.stringify(script)}`,
         2000
       );

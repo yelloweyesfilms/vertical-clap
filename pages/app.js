@@ -1358,7 +1358,7 @@ export default function App() {
   const editScript = async (type) => {
     setLoading(true);
     try {
-      const u = await gen("edit", { script, type, duree: state.duree }, customerId);
+      const u = await gen("edit", { script, type, duree: state.duree, lang }, customerId);
       setScript(u);
       setScripts(prev => {
         const updated = { ...prev, [epIdx]: u };
