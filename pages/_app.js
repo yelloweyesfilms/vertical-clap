@@ -7,6 +7,12 @@ const TITLE = "VerticalClap — Micro-dramas 9:16 en 5 minutes avec l'IA";
 const DESC = "Génère des micro-dramas verticaux complets : bible, scripts, hooks et cliffhangers. Prêts à tourner sur TikTok, Reels et Shorts.";
 const OG_IMAGE = `${SITE}/banniere%20hero.png`;
 
+if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+
 export default function App({ Component, pageProps }) {
   return (
     <>
