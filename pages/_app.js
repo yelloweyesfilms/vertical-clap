@@ -1,7 +1,6 @@
 import "../styles/globals.css";
 import Head from "next/head";
 import Script from "next/script";
-import { useEffect } from "react";
 
 const SITE = "https://verticalclap.com";
 const TITLE = "VerticalClap — Micro-dramas 9:16 en 5 minutes avec l'IA";
@@ -9,12 +8,6 @@ const DESC = "Génère des micro-dramas verticaux complets : bible, scripts, hoo
 const OG_IMAGE = `${SITE}/banniere%20hero.png`;
 
 export default function App({ Component, pageProps }) {
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js');
-    }
-  }, []);
-
   return (
     <>
       <Head>
