@@ -260,13 +260,15 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
             {state.mode === "fast" && <span style={{ marginLeft: 8, fontSize: 10, color: "var(--r)", fontWeight: 700 }}>max 10 en Fast</span>}
           </p>
           <div style={{ display: "flex", gap: 8 }}>
-            {[10, 20, 40].map(f => {
-              const locked = state.mode === "fast" && f > 10;
+            {[10, 20, 40, 60, 90].map(f => {
+              const lockedFast = state.mode === "fast" && f > 10;
+              const lockedPlan = plan === "standard" && f > 20;
+              const locked = lockedFast || lockedPlan;
               return (
                 <div key={f} style={{ flex: 1, position: "relative" }}>
                   <Chip
                     label={`${f} ép.`}
-                    sub={locked ? "🎭 Premium" : `${Math.round(f * state.duree / 60)} min`}
+                    sub={lockedFast ? "🎭 Premium" : lockedPlan ? "🔒 Premium" : `${Math.round(f * state.duree / 60)} min`}
                     block
                     active={state.format === f && !locked}
                     onClick={() => { if (!locked) set({ format: f }); }}
@@ -401,11 +403,18 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   );
 }
 
-function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport, onVariations, plan }) {
+function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps }) {
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← {bible?.titre}</button>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+          <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", cursor: "pointer", padding: 0 }}>← {bible?.titre}</button>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <button onClick={onPrev} disabled={epIdx === 0} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, width: 34, height: 34, cursor: epIdx === 0 ? "not-allowed" : "pointer", fontSize: 16, opacity: epIdx === 0 ? 0.3 : 1, display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
+            <span style={{ fontSize: 12, color: "var(--mt)", minWidth: 40, textAlign: "center" }}>{epIdx + 1} / {totalEps}</span>
+            <button onClick={onNext} disabled={epIdx === totalEps - 1} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, width: 34, height: 34, cursor: epIdx === totalEps - 1 ? "not-allowed" : "pointer", fontSize: 16, opacity: epIdx === totalEps - 1 ? 0.3 : 1, display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
+          </div>
+        </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
           <span style={{ background: "var(--r)", color: "#fff", borderRadius: 6, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>ÉP. {ep?.numero}</span>
           <span style={{ background: "var(--n)", color: "#fff", borderRadius: 6, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>⏱ {DUR_LABEL[duree]}</span>
@@ -910,7 +919,7 @@ export default function App() {
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} />}
       {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} />}
-      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} />}
+      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} />}
 
