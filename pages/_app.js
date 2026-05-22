@@ -16,8 +16,17 @@ export default function App({ Component, pageProps }) {
         <meta name="google" content="notranslate" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-title" content="VerticalClap" />
         <meta name="theme-color" content="#09090f" />
+        <meta name="msapplication-TileColor" content="#09090f" />
+        <meta name="msapplication-TileImage" content="/windows/Square150x150Logo.scale-200.png" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/ios/32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/ios/16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/ios/180.png" />
+        <link rel="apple-touch-icon" sizes="167x167" href="/ios/167.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/ios/152.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/ios/120.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="mobile-web-app-capable" content="yes" />
 
