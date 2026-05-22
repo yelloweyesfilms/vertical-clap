@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import { jsPDF } from "jspdf";
 
 // ── CONFIG ──────────────────────────────────────────────────
 const OPTS = {
-  casting: ["1 Femme + 1 Homme", "2 Femmes", "2 Hommes", "Trio mixte"],
-  univers_fast: ["Hôpital privé", "Milieu corporate", "Famille recomposée", "Mode & Influence", "Sport élite"],
-  univers_prem: ["Start-up IA", "Finance internationale", "Héritage familial", "Politique & Pouvoir", "Pharma & Biotech"],
-  secret_fast: ["Trahison amoureuse", "Double vie", "Vengeance planifiée", "Enfant caché", "Identité volée"],
-  secret_prem: ["Sabotage interne", "Espionnage industriel", "Héritage volé", "Manipulation psychologique", "Complot financier"],
+  casting: ["1 Femme + 1 Homme", "2 Femmes", "2 Hommes", "Trio mixte", "Femme seule", "Homme seul", "Quartet mixte", "2 Teenagers", "Teenager + Adulte", "Trio Teenagers"],
+  univers_fast: ["Hôpital privé", "Milieu corporate", "Famille recomposée", "Mode & Influence", "Sport élite", "Lycée & Secrets", "Immobilier de luxe", "Réseau social viral", "Télévision & Célébrité", "Collège & Cliques", "Fête de lycée", "Compétition scolaire"],
+  univers_prem: ["Start-up IA", "Finance internationale", "Héritage familial", "Politique & Pouvoir", "Pharma & Biotech", "Armée & Services secrets", "Justice & Tribunal", "Immobilier & Blanchiment", "Cinéma & Pouvoir", "Diplomatie internationale"],
+  secret_fast: ["Trahison amoureuse", "Double vie", "Vengeance planifiée", "Enfant caché", "Identité volée", "Grossesse cachée", "Faillite secrète", "Addiction dissimulée", "Passé criminel", "Relation interdite au lycée", "Triche scolaire organisée", "Gang secret entre ados"],
+  secret_prem: ["Sabotage interne", "Espionnage industriel", "Héritage volé", "Manipulation psychologique", "Complot financier", "Corruption judiciaire", "Chantage politique", "Meurtre maquillé", "Faux témoin", "Dette de sang"],
 };
 const DUR_LABEL = { 60: "1 min", 90: "1 min 30", 120: "2 min" };
 const DUR_SCENES = { 60: 5, 90: 7, 120: 10 };
@@ -21,6 +22,9 @@ const PACKS = [
   { emoji: "🤖", label: "IA & Pouvoir",     mode: "premium", casting: "1 Femme + 1 Homme", univers: "Start-up IA",             secret: "Espionnage industriel" },
   { emoji: "🏆", label: "Sport & Trahison", mode: "fast",    casting: "2 Hommes",           univers: "Sport élite",             secret: "Vengeance planifiée" },
   { emoji: "💊", label: "Pharma Noir",      mode: "premium", casting: "1 Femme + 1 Homme", univers: "Pharma & Biotech",        secret: "Complot financier" },
+  { emoji: "🎒", label: "Lycée Toxique",   mode: "fast",    casting: "2 Teenagers",        univers: "Lycée & Secrets",          secret: "Relation interdite au lycée" },
+  { emoji: "📱", label: "Viral & Danger",  mode: "fast",    casting: "Trio Teenagers",     univers: "Réseau social viral",      secret: "Gang secret entre ados" },
+  { emoji: "🏆", label: "Cheat Code",      mode: "fast",    casting: "Teenager + Adulte",  univers: "Compétition scolaire",     secret: "Triche scolaire organisée" },
 ];
 
 // ── API HELPER ───────────────────────────────────────────────
@@ -786,8 +790,6 @@ export default function App() {
     const b = bible, ep = episodes[epIdx], s = script;
     if (!s) return;
 
-    const jsPDF = window.jspdf?.jsPDF;
-    if (!jsPDF) { alert("PDF non disponible, réessayez dans quelques secondes."); return; }
     const doc = new jsPDF({ unit: "mm", format: "a4" });
     const W = 210, margin = 20, contentW = W - margin * 2;
     const RED = [232, 92, 58], DARK = [15, 26, 18], GRAY = [120, 120, 120];
