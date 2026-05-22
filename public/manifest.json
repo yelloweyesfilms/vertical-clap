@@ -1,7 +1,7 @@
 {
   "id": "/app",
-  "name": "Studio Vertical",
-  "short_name": "Studio V",
+  "name": "Vertical Clap",
+  "short_name": "V.Clap",
   "description": "Génère des micro-dramas 9:16 complets avec l'IA — bible, scripts, hooks, cliffhangers.",
   "start_url": "/app",
   "display": "standalone",
