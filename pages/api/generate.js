@@ -155,27 +155,27 @@ function buildDramaInstr(drama) {
 }
 
 const DUR_INSTR = {
-  60: `DURÉE 1 MIN — Structure temporelle OBLIGATOIRE:
+  60: `DURÉE 1 MIN — Tu DOIS générer exactement 10 à 13 scènes dans le tableau "scenes" (ni plus ni moins). Structure temporelle OBLIGATOIRE:
 • 0–5s: HOOK — 1 phrase choc max 10 mots, in medias res, jamais de bonjour
-• 5–20s: Conflit immédiat — 2-3 répliques courtes, tension explose
-• 20–40s: Escalade / révélation — 3-4 répliques, secret révélé ou menace
-• 40–55s: Explosion émotionnelle — 2-3 répliques, pic dramatique
+• 5–20s: Conflit immédiat — 3 répliques courtes, tension explose [scènes 1-3]
+• 20–40s: Escalade / révélation — 4 répliques, secret révélé ou menace [scènes 4-7]
+• 40–55s: Explosion émotionnelle — 3 répliques, pic dramatique [scènes 8-10]
 • 55–60s: CLIFFHANGER — 1 phrase qui coupe net, question sans réponse
-RÈGLES: phrases ULTRA courtes (5-12 mots max), aucune exposition, aucune politesse, chaque réplique révèle ou cache quelque chose. 1 SEULE idée forte par épisode.`,
-  90: `DURÉE 1MIN30 — Structure temporelle OBLIGATOIRE:
+RÈGLES: phrases ULTRA courtes (5-12 mots max), aucune exposition, aucune politesse, chaque réplique révèle ou cache quelque chose. 1 SEULE idée forte par épisode. MINIMUM 10 scènes obligatoire.`,
+  90: `DURÉE 1MIN30 — Tu DOIS générer exactement 14 à 18 scènes dans le tableau "scenes". Structure temporelle OBLIGATOIRE:
 • 0–5s: HOOK — 1 phrase choc, situation déjà explosive
-• 5–25s: Conflit — 3-4 répliques courtes, tension immédiate
-• 25–55s: Escalade — 4-5 répliques, faux pivot puis vraie révélation
-• 55–80s: Explosion — 3-4 répliques, conséquence émotionnelle
+• 5–25s: Conflit — 4 répliques courtes, tension immédiate [scènes 1-4]
+• 25–55s: Escalade — 6 répliques, faux pivot puis vraie révélation [scènes 5-10]
+• 55–80s: Explosion — 4 répliques, conséquence émotionnelle [scènes 11-14]
 • 80–90s: CLIFFHANGER — retournement brutal, question ouverte
-RÈGLES: phrases courtes (8-15 mots), sous-texte riche, silences pesants, 1 idée centrale maximum.`,
-  120: `DURÉE 2 MIN — Structure temporelle OBLIGATOIRE:
+RÈGLES: phrases courtes (8-15 mots), sous-texte riche, silences pesants, 1 idée centrale maximum. MINIMUM 14 scènes obligatoire.`,
+  120: `DURÉE 2 MIN — Tu DOIS générer exactement 18 à 24 scènes dans le tableau "scenes". Structure temporelle OBLIGATOIRE:
 • 0–5s: HOOK — situation déjà en crise
-• 5–30s: Conflit — 4-5 répliques, contexte minimal par l'action
-• 30–70s: Escalade — 5-6 répliques, rebondissement à mi-parcours obligatoire
-• 70–105s: Révélation — 4-5 répliques, tout s'effondre
+• 5–30s: Conflit — 5 répliques, contexte minimal par l'action [scènes 1-5]
+• 30–70s: Escalade — 7 répliques, rebondissement à mi-parcours obligatoire [scènes 6-12]
+• 70–105s: Révélation — 6 répliques, tout s'effondre [scènes 13-18]
 • 105–120s: CLIFFHANGER — double révélation ou question dévastatrice
-RÈGLES: phrases moyennes (10-20 mots), une seule intrigue centrale, 2 acteurs max.`,
+RÈGLES: phrases moyennes (10-20 mots), une seule intrigue centrale, 2 acteurs max. MINIMUM 18 scènes obligatoire.`,
 };
 
 export default async function handler(req, res) {
@@ -288,7 +288,7 @@ export default async function handler(req, res) {
       const result = await callClaude(
         `Tu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• IN MEDIAS RES — déjà en plein conflit, INTERDIT: "Bonjour", exposition, question banale\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
         `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.\nTension: ${bible.tension_centrale || ""}.\nCliffhanger cible: ${ep.cliffhanger}.${prevEpsInstr}\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`,
-        2400
+        4000
       );
       trackAction("script", customerId);
       return res.json(result);
@@ -297,12 +297,14 @@ export default async function handler(req, res) {
     if (action === "edit") {
       const { script, type, duree, lang } = payload;
       const maxS = duree <= 60 ? 8 : duree <= 90 ? 11 : 15;
+      const currentHook = script?.hook_scene?.texte || "";
+      const currentCliff = script?.cliffhanger_scene?.texte || "";
       const instr = {
         pimenter: `INTENSIFIE ce script au maximum. Remplace chaque réplique ordinaire par une révélation, une accusation ou une menace. Interdit: hésitations, politesse, questions vagues. Chaque ligne doit blesser ou exposer un secret. Max ${maxS} échanges. Retourne exactement la même structure JSON.`,
         subtil: `RENDS ce script subtil et psychologique. Aucun personnage ne dit ce qu'il veut vraiment — tout passe par le sous-texte, les silences (indique "(silence)" dans jeu), les métaphores et les regards. Remplace les confrontations directes par des non-dits lourds. Max ${maxS} échanges. Même structure JSON.`,
         simplifier: `SIMPLIFIE radicalement ce script. Un seul lieu. Une seule révélation centrale. Répliques 5-8 mots max, chaque mot compte. Supprime tout ce qui n'est pas essentiel à la tension principale. Max ${maxS} échanges. Même structure JSON.`,
-        rewrite_hook: `RÉÉCRIS UNIQUEMENT le hook d'ouverture (hook_scene). Crée une nouvelle scène d'ouverture complètement différente — autre situation, autre dynamique, mais même tension et mêmes personnages. Le reste du script reste identique. Même structure JSON.`,
-        rewrite_ending: `RÉÉCRIS UNIQUEMENT la fin (cliffhanger_scene). Crée un nouveau cliffhanger inattendu, plus choquant ou plus ambigu. Le hook et les scènes du milieu restent identiques. Même structure JSON.`,
+        rewrite_hook: `RÉÉCRIS UNIQUEMENT le hook d'ouverture (hook_scene). Le hook actuel est: "${currentHook}" — tu DOIS produire quelque chose de radicalement différent: autre situation de départ, autre émotion d'ouverture, autre dynamique entre les personnages. INTERDIT de reprendre les mêmes mots ou la même situation. Le reste du script (scenes + cliffhanger_scene) reste identique. Même structure JSON.`,
+        rewrite_ending: `RÉÉCRIS UNIQUEMENT la fin (cliffhanger_scene). Le cliffhanger actuel est: "${currentCliff}" — tu DOIS produire quelque chose de complètement différent: autre révélation, autre retournement, autre question laissée ouverte. INTERDIT de reprendre les mêmes mots ou la même situation. Pense: trahison inattendue, révélation d'identité, objet découvert, mensonge exposé, arrivée surprise. Le hook et les scenes du milieu restent identiques. Même structure JSON.`,
       };
       const langInstr = buildLangInstr(lang);
       const result = await callClaude(

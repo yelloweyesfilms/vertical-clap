@@ -66,6 +66,11 @@ const T = {
     social_title: "📱 Contenu Social", social_loading: "Génération du contenu social…",
     social_tiktok_legend: "📣 Légende TikTok", social_copy: "Copier",
     social_sms: "💬 SMS entre personnages", social_comments: "🎵 Commentaires TikTok",
+    gen_bible: "Création de la bible de la série…",
+    gen_episodes: "Génération des épisodes…",
+    gen_episodes_batch: "Épisodes %a–%b générés… (%c/%d)",
+    premium_titles: "Les titres viraux sont réservés au plan Premium.",
+    premium_variations: "Les variations sont réservées au plan Premium.",
   },
   en: {
     mode_fast: "⚡ Fast Drama", mode_premium: "🎭 Premium Suspense",
@@ -109,6 +114,11 @@ const T = {
     social_title: "📱 Social Content", social_loading: "Generating social content…",
     social_tiktok_legend: "📣 TikTok Caption", social_copy: "Copy",
     social_sms: "💬 SMS between characters", social_comments: "🎵 TikTok Comments",
+    gen_bible: "Creating series bible…",
+    gen_episodes: "Generating episodes…",
+    gen_episodes_batch: "Episodes %a–%b generated… (%c/%d)",
+    premium_titles: "Viral titles are reserved for Premium plan.",
+    premium_variations: "Variations are reserved for Premium plan.",
   },
 };
 
@@ -616,7 +626,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
           ].map(({ k, l }) => {
             const locked = k === "titres" && plan === "standard";
             const onClick = locked
-              ? () => alert("Les titres viraux sont réservés au plan Premium.")
+              ? () => alert(t.premium_titles)
               : k === "titres" ? (titres ? () => setTab("titres") : genTitres)
               : k === "persos" ? genCartes
               : () => setTab(k);
@@ -830,7 +840,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
                 <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "11px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
               ))}
             </div>
-            <button onClick={plan === "standard" ? () => alert("Les variations sont réservées au plan Premium.") : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "not-allowed" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? t.variations_locked : t.variations}</button>
+            <button onClick={plan === "standard" ? () => alert(t.premium_variations) : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "not-allowed" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? t.variations_locked : t.variations}</button>
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
               <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.shooting}</button>
               <button onClick={onSocial} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.social}</button>
@@ -1279,7 +1289,7 @@ export default function App() {
     setErr(null);
     setScreen("load");
     try {
-      setLoadMsg("Création de la bible de la série…");
+      setLoadMsg(t.gen_bible);
       const b = await gen("bible", { ...cleanState(state), lang }, customerId);
       setBible(b);
 
@@ -1290,7 +1300,7 @@ export default function App() {
         const batchNum = Math.floor(i / 10) + 1;
         const batchPromise = gen("episodes", { titre: b.titre, logline: b.logline, mode: state.mode, from, to, total: state.format, lang }, customerId)
           .then(result => {
-            setLoadMsg(`Épisodes ${from}–${to} générés… (${batchNum}/${totalBatches})`);
+            setLoadMsg(t.gen_episodes_batch.replace("%a", from).replace("%b", to).replace("%c", batchNum).replace("%d", totalBatches));
             return result;
           });
         batches.push(batchPromise);
