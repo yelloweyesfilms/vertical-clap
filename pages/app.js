@@ -583,9 +583,9 @@ function TournageView({ script, ep, duree, onBack }) {
         <div className="tp-content" style={{ padding: "0 28px", willChange: "transform" }}>
           {lines.map((l, i) => {
             if (l.t === "lbl") return <p key={i} style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "var(--r)", marginBottom: 8, marginTop: 40, textAlign: "center" }}>{l.v}</p>;
-            if (l.t === "nm") return <div key={i} style={{ textAlign: "center", marginTop: 32, marginBottom: 6 }}><p style={{ fontSize: Math.round(fontSize * 0.5), fontWeight: 700, color: "#facc15", letterSpacing: 2, textTransform: "uppercase" }}>{l.v}</p>{l.jeu && <p style={{ fontSize: 11, color: "#888", fontStyle: "italic", marginTop: 2 }}>{l.jeu}</p>}</div>;
+            if (l.t === "nm") return <div key={i} style={{ textAlign: "center", marginTop: 32, marginBottom: 6 }}><p style={{ fontSize: Math.round(fontSize * 0.55), fontWeight: 700, color: "#facc15", letterSpacing: 2, textTransform: "uppercase" }}>{l.v}</p>{l.jeu && <p style={{ fontSize: Math.round(fontSize * 0.45), color: "#aaa", fontStyle: "italic", marginTop: 2 }}>{l.jeu}</p>}</div>;
             if (l.t === "txt") return <p key={i} style={{ fontFamily: "var(--serif)", fontSize, color: "#fff", lineHeight: 1.6, marginBottom: 12, fontWeight: 700, textAlign: "center" }}>{l.v}</p>;
-            if (l.t === "stg") return <p key={i} style={{ fontSize: 12, color: "#555", fontStyle: "italic", marginBottom: 28, textAlign: "center" }}>[{l.v}]</p>;
+            if (l.t === "stg") return <p key={i} style={{ fontSize: Math.round(fontSize * 0.6), color: "#f97316", fontStyle: "italic", marginBottom: 28, textAlign: "center" }}>[{l.v}]</p>;
             if (l.t === "hi") return <div key={i} style={{ textAlign: "center", marginTop: 10, marginBottom: 28 }}><span style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "8px 20px", fontSize: 16, fontWeight: 800, color: "#fff", letterSpacing: 2, textTransform: "uppercase" }}>{l.v}</span></div>;
             return null;
           })}
