@@ -1497,7 +1497,7 @@ export default function App() {
     addLine(RED);
 
     // Hook box
-    addText(isEn ? "⚡ HOOK — FIRST 3 SECONDS" : "⚡ HOOK — 3 PREMIÈRES SECONDES", { size: 7.5, bold: true, color: RED });
+    addText(isEn ? "HOOK -- FIRST 3 SECONDS" : "HOOK -- 3 PREMIERES SECONDES", { size: 7.5, bold: true, color: RED });
     addSpace(3);
     const hookItems = [
       { text: s.hook_scene?.texte, size: 13 },
@@ -1527,46 +1527,52 @@ export default function App() {
 
     // Cliffhanger box
     addSpace(4);
+    const cliffLabel = s.cliffhanger_scene?.label || "";
     const cliffItems = [
-      { text: "🎬 CLIFFHANGER", size: 7.5 },
+      { text: "CLIFFHANGER", size: 7.5 },
       { text: s.cliffhanger_scene?.texte, size: 13 },
       { text: s.cliffhanger_scene?.visuel_916, size: 9 },
     ];
-    const cliffBoxH = calcBoxH(cliffItems) + (s.cliffhanger_scene?.label ? 16 : 0) + 18;
+    const cliffBoxH = calcBoxH(cliffItems) + (cliffLabel ? 18 : 0) + 20;
     drawBox(DARK, cliffBoxH);
-    addText("🎬 CLIFFHANGER", { size: 7.5, bold: true, color: RED });
+    addText("CLIFFHANGER", { size: 7.5, bold: true, color: RED });
     addSpace(3);
     addText(s.cliffhanger_scene?.texte, { size: 13, bold: true, color: [255, 255, 255], maxWidth: contentW - 8 });
     addSpace(2);
     addText(s.cliffhanger_scene?.visuel_916, { size: 9, italic: true, color: [255, 120, 90], maxWidth: contentW - 8 });
-    if (s.cliffhanger_scene?.label) {
+    if (cliffLabel) {
       addSpace(5);
-      const labelW = Math.min(doc.getTextWidth(s.cliffhanger_scene.label.toUpperCase()) * 1.1 + 10, contentW);
+      // Measure with correct font before drawing chip
+      doc.setFontSize(8); doc.setFont("helvetica", "bold");
+      const chipW = Math.min(doc.getTextWidth(cliffLabel.toUpperCase()) + 14, contentW);
+      const chipH = 8;
       doc.setFillColor(...RED);
-      doc.roundedRect(margin, y, labelW + 10, 9, 2, 2, "F");
-      addText(s.cliffhanger_scene.label.toUpperCase(), { size: 8, bold: true, color: [255, 255, 255] });
+      doc.roundedRect(margin, y, chipW, chipH, 2, 2, "F");
+      doc.setTextColor(255, 255, 255);
+      doc.text(cliffLabel.toUpperCase(), margin + 7, y + 5.5);
+      y += chipH + 3;
     }
 
     // Checklist
     if (s.checklist && s.checklist.length > 0) {
       addSpace(10);
       addLine([200, 200, 200]);
-      addText(isEn ? "✅ SHOOTING CHECKLIST" : "✅ CHECKLIST TOURNAGE", { size: 7.5, bold: true, color: RED });
+      addText(isEn ? "SHOOTING CHECKLIST" : "CHECKLIST TOURNAGE", { size: 7.5, bold: true, color: RED });
       addSpace(4);
       s.checklist.forEach(item => {
-        addText(`□  ${item}`, { size: 9, color: GRAY });
+        addText(`- ${item}`, { size: 9, color: GRAY });
         addSpace(1);
       });
     }
 
-    // Characters sidebar note
+    // Characters
     if (b.personnages && b.personnages.length > 0) {
       addSpace(8);
       addLine([200, 200, 200]);
-      addText(isEn ? "👥 CHARACTERS" : "👥 PERSONNAGES", { size: 7.5, bold: true, color: RED });
+      addText(isEn ? "CHARACTERS" : "PERSONNAGES", { size: 7.5, bold: true, color: RED });
       addSpace(4);
       b.personnages.forEach(p => {
-        addText(`${p.nom}${p.age ? ` (${p.age})` : ""} — ${p.role || ""}`, { size: 9, bold: true });
+        addText(`${p.nom}${p.age ? ` (${p.age})` : ""} -- ${p.role || ""}`, { size: 9, bold: true });
         if (p.secret) addText(`${isEn ? "Secret" : "Secret"}: ${p.secret}`, { size: 8.5, italic: true, color: GRAY });
         addSpace(3);
       });
