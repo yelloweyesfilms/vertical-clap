@@ -109,66 +109,66 @@ const PACKS = [
 // ── UNIVERSE PACKS ───────────────────────────────────────────
 const UNIVERSE_PACKS = [
   {
-    id: "love-betrayal", emoji: "❤️", label: "Love & Betrayal", mode: "fast",
-    tag: "Romance toxique",
-    desc: "Triangle amoureux, meilleure amie toxique, secrets de grossesse — ultra TikTok.",
-    casting: "1 Femme + 1 Homme", univers: "Mode & Influence", secret: "Trahison amoureuse",
+    id: "love-betrayal", emoji: "❤️", mode: "fast",
+    label: { fr: "Love & Betrayal", en: "Love & Betrayal" },
+    desc: { fr: "Triangle amoureux, meilleure amie toxique, secrets de grossesse — ultra TikTok.", en: "Love triangle, toxic best friend, pregnancy secrets — ultra TikTok." },
+    casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Mode & Influence", en: "Fashion & Influence" }, secret: { fr: "Trahison amoureuse", en: "Love betrayal" },
     genre: "Romance dramatique", ambiance: "⚡ Intense & Direct",
     tropes: "enemies to lovers, fake dating, forbidden love, secret pregnancy, best friend betrayal, rich vs poor, arranged marriage",
   },
   {
-    id: "lycee-elite", emoji: "🔥", label: "Lycée Élite", mode: "fast",
-    tag: "Teen drama",
-    desc: "Secrets anonymes, scandales, influenceurs scolaires — style Elite × Euphoria.",
-    casting: "Trio Teenagers", univers: "Lycée & Secrets", secret: "Relation interdite au lycée",
+    id: "lycee-elite", emoji: "🔥", mode: "fast",
+    label: { fr: "Lycée Élite", en: "Elite High School" },
+    desc: { fr: "Secrets anonymes, scandales, influenceurs scolaires — style Elite × Euphoria.", en: "Anonymous secrets, scandals, school influencers — Elite × Euphoria vibes." },
+    casting: { fr: "Trio Teenagers", en: "Teen trio" }, univers: { fr: "Lycée & Secrets", en: "High school secrets" }, secret: { fr: "Relation interdite au lycée", en: "Forbidden school romance" },
     genre: "Teen drama", ambiance: "⚡ Intense & Direct",
     tropes: "rumeur anonyme, revenge porn, jalousie scolaire, élève riche vs pauvre, prof interdit, fête qui dérape, secret divulgué en live",
   },
   {
-    id: "thriller-psycho", emoji: "🧠", label: "Thriller Psycho", mode: "premium",
-    tag: "Suspense pur",
-    desc: "Double personnalité, faux souvenirs, manipulation — chaque perso cache quelque chose.",
-    casting: "1 Femme + 1 Homme", univers: "Héritage familial", secret: "Manipulation psychologique",
+    id: "thriller-psycho", emoji: "🧠", mode: "premium",
+    label: { fr: "Thriller Psycho", en: "Psych Thriller" },
+    desc: { fr: "Double personnalité, faux souvenirs, manipulation — chaque perso cache quelque chose.", en: "Split personality, false memories, manipulation — everyone is hiding something." },
+    casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Héritage familial", en: "Family inheritance" }, secret: { fr: "Manipulation psychologique", en: "Psychological manipulation" },
     genre: "Thriller psychologique", ambiance: "🧠 Psychologique & Lent",
     tropes: "unreliable narrator, hidden identity, faux souvenir, secte, huis clos, gaslighting, le meurtrier est connu du personnage",
   },
   {
-    id: "influenceurs", emoji: "💄", label: "Influenceurs", mode: "fast",
-    tag: "Réseaux sociaux",
-    desc: "Villa TikTok, faux couple pour les vues, bad buzz, leak privé — drama en direct.",
-    casting: "Trio mixte", univers: "Réseau social viral", secret: "Double vie",
+    id: "influenceurs", emoji: "💄", mode: "fast",
+    label: { fr: "Influenceurs", en: "Influencers" },
+    desc: { fr: "Villa TikTok, faux couple pour les vues, bad buzz, leak privé — drama en direct.", en: "TikTok villa, fake couple for clout, scandal, private leak — live drama." },
+    casting: { fr: "Trio mixte", en: "Mixed trio" }, univers: { fr: "Réseau social viral", en: "Viral social media" }, secret: { fr: "Double vie", en: "Double life" },
     genre: "Reality drama", ambiance: "⚡ Intense & Direct",
     tropes: "faux couple pour les followers, scandale live, bad buzz, leak de DM privés, rivalité créateurs, fan obsessionnel, cancel culture",
   },
   {
-    id: "royal-dark", emoji: "👑", label: "Royal Dark Romance", mode: "premium",
-    tag: "Dark romance",
-    desc: "Prince héritier, garde du corps, mariage forcé — luxe noir et tension maximale.",
-    casting: "1 Femme + 1 Homme", univers: "Politique & Pouvoir", secret: "Identité volée",
+    id: "royal-dark", emoji: "👑", mode: "premium",
+    label: { fr: "Royal Dark Romance", en: "Royal Dark Romance" },
+    desc: { fr: "Prince héritier, garde du corps, mariage forcé — luxe noir et tension maximale.", en: "Crown prince, bodyguard, forced marriage — dark luxury and maximum tension." },
+    casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Politique & Pouvoir", en: "Politics & Power" }, secret: { fr: "Identité volée", en: "Stolen identity" },
     genre: "Dark romance royale", ambiance: "💜 Émotionnel & Poétique",
     tropes: "prince héritier x roturière, garde du corps protecteur, mariage forcé, héritière rebelle, mafia royale, contrat amoureux, esthétique noir et or",
   },
   {
-    id: "mafia-gang", emoji: "🩸", label: "Mafia & Gang", mode: "premium",
-    tag: "Crime & trahison",
-    desc: "Dette familiale, chef dangereux, infiltrée — loyauté ou vengeance.",
-    casting: "2 Hommes", univers: "Finance internationale", secret: "Complot financier",
+    id: "mafia-gang", emoji: "🩸", mode: "premium",
+    label: { fr: "Mafia & Gang", en: "Mafia & Gang" },
+    desc: { fr: "Dette familiale, chef dangereux, infiltrée — loyauté ou vengeance.", en: "Family debt, dangerous boss, undercover love — loyalty or revenge." },
+    casting: { fr: "2 Hommes", en: "2 Men" }, univers: { fr: "Finance internationale", en: "International finance" }, secret: { fr: "Complot financier", en: "Financial conspiracy" },
     genre: "Crime drama", ambiance: "🧠 Psychologique & Lent",
     tropes: "dette de sang, chef charismatique et dangereux, infiltrée amoureuse, vengeance familiale, cartel, prison, trahison du lieutenant de confiance",
   },
   {
-    id: "horreur", emoji: "👻", label: "Horreur Virale", mode: "fast",
-    tag: "POV horreur",
-    desc: "Caméra retrouvée, rituel TikTok, école hantée — cliffhangers qui glacent.",
-    casting: "Trio Teenagers", univers: "Collège & Cliques", secret: "Gang secret entre ados",
+    id: "horreur", emoji: "👻", mode: "fast",
+    label: { fr: "Horreur Virale", en: "Viral Horror" },
+    desc: { fr: "Caméra retrouvée, rituel TikTok, école hantée — cliffhangers qui glacent.", en: "Found footage, TikTok ritual, haunted school — spine-chilling cliffhangers." },
+    casting: { fr: "Trio Teenagers", en: "Teen trio" }, univers: { fr: "Collège & Cliques", en: "College cliques" }, secret: { fr: "Gang secret entre ados", en: "Secret teen gang" },
     genre: "Horreur POV", ambiance: "🧠 Psychologique & Lent",
     tropes: "found footage, défi interdit qui tourne mal, esprit vengeur, école hantée, rituel TikTok, disparition inexpliquée, message d'outre-tombe",
   },
   {
-    id: "scifi-ia", emoji: "🤖", label: "Sci-Fi & IA", mode: "premium",
-    tag: "Futur immédiat",
-    desc: "IA qui devient humaine, clone, souvenirs vendus — le futur qui fait peur.",
-    casting: "1 Femme + 1 Homme", univers: "Start-up IA", secret: "Espionnage industriel",
+    id: "scifi-ia", emoji: "🤖", mode: "premium",
+    label: { fr: "Sci-Fi & IA", en: "Sci-Fi & AI" },
+    desc: { fr: "IA qui devient humaine, clone, souvenirs vendus — le futur qui fait peur.", en: "AI going human, clones, sold memories — the future that terrifies." },
+    casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Start-up IA", en: "AI startup" }, secret: { fr: "Espionnage industriel", en: "Industrial espionage" },
     genre: "Sci-fi dramatique", ambiance: "🧠 Psychologique & Lent",
     tropes: "IA qui développe des émotions, clone identique, réalité simulée, souvenirs implantés ou vendus, influenceur virtuel, surveillance totale, humanité questionnée",
   },
@@ -389,18 +389,23 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             {UNIVERSE_PACKS.map(p => {
               const locked = p.mode === "premium" && plan === "standard";
               const active = state.packId === p.id;
+              const pLabel = typeof p.label === "object" ? (p.label[lang] || p.label.fr) : p.label;
+              const pDesc = typeof p.desc === "object" ? (p.desc[lang] || p.desc.fr) : p.desc;
+              const pCasting = typeof p.casting === "object" ? (p.casting[lang] || p.casting.fr) : p.casting;
+              const pUnivers = typeof p.univers === "object" ? (p.univers[lang] || p.univers.fr) : p.univers;
+              const pSecret = typeof p.secret === "object" ? (p.secret[lang] || p.secret.fr) : p.secret;
               return (
                 <button key={p.id} onClick={() => {
                   if (locked) return;
-                  set({ mode: p.mode, casting: p.casting, univers: p.univers, secret: p.secret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 20 : state.format });
+                  set({ mode: p.mode, casting: pCasting, univers: pUnivers, secret: pSecret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 20 : state.format });
                 }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${active ? "var(--r)" : "var(--bo)"}`, background: active ? "var(--r)" : "var(--card)", cursor: locked ? "not-allowed" : "pointer", fontFamily: "var(--sans)", textAlign: "left", opacity: locked ? 0.45 : 1, transition: "all .15s" }}>
                   <span style={{ fontSize: 28, flexShrink: 0 }}>{p.emoji}</span>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
-                      <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#fff" : "var(--tx)" }}>{p.label}</span>
+                      <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#fff" : "var(--tx)" }}>{pLabel}</span>
                       <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: p.mode === "premium" ? "var(--n)" : "#e8f0e8", color: p.mode === "premium" ? "#fff" : "var(--n)", fontWeight: 700, letterSpacing: 0.5 }}>{locked ? "🔒 PRO" : p.mode === "premium" ? "PRO" : "FAST"}</span>
                     </div>
-                    <span style={{ fontSize: 11, color: active ? "rgba(255,255,255,0.8)" : "var(--mt)", lineHeight: 1.3 }}>{p.desc}</span>
+                    <span style={{ fontSize: 11, color: active ? "rgba(255,255,255,0.8)" : "var(--mt)", lineHeight: 1.3 }}>{pDesc}</span>
                   </div>
                 </button>
               );
