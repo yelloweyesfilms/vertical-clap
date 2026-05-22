@@ -911,7 +911,7 @@ function SectionTitle({ accent, title, sub }) {
     <div style={{ display: "flex", alignItems: "flex-start", gap: 12, marginBottom: 18 }}>
       <div style={{ width: 3, borderRadius: 2, background: accent || "var(--r)", alignSelf: "stretch", flexShrink: 0, minHeight: 44 }} />
       <div>
-        <p style={{ fontFamily: "var(--serif)", fontSize: 20, fontWeight: 900, letterSpacing: -0.5, textTransform: "uppercase", color: "var(--tx)", lineHeight: 1.1, marginBottom: 6 }}>{title}</p>
+        <p style={{ fontFamily: "var(--serif)", fontSize: 20, fontWeight: 900, letterSpacing: -0.5, textTransform: "uppercase", color: accent || "var(--r)", lineHeight: 1.1, marginBottom: 6 }}>{title}</p>
         {sub && <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5 }}>{sub}</p>}
       </div>
     </div>
