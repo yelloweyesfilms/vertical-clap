@@ -56,6 +56,16 @@ const T = {
     packs_label: "🎬 Packs d'univers", packs_sub: "— tout configuré en 1 clic",
     logout: "Déconnexion", custom: "✏️ Perso.",
     choose_lang: "Choisir la langue", back: "← Retour", my_series_title: "Mes Séries",
+    affiche_title: "🎨 Dossier de présentation", affiche_sub: "Ton kit visuel complet — affiche + direction artistique + image IA",
+    affiche_loading: "Création de la direction artistique…",
+    affiche_sec1_title: "01 — Affiche de présentation", affiche_sec1_sub: "Imprime-la ou joins-la à ton PDF d'épisodes pour présenter ta série.",
+    affiche_sec2_title: "02 — Direction artistique", affiche_sec2_sub: "L'ambiance visuelle de ta série — pour briefer un DA, un graphiste ou une IA.",
+    affiche_sec3_title: "03 — Générer l'image de couverture", affiche_sec3_sub: "Copie ce prompt et colle-le dans Midjourney, DALL-E (ChatGPT), Gemini ou Ideogram pour générer l'affiche.",
+    affiche_copy: "📋 Copier le prompt", affiche_tools: "Midjourney → /imagine + colle · ChatGPT → \"Génère cette image :\" + colle · Gemini → même chose",
+    vc_presents: "VERTICAL CLAP PRESENTS",
+    social_title: "📱 Contenu Social", social_loading: "Génération du contenu social…",
+    social_tiktok_legend: "📣 Légende TikTok", social_copy: "Copier",
+    social_sms: "💬 SMS entre personnages", social_comments: "🎵 Commentaires TikTok",
   },
   en: {
     mode_fast: "⚡ Fast Drama", mode_premium: "🎭 Premium Suspense",
@@ -89,6 +99,16 @@ const T = {
     packs_label: "🎬 Universe packs", packs_sub: "— all set in 1 click",
     logout: "Sign out", custom: "✏️ Custom",
     choose_lang: "Choose language", back: "← Back", my_series_title: "My Series",
+    affiche_title: "🎨 Presentation kit", affiche_sub: "Your complete visual kit — poster + art direction + AI image",
+    affiche_loading: "Creating art direction…",
+    affiche_sec1_title: "01 — Presentation poster", affiche_sec1_sub: "Print it or attach it to your episode PDF to present your series.",
+    affiche_sec2_title: "02 — Art direction", affiche_sec2_sub: "Your series visual identity — to brief a designer, an art director, or an AI.",
+    affiche_sec3_title: "03 — Generate cover image", affiche_sec3_sub: "Copy this prompt and paste it into Midjourney, DALL-E (ChatGPT), Gemini or Ideogram to generate the poster.",
+    affiche_copy: "📋 Copy prompt", affiche_tools: "Midjourney → /imagine + paste · ChatGPT → \"Generate this image:\" + paste · Gemini → same",
+    vc_presents: "VERTICAL CLAP PRESENTS",
+    social_title: "📱 Social Content", social_loading: "Generating social content…",
+    social_tiktok_legend: "📣 TikTok Caption", social_copy: "Copy",
+    social_sms: "💬 SMS between characters", social_comments: "🎵 TikTok Comments",
   },
 };
 
@@ -910,31 +930,31 @@ function SectionTitle({ accent, title, sub }) {
   );
 }
 
-function AfficheView({ affiche, loading, bible, onBack }) {
+function AfficheView({ affiche, loading, bible, onBack, t }) {
   const accent = affiche?.palette?.[0] || "var(--r)";
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Bible</button>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>🎨 Dossier de présentation</h2>
-        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ton kit visuel complet — affiche + direction artistique + image IA</p>
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_bible}</button>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{t.affiche_title}</h2>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{t.affiche_sub}</p>
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
           <div style={{ textAlign: "center", padding: "60px 0" }}>
             <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>🎨</div>
-            <p style={{ color: "var(--mt)" }}>Création de la direction artistique…</p>
+            <p style={{ color: "var(--mt)" }}>{t.affiche_loading}</p>
           </div>
         ) : affiche ? (
           <>
             {/* — 1. AFFICHE — */}
-            <SectionTitle accent={accent} title="01 — Affiche de présentation" sub="Imprime-la ou joins-la à ton PDF d'épisodes pour présenter ta série." />
+            <SectionTitle accent={accent} title={t.affiche_sec1_title} sub={t.affiche_sec1_sub} />
             <div style={{ background: "#fff", borderRadius: 20, padding: "40px 28px 32px", marginBottom: 28, textAlign: "center", aspectRatio: "9/14", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", boxShadow: "0 4px 32px rgba(0,0,0,0.15)" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 6, background: `linear-gradient(90deg, ${affiche.palette?.[0] || "#E85C3A"}, ${affiche.palette?.[1] || "#ff8c42"})` }} />
               {affiche.palette?.[0] && (
                 <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 50% 40%, ${affiche.palette[0]}12 0%, transparent 65%)`, pointerEvents: "none" }} />
               )}
-              <p style={{ fontSize: 8, letterSpacing: 4, textTransform: "uppercase", color: affiche.palette?.[0] || "#E85C3A", marginBottom: 24, fontWeight: 700, position: "relative" }}>VERTICAL CLAP PRESENTS</p>
+              <p style={{ fontSize: 8, letterSpacing: 4, textTransform: "uppercase", color: affiche.palette?.[0] || "#E85C3A", marginBottom: 24, fontWeight: 700, position: "relative" }}>{t.vc_presents}</p>
               <h1 style={{ fontFamily: "var(--serif)", fontSize: 44, fontWeight: 900, color: "#0a0a0f", lineHeight: 1, marginBottom: 18, letterSpacing: -1, position: "relative" }}>{bible?.titre}</h1>
               {affiche.tagline && (
                 <div style={{ position: "relative", marginBottom: 14 }}>
@@ -951,7 +971,7 @@ function AfficheView({ affiche, loading, bible, onBack }) {
             {/* — 2. DIRECTION ARTISTIQUE — */}
             {affiche.style_visuel && (
               <>
-                <SectionTitle accent={accent} title="02 — Direction artistique" sub="L'ambiance visuelle de ta série — pour briefer un DA, un graphiste ou une IA." />
+                <SectionTitle accent={accent} title={t.affiche_sec2_title} sub={t.affiche_sec2_sub} />
                 <div style={{ background: "var(--card)", borderRadius: 14, padding: 18, marginBottom: 28, border: "1.5px solid var(--bo)" }}>
                   <p style={{ fontSize: 14, lineHeight: 1.7, marginBottom: affiche.typographie ? 12 : 0 }}>{affiche.style_visuel}</p>
                   {affiche.typographie && (
@@ -967,15 +987,15 @@ function AfficheView({ affiche, loading, bible, onBack }) {
             {/* — 3. PROMPT IA — */}
             {affiche.prompt_ia && (
               <>
-                <SectionTitle accent={accent} title="03 — Générer l'image de couverture" sub="Copie ce prompt et colle-le dans Midjourney, DALL-E (ChatGPT), Gemini ou Ideogram pour générer l'affiche." />
+                <SectionTitle accent={accent} title={t.affiche_sec3_title} sub={t.affiche_sec3_sub} />
                 <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, border: `2px solid ${accent}33`, marginBottom: 12 }}>
                   <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--tx)", fontFamily: "monospace", marginBottom: 14 }}>{affiche.prompt_ia}</p>
                   <button onClick={() => navigator.clipboard?.writeText(affiche.prompt_ia)} style={{ background: accent, border: "none", color: "#fff", padding: "12px 20px", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", width: "100%" }}>
-                    📋 Copier le prompt
+                    {t.affiche_copy}
                   </button>
                 </div>
                 <p style={{ fontSize: 11, color: "var(--mt)", textAlign: "center", lineHeight: 1.5 }}>
-                  Midjourney → /imagine + colle · ChatGPT → "Génère cette image :" + colle · Gemini → même chose
+                  {t.affiche_tools}
                 </p>
               </>
             )}
@@ -986,34 +1006,34 @@ function AfficheView({ affiche, loading, bible, onBack }) {
   );
 }
 
-function SocialView({ social, loading, ep, bible, onBack }) {
+function SocialView({ social, loading, ep, bible, onBack, t }) {
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Studio</button>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>📱 Contenu Social</h2>
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_studio}</button>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{t.social_title}</h2>
         <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre}</p>
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
           <div style={{ textAlign: "center", padding: "60px 0" }}>
             <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>📱</div>
-            <p style={{ color: "var(--mt)" }}>Génération du contenu social…</p>
+            <p style={{ color: "var(--mt)" }}>{t.social_loading}</p>
           </div>
         ) : social ? (
           <>
             {/* Légende TikTok */}
             {social.legende && (
               <div style={{ background: "linear-gradient(135deg, #ff0050, #ff6b6b)", borderRadius: 16, padding: 18, marginBottom: 20 }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 8 }}>📣 Légende TikTok</p>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 8 }}>{t.social_tiktok_legend}</p>
                 <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", lineHeight: 1.5 }}>{social.legende}</p>
-                <button onClick={() => navigator.clipboard?.writeText(social.legende)} style={{ marginTop: 12, background: "rgba(255,255,255,0.2)", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>Copier</button>
+                <button onClick={() => navigator.clipboard?.writeText(social.legende)} style={{ marginTop: 12, background: "rgba(255,255,255,0.2)", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.social_copy}</button>
               </div>
             )}
             {/* SMS */}
             {(social.sms || []).length > 0 && (
               <div style={{ marginBottom: 20 }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>💬 SMS entre personnages</p>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>{t.social_sms}</p>
                 <div style={{ background: "#1a1a1a", borderRadius: 16, padding: 16, display: "flex", flexDirection: "column", gap: 10 }}>
                   {(social.sms || []).map((m, i) => {
                     const isRight = i % 2 === 0;
@@ -1032,7 +1052,7 @@ function SocialView({ social, loading, ep, bible, onBack }) {
             {/* Commentaires TikTok */}
             {(social.commentaires || []).length > 0 && (
               <div>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>🎵 Commentaires TikTok</p>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>{t.social_comments}</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {(social.commentaires || []).map((c, i) => (
                     <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: "12px 14px", border: "1.5px solid var(--bo)", display: "flex", alignItems: "flex-start", gap: 10 }}>
@@ -1379,7 +1399,7 @@ export default function App() {
     setLoadingSocial(true);
     setScreen("social");
     try {
-      const r = await gen("social", { ep: episodes[epIdx], bible, mode: state.mode }, customerId);
+      const r = await gen("social", { ep: episodes[epIdx], bible, mode: state.mode, lang }, customerId);
       setSocial(r);
     } catch (e) { console.error(e); }
     setLoadingSocial(false);
@@ -1390,7 +1410,7 @@ export default function App() {
     setLoadingAffiche(true);
     setScreen("affiche");
     try {
-      const r = await gen("affiche", { titre: bible.titre, logline: bible.logline, personnages: bible.personnages || [], genre: state.genre, ambiance: state.ambiance }, customerId);
+      const r = await gen("affiche", { titre: bible.titre, logline: bible.logline, personnages: bible.personnages || [], genre: state.genre, ambiance: state.ambiance, lang }, customerId);
       setAffiche(r);
     } catch (e) { console.error(e); }
     setLoadingAffiche(false);
