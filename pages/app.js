@@ -796,31 +796,6 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
           </div>
         ) : script ? (
           <>
-            {/* Langue active + sélecteur */}
-            {(translating || translated || showLangs) && (
-              <div style={{ background: "var(--card)", borderRadius: 12, padding: "10px 14px", marginBottom: 14, border: "1.5px solid var(--bo)", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-                {translating ? (
-                  <p style={{ fontSize: 13, color: "var(--mt)", animation: "pulse 1.2s infinite" }}>{t.translating}</p>
-                ) : translated ? (
-                  <>
-                    <span style={{ fontSize: 12, fontWeight: 700, color: "var(--n)" }}>🌍 {LANGS.find(l => l.code === activeLang)?.flag} Traduit</span>
-                    <button onClick={() => { setTranslated(null); setActiveLang(null); }} style={{ marginLeft: "auto", background: "none", border: "1.5px solid var(--bo)", color: "var(--mt)", padding: "4px 10px", borderRadius: 8, fontSize: 11, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.translate_back}</button>
-                  </>
-                ) : null}
-              </div>
-            )}
-            {showLangs && !translating && (
-              <div style={{ background: "var(--card)", borderRadius: 12, padding: 14, marginBottom: 14, border: "1.5px solid var(--bo)" }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{t.choose_lang}</p>
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  {LANGS.map(l => (
-                    <button key={l.code} onClick={() => handleTranslate(l.code)} style={{ padding: "8px 12px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--bg)", cursor: "pointer", fontSize: 13, fontFamily: "var(--sans)", display: "flex", alignItems: "center", gap: 5 }}>
-                      <span>{l.flag}</span><span style={{ fontWeight: 700 }}>{l.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
             <div style={{ background: "var(--card)", border: "2px solid var(--r)", borderRadius: 14, padding: 16, marginBottom: 16 }}>
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>{t.hook}</p>
               <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 8, color: "var(--tx)" }}>{displayScript.hook_scene?.texte}</p>
@@ -860,10 +835,23 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
               <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.shooting}</button>
               <button onClick={onSocial} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.social}</button>
             </div>
-            <button onClick={() => setShowLangs(s => !s)} disabled={translating} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", marginBottom: 10, fontFamily: "var(--sans)" }}>
-              {t.translate} {activeLang ? `· ${LANGS.find(l => l.code === activeLang)?.flag}` : ""}
+            <button onClick={() => { if (translated) { setTranslated(null); setActiveLang(null); setShowLangs(false); } else { setShowLangs(s => !s); } }} disabled={translating} style={{ background: translated ? "var(--n)" : "var(--card)", color: translated ? "#fff" : "var(--tx)", border: `1.5px solid ${translated ? "var(--n)" : "var(--bo)"}`, padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: translating ? "wait" : "pointer", marginBottom: 6, fontFamily: "var(--sans)" }}>
+              {translating ? t.translating : translated ? `${LANGS.find(l => l.code === activeLang)?.flag} ${t.translate_back}` : t.translate}
             </button>
-            <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.export_pdf}</button>
+            {showLangs && !translating && (
+              <div style={{ background: "var(--card)", borderRadius: 12, padding: 14, marginBottom: 6, border: "1.5px solid var(--bo)" }}>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{t.choose_lang}</p>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {LANGS.map(l => (
+                    <button key={l.code} onClick={() => handleTranslate(l.code)} style={{ padding: "8px 12px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--bg)", cursor: "pointer", fontSize: 13, fontFamily: "var(--sans)", display: "flex", alignItems: "center", gap: 5 }}>
+                      <span>{l.flag}</span><span style={{ fontWeight: 700 }}>{l.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)", marginBottom: 10 }}>{t.export_pdf}</button>
           </>
         ) : null}
       </div>
