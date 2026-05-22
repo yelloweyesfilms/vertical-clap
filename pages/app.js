@@ -4,14 +4,93 @@ import { jsPDF } from "jspdf";
 
 // ── CONFIG ──────────────────────────────────────────────────
 const OPTS = {
-  casting: ["1 Femme + 1 Homme", "2 Femmes", "2 Hommes", "Trio mixte", "Femme seule", "Homme seul", "Quartet mixte", "2 Teenagers", "Teenager + Adulte", "Trio Teenagers"],
-  univers_fast: ["Hôpital privé", "Milieu corporate", "Famille recomposée", "Mode & Influence", "Sport élite", "Lycée & Secrets", "Immobilier de luxe", "Réseau social viral", "Télévision & Célébrité", "Collège & Cliques", "Fête de lycée", "Compétition scolaire"],
-  univers_prem: ["Start-up IA", "Finance internationale", "Héritage familial", "Politique & Pouvoir", "Pharma & Biotech", "Armée & Services secrets", "Justice & Tribunal", "Immobilier & Blanchiment", "Cinéma & Pouvoir", "Diplomatie internationale"],
-  secret_fast: ["Trahison amoureuse", "Double vie", "Vengeance planifiée", "Enfant caché", "Identité volée", "Grossesse cachée", "Faillite secrète", "Addiction dissimulée", "Passé criminel", "Relation interdite au lycée", "Triche scolaire organisée", "Gang secret entre ados"],
-  secret_prem: ["Sabotage interne", "Espionnage industriel", "Héritage volé", "Manipulation psychologique", "Complot financier", "Corruption judiciaire", "Chantage politique", "Meurtre maquillé", "Faux témoin", "Dette de sang"],
+  fr: {
+    casting: ["1 Femme + 1 Homme", "2 Femmes", "2 Hommes", "Trio mixte", "Femme seule", "Homme seul", "Quartet mixte", "2 Teenagers", "Teenager + Adulte", "Trio Teenagers"],
+    univers_fast: ["Hôpital privé", "Milieu corporate", "Famille recomposée", "Mode & Influence", "Sport élite", "Lycée & Secrets", "Immobilier de luxe", "Réseau social viral", "Télévision & Célébrité", "Collège & Cliques", "Fête de lycée", "Compétition scolaire"],
+    univers_prem: ["Start-up IA", "Finance internationale", "Héritage familial", "Politique & Pouvoir", "Pharma & Biotech", "Armée & Services secrets", "Justice & Tribunal", "Immobilier & Blanchiment", "Cinéma & Pouvoir", "Diplomatie internationale"],
+    secret_fast: ["Trahison amoureuse", "Double vie", "Vengeance planifiée", "Enfant caché", "Identité volée", "Grossesse cachée", "Faillite secrète", "Addiction dissimulée", "Passé criminel", "Relation interdite au lycée", "Triche scolaire organisée", "Gang secret entre ados"],
+    secret_prem: ["Sabotage interne", "Espionnage industriel", "Héritage volé", "Manipulation psychologique", "Complot financier", "Corruption judiciaire", "Chantage politique", "Meurtre maquillé", "Faux témoin", "Dette de sang"],
+  },
+  en: {
+    casting: ["1 Woman + 1 Man", "2 Women", "2 Men", "Mixed trio", "Woman alone", "Man alone", "Mixed quartet", "2 Teenagers", "Teen + Adult", "Teen trio"],
+    univers_fast: ["Private hospital", "Corporate world", "Blended family", "Fashion & Influence", "Elite sport", "High school secrets", "Luxury real estate", "Viral social media", "TV & Celebrity", "College cliques", "House party", "Academic competition"],
+    univers_prem: ["AI startup", "International finance", "Family inheritance", "Politics & Power", "Pharma & Biotech", "Military & Secret services", "Law & Courtroom", "Real estate & Laundering", "Film & Power", "International diplomacy"],
+    secret_fast: ["Love betrayal", "Double life", "Planned revenge", "Hidden child", "Stolen identity", "Secret pregnancy", "Hidden bankruptcy", "Concealed addiction", "Criminal past", "Forbidden school romance", "Organized cheating", "Secret teen gang"],
+    secret_prem: ["Internal sabotage", "Industrial espionage", "Stolen inheritance", "Psychological manipulation", "Financial conspiracy", "Judicial corruption", "Political blackmail", "Staged murder", "False witness", "Blood debt"],
+  },
 };
-const DUR_LABEL = { 60: "1 min", 90: "1 min 30", 120: "2 min" };
+const DUR_LABEL = { fr: { 60: "1 min", 90: "1 min 30", 120: "2 min" }, en: { 60: "1 min", 90: "1 min 30", 120: "2 min" } };
 const DUR_SCENES = { 60: 5, 90: 7, 120: 10 };
+
+// ── TRANSLATIONS ────────────────────────────────────────────
+const T = {
+  fr: {
+    mode_fast: "⚡ Fast Drama", mode_premium: "🎭 Premium Suspense",
+    casting: "Casting", univers: "Univers", secret: "Secret central",
+    duree: "Durée par épisode", episodes: "Nombre d'épisodes",
+    style: "Style de script", drama: "🎚 Drama Engine", drama_sub: "Dose les ingrédients de ta série",
+    generate: "▶ Générer la série", my_series: "📂 Mes séries sauvegardées",
+    content: "min de contenu", max_fast: "max 20 en Fast",
+    back_mixer: "← Mixeur", see_eps: "Voir les", episodes_btn: "épisodes →",
+    poster_btn: "🎨 Affiche", bible_tab: "Bible", persos_tab: "🎭 Persos", titres_tab: "🔥 Titres", titres_locked: "🔒 Titres",
+    question_centrale: "Question centrale", personnages: "Personnages",
+    enrich: "✨ Enrichir les fiches",
+    back_bible: "← Bible", back_studio: "← Studio",
+    writing: "Écriture du script", hook: "⚡ Hook — 3 premières secondes",
+    script_label: "Script", repliques: "répliques",
+    spice: "🌶 Pimenter", subtle: "🤫 Subtil", simplify: "🎬 Simple",
+    variations_locked: "🔒 Générer 3 versions", variations: "🎲 Générer 3 versions",
+    shooting: "📱 Mode Tournage", social: "🔥 Social",
+    translate: "🌍 Traduire le script", translate_back: "↩ Original", translating: "🌍 Traduction en cours…",
+    export_pdf: "📄 Exporter en PDF",
+    saved: "séries sauvegardées", no_series: "Aucune série sauvegardée", generate_first: "Générez votre première série !",
+    open: "Ouvrir →", perso_input: "Ton %s personnalisé…",
+    dur_std: "Standard", dur_intense: "Intense", dur_epic: "Épique",
+    style_cinema: "Silences & regards", style_tiktok: "Rythme haletant", style_soap: "Révélations multiples",
+    lo_romance: "Neutre", hi_romance: "Passion brûlante",
+    lo_toxicite: "Sain", hi_toxicite: "Manipulation totale",
+    lo_mystere: "Transparent", hi_mystere: "Rien n'est vrai",
+    lo_humour: "Pur drame", hi_humour: "Comédie noire",
+    lo_violence: "Aucune", hi_violence: "Confrontations dures",
+    lo_spicy: "Tous publics", hi_spicy: "Tension maximale",
+    packs_label: "🎬 Packs d'univers", packs_sub: "— tout configuré en 1 clic",
+    logout: "Déconnexion", custom: "✏️ Perso.",
+    choose_lang: "Choisir la langue", back: "← Retour", my_series_title: "Mes Séries",
+  },
+  en: {
+    mode_fast: "⚡ Fast Drama", mode_premium: "🎭 Premium Suspense",
+    casting: "Casting", univers: "Setting", secret: "Central secret",
+    duree: "Episode duration", episodes: "Number of episodes",
+    style: "Script style", drama: "🎚 Drama Engine", drama_sub: "Tune your series ingredients",
+    generate: "▶ Generate series", my_series: "📂 My saved series",
+    content: "min of content", max_fast: "max 20 in Fast",
+    back_mixer: "← Back", see_eps: "See all", episodes_btn: "episodes →",
+    poster_btn: "🎨 Poster", bible_tab: "Bible", persos_tab: "🎭 Cast", titres_tab: "🔥 Titles", titres_locked: "🔒 Titles",
+    question_centrale: "Central question", personnages: "Characters",
+    enrich: "✨ Enrich profiles",
+    back_bible: "← Bible", back_studio: "← Studio",
+    writing: "Writing script", hook: "⚡ Hook — First 3 seconds",
+    script_label: "Script", repliques: "lines",
+    spice: "🌶 Spice up", subtle: "🤫 Subtle", simplify: "🎬 Simplify",
+    variations_locked: "🔒 Generate 3 versions", variations: "🎲 Generate 3 versions",
+    shooting: "📱 Shooting mode", social: "🔥 Social",
+    translate: "🌍 Translate script", translate_back: "↩ Original", translating: "🌍 Translating…",
+    export_pdf: "📄 Export as PDF",
+    saved: "saved series", no_series: "No saved series", generate_first: "Generate your first series!",
+    open: "Open →", perso_input: "Your custom %s…",
+    dur_std: "Standard", dur_intense: "Intense", dur_epic: "Epic",
+    style_cinema: "Silences & looks", style_tiktok: "Breathless pace", style_soap: "Multiple reveals",
+    lo_romance: "Neutral", hi_romance: "Burning passion",
+    lo_toxicite: "Healthy", hi_toxicite: "Total manipulation",
+    lo_mystere: "Transparent", hi_mystere: "Nothing is true",
+    lo_humour: "Pure drama", hi_humour: "Dark comedy",
+    lo_violence: "None", hi_violence: "Harsh confrontations",
+    lo_spicy: "All audiences", hi_spicy: "Maximum tension",
+    packs_label: "🎬 Universe packs", packs_sub: "— all set in 1 click",
+    logout: "Sign out", custom: "✏️ Custom",
+    choose_lang: "Choose language", back: "← Back", my_series_title: "My Series",
+  },
+};
 
 const PACKS = [
   { emoji: "🏥", label: "Médical Secret",   mode: "fast",    casting: "1 Femme + 1 Homme", univers: "Hôpital privé",          secret: "Double vie" },
@@ -198,7 +277,7 @@ function deleteSerie(id) {
 }
 
 // ── ÉCRAN MES SÉRIES ─────────────────────────────────────────
-function MesSeriesView({ onLoad, onBack }) {
+function MesSeriesView({ onLoad, onBack, t }) {
   const [series, setSeries] = useState(() => loadSaved());
 
   const handleDelete = (id) => {
@@ -209,16 +288,16 @@ function MesSeriesView({ onLoad, onBack }) {
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ background: "var(--tx)", padding: "28px 20px 24px" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", color: "#3a5040", fontSize: 14, cursor: "pointer", padding: 0, marginBottom: 14 }}>← Retour</button>
-        <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>Mes Séries</h1>
-        <p style={{ fontSize: 12, color: "#3a5040", marginTop: 4 }}>{series.length} série{series.length !== 1 ? "s" : ""} sauvegardée{series.length !== 1 ? "s" : ""}</p>
+        <button onClick={onBack} style={{ background: "none", border: "none", color: "#3a5040", fontSize: 14, cursor: "pointer", padding: 0, marginBottom: 14 }}>{t.back}</button>
+        <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>{t.my_series_title}</h1>
+        <p style={{ fontSize: 12, color: "#3a5040", marginTop: 4 }}>{series.length} {t.saved}</p>
       </div>
       <div style={{ padding: "20px", maxWidth: 520, margin: "0 auto" }}>
         {series.length === 0 ? (
           <div style={{ textAlign: "center", padding: "60px 0", color: "var(--mt)" }}>
             <p style={{ fontSize: 32, marginBottom: 12 }}>📂</p>
-            <p style={{ fontSize: 15 }}>Aucune série sauvegardée</p>
-            <p style={{ fontSize: 13, marginTop: 6 }}>Générez votre première série !</p>
+            <p style={{ fontSize: 15 }}>{t.no_series}</p>
+            <p style={{ fontSize: 13, marginTop: 6 }}>{t.generate_first}</p>
           </div>
         ) : series.map(s => (
           <div key={s.id} style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 12, border: "1.5px solid var(--bo)" }}>
@@ -241,7 +320,7 @@ function MesSeriesView({ onLoad, onBack }) {
             </div>
             <div style={{ display: "flex", gap: 8 }}>
               <button onClick={() => onLoad(s)} style={{ flex: 1, background: "var(--r)", color: "#fff", border: "none", padding: "10px 0", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
-                Ouvrir →
+                {t.open}
               </button>
               <button onClick={() => handleDelete(s.id)} style={{ background: "none", border: "1.5px solid var(--bo)", color: "var(--mt)", padding: "10px 14px", borderRadius: 10, fontSize: 13, cursor: "pointer", fontFamily: "var(--sans)" }}>
                 🗑
@@ -258,9 +337,9 @@ function MesSeriesView({ onLoad, onBack }) {
 
 const CUSTOM_PREFIX = "__custom__";
 
-function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
-  const univOpts = state.mode === "fast" ? OPTS.univers_fast : OPTS.univers_prem;
-  const secOpts = state.mode === "fast" ? OPTS.secret_fast : OPTS.secret_prem;
+function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang }) {
+  const univOpts = state.mode === "fast" ? opts.univers_fast : opts.univers_prem;
+  const secOpts = state.mode === "fast" ? opts.secret_fast : opts.secret_prem;
   const totalMin = Math.round(state.format * state.duree / 60);
   const [customInputs, setCustomInputs] = useState({ casting: "", univers: "", secret: "" });
 
@@ -287,10 +366,10 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
           </div>
         </div>
         <div style={{ display: "flex", background: "#1a2a1e", borderRadius: 12, padding: 4 }}>
-          {[{ k: "fast", l: "⚡ Fast Drama" }, { k: "premium", l: "🎭 Premium Suspense" }].map(({ k, l }) => {
+          {[{ k: "fast", l: t.mode_fast }, { k: "premium", l: t.mode_premium }].map(({ k, l }) => {
             const locked = k === "premium" && plan === "standard";
             return (
-              <button key={k} onClick={() => { if (!locked) set(prev => ({ mode: k, univers: k === "fast" ? OPTS.univers_fast[0] : OPTS.univers_prem[0], secret: k === "fast" ? OPTS.secret_fast[0] : OPTS.secret_prem[0], format: k === "fast" && prev.format > 20 ? 20 : prev.format })); }}
+              <button key={k} onClick={() => { if (!locked) set(prev => ({ mode: k, univers: k === "fast" ? opts.univers_fast[0] : opts.univers_prem[0], secret: k === "fast" ? opts.secret_fast[0] : opts.secret_prem[0], format: k === "fast" && prev.format > 20 ? 20 : prev.format })); }}
                 style={{ flex: 1, padding: "10px 12px", borderRadius: 9, border: "none", fontFamily: "var(--sans)", fontSize: 13, fontWeight: 700, background: state.mode === k ? (k === "fast" ? "var(--r)" : "var(--n)") : "transparent", color: locked ? "#3a5040" : state.mode === k ? "#fff" : "#3a5040", transition: "all .2s", cursor: locked ? "not-allowed" : "pointer", opacity: locked ? 0.5 : 1 }}>
                 {l}{locked && " 🔒"}
               </button>
@@ -304,7 +383,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
         {/* Universe Packs */}
         <div style={{ marginBottom: 28 }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
-            🎬 Packs d'univers <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>— tout configuré en 1 clic</span>
+            {t.packs_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.packs_sub}</span>
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {UNIVERSE_PACKS.map(p => {
@@ -330,22 +409,22 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
         </div>
 
         {[
-          { label: "Casting", opts: OPTS.casting, key: "casting" },
-          { label: "Univers", opts: univOpts, key: "univers" },
-          { label: "Secret central", opts: secOpts, key: "secret" },
-        ].map(({ label, opts, key }) => (
+          { label: t.casting, options: opts.casting, key: "casting" },
+          { label: t.univers, options: univOpts, key: "univers" },
+          { label: t.secret, options: secOpts, key: "secret" },
+        ].map(({ label, options, key }) => (
           <div key={key} style={{ marginBottom: 22 }}>
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{label}</p>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {opts.map(o => <Chip key={o} label={o} active={state[key] === o} onClick={() => set({ [key]: o })} />)}
-              <Chip label="✏️ Perso." active={isCustom(key)} onClick={() => activateCustom(key)} />
+              {options.map(o => <Chip key={o} label={o} active={state[key] === o} onClick={() => set({ [key]: o })} />)}
+              <Chip label={t.custom} active={isCustom(key)} onClick={() => activateCustom(key)} />
             </div>
             {isCustom(key) && (
               <input
                 autoFocus
                 value={customValue(key)}
                 onChange={e => updateCustom(key, e.target.value)}
-                placeholder={`Ton ${label.toLowerCase()} personnalisé…`}
+                placeholder={t.perso_input.replace('%s', label.toLowerCase())}
                 maxLength={100}
                 style={{ marginTop: 10, width: "100%", padding: "10px 14px", borderRadius: 10, border: "1.5px solid var(--r)", background: "var(--bg)", color: "var(--tx)", fontFamily: "var(--sans)", fontSize: 14, outline: "none" }}
               />
@@ -354,9 +433,9 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
         ))}
 
         <div style={{ marginBottom: 22 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>Durée par épisode</p>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{t.duree}</p>
           <div style={{ display: "flex", gap: 8 }}>
-            {[{ v: 60, l: "1 min", s: "Standard" }, { v: 90, l: "1 min 30", s: "Intense" }, { v: 120, l: "2 min", s: "Épique" }].map(({ v, l, s }) => (
+            {[{ v: 60, l: DUR_LABEL[lang][60], s: t.dur_std }, { v: 90, l: DUR_LABEL[lang][90], s: t.dur_intense }, { v: 120, l: DUR_LABEL[lang][120], s: t.dur_epic }].map(({ v, l, s }) => (
               <Chip key={v} label={l} sub={s} block active={state.duree === v} onClick={() => set({ duree: v })} />
             ))}
           </div>
@@ -364,8 +443,8 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
 
         <div style={{ marginBottom: 28 }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>
-            Nombre d'épisodes
-            {state.mode === "fast" && <span style={{ marginLeft: 8, fontSize: 10, color: "var(--r)", fontWeight: 700 }}>max 20 en Fast</span>}
+            {t.episodes}
+            {state.mode === "fast" && <span style={{ marginLeft: 8, fontSize: 10, color: "var(--r)", fontWeight: 700 }}>{t.max_fast}</span>}
           </p>
           <div style={{ display: "flex", gap: 8 }}>
             {[10, 20, 40, 60, 90].map(f => {
@@ -390,12 +469,12 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
 
         {/* Style de script */}
         <div style={{ marginBottom: 20 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>Style de script</p>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{t.style}</p>
           <div style={{ display: "flex", gap: 8 }}>
             {[
-              { v: "🎬 Cinéma", s: "Silences & regards" },
-              { v: "⚡ TikTok Drama", s: "Rythme haletant" },
-              { v: "🎭 Soap Opera", s: "Révélations multiples" },
+              { v: "🎬 Cinéma", s: t.style_cinema },
+              { v: "⚡ TikTok Drama", s: t.style_tiktok },
+              { v: "🎭 Soap Opera", s: t.style_soap },
             ].map(({ v, s }) => (
               <button key={v} onClick={() => set({ style: v })} style={{ flex: 1, padding: "10px 8px", borderRadius: 12, border: `2px solid ${state.style === v ? "var(--r)" : "var(--bo)"}`, background: state.style === v ? "var(--r)" : "var(--card)", color: state.style === v ? "#fff" : "var(--tx)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "center" }}>
                 <div style={{ fontSize: 13, fontWeight: 700 }}>{v}</div>
@@ -408,16 +487,16 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
         {/* Drama Engine */}
         <div style={{ marginBottom: 24 }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 4 }}>
-            🎚 Drama Engine
+            {t.drama}
           </p>
-          <p style={{ fontSize: 11, color: "var(--mt)", marginBottom: 14 }}>Dose les ingrédients de ta série</p>
+          <p style={{ fontSize: 11, color: "var(--mt)", marginBottom: 14 }}>{t.drama_sub}</p>
           {[
-            { key: "romance", label: "💕 Romance", lo: "Neutre", hi: "Passion brûlante" },
-            { key: "toxicite", label: "☠️ Toxicité", lo: "Sain", hi: "Manipulation totale" },
-            { key: "mystere", label: "🔍 Mystère", lo: "Transparent", hi: "Rien n'est vrai" },
-            { key: "humour", label: "😈 Humour noir", lo: "Pur drame", hi: "Comédie noire" },
-            { key: "violence", label: "💥 Violence", lo: "Aucune", hi: "Confrontations dures" },
-            { key: "spicy", label: "🔥 Spicy", lo: "Tous publics", hi: "Tension maximale" },
+            { key: "romance", label: "💕 Romance", lo: t.lo_romance, hi: t.hi_romance },
+            { key: "toxicite", label: "☠️ Toxicité", lo: t.lo_toxicite, hi: t.hi_toxicite },
+            { key: "mystere", label: "🔍 Mystère", lo: t.lo_mystere, hi: t.hi_mystere },
+            { key: "humour", label: "😈 Humour noir", lo: t.lo_humour, hi: t.hi_humour },
+            { key: "violence", label: "💥 Violence", lo: t.lo_violence, hi: t.hi_violence },
+            { key: "spicy", label: "🔥 Spicy", lo: t.lo_spicy, hi: t.hi_spicy },
           ].map(({ key, label, lo, hi }) => {
             const val = state.drama?.[key] ?? 5;
             return (
@@ -439,14 +518,14 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
         </div>
 
         <button onClick={onGen} style={{ background: "var(--r)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 700, cursor: "pointer" }}>
-          ▶ Générer la série
+          {t.generate}
         </button>
         <p style={{ fontSize: 12, color: "var(--mt)", textAlign: "center", marginTop: 12 }}>
-          {state.format} épisodes · {DUR_LABEL[state.duree]} · {totalMin} min de contenu
+          {state.format} ép. · {DUR_LABEL[lang][state.duree]} · {totalMin} {t.content}
         </p>
         {hasSeries && (
           <button onClick={onMesSeries} style={{ background: "none", border: "1.5px solid var(--bo)", color: "var(--tx)", padding: 14, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", marginTop: 10, fontFamily: "var(--sans)" }}>
-            📂 Mes séries sauvegardées
+            {t.my_series}
           </button>
         )}
       </div>
@@ -454,7 +533,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
   );
 }
 
-function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche }) {
+function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, t, lang }) {
   const [tab, setTab] = useState("bible");
   const [titres, setTitres] = useState(null);
   const [loadingTitres, setLoadingTitres] = useState(false);
@@ -491,13 +570,13 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0, display: "flex", alignItems: "center", gap: 6 }}>← Mixeur</button>
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0, display: "flex", alignItems: "center", gap: 6 }}>{t.back_mixer}</button>
         <div style={{ marginBottom: 10 }}>
           <span style={{ display: "inline-block", padding: "4px 10px", borderRadius: 6, background: mode === "fast" ? "#fff0ec" : "#e8edf2", color: mode === "fast" ? "var(--r)" : "var(--n)", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginRight: 6 }}>
-            {mode === "fast" ? "⚡ Fast Drama" : "🎭 Premium Suspense"}
+            {mode === "fast" ? t.mode_fast : t.mode_premium}
           </span>
           <span style={{ display: "inline-block", padding: "4px 10px", borderRadius: 6, background: "#e8edf2", color: "var(--n)", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" }}>
-            ⏱ {DUR_LABEL[duree]}/ép.
+            ⏱ {DUR_LABEL[lang][duree]}/ép.
           </span>
         </div>
         <h1 style={{ fontFamily: "var(--serif)", fontSize: 28, fontWeight: 900, letterSpacing: -1, lineHeight: 1.1, marginBottom: 10 }}>{bible.titre}</h1>
@@ -505,10 +584,10 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
         <p style={{ fontSize: 14, lineHeight: 1.7, marginBottom: 16 }}>{bible.pitch}</p>
         <div style={{ display: "flex", borderBottom: "2px solid var(--bo)", marginBottom: 0 }}>
           {[
-            { k: "bible", l: "Bible" },
-            { k: "persos", l: "🎭 Persos" },
+            { k: "bible", l: t.bible_tab },
+            { k: "persos", l: t.persos_tab },
             { k: "seq", l: `${episodes.length} ép.` },
-            { k: "titres", l: plan === "standard" ? "🔒 Titres" : "🔥 Titres" },
+            { k: "titres", l: plan === "standard" ? t.titres_locked : t.titres_tab },
           ].map(({ k, l }) => {
             const locked = k === "titres" && plan === "standard";
             const onClick = locked
@@ -527,7 +606,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
       <div style={{ padding: "20px", maxWidth: 520, margin: "0 auto" }}>
         {tab === "bible" ? (
           <>
-            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>Personnages</p>
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>{t.personnages}</p>
             {(bible.personnages || []).map((p, i) => (
               <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: 16, borderLeft: `4px solid ${i === 0 ? "var(--r)" : "var(--n)"}`, marginBottom: 10 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
@@ -538,15 +617,15 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               </div>
             ))}
             <div style={{ background: "var(--tx)", borderRadius: 12, padding: 16, marginBottom: 20, marginTop: 4 }}>
-              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>Question centrale</p>
+              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>{t.question_centrale}</p>
               <p style={{ fontFamily: "var(--serif)", fontSize: 15, fontStyle: "italic", color: "#fff", lineHeight: 1.5 }}>« {bible.tension_centrale} »</p>
             </div>
             <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
               <button onClick={() => setTab("seq")} style={{ flex: 2, background: "var(--r)", color: "#fff", border: "none", padding: 16, borderRadius: 14, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
-                Voir les {episodes.length} épisodes →
+                {t.see_eps} {episodes.length} {t.episodes_btn}
               </button>
               <button onClick={onAffiche} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 16, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
-                🎨 Affiche
+                {t.poster_btn}
               </button>
             </div>
           </>
@@ -591,7 +670,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 </div>
               );
             })}
-            {!cartes && <button onClick={genCartes} style={{ background: "var(--n)", color: "#fff", border: "none", padding: 16, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", marginTop: 8 }}>✨ Enrichir les fiches</button>}
+            {!cartes && <button onClick={genCartes} style={{ background: "var(--n)", color: "#fff", border: "none", padding: 16, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", marginTop: 8 }}>{t.enrich}</button>}
           </>
         ) : tab === "titres" ? (
           <>
@@ -635,7 +714,37 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   );
 }
 
-function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onSocial }) {
+function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onSocial, onTranslate, t, lang }) {
+  const [showLangs, setShowLangs] = useState(false);
+  const [translating, setTranslating] = useState(false);
+  const [translated, setTranslated] = useState(null);
+  const [activeLang, setActiveLang] = useState(null);
+
+  useEffect(() => { setTranslated(null); setActiveLang(null); setShowLangs(false); }, [ep?.numero]);
+
+  const LANGS = [
+    { code: "en", flag: "🇬🇧", label: "EN" },
+    { code: "es", flag: "🇪🇸", label: "ES" },
+    { code: "de", flag: "🇩🇪", label: "DE" },
+    { code: "pt", flag: "🇵🇹", label: "PT" },
+    { code: "it", flag: "🇮🇹", label: "IT" },
+    { code: "ar", flag: "🇸🇦", label: "AR" },
+    { code: "he", flag: "🇮🇱", label: "HE" },
+    { code: "zh", flag: "🇨🇳", label: "ZH" },
+  ];
+
+  const handleTranslate = async (code) => {
+    setTranslating(true);
+    setActiveLang(code);
+    setShowLangs(false);
+    try {
+      const r = await onTranslate(code);
+      setTranslated(r);
+    } catch (e) { console.error(e); setActiveLang(null); }
+    setTranslating(false);
+  };
+
+  const displayScript = translated || script;
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
@@ -649,7 +758,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
           <span style={{ background: "var(--r)", color: "#fff", borderRadius: 6, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>ÉP. {ep?.numero}</span>
-          <span style={{ background: "var(--n)", color: "#fff", borderRadius: 6, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>⏱ {DUR_LABEL[duree]}</span>
+          <span style={{ background: "var(--n)", color: "#fff", borderRadius: 6, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>⏱ {DUR_LABEL[lang][duree]}</span>
           <span style={{ fontFamily: "var(--serif)", fontSize: 19, fontWeight: 700 }}>{ep?.titre}</span>
         </div>
         <Dots t={ep?.tension} />
@@ -658,19 +767,44 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
         {loading ? (
           <div style={{ textAlign: "center", padding: "60px 0" }}>
             <div style={{ fontSize: 36, marginBottom: 14, animation: "pulse 1.2s infinite" }}>📝</div>
-            <p style={{ fontSize: 14, color: "var(--mt)" }}>Écriture du script ({DUR_LABEL[duree]})…</p>
+            <p style={{ fontSize: 14, color: "var(--mt)" }}>{t.writing} ({DUR_LABEL[lang][duree]})…</p>
           </div>
         ) : script ? (
           <>
+            {/* Langue active + sélecteur */}
+            {(translating || translated || showLangs) && (
+              <div style={{ background: "var(--card)", borderRadius: 12, padding: "10px 14px", marginBottom: 14, border: "1.5px solid var(--bo)", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                {translating ? (
+                  <p style={{ fontSize: 13, color: "var(--mt)", animation: "pulse 1.2s infinite" }}>{t.translating}</p>
+                ) : translated ? (
+                  <>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: "var(--n)" }}>🌍 {LANGS.find(l => l.code === activeLang)?.flag} Traduit</span>
+                    <button onClick={() => { setTranslated(null); setActiveLang(null); }} style={{ marginLeft: "auto", background: "none", border: "1.5px solid var(--bo)", color: "var(--mt)", padding: "4px 10px", borderRadius: 8, fontSize: 11, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.translate_back}</button>
+                  </>
+                ) : null}
+              </div>
+            )}
+            {showLangs && !translating && (
+              <div style={{ background: "var(--card)", borderRadius: 12, padding: 14, marginBottom: 14, border: "1.5px solid var(--bo)" }}>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{t.choose_lang}</p>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {LANGS.map(l => (
+                    <button key={l.code} onClick={() => handleTranslate(l.code)} style={{ padding: "8px 12px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--bg)", cursor: "pointer", fontSize: 13, fontFamily: "var(--sans)", display: "flex", alignItems: "center", gap: 5 }}>
+                      <span>{l.flag}</span><span style={{ fontWeight: 700 }}>{l.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             <div style={{ background: "var(--card)", border: "2px solid var(--r)", borderRadius: 14, padding: 16, marginBottom: 16 }}>
-              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>⚡ Hook — 3 premières secondes</p>
-              <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 8, color: "var(--tx)" }}>{script.hook_scene?.texte}</p>
-              <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic" }}>[9:16] {script.hook_scene?.visuel_916}</p>
+              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>{t.hook}</p>
+              <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 8, color: "var(--tx)" }}>{displayScript.hook_scene?.texte}</p>
+              <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic" }}>[9:16] {displayScript.hook_scene?.visuel_916}</p>
             </div>
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>
-              Script · {DUR_LABEL[duree]} · {(script.scenes || []).length} répliques
+              {t.script_label} · {DUR_LABEL[lang][duree]} · {(displayScript.scenes || []).length} {t.repliques}
             </p>
-            {(script.scenes || []).map((s, i) => (
+            {(displayScript.scenes || []).map((s, i) => (
               <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: 14, borderLeft: "3px solid var(--bo)", marginBottom: 10 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
                   <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--n)" }}>{s.perso}</p>
@@ -685,23 +819,26 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
                 <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)" }}>🎬 Cliffhanger</p>
                 <button onClick={() => onEdit("rewrite_ending")} disabled={loading} style={{ background: "rgba(255,255,255,0.08)", border: "none", color: "rgba(255,255,255,0.7)", padding: "5px 10px", borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>♻️ Nouveau</button>
               </div>
-              <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8, lineHeight: 1.4 }}>{script.cliffhanger_scene?.texte}</p>
-              <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic", marginBottom: script.cliffhanger_scene?.label ? 10 : 0 }}>[9:16] {script.cliffhanger_scene?.visuel_916}</p>
-              {script.cliffhanger_scene?.label && (
-                <span style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "6px 12px", fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: 1, textTransform: "uppercase" }}>{script.cliffhanger_scene.label}</span>
+              <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8, lineHeight: 1.4 }}>{displayScript.cliffhanger_scene?.texte}</p>
+              <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic", marginBottom: displayScript.cliffhanger_scene?.label ? 10 : 0 }}>[9:16] {displayScript.cliffhanger_scene?.visuel_916}</p>
+              {displayScript.cliffhanger_scene?.label && (
+                <span style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "6px 12px", fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: 1, textTransform: "uppercase" }}>{displayScript.cliffhanger_scene.label}</span>
               )}
             </div>
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
-              {[["pimenter", "🌶 Pimenter"], ["subtil", "🤫 Subtil"], ["simplifier", "🎬 Simple"]].map(([k, l]) => (
+              {[["pimenter", t.spice], ["subtil", t.subtle], ["simplifier", t.simplify]].map(([k, l]) => (
                 <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "11px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
               ))}
             </div>
-            <button onClick={plan === "standard" ? () => alert("Les variations sont réservées au plan Premium.") : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "not-allowed" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? "🔒 Générer 3 versions" : "🎲 Générer 3 versions"}</button>
+            <button onClick={plan === "standard" ? () => alert("Les variations sont réservées au plan Premium.") : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "not-allowed" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? t.variations_locked : t.variations}</button>
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
-              <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>📱 Mode Tournage</button>
-              <button onClick={onSocial} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>🔥 Social</button>
+              <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.shooting}</button>
+              <button onClick={onSocial} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.social}</button>
             </div>
-            <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)" }}>📄 Exporter en PDF</button>
+            <button onClick={() => setShowLangs(s => !s)} disabled={translating} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", marginBottom: 10, fontFamily: "var(--sans)" }}>
+              {t.translate} {activeLang ? `· ${LANGS.find(l => l.code === activeLang)?.flag}` : ""}
+            </button>
+            <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.export_pdf}</button>
           </>
         ) : null}
       </div>
@@ -756,13 +893,26 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
   );
 }
 
+function SectionTitle({ accent, title, sub }) {
+  return (
+    <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 14 }}>
+      <div style={{ width: 3, borderRadius: 2, background: accent || "var(--r)", alignSelf: "stretch", flexShrink: 0, minHeight: 36 }} />
+      <div>
+        <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: accent || "var(--r)", marginBottom: 2 }}>{title}</p>
+        {sub && <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.4 }}>{sub}</p>}
+      </div>
+    </div>
+  );
+}
+
 function AfficheView({ affiche, loading, bible, onBack }) {
+  const accent = affiche?.palette?.[0] || "var(--r)";
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Bible</button>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>🎨 Affiche</h2>
-        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{bible?.titre}</p>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>🎨 Dossier de présentation</h2>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ton kit visuel complet — affiche + direction artistique + image IA</p>
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
@@ -772,45 +922,57 @@ function AfficheView({ affiche, loading, bible, onBack }) {
           </div>
         ) : affiche ? (
           <>
-            {/* Poster mockup */}
-            <div style={{ background: "#0a0a0f", borderRadius: 20, padding: "48px 28px 36px", marginBottom: 20, textAlign: "center", aspectRatio: "9/14", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
-              {/* Gradient overlay using palette colors */}
+            {/* — 1. AFFICHE — */}
+            <SectionTitle accent={accent} title="01 — Affiche de présentation" sub="Imprime-la ou joins-la à ton PDF d'épisodes pour présenter ta série." />
+            <div style={{ background: "#fff", borderRadius: 20, padding: "40px 28px 32px", marginBottom: 28, textAlign: "center", aspectRatio: "9/14", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", boxShadow: "0 4px 32px rgba(0,0,0,0.15)" }}>
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 6, background: `linear-gradient(90deg, ${affiche.palette?.[0] || "#E85C3A"}, ${affiche.palette?.[1] || "#ff8c42"})` }} />
               {affiche.palette?.[0] && (
-                <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 30% 20%, ${affiche.palette[0]}55 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, ${affiche.palette[1] || affiche.palette[0]}33 0%, transparent 50%)`, pointerEvents: "none" }} />
+                <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 50% 40%, ${affiche.palette[0]}12 0%, transparent 65%)`, pointerEvents: "none" }} />
               )}
-              {/* Decorative line */}
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, transparent, ${affiche.palette?.[0] || "#E85C3A"}, ${affiche.palette?.[1] || "#ff8c42"}, transparent)` }} />
-              <p style={{ fontSize: 9, letterSpacing: 4, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 28, fontWeight: 600, position: "relative" }}>VERTICAL CLAP PRESENTS</p>
-              <h1 style={{ fontFamily: "var(--serif)", fontSize: 44, fontWeight: 900, color: "#fff", lineHeight: 1, marginBottom: 20, letterSpacing: -1, position: "relative", textShadow: "0 2px 20px rgba(0,0,0,0.8)" }}>{bible?.titre}</h1>
+              <p style={{ fontSize: 8, letterSpacing: 4, textTransform: "uppercase", color: affiche.palette?.[0] || "#E85C3A", marginBottom: 24, fontWeight: 700, position: "relative" }}>VERTICAL CLAP PRESENTS</p>
+              <h1 style={{ fontFamily: "var(--serif)", fontSize: 44, fontWeight: 900, color: "#0a0a0f", lineHeight: 1, marginBottom: 18, letterSpacing: -1, position: "relative" }}>{bible?.titre}</h1>
               {affiche.tagline && (
-                <div style={{ position: "relative", marginBottom: 16 }}>
-                  <div style={{ width: 40, height: 2, background: affiche.palette?.[0] || "#E85C3A", margin: "0 auto 14px" }} />
-                  <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", letterSpacing: 0.5 }}>{affiche.tagline}</p>
+                <div style={{ position: "relative", marginBottom: 14 }}>
+                  <div style={{ width: 40, height: 2, background: affiche.palette?.[0] || "#E85C3A", margin: "0 auto 12px" }} />
+                  <p style={{ fontSize: 15, fontWeight: 700, color: "#1a1a1a", letterSpacing: 0.3 }}>{affiche.tagline}</p>
                 </div>
               )}
-              {affiche.sous_titre && <p style={{ fontSize: 12, color: "rgba(255,255,255,0.55)", fontStyle: "italic", lineHeight: 1.5, position: "relative" }}>{affiche.sous_titre}</p>}
-              {/* Palette dots */}
-              <div style={{ position: "absolute", bottom: 20, left: 0, right: 0, display: "flex", justifyContent: "center", gap: 8 }}>
-                {(affiche.palette || []).map((c, i) => <div key={i} style={{ width: 14, height: 14, borderRadius: "50%", background: c, border: "1.5px solid rgba(255,255,255,0.25)" }} />)}
+              {affiche.sous_titre && <p style={{ fontSize: 12, color: "#666", fontStyle: "italic", lineHeight: 1.5, position: "relative" }}>{affiche.sous_titre}</p>}
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 36, background: affiche.palette?.[0] || "#0a0a0f", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+                <span style={{ fontSize: 8, letterSpacing: 2, fontWeight: 700, color: "rgba(255,255,255,0.6)", textTransform: "uppercase" }}>verticalclap.com</span>
               </div>
             </div>
-            {/* Style visuel */}
+
+            {/* — 2. DIRECTION ARTISTIQUE — */}
             {affiche.style_visuel && (
-              <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 14, border: "1.5px solid var(--bo)" }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 8 }}>Direction artistique</p>
-                <p style={{ fontSize: 14, lineHeight: 1.6 }}>{affiche.style_visuel}</p>
-                {affiche.typographie && <p style={{ fontSize: 13, color: "var(--mt)", marginTop: 8, fontStyle: "italic" }}>🔤 {affiche.typographie}</p>}
-              </div>
-            )}
-            {/* Prompt IA */}
-            {affiche.prompt_ia && (
-              <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, border: "1.5px solid var(--bo)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                  <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)" }}>Prompt Midjourney</p>
-                  <button onClick={() => navigator.clipboard?.writeText(affiche.prompt_ia)} style={{ background: "var(--r)", border: "none", color: "#fff", padding: "6px 12px", borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>Copier</button>
+              <>
+                <SectionTitle accent={accent} title="02 — Direction artistique" sub="L'ambiance visuelle de ta série — pour briefer un DA, un graphiste ou une IA." />
+                <div style={{ background: "var(--card)", borderRadius: 14, padding: 18, marginBottom: 28, border: "1.5px solid var(--bo)" }}>
+                  <p style={{ fontSize: 14, lineHeight: 1.7, marginBottom: affiche.typographie ? 12 : 0 }}>{affiche.style_visuel}</p>
+                  {affiche.typographie && (
+                    <div style={{ borderTop: "1px solid var(--bo)", paddingTop: 12, display: "flex", alignItems: "center", gap: 8 }}>
+                      <span style={{ fontSize: 18 }}>🔤</span>
+                      <p style={{ fontSize: 13, color: "var(--mt)", fontStyle: "italic" }}>{affiche.typographie}</p>
+                    </div>
+                  )}
                 </div>
-                <p style={{ fontSize: 12, lineHeight: 1.6, color: "var(--tx)", fontFamily: "monospace", background: "var(--bg)", borderRadius: 8, padding: "10px 12px" }}>{affiche.prompt_ia}</p>
-              </div>
+              </>
+            )}
+
+            {/* — 3. PROMPT IA — */}
+            {affiche.prompt_ia && (
+              <>
+                <SectionTitle accent={accent} title="03 — Générer l'image de couverture" sub="Copie ce prompt et colle-le dans Midjourney, DALL-E (ChatGPT), Gemini ou Ideogram pour générer l'affiche." />
+                <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, border: `2px solid ${accent}33`, marginBottom: 12 }}>
+                  <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--tx)", fontFamily: "monospace", marginBottom: 14 }}>{affiche.prompt_ia}</p>
+                  <button onClick={() => navigator.clipboard?.writeText(affiche.prompt_ia)} style={{ background: accent, border: "none", color: "#fff", padding: "12px 20px", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", width: "100%" }}>
+                    📋 Copier le prompt
+                  </button>
+                </div>
+                <p style={{ fontSize: 11, color: "var(--mt)", textAlign: "center", lineHeight: 1.5 }}>
+                  Midjourney → /imagine + colle · ChatGPT → "Génère cette image :" + colle · Gemini → même chose
+                </p>
+              </>
             )}
           </>
         ) : null}
@@ -979,6 +1141,7 @@ export default function App() {
   const [screen, setScreen] = useState("mix");
   const [darkMode, setDarkMode] = useState(false);
   const [savedCount, setSavedCount] = useState(0);
+  const [lang, setLang] = useState("fr");
 
   useEffect(() => {
     try {
@@ -986,6 +1149,14 @@ export default function App() {
       setSavedCount(JSON.parse(localStorage.getItem(SAVE_KEY) || "[]").length);
       const storedPlan = localStorage.getItem("vs_plan");
       if (storedPlan) setPlan(storedPlan);
+      const storedLang = localStorage.getItem("vs_lang");
+      if (storedLang) {
+        setLang(storedLang);
+      } else {
+        const nav = (navigator.language || navigator.userLanguage || "fr").toLowerCase();
+        const detected = nav.startsWith("fr") ? "fr" : "en";
+        setLang(detected);
+      }
     } catch {}
   }, []);
 
@@ -994,7 +1165,22 @@ export default function App() {
     try { localStorage.setItem("vs_theme", darkMode ? "dark" : "light"); } catch {}
   }, [darkMode]);
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.casting[0], univers: OPTS.univers_fast[0], secret: OPTS.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
+  const toggleLang = () => {
+    const next = lang === "fr" ? "en" : "fr";
+    setLang(next);
+    setState(prev => ({
+      ...prev,
+      casting: OPTS[next].casting[0],
+      univers: prev.mode === "fast" ? OPTS[next].univers_fast[0] : OPTS[next].univers_prem[0],
+      secret: prev.mode === "fast" ? OPTS[next].secret_fast[0] : OPTS[next].secret_prem[0],
+    }));
+    try { localStorage.setItem("vs_lang", next); } catch {}
+  };
+
+  const t = T[lang];
+  const opts = OPTS[lang];
+
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
@@ -1072,7 +1258,7 @@ export default function App() {
     setScreen("load");
     try {
       setLoadMsg("Création de la bible de la série…");
-      const b = await gen("bible", cleanState(state), customerId);
+      const b = await gen("bible", { ...cleanState(state), lang }, customerId);
       setBible(b);
 
       const totalBatches = Math.ceil(state.format / 10);
@@ -1080,7 +1266,7 @@ export default function App() {
       for (let i = 0; i < state.format; i += 10) {
         const from = i + 1, to = Math.min(i + 10, state.format);
         const batchNum = Math.floor(i / 10) + 1;
-        const batchPromise = gen("episodes", { titre: b.titre, logline: b.logline, mode: state.mode, from, to, total: state.format }, customerId)
+        const batchPromise = gen("episodes", { titre: b.titre, logline: b.logline, mode: state.mode, from, to, total: state.format, lang }, customerId)
           .then(result => {
             setLoadMsg(`Épisodes ${from}–${to} générés… (${batchNum}/${totalBatches})`);
             return result;
@@ -1125,7 +1311,7 @@ export default function App() {
     setScript(null);
     setLoading(true);
     try {
-      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama }, customerId);
+      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, lang }, customerId);
       if (epReqRef.current === reqId) {
         setScript(s);
         setScripts(prev => {
@@ -1261,7 +1447,7 @@ export default function App() {
     addSpace(2);
     addText(`« ${b.logline} »`, { size: 11, italic: true, color: GRAY });
     addSpace(2);
-    addText(`Épisode ${ep.numero} · ${DUR_LABEL[state.duree]}`, { size: 10, bold: true, color: RED });
+    addText(`Épisode ${ep.numero} · ${DUR_LABEL[lang][state.duree]}`, { size: 10, bold: true, color: RED });
     addSpace(4);
     addLine(RED);
 
@@ -1278,7 +1464,7 @@ export default function App() {
     addSpace(6);
 
     // Scènes
-    addText(`SCRIPT · ${DUR_LABEL[state.duree]}`, { size: 8, bold: true, color: RED });
+    addText(`SCRIPT · ${DUR_LABEL[lang][state.duree]}`, { size: 8, bold: true, color: RED });
     addSpace(3);
     (s.scenes || []).forEach(sc => {
       addText(sc.perso, { size: 9, bold: true, color: DARK });
@@ -1344,20 +1530,21 @@ export default function App() {
         </div>
       )}
 
-      {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} />}
-      {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} />}
-      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} />}
-      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} />}
-      {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} />}
+      {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} />}
+      {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} />}
+      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} t={t} lang={lang} />}
+      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} onTranslate={(langue) => gen("traduire", { script, langue }, customerId)} t={t} lang={lang} />}
+      {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} />}
-      {screen === "social" && <SocialView social={social} loading={loadingSocial} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} />}
-      {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} />}
+      {screen === "social" && <SocialView social={social} loading={loadingSocial} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} />}
+      {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
 
-      {/* Logout */}
+      {/* Top bar: dark mode + lang toggle + logout */}
       {screen !== "tour" && (
-        <div style={{ position: "fixed", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 12 }}>
+        <div style={{ position: "fixed", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 10 }}>
+          <button onClick={toggleLang} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, padding: "3px 8px", fontSize: 11, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>{lang === "fr" ? "EN" : "FR"}</button>
           <button onClick={() => setDarkMode(d => !d)} style={{ background: "none", border: "none", fontSize: 18, cursor: "pointer", lineHeight: 1 }} title={darkMode ? "Mode jour" : "Mode nuit"}>{darkMode ? "☀️" : "🌙"}</button>
-          <button onClick={logout} style={{ background: "none", border: "none", fontSize: 12, color: "var(--mt)", cursor: "pointer" }}>Déconnexion</button>
+          <button onClick={logout} style={{ background: "none", border: "none", fontSize: 12, color: "var(--mt)", cursor: "pointer" }}>{t.logout}</button>
         </div>
       )}
     </div>

@@ -125,6 +125,11 @@ function validatePayload(action, payload) {
   return null;
 }
 
+function buildLangInstr(lang) {
+  if (lang === "en") return "\nLANGUAGE: Generate ALL content in English — titles, dialogues, loglines, descriptions, character names where appropriate. The entire output must be in English.";
+  return "";
+}
+
 function buildDramaInstr(drama) {
   if (!drama || typeof drama !== "object") return "";
   const { romance = 5, toxicite = 5, mystere = 4, humour = 2, violence = 3, spicy = 3 } = drama;
@@ -210,8 +215,8 @@ export default async function handler(req, res) {
 
   try {
     if (action === "bible") {
-      const { mode, casting, univers, secret, format, duree, genre, lieu, ambiance, tropes, drama } = payload;
-      const ck = `bible:${mode}:${casting}:${univers}:${secret}:${format}:${duree}:${genre || ""}:${lieu || ""}:${ambiance || ""}:${tropes || ""}:${JSON.stringify(drama || {})}`;
+      const { mode, casting, univers, secret, format, duree, genre, lieu, ambiance, tropes, drama, lang } = payload;
+      const ck = `bible:${mode}:${casting}:${univers}:${secret}:${format}:${duree}:${genre || ""}:${lieu || ""}:${ambiance || ""}:${tropes || ""}:${JSON.stringify(drama || {})}:${lang || "fr"}`;
       const cached = getCached(ck);
       if (cached) return res.json(cached);
       const md = mode === "fast"
@@ -223,8 +228,9 @@ export default async function handler(req, res) {
       const ambianceInstr = ambiance && ambianceMap[ambiance] ? ambianceMap[ambiance] : "";
       const tropesInstr = tropes ? `Tropes & codes narratifs du pack: ${tropes}. Respecte ces codes comme ADN de la série.` : "";
       const dramaInstr = buildDramaInstr(drama);
+      const langInstr = buildLangInstr(lang);
       const result = await callClaude(
-        `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}\n${genreInstr}\n${lieuInstr}\n${ambianceInstr}\n${tropesInstr}${dramaInstr}\nTitre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.\nLogline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.\nPitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.\nSecret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.\narc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").\ntension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".\naccroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.\nJSON uniquement, aucun texte avant ou après.`,
+        `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}\n${genreInstr}\n${lieuInstr}\n${ambianceInstr}\n${tropesInstr}${dramaInstr}${langInstr}\nTitre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.\nLogline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.\nPitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.\nSecret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.\narc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").\ntension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".\naccroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.\nJSON uniquement, aucun texte avant ou après.`,
         `Casting: ${casting}. Univers: ${univers}. Secret moteur: ${secret}. Série de ${format} épisodes.\nJSON: {"titre":"","logline":"","pitch":"","personnages":[{"nom":"","age":25,"role":"","secret":"","arc":""},{"nom":"","age":28,"role":"","secret":"","arc":""}],"tension_centrale":"","accroche":""}`,
         1800
       );
@@ -241,8 +247,8 @@ export default async function handler(req, res) {
     }
 
     if (action === "episodes") {
-      const { titre, logline, mode, from, to, total } = payload;
-      const ck = `episodes:${titre}:${mode}:${from}:${to}:${total}`;
+      const { titre, logline, mode, from, to, total, lang } = payload;
+      const ck = `episodes:${titre}:${mode}:${from}:${to}:${total}:${lang || "fr"}`;
       const cached = getCached(ck);
       if (cached) return res.json(cached);
       const md = mode === "fast"
@@ -250,8 +256,9 @@ export default async function handler(req, res) {
         : "Premium Suspense: tension psychologique, sous-texte";
       const tFrom = Math.max(1, Math.round(from * 10 / total));
       const tTo = Math.min(10, Math.round(to * 10 / total));
+      const langInstr = buildLangInstr(lang);
       const result = await callClaude(
-        `Tu es showrunner expert. JSON uniquement.\nRègles pour chaque épisode:\n- titre: 2-3 mots max, teaser sans spoiler, crée la curiosité (ex: "Le mensonge", "Elle sait", "Trop tard")\n- cliffhanger: action ou révélation coupée net qui oblige à regarder l'épisode suivant — phrase incomplète ou question suspendue, jamais de résolution\n- tension: entier 1-10 en progression logique sur la série`,
+        `Tu es showrunner expert. JSON uniquement.${langInstr}\nRègles pour chaque épisode:\n- titre: 2-3 mots max, teaser sans spoiler, crée la curiosité (ex: "Le mensonge", "Elle sait", "Trop tard")\n- cliffhanger: action ou révélation coupée net qui oblige à regarder l'épisode suivant — phrase incomplète ou question suspendue, jamais de résolution\n- tension: entier 1-10 en progression logique sur la série`,
         `Série "${titre}" — ${logline}. Mode: ${md}.\nÉpisodes ${from} à ${to} (série de ${total} épisodes). Tension globale: ${tFrom} → ${tTo}/10.\nJSON: {"episodes":[{"numero":${from},"titre":"","cliffhanger":"","tension":${tFrom}}]}`,
         2500
       );
@@ -261,7 +268,7 @@ export default async function handler(req, res) {
     }
 
     if (action === "script") {
-      const { ep, bible, mode, duree, prevEps } = payload;
+      const { ep, bible, mode, duree, prevEps, lang } = payload;
       const md = mode === "fast"
         ? "Fast Drama: émotions explosives, confrontations directes, cliffhangers choc"
         : "Premium Suspense: sous-texte intense, silences signifiants, tension qui monte progressivement";
@@ -277,8 +284,9 @@ export default async function handler(req, res) {
       };
       const styleInstr = payload.style && styleMap[payload.style] ? styleMap[payload.style] : styleMap["⚡ TikTok Drama"];
       const scriptDramaInstr = buildDramaInstr(payload.drama);
+      const scriptLangInstr = buildLangInstr(lang);
       const result = await callClaude(
-        `Tu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}\nRÈGLES ABSOLUES:\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• IN MEDIAS RES — déjà en plein conflit, INTERDIT: "Bonjour", exposition, question banale\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
+        `Tu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• IN MEDIAS RES — déjà en plein conflit, INTERDIT: "Bonjour", exposition, question banale\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
         `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.\nTension: ${bible.tension_centrale || ""}.\nCliffhanger cible: ${ep.cliffhanger}.${prevEpsInstr}\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`,
         2400
       );
@@ -386,7 +394,7 @@ export default async function handler(req, res) {
       const persosList = (personnages || []).map(p => `${p.nom} (${p.role})`).join(", ");
       const result = await callClaude(
         `Tu es directeur artistique expert en posters de séries verticales 9:16 (TikTok, Reels). JSON uniquement.`,
-        `Série "${titre}". Genre: ${genre || "Drama"}. Ambiance: ${ambiance || ""}. Logline: ${logline}. Casting: ${persosList}.\nJSON: {"tagline":"accroche poster 3-6 mots, choc","sous_titre":"complément émotionnel 5-8 mots","palette":["#hex1","#hex2","#hex3"],"style_visuel":"description artistique 2 phrases — composition, lumière, ambiance","prompt_ia":"prompt Midjourney en anglais, ultra-détaillé, style cinématique vertical 9:16, 50 mots max","typographie":"style typo recommandé pour le titre (ex: serif condensé blanc sur fond sombre)"}`,
+        `Série "${titre}". Genre: ${genre || "Drama"}. Ambiance: ${ambiance || ""}. Logline: ${logline}. Casting: ${persosList}.\nJSON: {"tagline":"accroche poster 3-6 mots, choc","sous_titre":"complément émotionnel 5-8 mots","palette":["#hex1","#hex2","#hex3"],"style_visuel":"description artistique 2 phrases — composition, lumière, ambiance","prompt_ia":"image generation prompt in English, compatible with Midjourney/DALL-E/Gemini, cinematic vertical 9:16 style, ultra-detailed, 50 words max","typographie":"style typo recommandé pour le titre (ex: serif condensé blanc sur fond sombre)"}`,
         700
       );
       trackAction("affiche", customerId);
