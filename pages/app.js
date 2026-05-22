@@ -565,12 +565,9 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               return (
                 <div key={i} style={{ background: "var(--card)", borderRadius: 16, overflow: "hidden", marginBottom: 14, border: `2px solid ${couleur}22` }}>
                   <div style={{ background: couleur, padding: "16px 18px 14px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                      <div>
-                        <h3 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, color: "#fff", marginBottom: 2 }}>{nom}</h3>
-                        <p style={{ fontSize: 11, color: "rgba(255,255,255,0.75)", fontWeight: 600, textTransform: "uppercase", letterSpacing: 1 }}>{perso.role} · {perso.age} ans</p>
-                      </div>
-                      {carte?.energie && <span style={{ fontSize: 28 }}>{carte.energie.match(/[^\w\s]/) ? carte.energie.slice(0, 2) : "🎭"}</span>}
+                    <div>
+                      <h3 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, color: "#fff", marginBottom: 2 }}>{nom}</h3>
+                      <p style={{ fontSize: 11, color: "rgba(255,255,255,0.75)", fontWeight: 600, textTransform: "uppercase", letterSpacing: 1 }}>{perso.role} · {perso.age} ans</p>
                     </div>
                     {carte?.citation && <p style={{ fontSize: 13, fontStyle: "italic", color: "rgba(255,255,255,0.9)", marginTop: 10, lineHeight: 1.4 }}>« {carte.citation} »</p>}
                   </div>
