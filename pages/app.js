@@ -430,10 +430,12 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
   );
 }
 
-function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan }) {
+function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche }) {
   const [tab, setTab] = useState("bible");
   const [titres, setTitres] = useState(null);
   const [loadingTitres, setLoadingTitres] = useState(false);
+  const [cartes, setCartes] = useState(null);
+  const [loadingCartes, setLoadingCartes] = useState(false);
 
   const genTitres = async () => {
     setTab("titres");
@@ -446,6 +448,20 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
       setTitres([]);
     }
     setLoadingTitres(false);
+  };
+
+  const genCartes = async () => {
+    setTab("persos");
+    if (cartes) return;
+    setLoadingCartes(true);
+    try {
+      const r = await gen("cartes", { personnages: bible.personnages || [], titre: bible.titre, genre: bible.genre }, customerId);
+      setCartes(r.cartes || []);
+    } catch (e) {
+      console.error(e);
+      setCartes([]);
+    }
+    setLoadingCartes(false);
   };
 
   return (
@@ -464,11 +480,21 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
         <p style={{ fontFamily: "var(--serif)", fontSize: 15, fontStyle: "italic", color: "var(--mt)", lineHeight: 1.5, marginBottom: 12 }}>« {bible.logline} »</p>
         <p style={{ fontSize: 14, lineHeight: 1.7, marginBottom: 16 }}>{bible.pitch}</p>
         <div style={{ display: "flex", borderBottom: "2px solid var(--bo)", marginBottom: 0 }}>
-          {[{ k: "bible", l: "Bible" }, { k: "seq", l: `${episodes.length} ép.` }, { k: "titres", l: plan === "standard" ? "🔒 Titres" : "🔥 Titres" }].map(({ k, l }) => {
+          {[
+            { k: "bible", l: "Bible" },
+            { k: "persos", l: "🎭 Persos" },
+            { k: "seq", l: `${episodes.length} ép.` },
+            { k: "titres", l: plan === "standard" ? "🔒 Titres" : "🔥 Titres" },
+          ].map(({ k, l }) => {
             const locked = k === "titres" && plan === "standard";
+            const onClick = locked
+              ? () => alert("Les titres viraux sont réservés au plan Premium.")
+              : k === "titres" ? (titres ? () => setTab("titres") : genTitres)
+              : k === "persos" ? genCartes
+              : () => setTab(k);
             return (
-              <button key={k} onClick={() => locked ? alert("Les titres viraux sont réservés au plan Premium. Passez à Premium pour débloquer cette fonctionnalité.") : k === "titres" ? (titres ? setTab("titres") : genTitres()) : setTab(k)}
-                style={{ flex: 1, padding: "12px 0", border: "none", background: "none", cursor: locked ? "not-allowed" : "pointer", fontSize: 13, fontWeight: 700, color: locked ? "var(--bo)" : tab === k ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${tab === k && !locked ? "var(--r)" : "transparent"}`, marginBottom: -2, fontFamily: "var(--sans)" }}>{l}
+              <button key={k} onClick={onClick}
+                style={{ flex: 1, padding: "10px 0", border: "none", background: "none", cursor: locked ? "not-allowed" : "pointer", fontSize: 12, fontWeight: 700, color: locked ? "var(--bo)" : tab === k ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${tab === k && !locked ? "var(--r)" : "transparent"}`, marginBottom: -2, fontFamily: "var(--sans)" }}>{l}
               </button>
             );
           })}
@@ -491,9 +517,60 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>Question centrale</p>
               <p style={{ fontFamily: "var(--serif)", fontSize: 15, fontStyle: "italic", color: "#fff", lineHeight: 1.5 }}>« {bible.tension_centrale} »</p>
             </div>
-            <button onClick={() => setTab("seq")} style={{ background: "var(--r)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 700, cursor: "pointer" }}>
-              Voir les {episodes.length} épisodes →
-            </button>
+            <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
+              <button onClick={() => setTab("seq")} style={{ flex: 2, background: "var(--r)", color: "#fff", border: "none", padding: 16, borderRadius: 14, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
+                Voir les {episodes.length} épisodes →
+              </button>
+              <button onClick={onAffiche} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 16, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
+                🎨 Affiche
+              </button>
+            </div>
+          </>
+        ) : tab === "persos" ? (
+          <>
+            {loadingCartes ? (
+              <div style={{ textAlign: "center", padding: "40px 0", color: "var(--mt)" }}>
+                <div style={{ fontSize: 28, marginBottom: 12, animation: "pulse 1.2s infinite" }}>🎭</div>
+                <p>Création des fiches personnages…</p>
+              </div>
+            ) : (cartes || bible.personnages || []).map((p, i) => {
+              const carte = cartes ? cartes[i] : null;
+              const perso = (bible.personnages || [])[i] || {};
+              const nom = perso.nom || carte?.nom || "";
+              const couleur = carte?.couleur || (i === 0 ? "#E85C3A" : "#3a5040");
+              return (
+                <div key={i} style={{ background: "var(--card)", borderRadius: 16, overflow: "hidden", marginBottom: 14, border: `2px solid ${couleur}22` }}>
+                  <div style={{ background: couleur, padding: "16px 18px 14px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                      <div>
+                        <h3 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, color: "#fff", marginBottom: 2 }}>{nom}</h3>
+                        <p style={{ fontSize: 11, color: "rgba(255,255,255,0.75)", fontWeight: 600, textTransform: "uppercase", letterSpacing: 1 }}>{perso.role} · {perso.age} ans</p>
+                      </div>
+                      {carte?.energie && <span style={{ fontSize: 28 }}>{carte.energie.match(/[^\w\s]/) ? carte.energie.slice(0, 2) : "🎭"}</span>}
+                    </div>
+                    {carte?.citation && <p style={{ fontSize: 13, fontStyle: "italic", color: "rgba(255,255,255,0.9)", marginTop: 10, lineHeight: 1.4 }}>« {carte.citation} »</p>}
+                  </div>
+                  <div style={{ padding: "14px 18px" }}>
+                    {carte ? (
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 12 }}>
+                        <div style={{ background: "var(--bg)", borderRadius: 10, padding: "10px 12px" }}>
+                          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, color: "var(--mt)", textTransform: "uppercase", marginBottom: 4 }}>💪 Force</p>
+                          <p style={{ fontSize: 13, fontWeight: 700 }}>{carte.force}</p>
+                        </div>
+                        <div style={{ background: "var(--bg)", borderRadius: 10, padding: "10px 12px" }}>
+                          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, color: "var(--mt)", textTransform: "uppercase", marginBottom: 4 }}>💔 Faiblesse</p>
+                          <p style={{ fontSize: 13, fontWeight: 700 }}>{carte.faiblesse}</p>
+                        </div>
+                      </div>
+                    ) : null}
+                    {carte?.style && <p style={{ fontSize: 12, color: "var(--mt)", marginBottom: 8 }}>👗 {carte.style}</p>}
+                    <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5, borderTop: "1px solid var(--bo)", paddingTop: 10 }}>🔒 {perso.secret}</p>
+                    {perso.arc && <p style={{ fontSize: 12, color: "var(--tx)", lineHeight: 1.5, marginTop: 6 }}>📈 {perso.arc}</p>}
+                  </div>
+                </div>
+              );
+            })}
+            {!cartes && <button onClick={genCartes} style={{ background: "var(--n)", color: "#fff", border: "none", padding: 16, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", marginTop: 8 }}>✨ Enrichir les fiches</button>}
           </>
         ) : tab === "titres" ? (
           <>
@@ -537,7 +614,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   );
 }
 
-function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps }) {
+function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onSocial }) {
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
@@ -582,21 +659,27 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
                 <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {s.visuel_916}</p>
               </div>
             ))}
-            <div style={{ background: "#1a1a2e", borderRadius: 14, padding: 16, marginBottom: 20 }}>
-              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>🎬 Cliffhanger</p>
+            <div style={{ background: "#1a1a2e", borderRadius: 14, padding: 16, marginBottom: 14 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)" }}>🎬 Cliffhanger</p>
+                <button onClick={() => onEdit("rewrite_ending")} disabled={loading} style={{ background: "rgba(255,255,255,0.08)", border: "none", color: "rgba(255,255,255,0.7)", padding: "5px 10px", borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>♻️ Nouveau</button>
+              </div>
               <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8, lineHeight: 1.4 }}>{script.cliffhanger_scene?.texte}</p>
               <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic", marginBottom: script.cliffhanger_scene?.label ? 10 : 0 }}>[9:16] {script.cliffhanger_scene?.visuel_916}</p>
               {script.cliffhanger_scene?.label && (
                 <span style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "6px 12px", fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: 1, textTransform: "uppercase" }}>{script.cliffhanger_scene.label}</span>
               )}
             </div>
-            <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
-              {[["pimenter", "🌶 Pimenter"], ["subtil", "🤫 Plus subtil"], ["simplifier", "🎬 Simplifier"]].map(([k, l]) => (
-                <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "11px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
+            <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
+              {[["pimenter", "🌶 Pimenter"], ["subtil", "🤫 Subtil"], ["simplifier", "🎬 Simple"]].map(([k, l]) => (
+                <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "11px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
               ))}
             </div>
             <button onClick={plan === "standard" ? () => alert("Les variations sont réservées au plan Premium.") : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "not-allowed" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? "🔒 Générer 3 versions" : "🎲 Générer 3 versions"}</button>
-            <button onClick={onTournage} style={{ background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", marginBottom: 10, fontFamily: "var(--sans)" }}>📱 Mode Tournage</button>
+            <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
+              <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>📱 Mode Tournage</button>
+              <button onClick={onSocial} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>🔥 Social</button>
+            </div>
             <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)" }}>📄 Exporter en PDF</button>
           </>
         ) : null}
@@ -647,6 +730,133 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function AfficheView({ affiche, loading, bible, onBack }) {
+  return (
+    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+      <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Bible</button>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>🎨 Affiche</h2>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{bible?.titre}</p>
+      </div>
+      <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
+        {loading ? (
+          <div style={{ textAlign: "center", padding: "60px 0" }}>
+            <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>🎨</div>
+            <p style={{ color: "var(--mt)" }}>Création de la direction artistique…</p>
+          </div>
+        ) : affiche ? (
+          <>
+            {/* Poster mockup */}
+            <div style={{ background: affiche.palette?.[0] || "#0f0f0f", borderRadius: 20, padding: "40px 28px", marginBottom: 20, textAlign: "center", aspectRatio: "9/14", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
+              {affiche.palette?.[1] && (
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: `radial-gradient(ellipse at top, ${affiche.palette[1]}44, transparent 60%)`, pointerEvents: "none" }} />
+              )}
+              <p style={{ fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: affiche.palette?.[2] || "#aaa", marginBottom: 20, fontWeight: 600 }}>VERTICAL CLAP PRESENTS</p>
+              <h1 style={{ fontFamily: "var(--serif)", fontSize: 42, fontWeight: 900, color: "#fff", lineHeight: 1, marginBottom: 16, letterSpacing: -1 }}>{bible?.titre}</h1>
+              <p style={{ fontSize: 16, fontWeight: 700, color: affiche.palette?.[2] || "#ccc", marginBottom: 8 }}>{affiche.tagline}</p>
+              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.6)", fontStyle: "italic" }}>{affiche.sous_titre}</p>
+              <div style={{ position: "absolute", bottom: 20, left: 0, right: 0, display: "flex", justifyContent: "center", gap: 8 }}>
+                {(affiche.palette || []).map((c, i) => <div key={i} style={{ width: 16, height: 16, borderRadius: "50%", background: c, border: "2px solid rgba(255,255,255,0.3)" }} />)}
+              </div>
+            </div>
+            {/* Style visuel */}
+            {affiche.style_visuel && (
+              <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 14, border: "1.5px solid var(--bo)" }}>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 8 }}>Direction artistique</p>
+                <p style={{ fontSize: 14, lineHeight: 1.6 }}>{affiche.style_visuel}</p>
+                {affiche.typographie && <p style={{ fontSize: 13, color: "var(--mt)", marginTop: 8, fontStyle: "italic" }}>🔤 {affiche.typographie}</p>}
+              </div>
+            )}
+            {/* Prompt IA */}
+            {affiche.prompt_ia && (
+              <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, border: "1.5px solid var(--bo)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                  <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)" }}>Prompt Midjourney</p>
+                  <button onClick={() => navigator.clipboard?.writeText(affiche.prompt_ia)} style={{ background: "var(--r)", border: "none", color: "#fff", padding: "6px 12px", borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>Copier</button>
+                </div>
+                <p style={{ fontSize: 12, lineHeight: 1.6, color: "var(--tx)", fontFamily: "monospace", background: "var(--bg)", borderRadius: 8, padding: "10px 12px" }}>{affiche.prompt_ia}</p>
+              </div>
+            )}
+          </>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function SocialView({ social, loading, ep, bible, onBack }) {
+  return (
+    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+      <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Studio</button>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>📱 Contenu Social</h2>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre}</p>
+      </div>
+      <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
+        {loading ? (
+          <div style={{ textAlign: "center", padding: "60px 0" }}>
+            <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>📱</div>
+            <p style={{ color: "var(--mt)" }}>Génération du contenu social…</p>
+          </div>
+        ) : social ? (
+          <>
+            {/* Légende TikTok */}
+            {social.legende && (
+              <div style={{ background: "linear-gradient(135deg, #ff0050, #ff6b6b)", borderRadius: 16, padding: 18, marginBottom: 20 }}>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 8 }}>📣 Légende TikTok</p>
+                <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", lineHeight: 1.5 }}>{social.legende}</p>
+                <button onClick={() => navigator.clipboard?.writeText(social.legende)} style={{ marginTop: 12, background: "rgba(255,255,255,0.2)", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>Copier</button>
+              </div>
+            )}
+            {/* SMS */}
+            {(social.sms || []).length > 0 && (
+              <div style={{ marginBottom: 20 }}>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>💬 SMS entre personnages</p>
+                <div style={{ background: "#1a1a1a", borderRadius: 16, padding: 16, display: "flex", flexDirection: "column", gap: 10 }}>
+                  {(social.sms || []).map((m, i) => {
+                    const isRight = i % 2 === 0;
+                    return (
+                      <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: isRight ? "flex-end" : "flex-start" }}>
+                        <p style={{ fontSize: 10, color: "#666", marginBottom: 3 }}>{isRight ? m.from : m.to} · {m.heure}</p>
+                        <div style={{ background: isRight ? "#007AFF" : "#2a2a2a", borderRadius: isRight ? "18px 18px 4px 18px" : "18px 18px 18px 4px", padding: "10px 14px", maxWidth: "80%" }}>
+                          <p style={{ fontSize: 14, color: "#fff", lineHeight: 1.4 }}>{m.texte}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            {/* Commentaires TikTok */}
+            {(social.commentaires || []).length > 0 && (
+              <div>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>🎵 Commentaires TikTok</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {(social.commentaires || []).map((c, i) => (
+                    <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: "12px 14px", border: "1.5px solid var(--bo)", display: "flex", alignItems: "flex-start", gap: 10 }}>
+                      <div style={{ width: 36, height: 36, borderRadius: "50%", background: `hsl(${(i * 60) % 360}, 60%, 55%)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                        <span style={{ fontSize: 14 }}>{c.reaction}</span>
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <p style={{ fontSize: 11, fontWeight: 700, color: "var(--r)", marginBottom: 3 }}>{c.user}</p>
+                        <p style={{ fontSize: 13, lineHeight: 1.5 }}>{c.texte}</p>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+                        <span style={{ fontSize: 16 }}>❤️</span>
+                        <span style={{ fontSize: 10, color: "var(--mt)", fontWeight: 700 }}>{c.likes >= 1000 ? `${(c.likes / 1000).toFixed(1)}k` : c.likes}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        ) : null}
       </div>
     </div>
   );
@@ -895,6 +1105,10 @@ export default function App() {
 
   const [variations, setVariations] = useState(null);
   const [loadingVariations, setLoadingVariations] = useState(false);
+  const [social, setSocial] = useState(null);
+  const [loadingSocial, setLoadingSocial] = useState(false);
+  const [affiche, setAffiche] = useState(null);
+  const [loadingAffiche, setLoadingAffiche] = useState(false);
 
   const genVariations = async () => {
     setVariations(null);
@@ -910,6 +1124,28 @@ export default function App() {
   const selectVariation = (v) => {
     setScript(v);
     setScreen("studio");
+  };
+
+  const genSocial = async () => {
+    setSocial(null);
+    setLoadingSocial(true);
+    setScreen("social");
+    try {
+      const r = await gen("social", { ep: episodes[epIdx], bible, mode: state.mode }, customerId);
+      setSocial(r);
+    } catch (e) { console.error(e); }
+    setLoadingSocial(false);
+  };
+
+  const genAffiche = async () => {
+    setAffiche(null);
+    setLoadingAffiche(true);
+    setScreen("affiche");
+    try {
+      const r = await gen("affiche", { titre: bible.titre, logline: bible.logline, personnages: bible.personnages || [], genre: state.genre, ambiance: state.ambiance }, customerId);
+      setAffiche(r);
+    } catch (e) { console.error(e); }
+    setLoadingAffiche(false);
   };
 
   const exportScript = async () => {
@@ -1053,10 +1289,12 @@ export default function App() {
 
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} />}
-      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} />}
-      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} />}
+      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} />}
+      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} />}
+      {screen === "social" && <SocialView social={social} loading={loadingSocial} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} />}
+      {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} />}
 
       {/* Logout */}
       {screen !== "tour" && (

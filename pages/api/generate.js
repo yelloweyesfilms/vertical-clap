@@ -41,7 +41,7 @@ function setCached(key, data) {
 }
 
 
-const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres", "variations", "traduire", "production"];
+const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres", "variations", "traduire", "production", "cartes", "social", "affiche"];
 const VALID_MODES = ["fast", "premium"];
 const VALID_DUREES = [60, 90, 120];
 const VALID_FORMATS = [10, 20, 40, 60, 90];
@@ -108,6 +108,19 @@ function validatePayload(action, payload) {
     if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
     if (typeof logline !== "string" || logline.length > 500) return "Logline invalide";
     if (!Array.isArray(personnages)) return "Personnages invalides";
+  } else if (action === "cartes") {
+    const { personnages, titre } = payload;
+    if (!Array.isArray(personnages) || personnages.length === 0) return "Personnages invalides";
+    if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
+  } else if (action === "social") {
+    const { ep, bible, mode } = payload;
+    if (!ep || typeof ep !== "object") return "Épisode invalide";
+    if (!bible || typeof bible !== "object") return "Bible invalide";
+    if (!VALID_MODES.includes(mode)) return "Mode invalide";
+  } else if (action === "affiche") {
+    const { titre, logline } = payload;
+    if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
+    if (typeof logline !== "string" || logline.length > 500) return "Logline invalide";
   }
   return null;
 }
@@ -342,6 +355,41 @@ export default async function handler(req, res) {
         1200
       );
       trackAction("production", customerId);
+      return res.json(result);
+    }
+
+    if (action === "cartes") {
+      const { personnages, titre, genre } = payload;
+      const persosList = personnages.map(p => `${p.nom} (${p.role}, ${p.age} ans) — secret: "${p.secret}"${p.arc ? `, arc: "${p.arc}"` : ""}`).join("\n");
+      const result = await callClaude(
+        `Tu es directeur artistique expert en micro-dramas 9:16. Pour chaque personnage, crée une fiche visuelle et dramatique riche. JSON uniquement.`,
+        `Série "${titre}"${genre ? ` — genre: ${genre}` : ""}.\nPersonnages:\n${persosList}\nJSON: {"cartes":[{"nom":"","citation":"phrase signature 5-10 mots que ce perso dirait souvent","style":"look vestimentaire précis en 1 phrase","force":"qualité dramatique principale en 3 mots","faiblesse":"talon d'achille dramatique en 3 mots","energie":"comment il entre dans une scène — 1 adjectif saisissant","couleur":"#hexcode couleur qui représente ce perso"}]}`,
+        1200
+      );
+      trackAction("cartes", customerId);
+      return res.json(result);
+    }
+
+    if (action === "social") {
+      const { ep, bible, mode } = payload;
+      const result = await callClaude(
+        `Tu es community manager TikTok spécialisé en micro-dramas viraux. JSON uniquement.`,
+        `Épisode ${ep.numero} "${ep.titre}" — série "${bible.titre}".\nLogline: ${bible.logline}.\nCliffhanger: ${ep.cliffhanger}.\n\nGénère:\n• 6 commentaires TikTok ultra-réalistes (mix réactions, théories, team A vs B, emojis, argot actuel)\n• 4 SMS entre personnages liés aux révélations de l'épisode (style iMessage, très courts)\n• 1 légende TikTok virale pour poster cet épisode (15 mots max + hashtags)\nJSON: {"commentaires":[{"user":"@pseudo","texte":"","likes":1200,"reaction":"😱"}],"sms":[{"from":"Prénom","to":"Prénom","texte":"","heure":"21:47"}],"legende":""}`,
+        900
+      );
+      trackAction("social", customerId);
+      return res.json(result);
+    }
+
+    if (action === "affiche") {
+      const { titre, logline, personnages, genre, ambiance } = payload;
+      const persosList = (personnages || []).map(p => `${p.nom} (${p.role})`).join(", ");
+      const result = await callClaude(
+        `Tu es directeur artistique expert en posters de séries verticales 9:16 (TikTok, Reels). JSON uniquement.`,
+        `Série "${titre}". Genre: ${genre || "Drama"}. Ambiance: ${ambiance || ""}. Logline: ${logline}. Casting: ${persosList}.\nJSON: {"tagline":"accroche poster 3-6 mots, choc","sous_titre":"complément émotionnel 5-8 mots","palette":["#hex1","#hex2","#hex3"],"style_visuel":"description artistique 2 phrases — composition, lumière, ambiance","prompt_ia":"prompt Midjourney en anglais, ultra-détaillé, style cinématique vertical 9:16, 50 mots max","typographie":"style typo recommandé pour le titre (ex: serif condensé blanc sur fond sombre)"}`,
+        700
+      );
+      trackAction("affiche", customerId);
       return res.json(result);
     }
 
