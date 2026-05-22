@@ -41,7 +41,7 @@ function setCached(key, data) {
 }
 
 
-const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres", "variations", "traduire", "production"];
+const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres", "variations", "traduire", "production", "cartes", "social", "affiche"];
 const VALID_MODES = ["fast", "premium"];
 const VALID_DUREES = [60, 90, 120];
 const VALID_FORMATS = [10, 20, 40, 60, 90];
@@ -54,7 +54,7 @@ function validatePayload(action, payload) {
     if (!VALID_MODES.includes(mode)) return "Mode invalide";
     if (!VALID_DUREES.includes(duree)) return "Durée invalide";
     if (!VALID_FORMATS.includes(format)) return "Format invalide";
-    if (mode === "fast" && format > 10) return "Le mode Fast est limité à 10 épisodes. Passez en Premium Suspense pour créer jusqu'à 90 épisodes.";
+    if (mode === "fast" && format > 20) return "Le mode Fast est limité à 20 épisodes. Passez en Premium Suspense pour créer jusqu'à 90 épisodes.";
     if (typeof casting !== "string" || casting.length > 100) return "Casting invalide";
     if (typeof univers !== "string" || univers.length > 100) return "Univers invalide";
     if (typeof secret !== "string" || secret.length > 100) return "Secret invalide";
@@ -62,6 +62,12 @@ function validatePayload(action, payload) {
     if (lieu !== undefined && (typeof lieu !== "string" || lieu.length > 100)) return "Lieu invalide";
     if (payload.ambiance !== undefined && (typeof payload.ambiance !== "string" || payload.ambiance.length > 100)) return "Ambiance invalide";
     if (payload.tropes !== undefined && (typeof payload.tropes !== "string" || payload.tropes.length > 300)) return "Tropes invalides";
+    if (payload.drama !== undefined) {
+      if (typeof payload.drama !== "object" || payload.drama === null) return "Drama invalide";
+      for (const k of ["romance", "toxicite", "mystere", "humour", "violence", "spicy"]) {
+        if (payload.drama[k] !== undefined && (typeof payload.drama[k] !== "number" || payload.drama[k] < 0 || payload.drama[k] > 10)) return `Curseur drama invalide: ${k}`;
+      }
+    }
   } else if (action === "episodes") {
     const { titre, logline, mode, from, to, total } = payload;
     if (!VALID_MODES.includes(mode)) return "Mode invalide";
@@ -102,8 +108,45 @@ function validatePayload(action, payload) {
     if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
     if (typeof logline !== "string" || logline.length > 500) return "Logline invalide";
     if (!Array.isArray(personnages)) return "Personnages invalides";
+  } else if (action === "cartes") {
+    const { personnages, titre } = payload;
+    if (!Array.isArray(personnages) || personnages.length === 0) return "Personnages invalides";
+    if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
+  } else if (action === "social") {
+    const { ep, bible, mode } = payload;
+    if (!ep || typeof ep !== "object") return "Épisode invalide";
+    if (!bible || typeof bible !== "object") return "Bible invalide";
+    if (!VALID_MODES.includes(mode)) return "Mode invalide";
+  } else if (action === "affiche") {
+    const { titre, logline } = payload;
+    if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
+    if (typeof logline !== "string" || logline.length > 500) return "Logline invalide";
   }
   return null;
+}
+
+function buildDramaInstr(drama) {
+  if (!drama || typeof drama !== "object") return "";
+  const { romance = 5, toxicite = 5, mystere = 4, humour = 2, violence = 3, spicy = 3 } = drama;
+  const lines = [];
+  if (romance >= 7) lines.push("ROMANCE INTENSE: tension amoureuse omniprésente, regards, frôlements, désir non dit — la relation amoureuse est au cœur de chaque scène.");
+  else if (romance <= 2) lines.push("ROMANCE ABSENTE: aucune dimension romantique, les relations sont purement conflictuelles ou professionnelles.");
+  if (toxicite >= 7) lines.push("TOXICITÉ MAXIMALE: manipulation, gaslighting, chantage émotionnel, emprise — les personnages se blessent intentionnellement et systématiquement.");
+  else if (toxicite >= 5) lines.push("TOXICITÉ PRÉSENTE: dynamiques de pouvoir déséquilibrées, dépendance, coups bas récurrents.");
+  else if (toxicite <= 2) lines.push("DYNAMIQUES SAINES: les conflits sont francs et directs, sans manipulation.");
+  if (mystere >= 7) lines.push("MYSTÈRE MAXIMAL: chaque scène révèle quelque chose mais en cache davantage — narrateur peu fiable, vrais motifs jamais explicites, twist possible à chaque réplique.");
+  else if (mystere >= 5) lines.push("COUCHE DE MYSTÈRE: des sous-entendus et questions non résolues traversent l'épisode.");
+  else if (mystere <= 2) lines.push("CLARTÉ TOTALE: tout est dit clairement, aucun sous-texte caché.");
+  if (humour >= 7) lines.push("COMÉDIE NOIRE: ironie mordante, situations absurdes, second degré omniprésent — le drama est traité avec distance et dérision.");
+  else if (humour >= 5) lines.push("TOUCHES D'HUMOUR NOIR: quelques répliques piquantes ou situations ironiques allègent la tension.");
+  else if (humour <= 2) lines.push("AUCUN HUMOUR: ton sérieux et dramatique du début à la fin, zéro légèreté.");
+  if (violence >= 7) lines.push("VIOLENCE FORTE: confrontations physiques ou verbales dures, menaces crédibles, conséquences corporelles ou émotionnelles graves.");
+  else if (violence >= 4) lines.push("VIOLENCE MODÉRÉE: éclats de violence verbale ou physique brève, menaces sous-entendues.");
+  else if (violence <= 1) lines.push("SANS VIOLENCE: aucune confrontation physique ni menace directe.");
+  if (spicy >= 7) lines.push("TENSION MAXIMALE: attirance physique explicite, désir brûlant, tension sexuelle palpable — les corps parlent autant que les mots.");
+  else if (spicy >= 5) lines.push("TENSION PALPABLE: chemistry forte entre les personnages, regard et proximité physique assumés.");
+  else if (spicy <= 2) lines.push("TON SOBRE: aucune tension physique, registre neutre et familial.");
+  return lines.length > 0 ? `\nDRAMA ENGINE — instructions de ton:\n${lines.join("\n")}` : "";
 }
 
 const DUR_INSTR = {
@@ -156,8 +199,8 @@ export default async function handler(req, res) {
   if (plan === "standard" && action === "bible" && payload?.mode === "premium") {
     return res.status(403).json({ error: "Le mode Premium Suspense est réservé au plan Premium." });
   }
-  if (plan === "standard" && action === "bible" && payload?.format > 10) {
-    return res.status(403).json({ error: "Le plan Standard est limité à 10 épisodes. Passez à Premium pour créer jusqu'à 90 épisodes." });
+  if (plan === "standard" && action === "bible" && payload?.format > 20) {
+    return res.status(403).json({ error: "Le plan Standard est limité à 20 épisodes. Passez à Premium pour créer jusqu'à 90 épisodes." });
   }
 
   const validationError = validatePayload(action, payload);
@@ -167,8 +210,8 @@ export default async function handler(req, res) {
 
   try {
     if (action === "bible") {
-      const { mode, casting, univers, secret, format, duree, genre, lieu, ambiance, tropes } = payload;
-      const ck = `bible:${mode}:${casting}:${univers}:${secret}:${format}:${duree}:${genre || ""}:${lieu || ""}:${ambiance || ""}:${tropes || ""}`;
+      const { mode, casting, univers, secret, format, duree, genre, lieu, ambiance, tropes, drama } = payload;
+      const ck = `bible:${mode}:${casting}:${univers}:${secret}:${format}:${duree}:${genre || ""}:${lieu || ""}:${ambiance || ""}:${tropes || ""}:${JSON.stringify(drama || {})}`;
       const cached = getCached(ck);
       if (cached) return res.json(cached);
       const md = mode === "fast"
@@ -179,8 +222,9 @@ export default async function handler(req, res) {
       const ambianceMap = { "⚡ Intense & Direct": "Ton INTENSE ET DIRECT: dialogues percutants, confrontations frontales, émotions à fleur de peau, rythme rapide.", "💜 Émotionnel & Poétique": "Ton ÉMOTIONNEL ET POÉTIQUE: dialogues touchants, métaphores, profondeur des sentiments, moments de vulnérabilité.", "🧠 Psychologique & Lent": "Ton PSYCHOLOGIQUE ET LENT: sous-texte riche, silences significatifs, manipulation subtile, tension qui monte sans éclater." };
       const ambianceInstr = ambiance && ambianceMap[ambiance] ? ambianceMap[ambiance] : "";
       const tropesInstr = tropes ? `Tropes & codes narratifs du pack: ${tropes}. Respecte ces codes comme ADN de la série.` : "";
+      const dramaInstr = buildDramaInstr(drama);
       const result = await callClaude(
-        `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}\n${genreInstr}\n${lieuInstr}\n${ambianceInstr}\n${tropesInstr}\nTitre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.\nLogline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.\nPitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.\nSecret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.\narc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").\ntension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".\naccroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.\nJSON uniquement, aucun texte avant ou après.`,
+        `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}\n${genreInstr}\n${lieuInstr}\n${ambianceInstr}\n${tropesInstr}${dramaInstr}\nTitre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.\nLogline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.\nPitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.\nSecret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.\narc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").\ntension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".\naccroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.\nJSON uniquement, aucun texte avant ou après.`,
         `Casting: ${casting}. Univers: ${univers}. Secret moteur: ${secret}. Série de ${format} épisodes.\nJSON: {"titre":"","logline":"","pitch":"","personnages":[{"nom":"","age":25,"role":"","secret":"","arc":""},{"nom":"","age":28,"role":"","secret":"","arc":""}],"tension_centrale":"","accroche":""}`,
         1800
       );
@@ -232,8 +276,9 @@ export default async function handler(req, res) {
         "🎭 Soap Opera": "Style SOAP OPERA: dialogues plus développés, révélations multiples, retournements. Phrases 12-20 mots. Tension qui s'accumule.",
       };
       const styleInstr = payload.style && styleMap[payload.style] ? styleMap[payload.style] : styleMap["⚡ TikTok Drama"];
+      const scriptDramaInstr = buildDramaInstr(payload.drama);
       const result = await callClaude(
-        `Tu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}\nRÈGLES ABSOLUES:\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• IN MEDIAS RES — déjà en plein conflit, INTERDIT: "Bonjour", exposition, question banale\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
+        `Tu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}\nRÈGLES ABSOLUES:\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• IN MEDIAS RES — déjà en plein conflit, INTERDIT: "Bonjour", exposition, question banale\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
         `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.\nTension: ${bible.tension_centrale || ""}.\nCliffhanger cible: ${ep.cliffhanger}.${prevEpsInstr}\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`,
         2400
       );
@@ -310,6 +355,41 @@ export default async function handler(req, res) {
         1200
       );
       trackAction("production", customerId);
+      return res.json(result);
+    }
+
+    if (action === "cartes") {
+      const { personnages, titre, genre } = payload;
+      const persosList = personnages.map(p => `${p.nom} (${p.role}, ${p.age} ans) — secret: "${p.secret}"${p.arc ? `, arc: "${p.arc}"` : ""}`).join("\n");
+      const result = await callClaude(
+        `Tu es directeur artistique expert en micro-dramas 9:16. Pour chaque personnage, crée une fiche visuelle et dramatique riche. JSON uniquement.`,
+        `Série "${titre}"${genre ? ` — genre: ${genre}` : ""}.\nPersonnages:\n${persosList}\nJSON: {"cartes":[{"nom":"","citation":"phrase signature 5-10 mots que ce perso dirait souvent","style":"look vestimentaire précis en 1 phrase","force":"qualité dramatique principale en 3 mots","faiblesse":"talon d'achille dramatique en 3 mots","energie":"comment il entre dans une scène — 1 adjectif saisissant","couleur":"#hexcode couleur qui représente ce perso"}]}`,
+        1200
+      );
+      trackAction("cartes", customerId);
+      return res.json(result);
+    }
+
+    if (action === "social") {
+      const { ep, bible, mode } = payload;
+      const result = await callClaude(
+        `Tu es community manager TikTok spécialisé en micro-dramas viraux. JSON uniquement.`,
+        `Épisode ${ep.numero} "${ep.titre}" — série "${bible.titre}".\nLogline: ${bible.logline}.\nCliffhanger: ${ep.cliffhanger}.\n\nGénère:\n• 6 commentaires TikTok ultra-réalistes (mix réactions, théories, team A vs B, emojis, argot actuel)\n• 4 SMS entre personnages liés aux révélations de l'épisode (style iMessage, très courts)\n• 1 légende TikTok virale pour poster cet épisode (15 mots max + hashtags)\nJSON: {"commentaires":[{"user":"@pseudo","texte":"","likes":1200,"reaction":"😱"}],"sms":[{"from":"Prénom","to":"Prénom","texte":"","heure":"21:47"}],"legende":""}`,
+        900
+      );
+      trackAction("social", customerId);
+      return res.json(result);
+    }
+
+    if (action === "affiche") {
+      const { titre, logline, personnages, genre, ambiance } = payload;
+      const persosList = (personnages || []).map(p => `${p.nom} (${p.role})`).join(", ");
+      const result = await callClaude(
+        `Tu es directeur artistique expert en posters de séries verticales 9:16 (TikTok, Reels). JSON uniquement.`,
+        `Série "${titre}". Genre: ${genre || "Drama"}. Ambiance: ${ambiance || ""}. Logline: ${logline}. Casting: ${persosList}.\nJSON: {"tagline":"accroche poster 3-6 mots, choc","sous_titre":"complément émotionnel 5-8 mots","palette":["#hex1","#hex2","#hex3"],"style_visuel":"description artistique 2 phrases — composition, lumière, ambiance","prompt_ia":"prompt Midjourney en anglais, ultra-détaillé, style cinématique vertical 9:16, 50 mots max","typographie":"style typo recommandé pour le titre (ex: serif condensé blanc sur fond sombre)"}`,
+        700
+      );
+      trackAction("affiche", customerId);
       return res.json(result);
     }
 
