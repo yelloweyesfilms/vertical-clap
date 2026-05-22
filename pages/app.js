@@ -260,13 +260,15 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan }) {
             {state.mode === "fast" && <span style={{ marginLeft: 8, fontSize: 10, color: "var(--r)", fontWeight: 700 }}>max 10 en Fast</span>}
           </p>
           <div style={{ display: "flex", gap: 8 }}>
-            {[10, 20, 40].map(f => {
-              const locked = state.mode === "fast" && f > 10;
+            {[10, 20, 40, 60, 90].map(f => {
+              const lockedFast = state.mode === "fast" && f > 10;
+              const lockedPlan = plan === "standard" && f > 40;
+              const locked = lockedFast || lockedPlan;
               return (
                 <div key={f} style={{ flex: 1, position: "relative" }}>
                   <Chip
                     label={`${f} ép.`}
-                    sub={locked ? "🎭 Premium" : `${Math.round(f * state.duree / 60)} min`}
+                    sub={lockedFast ? "🎭 Premium" : lockedPlan ? "🔒 Premium" : `${Math.round(f * state.duree / 60)} min`}
                     block
                     active={state.format === f && !locked}
                     onClick={() => { if (!locked) set({ format: f }); }}
