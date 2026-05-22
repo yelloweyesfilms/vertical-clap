@@ -1202,6 +1202,15 @@ export default function App() {
     try { localStorage.setItem("vs_lang", next); } catch {}
   };
 
+  useEffect(() => {
+    setState(prev => ({
+      ...prev,
+      casting: OPTS[lang].casting[0],
+      univers: prev.mode === "fast" ? OPTS[lang].univers_fast[0] : OPTS[lang].univers_prem[0],
+      secret: prev.mode === "fast" ? OPTS[lang].secret_fast[0] : OPTS[lang].secret_prem[0],
+    }));
+  }, [lang]);
+
   const t = T[lang];
   const opts = OPTS[lang];
 
@@ -1421,9 +1430,11 @@ export default function App() {
     if (!s) return;
 
     const doc = new jsPDF({ unit: "mm", format: "a4" });
-    const W = 210, margin = 20, contentW = W - margin * 2;
+    const W = 210, margin = 18, contentW = W - margin * 2;
     const RED = [232, 92, 58], DARK = [15, 26, 18], GRAY = [120, 120, 120];
     let y = margin;
+
+    const lh = (size) => size * 0.53;
 
     const addText = (text, opts = {}) => {
       const { size = 11, bold = false, color = [0, 0, 0], italic = false, align = "left", maxWidth = contentW } = opts;
@@ -1431,89 +1442,149 @@ export default function App() {
       doc.setFont("helvetica", bold && italic ? "bolditalic" : bold ? "bold" : italic ? "italic" : "normal");
       doc.setTextColor(...color);
       const lines = doc.splitTextToSize(String(text || ""), maxWidth);
-      const lineH = size * 0.52;
-      if (y + lines.length * lineH > 280) { doc.addPage(); y = margin; }
+      const lineH = lh(size);
+      if (y + lines.length * lineH > 278) { doc.addPage(); y = margin; }
       doc.text(lines, align === "center" ? W / 2 : margin, y, { align });
-      y += lines.length * lineH + 3;
-      return lines.length * lineH + 3;
+      y += lines.length * lineH + 2;
+      return lines.length * lineH + 2;
     };
 
     const addSpace = (h = 4) => { y += h; };
     const addLine = (color = [220, 220, 220]) => { doc.setDrawColor(...color); doc.line(margin, y, W - margin, y); addSpace(4); };
+
+    const calcBoxH = (items) => items.reduce((acc, { text, size, mw }) => {
+      const lines = doc.splitTextToSize(String(text || ""), mw || contentW - 8);
+      return acc + lines.length * lh(size) + 2;
+    }, 0);
+
+    const drawBox = (bgColor, height, rounded = true) => {
+      if (y + height > 278) { doc.addPage(); y = margin; }
+      doc.setFillColor(...bgColor);
+      if (rounded) doc.roundedRect(margin, y, contentW, height, 3, 3, "F");
+      else doc.rect(margin, y, contentW, height, "F");
+      y += 5;
+    };
 
     const addWatermark = () => {
       const pageCount = doc.getNumberOfPages();
       for (let i = 1; i <= pageCount; i++) {
         doc.setPage(i);
         doc.saveGraphicsState();
-        doc.setGState(new doc.GState({ opacity: 0.07 }));
-        doc.setFontSize(38);
+        doc.setGState(new doc.GState({ opacity: 0.06 }));
+        doc.setFontSize(36);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(232, 92, 58);
         doc.text("VERTICALCLAP", W / 2, 148, { align: "center", angle: 45 });
         doc.restoreGraphicsState();
-        doc.setFontSize(8);
+        doc.setFontSize(7.5);
         doc.setFont("helvetica", "normal");
         doc.setTextColor(180, 180, 180);
         doc.text("verticalclap.com", W / 2, 293, { align: "center" });
       }
     };
 
-    // En-tête
-    doc.setFillColor(...RED);
-    doc.rect(0, 0, W, 12, "F");
-    doc.setFontSize(8); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
-    doc.text("VERTICALCLAP", margin, 8);
-    doc.text(`${b.titre} — Ép. ${ep.numero}`, W - margin, 8, { align: "right" });
-    y = 22;
+    const isEn = lang === "en";
 
-    addText(b.titre.toUpperCase(), { size: 9, bold: true, color: GRAY });
-    addText(ep.titre, { size: 22, bold: true });
-    addSpace(2);
-    addText(`« ${b.logline} »`, { size: 11, italic: true, color: GRAY });
-    addSpace(2);
-    addText(`Épisode ${ep.numero} · ${DUR_LABEL[lang][state.duree]}`, { size: 10, bold: true, color: RED });
-    addSpace(4);
+    // Header bar
+    doc.setFillColor(...RED);
+    doc.rect(0, 0, W, 11, "F");
+    doc.setFontSize(7.5); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
+    doc.text("VERTICALCLAP", margin, 7.5);
+    doc.text(`${b.titre} — ${isEn ? "Ep." : "Ép."} ${ep.numero}`, W - margin, 7.5, { align: "right" });
+    y = 20;
+
+    // Title block
+    addText(b.titre.toUpperCase(), { size: 8, bold: true, color: GRAY });
+    addSpace(1);
+    addText(ep.titre, { size: 20, bold: true });
+    addSpace(3);
+    addText(`« ${b.logline} »`, { size: 10, italic: true, color: GRAY });
+    addSpace(3);
+    addText(`${isEn ? "Episode" : "Épisode"} ${ep.numero} · ${DUR_LABEL[lang][state.duree]}`, { size: 9.5, bold: true, color: RED });
+    if (ep.cliffhanger) {
+      addSpace(2);
+      addText(`🎬 ${ep.cliffhanger}`, { size: 9, italic: true, color: GRAY });
+    }
+    addSpace(5);
     addLine(RED);
 
-    // Hook
-    addText("⚡ HOOK — 3 PREMIÈRES SECONDES", { size: 8, bold: true, color: RED });
-    addSpace(2);
-    doc.setFillColor(255, 245, 242);
-    const hookH = doc.splitTextToSize(String(s.hook_scene?.texte || ""), contentW - 8).length * 4.5 + 12;
-    doc.roundedRect(margin, y, contentW, hookH, 3, 3, "F");
-    y += 4;
-    addText(s.hook_scene?.texte, { size: 13, bold: true, maxWidth: contentW - 8 });
-    addText(`[9:16] ${s.hook_scene?.visuel_916}`, { size: 9, italic: true, color: RED, maxWidth: contentW - 8 });
-    y = Math.max(y, margin + 22 + hookH + 4);
-    addSpace(6);
-
-    // Scènes
-    addText(`SCRIPT · ${DUR_LABEL[lang][state.duree]}`, { size: 8, bold: true, color: RED });
+    // Hook box
+    addText(isEn ? "⚡ HOOK — FIRST 3 SECONDS" : "⚡ HOOK — 3 PREMIÈRES SECONDES", { size: 7.5, bold: true, color: RED });
     addSpace(3);
-    (s.scenes || []).forEach(sc => {
+    const hookItems = [
+      { text: s.hook_scene?.texte, size: 13 },
+      { text: `[9:16] ${s.hook_scene?.visuel_916}`, size: 9 },
+    ];
+    const hookBoxH = calcBoxH(hookItems) + 14;
+    drawBox([255, 245, 242], hookBoxH);
+    addText(s.hook_scene?.texte, { size: 13, bold: true, maxWidth: contentW - 8 });
+    addSpace(2);
+    addText(`[9:16] ${s.hook_scene?.visuel_916}`, { size: 9, italic: true, color: RED, maxWidth: contentW - 8 });
+    y = Math.max(y, margin + hookBoxH);
+    addSpace(8);
+
+    // Scenes
+    addText(`${isEn ? "SCRIPT" : "SCRIPT"} · ${DUR_LABEL[lang][state.duree]} · ${(s.scenes || []).length} ${isEn ? "lines" : "répliques"}`, { size: 7.5, bold: true, color: RED });
+    addSpace(4);
+    (s.scenes || []).forEach((sc, i) => {
       addText(sc.perso, { size: 9, bold: true, color: DARK });
       if (sc.jeu) addText(sc.jeu, { size: 8, italic: true, color: GRAY });
       addSpace(1);
-      addText(sc.dialogue, { size: 12 });
+      addText(sc.dialogue, { size: 11.5 });
       addSpace(2);
-      addText(`[9:16] ${sc.visuel_916}`, { size: 9, italic: true, color: GRAY });
-      addSpace(6);
-      addLine();
+      addText(`[9:16] ${sc.visuel_916}`, { size: 8.5, italic: true, color: GRAY });
+      addSpace(5);
+      if (i < (s.scenes || []).length - 1) addLine();
     });
 
-    // Cliffhanger
-    addSpace(2);
-    doc.setFillColor(...DARK);
-    const cliffH = doc.splitTextToSize(String(s.cliffhanger_scene?.texte || ""), contentW - 8).length * 5.5 + 16;
-    doc.roundedRect(margin, y, contentW, Math.max(cliffH, 24), 3, 3, "F");
-    y += 5;
-    addText("🎬 CLIFFHANGER", { size: 8, bold: true, color: RED });
-    addSpace(1);
+    // Cliffhanger box
+    addSpace(4);
+    const cliffItems = [
+      { text: "🎬 CLIFFHANGER", size: 7.5 },
+      { text: s.cliffhanger_scene?.texte, size: 13 },
+      { text: s.cliffhanger_scene?.visuel_916, size: 9 },
+    ];
+    const cliffBoxH = calcBoxH(cliffItems) + (s.cliffhanger_scene?.label ? 16 : 0) + 18;
+    drawBox(DARK, cliffBoxH);
+    addText("🎬 CLIFFHANGER", { size: 7.5, bold: true, color: RED });
+    addSpace(3);
     addText(s.cliffhanger_scene?.texte, { size: 13, bold: true, color: [255, 255, 255], maxWidth: contentW - 8 });
-    addText(s.cliffhanger_scene?.visuel_916, { size: 9, italic: true, color: RED, maxWidth: contentW - 8 });
-    addSpace(12);
+    addSpace(2);
+    addText(s.cliffhanger_scene?.visuel_916, { size: 9, italic: true, color: [255, 120, 90], maxWidth: contentW - 8 });
+    if (s.cliffhanger_scene?.label) {
+      addSpace(5);
+      const labelW = Math.min(doc.getTextWidth(s.cliffhanger_scene.label.toUpperCase()) * 1.1 + 10, contentW);
+      doc.setFillColor(...RED);
+      doc.roundedRect(margin, y, labelW + 10, 9, 2, 2, "F");
+      addText(s.cliffhanger_scene.label.toUpperCase(), { size: 8, bold: true, color: [255, 255, 255] });
+    }
 
+    // Checklist
+    if (s.checklist && s.checklist.length > 0) {
+      addSpace(10);
+      addLine([200, 200, 200]);
+      addText(isEn ? "✅ SHOOTING CHECKLIST" : "✅ CHECKLIST TOURNAGE", { size: 7.5, bold: true, color: RED });
+      addSpace(4);
+      s.checklist.forEach(item => {
+        addText(`□  ${item}`, { size: 9, color: GRAY });
+        addSpace(1);
+      });
+    }
+
+    // Characters sidebar note
+    if (b.personnages && b.personnages.length > 0) {
+      addSpace(8);
+      addLine([200, 200, 200]);
+      addText(isEn ? "👥 CHARACTERS" : "👥 PERSONNAGES", { size: 7.5, bold: true, color: RED });
+      addSpace(4);
+      b.personnages.forEach(p => {
+        addText(`${p.nom}${p.age ? ` (${p.age})` : ""} — ${p.role || ""}`, { size: 9, bold: true });
+        if (p.secret) addText(`${isEn ? "Secret" : "Secret"}: ${p.secret}`, { size: 8.5, italic: true, color: GRAY });
+        addSpace(3);
+      });
+    }
+
+    addSpace(12);
     addWatermark();
     doc.save(`${b.titre.replace(/\s+/g, "_")}_ep${ep.numero}.pdf`);
   };
