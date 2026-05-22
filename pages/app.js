@@ -756,13 +756,26 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
   );
 }
 
+function SectionTitle({ accent, title, sub }) {
+  return (
+    <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 14 }}>
+      <div style={{ width: 3, borderRadius: 2, background: accent || "var(--r)", alignSelf: "stretch", flexShrink: 0, minHeight: 36 }} />
+      <div>
+        <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: accent || "var(--r)", marginBottom: 2 }}>{title}</p>
+        {sub && <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.4 }}>{sub}</p>}
+      </div>
+    </div>
+  );
+}
+
 function AfficheView({ affiche, loading, bible, onBack }) {
+  const accent = affiche?.palette?.[0] || "var(--r)";
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Bible</button>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>🎨 Affiche</h2>
-        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{bible?.titre}</p>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>🎨 Dossier de présentation</h2>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ton kit visuel complet — affiche + direction artistique + image IA</p>
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
@@ -772,11 +785,10 @@ function AfficheView({ affiche, loading, bible, onBack }) {
           </div>
         ) : affiche ? (
           <>
-            {/* Poster mockup — fond blanc, print-friendly */}
-            <div style={{ background: "#fff", borderRadius: 20, padding: "40px 28px 32px", marginBottom: 20, textAlign: "center", aspectRatio: "9/14", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", boxShadow: "0 4px 32px rgba(0,0,0,0.15)" }}>
-              {/* Bande couleur en haut */}
+            {/* — 1. AFFICHE — */}
+            <SectionTitle accent={accent} title="01 — Affiche de présentation" sub="Imprime-la ou joins-la à ton PDF d'épisodes pour présenter ta série." />
+            <div style={{ background: "#fff", borderRadius: 20, padding: "40px 28px 32px", marginBottom: 28, textAlign: "center", aspectRatio: "9/14", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", boxShadow: "0 4px 32px rgba(0,0,0,0.15)" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 6, background: `linear-gradient(90deg, ${affiche.palette?.[0] || "#E85C3A"}, ${affiche.palette?.[1] || "#ff8c42"})` }} />
-              {/* Fond léger teinté palette */}
               {affiche.palette?.[0] && (
                 <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 50% 40%, ${affiche.palette[0]}12 0%, transparent 65%)`, pointerEvents: "none" }} />
               )}
@@ -789,29 +801,41 @@ function AfficheView({ affiche, loading, bible, onBack }) {
                 </div>
               )}
               {affiche.sous_titre && <p style={{ fontSize: 12, color: "#666", fontStyle: "italic", lineHeight: 1.5, position: "relative" }}>{affiche.sous_titre}</p>}
-              {/* Bande couleur en bas + palette dots */}
               <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 36, background: affiche.palette?.[0] || "#0a0a0f", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
                 <span style={{ fontSize: 8, letterSpacing: 2, fontWeight: 700, color: "rgba(255,255,255,0.6)", textTransform: "uppercase" }}>verticalclap.com</span>
-                {(affiche.palette || []).map((c, i) => <div key={i} style={{ width: 10, height: 10, borderRadius: "50%", background: "#fff", opacity: 0.4 }} />)}
               </div>
             </div>
-            {/* Style visuel */}
+
+            {/* — 2. DIRECTION ARTISTIQUE — */}
             {affiche.style_visuel && (
-              <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 14, border: "1.5px solid var(--bo)" }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 8 }}>Direction artistique</p>
-                <p style={{ fontSize: 14, lineHeight: 1.6 }}>{affiche.style_visuel}</p>
-                {affiche.typographie && <p style={{ fontSize: 13, color: "var(--mt)", marginTop: 8, fontStyle: "italic" }}>🔤 {affiche.typographie}</p>}
-              </div>
-            )}
-            {/* Prompt IA */}
-            {affiche.prompt_ia && (
-              <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, border: "1.5px solid var(--bo)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                  <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)" }}>Prompt IA — Midjourney · DALL-E · Gemini</p>
-                  <button onClick={() => navigator.clipboard?.writeText(affiche.prompt_ia)} style={{ background: "var(--r)", border: "none", color: "#fff", padding: "6px 12px", borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>Copier</button>
+              <>
+                <SectionTitle accent={accent} title="02 — Direction artistique" sub="L'ambiance visuelle de ta série — pour briefer un DA, un graphiste ou une IA." />
+                <div style={{ background: "var(--card)", borderRadius: 14, padding: 18, marginBottom: 28, border: "1.5px solid var(--bo)" }}>
+                  <p style={{ fontSize: 14, lineHeight: 1.7, marginBottom: affiche.typographie ? 12 : 0 }}>{affiche.style_visuel}</p>
+                  {affiche.typographie && (
+                    <div style={{ borderTop: "1px solid var(--bo)", paddingTop: 12, display: "flex", alignItems: "center", gap: 8 }}>
+                      <span style={{ fontSize: 18 }}>🔤</span>
+                      <p style={{ fontSize: 13, color: "var(--mt)", fontStyle: "italic" }}>{affiche.typographie}</p>
+                    </div>
+                  )}
                 </div>
-                <p style={{ fontSize: 12, lineHeight: 1.6, color: "var(--tx)", fontFamily: "monospace", background: "var(--bg)", borderRadius: 8, padding: "10px 12px" }}>{affiche.prompt_ia}</p>
-              </div>
+              </>
+            )}
+
+            {/* — 3. PROMPT IA — */}
+            {affiche.prompt_ia && (
+              <>
+                <SectionTitle accent={accent} title="03 — Générer l'image de couverture" sub="Copie ce prompt et colle-le dans Midjourney, DALL-E (ChatGPT), Gemini ou Ideogram pour générer l'affiche." />
+                <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, border: `2px solid ${accent}33`, marginBottom: 12 }}>
+                  <p style={{ fontSize: 13, lineHeight: 1.7, color: "var(--tx)", fontFamily: "monospace", marginBottom: 14 }}>{affiche.prompt_ia}</p>
+                  <button onClick={() => navigator.clipboard?.writeText(affiche.prompt_ia)} style={{ background: accent, border: "none", color: "#fff", padding: "12px 20px", borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", width: "100%" }}>
+                    📋 Copier le prompt
+                  </button>
+                </div>
+                <p style={{ fontSize: 11, color: "var(--mt)", textAlign: "center", lineHeight: 1.5 }}>
+                  Midjourney → /imagine + colle · ChatGPT → "Génère cette image :" + colle · Gemini → même chose
+                </p>
+              </>
             )}
           </>
         ) : null}
