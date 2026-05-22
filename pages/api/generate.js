@@ -295,7 +295,7 @@ export default async function handler(req, res) {
     }
 
     if (action === "edit") {
-      const { script, type, duree } = payload;
+      const { script, type, duree, lang } = payload;
       const maxS = duree <= 60 ? 8 : duree <= 90 ? 11 : 15;
       const instr = {
         pimenter: `INTENSIFIE ce script au maximum. Remplace chaque réplique ordinaire par une révélation, une accusation ou une menace. Interdit: hésitations, politesse, questions vagues. Chaque ligne doit blesser ou exposer un secret. Max ${maxS} échanges. Retourne exactement la même structure JSON.`,
@@ -304,8 +304,9 @@ export default async function handler(req, res) {
         rewrite_hook: `RÉÉCRIS UNIQUEMENT le hook d'ouverture (hook_scene). Crée une nouvelle scène d'ouverture complètement différente — autre situation, autre dynamique, mais même tension et mêmes personnages. Le reste du script reste identique. Même structure JSON.`,
         rewrite_ending: `RÉÉCRIS UNIQUEMENT la fin (cliffhanger_scene). Crée un nouveau cliffhanger inattendu, plus choquant ou plus ambigu. Le hook et les scènes du milieu restent identiques. Même structure JSON.`,
       };
+      const langInstr = buildLangInstr(lang);
       const result = await callClaude(
-        "Tu es scénariste expert en micro-dramas 9:16. JSON uniquement, structure identique à l'original.",
+        `Tu es scénariste expert en micro-dramas 9:16. JSON uniquement, structure identique à l'original.${langInstr}`,
         `${instr[type]}\n\nScript original:\n${JSON.stringify(script)}`,
         2000
       );
@@ -313,7 +314,7 @@ export default async function handler(req, res) {
     }
 
     if (action === "variations") {
-      const { ep, bible, mode, duree } = payload;
+      const { ep, bible, mode, duree, lang } = payload;
       const maxS = duree <= 60 ? 8 : duree <= 90 ? 11 : 15;
       const persos = (bible.personnages || []).map(p => `${p.nom} (${p.role}${p.secret ? `, secret: ${p.secret}` : ""})`).join(", ");
       const base = `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Persos: ${persos}. Tension: ${bible.tension_centrale || ""}. Cliffhanger: ${ep.cliffhanger}.\nRÈGLES: IN MEDIAS RES, ${maxS} échanges max 25 mots, max 2 acteurs, visuel_916 = nom du plan + émotion, jeu = état interne court.\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`;
@@ -323,17 +324,19 @@ export default async function handler(req, res) {
         { label: "⚡ Rapide", instr: "Version RAPIDE: répliques 3-8 mots max, rythme haletant. Chaque échange coupe l'autre. Tension physique, mouvement, action." },
         { label: "🌙 Sombre", instr: "Version SOMBRE: atmosphère lourde et enfermée, dialogue murmuré ou retenu, révélation finale dévastatrice, fin ambiguë qui laisse une question ouverte." },
       ];
+      const langInstr = buildLangInstr(lang);
       const results = await Promise.all(styles.map(({ instr }) =>
-        callClaude(`Tu es scénariste expert micro-dramas 9:16. ${DUR_INSTR[duree]} JSON uniquement.`, `${instr}\n\n${base}`, 2000)
+        callClaude(`Tu es scénariste expert micro-dramas 9:16. ${DUR_INSTR[duree]} JSON uniquement.${langInstr}`, `${instr}\n\n${base}`, 2000)
       ));
       trackAction("variations", customerId);
       return res.json({ variations: results.map((r, i) => ({ ...r, label: styles[i].label })) });
     }
 
     if (action === "titres") {
-      const { titre, logline, pitch, mode } = payload;
+      const { titre, logline, pitch, mode, lang } = payload;
+      const langInstr = buildLangInstr(lang);
       const result = await callClaude(
-        `Tu es expert en viralité des contenus courts (TikTok, Reels, Shorts). Tu maîtrises les 5 patterns de titres qui stoppent le scroll:\nRÉVÉLATION: expose un secret ("Il mentait depuis le début")\nQUESTION: pose une question impossible à ignorer ("Et si elle savait tout?")\nIDENTITÉ: menace l'identité d'un personnage ("Plus jamais sa femme")\nSECRET: suggère un secret explosif ("Ton patron sait tout")\nTWIST: annonce un retournement ("C'était elle")\nRègles: titre 2-5 mots, jamais de point d'exclamation, score = probabilité de stopper le scroll (1-100).\nJSON uniquement.`,
+        `Tu es expert en viralité des contenus courts (TikTok, Reels, Shorts). Tu maîtrises les 5 patterns de titres qui stoppent le scroll:\nRÉVÉLATION: expose un secret ("Il mentait depuis le début")\nQUESTION: pose une question impossible à ignorer ("Et si elle savait tout?")\nIDENTITÉ: menace l'identité d'un personnage ("Plus jamais sa femme")\nSECRET: suggère un secret explosif ("Ton patron sait tout")\nTWIST: annonce un retournement ("C'était elle")\nRègles: titre 2-5 mots, jamais de point d'exclamation, score = probabilité de stopper le scroll (1-100).\nJSON uniquement.${langInstr}`,
         `Série micro-drama 9:16. Titre actuel: "${titre}". Logline: ${logline}. Pitch: ${pitch || ""}.\nGénère 5 titres viraux — exactement un par pattern (RÉVÉLATION, QUESTION, IDENTITÉ, SECRET, TWIST).\nJSON: {"titres":[{"titre":"","score":95,"accroche":"en quoi ce titre arrête le scroll","pourquoi":"mécanisme psychologique exploité","pattern":"RÉVÉLATION"}]}`,
         1000
       );
@@ -367,10 +370,11 @@ export default async function handler(req, res) {
     }
 
     if (action === "cartes") {
-      const { personnages, titre, genre } = payload;
+      const { personnages, titre, genre, lang } = payload;
       const persosList = personnages.map(p => `${p.nom} (${p.role}, ${p.age} ans) — secret: "${p.secret}"${p.arc ? `, arc: "${p.arc}"` : ""}`).join("\n");
+      const langInstr = buildLangInstr(lang);
       const result = await callClaude(
-        `Tu es directeur artistique expert en micro-dramas 9:16. Pour chaque personnage, crée une fiche visuelle et dramatique riche. JSON uniquement.`,
+        `Tu es directeur artistique expert en micro-dramas 9:16. Pour chaque personnage, crée une fiche visuelle et dramatique riche. JSON uniquement.${langInstr}`,
         `Série "${titre}"${genre ? ` — genre: ${genre}` : ""}.\nPersonnages:\n${persosList}\nJSON: {"cartes":[{"nom":"","citation":"phrase signature 5-10 mots que ce perso dirait souvent","style":"look vestimentaire précis en 1 phrase","force":"qualité dramatique principale en 3 mots","faiblesse":"talon d'achille dramatique en 3 mots","energie":"comment il entre dans une scène — 1 adjectif saisissant","couleur":"#hexcode couleur qui représente ce perso"}]}`,
         1200
       );

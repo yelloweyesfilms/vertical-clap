@@ -575,8 +575,11 @@ export default function RichLandingPage({ lang = "fr" }) {
           .hero-row input, .hero-row button { width: 100% !important; max-width: 100% !important; }
           .grid-3 { grid-template-columns: 1fr !important; }
           .grid-2 { grid-template-columns: 1fr !important; }
-          nav { padding: 14px 16px !important; }
-          .hero-pad { padding: 64px 20px 48px !important; }
+          nav { padding: 10px 16px !important; }
+          .nav-pricing { display: none !important; }
+          .nav-rec { display: none !important; }
+          .nav-signin { font-size: 12px !important; padding: 7px 12px !important; }
+          .hero-pad { padding: 56px 20px 40px !important; }
           .sec { padding: 60px 20px !important; }
           .hero-visual-wrap { padding: 0 12px 48px !important; }
           .sec-img { padding: 60px 12px !important; }
@@ -586,11 +589,13 @@ export default function RichLandingPage({ lang = "fr" }) {
           .platform-row { gap: 20px !important; }
           .stats-bar { gap: 28px !important; padding: 28px 20px !important; }
           .footer-inner { padding: 40px 20px 32px !important; }
-          .footer-inner > div:first-child { grid-template-columns: 1fr 1fr !important; }
+          .footer-inner > div:first-child { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
           .trust-row { gap: 12px !important; }
-          .addiction-layout { flex-direction: column !important; gap: 32px !important; }
+          .addiction-layout { flex-direction: column !important; gap: 32px !important; align-items: center !important; }
           .addiction-layout .comments-col { display: none !important; }
-          .mock-phone-section { padding: 60px 20px !important; }
+          .addiction-layout > div:first-child { max-width: 100% !important; }
+          .mock-phone-section { padding: 60px 20px !important; overflow: hidden !important; }
+          .pricing-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
 
@@ -598,7 +603,7 @@ export default function RichLandingPage({ lang = "fr" }) {
       <div style={{ position: "sticky", top: 0, zIndex: 50, borderBottom: `1px solid ${BORDER}`, background: "rgba(9,9,15,0.85)", backdropFilter: "blur(20px)" }}>
         <nav style={{ maxWidth: 1100, margin: "0 auto", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <Logo />
-          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, color: RED, letterSpacing: 2 }}>
+          <div className="nav-rec" style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 10, fontWeight: 800, color: RED, letterSpacing: 2 }}>
             <div style={{ width: 7, height: 7, borderRadius: "50%", background: RED, animation: "pulse 1.5s infinite" }} />
             REC
           </div>
@@ -607,8 +612,8 @@ export default function RichLandingPage({ lang = "fr" }) {
               <a href="/" style={{ padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: 800, color: lang === "fr" ? "#fff" : MUTED, background: lang === "fr" ? "rgba(255,255,255,0.1)" : "transparent", textDecoration: "none", letterSpacing: 0.5 }}>FR</a>
               <a href="/en" style={{ padding: "4px 10px", borderRadius: 6, fontSize: 12, fontWeight: lang === "en" ? 800 : 700, color: lang === "en" ? "#fff" : MUTED, background: lang === "en" ? "rgba(255,255,255,0.1)" : "transparent", textDecoration: "none", letterSpacing: 0.5 }}>EN</a>
             </div>
-            <a href={lang === "en" ? "/en#tarifs" : "/tarifs"} style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>{c.navPricing}</a>
-            <a href="/app" style={{ fontSize: 14, color: TEXT, fontWeight: 700, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>{c.navSignin}</a>
+            <a href={lang === "en" ? "/en#tarifs" : "/tarifs"} className="nav-pricing" style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>{c.navPricing}</a>
+            <a href="/app" className="nav-signin" style={{ fontSize: 14, color: TEXT, fontWeight: 700, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>{c.navSignin}</a>
           </div>
         </nav>
       </div>

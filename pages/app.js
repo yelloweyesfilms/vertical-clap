@@ -569,7 +569,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
     setTab("titres");
     setLoadingTitres(true);
     try {
-      const r = await gen("titres", { titre: bible.titre, logline: bible.logline, pitch: bible.pitch, mode }, customerId);
+      const r = await gen("titres", { titre: bible.titre, logline: bible.logline, pitch: bible.pitch, mode, lang }, customerId);
       setTitres(r.titres || []);
     } catch (e) {
       console.error(e);
@@ -583,7 +583,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
     if (cartes) return;
     setLoadingCartes(true);
     try {
-      const r = await gen("cartes", { personnages: bible.personnages || [], titre: bible.titre, genre: bible.genre }, customerId);
+      const r = await gen("cartes", { personnages: bible.personnages || [], titre: bible.titre, genre: bible.genre, lang }, customerId);
       setCartes(r.cartes || []);
     } catch (e) {
       console.error(e);
@@ -920,11 +920,11 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
 
 function SectionTitle({ accent, title, sub }) {
   return (
-    <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 14 }}>
-      <div style={{ width: 3, borderRadius: 2, background: accent || "var(--r)", alignSelf: "stretch", flexShrink: 0, minHeight: 36 }} />
+    <div style={{ display: "flex", alignItems: "flex-start", gap: 12, marginBottom: 18 }}>
+      <div style={{ width: 3, borderRadius: 2, background: accent || "var(--r)", alignSelf: "stretch", flexShrink: 0, minHeight: 44 }} />
       <div>
-        <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: accent || "var(--r)", marginBottom: 2 }}>{title}</p>
-        {sub && <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.4 }}>{sub}</p>}
+        <p style={{ fontFamily: "var(--serif)", fontSize: 20, fontWeight: 900, letterSpacing: -0.5, textTransform: "uppercase", color: "var(--tx)", lineHeight: 1.1, marginBottom: 6 }}>{title}</p>
+        {sub && <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5 }}>{sub}</p>}
       </div>
     </div>
   );
@@ -1358,7 +1358,7 @@ export default function App() {
   const editScript = async (type) => {
     setLoading(true);
     try {
-      const u = await gen("edit", { script, type, duree: state.duree }, customerId);
+      const u = await gen("edit", { script, type, duree: state.duree, lang }, customerId);
       setScript(u);
       setScripts(prev => {
         const updated = { ...prev, [epIdx]: u };
@@ -1383,7 +1383,7 @@ export default function App() {
     setLoadingVariations(true);
     setScreen("variations");
     try {
-      const r = await gen("variations", { ep: episodes[epIdx], bible, mode: state.mode, duree: state.duree }, customerId);
+      const r = await gen("variations", { ep: episodes[epIdx], bible, mode: state.mode, duree: state.duree, lang }, customerId);
       setVariations(r.variations || []);
     } catch (e) { console.error(e); }
     setLoadingVariations(false);
@@ -1558,7 +1558,7 @@ export default function App() {
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} />}
       {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} t={t} lang={lang} />}
-      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} onTranslate={(langue) => gen("traduire", { script, langue }, customerId)} t={t} lang={lang} />}
+      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} />}
       {screen === "social" && <SocialView social={social} loading={loadingSocial} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} />}
