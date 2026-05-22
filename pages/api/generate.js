@@ -107,9 +107,9 @@ function validatePayload(action, payload) {
 }
 
 const DUR_INSTR = {
-  60: "DURÉE 1 MIN: 4-5 échanges, max 20 mots/réplique. Structure: CHOC d'ouverture → escalade → révélation unique → question sans réponse.",
-  90: "DURÉE 1MIN30: 6-7 échanges, max 25 mots/réplique. Structure: hook → tension montante → faux pivot → vraie révélation → cliffhanger.",
-  120: "DURÉE 2 MIN: 8-10 échanges, max 30 mots/réplique. Structure: hook → conflit → rebondissement mi-parcours → révélation → cliffhanger brutal.",
+  60: "DURÉE 1 MIN: 6-8 échanges minimum, 15-30 mots/réplique — JAMAIS moins de 15 mots par réplique. Structure: CHOC d'ouverture → escalade → révélation unique → question sans réponse. Total visé: 130-150 mots de dialogue.",
+  90: "DURÉE 1MIN30: 9-11 échanges minimum, 20-35 mots/réplique — JAMAIS moins de 20 mots par réplique. Structure: hook → tension montante → faux pivot → vraie révélation → cliffhanger. Total visé: 200-230 mots de dialogue.",
+  120: "DURÉE 2 MIN: 12-15 échanges minimum, 25-40 mots/réplique — JAMAIS moins de 25 mots par réplique. Structure: hook → conflit → rebondissement mi-parcours → révélation → cliffhanger brutal. Total visé: 280-320 mots de dialogue.",
 };
 
 export default async function handler(req, res) {
@@ -203,7 +203,7 @@ export default async function handler(req, res) {
       const md = mode === "fast"
         ? "Fast Drama: émotions explosives, confrontations directes, cliffhangers choc"
         : "Premium Suspense: sous-texte intense, silences signifiants, tension qui monte progressivement";
-      const maxS = duree <= 60 ? 5 : duree <= 90 ? 7 : 10;
+      const maxS = duree <= 60 ? 8 : duree <= 90 ? 11 : 15;
       const persos = (bible.personnages || []).map(p => `${p.nom} (${p.role}${p.secret ? `, secret: ${p.secret}` : ""})`).join(", ");
       const prevEpsInstr = prevEps && prevEps.length > 0
         ? `\nCONTINUITÉ: Les épisodes précédents se sont terminés ainsi — ${prevEps.map(e => `ép.${e.numero} "${e.titre}": ${e.cliffhanger}`).join(" / ")}. Assure la cohérence narrative et fais des références implicites aux événements passés.`
@@ -219,7 +219,7 @@ export default async function handler(req, res) {
 
     if (action === "edit") {
       const { script, type, duree } = payload;
-      const maxS = duree <= 60 ? 5 : duree <= 90 ? 7 : 10;
+      const maxS = duree <= 60 ? 8 : duree <= 90 ? 11 : 15;
       const instr = {
         pimenter: `INTENSIFIE ce script au maximum. Remplace chaque réplique ordinaire par une révélation, une accusation ou une menace. Interdit: hésitations, politesse, questions vagues. Chaque ligne doit blesser ou exposer un secret. Max ${maxS} échanges. Retourne exactement la même structure JSON.`,
         subtil: `RENDS ce script subtil et psychologique. Aucun personnage ne dit ce qu'il veut vraiment — tout passe par le sous-texte, les silences (indique "(silence)" dans jeu), les métaphores et les regards. Remplace les confrontations directes par des non-dits lourds. Max ${maxS} échanges. Même structure JSON.`,
@@ -237,7 +237,7 @@ export default async function handler(req, res) {
 
     if (action === "variations") {
       const { ep, bible, mode, duree } = payload;
-      const maxS = duree <= 60 ? 5 : duree <= 90 ? 7 : 10;
+      const maxS = duree <= 60 ? 8 : duree <= 90 ? 11 : 15;
       const persos = (bible.personnages || []).map(p => `${p.nom} (${p.role}${p.secret ? `, secret: ${p.secret}` : ""})`).join(", ");
       const base = `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Persos: ${persos}. Tension: ${bible.tension_centrale || ""}. Cliffhanger: ${ep.cliffhanger}.\nRÈGLES: IN MEDIAS RES, ${maxS} échanges max 25 mots, max 2 acteurs, visuel_916 = nom du plan + émotion, jeu = état interne court.\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`;
       const styles = [
