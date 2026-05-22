@@ -635,7 +635,37 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   );
 }
 
-function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onSocial }) {
+function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onSocial, onTranslate }) {
+  const [showLangs, setShowLangs] = useState(false);
+  const [translating, setTranslating] = useState(false);
+  const [translated, setTranslated] = useState(null);
+  const [activeLang, setActiveLang] = useState(null);
+
+  useEffect(() => { setTranslated(null); setActiveLang(null); setShowLangs(false); }, [ep?.numero]);
+
+  const LANGS = [
+    { code: "en", flag: "🇬🇧", label: "EN" },
+    { code: "es", flag: "🇪🇸", label: "ES" },
+    { code: "de", flag: "🇩🇪", label: "DE" },
+    { code: "pt", flag: "🇵🇹", label: "PT" },
+    { code: "it", flag: "🇮🇹", label: "IT" },
+    { code: "ar", flag: "🇸🇦", label: "AR" },
+    { code: "he", flag: "🇮🇱", label: "HE" },
+    { code: "zh", flag: "🇨🇳", label: "ZH" },
+  ];
+
+  const handleTranslate = async (code) => {
+    setTranslating(true);
+    setActiveLang(code);
+    setShowLangs(false);
+    try {
+      const r = await onTranslate(code);
+      setTranslated(r);
+    } catch (e) { console.error(e); setActiveLang(null); }
+    setTranslating(false);
+  };
+
+  const displayScript = translated || script;
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
@@ -662,15 +692,40 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
           </div>
         ) : script ? (
           <>
+            {/* Langue active + sélecteur */}
+            {(translating || translated || showLangs) && (
+              <div style={{ background: "var(--card)", borderRadius: 12, padding: "10px 14px", marginBottom: 14, border: "1.5px solid var(--bo)", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                {translating ? (
+                  <p style={{ fontSize: 13, color: "var(--mt)", animation: "pulse 1.2s infinite" }}>🌍 Traduction en cours…</p>
+                ) : translated ? (
+                  <>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: "var(--n)" }}>🌍 {LANGS.find(l => l.code === activeLang)?.flag} Traduit</span>
+                    <button onClick={() => { setTranslated(null); setActiveLang(null); }} style={{ marginLeft: "auto", background: "none", border: "1.5px solid var(--bo)", color: "var(--mt)", padding: "4px 10px", borderRadius: 8, fontSize: 11, cursor: "pointer", fontFamily: "var(--sans)" }}>↩ Original</button>
+                  </>
+                ) : null}
+              </div>
+            )}
+            {showLangs && !translating && (
+              <div style={{ background: "var(--card)", borderRadius: 12, padding: 14, marginBottom: 14, border: "1.5px solid var(--bo)" }}>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>Choisir la langue</p>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {LANGS.map(l => (
+                    <button key={l.code} onClick={() => handleTranslate(l.code)} style={{ padding: "8px 12px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--bg)", cursor: "pointer", fontSize: 13, fontFamily: "var(--sans)", display: "flex", alignItems: "center", gap: 5 }}>
+                      <span>{l.flag}</span><span style={{ fontWeight: 700 }}>{l.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             <div style={{ background: "var(--card)", border: "2px solid var(--r)", borderRadius: 14, padding: 16, marginBottom: 16 }}>
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>⚡ Hook — 3 premières secondes</p>
-              <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 8, color: "var(--tx)" }}>{script.hook_scene?.texte}</p>
-              <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic" }}>[9:16] {script.hook_scene?.visuel_916}</p>
+              <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 8, color: "var(--tx)" }}>{displayScript.hook_scene?.texte}</p>
+              <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic" }}>[9:16] {displayScript.hook_scene?.visuel_916}</p>
             </div>
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>
-              Script · {DUR_LABEL[duree]} · {(script.scenes || []).length} répliques
+              Script · {DUR_LABEL[duree]} · {(displayScript.scenes || []).length} répliques
             </p>
-            {(script.scenes || []).map((s, i) => (
+            {(displayScript.scenes || []).map((s, i) => (
               <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: 14, borderLeft: "3px solid var(--bo)", marginBottom: 10 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
                   <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--n)" }}>{s.perso}</p>
@@ -685,10 +740,10 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
                 <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)" }}>🎬 Cliffhanger</p>
                 <button onClick={() => onEdit("rewrite_ending")} disabled={loading} style={{ background: "rgba(255,255,255,0.08)", border: "none", color: "rgba(255,255,255,0.7)", padding: "5px 10px", borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>♻️ Nouveau</button>
               </div>
-              <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8, lineHeight: 1.4 }}>{script.cliffhanger_scene?.texte}</p>
-              <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic", marginBottom: script.cliffhanger_scene?.label ? 10 : 0 }}>[9:16] {script.cliffhanger_scene?.visuel_916}</p>
-              {script.cliffhanger_scene?.label && (
-                <span style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "6px 12px", fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: 1, textTransform: "uppercase" }}>{script.cliffhanger_scene.label}</span>
+              <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8, lineHeight: 1.4 }}>{displayScript.cliffhanger_scene?.texte}</p>
+              <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic", marginBottom: displayScript.cliffhanger_scene?.label ? 10 : 0 }}>[9:16] {displayScript.cliffhanger_scene?.visuel_916}</p>
+              {displayScript.cliffhanger_scene?.label && (
+                <span style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "6px 12px", fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: 1, textTransform: "uppercase" }}>{displayScript.cliffhanger_scene.label}</span>
               )}
             </div>
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
@@ -701,6 +756,9 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
               <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>📱 Mode Tournage</button>
               <button onClick={onSocial} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>🔥 Social</button>
             </div>
+            <button onClick={() => setShowLangs(s => !s)} disabled={translating} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", marginBottom: 10, fontFamily: "var(--sans)" }}>
+              🌍 Traduire le script {activeLang ? `· ${LANGS.find(l => l.code === activeLang)?.flag}` : ""}
+            </button>
             <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)" }}>📄 Exporter en PDF</button>
           </>
         ) : null}
@@ -1372,7 +1430,7 @@ export default function App() {
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} />}
       {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} />}
-      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} />}
+      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} onTranslate={(langue) => gen("traduire", { script, langue }, customerId)} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} />}
       {screen === "social" && <SocialView social={social} loading={loadingSocial} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} />}
