@@ -565,12 +565,9 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               return (
                 <div key={i} style={{ background: "var(--card)", borderRadius: 16, overflow: "hidden", marginBottom: 14, border: `2px solid ${couleur}22` }}>
                   <div style={{ background: couleur, padding: "16px 18px 14px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                      <div>
-                        <h3 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, color: "#fff", marginBottom: 2 }}>{nom}</h3>
-                        <p style={{ fontSize: 11, color: "rgba(255,255,255,0.75)", fontWeight: 600, textTransform: "uppercase", letterSpacing: 1 }}>{perso.role} · {perso.age} ans</p>
-                      </div>
-                      {carte?.energie && <span style={{ fontSize: 28 }}>{carte.energie.match(/[^\w\s]/) ? carte.energie.slice(0, 2) : "🎭"}</span>}
+                    <div>
+                      <h3 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, color: "#fff", marginBottom: 2 }}>{nom}</h3>
+                      <p style={{ fontSize: 11, color: "rgba(255,255,255,0.75)", fontWeight: 600, textTransform: "uppercase", letterSpacing: 1 }}>{perso.role} · {perso.age} ans</p>
                     </div>
                     {carte?.citation && <p style={{ fontSize: 13, fontStyle: "italic", color: "rgba(255,255,255,0.9)", marginTop: 10, lineHeight: 1.4 }}>« {carte.citation} »</p>}
                   </div>
@@ -776,16 +773,25 @@ function AfficheView({ affiche, loading, bible, onBack }) {
         ) : affiche ? (
           <>
             {/* Poster mockup */}
-            <div style={{ background: affiche.palette?.[0] || "#0f0f0f", borderRadius: 20, padding: "40px 28px", marginBottom: 20, textAlign: "center", aspectRatio: "9/14", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
-              {affiche.palette?.[1] && (
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: `radial-gradient(ellipse at top, ${affiche.palette[1]}44, transparent 60%)`, pointerEvents: "none" }} />
+            <div style={{ background: "#0a0a0f", borderRadius: 20, padding: "48px 28px 36px", marginBottom: 20, textAlign: "center", aspectRatio: "9/14", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
+              {/* Gradient overlay using palette colors */}
+              {affiche.palette?.[0] && (
+                <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at 30% 20%, ${affiche.palette[0]}55 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, ${affiche.palette[1] || affiche.palette[0]}33 0%, transparent 50%)`, pointerEvents: "none" }} />
               )}
-              <p style={{ fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: affiche.palette?.[2] || "#aaa", marginBottom: 20, fontWeight: 600 }}>VERTICAL CLAP PRESENTS</p>
-              <h1 style={{ fontFamily: "var(--serif)", fontSize: 42, fontWeight: 900, color: "#fff", lineHeight: 1, marginBottom: 16, letterSpacing: -1 }}>{bible?.titre}</h1>
-              <p style={{ fontSize: 16, fontWeight: 700, color: affiche.palette?.[2] || "#ccc", marginBottom: 8 }}>{affiche.tagline}</p>
-              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.6)", fontStyle: "italic" }}>{affiche.sous_titre}</p>
+              {/* Decorative line */}
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, transparent, ${affiche.palette?.[0] || "#E85C3A"}, ${affiche.palette?.[1] || "#ff8c42"}, transparent)` }} />
+              <p style={{ fontSize: 9, letterSpacing: 4, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 28, fontWeight: 600, position: "relative" }}>VERTICAL CLAP PRESENTS</p>
+              <h1 style={{ fontFamily: "var(--serif)", fontSize: 44, fontWeight: 900, color: "#fff", lineHeight: 1, marginBottom: 20, letterSpacing: -1, position: "relative", textShadow: "0 2px 20px rgba(0,0,0,0.8)" }}>{bible?.titre}</h1>
+              {affiche.tagline && (
+                <div style={{ position: "relative", marginBottom: 16 }}>
+                  <div style={{ width: 40, height: 2, background: affiche.palette?.[0] || "#E85C3A", margin: "0 auto 14px" }} />
+                  <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", letterSpacing: 0.5 }}>{affiche.tagline}</p>
+                </div>
+              )}
+              {affiche.sous_titre && <p style={{ fontSize: 12, color: "rgba(255,255,255,0.55)", fontStyle: "italic", lineHeight: 1.5, position: "relative" }}>{affiche.sous_titre}</p>}
+              {/* Palette dots */}
               <div style={{ position: "absolute", bottom: 20, left: 0, right: 0, display: "flex", justifyContent: "center", gap: 8 }}>
-                {(affiche.palette || []).map((c, i) => <div key={i} style={{ width: 16, height: 16, borderRadius: "50%", background: c, border: "2px solid rgba(255,255,255,0.3)" }} />)}
+                {(affiche.palette || []).map((c, i) => <div key={i} style={{ width: 14, height: 14, borderRadius: "50%", background: c, border: "1.5px solid rgba(255,255,255,0.25)" }} />)}
               </div>
             </div>
             {/* Style visuel */}
