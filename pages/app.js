@@ -551,6 +551,82 @@ const AMBIANCE_VIS = [
   },
 ];
 
+// ── STORY FORMATS ────────────────────────────────────────────
+const STORY_FORMATS = [
+  {
+    id: "vertical",
+    emoji: "⚡",
+    label: { fr: "Vertical", en: "Vertical" },
+    sub: { fr: "60–90s · Mobile first", en: "60–90s · Mobile first" },
+    color: "#E85C3A",
+    mode: "fast",
+    genre: "",
+    tropes: "",
+    ambianceVisuelle: "",
+    style: "⚡ Vertical Drama",
+  },
+  {
+    id: "serie",
+    emoji: "🎭",
+    label: { fr: "Série", en: "Series" },
+    sub: { fr: "Drama long · 90 épisodes", en: "Long drama · 90 episodes" },
+    color: "#3a5040",
+    mode: "premium",
+    genre: "",
+    tropes: "",
+    ambianceVisuelle: "",
+    style: "🎭 Soap Opera",
+  },
+  {
+    id: "kdrama",
+    emoji: "💗",
+    label: { fr: "K-Drama", en: "K-Drama" },
+    sub: { fr: "Romance coréenne · Slow burn", en: "Korean romance · Slow burn" },
+    color: "#e879a0",
+    mode: "premium",
+    genre: "K-Drama romantique",
+    tropes: "enemies to lovers, slow burn, forbidden love, grumpy x sunshine — codes K-Drama: retenue émotionnelle, tension non dite, proximité explosive",
+    ambianceVisuelle: "pastel-drama",
+    style: "🎬 Cinéma",
+  },
+  {
+    id: "thriller",
+    emoji: "🔪",
+    label: { fr: "Thriller", en: "Thriller" },
+    sub: { fr: "Suspense · Manipulation", en: "Suspense · Manipulation" },
+    color: "#dc2626",
+    mode: "premium",
+    genre: "Thriller psychologique",
+    tropes: "betrayal, hidden identity, obsession — manipulation, révélations en cascade, personne n'est ce qu'il prétend",
+    ambianceVisuelle: "dark-cine",
+    style: "🎬 Cinéma",
+  },
+  {
+    id: "romance",
+    emoji: "💕",
+    label: { fr: "Romance", en: "Romance" },
+    sub: { fr: "Love story · Tension", en: "Love story · Tension" },
+    color: "#f59e0b",
+    mode: "fast",
+    genre: "Romance Drama",
+    tropes: "enemies to lovers, fake dating, forbidden love, friends to lovers",
+    ambianceVisuelle: "golden-hour",
+    style: "⚡ Vertical Drama",
+  },
+  {
+    id: "dark",
+    emoji: "🌃",
+    label: { fr: "Dark Drama", en: "Dark Drama" },
+    sub: { fr: "Crime · Psychologique", en: "Crime · Psychological" },
+    color: "#7c3aed",
+    mode: "premium",
+    genre: "Dark Drama criminel",
+    tropes: "betrayal, revenge, obsession, hidden identity — atmosphère sombre, personnages brisés, rédemption impossible",
+    ambianceVisuelle: "urban-night",
+    style: "🎬 Cinéma",
+  },
+];
+
 const REMAKE_INSPIRATIONS = [
   { id:"euphoria", emoji:"✨", label:"Euphoria", instr:"Adapte l'univers Euphoria: esthétique néon, addictions, identité brisée, chaos ado. Personnages fragiles et lumineux. Intimité crue et visuelle." },
   { id:"succession", emoji:"👑", label:"Succession", instr:"Adapte Succession: guerre de pouvoir familiale, argent, humiliation entre héritiers. Dialogues cinglants. Trahison systématique." },
@@ -868,6 +944,22 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   const [customInputs, setCustomInputs] = useState({ casting: "", univers: "", secret: "" });
   const [castingCat, setCastingCat] = useState("romance");
 
+  const selectFormat = (f) => {
+    const locked = f.mode === "premium" && plan === "standard";
+    if (locked) return;
+    set(prev => ({
+      genreFormat: prev.genreFormat === f.id ? null : f.id,
+      mode: f.mode,
+      genre: f.genre,
+      tropes: f.tropes ? f.tropes : prev.tropes,
+      ambianceVisuelle: f.ambianceVisuelle ? f.ambianceVisuelle : prev.ambianceVisuelle,
+      style: f.style,
+      univers: f.mode !== prev.mode ? (f.mode === "fast" ? opts.univers_fast[0] : opts.univers_prem[0]) : prev.univers,
+      secret: f.mode !== prev.mode ? (f.mode === "fast" ? opts.secret_fast[0] : opts.secret_prem[0]) : prev.secret,
+      format: f.mode === "fast" && prev.format > 20 ? 20 : prev.format,
+    }));
+  };
+
   const isCustom = (key) => state[key]?.startsWith(CUSTOM_PREFIX);
   const customValue = (key) => isCustom(key) ? state[key].slice(CUSTOM_PREFIX.length) : customInputs[key];
 
@@ -891,13 +983,17 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         <p style={{ fontFamily: "var(--serif)", fontSize: 16, fontStyle: "italic", color: "rgba(255,255,255,0.65)", marginBottom: 22, letterSpacing: 0.2, lineHeight: 1.3 }}>
           Create stories for every screen.
         </p>
-        <div style={{ display: "flex", background: "rgba(255,255,255,0.07)", borderRadius: 12, padding: 4 }}>
-          {[{ k: "fast", l: t.mode_fast }, { k: "premium", l: t.mode_premium }].map(({ k, l }) => {
-            const locked = k === "premium" && plan === "standard";
+        {/* Format chips */}
+        <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 4, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
+          {STORY_FORMATS.map(f => {
+            const locked = f.mode === "premium" && plan === "standard";
+            const active = state.genreFormat === f.id;
             return (
-              <button key={k} onClick={() => { if (!locked) set(prev => ({ mode: k, univers: k === "fast" ? opts.univers_fast[0] : opts.univers_prem[0], secret: k === "fast" ? opts.secret_fast[0] : opts.secret_prem[0], format: k === "fast" && prev.format > 20 ? 20 : prev.format })); }}
-                style={{ flex: 1, padding: "10px 12px", borderRadius: 9, border: "none", fontFamily: "var(--sans)", fontSize: 13, fontWeight: 700, background: state.mode === k ? (k === "fast" ? "var(--r)" : "var(--n)") : "transparent", color: locked ? "rgba(255,255,255,0.2)" : state.mode === k ? "#fff" : "rgba(255,255,255,0.45)", transition: "all .2s", cursor: locked ? "not-allowed" : "pointer", opacity: locked ? 0.5 : 1 }}>
-                {l}{locked && " 🔒"}
+              <button key={f.id} onClick={() => selectFormat(f)}
+                style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, padding: "10px 14px", borderRadius: 14, border: `2px solid ${active ? f.color : "rgba(255,255,255,0.15)"}`, background: active ? `${f.color}25` : "rgba(255,255,255,0.06)", cursor: locked ? "not-allowed" : "pointer", transition: "all .18s", opacity: locked ? 0.4 : 1, minWidth: 68 }}>
+                <span style={{ fontSize: 20 }}>{f.emoji}</span>
+                <span style={{ fontSize: 10, fontWeight: 800, color: active ? f.color : "rgba(255,255,255,0.75)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{f.label[lang] || f.label.fr}</span>
+                <span style={{ fontSize: 8, color: "rgba(255,255,255,0.4)", whiteSpace: "nowrap", textAlign: "center" }}>{f.sub[lang] || f.sub.fr}{locked ? " 🔒" : ""}</span>
               </button>
             );
           })}
@@ -2203,7 +2299,7 @@ export default function App() {
   const t = T[lang];
   const opts = OPTS[lang];
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", budget: "zero", lieu: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ Vertical Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 }, remake: null, saison2: null });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", budget: "zero", lieu: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ Vertical Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 }, remake: null, saison2: null, genreFormat: null });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
