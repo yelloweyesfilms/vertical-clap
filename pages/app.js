@@ -45,7 +45,7 @@ const T = {
     translate: "Traduire le script", translate_back: "↩ Original", translating: "Traduction…",
     export_pdf: "Exporter en PDF",
     saved: "séries sauvegardées", no_series: "Aucune série sauvegardée", generate_first: "Créez votre première série",
-    open: "Ouvrir →", perso_input: "Ton %s personnalisé…",
+    open: "Ouvrir →", perso_input: "Décris ton %s en quelques mots…",
     dur_std: "Court", dur_intense: "Standard", dur_epic: "Long",
     style_cinema: "Silences & regards", style_tiktok: "Rythme haletant", style_soap: "Révélations multiples",
     lo_romance: "Neutre", hi_romance: "Passion brûlante",
@@ -65,7 +65,7 @@ const T = {
     budget_guide: "Guide Prod",
     budget_teleprompter: "Script",
     budget_equip: "Équipement", budget_lumiere: "Lumière", budget_tricks: "Fake expensive", budget_decors: "Décors",
-    logout: "Déconnexion", custom: "Perso.",
+    logout: "Déconnexion", custom: "✏️ Mon idée",
     choose_lang: "Choisir la langue", back: "← Retour", my_series_title: "Mes Séries",
     affiche_title: "Dossier de présentation", affiche_sub: "Ton kit visuel complet — affiche + direction artistique + image IA",
     affiche_loading: "Création de la direction artistique…",
@@ -126,7 +126,7 @@ const T = {
     translate: "Translate script", translate_back: "↩ Original", translating: "Translating…",
     export_pdf: "Export as PDF",
     saved: "saved series", no_series: "No saved series", generate_first: "Create your first series",
-    open: "Open →", perso_input: "Your custom %s…",
+    open: "Open →", perso_input: "Describe your %s in a few words…",
     dur_std: "Short", dur_intense: "Standard", dur_epic: "Long",
     style_cinema: "Silences & looks", style_tiktok: "Breathless pace", style_soap: "Multiple reveals",
     lo_romance: "Neutral", hi_romance: "Burning passion",
@@ -146,7 +146,7 @@ const T = {
     budget_guide: "Prod Guide",
     budget_teleprompter: "Script",
     budget_equip: "Equipment", budget_lumiere: "Lighting", budget_tricks: "Fake expensive", budget_decors: "Sets",
-    logout: "Sign out", custom: "Custom",
+    logout: "Sign out", custom: "✏️ My idea",
     choose_lang: "Choose language", back: "← Back", my_series_title: "My Series",
     affiche_title: "Presentation kit", affiche_sub: "Your complete visual kit — poster + art direction + AI image",
     affiche_loading: "Creating art direction…",
@@ -1086,7 +1086,7 @@ function SectionHead({ title, sub, sep = true }) {
   );
 }
 
-function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang }) {
+function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang, onUpgrade }) {
   const univOpts = state.mode === "fast" ? opts.univers_fast : opts.univers_prem;
   const secOpts = state.mode === "fast" ? opts.secret_fast : opts.secret_prem;
   const totalMin = Math.round(state.format * state.duree / 60);
@@ -1143,7 +1143,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             <div style={{ fontSize: 10, color: "var(--mt)", marginTop: 1 }}>{lang === "en" ? "TikTok · Reels · 10–20 eps" : "TikTok · Reels · 10–20 éps"}</div>
           </button>
           <button
-            onClick={() => { if (plan === "standard") { alert(lang === "fr" ? "Le mode Série est réservé au plan Premium (19€/mois)." : "Series mode requires the Premium plan (19€/mo)."); return; } set(prev => ({ mode: "premium", univers: prev.mode !== "premium" ? (lang === "en" ? "AI startup" : "Start-up IA") : prev.univers, secret: prev.mode !== "premium" ? (lang === "en" ? "Internal sabotage" : "Sabotage interne") : prev.secret, genreFormat: null })); }}
+            onClick={() => { if (plan === "standard") { onUpgrade("serie"); return; } set(prev => ({ mode: "premium", univers: prev.mode !== "premium" ? (lang === "en" ? "AI startup" : "Start-up IA") : prev.univers, secret: prev.mode !== "premium" ? (lang === "en" ? "Internal sabotage" : "Sabotage interne") : prev.secret, genreFormat: null })); }}
             style={{ flex: 1, padding: "8px 10px", borderRadius: 10, border: `1.5px solid ${state.mode === "premium" ? "#a855f7" : plan === "standard" ? "rgba(168,85,247,0.25)" : "var(--bo)"}`, cursor: plan === "standard" ? "not-allowed" : "pointer", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "premium" ? "rgba(168,85,247,0.15)" : "transparent", textAlign: "left", position: "relative" }}>
             <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: "0.06em", textTransform: "uppercase", color: state.mode === "premium" ? "#a855f7" : plan === "standard" ? "rgba(168,85,247,0.5)" : "var(--mt)" }}>{lang === "en" ? "Série" : "Série"} {plan === "standard" && <span style={{ fontSize: 9, background: "rgba(168,85,247,0.2)", color: "rgba(168,85,247,0.8)", padding: "1px 5px", borderRadius: 4, marginLeft: 4 }}>19€</span>}</div>
             <div style={{ fontSize: 10, color: "var(--mt)", marginTop: 1 }}>{lang === "en" ? "Plateformes premium · 20–90 eps" : "Plateformes premium · 20–90 éps"}</div>
@@ -1418,7 +1418,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                 onChange={e => updateCustom(key, e.target.value)}
                 placeholder={t.perso_input.replace('%s', label.toLowerCase())}
                 maxLength={100}
-                style={{ marginTop: 10, width: "100%", padding: "10px 14px", borderRadius: 10, border: "1.5px solid var(--r)", background: "var(--bg)", color: "var(--tx)", fontFamily: "var(--sans)", fontSize: 14, outline: "none" }}
+                style={{ marginTop: 10, width: "100%", padding: "12px 14px", borderRadius: 10, border: "1.5px solid var(--r)", background: "var(--bg)", color: "var(--tx)", fontFamily: "var(--sans)", fontSize: 14, outline: "none", boxShadow: "0 0 0 3px rgba(232,92,58,0.1)" }}
               />
             )}
           </div>
@@ -1448,7 +1448,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
               const inactiveSerie = state.mode === "fast" && f > 20 && !lockedPlan;
               const handleClick = () => {
                 if (lockedPlan) {
-                  alert(lang === "fr" ? `Les séries de ${f} épisodes sont réservées au plan Premium (19€/mois).` : `${f}-episode series require the Premium plan (€19/mo).`);
+                  onUpgrade("episodes");
                   return;
                 }
                 if (inactiveSerie) {
@@ -1624,7 +1624,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   );
 }
 
-function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, onCalendrier, onSaison2, t, lang }) {
+function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, onCalendrier, onSaison2, t, lang, onUpgrade }) {
   const [tab, setTab] = useState("bible");
   const [cartes, setCartes] = useState(null);
   const [loadingCartes, setLoadingCartes] = useState(false);
@@ -1638,7 +1638,8 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
     if (!showMore) return;
     const handler = (e) => { if (moreRef.current && !moreRef.current.contains(e.target)) setShowMore(false); };
     document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    document.addEventListener("touchstart", handler);
+    return () => { document.removeEventListener("mousedown", handler); document.removeEventListener("touchstart", handler); };
   }, [showMore]);
 
   const genCartes = async () => {
@@ -1711,8 +1712,8 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
             <div ref={moreRef} style={{ position: "absolute", right: 0, top: "calc(100% + 4px)", background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 14, zIndex: 50, minWidth: 180, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.25)" }}>
               {[
                 { k: "accroches", l: t.accroches_tab, emoji: "📣", locked: false, onClick: () => { setTab("accroches"); setShowMore(false); if (!accroches && !loadingAccroches) genAccroches(); } },
-                { k: "calendrier", l: t.calendrier_btn, emoji: "📅", locked: plan === "standard", onClick: () => { if (plan === "standard") { setShowMore(false); alert(t.premium_calendrier); return; } setShowMore(false); onCalendrier(); } },
-                { k: "saison2", l: t.saison2_btn, emoji: "🔄", locked: plan === "standard", onClick: () => { if (plan === "standard") { setShowMore(false); alert(t.premium_saison2); return; } setShowMore(false); onSaison2(); } },
+                { k: "calendrier", l: t.calendrier_btn, emoji: "📅", locked: plan === "standard", onClick: () => { setShowMore(false); if (plan === "standard") { onUpgrade("calendrier"); return; } onCalendrier(); } },
+                { k: "saison2", l: t.saison2_btn, emoji: "🔄", locked: plan === "standard", onClick: () => { setShowMore(false); if (plan === "standard") { onUpgrade("saison2"); return; } onSaison2(); } },
                 { k: "affiche", l: t.poster_btn, emoji: "🎬", locked: false, onClick: () => { setShowMore(false); onAffiche(); } },
               ].map(({ k, l, emoji, locked, onClick }, idx, arr) => (
                 <button key={k} onClick={onClick}
@@ -1881,7 +1882,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   );
 }
 
-function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onStoryboard, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onSocial, onTranslate, t, lang }) {
+function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onStoryboard, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onSocial, onTranslate, t, lang, onUpgrade }) {
   const [showLangs, setShowLangs] = useState(false);
   const [translating, setTranslating] = useState(false);
   const [translated, setTranslated] = useState(null);
@@ -1987,7 +1988,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
               <span>{t.revelation}</span>
               <span style={{ fontSize: 11, fontWeight: 500, opacity: 0.85 }}>— {t.revelation_sub}</span>
             </button>
-            <button onClick={plan === "standard" ? () => alert(t.premium_variations) : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "not-allowed" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? t.variations_locked : t.variations}</button>
+            <button onClick={plan === "standard" ? () => onUpgrade("variations") : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "pointer" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? t.variations_locked : t.variations}</button>
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
               <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.shooting}</button>
               <button onClick={onStoryboard} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.storyboard_btn}</button>
@@ -2595,6 +2596,115 @@ function StoryboardView({ storyboard, loading, ep, bible, onBack, t }) {
   );
 }
 
+// ── UPGRADE MODAL ────────────────────────────────────────────
+function UpgradeModal({ feature, onClose, lang }) {
+  const FEATURES = {
+    fr: {
+      serie:       { title: "Mode Série Premium", desc: "Séries longues jusqu'à 90 épisodes, arcs narratifs complexes, direction artistique avancée.", perks: ["Jusqu'à 90 épisodes par série", "3 variations de script par épisode", "Tous les packs univers", "Calendrier éditorial", "Préparation Saison 2"] },
+      episodes:    { title: "Séries longues", desc: "Dépasse les 20 épisodes et construis des arcs narratifs de série complète.", perks: ["40, 60 ou 90 épisodes", "Arc narratif complet calculé", "Progression de tension optimisée"] },
+      variations:  { title: "3 variations de script", desc: "Génère 3 versions différentes d'un même épisode pour choisir la meilleure.", perks: ["3 scripts par épisode", "Angles narratifs différents", "Choisir ou mixer les versions"] },
+      calendrier:  { title: "Calendrier éditorial", desc: "Un plan de publication semaine par semaine avec légendes et hashtags par plateforme.", perks: ["Planning semaine par semaine", "Légendes virales par plateforme", "TikTok, Reels, Shorts, Vertical"] },
+      saison2:     { title: "Saison 2", desc: "Prolonge ta série avec une saison 2 cohérente — nouveaux arcs, nouveau casting, nouvelles tensions.", perks: ["Bible Saison 2 complète", "Cohérence narrative garantie", "Nouveaux personnages et secrets"] },
+      accroches:   { title: "Accroches complètes", desc: "Génère des légendes virales pour tous tes épisodes, pas seulement les 3 premiers.", perks: ["Légendes pour tous les épisodes", "Hashtags ciblés par épisode", "Copie en 1 clic"] },
+    },
+    en: {
+      serie:       { title: "Premium Series Mode", desc: "Long series up to 90 episodes, complex narrative arcs, advanced art direction.", perks: ["Up to 90 episodes per series", "3 script variations per episode", "All universe packs", "Editorial calendar", "Season 2 prep"] },
+      episodes:    { title: "Long series", desc: "Go beyond 20 episodes and build full series narrative arcs.", perks: ["40, 60 or 90 episodes", "Full narrative arc calculated", "Optimized tension progression"] },
+      variations:  { title: "3 script variations", desc: "Generate 3 different versions of the same episode to pick the best.", perks: ["3 scripts per episode", "Different narrative angles", "Mix or choose versions"] },
+      calendrier:  { title: "Editorial calendar", desc: "A week-by-week publishing plan with captions and hashtags per platform.", perks: ["Week-by-week schedule", "Viral captions per platform", "TikTok, Reels, Shorts, Vertical"] },
+      saison2:     { title: "Season 2", desc: "Extend your series with a coherent season 2 — new arcs, new cast, new tensions.", perks: ["Full Season 2 bible", "Guaranteed narrative consistency", "New characters and secrets"] },
+      accroches:   { title: "Full hooks", desc: "Generate viral captions for all your episodes, not just the first 3.", perks: ["Captions for all episodes", "Targeted hashtags per episode", "1-click copy"] },
+    },
+  };
+
+  const info = (FEATURES[lang] || FEATURES.fr)[feature] || (FEATURES[lang] || FEATURES.fr).serie;
+
+  const handleUpgrade = async () => {
+    try {
+      const r = await fetch("/api/portal", { method: "POST" });
+      const d = await r.json();
+      if (d.url) window.location.href = d.url;
+    } catch (e) {
+      window.location.href = "https://verticalclap.com/#pricing";
+    }
+  };
+
+  return (
+    <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", zIndex: 200, display: "flex", alignItems: "flex-end", justifyContent: "center", backdropFilter: "blur(4px)" }}>
+      <div onClick={e => e.stopPropagation()} style={{ background: "var(--card)", borderRadius: "20px 20px 0 0", padding: "28px 24px 36px", maxWidth: 520, width: "100%", border: "1.5px solid var(--bo)", borderBottom: "none" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
+          <div>
+            <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "#a855f7" }}>Premium · 19€/mois</span>
+            <h2 style={{ fontFamily: "var(--sans)", fontSize: 20, fontWeight: 900, marginTop: 4, lineHeight: 1.2 }}>{info.title}</h2>
+          </div>
+          <button onClick={onClose} style={{ background: "var(--bg)", border: "1.5px solid var(--bo)", borderRadius: 10, width: 34, height: 34, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 16, color: "var(--mt)", flexShrink: 0 }}>✕</button>
+        </div>
+        <p style={{ fontSize: 14, color: "var(--mt)", lineHeight: 1.6, marginBottom: 20 }}>{info.desc}</p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 24 }}>
+          {info.perks.map((perk, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ color: "#a855f7", fontSize: 14, flexShrink: 0 }}>✓</span>
+              <span style={{ fontSize: 13, color: "var(--tx)", fontWeight: 600 }}>{perk}</span>
+            </div>
+          ))}
+        </div>
+        <button onClick={handleUpgrade} style={{ background: "linear-gradient(135deg, #a855f7, #7c3aed)", color: "#fff", border: "none", padding: "16px 20px", borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 900, cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: "0.03em" }}>
+          {lang === "fr" ? "Passer au Premium →" : "Upgrade to Premium →"}
+        </button>
+        <p style={{ fontSize: 11, color: "var(--mt)", textAlign: "center", marginTop: 10 }}>
+          {lang === "fr" ? "Sans engagement · Annulable à tout moment" : "No commitment · Cancel anytime"}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ── ONBOARDING ───────────────────────────────────────────────
+const ONBOARDING_KEY = "vc_onboarded_v1";
+function OnboardingOverlay({ lang, onDone }) {
+  const [step, setStep] = useState(0);
+  const steps = lang === "fr" ? [
+    { emoji: "🎬", title: "Bienvenue sur VerticalClap", desc: "Crée des micro-dramas verticaux prêts à poster sur TikTok, Reels et Shorts — en 5 minutes chrono." },
+    { emoji: "⚡", title: "1. Configure ton univers", desc: "Choisis le casting, l'univers, le secret central. L'IA fait le reste — bible, personnages, arcs narratifs." },
+    { emoji: "✍️", title: "2. Écris les scripts", desc: "Génère chaque épisode avec hook, twist et cliffhanger. Modifie, intensifie, exporte en PDF." },
+    { emoji: "📣", title: "3. Distribue ta série", desc: "Légendes TikTok, calendrier de publication, affiche — tout est prêt. Lance ta série." },
+  ] : [
+    { emoji: "🎬", title: "Welcome to VerticalClap", desc: "Create vertical micro-dramas ready to post on TikTok, Reels and Shorts — in 5 minutes flat." },
+    { emoji: "⚡", title: "1. Set up your universe", desc: "Choose casting, setting, central secret. AI does the rest — bible, characters, narrative arcs." },
+    { emoji: "✍️", title: "2. Write the scripts", desc: "Generate each episode with hook, twist and cliffhanger. Edit, intensify, export to PDF." },
+    { emoji: "📣", title: "3. Distribute your series", desc: "TikTok captions, publishing calendar, poster — all ready. Launch your series." },
+  ];
+  const current = steps[step];
+  const isLast = step === steps.length - 1;
+
+  return (
+    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 300, display: "flex", alignItems: "flex-end", justifyContent: "center", backdropFilter: "blur(6px)" }}>
+      <div style={{ background: "var(--card)", borderRadius: "20px 20px 0 0", padding: "32px 24px 40px", maxWidth: 520, width: "100%", border: "1.5px solid var(--bo)", borderBottom: "none" }}>
+        <div style={{ textAlign: "center", marginBottom: 24 }}>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>{current.emoji}</div>
+          <h2 style={{ fontFamily: "var(--sans)", fontSize: 20, fontWeight: 900, marginBottom: 10, lineHeight: 1.2 }}>{current.title}</h2>
+          <p style={{ fontSize: 14, color: "var(--mt)", lineHeight: 1.7 }}>{current.desc}</p>
+        </div>
+        <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 28 }}>
+          {steps.map((_, i) => (
+            <div key={i} style={{ width: i === step ? 20 : 6, height: 6, borderRadius: 3, background: i === step ? "var(--r)" : "var(--bo)", transition: "all .3s" }} />
+          ))}
+        </div>
+        <button onClick={() => { if (isLast) { localStorage.setItem(ONBOARDING_KEY, "1"); onDone(); } else setStep(s => s + 1); }}
+          style={{ background: isLast ? "var(--r)" : "var(--card)", color: isLast ? "#fff" : "var(--tx)", border: isLast ? "none" : "1.5px solid var(--bo)", padding: "16px 20px", borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 900, cursor: "pointer", fontFamily: "var(--sans)" }}>
+          {isLast ? (lang === "fr" ? "Créer ma première série →" : "Create my first series →") : (lang === "fr" ? "Suivant →" : "Next →")}
+        </button>
+        {!isLast && (
+          <button onClick={() => { localStorage.setItem(ONBOARDING_KEY, "1"); onDone(); }}
+            style={{ background: "none", border: "none", color: "var(--mt)", fontSize: 12, cursor: "pointer", width: "100%", marginTop: 12, padding: 4 }}>
+            {lang === "fr" ? "Passer" : "Skip"}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ── MAIN APP ─────────────────────────────────────────────────
 export default function App() {
   const router = useRouter();
@@ -2605,6 +2715,9 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [savedCount, setSavedCount] = useState(0);
   const [lang, setLang] = useState("fr");
+  const [upgradeFeature, setUpgradeFeature] = useState(null);
+  const showUpgrade = (feature) => setUpgradeFeature(feature);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
     try {
@@ -2620,6 +2733,7 @@ export default function App() {
         const detected = nav.startsWith("fr") ? "fr" : "en";
         setLang(detected);
       }
+      if (!localStorage.getItem(ONBOARDING_KEY)) setShowOnboarding(true);
     } catch {}
   }, []);
 
@@ -3161,10 +3275,10 @@ export default function App() {
         </div>
       )}
 
-      {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} />}
+      {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} onUpgrade={showUpgrade} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} />}
-      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} onCalendrier={genCalendrier} onSaison2={genSaison2} t={t} lang={lang} />}
-      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} />}
+      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} onCalendrier={genCalendrier} onSaison2={genSaison2} t={t} lang={lang} onUpgrade={showUpgrade} />}
+      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} onUpgrade={showUpgrade} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
       {screen === "social" && <SocialView social={social} loading={loadingSocial} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} />}
@@ -3181,6 +3295,12 @@ export default function App() {
           <button onClick={logout} style={{ background: "none", border: "none", fontSize: 12, color: "var(--mt)", cursor: "pointer" }}>{t.logout}</button>
         </div>
       )}
+
+      {/* Upgrade modal */}
+      {upgradeFeature && <UpgradeModal feature={upgradeFeature} onClose={() => setUpgradeFeature(null)} lang={lang} />}
+
+      {/* Onboarding */}
+      {showOnboarding && !checking && <OnboardingOverlay lang={lang} onDone={() => setShowOnboarding(false)} />}
     </div>
     </div>
   );
