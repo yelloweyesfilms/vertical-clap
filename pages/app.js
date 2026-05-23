@@ -2731,6 +2731,7 @@ export default function App() {
   const [upgradeFeature, setUpgradeFeature] = useState(null);
   const showUpgrade = (feature) => setUpgradeFeature(feature);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     try {
@@ -2812,7 +2813,9 @@ export default function App() {
     if (admin && admin === process.env.NEXT_PUBLIC_JETON_ADMIN) {
       localStorage.setItem("vs_customer", admin);
       setCustomerId(admin);
-      if (preview === "standard") { setPlan("standard"); } else { const sp = localStorage.getItem("vs_plan"); if (sp) setPlan(sp); }
+      setIsAdmin(true);
+      const sp = localStorage.getItem("vs_plan");
+      if (sp) setPlan(sp);
       setChecking(false);
       return;
     }
@@ -2855,10 +2858,6 @@ export default function App() {
     }
   }, [router.isReady, router.query]);
 
-  // ── Preview mode: force plan=standard when ?preview=standard is in URL ──
-  useEffect(() => {
-    if (router.isReady && router.query.preview === "standard") setPlan("standard");
-  }, [router.isReady, router.query.preview]);
 
   const logout = () => { localStorage.removeItem("vs_customer"); localStorage.removeItem("vs_plan"); setCustomerId(null); setPlan("standard"); };
 
@@ -3309,7 +3308,7 @@ export default function App() {
       {/* Top bar: dark mode + lang toggle + logout */}
       {screen !== "tour" && (
         <div style={{ position: "absolute", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 10 }}>
-          {router.query.admin === process.env.NEXT_PUBLIC_JETON_ADMIN && (
+          {isAdmin && (
             <button onClick={() => setPlan(p => p === "standard" ? "premium" : "standard")} style={{ background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, borderRadius: 8, padding: "3px 8px", fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>
               👁 {plan === "standard" ? "Créateur" : "Premium"}
             </button>
