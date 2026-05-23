@@ -81,6 +81,9 @@ const T = {
     gen_episodes: "Génération des épisodes…",
     gen_episodes_batch: "Épisodes %a–%b générés… (%c/%d)",
     premium_variations: "Les variations sont réservées au plan Premium.",
+    premium_calendrier: "Le calendrier éditorial est réservé au plan Premium (19€/mois).",
+    premium_saison2: "La préparation de la Saison 2 est réservée au plan Premium (19€/mois).",
+    accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passez au plan Premium pour les générer pour tous vos épisodes.",
     loading_cartes: "Création des fiches personnages…",
     style_voixoff: "Narration intime",
     voix_off_label: "Voix Off",
@@ -160,6 +163,9 @@ const T = {
     gen_episodes_batch: "Episodes %a–%b generated… (%c/%d)",
     premium_titles: "Viral titles are reserved for Premium plan.",
     premium_variations: "Variations are reserved for Premium plan.",
+    premium_calendrier: "The editorial calendar is reserved for the Premium plan (€19/month).",
+    premium_saison2: "Season 2 preparation is reserved for the Premium plan (€19/month).",
+    accroches_locked_hint: "The first 3 hooks are included. Upgrade to Premium to generate hooks for all your episodes.",
     loading_cartes: "Creating character profiles…",
     style_voixoff: "Intimate narration",
     voix_off_label: "Voice Over",
@@ -1704,14 +1710,15 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
           {showMore && (
             <div ref={moreRef} style={{ position: "absolute", right: 0, top: "calc(100% + 4px)", background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 14, zIndex: 50, minWidth: 180, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.25)" }}>
               {[
-                { k: "accroches", l: t.accroches_tab, emoji: "📣", onClick: () => { setTab("accroches"); setShowMore(false); if (!accroches && !loadingAccroches) genAccroches(); } },
-                { k: "calendrier", l: t.calendrier_btn, emoji: "📅", onClick: () => { setShowMore(false); onCalendrier(); } },
-                { k: "saison2", l: t.saison2_btn, emoji: "🔄", onClick: () => { setShowMore(false); onSaison2(); } },
-                { k: "affiche", l: t.poster_btn, emoji: "🎬", onClick: () => { setShowMore(false); onAffiche(); } },
-              ].map(({ k, l, emoji, onClick }, idx, arr) => (
+                { k: "accroches", l: t.accroches_tab, emoji: "📣", locked: false, onClick: () => { setTab("accroches"); setShowMore(false); if (!accroches && !loadingAccroches) genAccroches(); } },
+                { k: "calendrier", l: t.calendrier_btn, emoji: "📅", locked: plan === "standard", onClick: () => { if (plan === "standard") { setShowMore(false); alert(t.premium_calendrier); return; } setShowMore(false); onCalendrier(); } },
+                { k: "saison2", l: t.saison2_btn, emoji: "🔄", locked: plan === "standard", onClick: () => { if (plan === "standard") { setShowMore(false); alert(t.premium_saison2); return; } setShowMore(false); onSaison2(); } },
+                { k: "affiche", l: t.poster_btn, emoji: "🎬", locked: false, onClick: () => { setShowMore(false); onAffiche(); } },
+              ].map(({ k, l, emoji, locked, onClick }, idx, arr) => (
                 <button key={k} onClick={onClick}
-                  style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "13px 16px", border: "none", borderBottom: idx < arr.length - 1 ? "1px solid var(--bo)" : "none", background: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, color: tab === k ? "var(--r)" : "var(--tx)", textAlign: "left", fontFamily: "var(--sans)" }}>
-                  <span>{emoji}</span>{l}
+                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, width: "100%", padding: "13px 16px", border: "none", borderBottom: idx < arr.length - 1 ? "1px solid var(--bo)" : "none", background: "none", cursor: locked ? "default" : "pointer", fontSize: 13, fontWeight: 700, color: locked ? "var(--mt)" : tab === k ? "var(--r)" : "var(--tx)", textAlign: "left", fontFamily: "var(--sans)", opacity: locked ? 0.6 : 1 }}>
+                  <span style={{ display: "flex", alignItems: "center", gap: 10 }}><span>{emoji}</span>{l}</span>
+                  {locked && <span style={{ fontSize: 10, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.25)", padding: "2px 7px", borderRadius: 6, letterSpacing: 0.5 }}>Premium</span>}
                 </button>
               ))}
             </div>
@@ -1800,29 +1807,38 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 <p>{t.loading_accroches}</p>
               </div>
             ) : accroches ? (
-              accroches.map((a, i) => {
-                const ep = episodes[i] || {};
-                const fullText = `${a.legende}\n${(a.hashtags || []).join(" ")}`;
-                return (
-                  <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: "14px 16px", marginBottom: 8, border: "1px solid var(--bo)" }}>
-                    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                          <span style={{ fontFamily: "var(--serif)", fontSize: 16, fontWeight: 900, color: "var(--mt)" }}>{a.numero || ep.numero}</span>
-                          <span style={{ fontSize: 12, fontWeight: 700, color: "var(--tx)" }}>{ep.titre}</span>
+              <>
+                {accroches.map((a, i) => {
+                  const ep = episodes[i] || {};
+                  const fullText = `${a.legende}\n${(a.hashtags || []).join(" ")}`;
+                  const isLocked = plan === "standard" && i >= 3;
+                  return (
+                    <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: "14px 16px", marginBottom: 8, border: "1px solid var(--bo)", opacity: isLocked ? 0.4 : 1, filter: isLocked ? "blur(3px)" : "none", pointerEvents: isLocked ? "none" : "auto" }}>
+                      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                            <span style={{ fontFamily: "var(--serif)", fontSize: 16, fontWeight: 900, color: "var(--mt)" }}>{a.numero || ep.numero}</span>
+                            <span style={{ fontSize: 12, fontWeight: 700, color: "var(--tx)" }}>{ep.titre}</span>
+                          </div>
+                          <p style={{ fontSize: 14, lineHeight: 1.5, color: "var(--tx)", marginBottom: 8 }}>{a.legende}</p>
+                          <p style={{ fontSize: 12, color: "var(--r)", fontWeight: 700 }}>{(a.hashtags || []).join(" ")}</p>
                         </div>
-                        <p style={{ fontSize: 14, lineHeight: 1.5, color: "var(--tx)", marginBottom: 8 }}>{a.legende}</p>
-                        <p style={{ fontSize: 12, color: "var(--r)", fontWeight: 700 }}>{(a.hashtags || []).join(" ")}</p>
+                        <button
+                          onClick={() => copyAccroche(i, fullText)}
+                          style={{ flexShrink: 0, background: copiedIdx === i ? "rgba(34,197,94,0.15)" : "var(--bg)", border: `1.5px solid ${copiedIdx === i ? "#22c55e" : "var(--bo)"}`, color: copiedIdx === i ? "#22c55e" : "var(--mt)", padding: "8px 12px", borderRadius: 10, fontSize: 12, fontWeight: 700, cursor: "pointer", transition: "all .2s", fontFamily: "var(--sans)", whiteSpace: "nowrap" }}>
+                          {copiedIdx === i ? t.accroches_copied : t.accroches_copy}
+                        </button>
                       </div>
-                      <button
-                        onClick={() => copyAccroche(i, fullText)}
-                        style={{ flexShrink: 0, background: copiedIdx === i ? "rgba(34,197,94,0.15)" : "var(--bg)", border: `1.5px solid ${copiedIdx === i ? "#22c55e" : "var(--bo)"}`, color: copiedIdx === i ? "#22c55e" : "var(--mt)", padding: "8px 12px", borderRadius: 10, fontSize: 12, fontWeight: 700, cursor: "pointer", transition: "all .2s", fontFamily: "var(--sans)", whiteSpace: "nowrap" }}>
-                        {copiedIdx === i ? t.accroches_copied : t.accroches_copy}
-                      </button>
                     </div>
+                  );
+                })}
+                {plan === "standard" && accroches.length > 3 && (
+                  <div style={{ background: "rgba(168,85,247,0.08)", border: "1.5px solid rgba(168,85,247,0.25)", borderRadius: 14, padding: "16px 18px", marginTop: 8, textAlign: "center" }}>
+                    <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.6, marginBottom: 12 }}>{t.accroches_locked_hint}</p>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.15)", border: "1px solid rgba(168,85,247,0.3)", padding: "5px 12px", borderRadius: 8 }}>Premium · 19€/mois</span>
                   </div>
-                );
-              })
+                )}
+              </>
             ) : (
               <button onClick={genAccroches} style={{ background: "var(--r)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
                 {t.gen_accroches}
