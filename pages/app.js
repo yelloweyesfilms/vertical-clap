@@ -854,7 +854,7 @@ async function gen(action, payload, customerId) {
 
 // ── COMPONENTS ───────────────────────────────────────────────
 function VCLogo() {
-  const hasImg = false; // passer à true quand /public/vc-logo.png est uploadé
+  const hasImg = true;
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 9, userSelect: "none" }}>
       {hasImg ? (
