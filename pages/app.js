@@ -94,6 +94,11 @@ const T = {
     storyboard_title: "Storyboard",
     saison2_btn: "Saison 2",
     loading_saison2: "Préparation de la saison 2…",
+    accroches_tab: "Accroches",
+    loading_accroches: "Génération des accroches TikTok…",
+    gen_accroches: "Générer les accroches TikTok",
+    accroches_copy: "Copier",
+    accroches_copied: "✓ Copié",
     remake_label: "Inspiration Série",
     remake_sub: "— adapte l'ADN d'une série connue",
   },
@@ -168,6 +173,11 @@ const T = {
     storyboard_title: "Storyboard",
     saison2_btn: "Season 2",
     loading_saison2: "Preparing season 2…",
+    accroches_tab: "Hooks",
+    loading_accroches: "Generating TikTok hooks…",
+    gen_accroches: "Generate TikTok hooks",
+    accroches_copy: "Copy",
+    accroches_copied: "✓ Copied",
     remake_label: "Series Inspiration",
     remake_sub: "— adapt the DNA of a famous series",
   },
@@ -1612,6 +1622,9 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   const [tab, setTab] = useState("bible");
   const [cartes, setCartes] = useState(null);
   const [loadingCartes, setLoadingCartes] = useState(false);
+  const [accroches, setAccroches] = useState(null);
+  const [loadingAccroches, setLoadingAccroches] = useState(false);
+  const [copiedIdx, setCopiedIdx] = useState(null);
 
   const genCartes = async () => {
     setTab("persos");
@@ -1625,6 +1638,25 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
       setCartes([]);
     }
     setLoadingCartes(false);
+  };
+
+  const genAccroches = async () => {
+    if (accroches || loadingAccroches) return;
+    setLoadingAccroches(true);
+    try {
+      const r = await gen("accroches", { titre: bible.titre, logline: bible.logline, genre: bible.genre, episodes, lang }, customerId);
+      setAccroches(r.accroches || []);
+    } catch (e) {
+      console.error(e);
+      setAccroches([]);
+    }
+    setLoadingAccroches(false);
+  };
+
+  const copyAccroche = (idx, text) => {
+    navigator.clipboard?.writeText(text).catch(() => {});
+    setCopiedIdx(idx);
+    setTimeout(() => setCopiedIdx(null), 2000);
   };
 
   const bibleStep = tab === "seq" ? 3 : 2;
@@ -1646,21 +1678,20 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
         <h1 style={{ fontFamily: "var(--sans)", fontSize: 24, fontWeight: 900, letterSpacing: -0.5, lineHeight: 1.1, textTransform: "uppercase", marginBottom: 8 }}>{bible.titre}</h1>
         <p style={{ fontFamily: "var(--serif)", fontSize: 14, fontStyle: "italic", color: "var(--mt)", lineHeight: 1.6, marginBottom: 10 }}>« {bible.logline} »</p>
         <p style={{ fontSize: 13, lineHeight: 1.75, marginBottom: 16, color: "var(--mt)" }}>{bible.pitch}</p>
-        <div style={{ display: "flex", borderBottom: "1.5px solid var(--bo)", marginBottom: 0 }}>
+        <div style={{ display: "flex", overflowX: "auto", borderBottom: "1.5px solid var(--bo)", marginBottom: 0, scrollbarWidth: "none", msOverflowStyle: "none" }}>
           {[
-            { k: "bible", l: t.bible_tab },
-            { k: "persos", l: t.persos_tab },
-            { k: "seq", l: `Saison 1` },
-          ].map(({ k, l }) => {
-            const locked = false;
-            const onClick = k === "persos" ? genCartes
-              : () => setTab(k);
-            return (
-              <button key={k} onClick={onClick}
-                style={{ flex: 1, padding: "10px 0", border: "none", background: "none", cursor: locked ? "not-allowed" : "pointer", fontSize: 13, fontWeight: 700, color: locked ? "var(--bo)" : tab === k ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${tab === k && !locked ? "var(--r)" : "transparent"}`, marginBottom: -2, fontFamily: "var(--sans)" }}>{l}
-              </button>
-            );
-          })}
+            { k: "bible", l: t.bible_tab, onClick: () => setTab("bible") },
+            { k: "persos", l: t.persos_tab, onClick: genCartes },
+            { k: "seq", l: lang === "fr" ? "Saison 1" : "Season 1", onClick: () => setTab("seq") },
+            { k: "accroches", l: t.accroches_tab, onClick: () => { setTab("accroches"); if (!accroches && !loadingAccroches) genAccroches(); } },
+            { k: "calendrier", l: t.calendrier_btn, onClick: onCalendrier },
+            { k: "saison2", l: t.saison2_btn, onClick: onSaison2 },
+            { k: "affiche", l: t.poster_btn, onClick: onAffiche },
+          ].map(({ k, l, onClick }) => (
+            <button key={k} onClick={onClick}
+              style={{ flexShrink: 0, padding: "10px 14px", border: "none", background: "none", cursor: "pointer", fontSize: 12, fontWeight: 700, color: tab === k ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${tab === k ? "var(--r)" : "transparent"}`, marginBottom: -2, fontFamily: "var(--sans)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{l}
+            </button>
+          ))}
         </div>
       </div>
       <div style={{ padding: "20px", maxWidth: 520, margin: "0 auto" }}>
@@ -1681,19 +1712,8 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               <p style={{ fontFamily: "var(--sans)", fontSize: 15, fontStyle: "italic", color: "var(--tx)", lineHeight: 1.5 }}>« {bible.tension_centrale} »</p>
             </div>
             <div style={{ display: "flex", gap: 8, marginTop: 4, flexWrap: "wrap" }}>
-              <button onClick={() => setTab("seq")} style={{ flex: "2 1 120px", background: "var(--r)", color: "#fff", border: "none", padding: 16, borderRadius: 14, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
+              <button onClick={() => setTab("seq")} style={{ flex: "1 1 120px", background: "var(--r)", color: "#fff", border: "none", padding: 16, borderRadius: 14, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
                 {t.see_eps} {episodes.length} {t.episodes_btn}
-              </button>
-              <button onClick={onAffiche} style={{ flex: "1 1 80px", background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 16, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
-                {t.poster_btn}
-              </button>
-            </div>
-            <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
-              <button onClick={onSaison2} style={{ flex: "1 1 80px", background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
-                {t.saison2_btn}
-              </button>
-              <button onClick={onCalendrier} style={{ flex: "1 1 80px", background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
-                {t.calendrier_btn}
               </button>
             </div>
           </>
@@ -1741,6 +1761,49 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               );
             })}
             {!cartes && <button onClick={genCartes} style={{ background: "var(--n)", color: "#fff", border: "none", padding: 16, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", marginTop: 8 }}>{t.enrich}</button>}
+          </>
+        ) : tab === "accroches" ? (
+          <>
+            <div style={{ marginBottom: 16 }}>
+              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--r)", marginBottom: 3 }}>TIKTOK · REELS · SHORTS</p>
+              <p style={{ fontSize: 13, color: "var(--mt)" }}>{lang === "fr" ? "Légendes virales prêtes à poster" : "Viral captions ready to post"}</p>
+            </div>
+            {loadingAccroches ? (
+              <div style={{ textAlign: "center", padding: "40px 0", color: "var(--mt)" }}>
+                <div style={{ display: "flex", gap: 6, marginBottom: 16, justifyContent: "center" }}>
+                  {[0,1,2].map(i => <div key={i} style={{ width: 6, height: 6, borderRadius: "50%", background: i === 0 ? "#E85C3A" : i === 1 ? "#a855f7" : "rgba(255,255,255,0.2)", animation: `pulse 1.2s ${i*0.2}s infinite` }} />)}
+                </div>
+                <p>{t.loading_accroches}</p>
+              </div>
+            ) : accroches ? (
+              accroches.map((a, i) => {
+                const ep = episodes[i] || {};
+                const fullText = `${a.legende}\n${(a.hashtags || []).join(" ")}`;
+                return (
+                  <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: "14px 16px", marginBottom: 8, border: "1px solid var(--bo)" }}>
+                    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                          <span style={{ fontFamily: "var(--serif)", fontSize: 16, fontWeight: 900, color: "var(--mt)" }}>{a.numero || ep.numero}</span>
+                          <span style={{ fontSize: 12, fontWeight: 700, color: "var(--tx)" }}>{ep.titre}</span>
+                        </div>
+                        <p style={{ fontSize: 14, lineHeight: 1.5, color: "var(--tx)", marginBottom: 8 }}>{a.legende}</p>
+                        <p style={{ fontSize: 12, color: "var(--r)", fontWeight: 700 }}>{(a.hashtags || []).join(" ")}</p>
+                      </div>
+                      <button
+                        onClick={() => copyAccroche(i, fullText)}
+                        style={{ flexShrink: 0, background: copiedIdx === i ? "rgba(34,197,94,0.15)" : "var(--bg)", border: `1.5px solid ${copiedIdx === i ? "#22c55e" : "var(--bo)"}`, color: copiedIdx === i ? "#22c55e" : "var(--mt)", padding: "8px 12px", borderRadius: 10, fontSize: 12, fontWeight: 700, cursor: "pointer", transition: "all .2s", fontFamily: "var(--sans)", whiteSpace: "nowrap" }}>
+                        {copiedIdx === i ? t.accroches_copied : t.accroches_copy}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <button onClick={genAccroches} style={{ background: "var(--r)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
+                {t.gen_accroches}
+              </button>
+            )}
           </>
         ) : (
           <>
