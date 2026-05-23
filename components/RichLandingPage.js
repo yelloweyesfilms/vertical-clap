@@ -20,6 +20,17 @@ const COPY = {
     heroLine3: "maintenant.",
     heroTitle: "La plateforme d'écriture",
     heroTitleItalic: "pensée pour les micro-dramas.",
+    heroHeadline1: "Crée des séries virales",
+    heroHeadline2: "en 5 minutes.",
+    heroSubtitleBold: "Ton studio IA pour micro-dramas verticaux addictifs.",
+    heroFeatures: ["Rapide", "Scénarios impactants", "Format 9:16 optimisé", "5 min chrono"],
+    heroStatViews: "10M+",
+    heroStatViewsLabel: "vues générées",
+    heroStatCreators: "500K+",
+    heroStatCreatorsLabel: "créateurs",
+    heroStatGoal: "1 objectif",
+    heroStatGoalLabel: "te faire percer",
+    heroCtaBig: "Rejoins les créateurs qui cartonnent →",
     scaleLabel: "Créez à toutes les échelles",
     scaleTitle: "Du micro-drama au projet ambitieux.",
     scaleSub: "Vertical Clap accompagne chaque étape — de la première idée au showrunner confirmé.",
@@ -248,6 +259,17 @@ const COPY = {
     heroTitle: "The writing platform",
     heroTitleItalic: "built for micro-dramas.",
     heroSubtitle: "Hooks. Twists. Cliffhangers.",
+    heroHeadline1: "Create viral series",
+    heroHeadline2: "in 5 minutes.",
+    heroSubtitleBold: "Your AI studio for addictive vertical micro-dramas.",
+    heroFeatures: ["Fast", "Impactful scripts", "9:16 format optimized", "5 min chrono"],
+    heroStatViews: "10M+",
+    heroStatViewsLabel: "views generated",
+    heroStatCreators: "500K+",
+    heroStatCreatorsLabel: "creators",
+    heroStatGoal: "1 goal",
+    heroStatGoalLabel: "make you viral",
+    heroCtaBig: "Join the creators who crush it →",
     scaleLabel: "Create at every scale",
     scaleTitle: "From micro-drama to ambitious projects.",
     scaleSub: "Vertical Clap accompanies every step — from first idea to confirmed showrunner.",
@@ -742,53 +764,86 @@ export default function RichLandingPage({ lang = "fr" }) {
         </nav>
       </div>
 
-      {/* HERO — CINEMATIC */}
-      <div style={{ maxWidth: 1140, margin: "0 auto", padding: "96px 40px 80px", position: "relative" }} className="hero-pad">
-        <div className="hero-two-col" style={{ position: "relative", zIndex: 1, display: "flex", gap: 64, alignItems: "center", justifyContent: "center" }}>
+      {/* HERO — BOLD COMMERCIAL */}
+      <div style={{ position: "relative", overflow: "hidden" }}>
+        {/* Background glow */}
+        <div style={{ position: "absolute", top: "-20%", left: "50%", transform: "translateX(-50%)", width: 900, height: 500, background: `radial-gradient(ellipse, ${RED}18 0%, ${VIO}0d 40%, transparent 70%)`, pointerEvents: "none", zIndex: 0 }} />
 
-          {/* CENTER — COPY */}
-          <div style={{ flex: 1, maxWidth: 620, textAlign: "center" }}>
-            {/* Episode-style badge */}
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 40 }}>
-              <div style={{ display: "flex", gap: 3 }}>
-                <div style={{ width: 3, height: 14, background: RED, borderRadius: 2 }} />
-                <div style={{ width: 3, height: 14, background: VIO, borderRadius: 2 }} />
-                <div style={{ width: 3, height: 14, background: "rgba(255,255,255,0.2)", borderRadius: 2 }} />
-              </div>
-              <span style={{ fontSize: 11, fontWeight: 700, color: MUTED, letterSpacing: "0.14em", textTransform: "uppercase" }}>{c.studioBadge}</span>
+        <div style={{ maxWidth: 860, margin: "0 auto", padding: "88px 40px 72px", position: "relative", zIndex: 1, textAlign: "center" }} className="hero-pad">
+
+          {/* Logo mark */}
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 36 }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", lineHeight: 1 }}>
+              <span style={{ fontSize: 11, fontWeight: 900, color: TEXT, letterSpacing: "0.18em", textTransform: "uppercase", fontFamily: "'Space Grotesk', sans-serif" }}>VERTICAL</span>
+              <div style={{ width: "100%", height: 1.5, background: RED, margin: "3px 0" }} />
+              <span style={{ fontSize: 11, fontWeight: 900, color: RED, letterSpacing: "0.18em", textTransform: "uppercase", fontFamily: "'Space Grotesk', sans-serif" }}>CLAP</span>
             </div>
-
-            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 900, letterSpacing: -3, marginBottom: 28, color: TEXT, lineHeight: 0.98, fontSize: "clamp(52px, 6.2vw, 96px)" }}>
-              {c.heroTitle}<br />
-              <span style={{ fontStyle: "italic", background: `linear-gradient(135deg, ${RED} 10%, ${VIO} 90%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{c.heroTitleItalic}</span>
-            </h1>
-
-            <p style={{ fontSize: "clamp(14px, 1.4vw, 17px)", color: "rgba(255,255,255,0.42)", marginBottom: 52, lineHeight: 1.75, maxWidth: 420, margin: "0 auto 52px" }}>
-              {c.heroSubtitle}
-            </p>
-
-            {canceled && <p style={{ color: RED, marginBottom: 16, fontSize: 14 }}>{c.canceledMsg}</p>}
-
-            <div style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "center" }}>
-              <div className="hero-row" style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
-                <input type="email" placeholder={c.nlEmailPlaceholder} value={email}
-                  onChange={e => { setEmail(e.target.value); setEmailError(false); }}
-                  onKeyDown={e => e.key === "Enter" && startCheckout()}
-                  style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${emailError ? RED : "rgba(255,255,255,0.1)"}`, background: "rgba(255,255,255,0.04)", color: TEXT, fontSize: 15, width: 220, outline: "none", backdropFilter: "blur(12px)", transition: "border-color .2s" }} />
-                <GlowBtn onClick={() => startCheckout("standard", "hero")} disabled={loading} gradient>
-                  {loading ? c.redirecting : c.ctaBtnCreate}
-                </GlowBtn>
-              </div>
-              <a href={lang === "en" ? "/en/exemples" : "/exemples"}
-                style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, color: "rgba(255,255,255,0.35)", fontWeight: 600, letterSpacing: 0.3, textDecoration: "none" }}>
-                <span style={{ width: 18, height: 18, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, flexShrink: 0 }}>▶</span>
-                {c.ctaBtnDemo}
-              </a>
-            </div>
-            {emailError && <p style={{ color: RED, fontSize: 13, fontWeight: 600, marginTop: 10 }}>{c.emailError}</p>}
           </div>
 
+          {/* Big headline */}
+          <h1 style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif", fontWeight: 900, letterSpacing: -2, marginBottom: 0, color: TEXT, lineHeight: 1.0, fontSize: "clamp(46px, 7.5vw, 112px)", textTransform: "uppercase" }}>
+            {c.heroHeadline1}<br />
+            <span style={{ color: RED }}>{c.heroHeadline2}</span>
+          </h1>
 
+          {/* Subtitle */}
+          <p style={{ fontSize: "clamp(15px, 1.5vw, 18px)", color: "rgba(255,255,255,0.55)", margin: "28px auto 0", lineHeight: 1.6, maxWidth: 480 }}>
+            {c.heroSubtitleBold}
+          </p>
+
+          {/* Features strip */}
+          <div style={{ display: "flex", gap: 24, justifyContent: "center", flexWrap: "wrap", margin: "28px 0 44px" }}>
+            {(c.heroFeatures || []).map((f, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 18, height: 18, borderRadius: 4, background: `${RED}22`, border: `1px solid ${RED}44`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: RED }} />
+                </div>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "'Space Grotesk', sans-serif" }}>{f}</span>
+              </div>
+            ))}
+          </div>
+
+          {canceled && <p style={{ color: RED, marginBottom: 16, fontSize: 14 }}>{c.canceledMsg}</p>}
+
+          {/* Email + CTA */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 14, alignItems: "center" }}>
+            <div className="hero-row" style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
+              <input type="email" placeholder={c.nlEmailPlaceholder} value={email}
+                onChange={e => { setEmail(e.target.value); setEmailError(false); }}
+                onKeyDown={e => e.key === "Enter" && startCheckout()}
+                style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${emailError ? RED : "rgba(255,255,255,0.1)"}`, background: "rgba(255,255,255,0.05)", color: TEXT, fontSize: 15, width: 240, outline: "none", backdropFilter: "blur(12px)", transition: "border-color .2s" }} />
+              <button onClick={() => startCheckout("standard", "hero")} disabled={loading}
+                style={{ padding: "16px 28px", background: RED, color: "#fff", border: "none", borderRadius: 14, fontSize: 15, fontWeight: 800, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.02em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1 }}>
+                {loading ? c.redirecting : c.ctaBtnCreate}
+              </button>
+            </div>
+            <a href={lang === "en" ? "/en/exemples" : "/exemples"}
+              style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, color: "rgba(255,255,255,0.3)", fontWeight: 600, letterSpacing: 0.3, textDecoration: "none" }}>
+              <span style={{ width: 18, height: 18, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, flexShrink: 0 }}>▶</span>
+              {c.ctaBtnDemo}
+            </a>
+          </div>
+          {emailError && <p style={{ color: RED, fontSize: 13, fontWeight: 600, marginTop: 10 }}>{c.emailError}</p>}
+
+          {/* Stats bar */}
+          <div style={{ display: "flex", gap: 0, justifyContent: "center", marginTop: 56, border: `1px solid rgba(255,255,255,0.07)`, borderRadius: 16, overflow: "hidden", background: "rgba(255,255,255,0.02)" }} className="stats-bar">
+            {[
+              { val: c.heroStatViews, label: c.heroStatViewsLabel },
+              { val: c.heroStatCreators, label: c.heroStatCreatorsLabel },
+              { val: c.heroStatGoal, label: c.heroStatGoalLabel },
+            ].map((s, i) => (
+              <div key={i} style={{ flex: 1, padding: "20px 16px", borderRight: i < 2 ? "1px solid rgba(255,255,255,0.07)" : "none", textAlign: "center" }}>
+                <div style={{ fontSize: "clamp(22px, 3vw, 34px)", fontWeight: 900, color: i === 2 ? RED : TEXT, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: -1, lineHeight: 1 }}>{s.val}</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", marginTop: 6, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Big CTA bottom */}
+          <button onClick={() => startCheckout("standard", "hero-bottom")} disabled={loading}
+            style={{ marginTop: 16, width: "100%", maxWidth: 600, padding: "18px 24px", background: `linear-gradient(135deg, ${RED} 0%, #c94424 100%)`, color: "#fff", border: "none", borderRadius: 14, fontSize: "clamp(14px, 1.5vw, 17px)", fontWeight: 900, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.04em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1, display: "block", margin: "16px auto 0" }}>
+            {loading ? c.redirecting : c.heroCtaBig}
+          </button>
 
         </div>
       </div>
