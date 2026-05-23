@@ -340,7 +340,7 @@ const COPY = {
     forYouTitle2: "to showrunner.",
     forYouProfiles: [
       { emoji: "📱", title: "The solo creator", sub: "You post on TikTok, Reels or Shorts. You want short series, hooks that grab, maximum pace. Creator gives you all that in 5 minutes.", color: "#E85C3A" },
-      { emoji: "🎬", title: "The developing author", sub: "You have bigger ideas — complex characters, narrative arcs, multi-episode formats. Storyteller gives you the structure and Artistic Direction.", color: "#f97316" },
+      { emoji: "🎬", title: "The developing author", sub: "You have bigger ideas — complex characters, narrative arcs, multi-episode formats. Premium gives you the structure and Artistic Direction.", color: "#f97316" },
       { emoji: "🎭", title: "The showrunner", sub: "You manage a team, deliver to premium platforms. 90 episodes, 3 variations per script, production sheet — all there.", color: "#a855f7" },
     ],
     pipelineLabel: "From idea to shoot",
@@ -359,7 +359,7 @@ const COPY = {
     perMonth: "/month",
     planStandard: "Creator",
     planStandardSub: "For creators, micro-dramas and social storytelling",
-    planPremium: "Storyteller",
+    planPremium: "Premium",
     planPremiumSub: "For series, narrative universes and ambitious projects",
     standardFeatures: [
       "⚡ Vertical Drama · micro-drama",
@@ -382,7 +382,7 @@ const COPY = {
       "📄 PDF Export",
     ],
     recommendedBadge: "RECOMMENDED",
-    ctaBtnPremium: "Get started Storyteller →",
+    ctaBtnPremium: "Get started Premium →",
     trustItems: [
       { icon: "·", label: "Stripe · Secure payment" },
       { icon: "·", label: "Cancel in 1 click" },
@@ -397,7 +397,7 @@ const COPY = {
     faqItems: [
       { q: "What is a vertical micro-drama?", r: "A short video format (1 to 2 min), filmed in 9:16 for mobile, with a strong dramatic structure: punchy hook, rising tension and final cliffhanger. The format exploding on TikTok, Instagram Reels, YouTube Shorts — and on specialized micro-drama platforms." },
       { q: "How long does it take to generate a complete series?", r: "Less than 5 minutes. The bible (title, logline, characters) is generated in streaming in a few seconds. Episodes arrive in parallel. A single episode script takes 10 seconds." },
-      { q: "What's the difference between Creator and Storyteller?", r: "Creator (Vertical Drama): frontal emotions, aggressive hooks, maximum pace — ideal for TikTok, Reels and Shorts. Storyteller (Premium Series): psychological tension, subtext, heavy silences, advanced Artistic Direction — for ambitious series and a more mature audience." },
+      { q: "What's the difference between Creator and Premium?", r: "Creator (9€): frontal emotions, aggressive hooks, maximum pace — ideal for TikTok, Reels and Shorts. Premium (19€): psychological tension, subtext, heavy silences, advanced Artistic Direction — for ambitious series and a more mature audience." },
       { q: "Are the scripts really ready to shoot?", r: "Yes. Each scene includes dialogue, acting direction and 9:16 framing directive. Shoot Mode includes an auto-scroll teleprompter and a set checklist." },
       { q: "Are my series saved?", r: "They are saved locally on your device and synced to the cloud automatically. You can access them from any device via the ☁️ Cloud tab." },
       { q: "Can I cancel my subscription?", r: "Yes, at any time in one click from your Stripe account. No commitment, no penalty. You keep access until the end of the paid period." },
@@ -866,7 +866,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           </p>
           <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.05, textAlign: "center", marginBottom: 12 }}>
             {lang === "fr" ? "Un seul micro-drama." : "One micro-drama."}<br />
-            <span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.38)" }}>
+            <span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.62)" }}>
               {lang === "fr" ? "Viral ou premium." : "Viral or premium."}
             </span>
           </h2>
@@ -960,7 +960,7 @@ export default function RichLandingPage({ lang = "fr" }) {
               </div>
               <div style={{ padding: "0 28px 24px" }}>
                 <div style={{ fontSize: 11, color: MUTED, padding: "8px 14px", background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}`, borderRadius: 10 }}>
-                  {lang === "fr" ? "Plan Storyteller · Direction artistique avancée" : "Storyteller plan · Advanced artistic direction"}
+                  {lang === "fr" ? "Plan Premium · Direction artistique avancée" : "Premium plan · Advanced artistic direction"}
                 </div>
               </div>
             </div>
