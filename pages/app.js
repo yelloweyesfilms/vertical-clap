@@ -130,20 +130,20 @@ const T = {
     lo_humour: "Pure drama", hi_humour: "Dark comedy",
     lo_violence: "None", hi_violence: "Harsh confrontations",
     lo_spicy: "All audiences", hi_spicy: "Maximum tension",
-    packs_label: "🎬 Universe packs", packs_sub: "— all set in 1 click",
-    tropes_label: "💘 Tropes", tropes_sub: "— inject the narrative codes that go viral",
+    packs_label: "Universe packs", packs_sub: "— all set in 1 click",
+    tropes_label: "Tropes", tropes_sub: "— inject the narrative codes that go viral",
     tropes_romance: "Romance", tropes_drama: "Drama",
-    casting_ia_label: "🎭 Casting IA", casting_ia_sub: "— give your characters a powerful identity",
+    casting_ia_label: "Casting IA", casting_ia_sub: "— give your characters a powerful identity",
     casting_ia_age: "yo",
-    ambiance_vis_label: "🎨 Visual Ambiance", ambiance_vis_sub: "— your series' visual identity",
-    budget_label: "🎬 Production Scale", budget_sub: "— adapts writing to your real budget",
-    budget_lieux: "📍 Shootable locations",
-    budget_guide: "🎬 Prod Guide",
-    budget_teleprompter: "▶ Script",
-    budget_equip: "📦 Equipment", budget_lumiere: "💡 Lighting", budget_tricks: "✨ Fake expensive", budget_decors: "🎨 Sets",
-    logout: "Sign out", custom: "✏️ Custom",
+    ambiance_vis_label: "Visual Ambiance", ambiance_vis_sub: "— your series' visual identity",
+    budget_label: "Production Scale", budget_sub: "— adapts writing to your real budget",
+    budget_lieux: "Shootable locations",
+    budget_guide: "Prod Guide",
+    budget_teleprompter: "Script",
+    budget_equip: "Equipment", budget_lumiere: "Lighting", budget_tricks: "Fake expensive", budget_decors: "Sets",
+    logout: "Sign out", custom: "Custom",
     choose_lang: "Choose language", back: "← Back", my_series_title: "My Series",
-    affiche_title: "🎨 Presentation kit", affiche_sub: "Your complete visual kit — poster + art direction + AI image",
+    affiche_title: "Presentation kit", affiche_sub: "Your complete visual kit — poster + art direction + AI image",
     affiche_loading: "Creating art direction…",
     affiche_sec1_title: "01 — Presentation poster", affiche_sec1_sub: "Print it or attach it to your episode PDF to present your series.",
     affiche_sec2_title: "02 — Art direction", affiche_sec2_sub: "Your series visual identity — to brief a designer, an art director, or an AI.",
@@ -151,8 +151,8 @@ const T = {
     affiche_copy: "📋 Copy prompt", affiche_tools: "Midjourney → /imagine + paste · ChatGPT → \"Generate this image:\" + paste · Gemini → same",
     vc_presents: "VERTICAL CLAP PRESENTS",
     social_title: "Distribution & Social", social_loading: "Generating content…",
-    social_tiktok_legend: "📣 Publication caption", social_copy: "Copy",
-    social_sms: "💬 SMS between characters", social_comments: "Comments",
+    social_tiktok_legend: "Publication caption", social_copy: "Copy",
+    social_sms: "SMS between characters", social_comments: "Comments",
     gen_bible: "Creating series bible…",
     gen_episodes: "Generating episodes…",
     gen_episodes_batch: "Episodes %a–%b generated… (%c/%d)",
@@ -162,18 +162,18 @@ const T = {
     loading_titres: "Analysing virality…",
     style_voixoff: "Intimate narration",
     voix_off_label: "📢 Voice Over",
-    profils_btn: "👤 Profiles",
+    profils_btn: "Profiles",
     loading_profils: "Creating social profiles…",
-    profils_title: "👤 Social Profiles",
-    calendrier_btn: "📅 Calendar",
+    profils_title: "Social Profiles",
+    calendrier_btn: "Calendar",
     loading_calendrier: "Creating editorial calendar…",
-    calendrier_title: "📅 Editorial Calendar",
-    storyboard_btn: "🎬 Storyboard",
+    calendrier_title: "Editorial Calendar",
+    storyboard_btn: "Storyboard",
     loading_storyboard: "Creating storyboard…",
-    storyboard_title: "🎬 Storyboard",
-    saison2_btn: "🔄 Season 2",
+    storyboard_title: "Storyboard",
+    saison2_btn: "Season 2",
     loading_saison2: "Preparing season 2…",
-    remake_label: "🎬 Series Inspiration",
+    remake_label: "Series Inspiration",
     remake_sub: "— adapt the DNA of a famous series",
   },
 };
@@ -1017,8 +1017,8 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   const [mixTab, setMixTab] = useState("univers");
 
   const MIX_TABS = lang === "en"
-    ? [{ id: "univers", emoji: "🎬", label: "Story" }, { id: "persos", emoji: "🎭", label: "Cast" }, { id: "ambiance", emoji: "🎨", label: "Style" }, { id: "format", emoji: "⚙️", label: "Format" }]
-    : [{ id: "univers", emoji: "🎬", label: "Univers" }, { id: "persos", emoji: "🎭", label: "Persos" }, { id: "ambiance", emoji: "🎨", label: "Ambiance" }, { id: "format", emoji: "⚙️", label: "Format" }];
+    ? [{ id: "univers", label: "Story" }, { id: "persos", label: "Cast" }, { id: "ambiance", label: "Style" }, { id: "format", label: "Format" }]
+    : [{ id: "univers", label: "Univers" }, { id: "persos", label: "Persos" }, { id: "ambiance", label: "Ambiance" }, { id: "format", label: "Format" }];
 
   const selectFormat = (f) => {
     const locked = f.mode === "premium" && plan === "standard";
@@ -1064,9 +1064,9 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             return (
               <button key={f.id} onClick={() => selectFormat(f)}
                 style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, padding: "9px 13px", borderRadius: 14, border: `2px solid ${active ? f.color : "rgba(255,255,255,0.15)"}`, background: active ? `${f.color}25` : "rgba(255,255,255,0.06)", cursor: locked ? "not-allowed" : "pointer", transition: "all .18s", opacity: locked ? 0.4 : 1, minWidth: 64 }}>
-                <span style={{ fontSize: 18 }}>{f.emoji}</span>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: f.color, marginBottom: 2 }} />
                 <span style={{ fontSize: 10, fontWeight: 800, color: active ? f.color : "rgba(255,255,255,0.75)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{f.label[lang] || f.label.fr}</span>
-                <span style={{ fontSize: 8, color: "rgba(255,255,255,0.4)", whiteSpace: "nowrap", textAlign: "center" }}>{f.sub[lang] || f.sub.fr}{locked ? " 🔒" : ""}</span>
+                <span style={{ fontSize: 8, color: "rgba(255,255,255,0.4)", whiteSpace: "nowrap", textAlign: "center" }}>{f.sub[lang] || f.sub.fr}{locked ? " ·" : ""}</span>
               </button>
             );
           })}
@@ -1079,8 +1079,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           const active = mixTab === tab.id;
           return (
             <button key={tab.id} onClick={() => setMixTab(tab.id)} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, padding: "10px 4px 8px", border: "none", background: "none", cursor: "pointer", borderBottom: `2.5px solid ${active ? "var(--r)" : "transparent"}`, transition: "all .15s", fontFamily: "var(--sans)" }}>
-              <span style={{ fontSize: 16 }}>{tab.emoji}</span>
-              <span style={{ fontSize: 9, fontWeight: active ? 800 : 500, color: active ? "var(--r)" : "var(--mt)", letterSpacing: 0.5, textTransform: "uppercase" }}>{tab.label}</span>
+              <span style={{ fontSize: 9, fontWeight: active ? 800 : 500, color: active ? "var(--r)" : "var(--mt)", letterSpacing: 0.8, textTransform: "uppercase" }}>{tab.label}</span>
             </button>
           );
         })}
@@ -1473,7 +1472,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           return (
             <div style={{ marginBottom: 24 }}>
               <SectionHead
-                title={lang === "fr" ? "🎨 Direction Artistique" : "🎨 Artistic Direction"}
+                title={lang === "fr" ? "Direction Artistique" : "Artistic Direction"}
                 sub={lang === "fr" ? "Compose le langage cinématographique de ta série" : "Compose the cinematic language of your series"}
               />
               {cats.map(cat => {
@@ -1509,7 +1508,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
       {/* ═══ Sticky bottom — Generate button ═══ */}
       <div style={{ flexShrink: 0, padding: "14px 20px 18px", borderTop: "1.5px solid var(--bo)", background: "var(--bg)" }}>
-        <button onClick={onGen} style={{ background: "var(--tx)", color: "var(--bg)", border: "none", padding: 16, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 800, cursor: "pointer", letterSpacing: 0.5 }}>
+        <button onClick={onGen} style={{ background: "linear-gradient(135deg, #E85C3A 0%, #a855f7 100%)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 800, cursor: "pointer", letterSpacing: 0.8, textTransform: "uppercase", fontFamily: "var(--sans)" }}>
           {t.generate}
         </button>
         <p style={{ fontSize: 11, color: "var(--mt)", textAlign: "center", marginTop: 8 }}>
@@ -1609,7 +1608,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                   <span style={{ fontFamily: "var(--serif)", fontSize: 18, fontWeight: 700 }}>{p.nom}</span>
                   <span style={{ fontSize: 11, color: i === 0 ? "var(--r)" : "var(--n)", fontWeight: 700, textTransform: "uppercase" }}>{p.role} · {p.age} ans</span>
                 </div>
-                <p style={{ fontSize: 13, color: "var(--mt)", lineHeight: 1.5 }}>🔒 {p.secret}</p>
+                <p style={{ fontSize: 13, color: "var(--mt)", lineHeight: 1.5, borderLeft: "2px solid #E85C3A22", paddingLeft: 8 }}>{p.secret}</p>
               </div>
             ))}
             <div style={{ background: "var(--tx)", borderRadius: 12, padding: 16, marginBottom: 20, marginTop: 4 }}>
@@ -1640,7 +1639,9 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
           <>
             {loadingCartes ? (
               <div style={{ textAlign: "center", padding: "40px 0", color: "var(--mt)" }}>
-                <div style={{ fontSize: 28, marginBottom: 12, animation: "pulse 1.2s infinite" }}>🎭</div>
+                <div style={{ display: "flex", gap: 6, marginBottom: 16, justifyContent: "center" }}>
+                  {[0,1,2].map(i => <div key={i} style={{ width: 6, height: 6, borderRadius: "50%", background: i === 0 ? "#E85C3A" : i === 1 ? "#a855f7" : "rgba(255,255,255,0.2)", animation: `pulse 1.2s ${i*0.2}s infinite` }} />)}
+                </div>
                 <p>{t.loading_cartes}</p>
               </div>
             ) : (cartes || bible.personnages || []).map((p, i) => {
@@ -1661,18 +1662,18 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                     {carte ? (
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 12 }}>
                         <div style={{ background: "var(--bg)", borderRadius: 10, padding: "10px 12px" }}>
-                          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--mt)", marginBottom: 4 }}>💪 Force</p>
+                          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--mt)", marginBottom: 4 }}>Force</p>
                           <p style={{ fontSize: 13, fontWeight: 700 }}>{carte.force}</p>
                         </div>
                         <div style={{ background: "var(--bg)", borderRadius: 10, padding: "10px 12px" }}>
-                          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--mt)", marginBottom: 4 }}>💔 Faiblesse</p>
+                          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--mt)", marginBottom: 4 }}>Faiblesse</p>
                           <p style={{ fontSize: 13, fontWeight: 700 }}>{carte.faiblesse}</p>
                         </div>
                       </div>
                     ) : null}
-                    {carte?.style && <p style={{ fontSize: 12, color: "var(--mt)", marginBottom: 8 }}>👗 {carte.style}</p>}
-                    <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5, borderTop: "1px solid var(--bo)", paddingTop: 10 }}>🔒 {perso.secret}</p>
-                    {perso.arc && <p style={{ fontSize: 12, color: "var(--tx)", lineHeight: 1.5, marginTop: 6 }}>📈 {perso.arc}</p>}
+                    {carte?.style && <p style={{ fontSize: 12, color: "var(--mt)", marginBottom: 8 }}>{carte.style}</p>}
+                    <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5, borderTop: "1px solid var(--bo)", paddingTop: 10, borderLeft: "2px solid #E85C3A22", paddingLeft: 8 }}>{perso.secret}</p>
+                    {perso.arc && <p style={{ fontSize: 12, color: "var(--tx)", lineHeight: 1.5, marginTop: 6 }}>{perso.arc}</p>}
                   </div>
                 </div>
               );
@@ -3011,7 +3012,7 @@ export default function App() {
       {screen !== "tour" && (
         <div style={{ position: "fixed", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 10 }}>
           <button onClick={toggleLang} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, padding: "3px 8px", fontSize: 11, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>{lang === "fr" ? "EN" : "FR"}</button>
-          <button onClick={() => setDarkMode(d => !d)} style={{ background: "none", border: "none", fontSize: 18, cursor: "pointer", lineHeight: 1 }} title={darkMode ? "Mode jour" : "Mode nuit"}>{darkMode ? "☀️" : "🌙"}</button>
+          <button onClick={() => setDarkMode(d => !d)} style={{ background: "none", border: "1px solid var(--bo)", color: "var(--mt)", fontSize: 11, fontWeight: 700, cursor: "pointer", padding: "4px 10px", borderRadius: 6, letterSpacing: 0.5, fontFamily: "var(--sans)" }} title={darkMode ? "Mode jour" : "Mode nuit"}>{darkMode ? "Jour" : "Nuit"}</button>
           <button onClick={logout} style={{ background: "none", border: "none", fontSize: 12, color: "var(--mt)", cursor: "pointer" }}>{t.logout}</button>
         </div>
       )}
