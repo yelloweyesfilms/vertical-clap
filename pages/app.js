@@ -2044,7 +2044,6 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
       <div style={{ padding: "0 20px 40px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
           <LoadingVC msg="Génération de 3 versions en parallèle…" />
-          </div>
         ) : (variations || []).map((v, i) => (
           <div key={i} style={{ background: "var(--card)", borderRadius: 16, padding: 18, marginBottom: 16, border: "1.5px solid var(--bo)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
@@ -2102,7 +2101,6 @@ function AfficheView({ affiche, loading, bible, onBack, t }) {
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
           <LoadingVC msg={t.affiche_loading} />
-          </div>
         ) : affiche ? (
           <>
             {/* — 1. AFFICHE — */}
