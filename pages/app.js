@@ -206,6 +206,46 @@ const UNIVERSE_PACKS = [
     genre: "Sci-fi dramatique", ambiance: "🧠 Psychologique & Lent",
     tropes: "IA qui développe des émotions, clone identique, réalité simulée, souvenirs implantés ou vendus, influenceur virtuel, surveillance totale, humanité questionnée",
   },
+  {
+    id: "pack-netflix", emoji: "🎬", mode: "premium",
+    label: { fr: "Pack Netflix", en: "Netflix Pack" },
+    desc: { fr: "Écriture ciné — silences lourds, dilemmes moraux, personnages à double fond.", en: "Cinematic writing — heavy silences, moral dilemmas, layered characters." },
+    casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Cinéma & Pouvoir", en: "Film & Power" }, secret: { fr: "Manipulation psychologique", en: "Psychological manipulation" },
+    genre: "Drame cinématographique", ambiance: "🎬 Cinématographique & Contemplatif",
+    tropes: "slow burn, ambiguïté morale, personnage en quête de rédemption, retournement de situation, monologue puissant, révélation de backstory, fin ouverte, anti-héros attachant, sacrifice inattendu",
+  },
+  {
+    id: "pack-euphoria", emoji: "🌈", mode: "fast",
+    label: { fr: "Pack Euphoria", en: "Euphoria Pack" },
+    desc: { fr: "Néons + teen drama — addiction, trauma, amitiés toxiques et fêtes qui déraillent.", en: "Neon + teen drama — addiction, trauma, toxic friendships and parties gone wrong." },
+    casting: { fr: "Trio Teenagers", en: "Teen trio" }, univers: { fr: "Lycée & Secrets", en: "High school secrets" }, secret: { fr: "Addiction dissimulée", en: "Concealed addiction" },
+    genre: "Teen drama néon", ambiance: "⚡ Intense & Direct",
+    tropes: "addiction cachée, fête qui déraille, trauma d'enfance révélé, voix off introspective, esthétique néon, amitié qui vire à la toxicité, identité de genre, relation prof-élève, secrets de famille explosifs",
+  },
+  {
+    id: "pack-squid-game", emoji: "🟩", mode: "premium",
+    label: { fr: "Pack Squid Game", en: "Squid Game Pack" },
+    desc: { fr: "Défis à enjeux mortels, trahisons calculées, argent contre dignité.", en: "High-stakes challenges, calculated betrayals, money versus dignity." },
+    casting: { fr: "Trio mixte", en: "Mixed trio" }, univers: { fr: "Expérience secrète", en: "Secret experiment" }, secret: { fr: "Dette de sang", en: "Blood debt" },
+    genre: "Survival drama", ambiance: "🧠 Psychologique & Lent",
+    tropes: "jeu de survie mortel, alliance fragile, trahison au dernier moment, règles cachées révélées progressivement, désespoir financier, sacrifice d'un allié, identité masquée, organisateur mystérieux, twist sur l'organisateur",
+  },
+  {
+    id: "pack-gossip-girl", emoji: "💌", mode: "fast",
+    label: { fr: "Pack Gossip Girl", en: "Gossip Girl Pack" },
+    desc: { fr: "Voix off mystérieuse, élite toxique, scandales qui explosent — XOXO.", en: "Mystery voiceover, toxic elite, exploding scandals — XOXO." },
+    casting: { fr: "Trio mixte", en: "Mixed trio" }, univers: { fr: "Mode & Influence", en: "Fashion & Influence" }, secret: { fr: "Double vie", en: "Double life" },
+    genre: "Drama élite avec voix off", ambiance: "💜 Émotionnel & Poétique",
+    tropes: "voix off omnisciente et mystérieuse, commérage explosif, identité secrète du narrateur, rivalité entre héritières, trahison entre meilleurs amis, scandale médiatique, vie de façade vs réalité, romance interdite dans l'élite",
+  },
+  {
+    id: "pack-black-mirror", emoji: "📲", mode: "premium",
+    label: { fr: "Pack Black Mirror", en: "Black Mirror Pack" },
+    desc: { fr: "Technologie qui dérape — réseaux comme arme, identité volée, surveillance totale.", en: "Technology gone wrong — social media as weapon, stolen identity, total surveillance." },
+    casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Boucle temporelle", en: "Time loop" }, secret: { fr: "Identité volée", en: "Stolen identity" },
+    genre: "Techno-thriller dystopique", ambiance: "🧠 Psychologique & Lent",
+    tropes: "réseau social transformé en arme de destruction, identité numérique volée ou clonée, surveillance de masse découverte, twist technologique en fin d'épisode, déshumanisation progressive, réalité augmentée qui piège, boucle temporelle avec conséquences, IA malveillante cachée",
+  },
 ];
 
 // ── API HELPER ───────────────────────────────────────────────
