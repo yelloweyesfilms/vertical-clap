@@ -67,6 +67,7 @@ const FAQ = [
 
 export default function Tarifs() {
   const [billing, setBilling] = useState("monthly");
+  const [planTab, setPlanTab] = useState("storyteller");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
@@ -213,119 +214,177 @@ export default function Tarifs() {
           )}
         </div>
 
-        {/* PLANS */}
+        {/* PLANS — onglets Creator / Storyteller */}
         <div className="page-pad" style={{ padding: "0 40px 80px" }}>
-          <div className="plans-grid" style={{ maxWidth: 860, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+          <div style={{ maxWidth: 520, margin: "0 auto" }}>
 
-            {/* STANDARD */}
-            <div className="glass" style={{ borderRadius: 28, padding: "40px 36px", position: "relative", overflow: "hidden" }}>
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${RED}, transparent)` }} />
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 16 }}>Creator</p>
-              <div style={{ display: "flex", alignItems: "flex-end", gap: 8, marginBottom: 4 }}>
-                <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 64, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
-                  {billing === "annual" ? "7.5€" : "9€"}
-                </div>
-                {billing === "annual" && <span style={{ fontSize: 15, color: MUTED, marginBottom: 12, textDecoration: "line-through" }}>9€</span>}
-              </div>
-              <p style={{ color: MUTED, fontSize: 14, marginBottom: billing === "annual" ? 6 : 32 }}>/mois</p>
-              {billing === "annual" && <p style={{ fontSize: 13, color: "#4ade80", fontWeight: 600, marginBottom: 28 }}>facturé 90€/an</p>}
-              <button onClick={() => startCheckout("standard", "tarifs")} disabled={loading}
-                style={{ width: "100%", background: RED, color: "#fff", border: "none", padding: "15px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 24px rgba(232,92,58,0.35)`, transition: "all .2s" }}>
-                {loading ? "Redirection…" : "Commencer Creator →"}
-              </button>
-              <div style={{ height: 1, background: BORDER, margin: "28px 0" }} />
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                {[
-                  "⚡ Vertical Drama · micro-drama",
-                  "20 épisodes par série",
-                  "Scripts prêts à tourner (9:16)",
-                  "Affiche IA incluse",
-                  "Mode Tournage + Téléprompteur",
-                  "Traduction en 8 langues",
-                  "Sauvegarde cloud",
-                  "Export PDF",
-                ].map((item, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-                    <div style={{ marginTop: 1 }}><Check /></div>
-                    <span style={{ color: MUTED, fontSize: 14, lineHeight: 1.5 }}>{item}</span>
-                  </div>
-                ))}
-              </div>
+            {/* Tab switcher */}
+            <div style={{ display: "flex", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 18, padding: 5, gap: 5, marginBottom: 28 }}>
+              {[
+                { id: "creator", emoji: "⚡", label: "Creator", price: billing === "annual" ? "7.5€" : "9€", color: RED },
+                { id: "storyteller", emoji: "🎭", label: "Storyteller", price: billing === "annual" ? "14.9€" : "19€", color: VIO, badge: "⭐" },
+              ].map(tab => {
+                const active = planTab === tab.id;
+                return (
+                  <button key={tab.id} onClick={() => setPlanTab(tab.id)} style={{
+                    flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
+                    padding: "14px 8px", borderRadius: 13, border: "none",
+                    background: active ? (tab.id === "storyteller" ? `linear-gradient(135deg, ${RED}22, ${VIO}22)` : `${RED}18`) : "transparent",
+                    boxShadow: active ? `inset 0 0 0 1.5px ${tab.color}55` : "none",
+                    cursor: "pointer", transition: "all .2s", fontFamily: "'Space Grotesk', sans-serif",
+                  }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      <span style={{ fontSize: 18 }}>{tab.emoji}</span>
+                      <span style={{ fontSize: 15, fontWeight: 800, color: active ? tab.color : MUTED }}>{tab.label}</span>
+                      {tab.badge && <span style={{ fontSize: 11 }}>{tab.badge}</span>}
+                    </div>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: active ? TEXT : MUTED }}>{tab.price}<span style={{ fontWeight: 400, fontSize: 11 }}>/mois</span></span>
+                  </button>
+                );
+              })}
             </div>
 
-            {/* PREMIUM */}
-            <div style={{ borderRadius: 28, padding: "40px 36px", position: "relative", overflow: "hidden", background: "rgba(168,85,247,0.05)", border: "1.5px solid rgba(168,85,247,0.28)", boxShadow: "0 0 60px rgba(168,85,247,0.10)" }}>
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${VIO}, ${RED})` }} />
-              <div style={{ position: "absolute", top: -14, left: "50%", transform: "translateX(-50%)", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 18px", borderRadius: 20, letterSpacing: 1.5, whiteSpace: "nowrap" }}>⭐ RECOMMANDÉ</div>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 16 }}>Storyteller</p>
-              <div style={{ display: "flex", alignItems: "flex-end", gap: 8, marginBottom: 4 }}>
-                <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 64, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
-                  {billing === "annual" ? "14.9€" : "19€"}
-                </div>
-                {billing === "annual" && <span style={{ fontSize: 15, color: MUTED, marginBottom: 12, textDecoration: "line-through" }}>19€</span>}
-              </div>
-              <p style={{ color: MUTED, fontSize: 14, marginBottom: billing === "annual" ? 6 : 32 }}>/mois</p>
-              {billing === "annual" && <p style={{ fontSize: 13, color: "#4ade80", fontWeight: 600, marginBottom: 28 }}>facturé 179€/an</p>}
-              <button onClick={() => startCheckout("premium", "tarifs")} disabled={loading}
-                style={{ width: "100%", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", padding: "15px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 32px rgba(168,85,247,0.3), 0 0 16px rgba(232,92,58,0.2)`, transition: "all .2s" }}>
-                {loading ? "Redirection…" : "Commencer Storyteller →"}
-              </button>
-              <div style={{ height: 1, background: "rgba(168,85,247,0.15)", margin: "28px 0" }} />
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                {[
-                  { t: "⚡ Vertical + 🎭 Série Premium", highlight: true },
-                  { t: "Jusqu'à 90 épisodes par série", highlight: true },
-                  { t: "Scripts prêts à tourner (9:16)", highlight: false },
-                  { t: "Affiche IA incluse", highlight: false },
-                  { t: "Mode Tournage + Téléprompteur", highlight: false },
-                  { t: "3 variations par script", highlight: true },
-                  { t: "Générateur de titres viraux", highlight: true },
-                  { t: "Fiche technique de production", highlight: true },
-                  { t: "Traduction en 8 langues", highlight: false },
-                  { t: "Sauvegarde cloud", highlight: false },
-                  { t: "Export PDF", highlight: false },
-                ].map(({ t, highlight }, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-                    <div style={{ marginTop: 1 }}><Check color={VIO} /></div>
-                    <span style={{ color: highlight ? TEXT : MUTED, fontSize: 14, lineHeight: 1.5, fontWeight: highlight ? 600 : 400 }}>{t}</span>
+            {/* Creator plan */}
+            {planTab === "creator" && (
+              <div className="glass" style={{ borderRadius: 24, padding: "36px 32px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${RED}, transparent)` }} />
+                <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 4 }}>
+                  <div>
+                    <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 8 }}>Creator</p>
+                    <div style={{ display: "flex", alignItems: "flex-end", gap: 6 }}>
+                      <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 56, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
+                        {billing === "annual" ? "7.5€" : "9€"}
+                      </span>
+                      {billing === "annual" && <span style={{ fontSize: 14, color: MUTED, marginBottom: 10, textDecoration: "line-through" }}>9€</span>}
+                      <span style={{ fontSize: 14, color: MUTED, marginBottom: 10 }}>/mois</span>
+                    </div>
+                    {billing === "annual" && <p style={{ fontSize: 12, color: "#4ade80", fontWeight: 600, marginTop: 4 }}>facturé 90€/an</p>}
                   </div>
-                ))}
+                  <div style={{ fontSize: 11, color: MUTED, textAlign: "right", lineHeight: 1.6 }}>
+                    Pour créateurs<br />TikTok · Reels · Shorts
+                  </div>
+                </div>
+                <button onClick={() => startCheckout("standard", "tarifs")} disabled={loading}
+                  style={{ width: "100%", background: RED, color: "#fff", border: "none", padding: "16px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 24px rgba(232,92,58,0.35)`, transition: "all .2s", marginTop: 24 }}>
+                  {loading ? "Redirection…" : "Commencer Creator →"}
+                </button>
+                <div style={{ height: 1, background: BORDER, margin: "24px 0" }} />
+                <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
+                  {[
+                    { t: "⚡ Vertical Drama · micro-drama", hi: true },
+                    { t: "20 épisodes par série", hi: true },
+                    { t: "Scripts 9:16 prêts à tourner", hi: false },
+                    { t: "Hook 3 sec + Cliffhanger automatique", hi: false },
+                    { t: "Affiche IA (9:16)", hi: false },
+                    { t: "Mode Tournage + Téléprompteur", hi: false },
+                    { t: "Traduction en 8 langues", hi: false },
+                    { t: "Sauvegarde cloud multi-appareils", hi: false },
+                    { t: "Export PDF", hi: false },
+                  ].map(({ t: feat, hi }, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <Check />
+                      <span style={{ color: hi ? TEXT : MUTED, fontSize: 14, fontWeight: hi ? 600 : 400 }}>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ marginTop: 20, padding: "14px 16px", borderRadius: 12, background: `${RED}10`, border: `1px solid ${RED}25` }}>
+                  <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.6 }}>
+                    <span style={{ color: RED, fontWeight: 700 }}>Pas inclus : </span>
+                    Série Premium · 3 variations · Titres viraux · Direction Artistique · Fiche de production
+                    {" "}<button onClick={() => setPlanTab("storyteller")} style={{ background: "none", border: "none", color: VIO, fontWeight: 700, cursor: "pointer", fontSize: 12, padding: 0 }}>→ Voir Storyteller</button>
+                  </p>
+                </div>
               </div>
-            </div>
-          </div>
+            )}
 
-          {/* Trust row */}
-          <div style={{ display: "flex", justifyContent: "center", gap: 28, flexWrap: "wrap", marginTop: 28 }}>
-            {[
-              { icon: "🔒", label: "Stripe · Paiement sécurisé" },
-              { icon: "✓", label: "Annulable en 1 clic" },
-              { icon: "⚡", label: "Accès immédiat" },
-              { icon: "🛡️", label: "Données chiffrées" },
-            ].map(({ icon, label }) => (
-              <div key={label} style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 13, color: MUTED }}>
-                <span style={{ color: "#4ade80", fontSize: 14 }}>{icon}</span>
-                {label}
+            {/* Storyteller plan */}
+            {planTab === "storyteller" && (
+              <div style={{ borderRadius: 24, padding: "36px 32px", position: "relative", overflow: "hidden", background: "rgba(168,85,247,0.04)", border: `1.5px solid rgba(168,85,247,0.28)`, boxShadow: `0 0 60px rgba(168,85,247,0.08)` }}>
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${VIO}, ${RED})` }} />
+                <div style={{ position: "absolute", top: -12, right: 24, background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 14px", borderRadius: 20, letterSpacing: 1.5 }}>⭐ RECOMMANDÉ</div>
+                <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 4 }}>
+                  <div>
+                    <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 8 }}>Storyteller</p>
+                    <div style={{ display: "flex", alignItems: "flex-end", gap: 6 }}>
+                      <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 56, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
+                        {billing === "annual" ? "14.9€" : "19€"}
+                      </span>
+                      {billing === "annual" && <span style={{ fontSize: 14, color: MUTED, marginBottom: 10, textDecoration: "line-through" }}>19€</span>}
+                      <span style={{ fontSize: 14, color: MUTED, marginBottom: 10 }}>/mois</span>
+                    </div>
+                    {billing === "annual" && <p style={{ fontSize: 12, color: "#4ade80", fontWeight: 600, marginTop: 4 }}>facturé 179€/an</p>}
+                  </div>
+                  <div style={{ fontSize: 11, color: MUTED, textAlign: "right", lineHeight: 1.6 }}>
+                    Pour showrunners<br />Séries · Univers · Ambition
+                  </div>
+                </div>
+                <button onClick={() => startCheckout("premium", "tarifs")} disabled={loading}
+                  style={{ width: "100%", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", padding: "16px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 32px rgba(168,85,247,0.3)`, transition: "all .2s", marginTop: 24 }}>
+                  {loading ? "Redirection…" : "Commencer Storyteller →"}
+                </button>
+                <div style={{ height: 1, background: "rgba(168,85,247,0.15)", margin: "24px 0" }} />
+                <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
+                  {[
+                    { t: "⚡ Vertical Drama + 🎭 Série Premium", hi: true },
+                    { t: "Jusqu'à 90 épisodes par série", hi: true },
+                    { t: "🎨 Direction Artistique (émotion, rythme, narration…)", hi: true },
+                    { t: "🎲 3 variations par script (Intense / Subtil / Rapide)", hi: true },
+                    { t: "🔥 Générateur de titres viraux", hi: true },
+                    { t: "🎬 Fiche technique de production", hi: true },
+                    { t: "Scripts 9:16 prêts à tourner", hi: false },
+                    { t: "Affiche IA (9:16)", hi: false },
+                    { t: "Mode Tournage + Téléprompteur", hi: false },
+                    { t: "Traduction en 8 langues", hi: false },
+                    { t: "Sauvegarde cloud multi-appareils", hi: false },
+                    { t: "Export PDF", hi: false },
+                  ].map(({ t: feat, hi }, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <Check color={VIO} />
+                      <span style={{ color: hi ? TEXT : MUTED, fontSize: 14, fontWeight: hi ? 600 : 400 }}>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ marginTop: 20, padding: "14px 16px", borderRadius: 12, background: `${VIO}08`, border: `1px solid ${VIO}20` }}>
+                  <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.6 }}>
+                    <span style={{ color: VIO, fontWeight: 700 }}>Tout Creator, plus : </span>
+                    Série Premium · Direction Artistique · 3 variations · Titres viraux · Fiche de production · 90 épisodes
+                  </p>
+                </div>
               </div>
-            ))}
+            )}
+
+            {/* Trust row */}
+            <div style={{ display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap", marginTop: 24 }}>
+              {[
+                { icon: "🔒", label: "Stripe · Sécurisé" },
+                { icon: "✓", label: "Sans engagement" },
+                { icon: "⚡", label: "Accès immédiat" },
+                { icon: "🛡️", label: "Données chiffrées" },
+              ].map(({ icon, label }) => (
+                <div key={label} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: MUTED }}>
+                  <span style={{ color: "#4ade80", fontSize: 13 }}>{icon}</span>
+                  {label}
+                </div>
+              ))}
+            </div>
+            <p style={{ textAlign: "center", fontSize: 12, color: MUTED, marginTop: 12 }}>
+              Teste gratuitement dans les <a href="/exemples" style={{ color: VIO, fontWeight: 600 }}>Exemples</a> avant de t'abonner.
+            </p>
           </div>
-          <p style={{ textAlign: "center", fontSize: 12, color: MUTED, marginTop: 12 }}>
-            Teste gratuitement dans les <a href="/exemples" style={{ color: VIO, fontWeight: 600 }}>Exemples</a> avant de t'abonner.
-          </p>
         </div>
 
-        {/* COMPARISON TABLE */}
+        {/* COMPARISON TABLE — desktop only, updated labels */}
         <div className="compare-table" style={{ borderTop: `1px solid ${BORDER}`, padding: "80px 40px" }}>
           <div style={{ maxWidth: 860, margin: "0 auto" }}>
             <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 12 }}>Comparaison</p>
             <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 900, textAlign: "center", marginBottom: 48, letterSpacing: -1.5, lineHeight: 1.1, color: TEXT }}>
-              Standard vs Premium<br /><span style={{ fontStyle: "italic", color: MUTED }}>en détail.</span>
+              Creator vs Storyteller<br /><span style={{ fontStyle: "italic", color: MUTED }}>en détail.</span>
             </h2>
             <div style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, overflow: "hidden" }}>
-              {/* Header */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 140px 140px", borderBottom: `1px solid ${BORDER}`, padding: "18px 24px" }}>
                 <div style={{ fontSize: 11, fontWeight: 700, color: MUTED, letterSpacing: 2, textTransform: "uppercase" }}>Fonctionnalité</div>
-                <div style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: TEXT }}>Standard</div>
-                <div style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: VIO }}>Premium</div>
+                <div style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: RED }}>⚡ Creator</div>
+                <div style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: VIO }}>🎭 Storyteller</div>
               </div>
               {FEATURES.map(({ label, std, prem }, i) => (
                 <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 140px 140px", padding: "14px 24px", borderBottom: i < FEATURES.length - 1 ? `1px solid ${BORDER}` : "none", background: i % 2 === 0 ? "rgba(255,255,255,0.01)" : "transparent" }}>
