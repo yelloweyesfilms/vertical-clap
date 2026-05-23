@@ -1127,12 +1127,19 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
       <div style={{ background: "var(--card)", borderBottom: "1px solid var(--bo)", padding: "12px 16px 10px", flexShrink: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
           <VCLogo />
-          {/* Plan badge */}
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <span style={{ fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, padding: "3px 8px", borderRadius: 20, letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: "var(--sans)" }}>
-              {plan === "standard" ? (lang === "en" ? "Creator · 9€" : "Créateur · 9€") : (lang === "en" ? "Premium · 19€" : "Premium · 19€")}
+          {/* Plan badge — cliquable */}
+          <button onClick={async () => {
+            if (plan === "standard") { onUpgrade("serie"); return; }
+            try { const r = await fetch("/api/portal", { method: "POST" }); const d = await r.json(); if (d.url) window.location.href = d.url; } catch {}
+          }} style={{ display: "flex", alignItems: "center", gap: 5, background: plan === "standard" ? "rgba(232,92,58,0.08)" : "rgba(168,85,247,0.08)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.25)" : "rgba(168,85,247,0.25)"}`, borderRadius: 20, padding: "4px 10px 4px 8px", cursor: "pointer" }}>
+            <span style={{ fontSize: 9, color: "var(--mt)", fontWeight: 600, fontFamily: "var(--sans)", textTransform: "uppercase", letterSpacing: 1 }}>
+              {lang === "en" ? "Plan" : "Plan"}
             </span>
-          </div>
+            <span style={{ fontSize: 10, fontWeight: 800, color: plan === "standard" ? "#E85C3A" : "#a855f7", letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: "var(--sans)" }}>
+              {plan === "standard" ? (lang === "en" ? "Creator" : "Créateur") : "Premium"}
+            </span>
+            <span style={{ fontSize: 9, color: plan === "standard" ? "#E85C3A" : "#a855f7", opacity: 0.6 }}>›</span>
+          </button>
         </div>
         {/* Mode switcher */}
         <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
