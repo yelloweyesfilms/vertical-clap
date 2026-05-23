@@ -25,12 +25,12 @@ const DUR_SCENES = { 60: 5, 90: 7, 120: 10 };
 // ── TRANSLATIONS ────────────────────────────────────────────
 const T = {
   fr: {
-    mode_fast: "⚡ Fast Drama", mode_premium: "🎭 Premium Suspense",
+    mode_fast: "⚡ Vertical", mode_premium: "🎭 Série",
     casting: "Casting", univers: "Univers", secret: "Secret central",
     duree: "Durée par épisode", episodes: "Nombre d'épisodes",
     style: "Style de script", drama: "🎚 Drama Engine", drama_sub: "Dose les ingrédients de ta série",
-    generate: "▶ Générer la série", my_series: "📂 Mes séries sauvegardées",
-    content: "min de contenu", max_fast: "max 20 en Fast",
+    generate: "▶ Créer la série", my_series: "📂 Mes séries",
+    content: "min de contenu", max_fast: "max 20 en Vertical",
     back_mixer: "← Studio", see_eps: "Voir les", episodes_btn: "épisodes →",
     poster_btn: "Affiche", bible_tab: "Bible", persos_tab: "Casting", titres_tab: "Titres alternatifs", titres_locked: "🔒 Titres",
     question_centrale: "Tension centrale", personnages: "Personnages",
@@ -101,12 +101,12 @@ const T = {
     remake_sub: "— adapte l'ADN d'une série connue",
   },
   en: {
-    mode_fast: "⚡ Fast Drama", mode_premium: "🎭 Premium Suspense",
+    mode_fast: "⚡ Vertical", mode_premium: "🎭 Series",
     casting: "Casting", univers: "Setting", secret: "Central secret",
     duree: "Episode duration", episodes: "Number of episodes",
     style: "Script style", drama: "🎚 Drama Engine", drama_sub: "Tune your series ingredients",
-    generate: "▶ Generate series", my_series: "📂 My saved series",
-    content: "min of content", max_fast: "max 20 in Fast",
+    generate: "▶ Create series", my_series: "📂 My series",
+    content: "min of content", max_fast: "max 20 in Vertical",
     back_mixer: "← Studio", see_eps: "See all", episodes_btn: "episodes →",
     poster_btn: "Poster", bible_tab: "Bible", persos_tab: "Cast", titres_tab: "Alt. Titles", titres_locked: "🔒 Titles",
     question_centrale: "Central tension", personnages: "Characters",
@@ -884,12 +884,12 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       {/* Header */}
       <div style={{ background: "var(--tx)", padding: "28px 20px 24px" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
           <VCLogo />
           <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>STUDIO</span>
         </div>
-        <p style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", marginBottom: 20, letterSpacing: 0.3 }}>
-          {"Create stories for every screen."}
+        <p style={{ fontFamily: "var(--serif)", fontSize: 16, fontStyle: "italic", color: "rgba(255,255,255,0.65)", marginBottom: 22, letterSpacing: 0.2, lineHeight: 1.3 }}>
+          Create stories for every screen.
         </p>
         <div style={{ display: "flex", background: "rgba(255,255,255,0.07)", borderRadius: 12, padding: 4 }}>
           {[{ k: "fast", l: t.mode_fast }, { k: "premium", l: t.mode_premium }].map(({ k, l }) => {

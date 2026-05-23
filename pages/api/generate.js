@@ -54,7 +54,7 @@ function validatePayload(action, payload) {
     if (!VALID_MODES.includes(mode)) return "Mode invalide";
     if (!VALID_DUREES.includes(duree)) return "Durée invalide";
     if (!VALID_FORMATS.includes(format)) return "Format invalide";
-    if (mode === "fast" && format > 20) return "Le mode Fast est limité à 20 épisodes. Passez en Premium Suspense pour créer jusqu'à 90 épisodes.";
+    if (mode === "fast" && format > 20) return "Le mode Vertical est limité à 20 épisodes. Passez en mode Série pour créer jusqu'à 90 épisodes.";
     if (typeof casting !== "string" || casting.length > 100) return "Casting invalide";
     if (typeof univers !== "string" || univers.length > 100) return "Univers invalide";
     if (typeof secret !== "string" || secret.length > 100) return "Secret invalide";
@@ -220,7 +220,7 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: "Cette fonctionnalité est réservée au plan Premium. Passez à Premium pour débloquer les variations et les titres viraux." });
   }
   if (plan === "standard" && action === "bible" && payload?.mode === "premium") {
-    return res.status(403).json({ error: "Le mode Premium Suspense est réservé au plan Premium." });
+    return res.status(403).json({ error: "Le mode Série est réservé au plan Premium." });
   }
   if (plan === "standard" && action === "bible" && payload?.format > 20) {
     return res.status(403).json({ error: "Le plan Standard est limité à 20 épisodes. Passez à Premium pour créer jusqu'à 90 épisodes." });
@@ -238,8 +238,8 @@ export default async function handler(req, res) {
       const cached = getCached(ck);
       if (cached) return res.json(cached);
       const md = mode === "fast"
-        ? "Fast Drama: viralité immédiate, émotions explosives, hooks agressifs, cliffhangers choc"
-        : "Premium Suspense: tension psychologique, sous-texte riche, silences éloquents, réalisme brut";
+        ? "Vertical Drama: rythme haletant, émotions explosives, hooks dévastateurs, cliffhangers choc — format court optimisé mobile"
+        : "Série Premium: tension psychologique profonde, sous-texte riche, silences éloquents, réalisme cinématographique";
       const genreInstr = genre ? `Genre: ${genre} — respecte les codes émotionnels et narratifs de ce genre.` : "";
       const lieuInstr = lieu ? `Lieu principal: "${lieu}" — les scènes se déroulent dans ce lieu limité, exploite l'espace pour créer la tension et la claustrophobie dramatique.` : "";
       const ambianceMap = { "⚡ Intense & Direct": "Ton INTENSE ET DIRECT: dialogues percutants, confrontations frontales, émotions à fleur de peau, rythme rapide.", "💜 Émotionnel & Poétique": "Ton ÉMOTIONNEL ET POÉTIQUE: dialogues touchants, métaphores, profondeur des sentiments, moments de vulnérabilité.", "🧠 Psychologique & Lent": "Ton PSYCHOLOGIQUE ET LENT: sous-texte riche, silences significatifs, manipulation subtile, tension qui monte sans éclater." };
@@ -274,8 +274,8 @@ export default async function handler(req, res) {
       const cached = getCached(ck);
       if (cached) return res.json(cached);
       const md = mode === "fast"
-        ? "Fast Drama: viralité immédiate, émotions frontales"
-        : "Premium Suspense: tension psychologique, sous-texte";
+        ? "Vertical Drama: rythme court, émotions frontales, format mobile"
+        : "Série Premium: tension psychologique, sous-texte profond";
       const tFrom = Math.max(1, Math.round(from * 10 / total));
       const tTo = Math.min(10, Math.round(to * 10 / total));
       const langInstr = buildLangInstr(lang);
@@ -292,8 +292,8 @@ export default async function handler(req, res) {
     if (action === "script") {
       const { ep, bible, mode, duree, prevEps, lang, ambianceVisuelle: scriptAV, budgetInstr } = payload;
       const md = mode === "fast"
-        ? "Fast Drama: émotions explosives, confrontations directes, cliffhangers choc"
-        : "Premium Suspense: sous-texte intense, silences signifiants, tension qui monte progressivement";
+        ? "Vertical Drama: émotions explosives, confrontations directes, cliffhangers choc"
+        : "Série Premium: sous-texte intense, silences signifiants, tension dramatique progressive";
       const maxS = duree <= 60 ? 8 : duree <= 90 ? 11 : 15;
       const persos = (bible.personnages || []).map(p => `${p.nom} (${p.role}${p.secret ? `, secret: ${p.secret}` : ""})`).join(", ");
       const prevEpsInstr = prevEps && prevEps.length > 0
@@ -388,7 +388,7 @@ export default async function handler(req, res) {
     if (action === "production") {
       const { titre, logline, personnages, mode } = payload;
       const persos = (personnages || []).map(p => `${p.nom} (${p.role}, ${p.age} ans)`).join(", ");
-      const md = mode === "fast" ? "Fast Drama — décors minimalistes, émotions frontales" : "Premium Suspense — décors évocateurs, atmosphère soignée";
+      const md = mode === "fast" ? "Vertical Drama — décors minimalistes, émotions frontales" : "Série Premium — décors évocateurs, atmosphère cinématographique";
       const result = await callClaude(
         `Tu es directeur artistique expert en micro-dramas 9:16 tournés au smartphone. ${md}. JSON uniquement.`,
         `Série "${titre}". Logline: ${logline}. Personnages: ${persos}.\nGénère une fiche technique de production complète pour tourner avec un smartphone.\nJSON: {"decors":[{"nom":"","description":"","ambiance":"","conseil_tournage":""}],"costumes":[{"personnage":"","look":"","couleurs":"","symbolique":""}],"lieux":[{"type":"","exemples":[""],"lumiere":"","heure_ideale":""}]}`,
