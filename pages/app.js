@@ -1301,9 +1301,9 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         {/* Codes Narratifs */}
         <div style={{ marginBottom: 28 }}>
           <SectionHead sep={false} title={lang === "fr" ? "Codes Narratifs" : "Story Codes"} sub={lang === "fr" ? "Les tropes qui créent l'addiction — choisis plusieurs" : "The tropes that create addiction — pick several"} />
-          {[{ cat: "romance", label: `💘 ${t.tropes_romance}` }, { cat: "drama", label: `🎭 ${t.tropes_drama}` }].map(({ cat, label: catLabel }) => (
+          {[{ cat: "romance", label: t.tropes_romance, color: "#e879a0" }, { cat: "drama", label: t.tropes_drama, color: "var(--n)" }].map(({ cat, label: catLabel, color }) => (
             <div key={cat} style={{ marginBottom: 14 }}>
-              <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 8 }}>{catLabel}</p>
+              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color, marginBottom: 8 }}>{catLabel}</p>
               <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
                 {TROPES.filter(tr => tr.cat === cat).map(tr => {
                   const tLabel = typeof tr.label === "object" ? (tr.label[lang] || tr.label.fr) : tr.label;
@@ -1313,7 +1313,6 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                       const sel = prev.tropesSel || [];
                       return { tropesSel: active ? sel.filter(x => x !== tr.id) : [...sel, tr.id] };
                     })} style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "7px 12px", borderRadius: 100, border: `1.5px solid ${active ? (cat === "romance" ? "#e879a0" : "var(--n)") : "var(--bo)"}`, background: active ? (cat === "romance" ? "#e879a022" : "var(--n)22") : "var(--card)", color: active ? (cat === "romance" ? "#e879a0" : "var(--n)") : "var(--tx)", cursor: "pointer", fontSize: 12, fontWeight: active ? 700 : 500, fontFamily: "var(--sans)", transition: "all .15s" }}>
-                      <span>{tr.emoji}</span>
                       <span>{tLabel}</span>
                     </button>
                   );
@@ -2988,7 +2987,8 @@ export default function App() {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100dvh", overflow: "hidden", background: "var(--bg)" }}>
+    <div style={{ background: "var(--bg)", minHeight: "100dvh", display: "flex", justifyContent: "center" }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100dvh", overflow: "hidden", width: "100%", maxWidth: 480 }}>
       <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}`}</style>
 
       {/* Loading */}
@@ -3023,12 +3023,13 @@ export default function App() {
 
       {/* Top bar: dark mode + lang toggle + logout */}
       {screen !== "tour" && (
-        <div style={{ position: "fixed", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ position: "absolute", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 10 }}>
           <button onClick={toggleLang} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, padding: "3px 8px", fontSize: 11, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>{lang === "fr" ? "EN" : "FR"}</button>
           <button onClick={() => setDarkMode(d => !d)} style={{ background: "none", border: "1px solid var(--bo)", color: "var(--mt)", fontSize: 11, fontWeight: 700, cursor: "pointer", padding: "4px 10px", borderRadius: 6, letterSpacing: 0.5, fontFamily: "var(--sans)" }} title={darkMode ? "Mode jour" : "Mode nuit"}>{darkMode ? "Jour" : "Nuit"}</button>
           <button onClick={logout} style={{ background: "none", border: "none", fontSize: 12, color: "var(--mt)", cursor: "pointer" }}>{t.logout}</button>
         </div>
       )}
+    </div>
     </div>
   );
 }
