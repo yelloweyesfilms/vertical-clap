@@ -18,8 +18,13 @@ const COPY = {
     heroLine1: "Ta série,",
     heroLine2: "virale,",
     heroLine3: "maintenant.",
-    heroSubtitle: "Bible, scripts, hooks et cliffhangers générés en 5 minutes — prêts pour TikTok, DramaBox et ReelShort.",
+    heroTitle: "Du vertical drama",
+    heroTitleItalic: "au cinéma.",
+    heroSubtitle: "Créez des séries, des films et des univers narratifs depuis une seule plateforme.",
+    heroSubtitleOld: "Bible, scripts, hooks et cliffhangers générés en 5 minutes — prêts pour TikTok, DramaBox et ReelShort.",
     canceledMsg: "Paiement annulé. Réessaie quand tu veux.",
+    ctaBtnCreate: "Commencer à créer →",
+    ctaBtnDemo: "Voir les exemples",
     ctaBtn: "Commencer →",
     redirecting: "Redirection…",
     pricingSubline: "9€/mois · Annulable à tout moment · Aucun engagement",
@@ -197,8 +202,13 @@ const COPY = {
     heroLine1: "Your series,",
     heroLine2: "viral,",
     heroLine3: "now.",
-    heroSubtitle: "Bible, scripts, hooks and cliffhangers generated in 5 minutes — ready for TikTok, DramaBox and ReelShort.",
+    heroTitle: "From vertical drama",
+    heroTitleItalic: "to cinema.",
+    heroSubtitle: "Create series, films and narrative universes from one single platform.",
+    heroSubtitleOld: "Bible, scripts, hooks and cliffhangers generated in 5 minutes — ready for TikTok, DramaBox and ReelShort.",
     canceledMsg: "Payment canceled. Try again whenever you're ready.",
+    ctaBtnCreate: "Start creating →",
+    ctaBtnDemo: "See examples",
     ctaBtn: "Get started →",
     redirecting: "Redirecting…",
     pricingSubline: "€9/month · Cancel anytime · No commitment",
@@ -597,6 +607,11 @@ export default function RichLandingPage({ lang = "fr" }) {
           .addiction-layout > div:first-child { max-width: 100% !important; }
           .mock-phone-section { padding: 60px 20px !important; overflow: hidden !important; }
           .pricing-grid { grid-template-columns: 1fr !important; }
+          .hero-two-col { flex-direction: column !important; gap: 40px !important; }
+          .hero-scene { width: 100% !important; max-width: 360px !important; margin: 0 auto !important; }
+        }
+        @media (max-width: 900px) {
+          .hero-scene { width: 340px !important; }
         }
       `}</style>
 
@@ -619,65 +634,183 @@ export default function RichLandingPage({ lang = "fr" }) {
         </nav>
       </div>
 
-      {/* HERO */}
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "100px 40px 60px", position: "relative", overflow: "hidden" }} className="hero-pad">
-        <div style={{ position: "absolute", top: 40, left: "10%", width: 600, height: 600, background: `radial-gradient(circle, rgba(168,85,247,0.09) 0%, transparent 70%)`, pointerEvents: "none" }} />
-        <div style={{ position: "absolute", top: 120, right: "5%", width: 350, height: 350, background: `radial-gradient(circle, rgba(232,92,58,0.08) 0%, transparent 70%)`, pointerEvents: "none" }} />
-
-        <div style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(168,85,247,0.08)", border: "1px solid rgba(168,85,247,0.2)", color: VIO, padding: "7px 18px", borderRadius: 100, fontSize: 12, fontWeight: 600, marginBottom: 40, animation: "glow 3s infinite", letterSpacing: 1 }}>
-            <span style={{ width: 5, height: 5, borderRadius: "50%", background: VIO, display: "inline-block" }} />
-            {c.studioBadge}
-          </div>
-
-          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 900, letterSpacing: -3, marginBottom: 32, color: TEXT, lineHeight: 1 }}>
-            <div style={{ fontSize: "clamp(56px, 11vw, 130px)", lineHeight: 0.92 }}>{c.heroLine1}</div>
-            <div style={{ fontSize: "clamp(56px, 11vw, 130px)", lineHeight: 0.95, background: `linear-gradient(135deg, ${RED} 20%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>{c.heroLine2}</div>
-            <div style={{ fontSize: "clamp(56px, 11vw, 130px)", lineHeight: 0.95, color: TEXT }}>{c.heroLine3}</div>
-          </h1>
-
-          <p style={{ fontSize: "clamp(14px, 1.8vw, 17px)", color: MUTED, maxWidth: 420, margin: "0 auto 52px", lineHeight: 1.7, fontWeight: 400 }}>
-            {c.heroSubtitle}
-          </p>
-
-          {canceled && <p style={{ color: RED, marginBottom: 16, fontSize: 14 }}>{c.canceledMsg}</p>}
-
-          <div className="hero-row" style={{ display: "flex", gap: 10, justifyContent: "center", alignItems: "center", flexWrap: "wrap", marginBottom: emailError ? 6 : 14 }}>
-            <input type="email" placeholder={c.nlEmailPlaceholder} value={email} onChange={e => { setEmail(e.target.value); setEmailError(false); }} onKeyDown={e => e.key === "Enter" && startCheckout()}
-              style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${emailError ? RED : BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 240, outline: "none", backdropFilter: "blur(8px)", transition: "border-color .2s" }} />
-            <GlowBtn onClick={() => startCheckout("standard", "hero")} disabled={loading} gradient>
-              {loading ? c.redirecting : c.ctaBtn}
-            </GlowBtn>
-          </div>
-          {emailError && <p style={{ textAlign: "center", color: RED, fontSize: 13, fontWeight: 600, marginBottom: 8 }}>{c.emailError}</p>}
-          <p style={{ color: MUTED, fontSize: 13, marginBottom: 20 }}>{c.pricingSubline}</p>
-          <div style={{ display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap" }}>
-            {[
-              { icon: "🔒", label: c.trustSecurePayment },
-              { icon: "✓", label: c.trustNoCreditCard },
-              { icon: "⚡", label: c.trustImmediateAccess },
-            ].map(({ icon, label }) => (
-              <div key={label} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: MUTED }}>
-                <span style={{ color: "#4ade80" }}>{icon}</span>
-                {label}
-              </div>
-            ))}
-          </div>
+      {/* HERO — CINEMATIC TWO-COLUMN */}
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "88px 40px 72px", position: "relative", overflow: "hidden" }} className="hero-pad">
+        {/* Atmospheric glows */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, overflow: "hidden", pointerEvents: "none" }}>
+          <div style={{ position: "absolute", top: "15%", left: "2%", width: 560, height: 560, background: "radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 70%)" }} />
+          <div style={{ position: "absolute", top: "30%", right: "2%", width: 420, height: 420, background: "radial-gradient(circle, rgba(232,92,58,0.09) 0%, transparent 70%)" }} />
         </div>
-      </div>
 
-      {/* HERO VISUAL */}
-      <div className="hero-visual-wrap" style={{ maxWidth: 900, margin: "0 auto 0" }}>
-        <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", boxShadow: "0 0 80px rgba(168,85,247,0.15), 0 0 40px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)", border: "1px solid rgba(168,85,247,0.2)" }}>
-          <Image
-            src={c.imgHero}
-            alt="VerticalClap — Ta série prête à tourner en 5 minutes"
-            width={1672}
-            height={941}
-            sizes="100vw"
-            priority
-            style={{ width: "100%", height: "auto", display: "block", borderRadius: 20 }}
-          />
+        <div className="hero-two-col" style={{ position: "relative", zIndex: 1, display: "flex", gap: 60, alignItems: "center", justifyContent: "space-between" }}>
+
+          {/* LEFT — TEXT */}
+          <div style={{ flex: 1, maxWidth: 500 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(168,85,247,0.08)", border: "1px solid rgba(168,85,247,0.2)", color: VIO, padding: "7px 18px", borderRadius: 100, fontSize: 12, fontWeight: 600, marginBottom: 36, animation: "glow 3s infinite", letterSpacing: 1 }}>
+              <span style={{ width: 5, height: 5, borderRadius: "50%", background: VIO, display: "inline-block" }} />
+              {c.studioBadge}
+            </div>
+
+            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 900, letterSpacing: -2, marginBottom: 24, color: TEXT, lineHeight: 1.05, fontSize: "clamp(38px, 4.5vw, 64px)" }}>
+              {c.heroTitle}<br />
+              <span style={{ fontStyle: "italic", background: `linear-gradient(135deg, ${RED} 10%, ${VIO} 90%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{c.heroTitleItalic}</span>
+            </h1>
+
+            <p style={{ fontSize: "clamp(15px, 1.6vw, 18px)", color: MUTED, marginBottom: 44, lineHeight: 1.75, maxWidth: 420 }}>
+              {c.heroSubtitle}
+            </p>
+
+            {canceled && <p style={{ color: RED, marginBottom: 16, fontSize: 14 }}>{c.canceledMsg}</p>}
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                <input type="email" placeholder={c.nlEmailPlaceholder} value={email} onChange={e => { setEmail(e.target.value); setEmailError(false); }} onKeyDown={e => e.key === "Enter" && startCheckout()}
+                  style={{ padding: "15px 18px", borderRadius: 14, border: `1px solid ${emailError ? RED : BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 220, outline: "none", backdropFilter: "blur(8px)", transition: "border-color .2s" }} />
+                <GlowBtn onClick={() => startCheckout("standard", "hero")} disabled={loading} gradient>
+                  {loading ? c.redirecting : c.ctaBtnCreate}
+                </GlowBtn>
+              </div>
+              <div>
+                <a href={lang === "en" ? "/en/exemples" : "/exemples"} style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 14, color: MUTED, fontWeight: 600, padding: "10px 0", transition: "color .2s", textDecoration: "none" }}>
+                  <span style={{ fontSize: 12, color: VIO }}>▶</span>
+                  {c.ctaBtnDemo}
+                </a>
+              </div>
+            </div>
+
+            {emailError && <p style={{ color: RED, fontSize: 13, fontWeight: 600, marginBottom: 12 }}>{c.emailError}</p>}
+
+            <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+              {[
+                { icon: "🔒", label: c.trustSecurePayment },
+                { icon: "✓", label: c.trustImmediateAccess },
+              ].map(({ icon, label }) => (
+                <div key={label} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: MUTED }}>
+                  <span style={{ color: "#4ade80" }}>{icon}</span>
+                  {label}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT — CINEMATIC SCENE */}
+          <div className="hero-scene" style={{ flexShrink: 0, width: 400, position: "relative" }}>
+            <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", aspectRatio: "4/5", background: "linear-gradient(160deg, #0d0418 0%, #1a0830 35%, #2d0a18 60%, #0f080e 100%)", boxShadow: `0 0 80px rgba(168,85,247,0.22), 0 0 40px rgba(232,92,58,0.16), 0 40px 100px rgba(0,0,0,0.8)`, border: `1px solid rgba(168,85,247,0.22)` }}>
+
+              {/* City skyline SVG */}
+              <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.5 }} viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <linearGradient id="streetG" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="transparent" />
+                    <stop offset="100%" stopColor="rgba(8,5,15,0.95)" />
+                  </linearGradient>
+                  <radialGradient id="sunsetGlow" cx="50%" cy="60%" r="60%">
+                    <stop offset="0%" stopColor="rgba(232,92,58,0.18)" />
+                    <stop offset="50%" stopColor="rgba(168,85,247,0.1)" />
+                    <stop offset="100%" stopColor="transparent" />
+                  </radialGradient>
+                </defs>
+                <rect width="400" height="500" fill="url(#sunsetGlow)" />
+                {/* Buildings */}
+                <rect x="0" y="270" width="35" height="230" fill="#07040e" />
+                <rect x="8" y="250" width="12" height="30" fill="#07040e" />
+                <rect x="40" y="220" width="48" height="280" fill="#080511" />
+                <rect x="52" y="200" width="14" height="30" fill="#080511" />
+                <rect x="95" y="255" width="38" height="245" fill="#07040e" />
+                <rect x="140" y="240" width="55" height="260" fill="#09060f" />
+                <rect x="150" y="215" width="18" height="32" fill="#09060f" />
+                <rect x="202" y="228" width="42" height="272" fill="#07040e" />
+                <rect x="250" y="248" width="60" height="252" fill="#080511" />
+                <rect x="268" y="220" width="16" height="36" fill="#080511" />
+                <rect x="316" y="235" width="44" height="265" fill="#07040e" />
+                <rect x="365" y="255" width="50" height="245" fill="#080511" />
+                {/* Windows warm glow */}
+                {[[48,228],[56,245],[62,228],[62,262],[105,270],[110,255],[148,252],[156,237],[165,252],[207,245],[212,260],[212,275],[255,262],[262,248],[275,262],[320,250],[328,265]].map(([x,y],i) => (
+                  <rect key={i} x={x} y={y} width="6" height="8" fill={i%4===0?"rgba(255,140,66,0.55)":i%4===1?"rgba(168,85,247,0.45)":i%4===2?"rgba(255,255,255,0.18)":"rgba(255,140,66,0.3)"} rx="1" />
+                ))}
+                {/* Street overlay */}
+                <rect x="0" y="340" width="400" height="160" fill="url(#streetG)" />
+                {/* Wet street reflections */}
+                <ellipse cx="200" cy="490" rx="260" ry="20" fill="rgba(232,92,58,0.06)" />
+                <ellipse cx="200" cy="495" rx="200" ry="14" fill="rgba(168,85,247,0.05)" />
+              </svg>
+
+              {/* Sunset gradient overlay */}
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "60%", background: "linear-gradient(to top, rgba(232,92,58,0.2) 0%, rgba(168,85,247,0.1) 45%, transparent 100%)", pointerEvents: "none" }} />
+              {/* Top violet haze */}
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(to bottom, rgba(168,85,247,0.18) 0%, transparent 100%)", pointerEvents: "none" }} />
+
+              {/* Two character silhouettes */}
+              <svg style={{ position: "absolute", bottom: 0, left: 0, width: "100%", height: "78%" }} viewBox="0 0 400 390" preserveAspectRatio="xMidYMax meet">
+                {/* Character 1 — Woman, left, slightly back */}
+                <g transform="translate(82, 20)" opacity="0.93">
+                  <ellipse cx="55" cy="270" rx="38" ry="28" fill="#0a0612" />
+                  <ellipse cx="55" cy="195" rx="26" ry="80" fill="#0a0612" />
+                  <rect x="40" y="128" width="30" height="78" rx="15" fill="#0c0818" />
+                  <rect x="51" y="108" width="9" height="22" rx="4.5" fill="#180d26" />
+                  <ellipse cx="55" cy="92" rx="21" ry="25" fill="#180d26" />
+                  <ellipse cx="55" cy="80" rx="23" ry="17" fill="#070410" />
+                  <ellipse cx="40" cy="92" rx="9" ry="22" fill="#070410" />
+                  {/* Rim lights */}
+                  <ellipse cx="34" cy="158" rx="4" ry="62" fill="rgba(232,92,58,0.38)" />
+                  <ellipse cx="34" cy="90" rx="4" ry="20" fill="rgba(232,92,58,0.28)" />
+                  <ellipse cx="76" cy="148" rx="3" ry="56" fill="rgba(168,85,247,0.28)" />
+                  <ellipse cx="76" cy="90" rx="3" ry="18" fill="rgba(168,85,247,0.2)" />
+                </g>
+                {/* Character 2 — Man, center-right, slightly forward / larger */}
+                <g transform="translate(195, 0)" opacity="0.96">
+                  <rect x="38" y="228" width="20" height="88" rx="10" fill="#08040f" />
+                  <rect x="62" y="228" width="20" height="88" rx="10" fill="#08040f" />
+                  <rect x="32" y="138" width="56" height="95" rx="17" fill="#08040f" />
+                  <rect x="20" y="138" width="80" height="28" rx="12" fill="#09050f" />
+                  <rect x="52" y="116" width="12" height="26" rx="6" fill="#130c20" />
+                  <ellipse cx="58" cy="98" rx="26" ry="30" fill="#130c20" />
+                  <ellipse cx="58" cy="79" rx="28" ry="16" fill="#06030b" />
+                  {/* Rim lights */}
+                  <ellipse cx="102" cy="168" rx="5" ry="68" fill="rgba(232,92,58,0.42)" />
+                  <ellipse cx="102" cy="96" rx="4" ry="26" fill="rgba(232,92,58,0.32)" />
+                  <ellipse cx="18" cy="158" rx="4" ry="62" fill="rgba(168,85,247,0.34)" />
+                  <ellipse cx="18" cy="96" rx="3.5" ry="24" fill="rgba(168,85,247,0.28)" />
+                </g>
+                {/* Ground shadows */}
+                <ellipse cx="175" cy="384" rx="170" ry="10" fill="rgba(0,0,0,0.55)" />
+                {/* Light spill between characters */}
+                <line x1="195" y1="100" x2="195" y2="360" stroke="rgba(232,92,58,0.08)" strokeWidth="30" />
+              </svg>
+
+              {/* Floating MIXEUR NARRATIF panel */}
+              <div style={{ position: "absolute", top: 22, right: 18, background: "rgba(8,8,14,0.88)", border: "1px solid rgba(168,85,247,0.32)", borderRadius: 16, padding: "14px 18px", backdropFilter: "blur(20px)", boxShadow: "0 0 32px rgba(168,85,247,0.18)", minWidth: 140 }}>
+                <p style={{ fontSize: 8, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 14, fontFamily: "'Space Grotesk', sans-serif" }}>MIXEUR NARRATIF</p>
+                {[
+                  { label: lang === "fr" ? "Romance" : "Romance", value: 7, color: "#e879f9" },
+                  { label: lang === "fr" ? "Tension" : "Tension", value: 9, color: RED },
+                  { label: lang === "fr" ? "Mystère" : "Mystery", value: 6, color: VIO },
+                ].map(({ label, value, color }) => (
+                  <div key={label} style={{ marginBottom: 9 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
+                      <span style={{ fontSize: 9, color: "rgba(255,255,255,0.5)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600 }}>{label}</span>
+                      <span style={{ fontSize: 9, color, fontWeight: 800, fontFamily: "'Space Grotesk', sans-serif" }}>{value}/10</span>
+                    </div>
+                    <div style={{ height: 3, background: "rgba(255,255,255,0.06)", borderRadius: 2 }}>
+                      <div style={{ width: `${value * 10}%`, height: "100%", background: `linear-gradient(90deg, ${color}99, ${color})`, borderRadius: 2, boxShadow: `0 0 6px ${color}88` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Genre tags bottom */}
+              <div style={{ position: "absolute", bottom: 18, left: 18, display: "flex", gap: 6, flexWrap: "wrap" }}>
+                {[
+                  { label: "K-Drama", color: "#e879f9" },
+                  { label: "Thriller", color: RED },
+                  { label: "Romance", color: VIO },
+                ].map(({ label, color }) => (
+                  <span key={label} style={{ fontSize: 8, fontWeight: 700, color, background: `${color}18`, border: `1px solid ${color}35`, padding: "4px 9px", borderRadius: 7, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: 0.5 }}>{label}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
