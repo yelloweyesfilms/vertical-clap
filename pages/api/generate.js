@@ -61,7 +61,7 @@ function validatePayload(action, payload) {
     if (genre !== undefined && (typeof genre !== "string" || genre.length > 100)) return "Genre invalide";
     if (lieu !== undefined && (typeof lieu !== "string" || lieu.length > 100)) return "Lieu invalide";
     if (payload.ambiance !== undefined && (typeof payload.ambiance !== "string" || payload.ambiance.length > 100)) return "Ambiance invalide";
-    if (payload.tropes !== undefined && (typeof payload.tropes !== "string" || payload.tropes.length > 300)) return "Tropes invalides";
+    if (payload.tropes !== undefined && (typeof payload.tropes !== "string" || payload.tropes.length > 800)) return "Tropes invalides";
     if (payload.drama !== undefined) {
       if (typeof payload.drama !== "object" || payload.drama === null) return "Drama invalide";
       for (const k of ["romance", "toxicite", "mystere", "humour", "violence", "spicy"]) {

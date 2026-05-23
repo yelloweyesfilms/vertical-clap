@@ -55,6 +55,8 @@ const T = {
     lo_violence: "Aucune", hi_violence: "Confrontations dures",
     lo_spicy: "Tous publics", hi_spicy: "Tension maximale",
     packs_label: "🎬 Packs d'univers", packs_sub: "— tout configuré en 1 clic",
+    tropes_label: "💘 Tropes", tropes_sub: "— injecte les codes narratifs qui cartonnent",
+    tropes_romance: "Romance", tropes_drama: "Drama",
     logout: "Déconnexion", custom: "✏️ Perso.",
     choose_lang: "Choisir la langue", back: "← Retour", my_series_title: "Mes Séries",
     affiche_title: "🎨 Dossier de présentation", affiche_sub: "Ton kit visuel complet — affiche + direction artistique + image IA",
@@ -106,6 +108,8 @@ const T = {
     lo_violence: "None", hi_violence: "Harsh confrontations",
     lo_spicy: "All audiences", hi_spicy: "Maximum tension",
     packs_label: "🎬 Universe packs", packs_sub: "— all set in 1 click",
+    tropes_label: "💘 Tropes", tropes_sub: "— inject the narrative codes that go viral",
+    tropes_romance: "Romance", tropes_drama: "Drama",
     logout: "Sign out", custom: "✏️ Custom",
     choose_lang: "Choose language", back: "← Back", my_series_title: "My Series",
     affiche_title: "🎨 Presentation kit", affiche_sub: "Your complete visual kit — poster + art direction + AI image",
@@ -127,6 +131,20 @@ const T = {
     loading_titres: "Analysing virality…",
   },
 };
+
+// ── TROPES ──────────────────────────────────────────────────
+const TROPES = [
+  { id: "enemies-to-lovers",  cat: "romance", emoji: "⚔️", label: { fr: "Ennemis → Amants",   en: "Enemies to lovers"  }, instr: "enemies to lovers: les personnages se détestent avant de tomber amoureux — tension sexuelle déguisée en haine" },
+  { id: "fake-dating",        cat: "romance", emoji: "🎭", label: { fr: "Faux couple",          en: "Fake dating"        }, instr: "fake dating: ils font semblant d'être ensemble pour une raison externe — et finissent par vraiment tomber amoureux" },
+  { id: "forbidden-love",     cat: "romance", emoji: "🚫", label: { fr: "Amour interdit",       en: "Forbidden love"     }, instr: "forbidden love: leur relation est impossible (famille, classe sociale, secret) mais irrésistible" },
+  { id: "friends-to-lovers",  cat: "romance", emoji: "🤝", label: { fr: "Amis → Amants",        en: "Friends to lovers"  }, instr: "friends to lovers: l'amitié bascule — l'un cache ses sentiments depuis longtemps" },
+  { id: "grumpy-sunshine",    cat: "romance", emoji: "☀️", label: { fr: "Grumpy × Sunshine",    en: "Grumpy × Sunshine"  }, instr: "grumpy x sunshine: personnage froid/cynique vs personnage rayonnant/optimiste — opposés qui s'attirent" },
+  { id: "revenge",            cat: "drama",   emoji: "🔪", label: { fr: "Vengeance",             en: "Revenge"            }, instr: "revenge: un personnage a tout perdu à cause d'un autre — chaque épisode rapproche du règlement de comptes final" },
+  { id: "secret-child",       cat: "drama",   emoji: "👶", label: { fr: "Enfant caché",          en: "Secret child"       }, instr: "secret child: un enfant existe sans que l'autre parent le sache — révélation explosive en cours de série" },
+  { id: "hidden-identity",    cat: "drama",   emoji: "🎭", label: { fr: "Identité cachée",       en: "Hidden identity"    }, instr: "hidden identity: un personnage n'est pas celui qu'il prétend être — fausse identité, infiltré, double vie" },
+  { id: "betrayal",           cat: "drama",   emoji: "🗡️", label: { fr: "Trahison",              en: "Betrayal"           }, instr: "betrayal: la trahison vient de l'intérieur — l'allié de confiance est le vrai ennemi" },
+  { id: "obsession",          cat: "drama",   emoji: "👁️", label: { fr: "Obsession",             en: "Obsession"          }, instr: "obsession: un personnage est consumé par un autre — amour toxique, stalking, possession émotionnelle" },
+];
 
 const PACKS = [
   { emoji: "🏥", label: "Médical Secret",   mode: "fast",    casting: "1 Femme + 1 Homme", univers: "Hôpital privé",          secret: "Double vie" },
@@ -487,6 +505,33 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
               );
             })}
           </div>
+        </div>
+
+        {/* Tropes */}
+        <div style={{ marginBottom: 28 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
+            {t.tropes_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.tropes_sub}</span>
+          </p>
+          {[{ cat: "romance", label: `💘 ${t.tropes_romance}` }, { cat: "drama", label: `🎭 ${t.tropes_drama}` }].map(({ cat, label: catLabel }) => (
+            <div key={cat} style={{ marginBottom: 14 }}>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 8 }}>{catLabel}</p>
+              <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+                {TROPES.filter(tr => tr.cat === cat).map(tr => {
+                  const tLabel = typeof tr.label === "object" ? (tr.label[lang] || tr.label.fr) : tr.label;
+                  const active = (state.tropesSel || []).includes(tr.id);
+                  return (
+                    <button key={tr.id} onClick={() => set(prev => {
+                      const sel = prev.tropesSel || [];
+                      return { tropesSel: active ? sel.filter(x => x !== tr.id) : [...sel, tr.id] };
+                    })} style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "7px 12px", borderRadius: 100, border: `1.5px solid ${active ? (cat === "romance" ? "#e879a0" : "var(--n)") : "var(--bo)"}`, background: active ? (cat === "romance" ? "#e879a022" : "var(--n)22") : "var(--card)", color: active ? (cat === "romance" ? "#e879a0" : "var(--n)") : "var(--tx)", cursor: "pointer", fontSize: 12, fontWeight: active ? 700 : 500, fontFamily: "var(--sans)", transition: "all .15s" }}>
+                      <span>{tr.emoji}</span>
+                      <span>{tLabel}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
 
         {[
@@ -1262,7 +1307,7 @@ export default function App() {
   const t = T[lang];
   const opts = OPTS[lang];
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", tropesSel: [], packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
@@ -1274,12 +1319,18 @@ export default function App() {
   const [err, setErr] = useState(null);
 
   const set = (patch) => setState(prev => ({ ...prev, ...(typeof patch === "function" ? patch(prev) : patch) }));
-  const cleanState = (s) => ({
-    ...s,
-    casting: s.casting?.startsWith(CUSTOM_PREFIX) ? s.casting.slice(CUSTOM_PREFIX.length) : s.casting,
-    univers: s.univers?.startsWith(CUSTOM_PREFIX) ? s.univers.slice(CUSTOM_PREFIX.length) : s.univers,
-    secret: s.secret?.startsWith(CUSTOM_PREFIX) ? s.secret.slice(CUSTOM_PREFIX.length) : s.secret,
-  });
+  const cleanState = (s) => {
+    const selInstr = (s.tropesSel || []).map(id => TROPES.find(t => t.id === id)?.instr).filter(Boolean).join("; ");
+    const packTropes = s.tropes || "";
+    const merged = [packTropes, selInstr].filter(Boolean).join("; ");
+    return {
+      ...s,
+      casting: s.casting?.startsWith(CUSTOM_PREFIX) ? s.casting.slice(CUSTOM_PREFIX.length) : s.casting,
+      univers: s.univers?.startsWith(CUSTOM_PREFIX) ? s.univers.slice(CUSTOM_PREFIX.length) : s.univers,
+      secret: s.secret?.startsWith(CUSTOM_PREFIX) ? s.secret.slice(CUSTOM_PREFIX.length) : s.secret,
+      tropes: merged,
+    };
+  };
 
   // ── Auth: check Stripe session or stored customerId ──
   useEffect(() => {
