@@ -6,34 +6,15 @@ const TEXT = "#f1f5f9";
 const BORDER = "rgba(255,255,255,0.08)";
 const SURFACE = "rgba(255,255,255,0.04)";
 
-function Logo() {
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10, userSelect: "none", justifyContent: "center", marginBottom: 40 }}>
-      <svg width="26" height="37" viewBox="0 0 26 37" fill="none">
-        <defs>
-          <linearGradient id="logo-grad" x1="0" y1="0" x2="26" y2="37" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#E85C3A" />
-            <stop offset="100%" stopColor="#a855f7" />
-          </linearGradient>
-          <clipPath id="logo-clip">
-            <rect x="0.5" y="0.5" width="25" height="36" rx="5.5" />
-          </clipPath>
-        </defs>
-        <rect x="0.5" y="0.5" width="25" height="36" rx="5.5" fill="url(#logo-grad)" />
-        <rect x="0.5" y="0.5" width="25" height="36" rx="5.5" stroke="rgba(255,255,255,0.18)" />
-        <rect x="4" y="4" width="18" height="29" rx="3" fill="rgba(0,0,0,0.22)" />
-        <polygon points="10,13 10,24 20,18.5" fill="white" />
-        <rect x="4" y="31" width="6" height="1.5" rx="0.75" fill="rgba(255,255,255,0.4)" />
-        <rect x="12" y="31" width="10" height="1.5" rx="0.75" fill="rgba(255,255,255,0.2)" />
-        <polygon points="0.5,0.5 25.5,0.5 25.5,12 0.5,20" fill="rgba(255,255,255,0.13)" clipPath="url(#logo-clip)" />
-      </svg>
-      <div style={{ lineHeight: 1 }}>
-        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, fontWeight: 500, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 2 }}>Vertical</div>
-        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, letterSpacing: -0.5, color: TEXT, lineHeight: 1 }}>Clap</div>
-      </div>
+const Logo = () => (
+  <div style={{ display: "flex", alignItems: "center", gap: 9, userSelect: "none" }}>
+    <img src="/1024.png" alt="VC" style={{ width: 34, height: 34, borderRadius: "50%", flexShrink: 0, boxShadow: "0 2px 12px rgba(232,92,58,0.35)" }} onError={e => { e.target.style.display = "none"; }} />
+    <div style={{ alignSelf: "center", lineHeight: 1 }}>
+      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
+      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 18, fontWeight: 800, letterSpacing: -0.5, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1 }}>CLAP</div>
     </div>
-  );
-}
+  </div>
+);
 
 export default function NotFound() {
   return (
