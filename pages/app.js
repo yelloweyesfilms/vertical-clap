@@ -59,6 +59,7 @@ const T = {
     tropes_romance: "Romance", tropes_drama: "Drama",
     casting_ia_label: "🎭 Casting IA", casting_ia_sub: "— donne une identité forte à tes personnages",
     casting_ia_age: "ans",
+    ambiance_vis_label: "🎨 Ambiance Visuelle", ambiance_vis_sub: "— l'identité visuelle de ta série",
     logout: "Déconnexion", custom: "✏️ Perso.",
     choose_lang: "Choisir la langue", back: "← Retour", my_series_title: "Mes Séries",
     affiche_title: "🎨 Dossier de présentation", affiche_sub: "Ton kit visuel complet — affiche + direction artistique + image IA",
@@ -114,6 +115,7 @@ const T = {
     tropes_romance: "Romance", tropes_drama: "Drama",
     casting_ia_label: "🎭 Casting IA", casting_ia_sub: "— give your characters a powerful identity",
     casting_ia_age: "yo",
+    ambiance_vis_label: "🎨 Visual Ambiance", ambiance_vis_sub: "— your series' visual identity",
     logout: "Sign out", custom: "✏️ Custom",
     choose_lang: "Choose language", back: "← Back", my_series_title: "My Series",
     affiche_title: "🎨 Presentation kit", affiche_sub: "Your complete visual kit — poster + art direction + AI image",
@@ -314,6 +316,90 @@ const TROPES = [
   { id: "hidden-identity",    cat: "drama",   emoji: "🎭", label: { fr: "Identité cachée",       en: "Hidden identity"    }, instr: "hidden identity: un personnage n'est pas celui qu'il prétend être — fausse identité, infiltré, double vie" },
   { id: "betrayal",           cat: "drama",   emoji: "🗡️", label: { fr: "Trahison",              en: "Betrayal"           }, instr: "betrayal: la trahison vient de l'intérieur — l'allié de confiance est le vrai ennemi" },
   { id: "obsession",          cat: "drama",   emoji: "👁️", label: { fr: "Obsession",             en: "Obsession"          }, instr: "obsession: un personnage est consumé par un autre — amour toxique, stalking, possession émotionnelle" },
+];
+
+// ── AMBIANCE VISUELLE ────────────────────────────────────────
+const AMBIANCE_VIS = [
+  {
+    id: "dark-cine", emoji: "🌙",
+    label: { fr: "Dark & Cinéma", en: "Dark & Cinematic" },
+    desc: { fr: "Noirs profonds, lumière rasante, ombres dures", en: "Deep blacks, raking light, hard shadows" },
+    palette: ["#0a0a0f", "#1a1a2e", "#e85c3a"],
+    refs: "Dark · Squid Game · Minari",
+    instr: { fr: "IDENTITÉ VISUELLE DARK CINÉMA: noirs profonds et ombres dures, lumière rasante venant d'un côté unique, contraste extrême entre zones éclairées et zones sombres. Plans larges qui écrasent puis gros plans brutaux. Palette: noirs, gris anthracite, une touche de rouge sang ou blanc froid. visuel_916 = toujours un détail dans l'ombre, un visage à moitié éclairé, une silhouette.", en: "DARK CINEMATIC VISUAL IDENTITY: deep blacks and hard shadows, raking single-source light, extreme contrast. Wide shots that crush characters then brutal close-ups. Palette: blacks, anthracite, one touch of blood red or cold white. visuel_916 = always a detail in shadow, a half-lit face, a silhouette." }
+  },
+  {
+    id: "neon-viral", emoji: "⚡",
+    label: { fr: "Neon Viral", en: "Neon Viral" },
+    desc: { fr: "Néons saturés, contre-jour, coupes rapides", en: "Saturated neons, backlit, rapid cuts" },
+    palette: ["#ff2d8b", "#7c3aed", "#06b6d4"],
+    refs: "Euphoria · K-pop MV · TikTok viral",
+    instr: { fr: "IDENTITÉ VISUELLE NEON VIRAL: néons rose/violet/bleu saturés, contre-jour intense, reflets sur peau et surfaces humides. Angles dynamiques, caméra inclinée, flares de lentilles. Coupes ultra-rapides entre plans. Palette: rose fluo, violet électrique, bleu cyan. visuel_916 = néon [couleur] qui découpe le visage en contre-jour, reflet dans les yeux, ombre colorée.", en: "NEON VIRAL VISUAL IDENTITY: saturated pink/purple/blue neons, intense backlight, reflections on skin and wet surfaces. Dynamic angles, tilted camera, lens flares. Ultra-fast cuts. Palette: hot pink, electric purple, cyan blue. visuel_916 = [color] neon cutting face in backlight, reflection in eyes, colored shadow." }
+  },
+  {
+    id: "pastel-drama", emoji: "🌸",
+    label: { fr: "Pastel Drama", en: "Pastel Drama" },
+    desc: { fr: "Tons doux, lumière naturelle, gros plans émotionnels", en: "Soft tones, natural light, emotional close-ups" },
+    palette: ["#fcd5ce", "#d4b8e0", "#b8d4e0"],
+    refs: "K-drama romantique · Euphoria (calme) · Midsommar",
+    instr: { fr: "IDENTITÉ VISUELLE PASTEL DRAMA: tons rose poudré, lavande, pêche, bleu pâle. Lumière naturelle diffuse et douce, fenêtres comme source principale. Gros plans prolongés sur les émotions subtiles — une larme qui ne coule pas encore, un sourire qui se casse. Textures douces: vêtements en lin, rideaux transparents. visuel_916 = gros plan [émotion] dans lumière de fenêtre, texture douce au premier plan, couleur pastel dominante.", en: "PASTEL DRAMA VISUAL IDENTITY: powder pink, lavender, peach, pale blue tones. Diffused, soft natural light, windows as main source. Extended close-ups on subtle emotions. Soft textures: linen clothes, sheer curtains. visuel_916 = close-up [emotion] in window light, soft texture in foreground, dominant pastel color." }
+  },
+  {
+    id: "golden-hour", emoji: "☀️",
+    label: { fr: "Golden Hour", en: "Golden Hour" },
+    desc: { fr: "Lumière dorée chaude, extérieurs, magic hour", en: "Warm golden light, outdoors, magic hour" },
+    palette: ["#f59e0b", "#ef4444", "#fef3c7"],
+    refs: "Normal People · Call Me By Your Name · After",
+    instr: { fr: "IDENTITÉ VISUELLE GOLDEN HOUR: lumière chaude orangée-dorée de magic hour, extérieurs ouverts, vent dans les cheveux. Ralentis subtils sur les moments clés. Couleurs saturées et chaudes: or, ambre, corail. Profondeur de champ floue sur les arrière-plans. visuel_916 = lumière dorée sur [visage/mains/détail], arrière-plan flou chaud, mouvement ralenti au moment émotionnel.", en: "GOLDEN HOUR VISUAL IDENTITY: warm orange-gold magic hour light, open exteriors, wind in hair. Subtle slow-motion on key moments. Warm saturated colors: gold, amber, coral. Shallow depth of field on backgrounds. visuel_916 = golden light on [face/hands/detail], warm blurred background, slow motion at emotional moment." }
+  },
+  {
+    id: "cold-corporate", emoji: "🧊",
+    label: { fr: "Cold Corporate", en: "Cold Corporate" },
+    desc: { fr: "Bleus froids, espaces épurés, lumière froide", en: "Cold blues, clean spaces, cold light" },
+    palette: ["#1e3a5f", "#64748b", "#e2e8f0"],
+    refs: "Succession · Severance · Industry",
+    instr: { fr: "IDENTITÉ VISUELLE COLD CORPORATE: bleus froids et gris ardoise, lumière artificielle froide (néons de bureau, écrans). Espaces épurés avec lignes droites, verre et béton. Personnages petits dans des cadres larges qui les écrasent. Palette: bleu foncé, gris acier, blanc cassé. visuel_916 = plan large qui [écrase/isole] le personnage dans l'espace, lumière froide de bureau, reflet dans vitre/écran.", en: "COLD CORPORATE VISUAL IDENTITY: cold blues and slate grey, cold artificial light (office neons, screens). Clean spaces with straight lines, glass and concrete. Characters made small in wide frames. Palette: dark blue, steel grey, off-white. visuel_916 = wide shot [crushing/isolating] character in space, cold office light, reflection in glass/screen." }
+  },
+  {
+    id: "natural-light", emoji: "🌿",
+    label: { fr: "Natural Light", en: "Natural Light" },
+    desc: { fr: "Lumière naturelle, handheld, intimiste, brut", en: "Natural light, handheld, intimate, raw" },
+    palette: ["#6b7280", "#d1d5db", "#f9fafb"],
+    refs: "Fleabag · Normal People · Aftersun",
+    instr: { fr: "IDENTITÉ VISUELLE NATURAL LIGHT: lumière naturelle uniquement, handheld légèrement instable. Textures authentiques: grain, imperfections. Couleurs neutres et désaturées. Caméra proche des corps, dans l'espace personnel. visuel_916 = caméra handheld à [distance] du visage, lumière naturelle [dure/douce], texture brute au premier plan.", en: "NATURAL LIGHT VISUAL IDENTITY: natural light only, slightly unstable handheld. Authentic textures: grain, imperfections. Neutral desaturated colors. Camera close to bodies, in personal space. visuel_916 = handheld camera at [distance] from face, natural [harsh/soft] light, raw texture in foreground." }
+  },
+  {
+    id: "found-footage", emoji: "📹",
+    label: { fr: "Found Footage", en: "Found Footage" },
+    desc: { fr: "Caméra tremblante, grain, filtre VHS, POV", en: "Shaky cam, grain, VHS filter, POV" },
+    palette: ["#1a1a1a", "#16a34a", "#ffffff"],
+    refs: "Rec · Paranormal Activity · Horreur TikTok",
+    instr: { fr: "IDENTITÉ VISUELLE FOUND FOOTAGE: caméra tenue à bout de bras, tremblements authentiques. Grain vidéo visible, aberrations de couleur, timestamp ou HUD visible. Plans en POV strict. Lumière de fortune: torche, téléphone, lumière de rue. visuel_916 = POV caméra tremblante, grain visible, [source lumière de fortune] qui éclaire partiellement.", en: "FOUND FOOTAGE VISUAL IDENTITY: camera held at arm's length, authentic shaking. Visible video grain, color aberrations, timestamp or HUD visible. Strict POV shots. Makeshift lighting: torch, phone, street light. visuel_916 = shaky POV camera, visible grain, [makeshift light source] partially illuminating." }
+  },
+  {
+    id: "old-money", emoji: "💎",
+    label: { fr: "Old Money Luxury", en: "Old Money Luxury" },
+    desc: { fr: "Crème, or, bordeaux — décors opulents, plans lents", en: "Cream, gold, burgundy — opulent sets, slow shots" },
+    palette: ["#f5f0e8", "#b8860b", "#722f37"],
+    refs: "Gossip Girl · Bridgerton · The Crown",
+    instr: { fr: "IDENTITÉ VISUELLE OLD MONEY: palettes crème, or mat, bordeaux profond. Lumière chaude tamisée par des lustres et bougies. Décors opulents: boiseries, marbres, velours. Plans lents et glissants, Steadicam fluide. Détails de luxe au premier plan. visuel_916 = plan glissant sur [matière de luxe], lumière de lustre/bougie, palette [crème/or/bordeaux] dominante.", en: "OLD MONEY VISUAL IDENTITY: cream, matte gold, deep burgundy palettes. Warm light dimmed by chandeliers and candles. Opulent sets: wood paneling, marble, velvet. Slow gliding shots, fluid Steadicam. Luxury details in foreground. visuel_916 = gliding shot on [luxury material], chandelier/candle light, dominant [cream/gold/burgundy] palette." }
+  },
+  {
+    id: "urban-night", emoji: "🌆",
+    label: { fr: "Urban Night", en: "Urban Night" },
+    desc: { fr: "Nuit, néons de ville, pluie, contrastes forts", en: "Night, city neons, rain, high contrast" },
+    palette: ["#0f172a", "#f97316", "#22d3ee"],
+    refs: "Taxi Driver · Collateral · Night Call",
+    instr: { fr: "IDENTITÉ VISUELLE URBAN NIGHT: nuit de ville, néons d'enseignes reflétés dans la pluie sur l'asphalte. Contraste extrême ombre/lumière. Profondeur: feux de voitures, signalisation floue en arrière-plan. Palette: nuit profonde, orange sodium, cyan. visuel_916 = reflet [néon/orange/cyan] sur asphalte mouillé, silhouette dans contre-jour de rue, vapeur ou pluie visible.", en: "URBAN NIGHT VISUAL IDENTITY: city night, sign neons reflected in rain on asphalt. Extreme shadow/light contrast. Depth: car lights, blurred signage in background. Palette: deep night, sodium orange, cyan. visuel_916 = [neon/orange/cyan] reflection on wet asphalt, silhouette in street backlight, visible steam or rain." }
+  },
+  {
+    id: "vintage-film", emoji: "🎞️",
+    label: { fr: "Vintage Film", en: "Vintage Film" },
+    desc: { fr: "Grain 16mm, couleurs désaturées, caméra statique", en: "16mm grain, desaturated colors, static camera" },
+    palette: ["#d4c5a9", "#8b6f47", "#4a4a4a"],
+    refs: "Stranger Things · Daisy Jones · Super 8",
+    instr: { fr: "IDENTITÉ VISUELLE VINTAGE FILM: grain 16mm ou Super 8 visible, couleurs désaturées avec légère dominante chaude. Caméra majoritairement statique, mouvement de zoom optique lent. Lumière de l'époque: lampes à incandescence, fenêtres sans diffuseur. Palette: sépia chaud, kaki délavé, blanc cassé. visuel_916 = plan fixe avec grain visible, lumière à incandescence [chaude/dorée], palette désaturée.", en: "VINTAGE FILM VISUAL IDENTITY: visible 16mm or Super 8 grain, desaturated colors with slight warm cast. Mostly static camera, slow optical zoom. Period lighting: incandescent lamps, undiffused windows. Palette: warm sepia, faded khaki, off-white. visuel_916 = static shot with visible grain, incandescent [warm/golden] light, desaturated palette." }
+  },
 ];
 
 const PACKS = [
@@ -672,6 +758,33 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                     </div>
                     <span style={{ fontSize: 11, color: active ? "rgba(255,255,255,0.8)" : "var(--mt)", lineHeight: 1.3 }}>{pDesc}</span>
                   </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Ambiance Visuelle */}
+        <div style={{ marginBottom: 28 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
+            {t.ambiance_vis_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.ambiance_vis_sub}</span>
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+            {AMBIANCE_VIS.map(av => {
+              const avLabel = av.label[lang] || av.label.fr;
+              const avDesc = av.desc[lang] || av.desc.fr;
+              const active = state.ambianceVisuelle === av.id;
+              return (
+                <button key={av.id} onClick={() => set({ ambianceVisuelle: active ? "" : av.id })} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px 13px", borderRadius: 14, border: `2px solid ${active ? av.palette[2] : "var(--bo)"}`, background: active ? `${av.palette[0]}22` : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "left", transition: "all .15s", gap: 7 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                    <span style={{ fontSize: 22 }}>{av.emoji}</span>
+                    <div style={{ display: "flex", gap: 3 }}>
+                      {av.palette.map((c, i) => <div key={i} style={{ width: 10, height: 10, borderRadius: "50%", background: c, border: "1px solid rgba(0,0,0,0.15)" }} />)}
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: active ? av.palette[2] : "var(--tx)", lineHeight: 1.2 }}>{avLabel}</div>
+                  <div style={{ fontSize: 10, color: "var(--mt)", lineHeight: 1.4 }}>{avDesc}</div>
+                  <div style={{ fontSize: 9, color: "var(--mt)", fontStyle: "italic", opacity: 0.7 }}>{av.refs}</div>
                 </button>
               );
             })}
@@ -1558,7 +1671,7 @@ export default function App() {
   const t = T[lang];
   const opts = OPTS[lang];
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
@@ -1657,7 +1770,9 @@ export default function App() {
         mods.aura?.length       ? `Auras imposées: ${mods.aura.join(", ")}` : "",
       ].filter(Boolean);
       const castingIAInstr = [...archLines, ...modLines].join(" | ") || undefined;
-      const b = await gen("bible", { ...cleanState(state), lang, castingIA: castingIAInstr }, customerId);
+      const avPreset = AMBIANCE_VIS.find(x => x.id === state.ambianceVisuelle);
+      const avInstr = avPreset ? (avPreset.instr[lang === "en" ? "en" : "fr"]) : undefined;
+      const b = await gen("bible", { ...cleanState(state), lang, castingIA: castingIAInstr, ambianceVisuelle: avInstr }, customerId);
       setBible(b);
 
       const totalBatches = Math.ceil(state.format / 10);
@@ -1710,7 +1825,7 @@ export default function App() {
     setScript(null);
     setLoading(true);
     try {
-      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, lang }, customerId);
+      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, ambianceVisuelle: state.ambianceVisuelle || "", lang }, customerId);
       if (epReqRef.current === reqId) {
         setScript(s);
         setScripts(prev => {

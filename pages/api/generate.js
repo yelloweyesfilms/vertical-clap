@@ -63,6 +63,7 @@ function validatePayload(action, payload) {
     if (payload.ambiance !== undefined && (typeof payload.ambiance !== "string" || payload.ambiance.length > 100)) return "Ambiance invalide";
     if (payload.tropes !== undefined && (typeof payload.tropes !== "string" || payload.tropes.length > 800)) return "Tropes invalides";
     if (payload.castingIA !== undefined && (typeof payload.castingIA !== "string" || payload.castingIA.length > 1200)) return "Casting IA invalide";
+    if (payload.ambianceVisuelle !== undefined && (typeof payload.ambianceVisuelle !== "string" || payload.ambianceVisuelle.length > 800)) return "Ambiance visuelle invalide";
     if (payload.drama !== undefined) {
       if (typeof payload.drama !== "object" || payload.drama === null) return "Drama invalide";
       for (const k of ["romance", "toxicite", "mystere", "humour", "violence", "spicy"]) {
@@ -216,7 +217,7 @@ export default async function handler(req, res) {
 
   try {
     if (action === "bible") {
-      const { mode, casting, univers, secret, format, duree, genre, lieu, ambiance, tropes, drama, lang, castingIA } = payload;
+      const { mode, casting, univers, secret, format, duree, genre, lieu, ambiance, tropes, drama, lang, castingIA, ambianceVisuelle } = payload;
       const ck = `bible:${mode}:${casting}:${univers}:${secret}:${format}:${duree}:${genre || ""}:${lieu || ""}:${ambiance || ""}:${tropes || ""}:${JSON.stringify(drama || {})}:${lang || "fr"}`;
       const cached = getCached(ck);
       if (cached) return res.json(cached);
@@ -229,10 +230,11 @@ export default async function handler(req, res) {
       const ambianceInstr = ambiance && ambianceMap[ambiance] ? ambianceMap[ambiance] : "";
       const tropesInstr = tropes ? `Tropes & codes narratifs du pack: ${tropes}. Respecte ces codes comme ADN de la série.` : "";
       const castingIAInstr = castingIA ? `CASTING IA — identités fortes imposées: ${castingIA}. Chaque personnage DOIT avoir exactement cette voix, ce style, cette personnalité et cette aura. Ces traits définissent leurs dialogues, leurs réactions et leur présence dans chaque scène.` : "";
+      const ambianceVisInstr = ambianceVisuelle ? `${ambianceVisuelle}` : "";
       const dramaInstr = buildDramaInstr(drama);
       const langInstr = buildLangInstr(lang);
       const result = await callClaude(
-        `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}\n${genreInstr}\n${lieuInstr}\n${ambianceInstr}\n${tropesInstr}\n${castingIAInstr}${dramaInstr}${langInstr}\nTitre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.\nLogline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.\nPitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.\nSecret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.\narc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").\ntension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".\naccroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.\nJSON uniquement, aucun texte avant ou après.`,
+        `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}\n${genreInstr}\n${lieuInstr}\n${ambianceInstr}\n${tropesInstr}\n${castingIAInstr}\n${ambianceVisInstr}${dramaInstr}${langInstr}\nTitre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.\nLogline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.\nPitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.\nSecret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.\narc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").\ntension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".\naccroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.\nJSON uniquement, aucun texte avant ou après.`,
         `Casting: ${casting}. Univers: ${univers}. Secret moteur: ${secret}. Série de ${format} épisodes.\nJSON: {"titre":"","logline":"","pitch":"","personnages":[{"nom":"","age":25,"role":"","secret":"","arc":""},{"nom":"","age":28,"role":"","secret":"","arc":""}],"tension_centrale":"","accroche":""}`,
         1800
       );
@@ -270,7 +272,7 @@ export default async function handler(req, res) {
     }
 
     if (action === "script") {
-      const { ep, bible, mode, duree, prevEps, lang } = payload;
+      const { ep, bible, mode, duree, prevEps, lang, ambianceVisuelle: scriptAV } = payload;
       const md = mode === "fast"
         ? "Fast Drama: émotions explosives, confrontations directes, cliffhangers choc"
         : "Premium Suspense: sous-texte intense, silences signifiants, tension qui monte progressivement";
@@ -287,8 +289,9 @@ export default async function handler(req, res) {
       const styleInstr = payload.style && styleMap[payload.style] ? styleMap[payload.style] : styleMap["⚡ TikTok Drama"];
       const scriptDramaInstr = buildDramaInstr(payload.drama);
       const scriptLangInstr = buildLangInstr(lang);
+      const scriptAVInstr = scriptAV ? `\n${scriptAV}\nLes descriptions visuel_916 DOIVENT refléter cette identité visuelle précisément.` : "";
       const result = await callClaude(
-        `Tu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• IN MEDIAS RES — déjà en plein conflit, INTERDIT: "Bonjour", exposition, question banale\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
+        `Tu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptAVInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• IN MEDIAS RES — déjà en plein conflit, INTERDIT: "Bonjour", exposition, question banale\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
         `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.\nTension: ${bible.tension_centrale || ""}.\nCliffhanger cible: ${ep.cliffhanger}.${prevEpsInstr}\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`,
         4000
       );
