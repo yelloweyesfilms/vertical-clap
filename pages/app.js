@@ -876,14 +876,14 @@ function MesSeriesView({ onLoad, onBack, t }) {
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ background: "var(--tx)", padding: "28px 20px 24px" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", color: "#3a5040", fontSize: 14, cursor: "pointer", padding: 0, marginBottom: 14 }}>{t.back}</button>
+        <button onClick={onBack} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.5)", fontSize: 13, cursor: "pointer", padding: 0, marginBottom: 14, fontFamily: "var(--sans)" }}>{t.back}</button>
         <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>{t.my_series_title}</h1>
-        <p style={{ fontSize: 12, color: "#3a5040", marginTop: 4 }}>{series.length} {t.saved}</p>
+        <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 4 }}>{series.length} {t.saved}</p>
       </div>
       <div style={{ padding: "20px", maxWidth: 520, margin: "0 auto" }}>
         {series.length === 0 ? (
           <div style={{ textAlign: "center", padding: "60px 0", color: "var(--mt)" }}>
-            <p style={{ fontSize: 32, marginBottom: 12 }}>📂</p>
+            <div style={{ width: 40, height: 40, borderRadius: "50%", background: "var(--bo)", margin: "0 auto 12px" }} />
             <p style={{ fontSize: 15 }}>{t.no_series}</p>
             <p style={{ fontSize: 13, marginTop: 6 }}>{t.generate_first}</p>
           </div>
@@ -1051,34 +1051,32 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
       {/* Header */}
-      <div style={{ background: "var(--tx)", padding: "16px 20px 14px", flexShrink: 0 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+      <div style={{ background: "var(--tx)", padding: "14px 16px 12px", flexShrink: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
           <VCLogo />
           {/* Mode switcher */}
-          <div style={{ display: "flex", background: "rgba(255,255,255,0.08)", borderRadius: 10, padding: 3, gap: 2 }}>
+          <div style={{ display: "flex", background: "rgba(255,255,255,0.1)", borderRadius: 10, padding: 3, gap: 2 }}>
             <button
               onClick={() => set(prev => ({ mode: "fast", univers: prev.mode !== "fast" ? (lang === "en" ? "High school secrets" : "Lycée & Secrets") : prev.univers, secret: prev.mode !== "fast" ? (lang === "en" ? "Love betrayal" : "Trahison amoureuse") : prev.secret, format: prev.format > 20 ? 20 : prev.format, genreFormat: null }))}
-              style={{ padding: "6px 14px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "fast" ? "#E85C3A" : "transparent", color: state.mode === "fast" ? "#fff" : "rgba(255,255,255,0.45)" }}>
+              style={{ padding: "7px 16px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "fast" ? "#E85C3A" : "transparent", color: state.mode === "fast" ? "#fff" : "rgba(255,255,255,0.5)" }}>
               {t.mode_fast}
             </button>
             <button
               onClick={() => { if (plan === "standard") { alert(lang === "fr" ? "Le mode Série est réservé au plan Storyteller." : "Series mode requires the Storyteller plan."); return; } set(prev => ({ mode: "premium", univers: prev.mode !== "premium" ? (lang === "en" ? "AI startup" : "Start-up IA") : prev.univers, secret: prev.mode !== "premium" ? (lang === "en" ? "Internal sabotage" : "Sabotage interne") : prev.secret, genreFormat: null })); }}
-              style={{ padding: "6px 14px", borderRadius: 8, border: "none", cursor: plan === "standard" ? "not-allowed" : "pointer", fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "premium" ? "#a855f7" : "transparent", color: state.mode === "premium" ? "#fff" : plan === "standard" ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.45)", position: "relative" }}>
-              {t.mode_premium}{plan === "standard" ? <span style={{ fontSize: 8, marginLeft: 4, verticalAlign: "middle", opacity: 0.7 }}>PRO</span> : null}
+              style={{ padding: "7px 16px", borderRadius: 8, border: plan === "standard" ? "1px solid rgba(168,85,247,0.4)" : "none", cursor: plan === "standard" ? "not-allowed" : "pointer", fontSize: 12, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "premium" ? "#a855f7" : "transparent", color: state.mode === "premium" ? "#fff" : "rgba(168,85,247,0.8)" }}>
+              {t.mode_premium}{plan === "standard" ? <span style={{ fontSize: 9, marginLeft: 5, verticalAlign: "middle", color: "rgba(168,85,247,0.7)" }}>↑</span> : null}
             </button>
           </div>
         </div>
-        {/* Format chips */}
-        <div style={{ display: "flex", gap: 7, overflowX: "auto", paddingBottom: 2, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
+        {/* Format chips — horizontal scroll */}
+        <div style={{ display: "flex", gap: 6, overflowX: "auto", paddingBottom: 4, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
           {STORY_FORMATS.map(f => {
             const locked = f.mode === "premium" && plan === "standard";
             const active = state.genreFormat === f.id;
             return (
               <button key={f.id} onClick={() => selectFormat(f)}
-                style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, padding: "9px 13px", borderRadius: 14, border: `2px solid ${active ? f.color : locked ? "rgba(168,85,247,0.2)" : "rgba(255,255,255,0.12)"}`, background: active ? `${f.color}25` : locked ? "rgba(168,85,247,0.06)" : "rgba(255,255,255,0.04)", cursor: locked ? "not-allowed" : "pointer", transition: "all .18s", opacity: locked ? 0.45 : 1, minWidth: 64 }}>
-                <div style={{ width: 6, height: 6, borderRadius: "50%", background: locked ? "rgba(168,85,247,0.5)" : f.color, marginBottom: 2 }} />
-                <span style={{ fontSize: 10, fontWeight: 800, color: active ? f.color : locked ? "rgba(168,85,247,0.6)" : "rgba(255,255,255,0.75)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{f.label[lang] || f.label.fr}</span>
-                <span style={{ fontSize: 8, color: locked ? "rgba(168,85,247,0.5)" : "rgba(255,255,255,0.35)", whiteSpace: "nowrap", textAlign: "center" }}>{locked ? "Storyteller" : (f.sub[lang] || f.sub.fr)}</span>
+                style={{ flexShrink: 0, padding: "7px 12px", borderRadius: 20, border: `1.5px solid ${active ? f.color : locked ? "rgba(168,85,247,0.25)" : "rgba(255,255,255,0.15)"}`, background: active ? `${f.color}30` : "transparent", cursor: locked ? "not-allowed" : "pointer", transition: "all .18s", opacity: locked ? 0.5 : 1 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: active ? f.color : locked ? "rgba(168,85,247,0.7)" : "rgba(255,255,255,0.8)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{f.label[lang] || f.label.fr}</span>
               </button>
             );
           })}
@@ -1361,22 +1359,33 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </div>
 
         <div style={{ marginBottom: 28 }}>
-          <SectionHead title={lang === "fr" ? "Nombre d'Épisodes" : "Number of Episodes"} sub={state.mode === "fast" && lang === "fr" ? "Max 20 en Vertical Drama" : state.mode === "fast" ? "Max 20 in Vertical Drama" : lang === "fr" ? "Jusqu'à 90 en Série Premium" : "Up to 90 in Premium Series"} />
+          <SectionHead title={lang === "fr" ? "Nombre d'Épisodes" : "Number of Episodes"} sub={state.mode === "fast" && lang === "fr" ? "Max 20 en Vertical Drama · 40–90 disponibles en Série" : state.mode === "fast" ? "Max 20 in Vertical · 40–90 available in Series mode" : lang === "fr" ? "Jusqu'à 90 épisodes" : "Up to 90 episodes"} />
           <div style={{ display: "flex", gap: 8 }}>
             {[10, 20, 40, 60, 90].map(f => {
-              const lockedFast = state.mode === "fast" && f > 20;
+              const needsSerie = f > 20;
               const lockedPlan = plan === "standard" && f > 20;
-              const locked = lockedFast || lockedPlan;
+              const locked = lockedPlan;
+              const inactiveSerie = state.mode === "fast" && f > 20 && !lockedPlan;
+              const handleClick = () => {
+                if (lockedPlan) {
+                  alert(lang === "fr" ? `Les séries de ${f} épisodes sont réservées au plan Storyteller.` : `${f}-episode series require the Storyteller plan.`);
+                  return;
+                }
+                if (inactiveSerie) {
+                  set({ mode: "premium", format: f, univers: lang === "en" ? "AI startup" : "Start-up IA", secret: lang === "en" ? "Internal sabotage" : "Sabotage interne", genreFormat: null });
+                  return;
+                }
+                set({ format: f });
+              };
               return (
-                <div key={f} style={{ flex: 1, position: "relative" }}>
+                <div key={f} style={{ flex: 1 }}>
                   <Chip
                     label={`${f} ép.`}
-                    sub={lockedFast ? "Série" : lockedPlan ? "Storyteller" : `${Math.round(f * state.duree / 60)} min`}
+                    sub={lockedPlan ? "Storyteller" : inactiveSerie ? "Série →" : `${Math.round(f * state.duree / 60)} min`}
                     block
-                    active={state.format === f && !locked}
-                    onClick={() => { if (!locked) set({ format: f }); }}
+                    active={state.format === f && state.mode === (f > 20 ? "premium" : state.mode)}
+                    onClick={handleClick}
                   />
-                  {locked && <div style={{ position: "absolute", inset: 0, borderRadius: 14, background: "rgba(var(--bg-rgb,242,237,230),0.6)", cursor: "not-allowed" }} />}
                 </div>
               );
             })}
