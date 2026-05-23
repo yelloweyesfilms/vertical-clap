@@ -5,7 +5,7 @@ import { Space_Grotesk, Playfair_Display } from 'next/font/google';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-sg',
   display: 'swap',
 });
