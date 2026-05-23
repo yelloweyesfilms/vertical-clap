@@ -132,12 +132,12 @@ const COPY = {
       "☁️ Sauvegarde cloud",
       "📄 Export PDF",
     ],
-    recommendedBadge: "⭐ RECOMMANDÉ",
+    recommendedBadge: "RECOMMANDÉ",
     ctaBtnPremium: "Commencer Storyteller →",
     trustItems: [
-      { icon: "🔒", label: "Stripe · Paiement sécurisé" },
-      { icon: "✓", label: "Annulable en 1 clic" },
-      { icon: "⚡", label: "Accès immédiat après paiement" },
+      { icon: "·", label: "Stripe · Paiement sécurisé" },
+      { icon: "·", label: "Annulable en 1 clic" },
+      { icon: "·", label: "Accès immédiat après paiement" },
       { icon: "🛡️", label: "Données chiffrées" },
     ],
     tryFreeText1: "Teste gratuitement dans les ",
@@ -179,9 +179,9 @@ const COPY = {
     ctaFinalTitle2: "5 minutes",
     ctaFinalSubtitle: "Rejoins les créateurs qui produisent plus vite avec l'IA.",
     ctaFinalTrustItems: [
-      { icon: "🔒", label: "Paiement sécurisé Stripe" },
-      { icon: "✓", label: "Sans engagement" },
-      { icon: "⚡", label: "Accès immédiat" },
+      { icon: "·", label: "Paiement sécurisé Stripe" },
+      { icon: "·", label: "Sans engagement" },
+      { icon: "·", label: "Accès immédiat" },
     ],
     footerTagline: "Le studio IA pour créateurs de micro-dramas verticaux. De l'idée à la série complète en 5 minutes.",
     footerProduit: "Produit",
@@ -359,12 +359,12 @@ const COPY = {
       "☁️ Cloud save",
       "📄 PDF Export",
     ],
-    recommendedBadge: "⭐ RECOMMENDED",
+    recommendedBadge: "RECOMMENDED",
     ctaBtnPremium: "Get started Storyteller →",
     trustItems: [
-      { icon: "🔒", label: "Stripe · Secure payment" },
-      { icon: "✓", label: "Cancel in 1 click" },
-      { icon: "⚡", label: "Immediate access after payment" },
+      { icon: "·", label: "Stripe · Secure payment" },
+      { icon: "·", label: "Cancel in 1 click" },
+      { icon: "·", label: "Immediate access after payment" },
       { icon: "🛡️", label: "Encrypted data" },
     ],
     tryFreeText1: "Try it free in the ",
@@ -406,9 +406,9 @@ const COPY = {
     ctaFinalTitle2: "5 minutes",
     ctaFinalSubtitle: "Join creators who produce faster with AI.",
     ctaFinalTrustItems: [
-      { icon: "🔒", label: "Secure Stripe payment" },
-      { icon: "✓", label: "No commitment" },
-      { icon: "⚡", label: "Immediate access" },
+      { icon: "·", label: "Secure Stripe payment" },
+      { icon: "·", label: "No commitment" },
+      { icon: "·", label: "Immediate access" },
     ],
     footerTagline: "The AI studio for vertical micro-drama creators. From idea to complete series in 5 minutes.",
     footerProduit: "Product",
@@ -1017,7 +1017,6 @@ export default function RichLandingPage({ lang = "fr" }) {
 
                 {/* Genre badge */}
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
-                  <span style={{ fontSize: 18 }}>{emoji}</span>
                   <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color, padding: "3px 10px", background: `${color}12`, border: `1px solid ${color}25`, borderRadius: 6 }}>{genre}</span>
                 </div>
 
@@ -1078,9 +1077,9 @@ export default function RichLandingPage({ lang = "fr" }) {
             ].map(({ emoji, tab, color, items }) => (
               <div key={tab} style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, padding: "24px 22px", position: "relative", overflow: "hidden" }}>
                 <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${color}, transparent)` }} />
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-                  <span style={{ fontSize: 22 }}>{emoji}</span>
-                  <span style={{ fontSize: 15, fontWeight: 800, color }}>{tab}</span>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: color, flexShrink: 0 }} />
+                  <span style={{ fontSize: 13, fontWeight: 800, color, textTransform: "uppercase", letterSpacing: "0.08em" }}>{tab}</span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   {items.map((item, i) => (
@@ -1101,16 +1100,16 @@ export default function RichLandingPage({ lang = "fr" }) {
             </p>
             <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
               {[
-                { emoji: "⚡", label: lang === "fr" ? "Vertical" : "Vertical", color: "#E85C3A" },
-                { emoji: "🎭", label: lang === "fr" ? "Série" : "Series", color: "#a855f7" },
-                { emoji: "💗", label: "K-Drama", color: "#ec4899" },
-                { emoji: "🔪", label: "Thriller", color: "#f97316" },
-                { emoji: "❤️", label: "Romance", color: "#e879a0" },
-                { emoji: "🌑", label: "Dark Drama", color: "#64748b" },
-              ].map(({ emoji, label, color }) => (
-                <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, padding: "10px 16px", borderRadius: 12, border: `1.5px solid ${color}40`, background: `${color}10`, minWidth: 80 }}>
-                  <span style={{ fontSize: 20 }}>{emoji}</span>
-                  <span style={{ fontSize: 11, fontWeight: 700, color, whiteSpace: "nowrap" }}>{label}</span>
+                { label: lang === "fr" ? "Vertical Drama" : "Vertical Drama", color: "#E85C3A" },
+                { label: lang === "fr" ? "Série Premium" : "Premium Series", color: "#a855f7" },
+                { label: "K-Drama", color: "#ec4899" },
+                { label: "Thriller", color: "#f97316" },
+                { label: "Romance", color: "#e879a0" },
+                { label: "Dark Drama", color: "#64748b" },
+              ].map(({ label, color }) => (
+                <div key={label} style={{ display: "flex", alignItems: "center", gap: 7, padding: "8px 14px", borderRadius: 20, border: `1px solid ${color}35`, background: `${color}08` }}>
+                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: color, flexShrink: 0 }} />
+                  <span style={{ fontSize: 11, fontWeight: 700, color, whiteSpace: "nowrap", letterSpacing: "0.04em" }}>{label}</span>
                 </div>
               ))}
             </div>
@@ -1157,8 +1156,8 @@ export default function RichLandingPage({ lang = "fr" }) {
           <div style={{ maxWidth: 480, margin: "0 auto 28px" }}>
             <div style={{ display: "flex", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 18, padding: 5, gap: 5 }}>
               {[
-                { id: "creator", emoji: "⚡", label: c.planStandard, price: billing === "annual" ? "7.5€" : "9€", color: RED },
-                { id: "storyteller", emoji: "🎭", label: c.planPremium, price: billing === "annual" ? "14.9€" : "19€", color: VIO, badge: "⭐" },
+                { id: "creator", label: c.planStandard, price: billing === "annual" ? "7.5€" : "9€", color: RED },
+                { id: "storyteller", label: c.planPremium, price: billing === "annual" ? "14.9€" : "19€", color: VIO },
               ].map(tab => {
                 const active = planTab === tab.id;
                 return (
@@ -1169,10 +1168,9 @@ export default function RichLandingPage({ lang = "fr" }) {
                     boxShadow: active ? `inset 0 0 0 1.5px ${tab.color}55` : "none",
                     cursor: "pointer", transition: "all .2s", fontFamily: "'Space Grotesk', sans-serif",
                   }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                      <span style={{ fontSize: 16 }}>{tab.emoji}</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      <div style={{ width: 6, height: 6, borderRadius: "50%", background: active ? tab.color : MUTED, flexShrink: 0 }} />
                       <span style={{ fontSize: 14, fontWeight: 800, color: active ? tab.color : MUTED }}>{tab.label}</span>
-                      {tab.badge && <span style={{ fontSize: 11 }}>{tab.badge}</span>}
                     </div>
                     <span style={{ fontSize: 12, fontWeight: 700, color: active ? TEXT : MUTED }}>{tab.price}<span style={{ fontWeight: 400, fontSize: 11 }}>{c.perMonth}</span></span>
                   </button>
@@ -1250,9 +1248,9 @@ export default function RichLandingPage({ lang = "fr" }) {
           )}
 
           <div className="trust-row" style={{ display: "flex", justifyContent: "center", gap: 28, flexWrap: "wrap", marginTop: 28 }}>
-            {c.trustItems.map(({ icon, label }) => (
+            {c.trustItems.map(({ label }) => (
               <div key={label} style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 13, color: MUTED }}>
-                <span style={{ color: "#4ade80", fontSize: 14 }}>{icon}</span>
+                <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#4ade80", flexShrink: 0 }} />
                 {label}
               </div>
             ))}
@@ -1336,9 +1334,9 @@ export default function RichLandingPage({ lang = "fr" }) {
             </GlowBtn>
           </div>
           <div className="trust-row" style={{ marginTop: 20, display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap" }}>
-            {c.ctaFinalTrustItems.map(({ icon, label }) => (
+            {c.ctaFinalTrustItems.map(({ label }) => (
               <div key={label} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: MUTED }}>
-                <span style={{ color: "#4ade80" }}>{icon}</span>
+                <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#4ade80", flexShrink: 0 }} />
                 {label}
               </div>
             ))}
