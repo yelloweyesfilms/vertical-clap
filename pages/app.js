@@ -888,8 +888,8 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           <VCLogo />
           <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>STUDIO</span>
         </div>
-        <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 20, letterSpacing: 0.3 }}>
-          {lang === "fr" ? "Créez votre prochaine série" : "Create your next series"}
+        <p style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", marginBottom: 20, letterSpacing: 0.3 }}>
+          {"Create stories for every screen."}
         </p>
         <div style={{ display: "flex", background: "rgba(255,255,255,0.07)", borderRadius: 12, padding: 4 }}>
           {[{ k: "fast", l: t.mode_fast }, { k: "premium", l: t.mode_premium }].map(({ k, l }) => {
@@ -929,7 +929,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             if (!bLevel?.lieux?.length) return null;
             return (
               <div>
-                <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 8 }}>{t.budget_lieux}</p>
+                <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 8 }}>{t.budget_lieux}</p>
                 <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
                   {bLevel.lieux.map(l => {
                     const lLabel = l.label[lang] || l.label.fr;
@@ -1046,7 +1046,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
               <div style={{ background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 12, padding: "10px 14px", marginBottom: 14, display: "flex", alignItems: "center", gap: 10 }}>
                 <span style={{ fontSize: 22 }}>{compat.type}</span>
                 <div>
-                  <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 2 }}>Compatibilité IA</p>
+                  <p style={{ fontSize: 13, fontWeight: 700, color: "var(--mt)", marginBottom: 2 }}>Compatibilité IA</p>
                   <p style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)" }}>{compat.label}</p>
                 </div>
               </div>
@@ -1061,7 +1061,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             { key: "aura",       mods: CASTING_AURA,      label: { fr: "✨ Aura",                   en: "✨ Aura" } },
           ].map(({ key, mods, label }) => (
             <div key={key} style={{ marginBottom: 14 }}>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 8 }}>{label[lang] || label.fr}</p>
+              <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 8 }}>{label[lang] || label.fr}</p>
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {mods.map(m => {
                   const mLabel = m.label[lang] || m.label.fr;
@@ -1086,7 +1086,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           <SectionHead title={lang === "fr" ? "Codes Narratifs" : "Story Codes"} sub={lang === "fr" ? "Les tropes qui créent l'addiction — choisis plusieurs" : "The tropes that create addiction — pick several"} />
           {[{ cat: "romance", label: `💘 ${t.tropes_romance}` }, { cat: "drama", label: `🎭 ${t.tropes_drama}` }].map(({ cat, label: catLabel }) => (
             <div key={cat} style={{ marginBottom: 14 }}>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 8 }}>{catLabel}</p>
+              <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 8 }}>{catLabel}</p>
               <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
                 {TROPES.filter(tr => tr.cat === cat).map(tr => {
                   const tLabel = typeof tr.label === "object" ? (tr.label[lang] || tr.label.fr) : tr.label;
@@ -1185,8 +1185,8 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
         {/* Remake / Inspiration Série */}
         <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
-            {t.remake_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.remake_sub}</span>
+          <p style={{ fontSize: 15, fontWeight: 800, color: "var(--tx)", marginBottom: 12 }}>
+            {t.remake_label} <span style={{ fontSize: 13, fontWeight: 400 }}>{t.remake_sub}</span>
           </p>
           <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 4 }}>
             {REMAKE_INSPIRATIONS.map(r => {
@@ -1312,7 +1312,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               : () => setTab(k);
             return (
               <button key={k} onClick={onClick}
-                style={{ flex: 1, padding: "10px 0", border: "none", background: "none", cursor: locked ? "not-allowed" : "pointer", fontSize: 12, fontWeight: 700, color: locked ? "var(--bo)" : tab === k ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${tab === k && !locked ? "var(--r)" : "transparent"}`, marginBottom: -2, fontFamily: "var(--sans)" }}>{l}
+                style={{ flex: 1, padding: "10px 0", border: "none", background: "none", cursor: locked ? "not-allowed" : "pointer", fontSize: 13, fontWeight: 700, color: locked ? "var(--bo)" : tab === k ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${tab === k && !locked ? "var(--r)" : "transparent"}`, marginBottom: -2, fontFamily: "var(--sans)" }}>{l}
               </button>
             );
           })}
@@ -1321,7 +1321,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
       <div style={{ padding: "20px", maxWidth: 520, margin: "0 auto" }}>
         {tab === "bible" ? (
           <>
-            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>{t.personnages}</p>
+            <p style={{ fontSize: 15, fontWeight: 800, color: "var(--tx)", marginBottom: 12 }}>{t.personnages}</p>
             {(bible.personnages || []).map((p, i) => (
               <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: 16, borderLeft: `4px solid ${i === 0 ? "var(--r)" : "var(--n)"}`, marginBottom: 10 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
@@ -1332,7 +1332,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               </div>
             ))}
             <div style={{ background: "var(--tx)", borderRadius: 12, padding: 16, marginBottom: 20, marginTop: 4 }}>
-              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>{t.question_centrale}</p>
+              <p style={{ fontSize: 14, fontWeight: 800, color: "var(--r)", marginBottom: 8 }}>{t.question_centrale}</p>
               <p style={{ fontFamily: "var(--serif)", fontSize: 15, fontStyle: "italic", color: "#fff", lineHeight: 1.5 }}>« {bible.tension_centrale} »</p>
             </div>
             <div style={{ display: "flex", gap: 8, marginTop: 4, flexWrap: "wrap" }}>
@@ -1380,11 +1380,11 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                     {carte ? (
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 12 }}>
                         <div style={{ background: "var(--bg)", borderRadius: 10, padding: "10px 12px" }}>
-                          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, color: "var(--mt)", textTransform: "uppercase", marginBottom: 4 }}>💪 Force</p>
+                          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--mt)", marginBottom: 4 }}>💪 Force</p>
                           <p style={{ fontSize: 13, fontWeight: 700 }}>{carte.force}</p>
                         </div>
                         <div style={{ background: "var(--bg)", borderRadius: 10, padding: "10px 12px" }}>
-                          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, color: "var(--mt)", textTransform: "uppercase", marginBottom: 4 }}>💔 Faiblesse</p>
+                          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--mt)", marginBottom: 4 }}>💔 Faiblesse</p>
                           <p style={{ fontSize: 13, fontWeight: 700 }}>{carte.faiblesse}</p>
                         </div>
                       </div>
@@ -1421,8 +1421,8 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
         ) : (
           <>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--mt)" }}>
-                {lang === "fr" ? "SAISON 1" : "SEASON 1"} — {episodes.length} {lang === "fr" ? "épisodes" : "episodes"}
+              <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)" }}>
+                {lang === "fr" ? "Saison 1" : "Season 1"} — {episodes.length} {lang === "fr" ? "épisodes" : "episodes"}
               </p>
               <p style={{ fontSize: 10, color: "var(--mt)" }}>
                 {Math.round(episodes.length * (episodes[0]?.tension || 5) / 10 * 2)
@@ -1516,17 +1516,17 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
         ) : script ? (
           <>
             <div style={{ background: "var(--card)", border: "2px solid var(--r)", borderRadius: 14, padding: 16, marginBottom: 16 }}>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>{t.hook}</p>
+              <p style={{ fontSize: 15, fontWeight: 800, color: "var(--r)", marginBottom: 8 }}>{t.hook}</p>
               <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 8, color: "var(--tx)" }}>{displayScript.hook_scene?.texte}</p>
               <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic" }}>[9:16] {displayScript.hook_scene?.visuel_916}</p>
             </div>
-            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>
+            <p style={{ fontSize: 15, fontWeight: 700, color: "var(--mt)", marginBottom: 10 }}>
               {t.script_label} · {DUR_LABEL[lang][duree]} · {(displayScript.scenes || []).length} {t.repliques}
             </p>
             {(displayScript.scenes || []).map((s, i) => (
               <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: 14, borderLeft: "3px solid var(--bo)", marginBottom: 10 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-                  <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--n)" }}>{s.perso}</p>
+                  <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", color: "var(--n)" }}>{s.perso}</p>
                   {s.jeu && <span style={{ fontSize: 10, background: "var(--bo)", color: "var(--tx)", padding: "2px 8px", borderRadius: 20, fontStyle: "italic" }}>{s.jeu}</span>}
                 </div>
                 <p style={{ fontSize: 14, lineHeight: 1.55, marginBottom: 6, fontWeight: 500 }}>{s.dialogue}</p>
@@ -1541,8 +1541,8 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
             ))}
             <div style={{ background: "#1a1a2e", borderRadius: 14, padding: 16, marginBottom: 14 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)" }}>🎬 Cliffhanger</p>
-                <button onClick={() => onEdit("rewrite_ending")} disabled={loading} style={{ background: "rgba(255,255,255,0.08)", border: "none", color: "rgba(255,255,255,0.7)", padding: "5px 10px", borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>♻️ Nouveau</button>
+                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--r)" }}>🎬 Cliffhanger</p>
+                <button onClick={() => onEdit("rewrite_ending")} disabled={loading} style={{ background: "rgba(255,255,255,0.08)", border: "none", color: "rgba(255,255,255,0.7)", padding: "5px 10px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>♻️ Nouveau</button>
               </div>
               <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8, lineHeight: 1.4 }}>{displayScript.cliffhanger_scene?.texte}</p>
               <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic", marginBottom: displayScript.cliffhanger_scene?.label ? 10 : 0 }}>[9:16] {displayScript.cliffhanger_scene?.visuel_916}</p>
@@ -1552,7 +1552,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
             </div>
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
               {[["pimenter", t.spice], ["subtil", t.subtle], ["simplifier", t.simplify]].map(([k, l]) => (
-                <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "11px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
+                <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "11px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
               ))}
             </div>
             <button onClick={() => onEdit("revelation")} disabled={loading} style={{ width: "100%", marginBottom: 10, padding: "14px 16px", borderRadius: 12, border: "none", background: "linear-gradient(135deg, #E85C3A, #c0392b)", color: "#fff", cursor: "pointer", fontSize: 14, fontWeight: 800, fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, boxShadow: "0 4px 18px rgba(232,92,58,0.35)" }}>
@@ -1570,7 +1570,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
             </button>
             {showLangs && !translating && (
               <div style={{ background: "var(--card)", borderRadius: 12, padding: 14, marginBottom: 6, border: "1.5px solid var(--bo)" }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{t.choose_lang}</p>
+                <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 10 }}>{t.choose_lang}</p>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   {LANGS.map(l => (
                     <button key={l.code} onClick={() => handleTranslate(l.code)} style={{ padding: "8px 12px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--bg)", cursor: "pointer", fontSize: 13, fontFamily: "var(--sans)", display: "flex", alignItems: "center", gap: 5 }}>
@@ -1612,20 +1612,20 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
               </button>
             </div>
             <div style={{ background: "#fff5f2", borderRadius: 10, padding: 12, marginBottom: 10 }}>
-              <p style={{ fontSize: 10, fontWeight: 700, color: "var(--r)", letterSpacing: 1, textTransform: "uppercase", marginBottom: 6 }}>⚡ Hook</p>
+              <p style={{ fontSize: 14, fontWeight: 700, color: "var(--r)", marginBottom: 6 }}>⚡ Hook</p>
               <p style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.4, marginBottom: 4 }}>{v.hook_scene?.texte}</p>
               {v.hook_scene?.visuel_916 && <p style={{ fontSize: 11, color: "var(--r)", fontStyle: "italic" }}>[9:16] {v.hook_scene.visuel_916}</p>}
             </div>
             {(v.scenes || []).slice(0, 2).map((s, j) => (
               <div key={j} style={{ borderLeft: "2px solid var(--bo)", paddingLeft: 10, marginBottom: 8 }}>
-                <p style={{ fontSize: 10, fontWeight: 700, color: "var(--n)", textTransform: "uppercase", marginBottom: 3 }}>{s.perso} {s.jeu && <span style={{ fontStyle: "italic", fontWeight: 400, color: "var(--mt)" }}>· {s.jeu}</span>}</p>
+                <p style={{ fontSize: 12, fontWeight: 700, color: "var(--n)", textTransform: "uppercase", marginBottom: 3 }}>{s.perso} {s.jeu && <span style={{ fontStyle: "italic", fontWeight: 400, color: "var(--mt)" }}>· {s.jeu}</span>}</p>
                 <p style={{ fontSize: 13, lineHeight: 1.5, marginBottom: 3 }}>{s.dialogue}</p>
                 {s.visuel_916 && <p style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {s.visuel_916}</p>}
               </div>
             ))}
             {(v.scenes || []).length > 2 && <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic" }}>+ {v.scenes.length - 2} réplique(s)…</p>}
             <div style={{ background: "var(--tx)", borderRadius: 10, padding: 12, marginTop: 10 }}>
-              <p style={{ fontSize: 10, fontWeight: 700, color: "var(--r)", letterSpacing: 1, textTransform: "uppercase", marginBottom: 6 }}>🎬 Cliffhanger</p>
+              <p style={{ fontSize: 14, fontWeight: 700, color: "var(--r)", marginBottom: 6 }}>🎬 Cliffhanger</p>
               <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", lineHeight: 1.4, marginBottom: 4 }}>{v.cliffhanger_scene?.texte}</p>
               {v.cliffhanger_scene?.visuel_916 && <p style={{ fontSize: 11, color: "var(--r)", fontStyle: "italic" }}>[9:16] {v.cliffhanger_scene.visuel_916}</p>}
             </div>
@@ -1743,7 +1743,7 @@ function SocialView({ social, loading, ep, bible, onBack, t }) {
             {/* Légende TikTok */}
             {social.legende && (
               <div style={{ background: "linear-gradient(135deg, #ff0050, #ff6b6b)", borderRadius: 16, padding: 18, marginBottom: 20 }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 8 }}>{t.social_tiktok_legend}</p>
+                <p style={{ fontSize: 15, fontWeight: 800, color: "rgba(255,255,255,0.9)", marginBottom: 8 }}>{t.social_tiktok_legend}</p>
                 <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", lineHeight: 1.5 }}>{social.legende}</p>
                 <button onClick={() => navigator.clipboard?.writeText(social.legende)} style={{ marginTop: 12, background: "rgba(255,255,255,0.2)", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.social_copy}</button>
               </div>
@@ -1751,7 +1751,7 @@ function SocialView({ social, loading, ep, bible, onBack, t }) {
             {/* SMS */}
             {(social.sms || []).length > 0 && (
               <div style={{ marginBottom: 20 }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>{t.social_sms}</p>
+                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--tx)", marginBottom: 12 }}>{t.social_sms}</p>
                 <div style={{ background: "#1a1a1a", borderRadius: 16, padding: 16, display: "flex", flexDirection: "column", gap: 10 }}>
                   {(social.sms || []).map((m, i) => {
                     const isRight = i % 2 === 0;
@@ -1770,7 +1770,7 @@ function SocialView({ social, loading, ep, bible, onBack, t }) {
             {/* Commentaires TikTok */}
             {(social.commentaires || []).length > 0 && (
               <div>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>{t.social_comments}</p>
+                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--tx)", marginBottom: 12 }}>{t.social_comments}</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {(social.commentaires || []).map((c, i) => (
                     <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: "12px 14px", border: "1.5px solid var(--bo)", display: "flex", alignItems: "flex-start", gap: 10 }}>
@@ -1834,7 +1834,7 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
           <button onClick={onBack} style={{ background: "none", border: "1px solid #333", color: "#aaa", cursor: "pointer", padding: "8px 12px", borderRadius: 8, fontFamily: "var(--sans)", fontSize: 13 }}>← Retour</button>
           <div style={{ display: "flex", gap: 6 }}>
             {[["script", t?.budget_teleprompter || "▶ Script"], ["guide", t?.budget_guide || "🎬 Guide Prod"]].map(([k, lbl]) => (
-              <button key={k} onClick={() => setTab(k)} style={{ padding: "8px 14px", borderRadius: 8, border: "none", background: tab === k ? (k === "guide" ? bLevel.color : "var(--r)") : "#222", color: "#fff", cursor: "pointer", fontSize: 12, fontWeight: 700, fontFamily: "var(--sans)" }}>{lbl}</button>
+              <button key={k} onClick={() => setTab(k)} style={{ padding: "8px 14px", borderRadius: 8, border: "none", background: tab === k ? (k === "guide" ? bLevel.color : "var(--r)") : "#222", color: "#fff", cursor: "pointer", fontSize: 14, fontWeight: 700, fontFamily: "var(--sans)" }}>{lbl}</button>
             ))}
           </div>
           {tab === "script" && <button onClick={() => setShowSettings(s => !s)} style={{ background: showSettings ? "#333" : "none", border: "1px solid #333", color: "#aaa", cursor: "pointer", padding: "8px 12px", borderRadius: 8, fontFamily: "var(--sans)", fontSize: 16 }}>⚙️</button>}
@@ -1852,7 +1852,7 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
         <div style={{ background: "#1a1a1a", padding: "16px 20px", flexShrink: 0, borderBottom: "1px solid #333" }}>
           <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 160 }}>
-              <p style={{ fontSize: 11, color: "#888", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 8 }}>Taille du texte — {fontSize}px</p>
+              <p style={{ fontSize: 13, color: "#888", fontWeight: 700, letterSpacing: 0.5, marginBottom: 8 }}>Taille du texte — {fontSize}px</p>
               <input type="range" min={18} max={44} value={fontSize} onChange={e => setFontSize(Number(e.target.value))}
                 style={{ width: "100%", accentColor: "var(--r)" }} />
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#555", marginTop: 4 }}>
@@ -1860,7 +1860,7 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
               </div>
             </div>
             <div style={{ flex: 1, minWidth: 160 }}>
-              <p style={{ fontSize: 11, color: "#888", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 8 }}>Vitesse — {speed}s</p>
+              <p style={{ fontSize: 13, color: "#888", fontWeight: 700, letterSpacing: 0.5, marginBottom: 8 }}>Vitesse — {speed}s</p>
               <input type="range" min={20} max={150} value={speed} onChange={e => setSpeed(Number(e.target.value))}
                 style={{ width: "100%", accentColor: "var(--r)" }} />
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#555", marginTop: 4 }}>
@@ -1881,28 +1881,28 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
           </div>
           {guide?.equip?.length > 0 && (
             <div style={{ marginBottom: 20 }}>
-              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "#888", marginBottom: 10 }}>{t?.budget_equip || "Équipement"}</p>
+              <p style={{ fontSize: 15, fontWeight: 800, letterSpacing: 0, color: "#ccc", marginBottom: 10 }}>{t?.budget_equip || "Équipement"}</p>
               {guide.equip.map((e, i) => <p key={i} style={{ fontSize: 14, color: "#e2e8f0", lineHeight: 1.6, marginBottom: 6, paddingLeft: 4 }}>{e}</p>)}
             </div>
           )}
           {guide?.lumiere?.length > 0 && (
             <div style={{ marginBottom: 20 }}>
-              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "#888", marginBottom: 10 }}>{t?.budget_lumiere || "Lumière"}</p>
+              <p style={{ fontSize: 15, fontWeight: 800, letterSpacing: 0, color: "#ccc", marginBottom: 10 }}>{t?.budget_lumiere || "Lumière"}</p>
               {guide.lumiere.map((e, i) => <p key={i} style={{ fontSize: 14, color: "#e2e8f0", lineHeight: 1.6, marginBottom: 6, paddingLeft: 4 }}>→ {e}</p>)}
             </div>
           )}
           {guide?.tricks?.length > 0 && (
             <div style={{ marginBottom: 20, background: "#111", borderRadius: 14, padding: "16px 18px", border: `1px solid ${bLevel.color}44` }}>
-              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: bLevel.color, marginBottom: 10 }}>{t?.budget_tricks || "✨ Fake Expensive"}</p>
+              <p style={{ fontSize: 15, fontWeight: 800, letterSpacing: 0, color: bLevel.color, marginBottom: 10 }}>{t?.budget_tricks || "✨ Fake Expensive"}</p>
               {guide.tricks.map((e, i) => <p key={i} style={{ fontSize: 13, color: "#e2e8f0", lineHeight: 1.6, marginBottom: 6 }}>✓ {e}</p>)}
             </div>
           )}
           {guide?.decors && Object.keys(guide.decors).length > 0 && (
             <div style={{ marginBottom: 20 }}>
-              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "#888", marginBottom: 10 }}>{t?.budget_decors || "Décors"}</p>
+              <p style={{ fontSize: 15, fontWeight: 800, letterSpacing: 0, color: "#ccc", marginBottom: 10 }}>{t?.budget_decors || "Décors"}</p>
               {Object.entries(guide.decors).map(([cat, items]) => (
                 <div key={cat} style={{ marginBottom: 14 }}>
-                  <p style={{ fontSize: 10, fontWeight: 700, color: bLevel.color, textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>
+                  <p style={{ fontSize: 14, fontWeight: 800, color: bLevel.color, letterSpacing: 0, marginBottom: 6 }}>
                     {cat === "romance" ? "❤️ Romance" : cat === "teen" ? "🔥 Teen" : cat === "thriller" ? "🩸 Thriller" : cat}
                   </p>
                   <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
@@ -1919,7 +1919,7 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
       {tab === "script" && <div style={{ flex: 1, overflow: "hidden", position: "relative" }}>
         <div className="tp-content" style={{ padding: "0 28px", willChange: "transform" }}>
           {lines.map((l, i) => {
-            if (l.t === "lbl") return <p key={i} style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "var(--r)", marginBottom: 8, marginTop: 40, textAlign: "center" }}>{l.v}</p>;
+            if (l.t === "lbl") return <p key={i} style={{ fontSize: 14, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--r)", marginBottom: 8, marginTop: 40, textAlign: "center" }}>{l.v}</p>;
             if (l.t === "nm") return <div key={i} style={{ textAlign: "center", marginTop: 32, marginBottom: 6 }}><p style={{ fontSize: Math.round(fontSize * 0.55), fontWeight: 700, color: "#facc15", letterSpacing: 2, textTransform: "uppercase" }}>{l.v}</p>{l.jeu && <p style={{ fontSize: Math.round(fontSize * 0.45), color: "#aaa", fontStyle: "italic", marginTop: 2 }}>{l.jeu}</p>}</div>;
             if (l.t === "txt") return <p key={i} style={{ fontFamily: "var(--serif)", fontSize, color: "#fff", lineHeight: 1.6, marginBottom: 12, fontWeight: 700, textAlign: "center" }}>{l.v}</p>;
             if (l.t === "stg") return <p key={i} style={{ fontSize: Math.round(fontSize * 0.6), color: "#f97316", fontStyle: "italic", marginBottom: 28, textAlign: "center" }}>[{l.v}]</p>;
@@ -2003,7 +2003,7 @@ function ProfilsView({ profils, loading, bible, onBack, t }) {
               {/* Posts */}
               {(p.posts || []).length > 0 && (
                 <div style={{ padding: "12px 16px 16px" }}>
-                  <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>Posts récents</p>
+                  <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 10 }}>Posts récents</p>
                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                     {p.posts.map((post, j) => (
                       <div key={j} style={{ background: "var(--bg)", borderRadius: 10, padding: "10px 12px", border: "1px solid var(--bo)" }}>
@@ -2044,7 +2044,7 @@ function CalendrierView({ calendrier, loading, bible, onBack, t }) {
           <>
             {data.strategie && (
               <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 20, border: "1.5px solid var(--bo)" }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>Stratégie</p>
+                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--r)", marginBottom: 8 }}>Stratégie</p>
                 <p style={{ fontSize: 13, lineHeight: 1.6 }}>{data.strategie}</p>
                 {data.plateformes && (
                   <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 10 }}>
@@ -2091,7 +2091,7 @@ function CalendrierView({ calendrier, loading, bible, onBack, t }) {
             ))}
             {data.conseil && (
               <div style={{ background: "linear-gradient(135deg, var(--n), #2a5040)", borderRadius: 14, padding: 16, marginTop: 8 }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 8 }}>Pro tip</p>
+                <p style={{ fontSize: 14, fontWeight: 800, color: "rgba(255,255,255,0.9)", marginBottom: 8 }}>Pro tip</p>
                 <p style={{ fontSize: 13, color: "#fff", lineHeight: 1.6 }}>{data.conseil}</p>
               </div>
             )}
@@ -2130,7 +2130,7 @@ function StoryboardView({ storyboard, loading, ep, bible, onBack, t }) {
               </div>
             </div>
             <div style={{ padding: "12px 14px" }}>
-              {shot.angle && <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 6 }}>📐 {shot.angle}</p>}
+              {shot.angle && <p style={{ fontSize: 13, fontWeight: 700, color: "var(--mt)", marginBottom: 6 }}>📐 {shot.angle}</p>}
               {shot.cadrage && <p style={{ fontSize: 13, lineHeight: 1.5, marginBottom: 8 }}>{shot.cadrage}</p>}
               {shot.son && (
                 <div style={{ background: "var(--bg)", borderRadius: 8, padding: "8px 10px", marginBottom: 8, borderLeft: "2px solid var(--n)" }}>
