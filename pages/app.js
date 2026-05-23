@@ -2698,7 +2698,11 @@ function OnboardingOverlay({ lang, onDone }) {
     <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 300, display: "flex", alignItems: "flex-end", justifyContent: "center", backdropFilter: "blur(6px)" }}>
       <div style={{ background: "var(--card)", borderRadius: "20px 20px 0 0", padding: "32px 24px 40px", maxWidth: 520, width: "100%", border: "1.5px solid var(--bo)", borderBottom: "none" }}>
         <div style={{ textAlign: "center", marginBottom: 24 }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>{current.emoji}</div>
+          {step === 0 ? (
+            <img src="/1024.png" alt="VerticalClap" style={{ width: 80, height: 80, borderRadius: 20, marginBottom: 16, boxShadow: "0 8px 32px rgba(232,92,58,0.4)" }} />
+          ) : (
+            <div style={{ fontSize: 48, marginBottom: 16 }}>{current.emoji}</div>
+          )}
           <h2 style={{ fontFamily: "var(--sans)", fontSize: 20, fontWeight: 900, marginBottom: 10, lineHeight: 1.2 }}>{current.title}</h2>
           <p style={{ fontSize: 14, color: "var(--mt)", lineHeight: 1.7 }}>{current.desc}</p>
         </div>
@@ -3285,8 +3289,9 @@ export default function App() {
             </>
           ) : (
             <>
-              <div style={{ width: 64, height: 64, borderRadius: "50%", background: "var(--r)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 24, animation: "pulse 1.5s infinite" }}><span style={{ color: "#fff", fontSize: 10, fontWeight: 800, letterSpacing: 1 }}>REC</span></div>
-              <p style={{ fontSize: 15, color: "var(--mt)" }}>{loadMsg}</p>
+              <img src="/1024.png" alt="VC" style={{ width: 72, height: 72, borderRadius: 18, marginBottom: 24, animation: "pulse 1.5s infinite", boxShadow: "0 0 32px rgba(232,92,58,0.5)" }} />
+              <p style={{ fontSize: 15, color: "var(--mt)", marginBottom: 6 }}>{loadMsg}</p>
+              <p style={{ fontSize: 11, color: "var(--bo)", letterSpacing: 1 }}>VERTICAL CLAP</p>
             </>
           )}
         </div>
