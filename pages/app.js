@@ -1625,6 +1625,15 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   const [accroches, setAccroches] = useState(null);
   const [loadingAccroches, setLoadingAccroches] = useState(false);
   const [copiedIdx, setCopiedIdx] = useState(null);
+  const [showMore, setShowMore] = useState(false);
+  const moreRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (!showMore) return;
+    const handler = (e) => { if (moreRef.current && !moreRef.current.contains(e.target)) setShowMore(false); };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [showMore]);
 
   const genCartes = async () => {
     setTab("persos");
@@ -1678,20 +1687,35 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
         <h1 style={{ fontFamily: "var(--sans)", fontSize: 24, fontWeight: 900, letterSpacing: -0.5, lineHeight: 1.1, textTransform: "uppercase", marginBottom: 8 }}>{bible.titre}</h1>
         <p style={{ fontFamily: "var(--serif)", fontSize: 14, fontStyle: "italic", color: "var(--mt)", lineHeight: 1.6, marginBottom: 10 }}>« {bible.logline} »</p>
         <p style={{ fontSize: 13, lineHeight: 1.75, marginBottom: 16, color: "var(--mt)" }}>{bible.pitch}</p>
-        <div style={{ display: "flex", overflowX: "auto", borderBottom: "1.5px solid var(--bo)", marginBottom: 0, scrollbarWidth: "none", msOverflowStyle: "none" }}>
-          {[
-            { k: "bible", l: t.bible_tab, onClick: () => setTab("bible") },
-            { k: "persos", l: t.persos_tab, onClick: genCartes },
-            { k: "seq", l: lang === "fr" ? "Saison 1" : "Season 1", onClick: () => setTab("seq") },
-            { k: "accroches", l: t.accroches_tab, onClick: () => { setTab("accroches"); if (!accroches && !loadingAccroches) genAccroches(); } },
-            { k: "calendrier", l: t.calendrier_btn, onClick: onCalendrier },
-            { k: "saison2", l: t.saison2_btn, onClick: onSaison2 },
-            { k: "affiche", l: t.poster_btn, onClick: onAffiche },
-          ].map(({ k, l, onClick }) => (
-            <button key={k} onClick={onClick}
-              style={{ flexShrink: 0, padding: "10px 14px", border: "none", background: "none", cursor: "pointer", fontSize: 12, fontWeight: 700, color: tab === k ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${tab === k ? "var(--r)" : "transparent"}`, marginBottom: -2, fontFamily: "var(--sans)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{l}
-            </button>
-          ))}
+        <div style={{ position: "relative" }}>
+          <div style={{ display: "flex", borderBottom: "1.5px solid var(--bo)" }}>
+            {[
+              { k: "bible", l: t.bible_tab, onClick: () => setTab("bible") },
+              { k: "persos", l: t.persos_tab, onClick: genCartes },
+              { k: "seq", l: lang === "fr" ? "Saison 1" : "Season 1", onClick: () => setTab("seq") },
+            ].map(({ k, l, onClick }) => (
+              <button key={k} onClick={onClick}
+                style={{ flex: 1, padding: "10px 0", border: "none", background: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, color: tab === k ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${tab === k ? "var(--r)" : "transparent"}`, marginBottom: -2, fontFamily: "var(--sans)" }}>{l}
+              </button>
+            ))}
+            <button onClick={() => setShowMore(v => !v)}
+              style={{ width: 44, padding: "10px 0", border: "none", background: "none", cursor: "pointer", fontSize: 18, color: ["accroches","calendrier","saison2","affiche"].includes(tab) ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${["accroches","calendrier","saison2","affiche"].includes(tab) ? "var(--r)" : "transparent"}`, marginBottom: -2, letterSpacing: 1 }}>···</button>
+          </div>
+          {showMore && (
+            <div ref={moreRef} style={{ position: "absolute", right: 0, top: "calc(100% + 4px)", background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 14, zIndex: 50, minWidth: 180, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.25)" }}>
+              {[
+                { k: "accroches", l: t.accroches_tab, emoji: "📣", onClick: () => { setTab("accroches"); setShowMore(false); if (!accroches && !loadingAccroches) genAccroches(); } },
+                { k: "calendrier", l: t.calendrier_btn, emoji: "📅", onClick: () => { setShowMore(false); onCalendrier(); } },
+                { k: "saison2", l: t.saison2_btn, emoji: "🔄", onClick: () => { setShowMore(false); onSaison2(); } },
+                { k: "affiche", l: t.poster_btn, emoji: "🎬", onClick: () => { setShowMore(false); onAffiche(); } },
+              ].map(({ k, l, emoji, onClick }, idx, arr) => (
+                <button key={k} onClick={onClick}
+                  style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "13px 16px", border: "none", borderBottom: idx < arr.length - 1 ? "1px solid var(--bo)" : "none", background: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, color: tab === k ? "var(--r)" : "var(--tx)", textAlign: "left", fontFamily: "var(--sans)" }}>
+                  <span>{emoji}</span>{l}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <div style={{ padding: "20px", maxWidth: 520, margin: "0 auto" }}>
