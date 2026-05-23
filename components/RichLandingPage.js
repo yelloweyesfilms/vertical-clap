@@ -767,15 +767,6 @@ export default function RichLandingPage({ lang = "fr" }) {
 
         <div style={{ maxWidth: 860, margin: "0 auto", padding: "88px 40px 72px", position: "relative", zIndex: 1, textAlign: "center" }} className="hero-pad">
 
-          {/* Logo mark */}
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 36 }}>
-            <img src="/1024.png" alt="VerticalClap" style={{ width: 64, height: 64, borderRadius: 16, boxShadow: "0 4px 24px rgba(232,92,58,0.45)", flexShrink: 0 }} onError={e => { e.target.style.display = "none"; }} />
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", lineHeight: 1 }}>
-              <span style={{ fontSize: 11, fontWeight: 900, color: "rgba(255,255,255,0.5)", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Space Grotesk', sans-serif" }}>VERTICAL</span>
-              <span style={{ fontSize: 22, fontWeight: 900, letterSpacing: -0.5, background: `linear-gradient(135deg, #ff8c42, ${RED})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontFamily: "'Space Grotesk', sans-serif" }}>CLAP</span>
-            </div>
-          </div>
-
           {/* Big headline */}
           <h1 style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif", fontWeight: 900, letterSpacing: -2, marginBottom: 0, color: TEXT, lineHeight: 1.0, fontSize: "clamp(46px, 7.5vw, 112px)", textTransform: "uppercase" }}>
             {c.heroHeadline1}<br />
