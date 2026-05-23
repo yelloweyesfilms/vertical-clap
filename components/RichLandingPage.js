@@ -56,6 +56,12 @@ const COPY = {
     trustImmediateAccess: "Accès immédiat",
     cliffhangersLabel: "Des vidéos impossibles à scroller",
     cliffhangersCaption: "Chaque épisode généré se termine par un cliffhanger conçu pour retenir l'audience.",
+    cliffExamples: [
+      { genre: "Romance", emoji: "❤️", color: "#e879a0", hook: "« Je t'ai menti depuis le début. »", scene: "Sofia pose la photo sur la table. Marc ne bouge pas. Il savait.", cliff: "Elle ouvre l'enveloppe. Son nom est dessus. Mais ce n'est pas son écriture.", next: "Ép. 2 · La Vérité" },
+      { genre: "Thriller", emoji: "🔪", color: "#E85C3A", hook: "« Il est mort à cause de toi. »", scene: "Les lumières s'éteignent. Karim est seul dans le bureau. La porte se verrouille.", cliff: "Le téléphone vibre. Numéro inconnu. \"On sait que tu as tout vu.\"", next: "Ép. 3 · Le Retournement" },
+      { genre: "K-Drama", emoji: "💗", color: "#a78bfa", hook: "« Je ne t'aime pas. Menteur. »", scene: "Jiwoo croise son regard dans le couloir. Il détourne les yeux. Elle sourit.", cliff: "Sa mère lui tend une photo. \"C'est lui ton fiancé.\" C'est le même homme.", next: "Ép. 4 · L'Impossible" },
+      { genre: "Dark Drama", emoji: "🌑", color: "#64748b", hook: "« La famille ne pardonne jamais. »", scene: "Le testament est sur la table. Trois héritiers. Un seul survivant possible.", cliff: "La notaire lève les yeux. \"Il vous reste 48 heures pour disparaître.\"", next: "Ép. 5 · La Chute" },
+    ],
     addictionLabel: "L'addiction narrative",
     addictionTitle1: "Tu vends un épisode.",
     addictionTitle2: "Ils reviennent pour dix.",
@@ -270,6 +276,12 @@ const COPY = {
     trustImmediateAccess: "Immediate access",
     cliffhangersLabel: "Videos impossible to scroll past",
     cliffhangersCaption: "Every generated episode ends with a cliffhanger designed to keep the audience hooked.",
+    cliffExamples: [
+      { genre: "Romance", emoji: "❤️", color: "#e879a0", hook: "\"I've been lying to you from the start.\"", scene: "Sofia puts the photo on the table. Marc doesn't move. He already knew.", cliff: "She opens the envelope. Her name is on it. But it's not her handwriting.", next: "Ep. 2 · The Truth" },
+      { genre: "Thriller", emoji: "🔪", color: "#E85C3A", hook: "\"He died because of you.\"", scene: "The lights go out. Karim is alone in the office. The door locks.", cliff: "The phone vibrates. Unknown number. \"We know you saw everything.\"", next: "Ep. 3 · The Twist" },
+      { genre: "K-Drama", emoji: "💗", color: "#a78bfa", hook: "\"I don't love you. Liar.\"", scene: "Jiwoo meets his gaze in the hallway. He looks away. She smiles.", cliff: "Her mother hands her a photo. \"This is your fiancé.\" It's the same man.", next: "Ep. 4 · The Impossible" },
+      { genre: "Dark Drama", emoji: "🌑", color: "#64748b", hook: "\"Family never forgives.\"", scene: "The will is on the table. Three heirs. Only one possible survivor.", cliff: "The notary looks up. \"You have 48 hours to disappear.\"", next: "Ep. 5 · The Fall" },
+    ],
     addictionLabel: "Narrative addiction",
     addictionTitle1: "You sell one episode.",
     addictionTitle2: "They come back for ten.",
@@ -952,19 +964,49 @@ export default function RichLandingPage({ lang = "fr" }) {
       </div>
 
       {/* CLIFFHANGERS */}
-      <div className="sec-img" style={{ textAlign: "center", background: "linear-gradient(180deg, rgba(168,85,247,0.04) 0%, transparent 100%)", borderBottom: `1px solid ${BORDER}` }}>
-        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 32, fontFamily: "'Space Grotesk', sans-serif" }}>{c.cliffhangersLabel}</p>
-        <div style={{ maxWidth: 900, margin: "0 auto", overflow: "hidden", borderRadius: 16 }}>
-          <Image
-            src={c.imgCliffhangers}
-            alt="Cliffhangers — scènes impossibles à scroller"
-            width={1984}
-            height={2116}
-            sizes="(max-width: 768px) 100vw, 50vw"
-            style={{ width: "100%", height: "auto", display: "block", borderRadius: 16 }}
-          />
+      <div className="sec" style={{ padding: "80px 40px", background: "linear-gradient(180deg, rgba(168,85,247,0.04) 0%, transparent 100%)", borderBottom: `1px solid ${BORDER}` }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <Label color={VIO}>{c.cliffhangersLabel}</Label>
+          <Title>{lang === "fr" ? "Chaque épisode se termine" : "Every episode ends"}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{lang === "fr" ? "par une scène impossible à ignorer." : "with a scene impossible to ignore."}</span></Title>
+          <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>{c.cliffhangersCaption}</p>
+
+          <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+            {c.cliffExamples.map(({ genre, emoji, color, hook, scene, cliff, next }) => (
+              <div key={genre} style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, padding: "28px 24px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${color}, transparent)` }} />
+
+                {/* Genre badge */}
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
+                  <span style={{ fontSize: 18 }}>{emoji}</span>
+                  <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color, padding: "3px 10px", background: `${color}12`, border: `1px solid ${color}25`, borderRadius: 6 }}>{genre}</span>
+                </div>
+
+                {/* Hook */}
+                <div style={{ marginBottom: 14 }}>
+                  <p style={{ fontSize: 9, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 6 }}>HOOK</p>
+                  <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 17, fontWeight: 700, color: TEXT, fontStyle: "italic", lineHeight: 1.4 }}>{hook}</p>
+                </div>
+
+                {/* Scene */}
+                <div style={{ marginBottom: 14, paddingLeft: 12, borderLeft: `2px solid ${BORDER}` }}>
+                  <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.7 }}>{scene}</p>
+                </div>
+
+                {/* Cliffhanger */}
+                <div style={{ background: `${color}08`, border: `1px solid ${color}20`, borderRadius: 12, padding: "12px 14px" }}>
+                  <p style={{ fontSize: 9, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color, marginBottom: 6 }}>CLIFFHANGER</p>
+                  <p style={{ fontSize: 13, color: TEXT, lineHeight: 1.7, fontWeight: 500 }}>{cliff}</p>
+                </div>
+
+                {/* Next episode badge */}
+                <div style={{ marginTop: 14, display: "flex", alignItems: "center", gap: 6 }}>
+                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: color, animation: "pulse 2s infinite" }} />
+                  <span style={{ fontSize: 11, fontWeight: 700, color, letterSpacing: 0.5 }}>{next}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <p style={{ color: MUTED, fontSize: 14, marginTop: 32 }}>{c.cliffhangersCaption}</p>
       </div>
 
       {/* ADDICTION NARRATIVE */}
