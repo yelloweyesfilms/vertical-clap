@@ -1345,7 +1345,40 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={VIO}>{c.pipelineLabel}</Label>
           <Title>{c.pipelineTitle1}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{c.pipelineTitle2}</span></Title>
-          <Image src={c.imgPipeline} alt="Le pipeline créatif — du concept au tournage en 5 étapes" width={824} height={489} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: "100%", height: "auto", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.1), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
+          <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 500, margin: "12px auto 52px", lineHeight: 1.7 }}>
+            {lang === "fr" ? "Bible, épisodes, scripts — tout généré dans l'ordre, en moins de 5 minutes." : "Bible, episodes, scripts — all generated in sequence, in under 5 minutes."}
+          </p>
+          <div style={{ position: "relative", maxWidth: 860, margin: "0 auto" }}>
+            {/* Connecting line */}
+            <div style={{ position: "absolute", top: 28, left: "10%", right: "10%", height: 2, background: `linear-gradient(90deg, #E85C3A, #f97316, #eab308, #22c55e, #a855f7)`, opacity: 0.3, pointerEvents: "none" }} />
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
+              {(lang === "fr" ? [
+                { n: "01", emoji: "🎲", color: "#E85C3A", title: "Le Mixeur", desc: "Format, casting, univers, secret. Tout configuré en 1 clic.", time: "30 sec" },
+                { n: "02", emoji: "📖", color: "#f97316", title: "La Bible", desc: "Titre, logline, personnages, séquencier complet.", time: "15 sec" },
+                { n: "03", emoji: "🎬", color: "#eab308", title: "Les Scripts", desc: "Hook + scènes + cliffhanger pour chaque épisode.", time: "10 sec/ép." },
+                { n: "04", emoji: "🎲", color: "#22c55e", title: "3 Variations", desc: "Intense, Subtil, Rapide — le bon ton du premier coup.", time: "20 sec" },
+                { n: "05", emoji: "📱", color: "#a855f7", title: "Tournage", desc: "Téléprompteur auto-scroll. Pose ton téléphone. Action.", time: "Immédiat" },
+              ] : [
+                { n: "01", emoji: "🎲", color: "#E85C3A", title: "The Mixer", desc: "Format, cast, universe, secret. Everything set in 1 click.", time: "30 sec" },
+                { n: "02", emoji: "📖", color: "#f97316", title: "The Bible", desc: "Title, logline, characters, full episode breakdown.", time: "15 sec" },
+                { n: "03", emoji: "🎬", color: "#eab308", title: "Scripts", desc: "Hook + scenes + cliffhanger for every episode.", time: "10 sec/ep." },
+                { n: "04", emoji: "🎲", color: "#22c55e", title: "3 Variations", desc: "Intense, Subtle, Fast — the right tone first try.", time: "20 sec" },
+                { n: "05", emoji: "📱", color: "#a855f7", title: "Shoot Mode", desc: "Auto-scroll teleprompter. Put your phone down. Action.", time: "Instant" },
+              ]).map(({ n, emoji, color, title, desc, time }) => (
+                <div key={n} style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 18, padding: "20px 16px", position: "relative", display: "flex", flexDirection: "column", gap: 10 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div style={{ width: 36, height: 36, borderRadius: "50%", background: `${color}18`, border: `2px solid ${color}50`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>{emoji}</div>
+                    <span style={{ fontSize: 9, fontWeight: 800, color, letterSpacing: 1, padding: "3px 8px", background: `${color}12`, borderRadius: 6 }}>{time}</span>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, color: MUTED, textTransform: "uppercase", marginBottom: 4 }}>{n}</p>
+                    <p style={{ fontSize: 13, fontWeight: 800, color: TEXT, marginBottom: 6, lineHeight: 1.2 }}>{title}</p>
+                    <p style={{ fontSize: 11, color: MUTED, lineHeight: 1.6 }}>{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1354,7 +1387,140 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={VIO}>{c.variationsLabel}</Label>
           <Title>{c.variationsTitle1}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{c.variationsTitle2}</span></Title>
-          <Image src={c.imgVariations} alt="3 variations par script — Intense, Subtil, Rapide" width={1254} height={1254} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: "100%", height: "auto", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
+          <p style={{ color: MUTED, fontSize: 17, marginTop: 14, maxWidth: 560 }}>{lang === "fr" ? "Même scène, trois registres d'écriture. Un clic pour changer de ton sans réécrire." : "Same scene, three writing registers. One click to change tone without rewriting."}</p>
+
+          {/* Scene context banner */}
+          <div style={{ marginTop: 44, marginBottom: 28, background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 14, padding: "13px 20px", display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ fontSize: 20 }}>🎬</span>
+            <div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: MUTED, textTransform: "uppercase", letterSpacing: "0.08em" }}>{lang === "fr" ? "Scène source — Épisode 3" : "Source scene — Episode 3"}</div>
+              <div style={{ fontSize: 14, color: TEXT, marginTop: 2 }}>{lang === "fr" ? "Lucas découvre le mensonge de Sofia dans la salle de garde." : "Lucas discovers Sofia's lie in the break room."}</div>
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+            {(lang === "fr" ? [
+              {
+                tone: "Intense",
+                emoji: "🔥",
+                color: RED,
+                label: lang === "fr" ? "Confrontation directe" : "Direct confrontation",
+                lines: [
+                  { who: "LUCAS", line: "Tu savais. Depuis le début, tu savais." },
+                  { who: "SOFIA", line: "Lucas—" },
+                  { who: "LUCAS", line: "Réponds-moi." },
+                  { who: "(action)", line: "Il renverse la table. Les dossiers volent.", italic: true },
+                  { who: "SOFIA", line: "Oui. J'ai menti. Et je recommencerais." },
+                ],
+                cliff: lang === "fr" ? "La porte claque. Sofia fixe ses mains qui tremblent." : "",
+              },
+              {
+                tone: "Subtil",
+                emoji: "🎭",
+                color: VIO,
+                label: lang === "fr" ? "Tension psychologique" : "Psychological tension",
+                lines: [
+                  { who: "LUCAS", line: "Tu voulais me dire quelque chose hier soir." },
+                  { who: "SOFIA", line: "Non. Je… j'étais fatiguée." },
+                  { who: "LUCAS", line: "(il pose le dossier sur la table, face visible)", italic: true },
+                  { who: "SOFIA", line: "Où tu as trouvé ça ?" },
+                  { who: "LUCAS", line: "Ça change quelque chose ?" },
+                ],
+                cliff: lang === "fr" ? "Sofia ne répond pas. La réponse est dans ce silence." : "",
+              },
+              {
+                tone: "Rapide",
+                emoji: "⚡",
+                color: "#4ade80",
+                label: lang === "fr" ? "Rythme viral" : "Viral rhythm",
+                lines: [
+                  { who: "(action)", line: "Lucas entre. Dossier sur la table. Il part.", italic: true },
+                  { who: "SOFIA", line: "Attends—" },
+                  { who: "LUCAS", line: "C'est fini." },
+                  { who: "(action)", line: "Cut. Couloir. Il marche vite.", italic: true },
+                  { who: "SOFIA", line: "(off) Lucas !" },
+                ],
+                cliff: lang === "fr" ? "Il pousse la porte d'urgence. Elle ne le suivra pas." : "",
+              },
+            ] : [
+              {
+                tone: "Intense",
+                emoji: "🔥",
+                color: RED,
+                label: "Direct confrontation",
+                lines: [
+                  { who: "LUCAS", line: "You knew. From the very beginning." },
+                  { who: "SOFIA", line: "Lucas—" },
+                  { who: "LUCAS", line: "Answer me." },
+                  { who: "(action)", line: "He sweeps the files off the table.", italic: true },
+                  { who: "SOFIA", line: "Yes. I lied. And I'd do it again." },
+                ],
+                cliff: "The door slams. Sofia stares at her trembling hands.",
+              },
+              {
+                tone: "Subtle",
+                emoji: "🎭",
+                color: VIO,
+                label: "Psychological tension",
+                lines: [
+                  { who: "LUCAS", line: "You wanted to tell me something last night." },
+                  { who: "SOFIA", line: "No. I was… tired." },
+                  { who: "LUCAS", line: "(places the file on the table, face up)", italic: true },
+                  { who: "SOFIA", line: "Where did you find that?" },
+                  { who: "LUCAS", line: "Does it change anything?" },
+                ],
+                cliff: "Sofia doesn't answer. The answer is in the silence.",
+              },
+              {
+                tone: "Fast",
+                emoji: "⚡",
+                color: "#4ade80",
+                label: "Viral rhythm",
+                lines: [
+                  { who: "(action)", line: "Lucas enters. File on table. He leaves.", italic: true },
+                  { who: "SOFIA", line: "Wait—" },
+                  { who: "LUCAS", line: "It's over." },
+                  { who: "(action)", line: "Cut. Hallway. He walks fast.", italic: true },
+                  { who: "SOFIA", line: "(off) Lucas!" },
+                ],
+                cliff: "He pushes through the emergency door. She won't follow.",
+              },
+            ]).map(({ tone, emoji, color, label, lines, cliff }) => (
+              <div key={tone} style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                {/* Card header */}
+                <div style={{ padding: "16px 20px", borderBottom: `1px solid ${BORDER}`, display: "flex", alignItems: "center", gap: 10 }}>
+                  <span style={{ fontSize: 22 }}>{emoji}</span>
+                  <div>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: TEXT, fontFamily: "'Space Grotesk', sans-serif" }}>{tone}</div>
+                    <div style={{ fontSize: 12, color, fontWeight: 600, marginTop: 1 }}>{label}</div>
+                  </div>
+                </div>
+                {/* Script lines */}
+                <div style={{ padding: "18px 20px", flex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
+                  {lines.map((l, i) => (
+                    <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+                      <span style={{ fontSize: 10, fontWeight: 800, color: l.who === "(action)" ? MUTED : color, fontFamily: "monospace", flexShrink: 0, marginTop: 2, textTransform: "uppercase", letterSpacing: "0.05em", minWidth: 52 }}>{l.who}</span>
+                      <span style={{ fontSize: 13, color: l.italic ? MUTED : "rgba(255,255,255,0.82)", fontStyle: l.italic ? "italic" : "normal", lineHeight: 1.5 }}>{l.line}</span>
+                    </div>
+                  ))}
+                </div>
+                {/* Cliffhanger */}
+                <div style={{ padding: "12px 20px 16px", borderTop: `1px solid ${BORDER}`, background: `${color}10` }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>
+                    {lang === "fr" ? "↓ Cliffhanger" : "↓ Cliffhanger"}
+                  </div>
+                  <div style={{ fontSize: 13, color: "rgba(255,255,255,0.75)", fontStyle: "italic" }}>{cliff}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom note */}
+          <div style={{ marginTop: 32, textAlign: "center" }}>
+            <span style={{ fontSize: 14, color: MUTED }}>
+              {lang === "fr" ? "✦ Généré en 20 secondes · Plan Storyteller" : "✦ Generated in 20 seconds · Storyteller plan"}
+            </span>
+          </div>
         </div>
       </div>
 
