@@ -1050,11 +1050,23 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-      {/* Header — Story Formats (always visible) */}
-      <div style={{ background: "var(--tx)", padding: "20px 20px 18px", flexShrink: 0 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+      {/* Header */}
+      <div style={{ background: "var(--tx)", padding: "16px 20px 14px", flexShrink: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
           <VCLogo />
-          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>STUDIO</span>
+          {/* Mode switcher */}
+          <div style={{ display: "flex", background: "rgba(255,255,255,0.08)", borderRadius: 10, padding: 3, gap: 2 }}>
+            <button
+              onClick={() => set(prev => ({ mode: "fast", univers: prev.mode !== "fast" ? (lang === "en" ? "High school secrets" : "Lycée & Secrets") : prev.univers, secret: prev.mode !== "fast" ? (lang === "en" ? "Love betrayal" : "Trahison amoureuse") : prev.secret, format: prev.format > 20 ? 20 : prev.format, genreFormat: null }))}
+              style={{ padding: "6px 14px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "fast" ? "#E85C3A" : "transparent", color: state.mode === "fast" ? "#fff" : "rgba(255,255,255,0.45)" }}>
+              {t.mode_fast}
+            </button>
+            <button
+              onClick={() => { if (plan === "standard") { alert(lang === "fr" ? "Le mode Série est réservé au plan Storyteller." : "Series mode requires the Storyteller plan."); return; } set(prev => ({ mode: "premium", univers: prev.mode !== "premium" ? (lang === "en" ? "AI startup" : "Start-up IA") : prev.univers, secret: prev.mode !== "premium" ? (lang === "en" ? "Internal sabotage" : "Sabotage interne") : prev.secret, genreFormat: null })); }}
+              style={{ padding: "6px 14px", borderRadius: 8, border: "none", cursor: plan === "standard" ? "not-allowed" : "pointer", fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "premium" ? "#a855f7" : "transparent", color: state.mode === "premium" ? "#fff" : plan === "standard" ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.45)", position: "relative" }}>
+              {t.mode_premium}{plan === "standard" ? <span style={{ fontSize: 8, marginLeft: 4, verticalAlign: "middle", opacity: 0.7 }}>PRO</span> : null}
+            </button>
+          </div>
         </div>
         {/* Format chips */}
         <div style={{ display: "flex", gap: 7, overflowX: "auto", paddingBottom: 2, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
@@ -1063,10 +1075,10 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             const active = state.genreFormat === f.id;
             return (
               <button key={f.id} onClick={() => selectFormat(f)}
-                style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, padding: "9px 13px", borderRadius: 14, border: `2px solid ${active ? f.color : "rgba(255,255,255,0.15)"}`, background: active ? `${f.color}25` : "rgba(255,255,255,0.06)", cursor: locked ? "not-allowed" : "pointer", transition: "all .18s", opacity: locked ? 0.4 : 1, minWidth: 64 }}>
-                <div style={{ width: 6, height: 6, borderRadius: "50%", background: f.color, marginBottom: 2 }} />
-                <span style={{ fontSize: 10, fontWeight: 800, color: active ? f.color : "rgba(255,255,255,0.75)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{f.label[lang] || f.label.fr}</span>
-                <span style={{ fontSize: 8, color: "rgba(255,255,255,0.4)", whiteSpace: "nowrap", textAlign: "center" }}>{f.sub[lang] || f.sub.fr}{locked ? " ·" : ""}</span>
+                style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, padding: "9px 13px", borderRadius: 14, border: `2px solid ${active ? f.color : locked ? "rgba(168,85,247,0.2)" : "rgba(255,255,255,0.12)"}`, background: active ? `${f.color}25` : locked ? "rgba(168,85,247,0.06)" : "rgba(255,255,255,0.04)", cursor: locked ? "not-allowed" : "pointer", transition: "all .18s", opacity: locked ? 0.45 : 1, minWidth: 64 }}>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: locked ? "rgba(168,85,247,0.5)" : f.color, marginBottom: 2 }} />
+                <span style={{ fontSize: 10, fontWeight: 800, color: active ? f.color : locked ? "rgba(168,85,247,0.6)" : "rgba(255,255,255,0.75)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{f.label[lang] || f.label.fr}</span>
+                <span style={{ fontSize: 8, color: locked ? "rgba(168,85,247,0.5)" : "rgba(255,255,255,0.35)", whiteSpace: "nowrap", textAlign: "center" }}>{locked ? "Storyteller" : (f.sub[lang] || f.sub.fr)}</span>
               </button>
             );
           })}
@@ -1159,7 +1171,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
                       <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#fff" : "var(--tx)" }}>{pLabel}</span>
-                      <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: p.mode === "premium" ? "var(--n)" : "#e8f0e8", color: p.mode === "premium" ? "#fff" : "var(--n)", fontWeight: 700, letterSpacing: 0.5 }}>{locked ? "🔒 PRO" : p.mode === "premium" ? "PRO" : "FAST"}</span>
+                      <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: locked ? "rgba(168,85,247,0.15)" : p.mode === "premium" ? "#a855f7" : "rgba(232,92,58,0.15)", color: locked ? "#a855f7" : p.mode === "premium" ? "#fff" : "#E85C3A", fontWeight: 700, letterSpacing: 0.5, border: locked ? "1px solid rgba(168,85,247,0.3)" : "none" }}>{locked ? "Storyteller" : p.mode === "premium" ? "Série" : "Vertical"}</span>
                     </div>
                     <span style={{ fontSize: 11, color: active ? "rgba(255,255,255,0.8)" : "var(--mt)", lineHeight: 1.3 }}>{pDesc}</span>
                   </div>
@@ -1360,7 +1372,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                 <div key={f} style={{ flex: 1, position: "relative" }}>
                   <Chip
                     label={`${f} ép.`}
-                    sub={lockedFast ? "🎭 Premium" : lockedPlan ? "🔒 Premium" : `${Math.round(f * state.duree / 60)} min`}
+                    sub={lockedFast ? "Série" : lockedPlan ? "Storyteller" : `${Math.round(f * state.duree / 60)} min`}
                     block
                     active={state.format === f && !locked}
                     onClick={() => { if (!locked) set({ format: f }); }}
