@@ -31,22 +31,22 @@ const T = {
     style: "Style de script", drama: "🎚 Drama Engine", drama_sub: "Dose les ingrédients de ta série",
     generate: "▶ Générer la série", my_series: "📂 Mes séries sauvegardées",
     content: "min de contenu", max_fast: "max 20 en Fast",
-    back_mixer: "← Mixeur", see_eps: "Voir les", episodes_btn: "épisodes →",
-    poster_btn: "🎨 Affiche", bible_tab: "Bible", persos_tab: "🎭 Persos", titres_tab: "🔥 Titres", titres_locked: "🔒 Titres",
-    question_centrale: "Question centrale", personnages: "Personnages",
-    enrich: "✨ Enrichir les fiches",
-    back_bible: "← Bible", back_studio: "← Studio",
-    writing: "Écriture du script", hook: "⚡ Hook — 3 premières secondes",
+    back_mixer: "← Studio", see_eps: "Voir les", episodes_btn: "épisodes →",
+    poster_btn: "Affiche", bible_tab: "Bible", persos_tab: "Casting", titres_tab: "Titres alternatifs", titres_locked: "🔒 Titres",
+    question_centrale: "Tension centrale", personnages: "Personnages",
+    enrich: "Enrichir les fiches",
+    back_bible: "← Série", back_studio: "← Épisodes",
+    writing: "Écriture du script", hook: "HOOK — 3 premières secondes",
     script_label: "Script", repliques: "répliques",
-    spice: "🌶 Pimenter", subtle: "🤫 Subtil", simplify: "🎬 Simple",
+    spice: "Intensifier", subtle: "Subtil", simplify: "Épurer",
     revelation: "💥 Révélation", revelation_sub: "Insère un secret explosif dans le script",
-    variations_locked: "🔒 Générer 3 versions", variations: "🎲 Générer 3 versions",
-    shooting: "📱 Mode Tournage", social: "🔥 Social",
-    translate: "🌍 Traduire le script", translate_back: "↩ Original", translating: "🌍 Traduction en cours…",
-    export_pdf: "📄 Exporter en PDF",
-    saved: "séries sauvegardées", no_series: "Aucune série sauvegardée", generate_first: "Générez votre première série !",
+    variations_locked: "🔒 3 versions", variations: "3 versions du script",
+    shooting: "Tournage", social: "Distribution",
+    translate: "Traduire le script", translate_back: "↩ Original", translating: "Traduction…",
+    export_pdf: "Exporter en PDF",
+    saved: "séries sauvegardées", no_series: "Aucune série sauvegardée", generate_first: "Créez votre première série",
     open: "Ouvrir →", perso_input: "Ton %s personnalisé…",
-    dur_std: "Standard", dur_intense: "Intense", dur_epic: "Épique",
+    dur_std: "Court", dur_intense: "Standard", dur_epic: "Long",
     style_cinema: "Silences & regards", style_tiktok: "Rythme haletant", style_soap: "Révélations multiples",
     lo_romance: "Neutre", hi_romance: "Passion brûlante",
     lo_toxicite: "Sain", hi_toxicite: "Manipulation totale",
@@ -74,9 +74,9 @@ const T = {
     affiche_sec3_title: "03 — Générer l'image de couverture", affiche_sec3_sub: "Copie ce prompt et colle-le dans Midjourney, DALL-E (ChatGPT), Gemini ou Ideogram pour générer l'affiche.",
     affiche_copy: "📋 Copier le prompt", affiche_tools: "Midjourney → /imagine + colle · ChatGPT → \"Génère cette image :\" + colle · Gemini → même chose",
     vc_presents: "VERTICAL CLAP PRESENTS",
-    social_title: "📱 Contenu Social", social_loading: "Génération du contenu social…",
-    social_tiktok_legend: "📣 Légende TikTok", social_copy: "Copier",
-    social_sms: "💬 SMS entre personnages", social_comments: "🎵 Commentaires TikTok",
+    social_title: "Distribution & Réseaux", social_loading: "Génération du contenu…",
+    social_tiktok_legend: "📣 Légende de publication", social_copy: "Copier",
+    social_sms: "💬 SMS entre personnages", social_comments: "Commentaires",
     gen_bible: "Création de la bible de la série…",
     gen_episodes: "Génération des épisodes…",
     gen_episodes_batch: "Épisodes %a–%b générés… (%c/%d)",
@@ -107,22 +107,22 @@ const T = {
     style: "Script style", drama: "🎚 Drama Engine", drama_sub: "Tune your series ingredients",
     generate: "▶ Generate series", my_series: "📂 My saved series",
     content: "min of content", max_fast: "max 20 in Fast",
-    back_mixer: "← Back", see_eps: "See all", episodes_btn: "episodes →",
-    poster_btn: "🎨 Poster", bible_tab: "Bible", persos_tab: "🎭 Cast", titres_tab: "🔥 Titles", titres_locked: "🔒 Titles",
-    question_centrale: "Central question", personnages: "Characters",
-    enrich: "✨ Enrich profiles",
-    back_bible: "← Bible", back_studio: "← Studio",
-    writing: "Writing script", hook: "⚡ Hook — First 3 seconds",
+    back_mixer: "← Studio", see_eps: "See all", episodes_btn: "episodes →",
+    poster_btn: "Poster", bible_tab: "Bible", persos_tab: "Cast", titres_tab: "Alt. Titles", titres_locked: "🔒 Titles",
+    question_centrale: "Central tension", personnages: "Characters",
+    enrich: "Enrich profiles",
+    back_bible: "← Series", back_studio: "← Episodes",
+    writing: "Writing script", hook: "HOOK — First 3 seconds",
     script_label: "Script", repliques: "lines",
-    spice: "🌶 Spice up", subtle: "🤫 Subtle", simplify: "🎬 Simplify",
+    spice: "Intensify", subtle: "Subtle", simplify: "Strip down",
     revelation: "💥 Revelation", revelation_sub: "Drop an explosive secret into the script",
-    variations_locked: "🔒 Generate 3 versions", variations: "🎲 Generate 3 versions",
-    shooting: "📱 Shooting mode", social: "🔥 Social",
-    translate: "🌍 Translate script", translate_back: "↩ Original", translating: "🌍 Translating…",
-    export_pdf: "📄 Export as PDF",
-    saved: "saved series", no_series: "No saved series", generate_first: "Generate your first series!",
+    variations_locked: "🔒 3 versions", variations: "3 script versions",
+    shooting: "Shoot", social: "Distribute",
+    translate: "Translate script", translate_back: "↩ Original", translating: "Translating…",
+    export_pdf: "Export as PDF",
+    saved: "saved series", no_series: "No saved series", generate_first: "Create your first series",
     open: "Open →", perso_input: "Your custom %s…",
-    dur_std: "Standard", dur_intense: "Intense", dur_epic: "Epic",
+    dur_std: "Short", dur_intense: "Standard", dur_epic: "Long",
     style_cinema: "Silences & looks", style_tiktok: "Breathless pace", style_soap: "Multiple reveals",
     lo_romance: "Neutral", hi_romance: "Burning passion",
     lo_toxicite: "Healthy", hi_toxicite: "Total manipulation",
@@ -150,9 +150,9 @@ const T = {
     affiche_sec3_title: "03 — Generate cover image", affiche_sec3_sub: "Copy this prompt and paste it into Midjourney, DALL-E (ChatGPT), Gemini or Ideogram to generate the poster.",
     affiche_copy: "📋 Copy prompt", affiche_tools: "Midjourney → /imagine + paste · ChatGPT → \"Generate this image:\" + paste · Gemini → same",
     vc_presents: "VERTICAL CLAP PRESENTS",
-    social_title: "📱 Social Content", social_loading: "Generating social content…",
-    social_tiktok_legend: "📣 TikTok Caption", social_copy: "Copy",
-    social_sms: "💬 SMS between characters", social_comments: "🎵 TikTok Comments",
+    social_title: "Distribution & Social", social_loading: "Generating content…",
+    social_tiktok_legend: "📣 Publication caption", social_copy: "Copy",
+    social_sms: "💬 SMS between characters", social_comments: "Comments",
     gen_bible: "Creating series bible…",
     gen_episodes: "Generating episodes…",
     gen_episodes_batch: "Episodes %a–%b generated… (%c/%d)",
@@ -859,18 +859,19 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       {/* Header */}
       <div style={{ background: "var(--tx)", padding: "28px 20px 24px" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
           <VCLogo />
-          <div style={{ width: 44, height: 44, borderRadius: "50%", background: "var(--r)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ color: "#fff", fontSize: 9, fontWeight: 800, letterSpacing: 0.5 }}>REC</span>
-          </div>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>STUDIO</span>
         </div>
-        <div style={{ display: "flex", background: "#1a2a1e", borderRadius: 12, padding: 4 }}>
+        <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 20, letterSpacing: 0.3 }}>
+          {lang === "fr" ? "Créez votre prochaine série" : "Create your next series"}
+        </p>
+        <div style={{ display: "flex", background: "rgba(255,255,255,0.07)", borderRadius: 12, padding: 4 }}>
           {[{ k: "fast", l: t.mode_fast }, { k: "premium", l: t.mode_premium }].map(({ k, l }) => {
             const locked = k === "premium" && plan === "standard";
             return (
               <button key={k} onClick={() => { if (!locked) set(prev => ({ mode: k, univers: k === "fast" ? opts.univers_fast[0] : opts.univers_prem[0], secret: k === "fast" ? opts.secret_fast[0] : opts.secret_prem[0], format: k === "fast" && prev.format > 20 ? 20 : prev.format })); }}
-                style={{ flex: 1, padding: "10px 12px", borderRadius: 9, border: "none", fontFamily: "var(--sans)", fontSize: 13, fontWeight: 700, background: state.mode === k ? (k === "fast" ? "var(--r)" : "var(--n)") : "transparent", color: locked ? "#3a5040" : state.mode === k ? "#fff" : "#3a5040", transition: "all .2s", cursor: locked ? "not-allowed" : "pointer", opacity: locked ? 0.5 : 1 }}>
+                style={{ flex: 1, padding: "10px 12px", borderRadius: 9, border: "none", fontFamily: "var(--sans)", fontSize: 13, fontWeight: 700, background: state.mode === k ? (k === "fast" ? "var(--r)" : "var(--n)") : "transparent", color: locked ? "rgba(255,255,255,0.2)" : state.mode === k ? "#fff" : "rgba(255,255,255,0.45)", transition: "all .2s", cursor: locked ? "not-allowed" : "pointer", opacity: locked ? 0.5 : 1 }}>
                 {l}{locked && " 🔒"}
               </button>
             );
@@ -1221,7 +1222,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           })}
         </div>
 
-        <button onClick={onGen} style={{ background: "var(--r)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 700, cursor: "pointer" }}>
+        <button onClick={onGen} style={{ background: "var(--tx)", color: "var(--bg)", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 800, cursor: "pointer", letterSpacing: 0.5 }}>
           {t.generate}
         </button>
         <p style={{ fontSize: 12, color: "var(--mt)", textAlign: "center", marginTop: 12 }}>
@@ -1274,23 +1275,24 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0, display: "flex", alignItems: "center", gap: 6 }}>{t.back_mixer}</button>
-        <div style={{ marginBottom: 10 }}>
-          <span style={{ display: "inline-block", padding: "4px 10px", borderRadius: 6, background: mode === "fast" ? "#fff0ec" : "#e8edf2", color: mode === "fast" ? "var(--r)" : "var(--n)", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginRight: 6 }}>
-            {mode === "fast" ? t.mode_fast : t.mode_premium}
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 13, color: "var(--mt)", marginBottom: 16, cursor: "pointer", padding: 0, display: "flex", alignItems: "center", gap: 5, letterSpacing: 0.3 }}>{t.back_mixer}</button>
+        <div style={{ marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--r)" }}>
+            {mode === "fast" ? "FAST DRAMA" : "PREMIUM SUSPENSE"}
           </span>
-          <span style={{ display: "inline-block", padding: "4px 10px", borderRadius: 6, background: "#e8edf2", color: "var(--n)", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" }}>
-            ⏱ {DUR_LABEL[lang][duree]}/ép.
+          <span style={{ color: "var(--bo)" }}>·</span>
+          <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)" }}>
+            {DUR_LABEL[lang][duree]} / {lang === "fr" ? "épisode" : "episode"}
           </span>
         </div>
-        <h1 style={{ fontFamily: "var(--serif)", fontSize: 28, fontWeight: 900, letterSpacing: -1, lineHeight: 1.1, marginBottom: 10 }}>{bible.titre}</h1>
-        <p style={{ fontFamily: "var(--serif)", fontSize: 15, fontStyle: "italic", color: "var(--mt)", lineHeight: 1.5, marginBottom: 12 }}>« {bible.logline} »</p>
-        <p style={{ fontSize: 14, lineHeight: 1.7, marginBottom: 16 }}>{bible.pitch}</p>
-        <div style={{ display: "flex", borderBottom: "2px solid var(--bo)", marginBottom: 0 }}>
+        <h1 style={{ fontFamily: "var(--serif)", fontSize: 30, fontWeight: 900, letterSpacing: -0.5, lineHeight: 1.1, marginBottom: 8 }}>{bible.titre}</h1>
+        <p style={{ fontFamily: "var(--serif)", fontSize: 14, fontStyle: "italic", color: "var(--mt)", lineHeight: 1.6, marginBottom: 10 }}>« {bible.logline} »</p>
+        <p style={{ fontSize: 13, lineHeight: 1.75, marginBottom: 16, color: "var(--mt)" }}>{bible.pitch}</p>
+        <div style={{ display: "flex", borderBottom: "1.5px solid var(--bo)", marginBottom: 0 }}>
           {[
             { k: "bible", l: t.bible_tab },
             { k: "persos", l: t.persos_tab },
-            { k: "seq", l: `${episodes.length} ép.` },
+            { k: "seq", l: `Saison 1` },
             { k: "titres", l: plan === "standard" ? t.titres_locked : t.titres_tab },
           ].map(({ k, l }) => {
             const locked = k === "titres" && plan === "standard";
@@ -1408,21 +1410,35 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
             ))}
           </>
         ) : (
-          (episodes || []).map((ep, i) => (
-            <div key={i} onClick={() => onEp(i)} style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 16px", borderRadius: 14, background: "var(--card)", cursor: "pointer", border: "1.5px solid transparent", marginBottom: 8, transition: "all .15s" }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = "var(--r)"}
-              onMouseLeave={e => e.currentTarget.style.borderColor = "transparent"}>
-              <div style={{ width: 36, height: 36, borderRadius: 9, flexShrink: 0, background: "var(--r)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontFamily: "var(--serif)", fontSize: 14, fontWeight: 900, color: "#fff" }}>{ep.numero}</span>
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>{ep.titre}</p>
-                <Dots t={ep.tension} />
-                <p style={{ fontSize: 12, color: "var(--mt)", marginTop: 4, overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>🎬 {ep.cliffhanger}</p>
-              </div>
-              <span style={{ color: "var(--mt)", fontSize: 18, flexShrink: 0 }}>→</span>
+          <>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--mt)" }}>
+                {lang === "fr" ? "SAISON 1" : "SEASON 1"} — {episodes.length} {lang === "fr" ? "épisodes" : "episodes"}
+              </p>
+              <p style={{ fontSize: 10, color: "var(--mt)" }}>
+                {Math.round(episodes.length * (episodes[0]?.tension || 5) / 10 * 2)
+                  ? `${Math.round(episodes.reduce((a,e) => a + (e.tension||5), 0) / episodes.length * 10)}% ${lang === "fr" ? "tension" : "tension"}`
+                  : ""}
+              </p>
             </div>
-          ))
+            {(episodes || []).map((ep, i) => (
+              <div key={i} onClick={() => onEp(i)} style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", borderRadius: 12, background: "var(--card)", cursor: "pointer", borderLeft: `3px solid ${ep.tension >= 8 ? "var(--r)" : ep.tension >= 5 ? "var(--n)" : "var(--bo)"}`, marginBottom: 6, transition: "all .15s" }}
+                onMouseEnter={e => e.currentTarget.style.background = "var(--bo)"}
+                onMouseLeave={e => e.currentTarget.style.background = "var(--card)"}>
+                <div style={{ width: 32, flexShrink: 0, textAlign: "center" }}>
+                  <span style={{ fontFamily: "var(--serif)", fontSize: 18, fontWeight: 900, color: "var(--mt)", lineHeight: 1 }}>{ep.numero}</span>
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ fontSize: 14, fontWeight: 700, marginBottom: 3, color: "var(--tx)" }}>{ep.titre}</p>
+                  <p style={{ fontSize: 11, color: "var(--mt)", overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>{ep.cliffhanger}</p>
+                </div>
+                <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4 }}>
+                  <Dots t={ep.tension} />
+                  <span style={{ fontSize: 10, color: "var(--mt)" }}>›</span>
+                </div>
+              </div>
+            ))}
+          </>
         )}
       </div>
     </div>
@@ -1471,10 +1487,14 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
             <button onClick={onNext} disabled={epIdx === totalEps - 1} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, width: 34, height: 34, cursor: epIdx === totalEps - 1 ? "not-allowed" : "pointer", fontSize: 16, opacity: epIdx === totalEps - 1 ? 0.3 : 1, display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
-          <span style={{ background: "var(--r)", color: "#fff", borderRadius: 6, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>ÉP. {ep?.numero}</span>
-          <span style={{ background: "var(--n)", color: "#fff", borderRadius: 6, padding: "4px 10px", fontSize: 11, fontWeight: 700 }}>⏱ {DUR_LABEL[lang][duree]}</span>
-          <span style={{ fontFamily: "var(--serif)", fontSize: 19, fontWeight: 700 }}>{ep?.titre}</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, flexWrap: "wrap" }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--r)" }}>
+            {lang === "fr" ? "S01" : "S01"} · {lang === "fr" ? "ÉP." : "EP."} {ep?.numero}
+          </span>
+          <span style={{ fontSize: 10, color: "var(--mt)", letterSpacing: 1 }}>· {DUR_LABEL[lang][duree]}</span>
+        </div>
+        <div style={{ marginBottom: 8 }}>
+          <span style={{ fontFamily: "var(--serif)", fontSize: 20, fontWeight: 800, lineHeight: 1.2 }}>{ep?.titre}</span>
         </div>
         <Dots t={ep?.tension} />
       </div>
@@ -1487,7 +1507,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
         ) : script ? (
           <>
             <div style={{ background: "var(--card)", border: "2px solid var(--r)", borderRadius: 14, padding: 16, marginBottom: 16 }}>
-              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>{t.hook}</p>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>{t.hook}</p>
               <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 8, color: "var(--tx)" }}>{displayScript.hook_scene?.texte}</p>
               <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic" }}>[9:16] {displayScript.hook_scene?.visuel_916}</p>
             </div>
