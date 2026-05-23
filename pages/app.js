@@ -858,7 +858,7 @@ function VCLogo() {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 9, userSelect: "none" }}>
       {hasImg ? (
-        <img src="/vc-logo.png" alt="VC" style={{ width: 32, height: 32, borderRadius: 8, flexShrink: 0 }} />
+        <img src="/c-logo.png" alt="VC" style={{ width: 32, height: 32, borderRadius: 8, flexShrink: 0 }} />
       ) : (
         <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #E85C3A, #c94424)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 2px 8px rgba(232,92,58,0.35)" }}>
           <span style={{ fontFamily: "var(--sans)", fontSize: 13, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>VC</span>
