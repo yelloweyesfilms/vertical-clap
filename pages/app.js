@@ -1368,35 +1368,90 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           </div>
         </div>
 
-        {/* Drama Engine */}
-        <div style={{ marginBottom: 24 }}>
-          <SectionHead title={lang === "fr" ? "Drama Engine" : "Drama Engine"} sub={lang === "fr" ? "Dose les ingrédients de ta série — romance, tension, violence" : "Tune your series ingredients — romance, tension, violence"} />
-          {[
-            { key: "romance", label: "💕 Romance", lo: t.lo_romance, hi: t.hi_romance },
-            { key: "toxicite", label: "☠️ Toxicité", lo: t.lo_toxicite, hi: t.hi_toxicite },
-            { key: "mystere", label: "🔍 Mystère", lo: t.lo_mystere, hi: t.hi_mystere },
-            { key: "humour", label: "😈 Humour noir", lo: t.lo_humour, hi: t.hi_humour },
-            { key: "violence", label: "💥 Violence", lo: t.lo_violence, hi: t.hi_violence },
-            { key: "spicy", label: "🔥 Spicy", lo: t.lo_spicy, hi: t.hi_spicy },
-          ].map(({ key, label, lo, hi }) => {
-            const val = state.drama?.[key] ?? 5;
-            return (
-              <div key={key} style={{ marginBottom: 14 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: "var(--tx)" }}>{label}</span>
-                  <span style={{ fontSize: 11, fontWeight: 800, color: val >= 7 ? "var(--r)" : val <= 3 ? "var(--mt)" : "var(--n)", minWidth: 20, textAlign: "right" }}>{val}</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <span style={{ fontSize: 10, color: "var(--mt)", minWidth: 62, textAlign: "right" }}>{lo}</span>
+        {/* Moteur Émotionnel — Fast (curseurs) */}
+        {state.mode === "fast" && (
+          <div style={{ marginBottom: 24 }}>
+            <SectionHead
+              title={lang === "fr" ? "🎚 Moteur Émotionnel" : "🎚 Emotional Engine"}
+              sub={lang === "fr" ? "Compose l'intensité de ta série — dose chaque ingrédient" : "Compose your series intensity — tune each ingredient"}
+            />
+            {[
+              { key: "romance",  label: lang === "fr" ? "💕 Romance"     : "💕 Romance",     lo: t.lo_romance,   hi: t.hi_romance  },
+              { key: "toxicite", label: lang === "fr" ? "☠️ Toxicité"    : "☠️ Toxicity",    lo: t.lo_toxicite,  hi: t.hi_toxicite },
+              { key: "mystere",  label: lang === "fr" ? "🔍 Twist & Mystère" : "🔍 Twist & Mystery", lo: t.lo_mystere, hi: t.hi_mystere },
+              { key: "humour",   label: lang === "fr" ? "😈 Humour noir" : "😈 Dark humour", lo: t.lo_humour,    hi: t.hi_humour   },
+              { key: "violence", label: lang === "fr" ? "💥 Violence"    : "💥 Violence",    lo: t.lo_violence,  hi: t.hi_violence },
+              { key: "spicy",    label: lang === "fr" ? "🔥 Tension"     : "🔥 Tension",     lo: t.lo_spicy,     hi: t.hi_spicy    },
+            ].map(({ key, label, lo, hi }) => {
+              const val = state.drama?.[key] ?? 5;
+              const accent = val >= 7 ? "var(--r)" : val >= 4 ? "var(--n)" : "var(--mt)";
+              return (
+                <div key={key} style={{ marginBottom: 14 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 5 }}>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: "var(--tx)" }}>{label}</span>
+                    <span style={{ fontSize: 10, fontWeight: 800, color: accent, minWidth: 20, textAlign: "right" }}>{val}/10</span>
+                  </div>
                   <input type="range" min={0} max={10} value={val}
                     onChange={e => set({ drama: { ...(state.drama || {}), [key]: Number(e.target.value) } })}
-                    style={{ flex: 1, accentColor: val >= 7 ? "var(--r)" : "var(--n)", cursor: "pointer" }} />
-                  <span style={{ fontSize: 10, color: "var(--mt)", minWidth: 80 }}>{hi}</span>
+                    style={{ width: "100%", accentColor: accent, cursor: "pointer" }} />
+                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 3 }}>
+                    <span style={{ fontSize: 9, color: "var(--mt)", opacity: 0.6 }}>{lo}</span>
+                    <span style={{ fontSize: 9, color: "var(--mt)", opacity: 0.6 }}>{hi}</span>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Direction Artistique — Série/Premium (chips qualitatives) */}
+        {state.mode === "premium" && (() => {
+          const CATS_FR = [
+            { key: "emotion",  label: "Émotion",            emoji: "🎭", opts: ["Intime", "Épique", "Mélancolique", "Brutal"] },
+            { key: "rythme",   label: "Rythme narratif",    emoji: "⏱", opts: ["Slow burn", "Progressif", "Frénétique", "Minimaliste"] },
+            { key: "narration",label: "Structure",           emoji: "🔀", opts: ["Linéaire", "Fragmentée", "Mystère", "Multi-POV"] },
+            { key: "ton",      label: "Ton",                 emoji: "🎨", opts: ["Réaliste", "Poétique", "Commercial", "Auteur"] },
+            { key: "tension",  label: "Tension relationnelle", emoji: "⚡", opts: ["Romance", "Rivalité", "Toxicité", "Désir"] },
+          ];
+          const CATS_EN = [
+            { key: "emotion",  label: "Emotion",             emoji: "🎭", opts: ["Intimate", "Epic", "Melancholic", "Brutal"] },
+            { key: "rythme",   label: "Narrative pace",      emoji: "⏱", opts: ["Slow burn", "Progressive", "Frenetic", "Minimalist"] },
+            { key: "narration",label: "Structure",            emoji: "🔀", opts: ["Linear", "Fragmented", "Mystery", "Multi-POV"] },
+            { key: "ton",      label: "Tone",                 emoji: "🎨", opts: ["Realistic", "Poetic", "Commercial", "Auteur"] },
+            { key: "tension",  label: "Relational tension",  emoji: "⚡", opts: ["Romance", "Rivalry", "Toxicity", "Desire"] },
+          ];
+          const cats = lang === "en" ? CATS_EN : CATS_FR;
+          return (
+            <div style={{ marginBottom: 24 }}>
+              <SectionHead
+                title={lang === "fr" ? "🎨 Direction Artistique" : "🎨 Artistic Direction"}
+                sub={lang === "fr" ? "Compose le langage cinématographique de ta série" : "Compose the cinematic language of your series"}
+              />
+              {cats.map(cat => {
+                const selected = state.dramaPremium?.[cat.key] ?? null;
+                return (
+                  <div key={cat.key} style={{ marginBottom: 18 }}>
+                    <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--mt)", marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
+                      <span>{cat.emoji}</span>{cat.label}
+                    </p>
+                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                      {cat.opts.map(opt => {
+                        const active = selected === opt;
+                        return (
+                          <button key={opt}
+                            onClick={() => set(prev => ({ dramaPremium: { ...(prev.dramaPremium || {}), [cat.key]: active ? null : opt } }))}
+                            style={{ padding: "8px 15px", borderRadius: 100, border: `1.5px solid ${active ? "var(--n)" : "var(--bo)"}`, background: active ? "var(--n)" : "var(--card)", color: active ? "#fff" : "var(--tx)", cursor: "pointer", fontSize: 12, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s", letterSpacing: 0.2 }}>
+                            {opt}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })()}
 
         <button onClick={onGen} style={{ background: "var(--tx)", color: "var(--bg)", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 800, cursor: "pointer", letterSpacing: 0.5 }}>
           {t.generate}
@@ -2395,7 +2450,7 @@ export default function App() {
   const t = T[lang];
   const opts = OPTS[lang];
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", budget: "zero", lieu: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ Vertical Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 }, remake: null, saison2: null, genreFormat: null });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", budget: "zero", lieu: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ Vertical Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 }, dramaPremium: { emotion: null, rythme: null, narration: null, ton: null, tension: null }, remake: null, saison2: null, genreFormat: null });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
@@ -2554,7 +2609,7 @@ export default function App() {
     setLoading(true);
     try {
       const bLevel = BUDGET_LEVELS.find(b => b.id === state.budget);
-      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, ambianceVisuelle: state.ambianceVisuelle || "", budgetInstr: bLevel?.scriptInstr || "", lang }, customerId);
+      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, dramaPremium: state.dramaPremium, ambianceVisuelle: state.ambianceVisuelle || "", budgetInstr: bLevel?.scriptInstr || "", lang }, customerId);
       if (epReqRef.current === reqId) {
         setScript(s);
         setScripts(prev => {

@@ -72,6 +72,12 @@ function validatePayload(action, payload) {
         if (payload.drama[k] !== undefined && (typeof payload.drama[k] !== "number" || payload.drama[k] < 0 || payload.drama[k] > 10)) return `Curseur drama invalide: ${k}`;
       }
     }
+    if (payload.dramaPremium !== undefined) {
+      if (typeof payload.dramaPremium !== "object" || payload.dramaPremium === null) return "Direction artistique invalide";
+      for (const k of ["emotion", "rythme", "narration", "ton", "tension"]) {
+        if (payload.dramaPremium[k] !== undefined && payload.dramaPremium[k] !== null && typeof payload.dramaPremium[k] !== "string") return `Paramètre artistique invalide: ${k}`;
+      }
+    }
   } else if (action === "episodes") {
     const { titre, logline, mode, from, to, total } = payload;
     if (!VALID_MODES.includes(mode)) return "Mode invalide";
@@ -172,6 +178,82 @@ function buildDramaInstr(drama) {
   return lines.length > 0 ? `\nDRAMA ENGINE — instructions de ton:\n${lines.join("\n")}` : "";
 }
 
+function buildDramaPremiumInstr(dramaPremium) {
+  if (!dramaPremium || typeof dramaPremium !== "object") return "";
+  const { emotion, rythme, narration, ton, tension } = dramaPremium;
+  const lines = [];
+
+  if (emotion) {
+    const map = {
+      "Intime": "REGISTRE INTIME: émotions intériorisées, micro-expressions, silences significatifs — chaque regard en dit plus que les dialogues.",
+      "Intimate": "INTIMATE REGISTER: internalized emotions, micro-expressions, meaningful silences — every glance says more than words.",
+      "Épique": "REGISTRE ÉPIQUE: enjeux élevés, grandeur émotionnelle, destins qui se jouent — chaque scène a le poids d'un moment historique.",
+      "Epic": "EPIC REGISTER: high stakes, emotional grandeur, fates at play — every scene carries the weight of a defining moment.",
+      "Mélancolique": "REGISTRE MÉLANCOLIQUE: nostalgie, regret, beauté de ce qui est perdu — une tristesse élégante traverse tout le récit.",
+      "Melancholic": "MELANCHOLIC REGISTER: nostalgia, regret, beauty of what is lost — an elegant sadness runs through the whole narrative.",
+      "Brutal": "REGISTRE BRUTAL: crûté sans filtre, confrontations directes, vérités qui font mal — aucune complaisance, aucun adoucissement.",
+      "Brutal": "BRUTAL REGISTER: unfiltered rawness, direct confrontations, truths that hurt — no softening, no politeness.",
+    };
+    if (map[emotion]) lines.push(map[emotion]);
+  }
+
+  if (rythme) {
+    const map = {
+      "Slow burn": "RYTHME SLOW BURN: tension qui monte imperceptiblement, patience narrative, la récompense vient tard mais fort — chaque épisode installe un peu plus l'inévitable.",
+      "Progressif": "RYTHME PROGRESSIF: escalade contrôlée, chaque épisode monte d'un cran — structure en crescendo vers une révélation finale.",
+      "Progressive": "PROGRESSIVE PACE: controlled escalation, each episode raises the stakes — crescendo structure toward a final reveal.",
+      "Frénétique": "RYTHME FRÉNÉTIQUE: tout s'emballe, les événements se percutent, le spectateur n'a pas le temps de respirer — urgence permanente.",
+      "Frenetic": "FRENETIC PACE: everything accelerates, events collide, the viewer has no time to breathe — permanent urgency.",
+      "Minimaliste": "RYTHME MINIMALISTE: peu de scènes, beaucoup de vide — la tension vit dans les silences, les absences, ce qui n'est pas dit.",
+      "Minimalist": "MINIMALIST PACE: few scenes, much silence — tension lives in the gaps, absences, what goes unsaid.",
+    };
+    if (map[rythme]) lines.push(map[rythme]);
+  }
+
+  if (narration) {
+    const map = {
+      "Linéaire": "NARRATION LINÉAIRE: chronologie claire, cause → effet, le spectateur suit une progression logique et satisfaisante.",
+      "Linear": "LINEAR NARRATION: clear chronology, cause → effect, the viewer follows a logical and satisfying progression.",
+      "Fragmentée": "NARRATION FRAGMENTÉE: non-linéaire, flashbacks, ellipses — le spectateur assemble les pièces lui-même, la structure crée du mystère.",
+      "Fragmented": "FRAGMENTED NARRATION: non-linear, flashbacks, ellipses — the viewer assembles the pieces, the structure itself creates mystery.",
+      "Mystère": "NARRATION MYSTÈRE: information retenue, révélations en cascade, chaque réponse ouvre trois nouvelles questions.",
+      "Mystery": "MYSTERY NARRATION: information withheld, cascading reveals, every answer opens three new questions.",
+      "Multi-POV": "MULTI-POV: plusieurs points de vue contradictoires sur les mêmes événements — la vérité dépend de qui parle.",
+    };
+    if (map[narration]) lines.push(map[narration]);
+  }
+
+  if (ton) {
+    const map = {
+      "Réaliste": "TON RÉALISTE: dialogues comme dans la vraie vie, situations vraisemblables, psychologie crédible — le spectateur s'identifie.",
+      "Realistic": "REALISTIC TONE: dialogue as in real life, plausible situations, credible psychology — the viewer identifies.",
+      "Poétique": "TON POÉTIQUE: métaphores dans les dialogues, images fortes, instants suspendus — le récit transcende le réel.",
+      "Poetic": "POETIC TONE: metaphors in dialogue, strong images, suspended moments — the narrative transcends reality.",
+      "Commercial": "TON COMMERCIAL: efficacité maximale, moments viraux, hooks évidents, satisfaction immédiate — optimisé pour les plateformes.",
+      "Commercial": "COMMERCIAL TONE: maximum efficiency, viral moments, obvious hooks, immediate satisfaction — optimized for platforms.",
+      "Auteur": "TON AUTEUR: point de vue assumé, thématiques profondes, ambiguïté morale — le récit dit quelque chose sur le monde.",
+      "Auteur": "AUTEUR TONE: an authored perspective, deep themes, moral ambiguity — the narrative says something about the world.",
+    };
+    if (map[ton]) lines.push(map[ton]);
+  }
+
+  if (tension) {
+    const map = {
+      "Romance": "MOTEUR ROMANTIQUE: l'attraction et les sentiments amoureux sont le cœur de la tension — tout converge vers la question 'seront-ils ensemble?'",
+      "Rivalité": "MOTEUR RIVALITÉ: compétition, ambition, ego — deux personnages veulent la même chose et un seul peut gagner.",
+      "Rivalry": "RIVALRY ENGINE: competition, ambition, ego — two characters want the same thing and only one can win.",
+      "Toxicité": "MOTEUR TOXICITÉ: emprise, dépendance, fascination malsaine — une relation qui détruit mais dont on ne peut pas s'échapper.",
+      "Toxicity": "TOXICITY ENGINE: control, dependency, unhealthy fascination — a relationship that destroys but can't be escaped.",
+      "Désir": "MOTEUR DÉSIR: tension physique et émotionnelle, l'attraction interdit ou impossible — ce qui ne peut pas être dit est tout.",
+      "Desire": "DESIRE ENGINE: physical and emotional tension, forbidden or impossible attraction — what cannot be said is everything.",
+      "Manipulation": "MOTEUR MANIPULATION: un personnage orchestre les autres — les rapports de force changent, les alliances se font et défont.",
+    };
+    if (map[tension]) lines.push(map[tension]);
+  }
+
+  return lines.length > 0 ? `\nDIRECTION ARTISTIQUE — vision cinématographique:\n${lines.join("\n")}` : "";
+}
+
 const DUR_INSTR = {
   60: `DURÉE 1 MIN — Tu DOIS générer exactement 10 à 13 scènes dans le tableau "scenes" (ni plus ni moins). Structure temporelle OBLIGATOIRE:
 • 0–5s: HOOK — 1 phrase choc max 10 mots, in medias res, jamais de bonjour
@@ -233,8 +315,8 @@ export default async function handler(req, res) {
 
   try {
     if (action === "bible") {
-      const { mode, casting, univers, secret, format, duree, genre, lieu, ambiance, tropes, drama, lang, castingIA, ambianceVisuelle, saison2, remakeInspiration } = payload;
-      const ck = `bible:${mode}:${casting}:${univers}:${secret}:${format}:${duree}:${genre || ""}:${lieu || ""}:${ambiance || ""}:${tropes || ""}:${JSON.stringify(drama || {})}:${lang || "fr"}:${saison2 ? saison2.titre : ""}:${remakeInspiration || ""}`;
+      const { mode, casting, univers, secret, format, duree, genre, lieu, ambiance, tropes, drama, dramaPremium, lang, castingIA, ambianceVisuelle, saison2, remakeInspiration } = payload;
+      const ck = `bible:${mode}:${casting}:${univers}:${secret}:${format}:${duree}:${genre || ""}:${lieu || ""}:${ambiance || ""}:${tropes || ""}:${JSON.stringify(drama || {})}:${JSON.stringify(dramaPremium || {})}:${lang || "fr"}:${saison2 ? saison2.titre : ""}:${remakeInspiration || ""}`;
       const cached = getCached(ck);
       if (cached) return res.json(cached);
       const md = mode === "fast"
@@ -247,7 +329,7 @@ export default async function handler(req, res) {
       const tropesInstr = tropes ? `Tropes & codes narratifs du pack: ${tropes}. Respecte ces codes comme ADN de la série.` : "";
       const castingIAInstr = castingIA ? `CASTING IA — identités fortes imposées: ${castingIA}. Chaque personnage DOIT avoir exactement cette voix, ce style, cette personnalité et cette aura. Ces traits définissent leurs dialogues, leurs réactions et leur présence dans chaque scène.` : "";
       const ambianceVisInstr = ambianceVisuelle ? `${ambianceVisuelle}` : "";
-      const dramaInstr = buildDramaInstr(drama);
+      const dramaInstr = mode === "premium" ? buildDramaPremiumInstr(dramaPremium) : buildDramaInstr(drama);
       const langInstr = buildLangInstr(lang);
       const saison2Instr = saison2 ? `\nSAISON 2 — SUITE DIRECTE: Cette série est la continuité directe de "${saison2.titre}". La saison 1 s'est terminée sur: "${saison2.tension_centrale}". Les personnages reviennent transformés par les événements de S1. OBLIGATOIRE: nouveaux secrets inédits, nouvelle tension centrale différente, nouveaux arcs d'évolution — pas une répétition. Fais référence aux conséquences de S1 dans les secrets et arcs de S2.` : "";
       const remakeInstr = remakeInspiration ? `\nINSPIRATION SÉRIE: ${remakeInspiration}. Garde l'ADN émotionnel et narratif de cette référence mais crée des personnages 100% originaux, un univers adapté au micro-drama mobile vertical.` : "";
@@ -290,7 +372,7 @@ export default async function handler(req, res) {
     }
 
     if (action === "script") {
-      const { ep, bible, mode, duree, prevEps, lang, ambianceVisuelle: scriptAV, budgetInstr } = payload;
+      const { ep, bible, mode, duree, prevEps, lang, ambianceVisuelle: scriptAV, budgetInstr, dramaPremium: scriptDramaPremium } = payload;
       const md = mode === "fast"
         ? "Vertical Drama: émotions explosives, confrontations directes, cliffhangers choc"
         : "Série Premium: sous-texte intense, silences signifiants, tension dramatique progressive";
@@ -307,7 +389,7 @@ export default async function handler(req, res) {
         "🎙️ Voix Off": "Style VOIX OFF NARRATION: format hybride dialogue + narration. Ajoute un champ 'voix_off' dans chaque scène (8-15 mots, ton intime et confidentiel, pensées du personnage OU narration rétrospective). Le dialogue reste 5-10 mots, incisif. Format populaire sur DramaBox et TikTok storytelling. Dans la voix_off: révèle ce que le personnage ne dit pas.",
       };
       const styleInstr = payload.style && styleMap[payload.style] ? styleMap[payload.style] : styleMap["⚡ TikTok Drama"];
-      const scriptDramaInstr = buildDramaInstr(payload.drama);
+      const scriptDramaInstr = mode === "premium" ? buildDramaPremiumInstr(scriptDramaPremium) : buildDramaInstr(payload.drama);
       const scriptLangInstr = buildLangInstr(lang);
       const scriptAVInstr = scriptAV ? `\n${scriptAV}\nLes descriptions visuel_916 DOIVENT refléter cette identité visuelle précisément.` : "";
       const scriptBudgetInstr = budgetInstr ? `\n${budgetInstr}` : "";
