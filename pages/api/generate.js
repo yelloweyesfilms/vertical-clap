@@ -41,7 +41,7 @@ function setCached(key, data) {
 }
 
 
-const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres", "variations", "traduire", "production", "cartes", "social", "affiche", "profils", "calendrier", "storyboard"];
+const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres", "variations", "traduire", "production", "cartes", "social", "affiche", "profils", "calendrier", "storyboard", "accroches"];
 const VALID_MODES = ["fast", "premium"];
 const VALID_DUREES = [60, 90, 120];
 const VALID_FORMATS = [10, 20, 40, 60, 90];
@@ -145,6 +145,10 @@ function validatePayload(action, payload) {
     if (!ep || typeof ep !== "object") return "Épisode invalide";
     if (!script || typeof script !== "object") return "Script invalide";
     if (!bible || typeof bible !== "object") return "Bible invalide";
+  } else if (action === "accroches") {
+    const { titre, episodes } = payload;
+    if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
+    if (!Array.isArray(episodes)) return "Épisodes invalides";
   }
   return null;
 }
@@ -572,6 +576,19 @@ export default async function handler(req, res) {
         1600
       );
       trackAction("calendrier", customerId);
+      return res.json(result);
+    }
+
+    if (action === "accroches") {
+      const { titre, logline, genre, episodes, lang } = payload;
+      const langInstr = buildLangInstr(lang);
+      const epList = (episodes || []).slice(0, 20).map(e => `Ép.${e.numero} "${e.titre}" — cliffhanger: ${e.cliffhanger}`).join("\n");
+      const result = await callClaude(
+        `Tu es expert en contenu TikTok pour micro-dramas verticaux. Pour chaque épisode, génère une accroche virale prête à poster. JSON uniquement.${langInstr}`,
+        `Série "${titre}". Genre: ${genre || "Drama"}. Logline: ${logline || ""}.\nÉpisodes:\n${epList}\n\nPour chaque épisode: legende = légende TikTok virale 15 mots max qui donne envie sans spoiler + 3 hashtags ciblés. Format court, punch, suspense.\nJSON: {"accroches":[{"numero":1,"legende":"","hashtags":["",""]}]}`,
+        1200
+      );
+      trackAction("accroches", customerId);
       return res.json(result);
     }
 
