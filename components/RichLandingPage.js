@@ -101,8 +101,8 @@ const COPY = {
     forYouTitle1: "Du créateur TikTok",
     forYouTitle2: "au showrunner.",
     forYouProfiles: [
-      { emoji: "📱", title: "Le créateur solo", sub: "Tu postes sur TikTok, Reels ou Shorts. Tu veux des séries courtes, des hooks qui accrochent, un rythme maximal. Creator te donne tout ça en 5 minutes.", color: "#E85C3A" },
-      { emoji: "🎬", title: "L'auteur en développement", sub: "Tu as des idées plus ambitieuses — personnages complexes, arcs narratifs, plusieurs épisodes. Storyteller te donne la structure et la Direction Artistique.", color: "#f97316" },
+      { emoji: "📱", title: "Le créateur solo", sub: "Tu postes sur TikTok, Reels ou Shorts. Tu veux des séries courtes, des hooks qui accrochent, un rythme maximal. Créateur te donne tout ça en 5 minutes.", color: "#E85C3A" },
+      { emoji: "🎬", title: "L'auteur en développement", sub: "Tu as des idées plus ambitieuses — personnages complexes, arcs narratifs, plusieurs épisodes. Premium te donne la structure et la Direction Artistique.", color: "#f97316" },
       { emoji: "🎭", title: "Le showrunner", sub: "Tu gères une équipe, tu livres sur des plateformes premium. 90 épisodes, 3 variations par script, fiche de production — tout y est.", color: "#a855f7" },
     ],
     pipelineLabel: "De l'idée au tournage",
@@ -119,9 +119,9 @@ const COPY = {
     billedStandardAnnual: "facturé 90€/an",
     billedPremiumAnnual: "facturé 179€/an",
     perMonth: "/mois",
-    planStandard: "Creator",
+    planStandard: "Créateur",
     planStandardSub: "Pour créateurs, micro-dramas et storytelling social",
-    planPremium: "Storyteller",
+    planPremium: "Premium",
     planPremiumSub: "Pour séries, univers narratifs et projets ambitieux",
     standardFeatures: [
       "⚡ Vertical Drama · micro-drama",
@@ -144,7 +144,7 @@ const COPY = {
       "📄 Export PDF",
     ],
     recommendedBadge: "RECOMMANDÉ",
-    ctaBtnPremium: "Commencer Storyteller →",
+    ctaBtnPremium: "Commencer Premium →",
     trustItems: [
       { icon: "·", label: "Stripe · Paiement sécurisé" },
       { icon: "·", label: "Annulable en 1 clic" },
@@ -159,7 +159,7 @@ const COPY = {
     faqItems: [
       { q: "C'est quoi un micro-drama vertical ?", r: "Un format vidéo court (1 à 2 min), filmé en 9:16 pour mobile, avec une structure dramatique forte : hook percutant, tension montante et cliffhanger final. Le format qui explose sur TikTok, Instagram Reels, YouTube Shorts — et sur les plateformes spécialisées de micro-dramas." },
       { q: "Combien de temps pour générer une série complète ?", r: "Moins de 5 minutes. La bible (titre, logline, personnages) se génère en streaming en quelques secondes. Les épisodes arrivent en parallèle. Le script d'un épisode prend 10 secondes." },
-      { q: "Quelle différence entre le plan Creator et Storyteller ?", r: "Creator (Vertical Drama) : émotions frontales, hooks agressifs, rythme maximal — idéal pour TikTok, Reels et Shorts. Storyteller (Série Premium) : tension psychologique, sous-texte, silences lourds, Direction Artistique avancée — pour des séries ambitieuses et une audience plus mature." },
+      { q: "Quelle différence entre le plan Créateur et Premium ?", r: "Créateur (9€) : émotions frontales, hooks agressifs, rythme maximal — idéal pour TikTok, Reels et Shorts. Premium (19€) : tension psychologique, sous-texte, silences lourds, Direction Artistique avancée — pour des séries ambitieuses et une audience plus mature." },
       { q: "Les scripts sont-ils vraiment prêts à tourner ?", r: "Oui. Chaque scène inclut le dialogue, l'indication de jeu d'acteur et la directive de cadrage 9:16. Le Mode Tournage intègre un téléprompteur auto-scroll et une checklist décors." },
       { q: "Mes séries sont-elles sauvegardées ?", r: "Elles sont sauvegardées localement sur ton appareil et synchronisées dans le cloud automatiquement. Tu y accèdes depuis n'importe quel appareil via l'onglet ☁️ Cloud." },
       { q: "Puis-je annuler mon abonnement ?", r: "Oui, à tout moment en un clic depuis ton espace Stripe. Aucun engagement, aucune pénalité. Tu gardes l'accès jusqu'à la fin de la période payée." },
@@ -640,7 +640,7 @@ export default function RichLandingPage({ lang = "fr" }) {
   const [emailError, setEmailError] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
   const [billing, setBilling] = useState("monthly");
-  const [planTab, setPlanTab] = useState("storyteller");
+  const [planTab, setPlanTab] = useState("creator");
   const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
   const canceled = router.query.canceled;
@@ -1284,7 +1284,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                   {loading ? c.redirecting : c.ctaBtn}
                 </GlowBtn>
                 <p style={{ textAlign: "center", marginTop: 10, fontSize: 11, color: MUTED }}>
-                  <button onClick={() => setPlanTab("storyteller")} style={{ background: "none", border: "none", color: VIO, fontWeight: 700, cursor: "pointer", fontSize: 11, padding: 0 }}>Voir Storyteller →</button>
+                  <button onClick={() => setPlanTab("storyteller")} style={{ background: "none", border: "none", color: VIO, fontWeight: 700, cursor: "pointer", fontSize: 11, padding: 0 }}>Voir Premium →</button>
                 </p>
               </div>
             </div>
