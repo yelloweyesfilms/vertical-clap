@@ -2855,6 +2855,11 @@ export default function App() {
     }
   }, [router.isReady, router.query]);
 
+  // ── Preview mode: force plan=standard when ?preview=standard is in URL ──
+  useEffect(() => {
+    if (router.isReady && router.query.preview === "standard") setPlan("standard");
+  });
+
   const logout = () => { localStorage.removeItem("vs_customer"); localStorage.removeItem("vs_plan"); setCustomerId(null); setPlan("standard"); };
 
   // ── Generation ──
