@@ -619,12 +619,19 @@ export default function RichLandingPage({ lang = "fr" }) {
   const [openFaq, setOpenFaq] = useState(null);
   const [billing, setBilling] = useState("monthly");
   const [planTab, setPlanTab] = useState("storyteller");
+  const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
   const canceled = router.query.canceled;
 
   const track = (event, meta = {}) => fetch("/api/analytics", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ event, meta }) }).catch(() => {});
 
   useEffect(() => { track("page_view"); }, []);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 700);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const startCheckout = async (plan = "standard", position = "unknown", opts = {}) => {
     if (!email || !email.includes("@")) {
@@ -696,9 +703,20 @@ export default function RichLandingPage({ lang = "fr" }) {
           .pricing-grid { grid-template-columns: 1fr !important; }
           .hero-two-col { flex-direction: column !important; gap: 40px !important; }
           .hero-scene { width: 100% !important; max-width: 360px !important; margin: 0 auto !important; }
+          .feat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1px !important; }
+          .pipeline-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+          .pipeline-line { display: none !important; }
+          .variations-grid { grid-template-columns: 1fr !important; }
+          .mixeur-tabs-grid { grid-template-columns: 1fr !important; }
+          .for-you-grid { grid-template-columns: 1fr !important; }
+          .cliff-grid { grid-template-columns: 1fr !important; }
+          .compare-table { display: none !important; }
         }
         @media (max-width: 900px) {
           .hero-scene { width: 340px !important; }
+          .pipeline-grid { grid-template-columns: repeat(3, 1fr) !important; }
+          .feat-grid { grid-template-columns: repeat(3, 1fr) !important; }
+          .variations-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
 
@@ -1116,7 +1134,7 @@ export default function RichLandingPage({ lang = "fr" }) {
 
       {/* FEATURE STRIP */}
       <div style={{ borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.02)", padding: "32px 40px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 1 }}>
+        <div className="feat-grid" style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 1 }}>
           {c.featLabels.map(({ emoji, label, sub }, i) => (
             <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, padding: "16px 12px", borderRight: i < c.featLabels.length - 1 ? `1px solid ${BORDER}` : "none", textAlign: "center" }}>
               <span style={{ fontSize: 22 }}>{emoji}</span>
@@ -1350,8 +1368,8 @@ export default function RichLandingPage({ lang = "fr" }) {
           </p>
           <div style={{ position: "relative", maxWidth: 860, margin: "0 auto" }}>
             {/* Connecting line */}
-            <div style={{ position: "absolute", top: 28, left: "10%", right: "10%", height: 2, background: `linear-gradient(90deg, #E85C3A, #f97316, #eab308, #22c55e, #a855f7)`, opacity: 0.3, pointerEvents: "none" }} />
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
+            <div className="pipeline-line" style={{ position: "absolute", top: 28, left: "10%", right: "10%", height: 2, background: `linear-gradient(90deg, #E85C3A, #f97316, #eab308, #22c55e, #a855f7)`, opacity: 0.3, pointerEvents: "none" }} />
+            <div className="pipeline-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 12 }}>
               {(lang === "fr" ? [
                 { n: "01", emoji: "🎲", color: "#E85C3A", title: "Le Mixeur", desc: "Format, casting, univers, secret. Tout configuré en 1 clic.", time: "30 sec" },
                 { n: "02", emoji: "📖", color: "#f97316", title: "La Bible", desc: "Titre, logline, personnages, séquencier complet.", time: "15 sec" },
@@ -1398,7 +1416,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+          <div className="variations-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
             {(lang === "fr" ? [
               {
                 tone: "Intense",
