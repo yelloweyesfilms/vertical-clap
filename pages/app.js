@@ -1014,6 +1014,11 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   const totalMin = Math.round(state.format * state.duree / 60);
   const [customInputs, setCustomInputs] = useState({ casting: "", univers: "", secret: "" });
   const [castingCat, setCastingCat] = useState("romance");
+  const [mixTab, setMixTab] = useState("univers");
+
+  const MIX_TABS = lang === "en"
+    ? [{ id: "univers", emoji: "🎬", label: "Story" }, { id: "persos", emoji: "🎭", label: "Cast" }, { id: "ambiance", emoji: "🎨", label: "Style" }, { id: "format", emoji: "⚙️", label: "Format" }]
+    : [{ id: "univers", emoji: "🎬", label: "Univers" }, { id: "persos", emoji: "🎭", label: "Persos" }, { id: "ambiance", emoji: "🎨", label: "Ambiance" }, { id: "format", emoji: "⚙️", label: "Format" }];
 
   const selectFormat = (f) => {
     const locked = f.mode === "premium" && plan === "standard";
@@ -1044,25 +1049,22 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   };
 
   return (
-    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-      {/* Header */}
-      <div style={{ background: "var(--tx)", padding: "28px 20px 24px" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+    <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+      {/* Header — Story Formats (always visible) */}
+      <div style={{ background: "var(--tx)", padding: "20px 20px 18px", flexShrink: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
           <VCLogo />
           <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>STUDIO</span>
         </div>
-        <p style={{ fontFamily: "var(--serif)", fontSize: 16, fontStyle: "italic", color: "rgba(255,255,255,0.65)", marginBottom: 22, letterSpacing: 0.2, lineHeight: 1.3 }}>
-          Create stories for every screen.
-        </p>
         {/* Format chips */}
-        <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 4, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
+        <div style={{ display: "flex", gap: 7, overflowX: "auto", paddingBottom: 2, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
           {STORY_FORMATS.map(f => {
             const locked = f.mode === "premium" && plan === "standard";
             const active = state.genreFormat === f.id;
             return (
               <button key={f.id} onClick={() => selectFormat(f)}
-                style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, padding: "10px 14px", borderRadius: 14, border: `2px solid ${active ? f.color : "rgba(255,255,255,0.15)"}`, background: active ? `${f.color}25` : "rgba(255,255,255,0.06)", cursor: locked ? "not-allowed" : "pointer", transition: "all .18s", opacity: locked ? 0.4 : 1, minWidth: 68 }}>
-                <span style={{ fontSize: 20 }}>{f.emoji}</span>
+                style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, padding: "9px 13px", borderRadius: 14, border: `2px solid ${active ? f.color : "rgba(255,255,255,0.15)"}`, background: active ? `${f.color}25` : "rgba(255,255,255,0.06)", cursor: locked ? "not-allowed" : "pointer", transition: "all .18s", opacity: locked ? 0.4 : 1, minWidth: 64 }}>
+                <span style={{ fontSize: 18 }}>{f.emoji}</span>
                 <span style={{ fontSize: 10, fontWeight: 800, color: active ? f.color : "rgba(255,255,255,0.75)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{f.label[lang] || f.label.fr}</span>
                 <span style={{ fontSize: 8, color: "rgba(255,255,255,0.4)", whiteSpace: "nowrap", textAlign: "center" }}>{f.sub[lang] || f.sub.fr}{locked ? " 🔒" : ""}</span>
               </button>
@@ -1071,7 +1073,25 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </div>
       </div>
 
-      <div style={{ padding: "24px 20px", maxWidth: 520, margin: "0 auto" }}>
+      {/* Tab bar — sticky */}
+      <div style={{ display: "flex", background: "var(--bg)", borderBottom: "1.5px solid var(--bo)", flexShrink: 0 }}>
+        {MIX_TABS.map(tab => {
+          const active = mixTab === tab.id;
+          return (
+            <button key={tab.id} onClick={() => setMixTab(tab.id)} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, padding: "10px 4px 8px", border: "none", background: "none", cursor: "pointer", borderBottom: `2.5px solid ${active ? "var(--r)" : "transparent"}`, transition: "all .15s", fontFamily: "var(--sans)" }}>
+              <span style={{ fontSize: 16 }}>{tab.emoji}</span>
+              <span style={{ fontSize: 9, fontWeight: active ? 800 : 500, color: active ? "var(--r)" : "var(--mt)", letterSpacing: 0.5, textTransform: "uppercase" }}>{tab.label}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Scrollable content per tab */}
+      <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+      <div style={{ padding: "22px 20px 8px", maxWidth: 520, margin: "0 auto" }}>
+
+        {/* ═══ TAB: FORMAT ═══ */}
+        {mixTab === "format" && (<>
 
         {/* Budget / Production Scale */}
         <div style={{ marginBottom: 28 }}>
@@ -1114,6 +1134,11 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           })()}
         </div>
 
+        </>)} {/* end TAB: FORMAT - budget */}
+
+        {/* ═══ TAB: UNIVERS ═══ */}
+        {mixTab === "univers" && (<>
+
         {/* Universe Packs */}
         <div style={{ marginBottom: 28 }}>
           <SectionHead title={lang === "fr" ? "Packs Univers" : "Universe Packs"} sub={lang === "fr" ? "Tout configuré en 1 clic — genre, casting, secret, ambiance" : "Everything set in 1 click — genre, casting, secret, mood"} />
@@ -1145,9 +1170,14 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           </div>
         </div>
 
+        </>)} {/* end TAB: UNIVERS - packs only */}
+
+        {/* ═══ TAB: AMBIANCE ═══ */}
+        {mixTab === "ambiance" && (<>
+
         {/* Ambiance Visuelle */}
         <div style={{ marginBottom: 28 }}>
-          <SectionHead title={lang === "fr" ? "Identité Visuelle" : "Visual Identity"} sub={lang === "fr" ? "L'esthétique cinématographique de ta série" : "The cinematic aesthetic of your series"} />
+          <SectionHead sep={false} title={lang === "fr" ? "Identité Visuelle" : "Visual Identity"} sub={lang === "fr" ? "L'esthétique cinématographique de ta série" : "The cinematic aesthetic of your series"} />
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
             {AMBIANCE_VIS.map(av => {
               const avLabel = av.label[lang] || av.label.fr;
@@ -1170,9 +1200,14 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           </div>
         </div>
 
+        </>)} {/* end TAB: AMBIANCE - visual identity only (moteur/direction added below) */}
+
+        {/* ═══ TAB: PERSOS ═══ */}
+        {mixTab === "persos" && (<>
+
         {/* Casting IA */}
         <div style={{ marginBottom: 28 }}>
-          <SectionHead title={lang === "fr" ? "Casting" : "Casting"} sub={lang === "fr" ? "Donne une identité forte à chaque personnage — âge, aura, blessures" : "Give each character a powerful identity — age, aura, wounds"} />
+          <SectionHead sep={false} title={lang === "fr" ? "Casting" : "Casting"} sub={lang === "fr" ? "Donne une identité forte à chaque personnage — âge, aura, blessures" : "Give each character a powerful identity — age, aura, wounds"} />
           {/* Category tabs */}
           <div style={{ display: "flex", gap: 6, marginBottom: 14, overflowX: "auto", paddingBottom: 4 }}>
             {CASTING_CATS.map(c => {
@@ -1248,9 +1283,13 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           ))}
         </div>
 
-        {/* Tropes */}
+        </>)} {/* end TAB: PERSOS */}
+
+        {/* Tropes — in UNIVERS tab */}
+        {mixTab === "univers" && (<>
+        {/* Codes Narratifs */}
         <div style={{ marginBottom: 28 }}>
-          <SectionHead title={lang === "fr" ? "Codes Narratifs" : "Story Codes"} sub={lang === "fr" ? "Les tropes qui créent l'addiction — choisis plusieurs" : "The tropes that create addiction — pick several"} />
+          <SectionHead sep={false} title={lang === "fr" ? "Codes Narratifs" : "Story Codes"} sub={lang === "fr" ? "Les tropes qui créent l'addiction — choisis plusieurs" : "The tropes that create addiction — pick several"} />
           {[{ cat: "romance", label: `💘 ${t.tropes_romance}` }, { cat: "drama", label: `🎭 ${t.tropes_drama}` }].map(({ cat, label: catLabel }) => (
             <div key={cat} style={{ marginBottom: 14 }}>
               <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 8 }}>{catLabel}</p>
@@ -1297,8 +1336,13 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           </div>
         ))}
 
+        </>)} {/* end TAB: UNIVERS */}
+
+        {/* ═══ TAB: FORMAT — durée + épisodes ═══ */}
+        {mixTab === "format" && (<>
+
         <div style={{ marginBottom: 22 }}>
-          <SectionHead title={lang === "fr" ? "Durée par Épisode" : "Episode Duration"} sub={lang === "fr" ? "Format du script généré" : "Generated script format"} />
+          <SectionHead sep={false} title={lang === "fr" ? "Durée par Épisode" : "Episode Duration"} sub={lang === "fr" ? "Format du script généré" : "Generated script format"} />
           <div style={{ display: "flex", gap: 8 }}>
             {[{ v: 60, l: DUR_LABEL[lang][60], s: t.dur_std }, { v: 90, l: DUR_LABEL[lang][90], s: t.dur_intense }, { v: 120, l: DUR_LABEL[lang][120], s: t.dur_epic }].map(({ v, l, s }) => (
               <Chip key={v} label={l} sub={s} block active={state.duree === v} onClick={() => set({ duree: v })} />
@@ -1328,6 +1372,11 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             })}
           </div>
         </div>
+
+        </>)} {/* end TAB: FORMAT - épisodes */}
+
+        {/* Style de script + Remake — in AMBIANCE tab */}
+        {mixTab === "ambiance" && (<>
 
         {/* Style de script */}
         <div style={{ marginBottom: 20 }}>
@@ -1453,14 +1502,21 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           );
         })()}
 
-        <button onClick={onGen} style={{ background: "var(--tx)", color: "var(--bg)", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 800, cursor: "pointer", letterSpacing: 0.5 }}>
+        </>)} {/* end TAB: AMBIANCE */}
+
+      </div>
+      </div> {/* end scrollable content */}
+
+      {/* ═══ Sticky bottom — Generate button ═══ */}
+      <div style={{ flexShrink: 0, padding: "14px 20px 18px", borderTop: "1.5px solid var(--bo)", background: "var(--bg)" }}>
+        <button onClick={onGen} style={{ background: "var(--tx)", color: "var(--bg)", border: "none", padding: 16, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 800, cursor: "pointer", letterSpacing: 0.5 }}>
           {t.generate}
         </button>
-        <p style={{ fontSize: 12, color: "var(--mt)", textAlign: "center", marginTop: 12 }}>
+        <p style={{ fontSize: 11, color: "var(--mt)", textAlign: "center", marginTop: 8 }}>
           {state.format} ép. · {DUR_LABEL[lang][state.duree]} · {totalMin} {t.content}
         </p>
         {hasSeries && (
-          <button onClick={onMesSeries} style={{ background: "none", border: "1.5px solid var(--bo)", color: "var(--tx)", padding: 14, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", marginTop: 10, fontFamily: "var(--sans)" }}>
+          <button onClick={onMesSeries} style={{ background: "none", border: "1.5px solid var(--bo)", color: "var(--tx)", padding: 12, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", marginTop: 8, fontFamily: "var(--sans)" }}>
             {t.my_series}
           </button>
         )}
