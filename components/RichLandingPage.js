@@ -634,180 +634,154 @@ export default function RichLandingPage({ lang = "fr" }) {
         </nav>
       </div>
 
-      {/* HERO — CINEMATIC TWO-COLUMN */}
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "88px 40px 72px", position: "relative", overflow: "hidden" }} className="hero-pad">
-        {/* Atmospheric glows */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, overflow: "hidden", pointerEvents: "none" }}>
-          <div style={{ position: "absolute", top: "15%", left: "2%", width: 560, height: 560, background: "radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 70%)" }} />
-          <div style={{ position: "absolute", top: "30%", right: "2%", width: 420, height: 420, background: "radial-gradient(circle, rgba(232,92,58,0.09) 0%, transparent 70%)" }} />
-        </div>
+      {/* HERO — CINEMATIC */}
+      <div style={{ maxWidth: 1140, margin: "0 auto", padding: "96px 40px 80px", position: "relative" }} className="hero-pad">
+        <div className="hero-two-col" style={{ position: "relative", zIndex: 1, display: "flex", gap: 64, alignItems: "center" }}>
 
-        <div className="hero-two-col" style={{ position: "relative", zIndex: 1, display: "flex", gap: 60, alignItems: "center", justifyContent: "space-between" }}>
-
-          {/* LEFT — TEXT */}
-          <div style={{ flex: 1, maxWidth: 500 }}>
+          {/* LEFT — COPY */}
+          <div style={{ flex: 1, maxWidth: 480 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(168,85,247,0.08)", border: "1px solid rgba(168,85,247,0.2)", color: VIO, padding: "7px 18px", borderRadius: 100, fontSize: 12, fontWeight: 600, marginBottom: 36, animation: "glow 3s infinite", letterSpacing: 1 }}>
               <span style={{ width: 5, height: 5, borderRadius: "50%", background: VIO, display: "inline-block" }} />
               {c.studioBadge}
             </div>
 
-            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 900, letterSpacing: -2, marginBottom: 24, color: TEXT, lineHeight: 1.05, fontSize: "clamp(38px, 4.5vw, 64px)" }}>
+            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 900, letterSpacing: -2, marginBottom: 24, color: TEXT, lineHeight: 1.05, fontSize: "clamp(40px, 4.8vw, 68px)" }}>
               {c.heroTitle}<br />
               <span style={{ fontStyle: "italic", background: `linear-gradient(135deg, ${RED} 10%, ${VIO} 90%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{c.heroTitleItalic}</span>
             </h1>
 
-            <p style={{ fontSize: "clamp(15px, 1.6vw, 18px)", color: MUTED, marginBottom: 44, lineHeight: 1.75, maxWidth: 420 }}>
+            <p style={{ fontSize: "clamp(15px, 1.6vw, 18px)", color: MUTED, marginBottom: 48, lineHeight: 1.8, maxWidth: 400 }}>
               {c.heroSubtitle}
             </p>
 
             {canceled && <p style={{ color: RED, marginBottom: 16, fontSize: 14 }}>{c.canceledMsg}</p>}
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
-              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <input type="email" placeholder={c.nlEmailPlaceholder} value={email} onChange={e => { setEmail(e.target.value); setEmailError(false); }} onKeyDown={e => e.key === "Enter" && startCheckout()}
-                  style={{ padding: "15px 18px", borderRadius: 14, border: `1px solid ${emailError ? RED : BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 220, outline: "none", backdropFilter: "blur(8px)", transition: "border-color .2s" }} />
+            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
+                <input type="email" placeholder={c.nlEmailPlaceholder} value={email}
+                  onChange={e => { setEmail(e.target.value); setEmailError(false); }}
+                  onKeyDown={e => e.key === "Enter" && startCheckout()}
+                  style={{ padding: "15px 18px", borderRadius: 14, border: `1px solid ${emailError ? RED : BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 210, outline: "none", backdropFilter: "blur(8px)", transition: "border-color .2s" }} />
                 <GlowBtn onClick={() => startCheckout("standard", "hero")} disabled={loading} gradient>
                   {loading ? c.redirecting : c.ctaBtnCreate}
                 </GlowBtn>
               </div>
-              <div>
-                <a href={lang === "en" ? "/en/exemples" : "/exemples"} style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 14, color: MUTED, fontWeight: 600, padding: "10px 0", transition: "color .2s", textDecoration: "none" }}>
-                  <span style={{ fontSize: 12, color: VIO }}>▶</span>
-                  {c.ctaBtnDemo}
-                </a>
-              </div>
+              <a href={lang === "en" ? "/en/exemples" : "/exemples"}
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 14, color: MUTED, fontWeight: 600, letterSpacing: 0.2, textDecoration: "none" }}>
+                <span style={{ color: VIO, fontSize: 11 }}>▶</span>
+                {c.ctaBtnDemo}
+              </a>
             </div>
-
-            {emailError && <p style={{ color: RED, fontSize: 13, fontWeight: 600, marginBottom: 12 }}>{c.emailError}</p>}
-
-            <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
-              {[
-                { icon: "🔒", label: c.trustSecurePayment },
-                { icon: "✓", label: c.trustImmediateAccess },
-              ].map(({ icon, label }) => (
-                <div key={label} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: MUTED }}>
-                  <span style={{ color: "#4ade80" }}>{icon}</span>
-                  {label}
-                </div>
-              ))}
-            </div>
+            {emailError && <p style={{ color: RED, fontSize: 13, fontWeight: 600, marginTop: 10 }}>{c.emailError}</p>}
           </div>
 
-          {/* RIGHT — CINEMATIC SCENE */}
-          <div className="hero-scene" style={{ flexShrink: 0, width: 400, position: "relative" }}>
-            <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", aspectRatio: "4/5", background: "linear-gradient(160deg, #0d0418 0%, #1a0830 35%, #2d0a18 60%, #0f080e 100%)", boxShadow: `0 0 80px rgba(168,85,247,0.22), 0 0 40px rgba(232,92,58,0.16), 0 40px 100px rgba(0,0,0,0.8)`, border: `1px solid rgba(168,85,247,0.22)` }}>
+          {/* RIGHT — CINEMATIC LIGHT COMPOSITION */}
+          <div className="hero-scene" style={{ flexShrink: 0, width: 420, position: "relative" }}>
 
-              {/* City skyline SVG */}
-              <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.5 }} viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
-                <defs>
-                  <linearGradient id="streetG" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="transparent" />
-                    <stop offset="100%" stopColor="rgba(8,5,15,0.95)" />
-                  </linearGradient>
-                  <radialGradient id="sunsetGlow" cx="50%" cy="60%" r="60%">
-                    <stop offset="0%" stopColor="rgba(232,92,58,0.18)" />
-                    <stop offset="50%" stopColor="rgba(168,85,247,0.1)" />
-                    <stop offset="100%" stopColor="transparent" />
-                  </radialGradient>
-                </defs>
-                <rect width="400" height="500" fill="url(#sunsetGlow)" />
-                {/* Buildings */}
-                <rect x="0" y="270" width="35" height="230" fill="#07040e" />
-                <rect x="8" y="250" width="12" height="30" fill="#07040e" />
-                <rect x="40" y="220" width="48" height="280" fill="#080511" />
-                <rect x="52" y="200" width="14" height="30" fill="#080511" />
-                <rect x="95" y="255" width="38" height="245" fill="#07040e" />
-                <rect x="140" y="240" width="55" height="260" fill="#09060f" />
-                <rect x="150" y="215" width="18" height="32" fill="#09060f" />
-                <rect x="202" y="228" width="42" height="272" fill="#07040e" />
-                <rect x="250" y="248" width="60" height="252" fill="#080511" />
-                <rect x="268" y="220" width="16" height="36" fill="#080511" />
-                <rect x="316" y="235" width="44" height="265" fill="#07040e" />
-                <rect x="365" y="255" width="50" height="245" fill="#080511" />
-                {/* Windows warm glow */}
-                {[[48,228],[56,245],[62,228],[62,262],[105,270],[110,255],[148,252],[156,237],[165,252],[207,245],[212,260],[212,275],[255,262],[262,248],[275,262],[320,250],[328,265]].map(([x,y],i) => (
-                  <rect key={i} x={x} y={y} width="6" height="8" fill={i%4===0?"rgba(255,140,66,0.55)":i%4===1?"rgba(168,85,247,0.45)":i%4===2?"rgba(255,255,255,0.18)":"rgba(255,140,66,0.3)"} rx="1" />
-                ))}
-                {/* Street overlay */}
-                <rect x="0" y="340" width="400" height="160" fill="url(#streetG)" />
-                {/* Wet street reflections */}
-                <ellipse cx="200" cy="490" rx="260" ry="20" fill="rgba(232,92,58,0.06)" />
-                <ellipse cx="200" cy="495" rx="200" ry="14" fill="rgba(168,85,247,0.05)" />
-              </svg>
+            {/* Outer ambient glow */}
+            <div style={{ position: "absolute", inset: -40, borderRadius: 50, background: "radial-gradient(ellipse at 45% 65%, rgba(232,92,58,0.22) 0%, rgba(168,85,247,0.14) 45%, transparent 72%)", filter: "blur(28px)", pointerEvents: "none" }} />
 
-              {/* Sunset gradient overlay */}
-              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "60%", background: "linear-gradient(to top, rgba(232,92,58,0.2) 0%, rgba(168,85,247,0.1) 45%, transparent 100%)", pointerEvents: "none" }} />
-              {/* Top violet haze */}
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(to bottom, rgba(168,85,247,0.18) 0%, transparent 100%)", pointerEvents: "none" }} />
+            {/* SVG film-grain filter (hidden, referenced by id) */}
+            <svg width="0" height="0" style={{ position: "absolute" }}>
+              <defs>
+                <filter id="hgrain" x="0%" y="0%" width="100%" height="100%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch" result="noise" />
+                  <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise" />
+                  <feComposite in="SourceGraphic" in2="grayNoise" operator="in" result="masked" />
+                  <feBlend in="SourceGraphic" in2="masked" mode="screen" />
+                </filter>
+              </defs>
+            </svg>
 
-              {/* Two character silhouettes */}
-              <svg style={{ position: "absolute", bottom: 0, left: 0, width: "100%", height: "78%" }} viewBox="0 0 400 390" preserveAspectRatio="xMidYMax meet">
-                {/* Character 1 — Woman, left, slightly back */}
-                <g transform="translate(82, 20)" opacity="0.93">
-                  <ellipse cx="55" cy="270" rx="38" ry="28" fill="#0a0612" />
-                  <ellipse cx="55" cy="195" rx="26" ry="80" fill="#0a0612" />
-                  <rect x="40" y="128" width="30" height="78" rx="15" fill="#0c0818" />
-                  <rect x="51" y="108" width="9" height="22" rx="4.5" fill="#180d26" />
-                  <ellipse cx="55" cy="92" rx="21" ry="25" fill="#180d26" />
-                  <ellipse cx="55" cy="80" rx="23" ry="17" fill="#070410" />
-                  <ellipse cx="40" cy="92" rx="9" ry="22" fill="#070410" />
-                  {/* Rim lights */}
-                  <ellipse cx="34" cy="158" rx="4" ry="62" fill="rgba(232,92,58,0.38)" />
-                  <ellipse cx="34" cy="90" rx="4" ry="20" fill="rgba(232,92,58,0.28)" />
-                  <ellipse cx="76" cy="148" rx="3" ry="56" fill="rgba(168,85,247,0.28)" />
-                  <ellipse cx="76" cy="90" rx="3" ry="18" fill="rgba(168,85,247,0.2)" />
-                </g>
-                {/* Character 2 — Man, center-right, slightly forward / larger */}
-                <g transform="translate(195, 0)" opacity="0.96">
-                  <rect x="38" y="228" width="20" height="88" rx="10" fill="#08040f" />
-                  <rect x="62" y="228" width="20" height="88" rx="10" fill="#08040f" />
-                  <rect x="32" y="138" width="56" height="95" rx="17" fill="#08040f" />
-                  <rect x="20" y="138" width="80" height="28" rx="12" fill="#09050f" />
-                  <rect x="52" y="116" width="12" height="26" rx="6" fill="#130c20" />
-                  <ellipse cx="58" cy="98" rx="26" ry="30" fill="#130c20" />
-                  <ellipse cx="58" cy="79" rx="28" ry="16" fill="#06030b" />
-                  {/* Rim lights */}
-                  <ellipse cx="102" cy="168" rx="5" ry="68" fill="rgba(232,92,58,0.42)" />
-                  <ellipse cx="102" cy="96" rx="4" ry="26" fill="rgba(232,92,58,0.32)" />
-                  <ellipse cx="18" cy="158" rx="4" ry="62" fill="rgba(168,85,247,0.34)" />
-                  <ellipse cx="18" cy="96" rx="3.5" ry="24" fill="rgba(168,85,247,0.28)" />
-                </g>
-                {/* Ground shadows */}
-                <ellipse cx="175" cy="384" rx="170" ry="10" fill="rgba(0,0,0,0.55)" />
-                {/* Light spill between characters */}
-                <line x1="195" y1="100" x2="195" y2="360" stroke="rgba(232,92,58,0.08)" strokeWidth="30" />
-              </svg>
+            {/* Main cinematic frame */}
+            <div style={{ position: "relative", borderRadius: 22, overflow: "hidden", aspectRatio: "4/5", background: "#04020a", border: "1px solid rgba(168,85,247,0.18)", boxShadow: "0 0 80px rgba(168,85,247,0.18), 0 0 40px rgba(232,92,58,0.12), 0 56px 120px rgba(0,0,0,0.9)" }}>
 
-              {/* Floating MIXEUR NARRATIF panel */}
-              <div style={{ position: "absolute", top: 22, right: 18, background: "rgba(8,8,14,0.88)", border: "1px solid rgba(168,85,247,0.32)", borderRadius: 16, padding: "14px 18px", backdropFilter: "blur(20px)", boxShadow: "0 0 32px rgba(168,85,247,0.18)", minWidth: 140 }}>
-                <p style={{ fontSize: 8, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 14, fontFamily: "'Space Grotesk', sans-serif" }}>MIXEUR NARRATIF</p>
+              {/* ── ATMOSPHERE ─────────────────────────────── */}
+
+              {/* Sunset bloom — rises from bottom center */}
+              <div style={{ position: "absolute", bottom: "-8%", left: "50%", transform: "translateX(-50%)", width: "170%", height: "58%", background: "radial-gradient(ellipse at 50% 100%, rgba(232,92,58,0.72) 0%, rgba(200,55,15,0.35) 38%, rgba(232,92,58,0.08) 65%, transparent 80%)", filter: "blur(40px)", pointerEvents: "none" }} />
+
+              {/* Violet sky canopy */}
+              <div style={{ position: "absolute", top: "-6%", left: "50%", transform: "translateX(-50%)", width: "150%", height: "50%", background: "radial-gradient(ellipse at 50% 0%, rgba(168,85,247,0.6) 0%, rgba(110,40,190,0.25) 42%, transparent 72%)", filter: "blur(36px)", pointerEvents: "none" }} />
+
+              {/* Horizon color bleed — warm meeting cool */}
+              <div style={{ position: "absolute", top: "44%", left: 0, right: 0, height: "14%", background: "linear-gradient(90deg, rgba(232,92,58,0.12) 0%, rgba(168,85,247,0.16) 50%, rgba(232,92,58,0.12) 100%)", filter: "blur(22px)", pointerEvents: "none" }} />
+
+              {/* ── CITY BOKEH (upper 40%) ──────────────────── */}
+              {[
+                { x: 6,  y: 6,  s: 2,   o: 0.6,  c: "#ff8c42" },
+                { x: 14, y: 11, s: 1.5, o: 0.45, c: "#fff"     },
+                { x: 22, y: 5,  s: 3,   o: 0.5,  c: "#a855f7" },
+                { x: 31, y: 14, s: 2,   o: 0.55, c: "#ff8c42" },
+                { x: 40, y: 7,  s: 1.5, o: 0.4,  c: "#fff"     },
+                { x: 49, y: 10, s: 3.5, o: 0.38, c: "#a855f7" },
+                { x: 57, y: 5,  s: 2,   o: 0.52, c: "#ff8c42" },
+                { x: 66, y: 13, s: 1.5, o: 0.45, c: "#fff"     },
+                { x: 75, y: 6,  s: 3,   o: 0.42, c: "#a855f7" },
+                { x: 83, y: 11, s: 2.5, o: 0.58, c: "#ff8c42" },
+                { x: 91, y: 7,  s: 2,   o: 0.4,  c: "#fff"     },
+                { x: 97, y: 15, s: 1.5, o: 0.35, c: "#a855f7" },
+                { x: 10, y: 22, s: 1.5, o: 0.3,  c: "#ff8c42" },
+                { x: 27, y: 25, s: 2,   o: 0.32, c: "#fff"     },
+                { x: 46, y: 20, s: 1.5, o: 0.28, c: "#a855f7" },
+                { x: 63, y: 23, s: 2,   o: 0.35, c: "#ff8c42" },
+                { x: 80, y: 21, s: 1.5, o: 0.3,  c: "#fff"     },
+                { x: 93, y: 26, s: 2.5, o: 0.33, c: "#a855f7" },
+                { x: 18, y: 34, s: 1,   o: 0.2,  c: "#ff8c42" },
+                { x: 38, y: 31, s: 1,   o: 0.18, c: "#fff"     },
+                { x: 58, y: 35, s: 1,   o: 0.2,  c: "#a855f7" },
+                { x: 76, y: 32, s: 1.5, o: 0.18, c: "#ff8c42" },
+              ].map(({ x, y, s, o, c }, i) => (
+                <div key={i} style={{ position: "absolute", left: `${x}%`, top: `${y}%`, width: s, height: s, borderRadius: "50%", background: c, opacity: o, pointerEvents: "none" }} />
+              ))}
+
+              {/* ── CHARACTER PRESENCES ─────────────────────── */}
+
+              {/* Person 1 — left, warm orange rim (woman, slightly behind) */}
+              <div style={{ position: "absolute", bottom: "4%", left: "6%", width: "34%", height: "66%", background: "radial-gradient(ellipse at 45% 12%, rgba(255,130,55,0.38) 0%, rgba(232,92,58,0.18) 32%, transparent 68%)", filter: "blur(22px)", pointerEvents: "none" }} />
+              {/* Dark silhouette column — person 1 */}
+              <div style={{ position: "absolute", bottom: "4%", left: "16%", width: "12%", height: "60%", background: "linear-gradient(to top, rgba(4,2,10,0.97) 0%, rgba(6,3,14,0.88) 55%, rgba(8,4,18,0.4) 85%, transparent 100%)", borderRadius: "48% 48% 0 0", filter: "blur(1px)", pointerEvents: "none" }} />
+              {/* Head glow — person 1 */}
+              <div style={{ position: "absolute", bottom: "60%", left: "17%", width: "10%", paddingTop: "12%", background: "radial-gradient(ellipse at 50% 50%, rgba(255,130,55,0.22) 0%, transparent 70%)", borderRadius: "50%", filter: "blur(6px)", pointerEvents: "none" }} />
+
+              {/* Person 2 — right, cool violet rim (man, closer/larger) */}
+              <div style={{ position: "absolute", bottom: "0%", right: "4%", width: "40%", height: "78%", background: "radial-gradient(ellipse at 52% 10%, rgba(168,85,247,0.42) 0%, rgba(130,60,210,0.2) 36%, transparent 70%)", filter: "blur(24px)", pointerEvents: "none" }} />
+              {/* Dark silhouette column — person 2 */}
+              <div style={{ position: "absolute", bottom: "0%", right: "13%", width: "15%", height: "72%", background: "linear-gradient(to top, rgba(4,2,10,0.98) 0%, rgba(6,3,14,0.9) 50%, rgba(8,4,18,0.45) 82%, transparent 100%)", borderRadius: "45% 45% 0 0", filter: "blur(1.5px)", pointerEvents: "none" }} />
+              {/* Head glow — person 2 */}
+              <div style={{ position: "absolute", bottom: "68%", right: "14%", width: "12%", paddingTop: "14%", background: "radial-gradient(ellipse at 50% 50%, rgba(168,85,247,0.28) 0%, transparent 70%)", borderRadius: "50%", filter: "blur(8px)", pointerEvents: "none" }} />
+
+              {/* Space between figures — tension light thread */}
+              <div style={{ position: "absolute", bottom: 0, left: "28%", right: "28%", height: "72%", background: "linear-gradient(to top, rgba(255,110,40,0.14) 0%, rgba(232,92,58,0.07) 35%, transparent 65%)", filter: "blur(12px)", pointerEvents: "none" }} />
+
+              {/* ── OVERLAYS ────────────────────────────────── */}
+
+              {/* Radial vignette */}
+              <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 38%, transparent 22%, rgba(4,2,10,0.5) 72%, rgba(4,2,10,0.88) 100%)", pointerEvents: "none" }} />
+
+              {/* Subtle scanline texture */}
+              <div style={{ position: "absolute", inset: 0, backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.012) 3px, rgba(255,255,255,0.012) 4px)", pointerEvents: "none" }} />
+
+              {/* ── MIXEUR NARRATIF PANEL ───────────────────── */}
+              <div style={{ position: "absolute", top: 18, right: 16, background: "rgba(4,2,10,0.92)", border: "1px solid rgba(168,85,247,0.25)", borderRadius: 14, padding: "13px 15px", backdropFilter: "blur(24px)", boxShadow: "0 0 20px rgba(168,85,247,0.1), inset 0 1px 0 rgba(255,255,255,0.04)", minWidth: 128 }}>
+                <p style={{ fontSize: 7, fontWeight: 800, letterSpacing: 3.5, textTransform: "uppercase", color: "rgba(168,85,247,0.7)", marginBottom: 14, fontFamily: "'Space Grotesk', sans-serif" }}>MIXEUR NARRATIF</p>
                 {[
-                  { label: lang === "fr" ? "Romance" : "Romance", value: 7, color: "#e879f9" },
-                  { label: lang === "fr" ? "Tension" : "Tension", value: 9, color: RED },
-                  { label: lang === "fr" ? "Mystère" : "Mystery", value: 6, color: VIO },
-                ].map(({ label, value, color }) => (
+                  { label: lang === "fr" ? "Romance"  : "Romance", pct: 70, color: "#e879f9" },
+                  { label: lang === "fr" ? "Tension"  : "Tension", pct: 90, color: RED        },
+                  { label: lang === "fr" ? "Mystère"  : "Mystery", pct: 60, color: VIO        },
+                ].map(({ label, pct, color }) => (
                   <div key={label} style={{ marginBottom: 9 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
-                      <span style={{ fontSize: 9, color: "rgba(255,255,255,0.5)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600 }}>{label}</span>
-                      <span style={{ fontSize: 9, color, fontWeight: 800, fontFamily: "'Space Grotesk', sans-serif" }}>{value}/10</span>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 5 }}>
+                      <span style={{ fontSize: 9, color: "rgba(255,255,255,0.42)", fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600 }}>{label}</span>
+                      <div style={{ width: 5, height: 5, borderRadius: "50%", background: color, opacity: 0.85, flexShrink: 0 }} />
                     </div>
-                    <div style={{ height: 3, background: "rgba(255,255,255,0.06)", borderRadius: 2 }}>
-                      <div style={{ width: `${value * 10}%`, height: "100%", background: `linear-gradient(90deg, ${color}99, ${color})`, borderRadius: 2, boxShadow: `0 0 6px ${color}88` }} />
+                    <div style={{ height: 2.5, background: "rgba(255,255,255,0.05)", borderRadius: 2 }}>
+                      <div style={{ width: `${pct}%`, height: "100%", background: `linear-gradient(90deg, ${color}55, ${color}dd)`, borderRadius: 2 }} />
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Genre tags bottom */}
-              <div style={{ position: "absolute", bottom: 18, left: 18, display: "flex", gap: 6, flexWrap: "wrap" }}>
-                {[
-                  { label: "K-Drama", color: "#e879f9" },
-                  { label: "Thriller", color: RED },
-                  { label: "Romance", color: VIO },
-                ].map(({ label, color }) => (
-                  <span key={label} style={{ fontSize: 8, fontWeight: 700, color, background: `${color}18`, border: `1px solid ${color}35`, padding: "4px 9px", borderRadius: 7, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: 0.5 }}>{label}</span>
-                ))}
-              </div>
             </div>
           </div>
 
