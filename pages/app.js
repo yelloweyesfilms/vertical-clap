@@ -849,6 +849,18 @@ function MesSeriesView({ onLoad, onBack, t }) {
 
 const CUSTOM_PREFIX = "__custom__";
 
+function SectionHead({ title, sub, sep = true }) {
+  return (
+    <>
+      {sep && <div style={{ height: 1, background: "var(--bo)", margin: "6px 0 24px" }} />}
+      <div style={{ marginBottom: 18 }}>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, letterSpacing: -0.5, margin: 0, color: "var(--tx)", lineHeight: 1.1 }}>{title}</h2>
+        {sub && <p style={{ fontSize: 12, color: "var(--mt)", margin: "4px 0 0", lineHeight: 1.4 }}>{sub}</p>}
+      </div>
+    </>
+  );
+}
+
 function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang }) {
   const univOpts = state.mode === "fast" ? opts.univers_fast : opts.univers_prem;
   const secOpts = state.mode === "fast" ? opts.secret_fast : opts.secret_prem;
@@ -896,9 +908,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
         {/* Budget / Production Scale */}
         <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
-            {t.budget_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.budget_sub}</span>
-          </p>
+          <SectionHead sep={false} title={lang === "fr" ? "Budget" : "Budget"} sub={lang === "fr" ? "Adapte l'écriture à ton budget de tournage réel" : "Adapts writing to your real shooting budget"} />
           <div style={{ display: "flex", gap: 6, marginBottom: 14 }}>
             {BUDGET_LEVELS.map(b => {
               const bLabel = b.label[lang] || b.label.fr;
@@ -939,9 +949,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
         {/* Universe Packs */}
         <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
-            {t.packs_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.packs_sub}</span>
-          </p>
+          <SectionHead title={lang === "fr" ? "Packs Univers" : "Universe Packs"} sub={lang === "fr" ? "Tout configuré en 1 clic — genre, casting, secret, ambiance" : "Everything set in 1 click — genre, casting, secret, mood"} />
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {UNIVERSE_PACKS.map(p => {
               const locked = p.mode === "premium" && plan === "standard";
@@ -972,9 +980,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
         {/* Ambiance Visuelle */}
         <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
-            {t.ambiance_vis_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.ambiance_vis_sub}</span>
-          </p>
+          <SectionHead title={lang === "fr" ? "Identité Visuelle" : "Visual Identity"} sub={lang === "fr" ? "L'esthétique cinématographique de ta série" : "The cinematic aesthetic of your series"} />
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
             {AMBIANCE_VIS.map(av => {
               const avLabel = av.label[lang] || av.label.fr;
@@ -999,9 +1005,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
         {/* Casting IA */}
         <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
-            {t.casting_ia_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.casting_ia_sub}</span>
-          </p>
+          <SectionHead title={lang === "fr" ? "Casting" : "Casting"} sub={lang === "fr" ? "Donne une identité forte à chaque personnage — âge, aura, blessures" : "Give each character a powerful identity — age, aura, wounds"} />
           {/* Category tabs */}
           <div style={{ display: "flex", gap: 6, marginBottom: 14, overflowX: "auto", paddingBottom: 4 }}>
             {CASTING_CATS.map(c => {
@@ -1079,9 +1083,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
         {/* Tropes */}
         <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
-            {t.tropes_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.tropes_sub}</span>
-          </p>
+          <SectionHead title={lang === "fr" ? "Codes Narratifs" : "Story Codes"} sub={lang === "fr" ? "Les tropes qui créent l'addiction — choisis plusieurs" : "The tropes that create addiction — pick several"} />
           {[{ cat: "romance", label: `💘 ${t.tropes_romance}` }, { cat: "drama", label: `🎭 ${t.tropes_drama}` }].map(({ cat, label: catLabel }) => (
             <div key={cat} style={{ marginBottom: 14 }}>
               <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 8 }}>{catLabel}</p>
@@ -1105,12 +1107,12 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </div>
 
         {[
-          { label: t.casting, options: opts.casting, key: "casting" },
-          { label: t.univers, options: univOpts, key: "univers" },
-          { label: t.secret, options: secOpts, key: "secret" },
-        ].map(({ label, options, key }) => (
+          { label: t.casting, options: opts.casting, key: "casting", titleFr: "Casting", titleEn: "Casting", subFr: "Composition des personnages", subEn: "Character composition" },
+          { label: t.univers, options: univOpts, key: "univers", titleFr: "Univers", titleEn: "Setting", subFr: "Le monde dans lequel se déroule la série", subEn: "The world your series takes place in" },
+          { label: t.secret, options: secOpts, key: "secret", titleFr: "Secret Central", titleEn: "Central Secret", subFr: "Le moteur dramatique de toute la série", subEn: "The dramatic engine of the entire series" },
+        ].map(({ label, options, key, titleFr, titleEn, subFr, subEn }) => (
           <div key={key} style={{ marginBottom: 22 }}>
-            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{label}</p>
+            <SectionHead title={lang === "fr" ? titleFr : titleEn} sub={lang === "fr" ? subFr : subEn} />
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {options.map(o => <Chip key={o} label={o} active={state[key] === o} onClick={() => set({ [key]: o })} />)}
               <Chip label={t.custom} active={isCustom(key)} onClick={() => activateCustom(key)} />
@@ -1129,7 +1131,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         ))}
 
         <div style={{ marginBottom: 22 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{t.duree}</p>
+          <SectionHead title={lang === "fr" ? "Durée par Épisode" : "Episode Duration"} sub={lang === "fr" ? "Format du script généré" : "Generated script format"} />
           <div style={{ display: "flex", gap: 8 }}>
             {[{ v: 60, l: DUR_LABEL[lang][60], s: t.dur_std }, { v: 90, l: DUR_LABEL[lang][90], s: t.dur_intense }, { v: 120, l: DUR_LABEL[lang][120], s: t.dur_epic }].map(({ v, l, s }) => (
               <Chip key={v} label={l} sub={s} block active={state.duree === v} onClick={() => set({ duree: v })} />
@@ -1138,10 +1140,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </div>
 
         <div style={{ marginBottom: 28 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>
-            {t.episodes}
-            {state.mode === "fast" && <span style={{ marginLeft: 8, fontSize: 10, color: "var(--r)", fontWeight: 700 }}>{t.max_fast}</span>}
-          </p>
+          <SectionHead title={lang === "fr" ? "Nombre d'Épisodes" : "Number of Episodes"} sub={state.mode === "fast" && lang === "fr" ? "Max 20 en Fast Drama" : state.mode === "fast" ? "Max 20 in Fast Drama" : lang === "fr" ? "Jusqu'à 90 en Premium Suspense" : "Up to 90 in Premium Suspense"} />
           <div style={{ display: "flex", gap: 8 }}>
             {[10, 20, 40, 60, 90].map(f => {
               const lockedFast = state.mode === "fast" && f > 20;
@@ -1165,7 +1164,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
         {/* Style de script */}
         <div style={{ marginBottom: 20 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{t.style}</p>
+          <SectionHead title={lang === "fr" ? "Style de Script" : "Script Style"} sub={lang === "fr" ? "Influence le rythme, les dialogues et la mise en scène" : "Influences rhythm, dialogue and direction"} />
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {[
               { v: "🎬 Cinéma", s: t.style_cinema },
@@ -1204,10 +1203,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
         {/* Drama Engine */}
         <div style={{ marginBottom: 24 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 4 }}>
-            {t.drama}
-          </p>
-          <p style={{ fontSize: 11, color: "var(--mt)", marginBottom: 14 }}>{t.drama_sub}</p>
+          <SectionHead title={lang === "fr" ? "Drama Engine" : "Drama Engine"} sub={lang === "fr" ? "Dose les ingrédients de ta série — romance, tension, violence" : "Tune your series ingredients — romance, tension, violence"} />
           {[
             { key: "romance", label: "💕 Romance", lo: t.lo_romance, hi: t.hi_romance },
             { key: "toxicite", label: "☠️ Toxicité", lo: t.lo_toxicite, hi: t.hi_toxicite },
