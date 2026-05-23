@@ -744,10 +744,10 @@ export default function RichLandingPage({ lang = "fr" }) {
 
       {/* HERO — CINEMATIC */}
       <div style={{ maxWidth: 1140, margin: "0 auto", padding: "96px 40px 80px", position: "relative" }} className="hero-pad">
-        <div className="hero-two-col" style={{ position: "relative", zIndex: 1, display: "flex", gap: 64, alignItems: "center" }}>
+        <div className="hero-two-col" style={{ position: "relative", zIndex: 1, display: "flex", gap: 64, alignItems: "center", justifyContent: "center" }}>
 
-          {/* LEFT — COPY */}
-          <div style={{ flex: 1, maxWidth: 520 }}>
+          {/* CENTER — COPY */}
+          <div style={{ flex: 1, maxWidth: 620, textAlign: "center" }}>
             {/* Episode-style badge */}
             <div style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 40 }}>
               <div style={{ display: "flex", gap: 3 }}>
@@ -763,14 +763,14 @@ export default function RichLandingPage({ lang = "fr" }) {
               <span style={{ fontStyle: "italic", background: `linear-gradient(135deg, ${RED} 10%, ${VIO} 90%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{c.heroTitleItalic}</span>
             </h1>
 
-            <p style={{ fontSize: "clamp(14px, 1.4vw, 17px)", color: "rgba(255,255,255,0.42)", marginBottom: 52, lineHeight: 1.75, maxWidth: 380, borderLeft: `2px solid rgba(168,85,247,0.3)`, paddingLeft: 16 }}>
+            <p style={{ fontSize: "clamp(14px, 1.4vw, 17px)", color: "rgba(255,255,255,0.42)", marginBottom: 52, lineHeight: 1.75, maxWidth: 420, margin: "0 auto 52px" }}>
               {c.heroSubtitle}
             </p>
 
             {canceled && <p style={{ color: RED, marginBottom: 16, fontSize: 14 }}>{c.canceledMsg}</p>}
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <div className="hero-row" style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "center" }}>
+              <div className="hero-row" style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
                 <input type="email" placeholder={c.nlEmailPlaceholder} value={email}
                   onChange={e => { setEmail(e.target.value); setEmailError(false); }}
                   onKeyDown={e => e.key === "Enter" && startCheckout()}

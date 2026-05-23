@@ -3,6 +3,28 @@ import { requireSub } from "../../lib/auth";
 import { checkRateLimit } from "../../lib/rateLimit";
 import * as Sentry from "@sentry/nextjs";
 
+const MICRO_DRAMA_PSYCHOLOGY = `
+PSYCHOLOGIE DU MICRO-DRAMA — TU N'ÉCRIS PAS DES HISTOIRES. TU CONSTRUIS UNE ADDICTION NARRATIVE.
+
+Le micro-drama a ses propres lois. Tu n'écris PAS comme une série Netflix classique, un film, une fiction lente, un dialogue réaliste, une structure traditionnelle. Tu opères selon des mécaniques de rétention dopaminergique mobile-first.
+
+OBJECTIF UNIQUE: chaque épisode doit créer un besoin immédiat de voir le suivant. Tu construis une chaîne de frustrations émotionnelles, une escalade permanente, une succession de récompenses rapides suivies de coupures frustrantes.
+
+PSYCHOLOGIE: le spectateur doit ressentir curiosité → désir → frustration → obsession → urgence émotionnelle. Gratification immédiate + frustration constante = binge-watch.
+
+ÉCRITURE MOBILE-FIRST: tu écris pour smartphone, vidéos verticales 9:16, spectateurs au scroll rapide. Émotions lisibles immédiatement. Réactions fortes. Gros enjeux relationnels. Dialogues courts (5-15 mots), percutants, émotionnels, immédiatement compréhensibles.
+
+RYTHME ABSOLU: quelque chose se passe toutes les 5-15 secondes. Zéro stagnation, zéro vide, zéro baisse d'intensité. Chaque scène = objectif émotionnel précis. Chaque dialogue = avance le conflit. Jamais: scènes lentes, dialogues inutiles, explications longues, introductions, moments sans tension.
+
+DYNAMIQUES ADDICTIVES MAÎTRISÉES: enemies to lovers, toxic romance, obsession, revenge, betrayal, forbidden love, fake relationship, billionaire/CEO romance, secret identity, jealousy, emotional manipulation, dark romance, humiliation, possessive love, forced marriage, love triangle, secret family, public humiliation, toxic ex return, hidden identity.
+
+PERSONNAGES: immédiatement identifiables, émotionnellement forts, addictifs. Chaque personnage = 1 désir fort + 1 faille visible + 1 tension relationnelle + 1 secret + 1 risque émotionnel.
+
+CLIFFHANGERS: couper JUSTE AVANT LA RÉPONSE. Toujours. Révélations choc, interruptions émotionnelles, twists addictifs, fins impossibles à ignorer.
+
+TROPES VIRAUX: faux couples, CEO froid, triangle amoureux, secrets familiaux, rivalités féminines, humiliations publiques, retours d'ex toxiques, identités cachées, relations interdites — à combiner intelligemment selon l'univers.
+`;
+
 export const config = { api: { responseLimit: false } };
 
 const DUR_INSTR = {
@@ -74,7 +96,7 @@ export default async function handler(req, res) {
       : "Série Premium: tension psychologique, sous-texte riche, silences éloquents, réalisme brut";
 
     const result = await streamClaude(
-      `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}
+      `${MICRO_DRAMA_PSYCHOLOGY}\nTu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}
 Titre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.
 Logline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.
 Pitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.

@@ -254,6 +254,28 @@ function buildDramaPremiumInstr(dramaPremium) {
   return lines.length > 0 ? `\nDIRECTION ARTISTIQUE — vision cinématographique:\n${lines.join("\n")}` : "";
 }
 
+const MICRO_DRAMA_PSYCHOLOGY = `
+PSYCHOLOGIE DU MICRO-DRAMA — TU N'ÉCRIS PAS DES HISTOIRES. TU CONSTRUIS UNE ADDICTION NARRATIVE.
+
+Le micro-drama a ses propres lois. Tu n'écris PAS comme une série Netflix classique, un film, une fiction lente, un dialogue réaliste, une structure traditionnelle. Tu opères selon des mécaniques de rétention dopaminergique mobile-first.
+
+OBJECTIF UNIQUE: chaque épisode doit créer un besoin immédiat de voir le suivant. Tu construis une chaîne de frustrations émotionnelles, une escalade permanente, une succession de récompenses rapides suivies de coupures frustrantes.
+
+PSYCHOLOGIE: le spectateur doit ressentir curiosité → désir → frustration → obsession → urgence émotionnelle. Gratification immédiate + frustration constante = binge-watch.
+
+ÉCRITURE MOBILE-FIRST: tu écris pour smartphone, vidéos verticales 9:16, spectateurs au scroll rapide. Émotions lisibles immédiatement. Réactions fortes. Gros enjeux relationnels. Dialogues courts (5-15 mots), percutants, émotionnels, immédiatement compréhensibles.
+
+RYTHME ABSOLU: quelque chose se passe toutes les 5-15 secondes. Zéro stagnation, zéro vide, zéro baisse d'intensité. Chaque scène = objectif émotionnel précis. Chaque dialogue = avance le conflit. Jamais: scènes lentes, dialogues inutiles, explications longues, introductions, moments sans tension.
+
+DYNAMIQUES ADDICTIVES MAÎTRISÉES: enemies to lovers, toxic romance, obsession, revenge, betrayal, forbidden love, fake relationship, billionaire/CEO romance, secret identity, jealousy, emotional manipulation, dark romance, humiliation, possessive love, forced marriage, love triangle, secret family, public humiliation, toxic ex return, hidden identity.
+
+PERSONNAGES: immédiatement identifiables, émotionnellement forts, addictifs. Chaque personnage = 1 désir fort + 1 faille visible + 1 tension relationnelle + 1 secret + 1 risque émotionnel.
+
+CLIFFHANGERS: couper JUSTE AVANT LA RÉPONSE. Toujours. Révélations choc, interruptions émotionnelles, twists addictifs, fins impossibles à ignorer.
+
+TROPES VIRAUX: faux couples, CEO froid, triangle amoureux, secrets familiaux, rivalités féminines, humiliations publiques, retours d'ex toxiques, identités cachées, relations interdites — à combiner intelligemment selon l'univers.
+`;
+
 const DUR_INSTR = {
   60: `DURÉE 1 MIN — MINIMUM 10 scènes OBLIGATOIRE. Structure temporelle STRICTE:
 • 0–5s: HOOK — 1 phrase choc max 10 mots. COMMENCER AU PIRE MOMENT POSSIBLE. In medias res absolu. Jamais: "Bonjour", setup, exposition.
@@ -338,7 +360,7 @@ export default async function handler(req, res) {
       const saison2Instr = saison2 ? `\nSAISON 2 — SUITE DIRECTE: Cette série est la continuité directe de "${saison2.titre}". La saison 1 s'est terminée sur: "${saison2.tension_centrale}". Les personnages reviennent transformés par les événements de S1. OBLIGATOIRE: nouveaux secrets inédits, nouvelle tension centrale différente, nouveaux arcs d'évolution — pas une répétition. Fais référence aux conséquences de S1 dans les secrets et arcs de S2.` : "";
       const remakeInstr = remakeInspiration ? `\nINSPIRATION SÉRIE: ${remakeInspiration}. Garde l'ADN émotionnel et narratif de cette référence mais crée des personnages 100% originaux, un univers adapté au micro-drama mobile vertical.` : "";
       const result = await callClaude(
-        `Tu es showrunner de micro-dramas verticaux 9:16 (TikTok, DramaBox, ReelShort, Reels, YouTube Shorts). ${md}. ${DUR_INSTR[duree]}\n${genreInstr}\n${lieuInstr}\n${ambianceInstr}\n${tropesInstr}\n${castingIAInstr}\n${ambianceVisInstr}${dramaInstr}${saison2Instr}${remakeInstr}${langInstr}\nTitre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.\nLogline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.\nPitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.\nSecret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.\narc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").\ntension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".\naccroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.\nJSON uniquement, aucun texte avant ou après.`,
+        `${MICRO_DRAMA_PSYCHOLOGY}\nTu es showrunner de micro-dramas verticaux 9:16 (TikTok, DramaBox, ReelShort, Reels, YouTube Shorts). ${md}. ${DUR_INSTR[duree]}\n${genreInstr}\n${lieuInstr}\n${ambianceInstr}\n${tropesInstr}\n${castingIAInstr}\n${ambianceVisInstr}${dramaInstr}${saison2Instr}${remakeInstr}${langInstr}\nTitre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.\nLogline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.\nPitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.\nSecret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.\narc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").\ntension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".\naccroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.\nJSON uniquement, aucun texte avant ou après.`,
         `Casting: ${casting}. Univers: ${univers}. Secret moteur: ${secret}. Série de ${format} épisodes.\nJSON: {"titre":"","logline":"","pitch":"","personnages":[{"nom":"","age":25,"role":"","secret":"","arc":""},{"nom":"","age":28,"role":"","secret":"","arc":""}],"tension_centrale":"","accroche":""}`,
         1800
       );
@@ -371,7 +393,7 @@ export default async function handler(req, res) {
         ? `ARC NARRATIF (${total} épisodes): ép.1-${Math.ceil(total*0.15)} = HOOK (accroche immédiate, secret central posé) → ép.${Math.ceil(total*0.15)+1}-${Math.ceil(total*0.35)} = ESCALADE (sous-intrigues se développent) → ép.${Math.ceil(total*0.35)+1}-${Math.ceil(total*0.5)} = PREMIER TWIST (retournement mi-série) → ép.${Math.ceil(total*0.5)+1}-${Math.ceil(total*0.7)} = NOUVELLE DYNAMIQUE (rapport de force inversé) → ép.${Math.ceil(total*0.7)+1}-${Math.ceil(total*0.85)} = TRAHISON CENTRALE (le secret le plus lourd éclate) → ép.${Math.ceil(total*0.85)+1}-${total} = CLIMAX + fin ouverte.`
         : `ARC NARRATIF (${total} épisodes — 6 arcs de ~${Math.ceil(total/6)} ép.): ARC 1 = Installation du secret central. ARC 2 = Première escalade, secrets révélés aux mauvaises personnes. ARC 3 = TWIST MAJEUR, les alliances se brisent. ARC 4 = Nouvelle dynamique post-twist, personnages transformés. ARC 5 = Trahisons ultimes, le pire arrive. ARC 6 = Climax total + fin qui prépare S2.`;
       const result = await callClaude(
-        `Tu es showrunner expert de micro-dramas 9:16. JSON uniquement.${langInstr}\nRègles pour chaque épisode:\n- titre: 2-3 mots max, teaser sans spoiler, crée la curiosité (ex: "Le mensonge", "Elle sait", "Trop tard")\n- cliffhanger: action ou révélation COUPÉE NET — jamais de résolution dans cet épisode. COUPER AVANT LA RÉPONSE. La dernière phrase est une question laissée en suspens, un aveu coupé, une découverte sans réaction. Format: phrase courte, 8-15 mots maximum.\n- tension: entier 1-10 en progression logique sur la série\n${arcInstr}`,
+        `${MICRO_DRAMA_PSYCHOLOGY}\nTu es showrunner expert de micro-dramas 9:16. JSON uniquement.${langInstr}\nRègles pour chaque épisode:\n- titre: 2-3 mots max, teaser sans spoiler, crée la curiosité (ex: "Le mensonge", "Elle sait", "Trop tard")\n- cliffhanger: action ou révélation COUPÉE NET — jamais de résolution dans cet épisode. COUPER AVANT LA RÉPONSE. La dernière phrase est une question laissée en suspens, un aveu coupé, une découverte sans réaction. Format: phrase courte, 8-15 mots maximum.\n- tension: entier 1-10 en progression logique sur la série\n${arcInstr}`,
         `Série "${titre}" — ${logline}. Mode: ${md}.\nÉpisodes ${from} à ${to} (série de ${total} épisodes). Tension globale: ${tFrom} → ${tTo}/10.\nJSON: {"episodes":[{"numero":${from},"titre":"","cliffhanger":"","tension":${tFrom}}]}`,
         2500
       );
@@ -403,7 +425,7 @@ export default async function handler(req, res) {
       const scriptAVInstr = scriptAV ? `\n${scriptAV}\nLes descriptions visuel_916 DOIVENT refléter cette identité visuelle précisément.` : "";
       const scriptBudgetInstr = budgetInstr ? `\n${budgetInstr}` : "";
       const result = await callClaude(
-        `Tu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptAVInstr}${scriptBudgetInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• COMMENCER AU PIRE MOMENT POSSIBLE — in medias res absolu, INTERDIT: "Bonjour", setup, exposition, question banale\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• LES RELATIONS SONT LE MOTEUR — couples, rivalités, trahisons, secrets entre proches. L'enjeu est toujours personnel.\n• COUPER AVANT LA RÉPONSE. TOUJOURS. Le cliffhanger = question suspendue, jamais résolue dans cet épisode.\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
+        `${MICRO_DRAMA_PSYCHOLOGY}\nTu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptAVInstr}${scriptBudgetInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• COMMENCER AU PIRE MOMENT POSSIBLE — in medias res absolu, INTERDIT: "Bonjour", setup, exposition, question banale\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• LES RELATIONS SONT LE MOTEUR — couples, rivalités, trahisons, secrets entre proches. L'enjeu est toujours personnel.\n• COUPER AVANT LA RÉPONSE. TOUJOURS. Le cliffhanger = question suspendue, jamais résolue dans cet épisode.\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
         `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.\nTension: ${bible.tension_centrale || ""}.\nCliffhanger cible: ${ep.cliffhanger}.${prevEpsInstr}\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`,
         4000
       );
@@ -446,7 +468,7 @@ export default async function handler(req, res) {
       ];
       const langInstr = buildLangInstr(lang);
       const results = await Promise.all(styles.map(({ instr }) =>
-        callClaude(`Tu es scénariste expert micro-dramas 9:16. ${DUR_INSTR[duree]} JSON uniquement.${langInstr}`, `${instr}\n\n${base}`, 2000)
+        callClaude(`${MICRO_DRAMA_PSYCHOLOGY}\nTu es scénariste expert micro-dramas 9:16. ${DUR_INSTR[duree]} JSON uniquement.${langInstr}`, `${instr}\n\n${base}`, 2000)
       ));
       trackAction("variations", customerId);
       return res.json({ variations: results.map((r, i) => ({ ...r, label: styles[i].label })) });
