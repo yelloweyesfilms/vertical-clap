@@ -1055,7 +1055,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           {/* Plan badge */}
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <span style={{ fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, padding: "3px 8px", borderRadius: 20, letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: "var(--sans)" }}>
-              {plan === "standard" ? (lang === "en" ? "Creator · 9€" : "Creator · 9€") : (lang === "en" ? "Storyteller · 19€" : "Storyteller · 19€")}
+              {plan === "standard" ? (lang === "en" ? "Creator · 9€" : "Créateur · 9€") : (lang === "en" ? "Premium · 19€" : "Premium · 19€")}
             </span>
           </div>
         </div>
@@ -1065,13 +1065,13 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             onClick={() => set(prev => ({ mode: "fast", univers: prev.mode !== "fast" ? (lang === "en" ? "High school secrets" : "Lycée & Secrets") : prev.univers, secret: prev.mode !== "fast" ? (lang === "en" ? "Love betrayal" : "Trahison amoureuse") : prev.secret, format: prev.format > 20 ? 20 : prev.format, genreFormat: null }))}
             style={{ flex: 1, padding: "8px 10px", borderRadius: 10, border: `1.5px solid ${state.mode === "fast" ? "#E85C3A" : "var(--bo)"}`, cursor: "pointer", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "fast" ? "rgba(232,92,58,0.15)" : "transparent", textAlign: "left" }}>
             <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: "0.06em", textTransform: "uppercase", color: state.mode === "fast" ? "#E85C3A" : "var(--mt)" }}>{lang === "en" ? "Vertical" : "Vertical"}</div>
-            <div style={{ fontSize: 10, color: state.mode === "fast" ? "rgba(232,92,58,0.7)" : "var(--mt)", marginTop: 1 }}>{lang === "en" ? "TikTok · Reels · 10–20 eps" : "TikTok · Reels · 10–20 éps"}</div>
+            <div style={{ fontSize: 10, color: "var(--mt)", marginTop: 1 }}>{lang === "en" ? "TikTok · Reels · 10–20 eps" : "TikTok · Reels · 10–20 éps"}</div>
           </button>
           <button
-            onClick={() => { if (plan === "standard") { alert(lang === "fr" ? "Le mode Série est réservé au plan Storyteller (19€/mois)." : "Series mode requires the Storyteller plan (19€/mo)."); return; } set(prev => ({ mode: "premium", univers: prev.mode !== "premium" ? (lang === "en" ? "AI startup" : "Start-up IA") : prev.univers, secret: prev.mode !== "premium" ? (lang === "en" ? "Internal sabotage" : "Sabotage interne") : prev.secret, genreFormat: null })); }}
+            onClick={() => { if (plan === "standard") { alert(lang === "fr" ? "Le mode Série est réservé au plan Premium (19€/mois)." : "Series mode requires the Premium plan (19€/mo)."); return; } set(prev => ({ mode: "premium", univers: prev.mode !== "premium" ? (lang === "en" ? "AI startup" : "Start-up IA") : prev.univers, secret: prev.mode !== "premium" ? (lang === "en" ? "Internal sabotage" : "Sabotage interne") : prev.secret, genreFormat: null })); }}
             style={{ flex: 1, padding: "8px 10px", borderRadius: 10, border: `1.5px solid ${state.mode === "premium" ? "#a855f7" : plan === "standard" ? "rgba(168,85,247,0.25)" : "var(--bo)"}`, cursor: plan === "standard" ? "not-allowed" : "pointer", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "premium" ? "rgba(168,85,247,0.15)" : "transparent", textAlign: "left", position: "relative" }}>
             <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: "0.06em", textTransform: "uppercase", color: state.mode === "premium" ? "#a855f7" : plan === "standard" ? "rgba(168,85,247,0.5)" : "var(--mt)" }}>{lang === "en" ? "Série" : "Série"} {plan === "standard" && <span style={{ fontSize: 9, background: "rgba(168,85,247,0.2)", color: "rgba(168,85,247,0.8)", padding: "1px 5px", borderRadius: 4, marginLeft: 4 }}>19€</span>}</div>
-            <div style={{ fontSize: 10, color: state.mode === "premium" ? "rgba(168,85,247,0.7)" : "var(--mt)", marginTop: 1 }}>{lang === "en" ? "Plateformes premium · 20–90 eps" : "Plateformes premium · 20–90 éps"}</div>
+            <div style={{ fontSize: 10, color: "var(--mt)", marginTop: 1 }}>{lang === "en" ? "Plateformes premium · 20–90 eps" : "Plateformes premium · 20–90 éps"}</div>
           </button>
         </div>
         {/* Format chips — horizontal scroll */}
@@ -1174,7 +1174,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
                       <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#fff" : "var(--tx)" }}>{pLabel}</span>
-                      <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: locked ? "rgba(168,85,247,0.15)" : p.mode === "premium" ? "#a855f7" : "rgba(232,92,58,0.15)", color: locked ? "#a855f7" : p.mode === "premium" ? "#fff" : "#E85C3A", fontWeight: 700, letterSpacing: 0.5, border: locked ? "1px solid rgba(168,85,247,0.3)" : "none" }}>{locked ? "Storyteller" : p.mode === "premium" ? "Série" : "Vertical"}</span>
+                      <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: locked ? "rgba(168,85,247,0.15)" : p.mode === "premium" ? "#a855f7" : "rgba(232,92,58,0.15)", color: locked ? "#a855f7" : p.mode === "premium" ? "#fff" : "#E85C3A", fontWeight: 700, letterSpacing: 0.5, border: locked ? "1px solid rgba(168,85,247,0.3)" : "none" }}>{locked ? "Premium" : p.mode === "premium" ? "Série" : "Vertical"}</span>
                     </div>
                     <span style={{ fontSize: 11, color: active ? "rgba(255,255,255,0.8)" : "var(--mt)", lineHeight: 1.3 }}>{pDesc}</span>
                   </div>
@@ -1373,7 +1373,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
               const inactiveSerie = state.mode === "fast" && f > 20 && !lockedPlan;
               const handleClick = () => {
                 if (lockedPlan) {
-                  alert(lang === "fr" ? `Les séries de ${f} épisodes sont réservées au plan Storyteller.` : `${f}-episode series require the Storyteller plan.`);
+                  alert(lang === "fr" ? `Les séries de ${f} épisodes sont réservées au plan Premium (19€/mois).` : `${f}-episode series require the Premium plan (€19/mo).`);
                   return;
                 }
                 if (inactiveSerie) {
@@ -1386,7 +1386,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                 <div key={f} style={{ flex: 1 }}>
                   <Chip
                     label={`${f} ép.`}
-                    sub={lockedPlan ? "Storyteller" : inactiveSerie ? "Série →" : `${Math.round(f * state.duree / 60)} min`}
+                    sub={lockedPlan ? "Premium" : inactiveSerie ? "Série →" : `${Math.round(f * state.duree / 60)} min`}
                     block
                     active={state.format === f && state.mode === (f > 20 ? "premium" : state.mode)}
                     onClick={handleClick}
