@@ -2,20 +2,22 @@
 :root {
   --r: #E85C3A;
   --n: #6d28d9;
-  --bg: #f8f8fc;
+  --gold: #b8860b;
+  --bg: #f4f3ef;
   --card: #ffffff;
   --tx: #0f0f1a;
   --mt: #71717a;
-  --bo: #e4e4e7;
+  --bo: #e2e1dc;
   --serif: var(--font-pd, Georgia, serif);
   --sans: var(--font-sg, system-ui, sans-serif);
 }
 [data-theme="dark"] {
-  --bg: #09090f;
-  --card: #14141f;
+  --bg: #0c0c12;
+  --card: #13131e;
   --tx: #f1f5f9;
-  --mt: #94a3b8;
-  --bo: #1e1e2e;
+  --mt: #8892a4;
+  --bo: #1e1e30;
+  --gold: #d4a843;
 }
 html { scroll-behavior: smooth; }
 body { font-family: var(--sans); background: var(--bg); color: var(--tx); -webkit-tap-highlight-color: transparent; }
