@@ -198,7 +198,14 @@ const COPY = {
     emailError: "Entre ton email pour continuer",
     networkError: "Erreur réseau. Réessaie.",
     readMore: "Lire →",
-    featLabels: ["Rapide", "Format 9:16", "Scripts impactants", "Sauvegarde cloud"],
+    featLabels: [
+      { emoji: "⚡", label: "Série en 5 min", sub: "Bible + scripts générés ensemble" },
+      { emoji: "📱", label: "Format 9:16", sub: "Prêt à tourner, hook inclus" },
+      { emoji: "🎬", label: "6 formats narratifs", sub: "Vertical, Série, K-Drama, Thriller…" },
+      { emoji: "🌍", label: "8 langues", sub: "Traduit instantanément" },
+      { emoji: "🎭", label: "Direction Artistique", sub: "Émotion, rythme, narration, ton" },
+      { emoji: "☁️", label: "Cloud & Export PDF", sub: "Multi-appareils, sauvegarde auto" },
+    ],
     marqueeItems: ["Le Mensonge", "Héritage", "Deux Vies", "La Trahison", "Le Dernier Appel", "Secrets de Famille", "Le Pacte", "Double Jeu", "La Chute", "Huis Clos", "Rupture", "Le Témoin", "Zone Rouge", "L'Imposteur", "Sous Pression"],
     phoneSeriesTitle: "Héritage Maudit",
     phoneEpisode: "Épisode 8 · Saison 1",
@@ -418,7 +425,14 @@ const COPY = {
     emailError: "Enter your email to continue",
     networkError: "Network error. Please try again.",
     readMore: "Read →",
-    featLabels: ["Fast", "9:16 Format", "Impactful scripts", "Cloud save"],
+    featLabels: [
+      { emoji: "⚡", label: "Series in 5 min", sub: "Bible + scripts generated together" },
+      { emoji: "📱", label: "9:16 Format", sub: "Ready to shoot, hook included" },
+      { emoji: "🎬", label: "6 narrative formats", sub: "Vertical, Series, K-Drama, Thriller…" },
+      { emoji: "🌍", label: "8 languages", sub: "Translated instantly" },
+      { emoji: "🎭", label: "Artistic Direction", sub: "Emotion, pace, narration, tone" },
+      { emoji: "☁️", label: "Cloud & PDF Export", sub: "Multi-device, auto-save" },
+    ],
     marqueeItems: ["The Lie", "Legacy", "Two Lives", "The Betrayal", "The Last Call", "Family Secrets", "The Pact", "Double Game", "The Fall", "Locked In", "Rupture", "The Witness", "Red Zone", "The Impostor", "Under Pressure"],
     phoneSeriesTitle: "Cursed Legacy",
     phoneEpisode: "Episode 8 · Season 1",
@@ -1101,17 +1115,13 @@ export default function RichLandingPage({ lang = "fr" }) {
       </div>
 
       {/* FEATURE STRIP */}
-      <div style={{ borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.02)" }}>
-        <div className="feat-strip" style={{ maxWidth: 860, margin: "0 auto", display: "flex", justifyContent: "center" }}>
-          {[
-            { Icon: BoltIcon, label: c.featLabels[0], color: RED },
-            { Icon: PhoneIcon, label: c.featLabels[1], color: VIO },
-            { Icon: ClapperIcon, label: c.featLabels[2], color: RED },
-            { Icon: ClockIcon, label: c.featLabels[3], color: VIO },
-          ].map(({ Icon, label, color }, i, arr) => (
-            <div key={i} className="feat-strip-item" style={{ display: "flex", alignItems: "center", gap: 10, padding: "20px 32px", borderRight: i < arr.length - 1 ? `1px solid ${BORDER}` : "none", flex: 1, justifyContent: "center" }}>
-              <span style={{ color, display: "flex" }}><Icon size={20} /></span>
-              <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: TEXT, whiteSpace: "nowrap" }}>{label}</span>
+      <div style={{ borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.02)", padding: "32px 40px" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 1 }}>
+          {c.featLabels.map(({ emoji, label, sub }, i) => (
+            <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, padding: "16px 12px", borderRight: i < c.featLabels.length - 1 ? `1px solid ${BORDER}` : "none", textAlign: "center" }}>
+              <span style={{ fontSize: 22 }}>{emoji}</span>
+              <span style={{ fontSize: 12, fontWeight: 800, color: TEXT, lineHeight: 1.2 }}>{label}</span>
+              <span style={{ fontSize: 10, color: MUTED, lineHeight: 1.4 }}>{sub}</span>
             </div>
           ))}
         </div>
@@ -1229,8 +1239,68 @@ export default function RichLandingPage({ lang = "fr" }) {
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={RED}>{c.mixerLabel}</Label>
-          <Title>{c.mixerTitle1}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{c.mixerTitle2}</span></Title>
-          <Image src={c.imgMixeur} alt="Le Mixeur — 12 univers, 16 secrets, 4 castings" width={1254} height={1254} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: "100%", height: "auto", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.12), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
+          <Title>{lang === "fr" ? "Ton studio narratif," : "Your narrative studio,"}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{lang === "fr" ? "organisé en 4 onglets." : "organized in 4 tabs."}</span></Title>
+          <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>
+            {lang === "fr"
+              ? "Chaque paramètre à sa place. Le bouton Générer toujours visible."
+              : "Every parameter in its place. The Generate button always visible."}
+          </p>
+
+          {/* 4 tabs preview */}
+          <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16, marginBottom: 32 }}>
+            {[
+              { emoji: "🎬", tab: lang === "fr" ? "Univers" : "Story", color: RED, items: lang === "fr"
+                ? ["Packs univers (1 clic)", "Casting · Univers · Secret central", "Codes narratifs & tropes"]
+                : ["Universe packs (1 click)", "Casting · Setting · Central secret", "Narrative codes & tropes"] },
+              { emoji: "🎭", tab: lang === "fr" ? "Persos" : "Cast", color: "#f97316", items: lang === "fr"
+                ? ["Archetypes IA (48 personnages)", "Morphologie · Culture · Aura", "Badge de compatibilité dramatique"]
+                : ["AI archetypes (48 characters)", "Body type · Culture · Aura", "Dramatic compatibility badge"] },
+              { emoji: "🎨", tab: lang === "fr" ? "Ambiance" : "Style", color: VIO, items: lang === "fr"
+                ? ["Identité visuelle (8 esthétiques)", "Moteur Émotionnel (fast) · Direction Artistique (premium)", "Style de script · Inspiration série"]
+                : ["Visual identity (8 aesthetics)", "Emotional Engine (fast) · Artistic Direction (premium)", "Script style · Series inspiration"] },
+              { emoji: "⚙️", tab: lang === "fr" ? "Format" : "Format", color: "#22c55e", items: lang === "fr"
+                ? ["Budget de tournage (0€ → Pro)", "Durée par épisode (60 · 90 · 120 sec)", "Nombre d'épisodes (10 → 90)"]
+                : ["Shooting budget (€0 → Pro)", "Duration per episode (60 · 90 · 120 sec)", "Number of episodes (10 → 90)"] },
+            ].map(({ emoji, tab, color, items }) => (
+              <div key={tab} style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, padding: "24px 22px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${color}, transparent)` }} />
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+                  <span style={{ fontSize: 22 }}>{emoji}</span>
+                  <span style={{ fontSize: 15, fontWeight: 800, color }}>{tab}</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {items.map((item, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                      <span style={{ color, fontSize: 12, marginTop: 1, flexShrink: 0 }}>▸</span>
+                      <span style={{ fontSize: 13, color: MUTED, lineHeight: 1.5 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 6 Story Formats */}
+          <div style={{ background: "rgba(9,9,15,0.8)", border: `1px solid ${BORDER}`, borderRadius: 20, padding: "24px 28px" }}>
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 16, textAlign: "center" }}>
+              {lang === "fr" ? "6 FORMATS NARRATIFS — TOUJOURS VISIBLES" : "6 NARRATIVE FORMATS — ALWAYS VISIBLE"}
+            </p>
+            <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+              {[
+                { emoji: "⚡", label: lang === "fr" ? "Vertical" : "Vertical", color: "#E85C3A" },
+                { emoji: "🎭", label: lang === "fr" ? "Série" : "Series", color: "#a855f7" },
+                { emoji: "💗", label: "K-Drama", color: "#ec4899" },
+                { emoji: "🔪", label: "Thriller", color: "#f97316" },
+                { emoji: "❤️", label: "Romance", color: "#e879a0" },
+                { emoji: "🌑", label: "Dark Drama", color: "#64748b" },
+              ].map(({ emoji, label, color }) => (
+                <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, padding: "10px 16px", borderRadius: 12, border: `1.5px solid ${color}40`, background: `${color}10`, minWidth: 80 }}>
+                  <span style={{ fontSize: 20 }}>{emoji}</span>
+                  <span style={{ fontSize: 11, fontWeight: 700, color, whiteSpace: "nowrap" }}>{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
