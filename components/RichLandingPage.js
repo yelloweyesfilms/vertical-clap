@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import { POSTS } from "../lib/posts";
 import { POSTS_EN } from "../lib/posts-en";
 
@@ -668,7 +669,15 @@ export default function RichLandingPage({ lang = "fr" }) {
       {/* HERO VISUAL */}
       <div className="hero-visual-wrap" style={{ maxWidth: 900, margin: "0 auto 0" }}>
         <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", boxShadow: "0 0 80px rgba(168,85,247,0.15), 0 0 40px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)", border: "1px solid rgba(168,85,247,0.2)" }}>
-          <img src={c.imgHero} alt="VerticalClap — Ta série prête à tourner en 5 minutes" style={{ width: "100%", display: "block", borderRadius: 20 }} />
+          <Image
+            src={c.imgHero}
+            alt="VerticalClap — Ta série prête à tourner en 5 minutes"
+            width={1672}
+            height={941}
+            sizes="100vw"
+            priority
+            style={{ width: "100%", height: "auto", display: "block", borderRadius: 20 }}
+          />
         </div>
       </div>
 
@@ -676,7 +685,14 @@ export default function RichLandingPage({ lang = "fr" }) {
       <div className="sec-img" style={{ textAlign: "center", background: "linear-gradient(180deg, rgba(168,85,247,0.04) 0%, transparent 100%)", borderBottom: `1px solid ${BORDER}` }}>
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 32, fontFamily: "'Space Grotesk', sans-serif" }}>{c.cliffhangersLabel}</p>
         <div style={{ maxWidth: 900, margin: "0 auto", overflow: "hidden", borderRadius: 16 }}>
-          <img src={c.imgCliffhangers} alt="Cliffhangers — scènes impossibles à scroller" style={{ width: "100%", display: "block", borderRadius: 16 }} />
+          <Image
+            src={c.imgCliffhangers}
+            alt="Cliffhangers — scènes impossibles à scroller"
+            width={1984}
+            height={2116}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{ width: "100%", height: "auto", display: "block", borderRadius: 16 }}
+          />
         </div>
         <p style={{ color: MUTED, fontSize: 14, marginTop: 32 }}>{c.cliffhangersCaption}</p>
       </div>
@@ -848,7 +864,14 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={VIO}>{c.bibleLabel}</Label>
           <Title>{c.bibleTitle1}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{c.bibleTitle2}</span></Title>
-          <img src={c.imgBible} alt="Bible complète — titre, logline, personnages, séquencier" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
+          <Image
+            src={c.imgBible}
+            alt="Bible complète — titre, logline, personnages, séquencier"
+            width={1329}
+            height={1183}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{ width: "100%", height: "auto", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }}
+          />
         </div>
       </div>
 
@@ -863,7 +886,14 @@ export default function RichLandingPage({ lang = "fr" }) {
         </div>
         <div style={{ position: "relative", flexShrink: 0, maxWidth: 300 }}>
           <div style={{ position: "absolute", inset: -40, borderRadius: "50%", background: `radial-gradient(circle, rgba(232,92,58,0.12) 0%, transparent 70%)`, pointerEvents: "none" }} />
-          <img src={c.imgScript} alt="Script à l'écran — Mode Tournage VerticalClap" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 48px 80px rgba(0,0,0,0.8)" }} />
+          <Image
+            src={c.imgScript}
+            alt="Script à l'écran — Mode Tournage VerticalClap"
+            width={481}
+            height={500}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{ width: "100%", height: "auto", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 48px 80px rgba(0,0,0,0.8)" }}
+          />
         </div>
       </div>
 
@@ -872,7 +902,14 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={RED}>{c.viralLabel}</Label>
           <Title>{c.viralTitle1}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{c.viralTitle2}</span></Title>
-          <img src={c.imgViral} alt="Conçu pour percer — 1 épisode = 1 cliffhanger, TikTok Reels Shorts" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
+          <Image
+            src={c.imgViral}
+            alt="Conçu pour percer — 1 épisode = 1 cliffhanger, TikTok Reels Shorts"
+            width={1024}
+            height={1536}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{ width: "100%", height: "auto", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.12), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }}
+          />
         </div>
       </div>
 
@@ -881,7 +918,7 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={RED}>{c.mixerLabel}</Label>
           <Title>{c.mixerTitle1}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{c.mixerTitle2}</span></Title>
-          <img src={c.imgMixeur} alt="Le Mixeur — 12 univers, 16 secrets, 4 castings" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.12), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
+          <Image src={c.imgMixeur} alt="Le Mixeur — 12 univers, 16 secrets, 4 castings" width={1254} height={1254} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: "100%", height: "auto", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.12), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
         </div>
       </div>
 
@@ -890,7 +927,7 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={RED}>{c.forYouLabel}</Label>
           <Title>{c.forYouTitle1}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{c.forYouTitle2}</span></Title>
-          <img src={c.imgCreateurs} alt="Fait pour les créateurs qui tournent vraiment — solo, équipe, pro" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
+          <Image src={c.imgCreateurs} alt="Fait pour les créateurs qui tournent vraiment — solo, équipe, pro" width={1536} height={1024} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: "100%", height: "auto", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
         </div>
       </div>
 
@@ -899,7 +936,7 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={VIO}>{c.pipelineLabel}</Label>
           <Title>{c.pipelineTitle1}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{c.pipelineTitle2}</span></Title>
-          <img src={c.imgPipeline} alt="Le pipeline créatif — du concept au tournage en 5 étapes" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.1), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
+          <Image src={c.imgPipeline} alt="Le pipeline créatif — du concept au tournage en 5 étapes" width={824} height={489} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: "100%", height: "auto", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.1), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
         </div>
       </div>
 
@@ -908,7 +945,7 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={VIO}>{c.variationsLabel}</Label>
           <Title>{c.variationsTitle1}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{c.variationsTitle2}</span></Title>
-          <img src={c.imgVariations} alt="3 variations par script — Intense, Subtil, Rapide" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
+          <Image src={c.imgVariations} alt="3 variations par script — Intense, Subtil, Rapide" width={1254} height={1254} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: "100%", height: "auto", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
         </div>
       </div>
 

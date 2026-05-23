@@ -6,15 +6,15 @@ import { jsPDF } from "jspdf";
 const OPTS = {
   fr: {
     casting: ["1 Femme + 1 Homme", "2 Femmes", "2 Hommes", "Trio mixte", "Femme seule", "Homme seul", "Quartet mixte", "2 Teenagers", "Teenager + Adulte", "Trio Teenagers"],
-    univers_fast: ["Hôpital privé", "Milieu corporate", "Famille recomposée", "Mode & Influence", "Sport élite", "Lycée & Secrets", "Immobilier de luxe", "Réseau social viral", "Télévision & Célébrité", "Collège & Cliques", "Fête de lycée", "Compétition scolaire"],
-    univers_prem: ["Start-up IA", "Finance internationale", "Héritage familial", "Politique & Pouvoir", "Pharma & Biotech", "Armée & Services secrets", "Justice & Tribunal", "Immobilier & Blanchiment", "Cinéma & Pouvoir", "Diplomatie internationale"],
+    univers_fast: ["Hôpital privé", "Milieu corporate", "Famille recomposée", "Mode & Influence", "Sport élite", "Lycée & Secrets", "Immobilier de luxe", "Réseau social viral", "Télévision & Célébrité", "Collège & Cliques", "Fête de lycée", "Compétition scolaire", "TikTok House", "Villa de vacances", "Star Academy", "Pensionnat", "Mariage catastrophe", "Hôpital", "Yacht de riches", "Tournage de film", "Teen mom", "Mariée disparue", "Famille toxique", "Concours de beauté", "Pop star", "K-pop trainees", "Apocalypse"],
+    univers_prem: ["Start-up IA", "Finance internationale", "Héritage familial", "Politique & Pouvoir", "Pharma & Biotech", "Armée & Services secrets", "Justice & Tribunal", "Immobilier & Blanchiment", "Cinéma & Pouvoir", "Diplomatie internationale", "Expérience secrète", "Procès", "True crime", "Miroir maléfique", "Boucle temporelle"],
     secret_fast: ["Trahison amoureuse", "Double vie", "Vengeance planifiée", "Enfant caché", "Identité volée", "Grossesse cachée", "Faillite secrète", "Addiction dissimulée", "Passé criminel", "Relation interdite au lycée", "Triche scolaire organisée", "Gang secret entre ados"],
     secret_prem: ["Sabotage interne", "Espionnage industriel", "Héritage volé", "Manipulation psychologique", "Complot financier", "Corruption judiciaire", "Chantage politique", "Meurtre maquillé", "Faux témoin", "Dette de sang"],
   },
   en: {
     casting: ["1 Woman + 1 Man", "2 Women", "2 Men", "Mixed trio", "Woman alone", "Man alone", "Mixed quartet", "2 Teenagers", "Teen + Adult", "Teen trio"],
-    univers_fast: ["Private hospital", "Corporate world", "Blended family", "Fashion & Influence", "Elite sport", "High school secrets", "Luxury real estate", "Viral social media", "TV & Celebrity", "College cliques", "House party", "Academic competition"],
-    univers_prem: ["AI startup", "International finance", "Family inheritance", "Politics & Power", "Pharma & Biotech", "Military & Secret services", "Law & Courtroom", "Real estate & Laundering", "Film & Power", "International diplomacy"],
+    univers_fast: ["Private hospital", "Corporate world", "Blended family", "Fashion & Influence", "Elite sport", "High school secrets", "Luxury real estate", "Viral social media", "TV & Celebrity", "College cliques", "House party", "Academic competition", "TikTok House", "Holiday villa", "Star Academy", "Boarding school", "Wedding disaster", "Hospital", "Luxury yacht", "Film set", "Teen mom", "Missing bride", "Toxic family", "Beauty contest", "Pop star", "K-pop trainees", "Apocalypse"],
+    univers_prem: ["AI startup", "International finance", "Family inheritance", "Politics & Power", "Pharma & Biotech", "Military & Secret services", "Law & Courtroom", "Real estate & Laundering", "Film & Power", "International diplomacy", "Secret experiment", "Trial", "True crime", "Evil mirror", "Time loop"],
     secret_fast: ["Love betrayal", "Double life", "Planned revenge", "Hidden child", "Stolen identity", "Secret pregnancy", "Hidden bankruptcy", "Concealed addiction", "Criminal past", "Forbidden school romance", "Organized cheating", "Secret teen gang"],
     secret_prem: ["Internal sabotage", "Industrial espionage", "Stolen inheritance", "Psychological manipulation", "Financial conspiracy", "Judicial corruption", "Political blackmail", "Staged murder", "False witness", "Blood debt"],
   },
@@ -39,6 +39,7 @@ const T = {
     writing: "Écriture du script", hook: "⚡ Hook — 3 premières secondes",
     script_label: "Script", repliques: "répliques",
     spice: "🌶 Pimenter", subtle: "🤫 Subtil", simplify: "🎬 Simple",
+    revelation: "💥 Révélation", revelation_sub: "Insère un secret explosif dans le script",
     variations_locked: "🔒 Générer 3 versions", variations: "🎲 Générer 3 versions",
     shooting: "📱 Mode Tournage", social: "🔥 Social",
     translate: "🌍 Traduire le script", translate_back: "↩ Original", translating: "🌍 Traduction en cours…",
@@ -54,6 +55,11 @@ const T = {
     lo_violence: "Aucune", hi_violence: "Confrontations dures",
     lo_spicy: "Tous publics", hi_spicy: "Tension maximale",
     packs_label: "🎬 Packs d'univers", packs_sub: "— tout configuré en 1 clic",
+    tropes_label: "💘 Tropes", tropes_sub: "— injecte les codes narratifs qui cartonnent",
+    tropes_romance: "Romance", tropes_drama: "Drama",
+    casting_ia_label: "🎭 Casting IA", casting_ia_sub: "— donne une identité forte à tes personnages",
+    casting_ia_age: "ans",
+    ambiance_vis_label: "🎨 Ambiance Visuelle", ambiance_vis_sub: "— l'identité visuelle de ta série",
     logout: "Déconnexion", custom: "✏️ Perso.",
     choose_lang: "Choisir la langue", back: "← Retour", my_series_title: "Mes Séries",
     affiche_title: "🎨 Dossier de présentation", affiche_sub: "Ton kit visuel complet — affiche + direction artistique + image IA",
@@ -71,6 +77,8 @@ const T = {
     gen_episodes_batch: "Épisodes %a–%b générés… (%c/%d)",
     premium_titles: "Les titres viraux sont réservés au plan Premium.",
     premium_variations: "Les variations sont réservées au plan Premium.",
+    loading_cartes: "Création des fiches personnages…",
+    loading_titres: "Analyse de la viralité…",
   },
   en: {
     mode_fast: "⚡ Fast Drama", mode_premium: "🎭 Premium Suspense",
@@ -87,6 +95,7 @@ const T = {
     writing: "Writing script", hook: "⚡ Hook — First 3 seconds",
     script_label: "Script", repliques: "lines",
     spice: "🌶 Spice up", subtle: "🤫 Subtle", simplify: "🎬 Simplify",
+    revelation: "💥 Revelation", revelation_sub: "Drop an explosive secret into the script",
     variations_locked: "🔒 Generate 3 versions", variations: "🎲 Generate 3 versions",
     shooting: "📱 Shooting mode", social: "🔥 Social",
     translate: "🌍 Translate script", translate_back: "↩ Original", translating: "🌍 Translating…",
@@ -102,6 +111,11 @@ const T = {
     lo_violence: "None", hi_violence: "Harsh confrontations",
     lo_spicy: "All audiences", hi_spicy: "Maximum tension",
     packs_label: "🎬 Universe packs", packs_sub: "— all set in 1 click",
+    tropes_label: "💘 Tropes", tropes_sub: "— inject the narrative codes that go viral",
+    tropes_romance: "Romance", tropes_drama: "Drama",
+    casting_ia_label: "🎭 Casting IA", casting_ia_sub: "— give your characters a powerful identity",
+    casting_ia_age: "yo",
+    ambiance_vis_label: "🎨 Visual Ambiance", ambiance_vis_sub: "— your series' visual identity",
     logout: "Sign out", custom: "✏️ Custom",
     choose_lang: "Choose language", back: "← Back", my_series_title: "My Series",
     affiche_title: "🎨 Presentation kit", affiche_sub: "Your complete visual kit — poster + art direction + AI image",
@@ -119,8 +133,274 @@ const T = {
     gen_episodes_batch: "Episodes %a–%b generated… (%c/%d)",
     premium_titles: "Viral titles are reserved for Premium plan.",
     premium_variations: "Variations are reserved for Premium plan.",
+    loading_cartes: "Creating character profiles…",
+    loading_titres: "Analysing virality…",
   },
 };
+
+// ── CASTING IA ───────────────────────────────────────────────
+const CASTING_CATS = [
+  { id: "romance", emoji: "❤️", label: { fr: "Romance", en: "Romance" } },
+  { id: "teen",    emoji: "🔥", label: { fr: "Teen Drama", en: "Teen Drama" } },
+  { id: "elite",   emoji: "👑", label: { fr: "Luxe & Élite", en: "Luxury" } },
+  { id: "thriller",emoji: "🩸", label: { fr: "Thriller", en: "Thriller" } },
+  { id: "scifi",   emoji: "🤖", label: { fr: "Sci-Fi", en: "Sci-Fi" } },
+  { id: "horror",  emoji: "👻", label: { fr: "Horreur", en: "Horror" } },
+];
+const CASTING_IA = [
+  // ❤️ ROMANCE
+  { id: "garcon-timide",     cat:"romance", emoji:"🥺", auraTag:"fragile",      label:{fr:"Garçon timide",         en:"Shy boy"},             age:"20-24", desc:{fr:"ne sait pas comment dire qu'il aime — mais fait mille petites choses pour le montrer",             en:"doesn't know how to say he loves — but does a thousand small things to show it"} },
+  { id: "fille-inaccessible",cat:"romance", emoji:"🌙", auraTag:"mystérieux",   label:{fr:"Fille inaccessible",    en:"Unreachable girl"},     age:"22-26", desc:{fr:"tout le monde la désire, personne ne la connaît vraiment — elle a construit des murs",            en:"everyone desires her, no one truly knows her — she built walls"} },
+  { id: "sportif-arrogant",  cat:"romance", emoji:"🏆", auraTag:"dominant",     label:{fr:"Sportif arrogant",      en:"Arrogant athlete"},     age:"22-25", desc:{fr:"champion habitué à tout obtenir — déstabilisé par la première personne qui lui dit non",           en:"champion used to getting everything — destabilized by the first person who says no"} },
+  { id: "romantique-malad",  cat:"romance", emoji:"🌹", auraTag:"solaire",      label:{fr:"Romantique maladroit",  en:"Clumsy romantic"},      age:"19-23", desc:{fr:"croit encore aux grands gestes — se plante à chaque fois mais n'abandonne jamais",                en:"still believes in grand gestures — fails every time but never gives up"} },
+  { id: "voisin-myst",       cat:"romance", emoji:"🚪", auraTag:"mystérieux",   label:{fr:"Voisin mystérieux",     en:"Mysterious neighbor"},  age:"24-28", desc:{fr:"sort à des heures étranges, répond à aucune question — mais protège sans qu'on lui demande",       en:"leaves at strange hours, answers nothing — but protects without being asked"} },
+  { id: "libraire",          cat:"romance", emoji:"📚", auraTag:"mélancolique", label:{fr:"Libraire introverti",   en:"Introverted bookseller"},age:"25-30", desc:{fr:"connaît tout des histoires d'amour fictives — incapable de vivre la sienne",                       en:"knows everything about fictional love stories — unable to live his own"} },
+  { id: "artiste-torturé",   cat:"romance", emoji:"🎨", auraTag:"chaotique",    label:{fr:"Artiste torturé",       en:"Tortured artist"},      age:"22-28", desc:{fr:"crée des œuvres sublimes sur sa douleur — et sa douleur, c'est toi",                              en:"creates sublime works about his pain — and his pain is you"} },
+  { id: "prince",            cat:"romance", emoji:"👑", auraTag:"royal",        label:{fr:"Prince héritier",       en:"Crown prince"},         age:"24-30", desc:{fr:"doit épouser pour le pays, tombe amoureux pour lui — les deux sont incompatibles",                  en:"must marry for the country, falls in love for himself — both are incompatible"} },
+  { id: "influenceuse-fragile",cat:"romance",emoji:"📱",auraTag:"fragile",      label:{fr:"Influenceuse fragile",  en:"Fragile influencer"},   age:"20-24", desc:{fr:"des millions de followers mais personne qui la connaît — craque en privé",                         en:"millions of followers, no one who truly knows her — breaks down in private"} },
+  { id: "etudiante-pauvre",  cat:"romance", emoji:"📖", auraTag:"solaire",      label:{fr:"Étudiante pauvre",      en:"Poor student"},         age:"20-23", desc:{fr:"intelligente et fière dans un monde qui favorise les riches — refuse toute aide par dignité",        en:"smart and proud in a world that favors the rich — refuses any help out of dignity"} },
+  { id: "chef-intense",      cat:"romance", emoji:"🍴", auraTag:"dominant",     label:{fr:"Chef cuisinier intense", en:"Intense chef"},        age:"28-35", desc:{fr:"obsédé par la perfection jusqu'à oublier de vivre — sa cuisine est l'amour qu'il ne peut exprimer autrement", en:"obsessed with perfection to the point of forgetting to live — his cooking is love he can't express otherwise"} },
+  { id: "bodyguard",         cat:"romance", emoji:"🛡️",auraTag:"protecteur",   label:{fr:"Bodyguard silencieux",  en:"Silent bodyguard"},     age:"26-32", desc:{fr:"a fait vœu de rester dans l'ombre — mais ne peut pas empêcher ce qu'il ressent",                  en:"sworn to stay in the shadows — but can't prevent what he feels"} },
+  // 🔥 TEEN DRAMA
+  { id: "reine-lycee",       cat:"teen",    emoji:"💅", auraTag:"dominant",     label:{fr:"Reine du lycée",        en:"Queen bee"},            age:"16-18", desc:{fr:"règne par la peur et les rumeurs — mais son empire repose sur un secret qui peut tout détruire",     en:"rules through fear and rumors — but her empire rests on a secret that could destroy everything"} },
+  { id: "nerd-invisible",    cat:"teen",    emoji:"👓", auraTag:"mystérieux",   label:{fr:"Nerd invisible",        en:"Invisible nerd"},       age:"16-18", desc:{fr:"voit tout ce qui se passe dans le lycée — accumule les informations jusqu'au jour où il s'en sert", en:"sees everything happening in school — accumulates information until the day he uses it"} },
+  { id: "skateur",           cat:"teen",    emoji:"🛹", auraTag:"chaotique",    label:{fr:"Skateur rebelle",       en:"Rebel skater"},         age:"16-19", desc:{fr:"refuse toutes les règles sauf les siennes — son attitude cache une sensibilité rare",               en:"refuses all rules except his own — his attitude hides a rare sensitivity"} },
+  { id: "gothique",          cat:"teen",    emoji:"🖤", auraTag:"mélancolique", label:{fr:"Fille gothique",        en:"Gothic girl"},          age:"16-18", desc:{fr:"les autres pensent qu'elle est effrayante — elle est juste la seule à avoir compris que la vie est tragique", en:"others think she's scary — she just understood first that life is tragic"} },
+  { id: "capitaine",         cat:"teen",    emoji:"⚽", auraTag:"dominant",     label:{fr:"Capitaine d'équipe",    en:"Team captain"},         age:"17-19", desc:{fr:"toute la pression sur les épaules — le seul à savoir qu'il ne veut plus jouer",                    en:"all the pressure on his shoulders — the only one who knows he doesn't want to play anymore"} },
+  { id: "premier-classe",    cat:"teen",    emoji:"🏅", auraTag:"fragile",      label:{fr:"Premier de la classe",  en:"Top of the class"},     age:"16-18", desc:{fr:"perfection construite pour ses parents — intérieur en train d'imploser",                          en:"perfection built for his parents — inside about to implode"} },
+  { id: "influenceur-fake",  cat:"teen",    emoji:"🤳", auraTag:"chaotique",    label:{fr:"Influenceur fake",      en:"Fake influencer"},      age:"17-20", desc:{fr:"ment sur tout ce qu'il est pour les followers — ne sait plus qui il est vraiment",                 en:"lies about everything he is for followers — no longer knows who he really is"} },
+  { id: "ado-riche",         cat:"teen",    emoji:"💳", auraTag:"mélancolique", label:{fr:"Ado ultra riche",       en:"Ultra-rich teen"},      age:"16-18", desc:{fr:"a tout sauf ce qu'il veut vraiment — l'attention d'un parent qui n't est jamais là",              en:"has everything except what he truly wants — a parent's attention"} },
+  { id: "boursier",          cat:"teen",    emoji:"📝", auraTag:"solaire",      label:{fr:"Élève boursier",        en:"Scholarship student"},  age:"16-18", desc:{fr:"dans une école de riches grâce à ses notes — refuse de se laisser écraser",                       en:"in a rich school thanks to his grades — refuses to be crushed"} },
+  { id: "solitaire",         cat:"teen",    emoji:"🌧️",auraTag:"mystérieux",   label:{fr:"Fille solitaire",       en:"Loner girl"},           age:"15-17", desc:{fr:"a choisi d'être seule après une trahison — observe tout le monde avec une intensité qui fait peur",  en:"chose solitude after a betrayal — watches everyone with unsettling intensity"} },
+  { id: "hacker-teen",       cat:"teen",    emoji:"💻", auraTag:"imprévisible", label:{fr:"Hacker discret",        en:"Quiet hacker"},         age:"16-19", desc:{fr:"sait des choses sur tout le monde — la question c'est ce qu'il va en faire",                      en:"knows things about everyone — the question is what he's going to do with it"} },
+  // 👑 LUXE / ÉLITE
+  { id: "heritier",          cat:"elite",   emoji:"🥂", auraTag:"dominant",     label:{fr:"Héritier arrogant",     en:"Arrogant heir"},        age:"24-30", desc:{fr:"né avec tout — peur secrète de ne rien valoir sans l'argent",                                     en:"born with everything — secret fear of being worthless without the money"} },
+  { id: "ceo",               cat:"elite",   emoji:"👔", auraTag:"froid",        label:{fr:"CEO froid",             en:"Cold CEO"},             age:"32-40", desc:{fr:"a tout sacrifié pour le pouvoir — cherche quelque chose qu'il ne peut pas acheter",                 en:"sacrificed everything for power — looking for something he can't buy"} },
+  { id: "femme-affaires",    cat:"elite",   emoji:"💼", auraTag:"dominant",     label:{fr:"Femme d'affaires glaciale", en:"Ice queen exec"},   age:"30-38", desc:{fr:"a dû être deux fois meilleure pour être prise au sérieux — maintenant elle écrase tout le monde",  en:"had to be twice as good to be taken seriously — now she crushes everyone"} },
+  { id: "fils-politique",    cat:"elite",   emoji:"🏛️",auraTag:"imprévisible", label:{fr:"Fils de politicien",    en:"Politician's son"},     age:"22-28", desc:{fr:"son nom ouvre toutes les portes et ferme toutes ses libertés",                                      en:"his name opens every door and closes all his freedoms"} },
+  { id: "jetsetteuse",       cat:"elite",   emoji:"✈️", auraTag:"mystérieux",   label:{fr:"Jet-setteuse",          en:"Jet-setter"},           age:"23-28", desc:{fr:"vit dans des hôtels 5 étoiles partout dans le monde — n'a jamais eu de chez-soi",                  en:"lives in 5-star hotels around the world — never had a home"} },
+  { id: "mannequin",         cat:"elite",   emoji:"👗", auraTag:"fragile",      label:{fr:"Mannequin",             en:"Model"},                age:"20-26", desc:{fr:"vendu·e comme image depuis l'enfance — le corps comme prison dorée",                               en:"sold as an image since childhood — the body as a golden cage"} },
+  { id: "star-montante",     cat:"elite",   emoji:"⭐", auraTag:"chaotique",    label:{fr:"Star montante",         en:"Rising star"},          age:"21-26", desc:{fr:"sur le point de tout avoir — terrifiée que ça disparaisse du jour au lendemain",                   en:"about to have everything — terrified it could vanish overnight"} },
+  { id: "avocat-manip",      cat:"elite",   emoji:"⚖️", auraTag:"dangereux",    label:{fr:"Avocat manipulateur",   en:"Manipulative lawyer"},  age:"28-36", desc:{fr:"a appris que la vérité est une construction — maintenant il en joue sur tout le monde",           en:"learned truth is a construction — now plays it on everyone"} },
+  // 🩸 THRILLER
+  { id: "detective",         cat:"thriller",emoji:"🔍", auraTag:"mélancolique", label:{fr:"Détective fatigué",     en:"Tired detective"},      age:"38-50", desc:{fr:"a vu trop d'horreurs — tient debout uniquement parce qu'il n'a pas encore résolu cette affaire", en:"has seen too many horrors — still standing only because this case isn't closed"} },
+  { id: "journaliste-obs",   cat:"thriller",emoji:"🎙️",auraTag:"chaotique",    label:{fr:"Journaliste obsessionnelle", en:"Obsessive journalist"}, age:"28-36", desc:{fr:"sacrifiera tout pour la vérité — y compris elle-même",                                    en:"will sacrifice everything for the truth — including herself"} },
+  { id: "amnesique",         cat:"thriller",emoji:"🌫️",auraTag:"fragile",      label:{fr:"Femme amnésique",       en:"Amnesiac woman"},       age:"25-35", desc:{fr:"son passé est un trou noir — chaque souvenir retrouvé est pire que l'ignorance",                  en:"her past is a black hole — every recovered memory is worse than the ignorance"} },
+  { id: "voisin-etrange",    cat:"thriller",emoji:"👁️",auraTag:"dangereux",    label:{fr:"Voisin inquiétant",     en:"Unsettling neighbor"},  age:"30-45", desc:{fr:"poli en surface, regard qui ne clignote jamais — que fait-il la nuit ?",                         en:"polite on the surface, eyes that never blink — what does he do at night?"} },
+  { id: "gourou",            cat:"thriller",emoji:"🕯️",auraTag:"dominant",     label:{fr:"Gourou sectaire",       en:"Cult leader"},          age:"35-50", desc:{fr:"donne l'impression d'avoir toutes les réponses — et il en profite",                               en:"gives the impression of having all the answers — and takes advantage of it"} },
+  { id: "faux-gentil",       cat:"thriller",emoji:"😇", auraTag:"dangereux",    label:{fr:"Faux gentil",           en:"Fake nice guy"},        age:"25-35", desc:{fr:"tout le monde l'adore — le spectateur voit ce que les autres ne voient pas encore",               en:"everyone loves him — the audience sees what others don't yet"} },
+  { id: "survivante",        cat:"thriller",emoji:"🦋", auraTag:"imprévisible", label:{fr:"Survivante",            en:"Survivor"},             age:"25-40", desc:{fr:"a traversé l'enfer — cherche soit la paix soit la vengeance, elle n't a pas décidé",               en:"has been through hell — seeks either peace or revenge, not decided yet"} },
+  { id: "psychologue-manip", cat:"thriller",emoji:"🧠", auraTag:"dangereux",    label:{fr:"Psychologue manipulateur", en:"Manipulative therapist"}, age:"35-45", desc:{fr:"utilise ce que ses patients confient comme arme — pour leur bien ou le sien ?",          en:"uses patients' confessions as a weapon — for their good or his own?"} },
+  // 🤖 SCI-FI
+  { id: "androide",          cat:"scifi",   emoji:"🤖", auraTag:"fragile",      label:{fr:"Androïde émotionnel",   en:"Emotional android"},    age:"∞",     desc:{fr:"programmé pour servir — a développé des émotions que ses créateurs n'avaient pas prévues",        en:"programmed to serve — developed emotions its creators never anticipated"} },
+  { id: "clone",             cat:"scifi",   emoji:"👥", auraTag:"mélancolique", label:{fr:"Clone imparfait",       en:"Imperfect clone"},      age:"22-30", desc:{fr:"copie d'un original qui vit mieux — cherche ce qui le rend unique",                              en:"copy of an original living better — searching for what makes him unique"} },
+  { id: "influenceur-virt",  cat:"scifi",   emoji:"💫", auraTag:"fragile",      label:{fr:"Influenceur virtuel",   en:"Virtual influencer"},   age:"20-25", desc:{fr:"existe uniquement en ligne — commence à vouloir exister vraiment",                                en:"exists only online — starts wanting to truly exist"} },
+  { id: "soldat-aug",        cat:"scifi",   emoji:"⚙️", auraTag:"mélancolique", label:{fr:"Soldat augmenté",       en:"Augmented soldier"},    age:"25-35", desc:{fr:"corps modifié pour tuer — cherche ce qui lui reste d'humain",                                    en:"body modified to kill — searching for what's left that's human"} },
+  { id: "hackeuse-cyber",    cat:"scifi",   emoji:"💻", auraTag:"chaotique",    label:{fr:"Hackeuse cyberpunk",    en:"Cyberpunk hacker"},     age:"22-28", desc:{fr:"vit dans les marges du système — la seule qui voit vraiment comment tout fonctionne",            en:"lives in the margins of the system — the only one who truly sees how it works"} },
+  { id: "ia-humaine",        cat:"scifi",   emoji:"🌐", auraTag:"mystérieux",   label:{fr:"IA humaine",            en:"Human AI"},             age:"∞",     desc:{fr:"si avancée qu'on ne sait plus si elle souffre vraiment ou simule — elle non plus",               en:"so advanced no one knows if she truly suffers or simulates — including herself"} },
+  // 👻 HORREUR
+  { id: "medium",            cat:"horror",  emoji:"🔮", auraTag:"mystérieux",   label:{fr:"Médium",                en:"Medium"},               age:"25-40", desc:{fr:"voit ce que les autres ne voient pas — voudrait désespérément ne plus voir",                      en:"sees what others don't — desperately wishes she could stop"} },
+  { id: "ado-possedee",      cat:"horror",  emoji:"😈", auraTag:"dangereux",    label:{fr:"Adolescente possédée",  en:"Possessed teen"},       age:"14-17", desc:{fr:"était la plus douce — ce qui la contrôle maintenant est son opposé exact",                       en:"was the sweetest — what controls her now is the exact opposite"} },
+  { id: "garcon-etrange",    cat:"horror",  emoji:"🌀", auraTag:"dangereux",    label:{fr:"Garçon étrange",        en:"Strange boy"},           age:"10-14", desc:{fr:"ne pleure jamais, ne rit jamais — dit des choses impossibles à savoir",                          en:"never cries, never laughs — says things impossible to know"} },
+  { id: "pretre",            cat:"horror",  emoji:"⛪", auraTag:"mélancolique", label:{fr:"Prêtre brisé",          en:"Broken priest"},         age:"45-60", desc:{fr:"a perdu la foi en affrontant quelque chose qu'il ne peut pas expliquer",                         en:"lost his faith facing something he cannot explain"} },
+  { id: "final-girl",        cat:"horror",  emoji:"🔦", auraTag:"imprévisible", label:{fr:"Final girl",            en:"Final girl"},            age:"17-22", desc:{fr:"l'innocente qui survit — mais survivre lui coûte quelque chose qu'elle ne récupérera jamais",     en:"the innocent who survives — but surviving costs her something she'll never get back"} },
+  { id: "youtubeur-parano",  cat:"horror",  emoji:"📹", auraTag:"chaotique",    label:{fr:"Youtubeur paranormal",  en:"Paranormal Youtuber"},  age:"20-26", desc:{fr:"cherchait des vues — a trouvé quelque chose de réel",                                             en:"was looking for views — found something real"} },
+];
+
+const CASTING_PHYSIQUE = [
+  { id: "musclé",      emoji: "💪", label: { fr: "Musclé·e",        en: "Muscular" } },
+  { id: "mince",       emoji: "🌿", label: { fr: "Mince",           en: "Slim" } },
+  { id: "rond",        emoji: "🌊", label: { fr: "Rond·e / Curvy",  en: "Curvy" } },
+  { id: "grand",       emoji: "📏", label: { fr: "Très grand·e",    en: "Very tall" } },
+  { id: "petit",       emoji: "🍄", label: { fr: "Petit·e",         en: "Short" } },
+  { id: "prothese",    emoji: "🦿", label: { fr: "Prothèse visible", en: "Visible prosthetic" } },
+  { id: "fauteuil",    emoji: "♿", label: { fr: "Fauteuil roulant", en: "Wheelchair user" } },
+  { id: "cicatrices",  emoji: "⚔️", label: { fr: "Cicatrices",      en: "Scars" } },
+  { id: "vitiligo",    emoji: "🌓", label: { fr: "Vitiligo",         en: "Vitiligo" } },
+  { id: "albinisme",   emoji: "🤍", label: { fr: "Albinisme",        en: "Albinism" } },
+];
+const CASTING_CULTURE = [
+  { id: "française",  emoji: "🇫🇷", label: { fr: "Française",    en: "French" } },
+  { id: "coréenne",   emoji: "🇰🇷", label: { fr: "Coréenne",     en: "Korean" } },
+  { id: "maghrébine", emoji: "🌙",  label: { fr: "Maghrébine",   en: "Maghrebi" } },
+  { id: "afro",       emoji: "✊",  label: { fr: "Afro",          en: "Afro" } },
+  { id: "latina",     emoji: "🌺",  label: { fr: "Latino·a",      en: "Latino/a" } },
+  { id: "japonaise",  emoji: "🇯🇵", label: { fr: "Japonaise",    en: "Japanese" } },
+  { id: "indienne",   emoji: "🪷",  label: { fr: "Indienne",      en: "Indian" } },
+  { id: "italienne",  emoji: "🇮🇹", label: { fr: "Italienne",    en: "Italian" } },
+  { id: "brésilienne",emoji: "🇧🇷", label: { fr: "Brésilienne",  en: "Brazilian" } },
+  { id: "mixte",      emoji: "🌍",  label: { fr: "Mixte",         en: "Mixed" } },
+  { id: "diaspora",   emoji: "🧳",  label: { fr: "Diaspora",      en: "Diaspora" } },
+];
+const CASTING_AESTHETIC = [
+  { id: "soft-girl",   emoji: "🌸", label: { fr: "Soft girl",     en: "Soft girl" } },
+  { id: "goth",        emoji: "🖤", label: { fr: "Goth",           en: "Goth" } },
+  { id: "luxury",      emoji: "💎", label: { fr: "Luxury",         en: "Luxury" } },
+  { id: "grunge",      emoji: "🎸", label: { fr: "Grunge",         en: "Grunge" } },
+  { id: "y2k",         emoji: "🌀", label: { fr: "Y2K",            en: "Y2K" } },
+  { id: "old-money",   emoji: "🎀", label: { fr: "Old money",      en: "Old money" } },
+  { id: "streetwear",  emoji: "👟", label: { fr: "Streetwear",     en: "Streetwear" } },
+  { id: "coquette",    emoji: "🩷", label: { fr: "Coquette",       en: "Coquette" } },
+  { id: "biker",       emoji: "🏍️",label: { fr: "Biker",          en: "Biker" } },
+  { id: "kawaii",      emoji: "🎀", label: { fr: "Kawaii",         en: "Kawaii" } },
+  { id: "cyberpunk",   emoji: "🔋", label: { fr: "Cyberpunk",      en: "Cyberpunk" } },
+  { id: "dark-fem",    emoji: "🌹", label: { fr: "Dark feminine",  en: "Dark feminine" } },
+  { id: "clean",       emoji: "🤍", label: { fr: "Clean girl",     en: "Clean girl" } },
+  { id: "punk",        emoji: "🔩", label: { fr: "Punk",           en: "Punk" } },
+  { id: "vintage",     emoji: "📻", label: { fr: "Vintage",        en: "Vintage" } },
+];
+const CASTING_BLESSURE = [
+  { id: "jalousie",       emoji: "💚", label: { fr: "Hyper jaloux·se",           en: "Hyper jealous" } },
+  { id: "incapable",      emoji: "💔", label: { fr: "Incapable d'aimer",          en: "Unable to love" } },
+  { id: "attention",      emoji: "📢", label: { fr: "Besoin maladif d'attention", en: "Attention addict" } },
+  { id: "abandon",        emoji: "🌧️",label: { fr: "Peur de l'abandon",          en: "Fear of abandonment" } },
+  { id: "menteur",        emoji: "🎭", label: { fr: "Menteur·se compulsif·ve",    en: "Compulsive liar" } },
+  { id: "empathie",       emoji: "🫂", label: { fr: "Trop empathique",            en: "Too empathetic" } },
+  { id: "autodestructeur",emoji: "🌪️",label: { fr: "Autodestructeur·rice",       en: "Self-destructive" } },
+  { id: "controle",       emoji: "🔒", label: { fr: "Besoin de tout contrôler",   en: "Control freak" } },
+  { id: "trauma",         emoji: "🌊", label: { fr: "Trauma caché",               en: "Hidden trauma" } },
+  { id: "colere",         emoji: "🔥", label: { fr: "Colère profonde",            en: "Deep rage" } },
+];
+const CASTING_AURA = [
+  { id: "dangereux",    emoji: "⚡", label: { fr: "Dangereux·se",   en: "Dangerous" } },
+  { id: "solaire",      emoji: "☀️", label: { fr: "Solaire",        en: "Radiant" } },
+  { id: "toxique",      emoji: "☠️", label: { fr: "Toxique",        en: "Toxic" } },
+  { id: "mystérieux",   emoji: "🌑", label: { fr: "Mystérieux·se",  en: "Mysterious" } },
+  { id: "innocent",     emoji: "🕊️",label: { fr: "Innocent·e",     en: "Innocent" } },
+  { id: "dominant",     emoji: "👑", label: { fr: "Dominant·e",     en: "Dominant" } },
+  { id: "fragile",      emoji: "🫧", label: { fr: "Fragile",        en: "Fragile" } },
+  { id: "chaotique",    emoji: "🌀", label: { fr: "Chaotique",      en: "Chaotic" } },
+  { id: "mélancolique", emoji: "🌧️",label: { fr: "Mélancolique",   en: "Melancholic" } },
+  { id: "royal",        emoji: "💎", label: { fr: "Royal·e",        en: "Royal" } },
+  { id: "sexy",         emoji: "🔥", label: { fr: "Sexy",           en: "Sexy" } },
+  { id: "froid",        emoji: "🧊", label: { fr: "Froid·e",        en: "Cold" } },
+  { id: "protecteur",   emoji: "🛡️",label: { fr: "Protecteur·rice", en: "Protective" } },
+  { id: "imprévisible", emoji: "🎲", label: { fr: "Imprévisible",   en: "Unpredictable" } },
+];
+
+// compatibility rules: based on selected archetype aura tags
+function getCompatibility(auras, lang) {
+  if (auras.length < 2) return null;
+  const rules = [
+    { a: "dangereux",   b: "fragile",     type: "🔥", fr: "Passion explosive",       en: "Explosive passion" },
+    { a: "dominant",    b: "fragile",     type: "⚠️", fr: "Relation toxique probable",en: "Likely toxic relationship" },
+    { a: "dangereux",   b: "innocent",    type: "🔥", fr: "Attirance irrésistible",   en: "Irresistible attraction" },
+    { a: "mystérieux",  b: "solaire",     type: "💔", fr: "Amour impossible",         en: "Impossible love" },
+    { a: "chaotique",   b: "dominant",    type: "🩸", fr: "Trahison probable",        en: "Betrayal likely" },
+    { a: "mélancolique",b: "solaire",     type: "💔", fr: "Amour déchirant",          en: "Heartbreaking love" },
+    { a: "royal",       b: "solaire",     type: "🔥", fr: "Passion romantique",       en: "Romantic passion" },
+    { a: "froid",       b: "fragile",     type: "⚠️", fr: "Relation destructrice",    en: "Destructive relationship" },
+    { a: "imprévisible",b: "protecteur",  type: "🩸", fr: "Trahison inévitable",      en: "Inevitable betrayal" },
+    { a: "toxique",     b: "innocent",    type: "⚠️", fr: "Jeu de manipulation",      en: "Manipulation game" },
+    { a: "mélancolique",b: "chaotique",   type: "🔥", fr: "Connexion dangereuse",     en: "Dangerous connection" },
+    { a: "dominant",    b: "dominant",    type: "🩸", fr: "Guerre de pouvoir",        en: "Power war" },
+    { a: "fragile",     b: "fragile",     type: "💔", fr: "Les deux se brisent",      en: "Both will break" },
+  ];
+  for (const r of rules) {
+    if ((auras.includes(r.a) && auras.includes(r.b)) || (auras.includes(r.b) && auras.includes(r.a))) {
+      return { type: r.type, label: lang === "en" ? r.en : r.fr };
+    }
+  }
+  return { type: "💫", label: lang === "en" ? "Interesting dynamic" : "Dynamique intéressante" };
+}
+
+// ── TROPES ──────────────────────────────────────────────────
+const TROPES = [
+  { id: "enemies-to-lovers",  cat: "romance", emoji: "⚔️", label: { fr: "Ennemis → Amants",   en: "Enemies to lovers"  }, instr: "enemies to lovers: les personnages se détestent avant de tomber amoureux — tension sexuelle déguisée en haine" },
+  { id: "fake-dating",        cat: "romance", emoji: "🎭", label: { fr: "Faux couple",          en: "Fake dating"        }, instr: "fake dating: ils font semblant d'être ensemble pour une raison externe — et finissent par vraiment tomber amoureux" },
+  { id: "forbidden-love",     cat: "romance", emoji: "🚫", label: { fr: "Amour interdit",       en: "Forbidden love"     }, instr: "forbidden love: leur relation est impossible (famille, classe sociale, secret) mais irrésistible" },
+  { id: "friends-to-lovers",  cat: "romance", emoji: "🤝", label: { fr: "Amis → Amants",        en: "Friends to lovers"  }, instr: "friends to lovers: l'amitié bascule — l'un cache ses sentiments depuis longtemps" },
+  { id: "grumpy-sunshine",    cat: "romance", emoji: "☀️", label: { fr: "Grumpy × Sunshine",    en: "Grumpy × Sunshine"  }, instr: "grumpy x sunshine: personnage froid/cynique vs personnage rayonnant/optimiste — opposés qui s'attirent" },
+  { id: "revenge",            cat: "drama",   emoji: "🔪", label: { fr: "Vengeance",             en: "Revenge"            }, instr: "revenge: un personnage a tout perdu à cause d'un autre — chaque épisode rapproche du règlement de comptes final" },
+  { id: "secret-child",       cat: "drama",   emoji: "👶", label: { fr: "Enfant caché",          en: "Secret child"       }, instr: "secret child: un enfant existe sans que l'autre parent le sache — révélation explosive en cours de série" },
+  { id: "hidden-identity",    cat: "drama",   emoji: "🎭", label: { fr: "Identité cachée",       en: "Hidden identity"    }, instr: "hidden identity: un personnage n'est pas celui qu'il prétend être — fausse identité, infiltré, double vie" },
+  { id: "betrayal",           cat: "drama",   emoji: "🗡️", label: { fr: "Trahison",              en: "Betrayal"           }, instr: "betrayal: la trahison vient de l'intérieur — l'allié de confiance est le vrai ennemi" },
+  { id: "obsession",          cat: "drama",   emoji: "👁️", label: { fr: "Obsession",             en: "Obsession"          }, instr: "obsession: un personnage est consumé par un autre — amour toxique, stalking, possession émotionnelle" },
+];
+
+// ── AMBIANCE VISUELLE ────────────────────────────────────────
+const AMBIANCE_VIS = [
+  {
+    id: "dark-cine", emoji: "🌙",
+    label: { fr: "Dark & Cinéma", en: "Dark & Cinematic" },
+    desc: { fr: "Noirs profonds, lumière rasante, ombres dures", en: "Deep blacks, raking light, hard shadows" },
+    palette: ["#0a0a0f", "#1a1a2e", "#e85c3a"],
+    refs: "Dark · Squid Game · Minari",
+    instr: { fr: "IDENTITÉ VISUELLE DARK CINÉMA: noirs profonds et ombres dures, lumière rasante venant d'un côté unique, contraste extrême entre zones éclairées et zones sombres. Plans larges qui écrasent puis gros plans brutaux. Palette: noirs, gris anthracite, une touche de rouge sang ou blanc froid. visuel_916 = toujours un détail dans l'ombre, un visage à moitié éclairé, une silhouette.", en: "DARK CINEMATIC VISUAL IDENTITY: deep blacks and hard shadows, raking single-source light, extreme contrast. Wide shots that crush characters then brutal close-ups. Palette: blacks, anthracite, one touch of blood red or cold white. visuel_916 = always a detail in shadow, a half-lit face, a silhouette." }
+  },
+  {
+    id: "neon-viral", emoji: "⚡",
+    label: { fr: "Neon Viral", en: "Neon Viral" },
+    desc: { fr: "Néons saturés, contre-jour, coupes rapides", en: "Saturated neons, backlit, rapid cuts" },
+    palette: ["#ff2d8b", "#7c3aed", "#06b6d4"],
+    refs: "Euphoria · K-pop MV · TikTok viral",
+    instr: { fr: "IDENTITÉ VISUELLE NEON VIRAL: néons rose/violet/bleu saturés, contre-jour intense, reflets sur peau et surfaces humides. Angles dynamiques, caméra inclinée, flares de lentilles. Coupes ultra-rapides entre plans. Palette: rose fluo, violet électrique, bleu cyan. visuel_916 = néon [couleur] qui découpe le visage en contre-jour, reflet dans les yeux, ombre colorée.", en: "NEON VIRAL VISUAL IDENTITY: saturated pink/purple/blue neons, intense backlight, reflections on skin and wet surfaces. Dynamic angles, tilted camera, lens flares. Ultra-fast cuts. Palette: hot pink, electric purple, cyan blue. visuel_916 = [color] neon cutting face in backlight, reflection in eyes, colored shadow." }
+  },
+  {
+    id: "pastel-drama", emoji: "🌸",
+    label: { fr: "Pastel Drama", en: "Pastel Drama" },
+    desc: { fr: "Tons doux, lumière naturelle, gros plans émotionnels", en: "Soft tones, natural light, emotional close-ups" },
+    palette: ["#fcd5ce", "#d4b8e0", "#b8d4e0"],
+    refs: "K-drama romantique · Euphoria (calme) · Midsommar",
+    instr: { fr: "IDENTITÉ VISUELLE PASTEL DRAMA: tons rose poudré, lavande, pêche, bleu pâle. Lumière naturelle diffuse et douce, fenêtres comme source principale. Gros plans prolongés sur les émotions subtiles — une larme qui ne coule pas encore, un sourire qui se casse. Textures douces: vêtements en lin, rideaux transparents. visuel_916 = gros plan [émotion] dans lumière de fenêtre, texture douce au premier plan, couleur pastel dominante.", en: "PASTEL DRAMA VISUAL IDENTITY: powder pink, lavender, peach, pale blue tones. Diffused, soft natural light, windows as main source. Extended close-ups on subtle emotions. Soft textures: linen clothes, sheer curtains. visuel_916 = close-up [emotion] in window light, soft texture in foreground, dominant pastel color." }
+  },
+  {
+    id: "golden-hour", emoji: "☀️",
+    label: { fr: "Golden Hour", en: "Golden Hour" },
+    desc: { fr: "Lumière dorée chaude, extérieurs, magic hour", en: "Warm golden light, outdoors, magic hour" },
+    palette: ["#f59e0b", "#ef4444", "#fef3c7"],
+    refs: "Normal People · Call Me By Your Name · After",
+    instr: { fr: "IDENTITÉ VISUELLE GOLDEN HOUR: lumière chaude orangée-dorée de magic hour, extérieurs ouverts, vent dans les cheveux. Ralentis subtils sur les moments clés. Couleurs saturées et chaudes: or, ambre, corail. Profondeur de champ floue sur les arrière-plans. visuel_916 = lumière dorée sur [visage/mains/détail], arrière-plan flou chaud, mouvement ralenti au moment émotionnel.", en: "GOLDEN HOUR VISUAL IDENTITY: warm orange-gold magic hour light, open exteriors, wind in hair. Subtle slow-motion on key moments. Warm saturated colors: gold, amber, coral. Shallow depth of field on backgrounds. visuel_916 = golden light on [face/hands/detail], warm blurred background, slow motion at emotional moment." }
+  },
+  {
+    id: "cold-corporate", emoji: "🧊",
+    label: { fr: "Cold Corporate", en: "Cold Corporate" },
+    desc: { fr: "Bleus froids, espaces épurés, lumière froide", en: "Cold blues, clean spaces, cold light" },
+    palette: ["#1e3a5f", "#64748b", "#e2e8f0"],
+    refs: "Succession · Severance · Industry",
+    instr: { fr: "IDENTITÉ VISUELLE COLD CORPORATE: bleus froids et gris ardoise, lumière artificielle froide (néons de bureau, écrans). Espaces épurés avec lignes droites, verre et béton. Personnages petits dans des cadres larges qui les écrasent. Palette: bleu foncé, gris acier, blanc cassé. visuel_916 = plan large qui [écrase/isole] le personnage dans l'espace, lumière froide de bureau, reflet dans vitre/écran.", en: "COLD CORPORATE VISUAL IDENTITY: cold blues and slate grey, cold artificial light (office neons, screens). Clean spaces with straight lines, glass and concrete. Characters made small in wide frames. Palette: dark blue, steel grey, off-white. visuel_916 = wide shot [crushing/isolating] character in space, cold office light, reflection in glass/screen." }
+  },
+  {
+    id: "natural-light", emoji: "🌿",
+    label: { fr: "Natural Light", en: "Natural Light" },
+    desc: { fr: "Lumière naturelle, handheld, intimiste, brut", en: "Natural light, handheld, intimate, raw" },
+    palette: ["#6b7280", "#d1d5db", "#f9fafb"],
+    refs: "Fleabag · Normal People · Aftersun",
+    instr: { fr: "IDENTITÉ VISUELLE NATURAL LIGHT: lumière naturelle uniquement, handheld légèrement instable. Textures authentiques: grain, imperfections. Couleurs neutres et désaturées. Caméra proche des corps, dans l'espace personnel. visuel_916 = caméra handheld à [distance] du visage, lumière naturelle [dure/douce], texture brute au premier plan.", en: "NATURAL LIGHT VISUAL IDENTITY: natural light only, slightly unstable handheld. Authentic textures: grain, imperfections. Neutral desaturated colors. Camera close to bodies, in personal space. visuel_916 = handheld camera at [distance] from face, natural [harsh/soft] light, raw texture in foreground." }
+  },
+  {
+    id: "found-footage", emoji: "📹",
+    label: { fr: "Found Footage", en: "Found Footage" },
+    desc: { fr: "Caméra tremblante, grain, filtre VHS, POV", en: "Shaky cam, grain, VHS filter, POV" },
+    palette: ["#1a1a1a", "#16a34a", "#ffffff"],
+    refs: "Rec · Paranormal Activity · Horreur TikTok",
+    instr: { fr: "IDENTITÉ VISUELLE FOUND FOOTAGE: caméra tenue à bout de bras, tremblements authentiques. Grain vidéo visible, aberrations de couleur, timestamp ou HUD visible. Plans en POV strict. Lumière de fortune: torche, téléphone, lumière de rue. visuel_916 = POV caméra tremblante, grain visible, [source lumière de fortune] qui éclaire partiellement.", en: "FOUND FOOTAGE VISUAL IDENTITY: camera held at arm's length, authentic shaking. Visible video grain, color aberrations, timestamp or HUD visible. Strict POV shots. Makeshift lighting: torch, phone, street light. visuel_916 = shaky POV camera, visible grain, [makeshift light source] partially illuminating." }
+  },
+  {
+    id: "old-money", emoji: "💎",
+    label: { fr: "Old Money Luxury", en: "Old Money Luxury" },
+    desc: { fr: "Crème, or, bordeaux — décors opulents, plans lents", en: "Cream, gold, burgundy — opulent sets, slow shots" },
+    palette: ["#f5f0e8", "#b8860b", "#722f37"],
+    refs: "Gossip Girl · Bridgerton · The Crown",
+    instr: { fr: "IDENTITÉ VISUELLE OLD MONEY: palettes crème, or mat, bordeaux profond. Lumière chaude tamisée par des lustres et bougies. Décors opulents: boiseries, marbres, velours. Plans lents et glissants, Steadicam fluide. Détails de luxe au premier plan. visuel_916 = plan glissant sur [matière de luxe], lumière de lustre/bougie, palette [crème/or/bordeaux] dominante.", en: "OLD MONEY VISUAL IDENTITY: cream, matte gold, deep burgundy palettes. Warm light dimmed by chandeliers and candles. Opulent sets: wood paneling, marble, velvet. Slow gliding shots, fluid Steadicam. Luxury details in foreground. visuel_916 = gliding shot on [luxury material], chandelier/candle light, dominant [cream/gold/burgundy] palette." }
+  },
+  {
+    id: "urban-night", emoji: "🌆",
+    label: { fr: "Urban Night", en: "Urban Night" },
+    desc: { fr: "Nuit, néons de ville, pluie, contrastes forts", en: "Night, city neons, rain, high contrast" },
+    palette: ["#0f172a", "#f97316", "#22d3ee"],
+    refs: "Taxi Driver · Collateral · Night Call",
+    instr: { fr: "IDENTITÉ VISUELLE URBAN NIGHT: nuit de ville, néons d'enseignes reflétés dans la pluie sur l'asphalte. Contraste extrême ombre/lumière. Profondeur: feux de voitures, signalisation floue en arrière-plan. Palette: nuit profonde, orange sodium, cyan. visuel_916 = reflet [néon/orange/cyan] sur asphalte mouillé, silhouette dans contre-jour de rue, vapeur ou pluie visible.", en: "URBAN NIGHT VISUAL IDENTITY: city night, sign neons reflected in rain on asphalt. Extreme shadow/light contrast. Depth: car lights, blurred signage in background. Palette: deep night, sodium orange, cyan. visuel_916 = [neon/orange/cyan] reflection on wet asphalt, silhouette in street backlight, visible steam or rain." }
+  },
+  {
+    id: "vintage-film", emoji: "🎞️",
+    label: { fr: "Vintage Film", en: "Vintage Film" },
+    desc: { fr: "Grain 16mm, couleurs désaturées, caméra statique", en: "16mm grain, desaturated colors, static camera" },
+    palette: ["#d4c5a9", "#8b6f47", "#4a4a4a"],
+    refs: "Stranger Things · Daisy Jones · Super 8",
+    instr: { fr: "IDENTITÉ VISUELLE VINTAGE FILM: grain 16mm ou Super 8 visible, couleurs désaturées avec légère dominante chaude. Caméra majoritairement statique, mouvement de zoom optique lent. Lumière de l'époque: lampes à incandescence, fenêtres sans diffuseur. Palette: sépia chaud, kaki délavé, blanc cassé. visuel_916 = plan fixe avec grain visible, lumière à incandescence [chaude/dorée], palette désaturée.", en: "VINTAGE FILM VISUAL IDENTITY: visible 16mm or Super 8 grain, desaturated colors with slight warm cast. Mostly static camera, slow optical zoom. Period lighting: incandescent lamps, undiffused windows. Palette: warm sepia, faded khaki, off-white. visuel_916 = static shot with visible grain, incandescent [warm/golden] light, desaturated palette." }
+  },
+];
 
 const PACKS = [
   { emoji: "🏥", label: "Médical Secret",   mode: "fast",    casting: "1 Femme + 1 Homme", univers: "Hôpital privé",          secret: "Double vie" },
@@ -201,6 +481,46 @@ const UNIVERSE_PACKS = [
     casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Start-up IA", en: "AI startup" }, secret: { fr: "Espionnage industriel", en: "Industrial espionage" },
     genre: "Sci-fi dramatique", ambiance: "🧠 Psychologique & Lent",
     tropes: "IA qui développe des émotions, clone identique, réalité simulée, souvenirs implantés ou vendus, influenceur virtuel, surveillance totale, humanité questionnée",
+  },
+  {
+    id: "pack-netflix", emoji: "🎬", mode: "premium",
+    label: { fr: "Pack Netflix", en: "Netflix Pack" },
+    desc: { fr: "Écriture ciné — silences lourds, dilemmes moraux, personnages à double fond.", en: "Cinematic writing — heavy silences, moral dilemmas, layered characters." },
+    casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Cinéma & Pouvoir", en: "Film & Power" }, secret: { fr: "Manipulation psychologique", en: "Psychological manipulation" },
+    genre: "Drame cinématographique", ambiance: "🎬 Cinématographique & Contemplatif",
+    tropes: "slow burn, ambiguïté morale, personnage en quête de rédemption, retournement de situation, monologue puissant, révélation de backstory, fin ouverte, anti-héros attachant, sacrifice inattendu",
+  },
+  {
+    id: "pack-euphoria", emoji: "🌈", mode: "fast",
+    label: { fr: "Pack Euphoria", en: "Euphoria Pack" },
+    desc: { fr: "Néons + teen drama — addiction, trauma, amitiés toxiques et fêtes qui déraillent.", en: "Neon + teen drama — addiction, trauma, toxic friendships and parties gone wrong." },
+    casting: { fr: "Trio Teenagers", en: "Teen trio" }, univers: { fr: "Lycée & Secrets", en: "High school secrets" }, secret: { fr: "Addiction dissimulée", en: "Concealed addiction" },
+    genre: "Teen drama néon", ambiance: "⚡ Intense & Direct",
+    tropes: "addiction cachée, fête qui déraille, trauma d'enfance révélé, voix off introspective, esthétique néon, amitié qui vire à la toxicité, identité de genre, relation prof-élève, secrets de famille explosifs",
+  },
+  {
+    id: "pack-squid-game", emoji: "🟩", mode: "premium",
+    label: { fr: "Pack Squid Game", en: "Squid Game Pack" },
+    desc: { fr: "Défis à enjeux mortels, trahisons calculées, argent contre dignité.", en: "High-stakes challenges, calculated betrayals, money versus dignity." },
+    casting: { fr: "Trio mixte", en: "Mixed trio" }, univers: { fr: "Expérience secrète", en: "Secret experiment" }, secret: { fr: "Dette de sang", en: "Blood debt" },
+    genre: "Survival drama", ambiance: "🧠 Psychologique & Lent",
+    tropes: "jeu de survie mortel, alliance fragile, trahison au dernier moment, règles cachées révélées progressivement, désespoir financier, sacrifice d'un allié, identité masquée, organisateur mystérieux, twist sur l'organisateur",
+  },
+  {
+    id: "pack-gossip-girl", emoji: "💌", mode: "fast",
+    label: { fr: "Pack Gossip Girl", en: "Gossip Girl Pack" },
+    desc: { fr: "Voix off mystérieuse, élite toxique, scandales qui explosent — XOXO.", en: "Mystery voiceover, toxic elite, exploding scandals — XOXO." },
+    casting: { fr: "Trio mixte", en: "Mixed trio" }, univers: { fr: "Mode & Influence", en: "Fashion & Influence" }, secret: { fr: "Double vie", en: "Double life" },
+    genre: "Drama élite avec voix off", ambiance: "💜 Émotionnel & Poétique",
+    tropes: "voix off omnisciente et mystérieuse, commérage explosif, identité secrète du narrateur, rivalité entre héritières, trahison entre meilleurs amis, scandale médiatique, vie de façade vs réalité, romance interdite dans l'élite",
+  },
+  {
+    id: "pack-black-mirror", emoji: "📲", mode: "premium",
+    label: { fr: "Pack Black Mirror", en: "Black Mirror Pack" },
+    desc: { fr: "Technologie qui dérape — réseaux comme arme, identité volée, surveillance totale.", en: "Technology gone wrong — social media as weapon, stolen identity, total surveillance." },
+    casting: { fr: "1 Femme + 1 Homme", en: "1 Woman + 1 Man" }, univers: { fr: "Boucle temporelle", en: "Time loop" }, secret: { fr: "Identité volée", en: "Stolen identity" },
+    genre: "Techno-thriller dystopique", ambiance: "🧠 Psychologique & Lent",
+    tropes: "réseau social transformé en arme de destruction, identité numérique volée ou clonée, surveillance de masse découverte, twist technologique en fin d'épisode, déshumanisation progressive, réalité augmentée qui piège, boucle temporelle avec conséquences, IA malveillante cachée",
   },
 ];
 
@@ -372,6 +692,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   const secOpts = state.mode === "fast" ? opts.secret_fast : opts.secret_prem;
   const totalMin = Math.round(state.format * state.duree / 60);
   const [customInputs, setCustomInputs] = useState({ casting: "", univers: "", secret: "" });
+  const [castingCat, setCastingCat] = useState("romance");
 
   const isCustom = (key) => state[key]?.startsWith(CUSTOM_PREFIX);
   const customValue = (key) => isCustom(key) ? state[key].slice(CUSTOM_PREFIX.length) : customInputs[key];
@@ -441,6 +762,140 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
               );
             })}
           </div>
+        </div>
+
+        {/* Ambiance Visuelle */}
+        <div style={{ marginBottom: 28 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
+            {t.ambiance_vis_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.ambiance_vis_sub}</span>
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+            {AMBIANCE_VIS.map(av => {
+              const avLabel = av.label[lang] || av.label.fr;
+              const avDesc = av.desc[lang] || av.desc.fr;
+              const active = state.ambianceVisuelle === av.id;
+              return (
+                <button key={av.id} onClick={() => set({ ambianceVisuelle: active ? "" : av.id })} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px 13px", borderRadius: 14, border: `2px solid ${active ? av.palette[2] : "var(--bo)"}`, background: active ? `${av.palette[0]}22` : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "left", transition: "all .15s", gap: 7 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                    <span style={{ fontSize: 22 }}>{av.emoji}</span>
+                    <div style={{ display: "flex", gap: 3 }}>
+                      {av.palette.map((c, i) => <div key={i} style={{ width: 10, height: 10, borderRadius: "50%", background: c, border: "1px solid rgba(0,0,0,0.15)" }} />)}
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: active ? av.palette[2] : "var(--tx)", lineHeight: 1.2 }}>{avLabel}</div>
+                  <div style={{ fontSize: 10, color: "var(--mt)", lineHeight: 1.4 }}>{avDesc}</div>
+                  <div style={{ fontSize: 9, color: "var(--mt)", fontStyle: "italic", opacity: 0.7 }}>{av.refs}</div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Casting IA */}
+        <div style={{ marginBottom: 28 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
+            {t.casting_ia_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.casting_ia_sub}</span>
+          </p>
+          {/* Category tabs */}
+          <div style={{ display: "flex", gap: 6, marginBottom: 14, overflowX: "auto", paddingBottom: 4 }}>
+            {CASTING_CATS.map(c => {
+              const cLabel = c.label[lang] || c.label.fr;
+              return (
+                <button key={c.id} onClick={() => setCastingCat(c.id)} style={{ flexShrink: 0, padding: "6px 12px", borderRadius: 100, border: `1.5px solid ${castingCat === c.id ? "var(--r)" : "var(--bo)"}`, background: castingCat === c.id ? "var(--r)" : "var(--card)", color: castingCat === c.id ? "#fff" : "var(--tx)", cursor: "pointer", fontSize: 11, fontWeight: 700, fontFamily: "var(--sans)" }}>
+                  {c.emoji} {cLabel}
+                </button>
+              );
+            })}
+          </div>
+          {/* Archetype grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 14 }}>
+            {CASTING_IA.filter(a => a.cat === castingCat).map(a => {
+              const aLabel = a.label[lang] || a.label.fr;
+              const aDesc = a.desc[lang] || a.desc.fr;
+              const active = (state.castingIA || []).includes(a.id);
+              return (
+                <button key={a.id} onClick={() => set(prev => {
+                  const sel = prev.castingIA || [];
+                  return { castingIA: active ? sel.filter(x => x !== a.id) : [...sel, a.id] };
+                })} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "11px 12px", borderRadius: 14, border: `2px solid ${active ? "var(--r)" : "var(--bo)"}`, background: active ? "rgba(232,92,58,0.08)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "left", transition: "all .15s", gap: 5 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                    <span style={{ fontSize: 24 }}>{a.emoji}</span>
+                    <span style={{ fontSize: 9, padding: "2px 7px", borderRadius: 20, background: active ? "var(--r)" : "var(--bo)", color: active ? "#fff" : "var(--mt)", fontWeight: 700 }}>{a.age}</span>
+                  </div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: active ? "var(--r)" : "var(--tx)", lineHeight: 1.2 }}>{aLabel}</div>
+                  <div style={{ fontSize: 10, color: "var(--mt)", lineHeight: 1.4, fontStyle: "italic" }}>{aDesc}</div>
+                </button>
+              );
+            })}
+          </div>
+          {/* Compatibility badge */}
+          {(() => {
+            const selAuras = (state.castingIA || []).map(id => CASTING_IA.find(a => a.id === id)?.auraTag).filter(Boolean);
+            const compat = getCompatibility(selAuras, lang);
+            return compat ? (
+              <div style={{ background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 12, padding: "10px 14px", marginBottom: 14, display: "flex", alignItems: "center", gap: 10 }}>
+                <span style={{ fontSize: 22 }}>{compat.type}</span>
+                <div>
+                  <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 2 }}>Compatibilité IA</p>
+                  <p style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)" }}>{compat.label}</p>
+                </div>
+              </div>
+            ) : null;
+          })()}
+          {/* Modifiers */}
+          {[
+            { key: "physique",   mods: CASTING_PHYSIQUE,  label: { fr: "🧬 Morphologie",           en: "🧬 Body type" } },
+            { key: "culture",    mods: CASTING_CULTURE,   label: { fr: "🌍 Origine culturelle",     en: "🌍 Cultural origin" } },
+            { key: "aesthetic",  mods: CASTING_AESTHETIC, label: { fr: "✨ Esthétique",             en: "✨ Aesthetic" } },
+            { key: "blessure",   mods: CASTING_BLESSURE,  label: { fr: "💔 Défauts & Blessures",    en: "💔 Flaws & Wounds" } },
+            { key: "aura",       mods: CASTING_AURA,      label: { fr: "✨ Aura",                   en: "✨ Aura" } },
+          ].map(({ key, mods, label }) => (
+            <div key={key} style={{ marginBottom: 14 }}>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 8 }}>{label[lang] || label.fr}</p>
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                {mods.map(m => {
+                  const mLabel = m.label[lang] || m.label.fr;
+                  const active = (state.castingMods?.[key] || []).includes(m.id);
+                  return (
+                    <button key={m.id} onClick={() => set(prev => {
+                      const cur = prev.castingMods?.[key] || [];
+                      const next = active ? cur.filter(x => x !== m.id) : [...cur, m.id];
+                      return { castingMods: { ...(prev.castingMods || {}), [key]: next } };
+                    })} style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "5px 10px", borderRadius: 100, border: `1.5px solid ${active ? "var(--n)" : "var(--bo)"}`, background: active ? "var(--n)22" : "var(--card)", color: active ? "var(--n)" : "var(--tx)", cursor: "pointer", fontSize: 11, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s" }}>
+                      <span>{m.emoji}</span><span>{mLabel}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Tropes */}
+        <div style={{ marginBottom: 28 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
+            {t.tropes_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.tropes_sub}</span>
+          </p>
+          {[{ cat: "romance", label: `💘 ${t.tropes_romance}` }, { cat: "drama", label: `🎭 ${t.tropes_drama}` }].map(({ cat, label: catLabel }) => (
+            <div key={cat} style={{ marginBottom: 14 }}>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 8 }}>{catLabel}</p>
+              <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+                {TROPES.filter(tr => tr.cat === cat).map(tr => {
+                  const tLabel = typeof tr.label === "object" ? (tr.label[lang] || tr.label.fr) : tr.label;
+                  const active = (state.tropesSel || []).includes(tr.id);
+                  return (
+                    <button key={tr.id} onClick={() => set(prev => {
+                      const sel = prev.tropesSel || [];
+                      return { tropesSel: active ? sel.filter(x => x !== tr.id) : [...sel, tr.id] };
+                    })} style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "7px 12px", borderRadius: 100, border: `1.5px solid ${active ? (cat === "romance" ? "#e879a0" : "var(--n)") : "var(--bo)"}`, background: active ? (cat === "romance" ? "#e879a022" : "var(--n)22") : "var(--card)", color: active ? (cat === "romance" ? "#e879a0" : "var(--n)") : "var(--tx)", cursor: "pointer", fontSize: 12, fontWeight: active ? 700 : 500, fontFamily: "var(--sans)", transition: "all .15s" }}>
+                      <span>{tr.emoji}</span>
+                      <span>{tLabel}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
 
         {[
@@ -669,7 +1124,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
             {loadingCartes ? (
               <div style={{ textAlign: "center", padding: "40px 0", color: "var(--mt)" }}>
                 <div style={{ fontSize: 28, marginBottom: 12, animation: "pulse 1.2s infinite" }}>🎭</div>
-                <p>Création des fiches personnages…</p>
+                <p>{t.loading_cartes}</p>
               </div>
             ) : (cartes || bible.personnages || []).map((p, i) => {
               const carte = cartes ? cartes[i] : null;
@@ -712,7 +1167,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
             {loadingTitres ? (
               <div style={{ textAlign: "center", padding: "40px 0", color: "var(--mt)" }}>
                 <div style={{ fontSize: 28, marginBottom: 12, animation: "pulse 1.2s infinite" }}>🔥</div>
-                <p>Analyse de la viralité…</p>
+                <p>{t.loading_titres}</p>
               </div>
             ) : (titres || []).map((t, i) => (
               <div key={i} style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 12, border: "1.5px solid var(--bo)" }}>
@@ -840,6 +1295,10 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
                 <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "11px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
               ))}
             </div>
+            <button onClick={() => onEdit("revelation")} disabled={loading} style={{ width: "100%", marginBottom: 10, padding: "14px 16px", borderRadius: 12, border: "none", background: "linear-gradient(135deg, #E85C3A, #c0392b)", color: "#fff", cursor: "pointer", fontSize: 14, fontWeight: 800, fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, boxShadow: "0 4px 18px rgba(232,92,58,0.35)" }}>
+              <span>{t.revelation}</span>
+              <span style={{ fontSize: 11, fontWeight: 500, opacity: 0.85 }}>— {t.revelation_sub}</span>
+            </button>
             <button onClick={plan === "standard" ? () => alert(t.premium_variations) : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "not-allowed" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? t.variations_locked : t.variations}</button>
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
               <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.shooting}</button>
@@ -1212,7 +1671,7 @@ export default function App() {
   const t = T[lang];
   const opts = OPTS[lang];
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
@@ -1224,12 +1683,18 @@ export default function App() {
   const [err, setErr] = useState(null);
 
   const set = (patch) => setState(prev => ({ ...prev, ...(typeof patch === "function" ? patch(prev) : patch) }));
-  const cleanState = (s) => ({
-    ...s,
-    casting: s.casting?.startsWith(CUSTOM_PREFIX) ? s.casting.slice(CUSTOM_PREFIX.length) : s.casting,
-    univers: s.univers?.startsWith(CUSTOM_PREFIX) ? s.univers.slice(CUSTOM_PREFIX.length) : s.univers,
-    secret: s.secret?.startsWith(CUSTOM_PREFIX) ? s.secret.slice(CUSTOM_PREFIX.length) : s.secret,
-  });
+  const cleanState = (s) => {
+    const selInstr = (s.tropesSel || []).map(id => TROPES.find(t => t.id === id)?.instr).filter(Boolean).join("; ");
+    const packTropes = s.tropes || "";
+    const merged = [packTropes, selInstr].filter(Boolean).join("; ");
+    return {
+      ...s,
+      casting: s.casting?.startsWith(CUSTOM_PREFIX) ? s.casting.slice(CUSTOM_PREFIX.length) : s.casting,
+      univers: s.univers?.startsWith(CUSTOM_PREFIX) ? s.univers.slice(CUSTOM_PREFIX.length) : s.univers,
+      secret: s.secret?.startsWith(CUSTOM_PREFIX) ? s.secret.slice(CUSTOM_PREFIX.length) : s.secret,
+      tropes: merged,
+    };
+  };
 
   // ── Auth: check Stripe session or stored customerId ──
   useEffect(() => {
@@ -1290,7 +1755,24 @@ export default function App() {
     setScreen("load");
     try {
       setLoadMsg(t.gen_bible);
-      const b = await gen("bible", { ...cleanState(state), lang }, customerId);
+      const ll = lang === "en" ? "en" : "fr";
+      const archLines = (state.castingIA || []).map(id => {
+        const a = CASTING_IA.find(x => x.id === id);
+        if (!a) return "";
+        return `${a.label[ll]} (${a.age} ans) — ${a.desc[ll]}`;
+      }).filter(Boolean);
+      const mods = state.castingMods || {};
+      const modLines = [
+        mods.physique?.length   ? `Morphologie: ${mods.physique.join(", ")}` : "",
+        mods.culture?.length    ? `Origines: ${mods.culture.join(", ")}` : "",
+        mods.aesthetic?.length  ? `Esthétique: ${mods.aesthetic.join(", ")}` : "",
+        mods.blessure?.length   ? `Défauts/blessures: ${mods.blessure.join(", ")}` : "",
+        mods.aura?.length       ? `Auras imposées: ${mods.aura.join(", ")}` : "",
+      ].filter(Boolean);
+      const castingIAInstr = [...archLines, ...modLines].join(" | ") || undefined;
+      const avPreset = AMBIANCE_VIS.find(x => x.id === state.ambianceVisuelle);
+      const avInstr = avPreset ? (avPreset.instr[lang === "en" ? "en" : "fr"]) : undefined;
+      const b = await gen("bible", { ...cleanState(state), lang, castingIA: castingIAInstr, ambianceVisuelle: avInstr }, customerId);
       setBible(b);
 
       const totalBatches = Math.ceil(state.format / 10);
@@ -1343,7 +1825,7 @@ export default function App() {
     setScript(null);
     setLoading(true);
     try {
-      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, lang }, customerId);
+      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, ambianceVisuelle: state.ambianceVisuelle || "", lang }, customerId);
       if (epReqRef.current === reqId) {
         setScript(s);
         setScripts(prev => {
