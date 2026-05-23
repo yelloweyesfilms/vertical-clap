@@ -221,8 +221,8 @@ export default function Tarifs() {
             {/* Tab switcher */}
             <div style={{ display: "flex", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 18, padding: 5, gap: 5, marginBottom: 28 }}>
               {[
-                { id: "creator", emoji: "⚡", label: "Creator", price: billing === "annual" ? "7.5€" : "9€", color: RED },
-                { id: "storyteller", emoji: "🎭", label: "Storyteller", price: billing === "annual" ? "14.9€" : "19€", color: VIO, badge: "⭐" },
+                { id: "creator", label: "Creator", price: billing === "annual" ? "7.5€" : "9€", color: RED },
+                { id: "storyteller", label: "Storyteller", price: billing === "annual" ? "14.9€" : "19€", color: VIO },
               ].map(tab => {
                 const active = planTab === tab.id;
                 return (
@@ -234,9 +234,8 @@ export default function Tarifs() {
                     cursor: "pointer", transition: "all .2s", fontFamily: "'Space Grotesk', sans-serif",
                   }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                      <span style={{ fontSize: 18 }}>{tab.emoji}</span>
+                      <div style={{ width: 6, height: 6, borderRadius: "50%", background: active ? tab.color : MUTED, flexShrink: 0 }} />
                       <span style={{ fontSize: 15, fontWeight: 800, color: active ? tab.color : MUTED }}>{tab.label}</span>
-                      {tab.badge && <span style={{ fontSize: 11 }}>{tab.badge}</span>}
                     </div>
                     <span style={{ fontSize: 12, fontWeight: 700, color: active ? TEXT : MUTED }}>{tab.price}<span style={{ fontWeight: 400, fontSize: 11 }}>/mois</span></span>
                   </button>
@@ -271,7 +270,7 @@ export default function Tarifs() {
                 <div style={{ height: 1, background: BORDER, margin: "24px 0" }} />
                 <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
                   {[
-                    { t: "⚡ Vertical Drama · micro-drama", hi: true },
+                    { t: "Vertical Drama · micro-drama", hi: true },
                     { t: "20 épisodes par série", hi: true },
                     { t: "Scripts 9:16 prêts à tourner", hi: false },
                     { t: "Hook 3 sec + Cliffhanger automatique", hi: false },
@@ -301,7 +300,7 @@ export default function Tarifs() {
             {planTab === "storyteller" && (
               <div style={{ borderRadius: 24, padding: "36px 32px", position: "relative", overflow: "hidden", background: "rgba(168,85,247,0.04)", border: `1.5px solid rgba(168,85,247,0.28)`, boxShadow: `0 0 60px rgba(168,85,247,0.08)` }}>
                 <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${VIO}, ${RED})` }} />
-                <div style={{ position: "absolute", top: -12, right: 24, background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 14px", borderRadius: 20, letterSpacing: 1.5 }}>⭐ RECOMMANDÉ</div>
+                <div style={{ position: "absolute", top: -12, right: 24, background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 14px", borderRadius: 20, letterSpacing: 1.5 }}>RECOMMANDÉ</div>
                 <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 4 }}>
                   <div>
                     <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 8 }}>Storyteller</p>
@@ -325,12 +324,12 @@ export default function Tarifs() {
                 <div style={{ height: 1, background: "rgba(168,85,247,0.15)", margin: "24px 0" }} />
                 <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
                   {[
-                    { t: "⚡ Vertical Drama + 🎭 Série Premium", hi: true },
+                    { t: "Vertical Drama + Série Premium", hi: true },
                     { t: "Jusqu'à 90 épisodes par série", hi: true },
-                    { t: "🎨 Direction Artistique (émotion, rythme, narration…)", hi: true },
-                    { t: "🎲 3 variations par script (Intense / Subtil / Rapide)", hi: true },
-                    { t: "🔥 Générateur de titres viraux", hi: true },
-                    { t: "🎬 Fiche technique de production", hi: true },
+                    { t: "Direction Artistique (émotion, rythme, narration…)", hi: true },
+                    { t: "3 variations par script — Intense · Subtil · Rapide", hi: true },
+                    { t: "Générateur de titres viraux", hi: true },
+                    { t: "Fiche technique de production", hi: true },
                     { t: "Scripts 9:16 prêts à tourner", hi: false },
                     { t: "Affiche IA (9:16)", hi: false },
                     { t: "Mode Tournage + Téléprompteur", hi: false },
@@ -356,13 +355,13 @@ export default function Tarifs() {
             {/* Trust row */}
             <div style={{ display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap", marginTop: 24 }}>
               {[
-                { icon: "🔒", label: "Stripe · Sécurisé" },
-                { icon: "✓", label: "Sans engagement" },
-                { icon: "⚡", label: "Accès immédiat" },
-                { icon: "🛡️", label: "Données chiffrées" },
-              ].map(({ icon, label }) => (
+                "Stripe · Sécurisé",
+                "Sans engagement",
+                "Accès immédiat",
+                "Données chiffrées",
+              ].map(label => (
                 <div key={label} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: MUTED }}>
-                  <span style={{ color: "#4ade80", fontSize: 13 }}>{icon}</span>
+                  <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#4ade80", flexShrink: 0 }} />
                   {label}
                 </div>
               ))}
@@ -383,8 +382,8 @@ export default function Tarifs() {
             <div style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, overflow: "hidden" }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 140px 140px", borderBottom: `1px solid ${BORDER}`, padding: "18px 24px" }}>
                 <div style={{ fontSize: 11, fontWeight: 700, color: MUTED, letterSpacing: 2, textTransform: "uppercase" }}>Fonctionnalité</div>
-                <div style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: RED }}>⚡ Creator</div>
-                <div style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: VIO }}>🎭 Storyteller</div>
+                <div style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: RED }}>Creator</div>
+                <div style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: VIO }}>Storyteller</div>
               </div>
               {FEATURES.map(({ label, std, prem }, i) => (
                 <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 140px 140px", padding: "14px 24px", borderBottom: i < FEATURES.length - 1 ? `1px solid ${BORDER}` : "none", background: i % 2 === 0 ? "rgba(255,255,255,0.01)" : "transparent" }}>
