@@ -41,7 +41,7 @@ function setCached(key, data) {
 }
 
 
-const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres", "variations", "traduire", "production", "cartes", "social", "affiche"];
+const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres", "variations", "traduire", "production", "cartes", "social", "affiche", "profils", "calendrier", "storyboard"];
 const VALID_MODES = ["fast", "premium"];
 const VALID_DUREES = [60, 90, 120];
 const VALID_FORMATS = [10, 20, 40, 60, 90];
@@ -64,6 +64,8 @@ function validatePayload(action, payload) {
     if (payload.tropes !== undefined && (typeof payload.tropes !== "string" || payload.tropes.length > 800)) return "Tropes invalides";
     if (payload.castingIA !== undefined && (typeof payload.castingIA !== "string" || payload.castingIA.length > 1200)) return "Casting IA invalide";
     if (payload.ambianceVisuelle !== undefined && (typeof payload.ambianceVisuelle !== "string" || payload.ambianceVisuelle.length > 800)) return "Ambiance visuelle invalide";
+    if (payload.saison2 !== undefined && (typeof payload.saison2 !== "object" || payload.saison2 === null || typeof payload.saison2.titre !== "string")) return "Saison 2 invalide";
+    if (payload.remakeInspiration !== undefined && (typeof payload.remakeInspiration !== "string" || payload.remakeInspiration.length > 300)) return "Remake invalide";
     if (payload.drama !== undefined) {
       if (typeof payload.drama !== "object" || payload.drama === null) return "Drama invalide";
       for (const k of ["romance", "toxicite", "mystere", "humour", "violence", "spicy"]) {
@@ -83,6 +85,7 @@ function validatePayload(action, payload) {
     if (!VALID_DUREES.includes(duree)) return "Durée invalide";
     if (!ep || typeof ep !== "object") return "Épisode invalide";
     if (!bible || typeof bible !== "object") return "Bible invalide";
+    if (payload.budgetInstr !== undefined && (typeof payload.budgetInstr !== "string" || payload.budgetInstr.length > 1200)) return "Budget invalide";
   } else if (action === "edit") {
     const { script, type, duree } = payload;
     if (!VALID_EDIT_TYPES.includes(type)) return "Type d'édition invalide";
@@ -123,6 +126,19 @@ function validatePayload(action, payload) {
     const { titre, logline } = payload;
     if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
     if (typeof logline !== "string" || logline.length > 500) return "Logline invalide";
+  } else if (action === "profils") {
+    const { titre, personnages } = payload;
+    if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
+    if (!Array.isArray(personnages)) return "Personnages invalides";
+  } else if (action === "calendrier") {
+    const { titre, logline } = payload;
+    if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
+    if (typeof logline !== "string" || logline.length > 500) return "Logline invalide";
+  } else if (action === "storyboard") {
+    const { ep, script, bible } = payload;
+    if (!ep || typeof ep !== "object") return "Épisode invalide";
+    if (!script || typeof script !== "object") return "Script invalide";
+    if (!bible || typeof bible !== "object") return "Bible invalide";
   }
   return null;
 }
@@ -217,8 +233,8 @@ export default async function handler(req, res) {
 
   try {
     if (action === "bible") {
-      const { mode, casting, univers, secret, format, duree, genre, lieu, ambiance, tropes, drama, lang, castingIA, ambianceVisuelle } = payload;
-      const ck = `bible:${mode}:${casting}:${univers}:${secret}:${format}:${duree}:${genre || ""}:${lieu || ""}:${ambiance || ""}:${tropes || ""}:${JSON.stringify(drama || {})}:${lang || "fr"}`;
+      const { mode, casting, univers, secret, format, duree, genre, lieu, ambiance, tropes, drama, lang, castingIA, ambianceVisuelle, saison2, remakeInspiration } = payload;
+      const ck = `bible:${mode}:${casting}:${univers}:${secret}:${format}:${duree}:${genre || ""}:${lieu || ""}:${ambiance || ""}:${tropes || ""}:${JSON.stringify(drama || {})}:${lang || "fr"}:${saison2 ? saison2.titre : ""}:${remakeInspiration || ""}`;
       const cached = getCached(ck);
       if (cached) return res.json(cached);
       const md = mode === "fast"
@@ -233,8 +249,10 @@ export default async function handler(req, res) {
       const ambianceVisInstr = ambianceVisuelle ? `${ambianceVisuelle}` : "";
       const dramaInstr = buildDramaInstr(drama);
       const langInstr = buildLangInstr(lang);
+      const saison2Instr = saison2 ? `\nSAISON 2 — SUITE DIRECTE: Cette série est la continuité directe de "${saison2.titre}". La saison 1 s'est terminée sur: "${saison2.tension_centrale}". Les personnages reviennent transformés par les événements de S1. OBLIGATOIRE: nouveaux secrets inédits, nouvelle tension centrale différente, nouveaux arcs d'évolution — pas une répétition. Fais référence aux conséquences de S1 dans les secrets et arcs de S2.` : "";
+      const remakeInstr = remakeInspiration ? `\nINSPIRATION SÉRIE: ${remakeInspiration}. Garde l'ADN émotionnel et narratif de cette référence mais crée des personnages 100% originaux, un univers adapté au micro-drama mobile vertical.` : "";
       const result = await callClaude(
-        `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}\n${genreInstr}\n${lieuInstr}\n${ambianceInstr}\n${tropesInstr}\n${castingIAInstr}\n${ambianceVisInstr}${dramaInstr}${langInstr}\nTitre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.\nLogline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.\nPitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.\nSecret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.\narc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").\ntension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".\naccroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.\nJSON uniquement, aucun texte avant ou après.`,
+        `Tu es showrunner de micro-dramas verticaux 9:16 (TikTok, DramaBox, ReelShort, Reels, YouTube Shorts). ${md}. ${DUR_INSTR[duree]}\n${genreInstr}\n${lieuInstr}\n${ambianceInstr}\n${tropesInstr}\n${castingIAInstr}\n${ambianceVisInstr}${dramaInstr}${saison2Instr}${remakeInstr}${langInstr}\nTitre: 2-4 mots, mystérieux, crée l'envie immédiate — jamais de sous-titre explicatif.\nLogline: "[Personnage] cache [secret] jusqu'au jour où [déclencheur]" — 15 mots max, formule respectée.\nPitch: 3 lignes qui hookent un ado de 17 ans — commence par l'émotion, pas l'intrigue.\nSecret de chaque personnage: doit CRÉER du conflit actif avec les autres, pas juste du backstory.\narc de chaque personnage: son évolution dramatique sur la série en 1 phrase ("passe de X à Y").\ntension_centrale: la question dramatique unique qui traverse toute la série, commence par "Va-t-il/elle..." ou "Qui...".\naccroche: 1 phrase choc de 10 mots max pour poster en légende TikTok — crée la curiosité immédiate.\nJSON uniquement, aucun texte avant ou après.`,
         `Casting: ${casting}. Univers: ${univers}. Secret moteur: ${secret}. Série de ${format} épisodes.\nJSON: {"titre":"","logline":"","pitch":"","personnages":[{"nom":"","age":25,"role":"","secret":"","arc":""},{"nom":"","age":28,"role":"","secret":"","arc":""}],"tension_centrale":"","accroche":""}`,
         1800
       );
@@ -272,7 +290,7 @@ export default async function handler(req, res) {
     }
 
     if (action === "script") {
-      const { ep, bible, mode, duree, prevEps, lang, ambianceVisuelle: scriptAV } = payload;
+      const { ep, bible, mode, duree, prevEps, lang, ambianceVisuelle: scriptAV, budgetInstr } = payload;
       const md = mode === "fast"
         ? "Fast Drama: émotions explosives, confrontations directes, cliffhangers choc"
         : "Premium Suspense: sous-texte intense, silences signifiants, tension qui monte progressivement";
@@ -283,15 +301,18 @@ export default async function handler(req, res) {
         : "";
       const styleMap = {
         "🎬 Cinéma": "Style CINÉMA: silences pesants, regards caméra, peu de mots — chaque réplique est un événement. Phrases 5-10 mots. Pauses et émotions > dialogue.",
-        "⚡ TikTok Drama": "Style TIKTOK DRAMA: rythme haletant, punchlines, interruptions, voix off possible. Phrases 8-15 mots. Cuts rapides. Émotion brute et immédiate.",
+        "⚡ TikTok Drama": "Style VERTICAL DRAMA: rythme haletant, punchlines, interruptions. Phrases 8-15 mots. Cuts rapides. Émotion brute et immédiate.",
+        "⚡ Vertical Drama": "Style VERTICAL DRAMA: rythme haletant, punchlines, interruptions. Phrases 8-15 mots. Cuts rapides. Émotion brute et immédiate.",
         "🎭 Soap Opera": "Style SOAP OPERA: dialogues plus développés, révélations multiples, retournements. Phrases 12-20 mots. Tension qui s'accumule.",
+        "🎙️ Voix Off": "Style VOIX OFF NARRATION: format hybride dialogue + narration. Ajoute un champ 'voix_off' dans chaque scène (8-15 mots, ton intime et confidentiel, pensées du personnage OU narration rétrospective). Le dialogue reste 5-10 mots, incisif. Format populaire sur DramaBox et TikTok storytelling. Dans la voix_off: révèle ce que le personnage ne dit pas.",
       };
       const styleInstr = payload.style && styleMap[payload.style] ? styleMap[payload.style] : styleMap["⚡ TikTok Drama"];
       const scriptDramaInstr = buildDramaInstr(payload.drama);
       const scriptLangInstr = buildLangInstr(lang);
       const scriptAVInstr = scriptAV ? `\n${scriptAV}\nLes descriptions visuel_916 DOIVENT refléter cette identité visuelle précisément.` : "";
+      const scriptBudgetInstr = budgetInstr ? `\n${budgetInstr}` : "";
       const result = await callClaude(
-        `Tu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptAVInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• IN MEDIAS RES — déjà en plein conflit, INTERDIT: "Bonjour", exposition, question banale\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
+        `Tu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptAVInstr}${scriptBudgetInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• IN MEDIAS RES — déjà en plein conflit, INTERDIT: "Bonjour", exposition, question banale\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
         `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.\nTension: ${bible.tension_centrale || ""}.\nCliffhanger cible: ${ep.cliffhanger}.${prevEpsInstr}\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`,
         4000
       );
@@ -412,6 +433,49 @@ export default async function handler(req, res) {
         700
       );
       trackAction("affiche", customerId);
+      return res.json(result);
+    }
+
+    if (action === "profils") {
+      const { titre, personnages, genre, lang } = payload;
+      const langInstr = buildLangInstr(lang);
+      const persosList = (personnages || []).map(p => `${p.nom} (${p.role}, ${p.age} ans) — secret: "${p.secret}"`).join("\n");
+      const result = await callClaude(
+        `Tu es directeur artistique spécialisé en personal branding pour acteurs de micro-dramas. Crée des profils réseaux sociaux fictifs ultra-réalistes pour chaque personnage de la série. JSON uniquement.${langInstr}`,
+        `Série "${titre}"${genre ? ` — ${genre}` : ""}.\nPersonnages:\n${persosList}\n\nJSON: {"profils":[{"nom":"","pseudo":"@pseudo","bio":"bio 150 chars max avec emojis, ton du perso","followers":"12.4K","abonnements":"342","posts":[{"caption":"légende de post 1 — 15 mots avec emojis","likes":"1.2K","commentaires":45},{"caption":"légende de post 2","likes":"876","commentaires":23},{"caption":"légende de post 3","likes":"2.1K","commentaires":89}],"story":"texte de story active 10 mots","highlight":"titre du highlight principal","couleur":"#hexcode couleur du profil"}]}`,
+        1400
+      );
+      trackAction("profils", customerId);
+      return res.json(result);
+    }
+
+    if (action === "calendrier") {
+      const { titre, logline, episodes, lang } = payload;
+      const langInstr = buildLangInstr(lang);
+      const epList = (episodes || []).slice(0, 20).map(e => `Ép.${e.numero} "${e.titre}" — ${e.cliffhanger}`).join("\n");
+      const result = await callClaude(
+        `Tu es stratège de contenu spécialisé en micro-dramas mobiles (TikTok, DramaBox, ReelShort, Reels, YouTube Shorts). Crée un calendrier de publication optimal. JSON uniquement.${langInstr}`,
+        `Série "${titre}". Logline: ${logline}.\nÉpisodes:\n${epList}\n\nCrée un calendrier semaine par semaine. Alterne les plateformes. Donne des légendes virales et des hashtags spécifiques.\nJSON: {"strategie":"stratégie globale en 2 phrases","plateformes":["TikTok","DramaBox","Reels"],"semaines":[{"semaine":1,"theme":"thème dramatique de la semaine","episodes":[{"numero":1,"jour":"Lundi","heure":"19h00","plateforme":"TikTok","legende":"légende virale 15 mots","hashtags":["#microdrama","#drama"]}]}],"conseil":"1 conseil pro pour maximiser la viralité"}`,
+        1600
+      );
+      trackAction("calendrier", customerId);
+      return res.json(result);
+    }
+
+    if (action === "storyboard") {
+      const { ep, script, bible, lang } = payload;
+      const langInstr = buildLangInstr(lang);
+      const scenesText = [
+        script?.hook_scene ? `HOOK: ${script.hook_scene.texte} [${script.hook_scene.visuel_916}]` : "",
+        ...(script?.scenes || []).map((s, i) => `Sc.${i+1} ${s.perso}: "${s.dialogue}" [${s.visuel_916}]`),
+        script?.cliffhanger_scene ? `CLIFF: ${script.cliffhanger_scene.texte} [${script.cliffhanger_scene.visuel_916}]` : "",
+      ].filter(Boolean).join("\n");
+      const result = await callClaude(
+        `Tu es directeur de la photographie expert en micro-dramas verticaux 9:16. Décompose ce script en shots précis pour un tournage au smartphone. JSON uniquement.${langInstr}`,
+        `Série "${bible?.titre}" — Épisode ${ep?.numero} "${ep?.titre}".\n\nScript:\n${scenesText}\n\nJSON: {"shots":[{"numero":1,"duree_sec":3,"type_plan":"Gros plan","angle":"Face","mouvement":"Fixe","cadrage":"description précise de ce qu'on voit dans le cadre","son":"dialogue ou son ambiance","note":"note technique ou émotionnelle du réalisateur"}]}`,
+        1800
+      );
+      trackAction("storyboard", customerId);
       return res.json(result);
     }
 
