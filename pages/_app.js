@@ -1,6 +1,22 @@
 import "../styles/globals.css";
 import Head from "next/head";
 import Script from "next/script";
+import { Space_Grotesk, Playfair_Display } from 'next/font/google';
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-sg',
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['700', '900'],
+  style: ['normal', 'italic'],
+  variable: '--font-pd',
+  display: 'swap',
+});
 
 const SITE = "https://verticalclap.com";
 const TITLE = "VerticalClap — Micro-dramas 9:16 en 5 minutes avec l'IA";
@@ -9,7 +25,7 @@ const OG_IMAGE = `${SITE}/banniere%20hero.png`;
 
 export default function App({ Component, pageProps }) {
   return (
-    <>
+    <div className={`${spaceGrotesk.variable} ${playfair.variable}`}>
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -64,14 +80,8 @@ export default function App({ Component, pageProps }) {
           ],
           "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "50" },
         }) }} />
-
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" />
-        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" media="print" onLoad="this.media='all'" />
-        <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" /></noscript>
       </Head>
       <Component {...pageProps} />
-    </>
+    </div>
   );
 }

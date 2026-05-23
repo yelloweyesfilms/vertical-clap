@@ -7,8 +7,8 @@
   --tx: #0f0f1a;
   --mt: #71717a;
   --bo: #e4e4e7;
-  --serif: 'Playfair Display', Georgia, serif;
-  --sans: 'Space Grotesk', 'DM Sans', system-ui, sans-serif;
+  --serif: var(--font-pd, Georgia, serif);
+  --sans: var(--font-sg, system-ui, sans-serif);
 }
 [data-theme="dark"] {
   --bg: #09090f;
