@@ -436,6 +436,49 @@ export default async function handler(req, res) {
       return res.json(result);
     }
 
+    if (action === "profils") {
+      const { titre, personnages, genre, lang } = payload;
+      const langInstr = buildLangInstr(lang);
+      const persosList = (personnages || []).map(p => `${p.nom} (${p.role}, ${p.age} ans) — secret: "${p.secret}"`).join("\n");
+      const result = await callClaude(
+        `Tu es directeur artistique spécialisé en personal branding pour acteurs de micro-dramas. Crée des profils réseaux sociaux fictifs ultra-réalistes pour chaque personnage de la série. JSON uniquement.${langInstr}`,
+        `Série "${titre}"${genre ? ` — ${genre}` : ""}.\nPersonnages:\n${persosList}\n\nJSON: {"profils":[{"nom":"","pseudo":"@pseudo","bio":"bio 150 chars max avec emojis, ton du perso","followers":"12.4K","abonnements":"342","posts":[{"caption":"légende de post 1 — 15 mots avec emojis","likes":"1.2K","commentaires":45},{"caption":"légende de post 2","likes":"876","commentaires":23},{"caption":"légende de post 3","likes":"2.1K","commentaires":89}],"story":"texte de story active 10 mots","highlight":"titre du highlight principal","couleur":"#hexcode couleur du profil"}]}`,
+        1400
+      );
+      trackAction("profils", customerId);
+      return res.json(result);
+    }
+
+    if (action === "calendrier") {
+      const { titre, logline, episodes, lang } = payload;
+      const langInstr = buildLangInstr(lang);
+      const epList = (episodes || []).slice(0, 20).map(e => `Ép.${e.numero} "${e.titre}" — ${e.cliffhanger}`).join("\n");
+      const result = await callClaude(
+        `Tu es stratège de contenu spécialisé en micro-dramas mobiles (TikTok, DramaBox, ReelShort, Reels, YouTube Shorts). Crée un calendrier de publication optimal. JSON uniquement.${langInstr}`,
+        `Série "${titre}". Logline: ${logline}.\nÉpisodes:\n${epList}\n\nCrée un calendrier semaine par semaine. Alterne les plateformes. Donne des légendes virales et des hashtags spécifiques.\nJSON: {"strategie":"stratégie globale en 2 phrases","plateformes":["TikTok","DramaBox","Reels"],"semaines":[{"semaine":1,"theme":"thème dramatique de la semaine","episodes":[{"numero":1,"jour":"Lundi","heure":"19h00","plateforme":"TikTok","legende":"légende virale 15 mots","hashtags":["#microdrama","#drama"]}]}],"conseil":"1 conseil pro pour maximiser la viralité"}`,
+        1600
+      );
+      trackAction("calendrier", customerId);
+      return res.json(result);
+    }
+
+    if (action === "storyboard") {
+      const { ep, script, bible, lang } = payload;
+      const langInstr = buildLangInstr(lang);
+      const scenesText = [
+        script?.hook_scene ? `HOOK: ${script.hook_scene.texte} [${script.hook_scene.visuel_916}]` : "",
+        ...(script?.scenes || []).map((s, i) => `Sc.${i+1} ${s.perso}: "${s.dialogue}" [${s.visuel_916}]`),
+        script?.cliffhanger_scene ? `CLIFF: ${script.cliffhanger_scene.texte} [${script.cliffhanger_scene.visuel_916}]` : "",
+      ].filter(Boolean).join("\n");
+      const result = await callClaude(
+        `Tu es directeur de la photographie expert en micro-dramas verticaux 9:16. Décompose ce script en shots précis pour un tournage au smartphone. JSON uniquement.${langInstr}`,
+        `Série "${bible?.titre}" — Épisode ${ep?.numero} "${ep?.titre}".\n\nScript:\n${scenesText}\n\nJSON: {"shots":[{"numero":1,"duree_sec":3,"type_plan":"Gros plan","angle":"Face","mouvement":"Fixe","cadrage":"description précise de ce qu'on voit dans le cadre","son":"dialogue ou son ambiance","note":"note technique ou émotionnelle du réalisateur"}]}`,
+        1800
+      );
+      trackAction("storyboard", customerId);
+      return res.json(result);
+    }
+
   } catch (e) {
     Sentry.captureException(e, { extra: { action: req.body?.action, customerId, plan } });
     console.error(e);

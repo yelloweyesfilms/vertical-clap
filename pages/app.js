@@ -84,6 +84,21 @@ const T = {
     premium_variations: "Les variations sont réservées au plan Premium.",
     loading_cartes: "Création des fiches personnages…",
     loading_titres: "Analyse de la viralité…",
+    style_voixoff: "Narration intime",
+    voix_off_label: "📢 Voix Off",
+    profils_btn: "👤 Profils",
+    loading_profils: "Création des profils réseaux…",
+    profils_title: "👤 Profils Réseaux",
+    calendrier_btn: "📅 Calendrier",
+    loading_calendrier: "Création du calendrier éditorial…",
+    calendrier_title: "📅 Calendrier Éditorial",
+    storyboard_btn: "🎬 Storyboard",
+    loading_storyboard: "Création du storyboard…",
+    storyboard_title: "🎬 Storyboard",
+    saison2_btn: "🔄 Saison 2",
+    loading_saison2: "Préparation de la saison 2…",
+    remake_label: "🎬 Inspiration Série",
+    remake_sub: "— adapte l'ADN d'une série connue",
   },
   en: {
     mode_fast: "⚡ Fast Drama", mode_premium: "🎭 Premium Suspense",
@@ -145,6 +160,21 @@ const T = {
     premium_variations: "Variations are reserved for Premium plan.",
     loading_cartes: "Creating character profiles…",
     loading_titres: "Analysing virality…",
+    style_voixoff: "Intimate narration",
+    voix_off_label: "📢 Voice Over",
+    profils_btn: "👤 Profiles",
+    loading_profils: "Creating social profiles…",
+    profils_title: "👤 Social Profiles",
+    calendrier_btn: "📅 Calendar",
+    loading_calendrier: "Creating editorial calendar…",
+    calendrier_title: "📅 Editorial Calendar",
+    storyboard_btn: "🎬 Storyboard",
+    loading_storyboard: "Creating storyboard…",
+    storyboard_title: "🎬 Storyboard",
+    saison2_btn: "🔄 Season 2",
+    loading_saison2: "Preparing season 2…",
+    remake_label: "🎬 Series Inspiration",
+    remake_sub: "— adapt the DNA of a famous series",
   },
 };
 
@@ -506,6 +536,19 @@ const AMBIANCE_VIS = [
     refs: "Stranger Things · Daisy Jones · Super 8",
     instr: { fr: "IDENTITÉ VISUELLE VINTAGE FILM: grain 16mm ou Super 8 visible, couleurs désaturées avec légère dominante chaude. Caméra majoritairement statique, mouvement de zoom optique lent. Lumière de l'époque: lampes à incandescence, fenêtres sans diffuseur. Palette: sépia chaud, kaki délavé, blanc cassé. visuel_916 = plan fixe avec grain visible, lumière à incandescence [chaude/dorée], palette désaturée.", en: "VINTAGE FILM VISUAL IDENTITY: visible 16mm or Super 8 grain, desaturated colors with slight warm cast. Mostly static camera, slow optical zoom. Period lighting: incandescent lamps, undiffused windows. Palette: warm sepia, faded khaki, off-white. visuel_916 = static shot with visible grain, incandescent [warm/golden] light, desaturated palette." }
   },
+];
+
+const REMAKE_INSPIRATIONS = [
+  { id:"euphoria", emoji:"✨", label:"Euphoria", instr:"Adapte l'univers Euphoria: esthétique néon, addictions, identité brisée, chaos ado. Personnages fragiles et lumineux. Intimité crue et visuelle." },
+  { id:"succession", emoji:"👑", label:"Succession", instr:"Adapte Succession: guerre de pouvoir familiale, argent, humiliation entre héritiers. Dialogues cinglants. Trahison systématique." },
+  { id:"money-heist", emoji:"🎭", label:"La Casa de Papel", instr:"Adapte La Casa de Papel: casse + résistance + romance interdite. Tension de groupe. Chef charismatique et imprévisible." },
+  { id:"breaking-bad", emoji:"💊", label:"Breaking Bad", instr:"Adapte Breaking Bad: transformation d'un personnage ordinaire en villain. Double vie. Empire qui se construit dans l'ombre." },
+  { id:"white-lotus", emoji:"🌺", label:"White Lotus", instr:"Adapte White Lotus: hôtel de luxe, secrets de vacances, tensions de classe. Ironie mordante. Révélation finale dévastatrice." },
+  { id:"beef", emoji:"🔥", label:"Beef", instr:"Adapte Beef: spirale de vengeance entre deux inconnus. Escalade absurde. Secrets de famille révélés en chemin." },
+  { id:"dark", emoji:"🕳️", label:"Dark", instr:"Adapte Dark: mystère multigénérationnel, liens cachés entre familles. Atmosphère oppressante. Révélations en cascade." },
+  { id:"the-crown", emoji:"👸", label:"The Crown", instr:"Adapte The Crown: institution contre individu. Sacrifice du bonheur pour le devoir. Façade parfaite, chaos intérieur." },
+  { id:"stranger-things", emoji:"🔦", label:"Stranger Things", instr:"Adapte Stranger Things: mystère local, disparition, groupe d'amis face à une force invisible. Secrets institutionnels." },
+  { id:"bridgerton", emoji:"💍", label:"Bridgerton", instr:"Adapte Bridgerton: romance de saison, ragots, mariage arrangé, passion secrète. Scandale révélé à la pire des moments." },
 ];
 
 const PACKS = [
@@ -1109,17 +1152,39 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         {/* Style de script */}
         <div style={{ marginBottom: 20 }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>{t.style}</p>
-          <div style={{ display: "flex", gap: 8 }}>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {[
               { v: "🎬 Cinéma", s: t.style_cinema },
-              { v: "⚡ TikTok Drama", s: t.style_tiktok },
+              { v: "⚡ Vertical Drama", s: t.style_tiktok },
               { v: "🎭 Soap Opera", s: t.style_soap },
-            ].map(({ v, s }) => (
-              <button key={v} onClick={() => set({ style: v })} style={{ flex: 1, padding: "10px 8px", borderRadius: 12, border: `2px solid ${state.style === v ? "var(--r)" : "var(--bo)"}`, background: state.style === v ? "var(--r)" : "var(--card)", color: state.style === v ? "#fff" : "var(--tx)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "center" }}>
-                <div style={{ fontSize: 13, fontWeight: 700 }}>{v}</div>
-                <div style={{ fontSize: 10, opacity: 0.8, marginTop: 2 }}>{s}</div>
-              </button>
-            ))}
+              { v: "🎙️ Voix Off", s: t.style_voixoff },
+            ].map(({ v, s }) => {
+              const isActive = state.style === v || (v === "⚡ Vertical Drama" && state.style === "⚡ TikTok Drama");
+              return (
+                <button key={v} onClick={() => set({ style: v })} style={{ flex: "1 1 40%", padding: "10px 8px", borderRadius: 12, border: `2px solid ${isActive ? "var(--r)" : "var(--bo)"}`, background: isActive ? "var(--r)" : "var(--card)", color: isActive ? "#fff" : "var(--tx)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "center" }}>
+                  <div style={{ fontSize: 13, fontWeight: 700 }}>{v}</div>
+                  <div style={{ fontSize: 10, opacity: 0.8, marginTop: 2 }}>{s}</div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Remake / Inspiration Série */}
+        <div style={{ marginBottom: 28 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
+            {t.remake_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.remake_sub}</span>
+          </p>
+          <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 4 }}>
+            {REMAKE_INSPIRATIONS.map(r => {
+              const active = state.remake === r.id;
+              return (
+                <button key={r.id} onClick={() => set({ remake: active ? null : r.id })} style={{ flexShrink: 0, display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 3, padding: "10px 12px", borderRadius: 12, border: `2px solid ${active ? "var(--r)" : "var(--bo)"}`, background: active ? "var(--r)" : "var(--card)", color: active ? "#fff" : "var(--tx)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s" }}>
+                  <span style={{ fontSize: 20 }}>{r.emoji}</span>
+                  <span style={{ fontSize: 11, fontWeight: 700 }}>{r.label}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -1172,7 +1237,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   );
 }
 
-function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, t, lang }) {
+function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, onProfils, onCalendrier, onSaison2, t, lang }) {
   const [tab, setTab] = useState("bible");
   const [titres, setTitres] = useState(null);
   const [loadingTitres, setLoadingTitres] = useState(false);
@@ -1259,12 +1324,23 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>{t.question_centrale}</p>
               <p style={{ fontFamily: "var(--serif)", fontSize: 15, fontStyle: "italic", color: "#fff", lineHeight: 1.5 }}>« {bible.tension_centrale} »</p>
             </div>
-            <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
-              <button onClick={() => setTab("seq")} style={{ flex: 2, background: "var(--r)", color: "#fff", border: "none", padding: 16, borderRadius: 14, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
+            <div style={{ display: "flex", gap: 8, marginTop: 4, flexWrap: "wrap" }}>
+              <button onClick={() => setTab("seq")} style={{ flex: "2 1 120px", background: "var(--r)", color: "#fff", border: "none", padding: 16, borderRadius: 14, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
                 {t.see_eps} {episodes.length} {t.episodes_btn}
               </button>
-              <button onClick={onAffiche} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 16, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
+              <button onClick={onAffiche} style={{ flex: "1 1 80px", background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 16, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
                 {t.poster_btn}
+              </button>
+            </div>
+            <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
+              <button onClick={onSaison2} style={{ flex: "1 1 80px", background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
+                {t.saison2_btn}
+              </button>
+              <button onClick={onProfils} style={{ flex: "1 1 80px", background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
+                {t.profils_btn}
+              </button>
+              <button onClick={onCalendrier} style={{ flex: "1 1 80px", background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
+                {t.calendrier_btn}
               </button>
             </div>
           </>
@@ -1353,7 +1429,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   );
 }
 
-function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onSocial, onTranslate, t, lang }) {
+function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onStoryboard, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onSocial, onTranslate, t, lang }) {
   const [showLangs, setShowLangs] = useState(false);
   const [translating, setTranslating] = useState(false);
   const [translated, setTranslated] = useState(null);
@@ -1425,6 +1501,12 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
                   {s.jeu && <span style={{ fontSize: 10, background: "var(--bo)", color: "var(--tx)", padding: "2px 8px", borderRadius: 20, fontStyle: "italic" }}>{s.jeu}</span>}
                 </div>
                 <p style={{ fontSize: 14, lineHeight: 1.55, marginBottom: 6, fontWeight: 500 }}>{s.dialogue}</p>
+                {s.voix_off && (
+                  <div style={{ background: "rgba(58,80,64,0.1)", border: "1px solid rgba(58,80,64,0.2)", borderRadius: 8, padding: "8px 10px", marginBottom: 6, display: "flex", alignItems: "flex-start", gap: 6 }}>
+                    <span style={{ fontSize: 11, flexShrink: 0 }}>📢</span>
+                    <p style={{ fontSize: 12, fontStyle: "italic", color: "var(--n)", lineHeight: 1.5 }}>{s.voix_off}</p>
+                  </div>
+                )}
                 <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {s.visuel_916}</p>
               </div>
             ))}
@@ -1451,6 +1533,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
             <button onClick={plan === "standard" ? () => alert(t.premium_variations) : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "not-allowed" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? t.variations_locked : t.variations}</button>
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
               <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.shooting}</button>
+              <button onClick={onStoryboard} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.storyboard_btn}</button>
               <button onClick={onSocial} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.social}</button>
             </div>
             <button onClick={() => { if (translated) { setTranslated(null); setActiveLang(null); setShowLangs(false); } else { setShowLangs(s => !s); } }} disabled={translating} style={{ background: translated ? "var(--n)" : "var(--card)", color: translated ? "#fff" : "var(--tx)", border: `1.5px solid ${translated ? "var(--n)" : "var(--bo)"}`, padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: translating ? "wait" : "pointer", marginBottom: 6, fontFamily: "var(--sans)" }}>
@@ -1821,6 +1904,219 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
   );
 }
 
+function ProfilsView({ profils, loading, bible, onBack, t }) {
+  const data = profils?.profils || [];
+  return (
+    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+      <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_bible}</button>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{t.profils_title}</h2>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{bible?.titre}</p>
+      </div>
+      <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
+        {loading ? (
+          <div style={{ textAlign: "center", padding: "60px 0" }}>
+            <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>👤</div>
+            <p style={{ color: "var(--mt)" }}>{t.loading_profils}</p>
+          </div>
+        ) : data.map((p, i) => {
+          const couleur = p.couleur || (i === 0 ? "#E85C3A" : "#3a5040");
+          return (
+            <div key={i} style={{ background: "var(--card)", borderRadius: 20, overflow: "hidden", marginBottom: 20, border: `2px solid ${couleur}33` }}>
+              {/* Header Instagram */}
+              <div style={{ background: couleur, padding: "20px 18px 16px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 12 }}>
+                  <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(255,255,255,0.25)", border: "3px solid rgba(255,255,255,0.5)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <span style={{ fontSize: 22 }}>👤</span>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 15, fontWeight: 800, color: "#fff", marginBottom: 2 }}>{p.nom}</p>
+                    <p style={{ fontSize: 13, color: "rgba(255,255,255,0.8)" }}>{p.pseudo}</p>
+                  </div>
+                </div>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.9)", lineHeight: 1.5, marginBottom: 12 }}>{p.bio}</p>
+                <div style={{ display: "flex", gap: 20 }}>
+                  <div style={{ textAlign: "center" }}>
+                    <p style={{ fontSize: 14, fontWeight: 800, color: "#fff" }}>{p.followers}</p>
+                    <p style={{ fontSize: 10, color: "rgba(255,255,255,0.7)" }}>followers</p>
+                  </div>
+                  <div style={{ textAlign: "center" }}>
+                    <p style={{ fontSize: 14, fontWeight: 800, color: "#fff" }}>{p.abonnements || "—"}</p>
+                    <p style={{ fontSize: 10, color: "rgba(255,255,255,0.7)" }}>abonnements</p>
+                  </div>
+                  {p.posts && <div style={{ textAlign: "center" }}>
+                    <p style={{ fontSize: 14, fontWeight: 800, color: "#fff" }}>{p.posts.length}</p>
+                    <p style={{ fontSize: 10, color: "rgba(255,255,255,0.7)" }}>posts</p>
+                  </div>}
+                </div>
+              </div>
+              {/* Story & Highlight */}
+              {(p.story || p.highlight) && (
+                <div style={{ padding: "12px 16px 0", display: "flex", gap: 10 }}>
+                  {p.story && (
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                      <div style={{ width: 52, height: 52, borderRadius: "50%", border: `2px solid ${couleur}`, display: "flex", alignItems: "center", justifyContent: "center", background: `${couleur}11` }}>
+                        <span style={{ fontSize: 20 }}>📸</span>
+                      </div>
+                      <p style={{ fontSize: 9, color: "var(--mt)", textAlign: "center", maxWidth: 60, lineHeight: 1.2 }}>{p.story}</p>
+                    </div>
+                  )}
+                  {p.highlight && (
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                      <div style={{ width: 52, height: 52, borderRadius: "50%", border: "2px solid var(--bo)", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
+                        <span style={{ fontSize: 20 }}>⭐</span>
+                      </div>
+                      <p style={{ fontSize: 9, color: "var(--mt)", textAlign: "center", maxWidth: 60, lineHeight: 1.2 }}>{p.highlight}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+              {/* Posts */}
+              {(p.posts || []).length > 0 && (
+                <div style={{ padding: "12px 16px 16px" }}>
+                  <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 10 }}>Posts récents</p>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    {p.posts.map((post, j) => (
+                      <div key={j} style={{ background: "var(--bg)", borderRadius: 10, padding: "10px 12px", border: "1px solid var(--bo)" }}>
+                        <p style={{ fontSize: 13, lineHeight: 1.5, marginBottom: 6 }}>{post.caption}</p>
+                        <div style={{ display: "flex", gap: 12 }}>
+                          <span style={{ fontSize: 11, color: "var(--mt)" }}>❤️ {post.likes}</span>
+                          {post.commentaires && <span style={{ fontSize: 11, color: "var(--mt)" }}>💬 {post.commentaires}</span>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function CalendrierView({ calendrier, loading, bible, onBack, t }) {
+  const data = calendrier;
+  return (
+    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+      <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_bible}</button>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{t.calendrier_title}</h2>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{bible?.titre}</p>
+      </div>
+      <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
+        {loading ? (
+          <div style={{ textAlign: "center", padding: "60px 0" }}>
+            <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>📅</div>
+            <p style={{ color: "var(--mt)" }}>{t.loading_calendrier}</p>
+          </div>
+        ) : data ? (
+          <>
+            {data.strategie && (
+              <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 20, border: "1.5px solid var(--bo)" }}>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--r)", marginBottom: 8 }}>Stratégie</p>
+                <p style={{ fontSize: 13, lineHeight: 1.6 }}>{data.strategie}</p>
+                {data.plateformes && (
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 10 }}>
+                    {data.plateformes.map((pl, i) => (
+                      <span key={i} style={{ fontSize: 11, padding: "3px 10px", borderRadius: 20, background: "var(--r)", color: "#fff", fontWeight: 700 }}>{pl}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+            {(data.semaines || []).map((sem, i) => (
+              <div key={i} style={{ marginBottom: 20 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                  <div style={{ width: 36, height: 36, borderRadius: 9, background: "var(--r)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <span style={{ fontSize: 12, fontWeight: 900, color: "#fff" }}>S{sem.semaine}</span>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 14, fontWeight: 800 }}>Semaine {sem.semaine}</p>
+                    {sem.theme && <p style={{ fontSize: 11, color: "var(--mt)" }}>{sem.theme}</p>}
+                  </div>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {(sem.episodes || []).map((ep, j) => (
+                    <div key={j} style={{ background: "var(--card)", borderRadius: 12, padding: "12px 14px", border: "1.5px solid var(--bo)" }}>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                          <span style={{ fontSize: 11, background: "var(--r)", color: "#fff", padding: "2px 8px", borderRadius: 6, fontWeight: 700 }}>Ép. {ep.numero}</span>
+                          <span style={{ fontSize: 12, fontWeight: 700 }}>{ep.jour} {ep.heure}</span>
+                        </div>
+                        <span style={{ fontSize: 11, background: "var(--n)", color: "#fff", padding: "2px 8px", borderRadius: 6, fontWeight: 700 }}>{ep.plateforme}</span>
+                      </div>
+                      {ep.legende && <p style={{ fontSize: 13, lineHeight: 1.5, marginBottom: 8 }}>{ep.legende}</p>}
+                      {(ep.hashtags || []).length > 0 && (
+                        <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+                          {ep.hashtags.map((h, k) => (
+                            <span key={k} style={{ fontSize: 10, color: "var(--n)", fontWeight: 600 }}>{h}</span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+            {data.conseil && (
+              <div style={{ background: "linear-gradient(135deg, var(--n), #2a5040)", borderRadius: 14, padding: 16, marginTop: 8 }}>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 8 }}>Pro tip</p>
+                <p style={{ fontSize: 13, color: "#fff", lineHeight: 1.6 }}>{data.conseil}</p>
+              </div>
+            )}
+          </>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function StoryboardView({ storyboard, loading, ep, bible, onBack, t }) {
+  const shots = storyboard?.shots || [];
+  return (
+    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+      <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
+        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_studio}</button>
+        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{t.storyboard_title}</h2>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre}</p>
+      </div>
+      <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
+        {loading ? (
+          <div style={{ textAlign: "center", padding: "60px 0" }}>
+            <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>🎬</div>
+            <p style={{ color: "var(--mt)" }}>{t.loading_storyboard}</p>
+          </div>
+        ) : shots.map((shot, i) => (
+          <div key={i} style={{ background: "var(--card)", borderRadius: 14, overflow: "hidden", marginBottom: 12, border: "1.5px solid var(--bo)" }}>
+            <div style={{ background: "#0a0a0f", padding: "10px 14px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <span style={{ width: 28, height: 28, borderRadius: 7, background: "var(--r)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 900, color: "#fff", flexShrink: 0 }}>{shot.numero}</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "#fff" }}>{shot.type_plan}</span>
+              </div>
+              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                {shot.duree_sec && <span style={{ fontSize: 11, color: "#f97316", fontWeight: 700 }}>{shot.duree_sec}s</span>}
+                {shot.mouvement && <span style={{ fontSize: 10, color: "#888", padding: "2px 8px", borderRadius: 20, border: "1px solid #333" }}>{shot.mouvement}</span>}
+              </div>
+            </div>
+            <div style={{ padding: "12px 14px" }}>
+              {shot.angle && <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 6 }}>📐 {shot.angle}</p>}
+              {shot.cadrage && <p style={{ fontSize: 13, lineHeight: 1.5, marginBottom: 8 }}>{shot.cadrage}</p>}
+              {shot.son && (
+                <div style={{ background: "var(--bg)", borderRadius: 8, padding: "8px 10px", marginBottom: 8, borderLeft: "2px solid var(--n)" }}>
+                  <p style={{ fontSize: 12, color: "var(--n)", fontWeight: 600 }}>🎙 {shot.son}</p>
+                </div>
+              )}
+              {shot.note && <p style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic", lineHeight: 1.5 }}>🎬 {shot.note}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ── MAIN APP ─────────────────────────────────────────────────
 export default function App() {
   const router = useRouter();
@@ -1878,7 +2174,7 @@ export default function App() {
   const t = T[lang];
   const opts = OPTS[lang];
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", budget: "zero", lieu: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", budget: "zero", lieu: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ Vertical Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 }, remake: null, saison2: null });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
@@ -1979,7 +2275,11 @@ export default function App() {
       const castingIAInstr = [...archLines, ...modLines].join(" | ") || undefined;
       const avPreset = AMBIANCE_VIS.find(x => x.id === state.ambianceVisuelle);
       const avInstr = avPreset ? (avPreset.instr[lang === "en" ? "en" : "fr"]) : undefined;
-      const b = await gen("bible", { ...cleanState(state), lang, castingIA: castingIAInstr, ambianceVisuelle: avInstr }, customerId);
+      const remakeObj = REMAKE_INSPIRATIONS.find(r => r.id === state.remake);
+      const remakeInspiration = remakeObj ? remakeObj.instr : undefined;
+      const saison2 = saison2Ref.current || undefined;
+      if (saison2Ref.current) saison2Ref.current = null;
+      const b = await gen("bible", { ...cleanState(state), lang, castingIA: castingIAInstr, ambianceVisuelle: avInstr, remakeInspiration, saison2 }, customerId);
       setBible(b);
 
       const totalBatches = Math.ceil(state.format / 10);
@@ -2074,6 +2374,13 @@ export default function App() {
   const [loadingSocial, setLoadingSocial] = useState(false);
   const [affiche, setAffiche] = useState(null);
   const [loadingAffiche, setLoadingAffiche] = useState(false);
+  const [profils, setProfils] = useState(null);
+  const [loadingProfils, setLoadingProfils] = useState(false);
+  const [calendrier, setCalendrier] = useState(null);
+  const [loadingCalendrier, setLoadingCalendrier] = useState(false);
+  const [storyboard, setStoryboard] = useState(null);
+  const [loadingStoryboard, setLoadingStoryboard] = useState(false);
+  const saison2Ref = useRef(null);
 
   const genVariations = async () => {
     setVariations(null);
@@ -2111,6 +2418,42 @@ export default function App() {
       setAffiche(r);
     } catch (e) { console.error(e); }
     setLoadingAffiche(false);
+  };
+
+  const genProfils = async () => {
+    setProfils(null); setLoadingProfils(true); setScreen("profils");
+    try {
+      const r = await gen("profils", { titre: bible.titre, personnages: bible.personnages || [], genre: state.genre, lang }, customerId);
+      setProfils(r);
+    } catch(e) { console.error(e); }
+    setLoadingProfils(false);
+  };
+
+  const genCalendrier = async () => {
+    setCalendrier(null); setLoadingCalendrier(true); setScreen("calendrier");
+    try {
+      const r = await gen("calendrier", { titre: bible.titre, logline: bible.logline, episodes: episodes.slice(0, 20), lang }, customerId);
+      setCalendrier(r);
+    } catch(e) { console.error(e); }
+    setLoadingCalendrier(false);
+  };
+
+  const genStoryboard = async () => {
+    setStoryboard(null); setLoadingStoryboard(true); setScreen("storyboard");
+    try {
+      const r = await gen("storyboard", { ep: episodes[epIdx], script, bible, lang }, customerId);
+      setStoryboard(r);
+    } catch(e) { console.error(e); }
+    setLoadingStoryboard(false);
+  };
+
+  const genSaison2 = () => {
+    saison2Ref.current = {
+      titre: bible.titre,
+      logline: bible.logline,
+      tension_centrale: bible.tension_centrale,
+    };
+    generate();
   };
 
   const exportScript = async () => {
@@ -2322,12 +2665,15 @@ export default function App() {
 
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} />}
-      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} t={t} lang={lang} />}
-      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} />}
+      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} onProfils={genProfils} onCalendrier={genCalendrier} onSaison2={genSaison2} t={t} lang={lang} />}
+      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
       {screen === "social" && <SocialView social={social} loading={loadingSocial} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} />}
       {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
+      {screen === "profils" && <ProfilsView profils={profils} loading={loadingProfils} bible={bible} onBack={() => setScreen("bible")} t={t} />}
+      {screen === "calendrier" && <CalendrierView calendrier={calendrier} loading={loadingCalendrier} bible={bible} onBack={() => setScreen("bible")} t={t} />}
+      {screen === "storyboard" && <StoryboardView storyboard={storyboard} loading={loadingStoryboard} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} />}
 
       {/* Top bar: dark mode + lang toggle + logout */}
       {screen !== "tour" && (
