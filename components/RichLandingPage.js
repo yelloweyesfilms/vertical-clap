@@ -710,6 +710,8 @@ export default function RichLandingPage({ lang = "fr" }) {
           .mixeur-tabs-grid { grid-template-columns: 1fr !important; }
           .for-you-grid { grid-template-columns: 1fr !important; }
           .cliff-grid { grid-template-columns: 1fr !important; }
+          .ep-phases-grid { grid-template-columns: 1fr !important; }
+          .ep-rules-grid { grid-template-columns: 1fr !important; }
           .compare-table { display: none !important; }
         }
         @media (max-width: 900px) {
@@ -717,6 +719,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           .pipeline-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .feat-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .variations-grid { grid-template-columns: 1fr !important; }
+          .ep-phases-grid { grid-template-columns: repeat(3, 1fr) !important; }
         }
       `}</style>
 
@@ -1055,6 +1058,108 @@ export default function RichLandingPage({ lang = "fr" }) {
                     <div style={{ width: 5, height: 5, borderRadius: "50%", background: color, animation: "pulse 2s infinite", flexShrink: 0 }} />
                     <span style={{ fontSize: 11, fontWeight: 700, color, letterSpacing: "0.06em" }}>{next}</span>
                   </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* EPISODE STRUCTURE */}
+      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <Label color={RED}>{lang === "fr" ? "La structure" : "The structure"}</Label>
+          <Title style={{ textAlign: "center", marginBottom: 12 }}>
+            {lang === "fr" ? "1 minute." : "1 minute."}<br />
+            <span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{lang === "fr" ? "5 phases. Zéro temps mort." : "5 phases. Zero dead time."}</span>
+          </Title>
+          <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>
+            {lang === "fr"
+              ? "Chaque épisode généré suit cette architecture temporelle exacte. Le cerveau n'a pas le temps de décrocher."
+              : "Every generated episode follows this exact time architecture. The brain has no time to disengage."}
+          </p>
+
+          {/* Timeline bar */}
+          <div style={{ position: "relative", marginBottom: 48 }}>
+            {/* Progress bar */}
+            <div style={{ display: "flex", height: 6, borderRadius: 999, overflow: "hidden", marginBottom: 32 }}>
+              <div style={{ width: "8.3%", background: RED, opacity: 1 }} />
+              <div style={{ width: "25%", background: `linear-gradient(90deg, ${RED}, #f59e0b)`, opacity: 0.85 }} />
+              <div style={{ width: "33.3%", background: `linear-gradient(90deg, #f59e0b, ${VIO})`, opacity: 0.85 }} />
+              <div style={{ width: "25%", background: `linear-gradient(90deg, ${VIO}, #ec4899)`, opacity: 0.9 }} />
+              <div style={{ width: "8.4%", background: "#ec4899", opacity: 1 }} />
+            </div>
+
+            {/* Phase cards */}
+            <div className="ep-phases-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 8 }}>
+              {[
+                {
+                  time: lang === "fr" ? "0 – 5s" : "0 – 5s",
+                  label: "HOOK",
+                  desc: lang === "fr" ? "Commencer au pire moment possible. In medias res. 1 phrase. 10 mots." : "Start at the worst possible moment. In medias res. 1 sentence.",
+                  color: RED,
+                  rule: lang === "fr" ? "Jamais: Bonjour" : "Never: Hello",
+                },
+                {
+                  time: "5 – 20s",
+                  label: lang === "fr" ? "CONFLIT" : "CONFLICT",
+                  desc: lang === "fr" ? "3 répliques. Chaque phrase attaque, révèle ou aggrave." : "3 lines. Each one attacks, reveals or escalates.",
+                  color: "#f59e0b",
+                  rule: lang === "fr" ? "L'enjeu est immédiat" : "Stakes are immediate",
+                },
+                {
+                  time: "20 – 40s",
+                  label: lang === "fr" ? "ESCALADE" : "ESCALATION",
+                  desc: lang === "fr" ? "4 répliques. Quelqu'un ment, trahit ou révèle. Montée constante." : "4 lines. Someone lies, betrays or reveals. Constant rise.",
+                  color: VIO,
+                  rule: lang === "fr" ? "1 événement / 15s" : "1 event every 15s",
+                },
+                {
+                  time: "40 – 55s",
+                  label: "TWIST",
+                  desc: lang === "fr" ? "2-3 répliques. La dynamique bascule. Identité, secret, trahison." : "2-3 lines. The dynamic flips. Identity, secret, betrayal.",
+                  color: "#ec4899",
+                  rule: lang === "fr" ? "Relance le désir" : "Relaunches desire",
+                },
+                {
+                  time: "55 – 60s",
+                  label: "CLIFFHANGER",
+                  desc: lang === "fr" ? "1 phrase. Question laissée en suspens. Jamais résolue." : "1 sentence. Question left open. Never resolved.",
+                  color: "#ef4444",
+                  rule: lang === "fr" ? "Couper avant la réponse" : "Cut before the answer",
+                },
+              ].map((phase, i) => (
+                <div key={i} style={{
+                  background: `linear-gradient(160deg, ${phase.color}12 0%, rgba(9,9,15,0.6) 100%)`,
+                  border: `1px solid ${phase.color}30`,
+                  borderTop: `3px solid ${phase.color}`,
+                  borderRadius: 10,
+                  padding: "16px 14px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                }}>
+                  <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.12em", color: phase.color, textTransform: "uppercase" }}>{phase.time}</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "0.08em", color: TEXT, textTransform: "uppercase" }}>{phase.label}</div>
+                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", lineHeight: 1.5, margin: 0, flex: 1 }}>{phase.desc}</p>
+                  <div style={{ fontSize: 9, fontWeight: 700, color: phase.color, letterSpacing: "0.06em", paddingTop: 6, borderTop: `1px solid ${phase.color}20` }}>{phase.rule}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Three rules footer */}
+          <div className="ep-rules-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+            {[
+              { label: lang === "fr" ? "Relations, toujours" : "Relationships, always", desc: lang === "fr" ? "Couples, rivalités, trahisons. L'enjeu est personnel — pas conceptuel." : "Couples, rivalries, betrayals. Stakes are personal — not conceptual.", color: RED },
+              { label: lang === "fr" ? "1 idée forte par épisode" : "1 strong idea per episode", desc: lang === "fr" ? "Jamais 5 conflits en 1 minute. Une seule révélation centrale qui porte tout." : "Never 5 conflicts in 1 minute. One central reveal that carries everything.", color: VIO },
+              { label: lang === "fr" ? "Couper avant la réponse" : "Cut before the answer", desc: lang === "fr" ? "Le cliffhanger = question suspendue. La réponse arrive dans l'épisode suivant. Toujours." : "Cliffhanger = suspended question. The answer comes next episode. Always.", color: "#ec4899" },
+            ].map((rule, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "16px 20px", background: "rgba(255,255,255,0.02)", borderRadius: 10, border: `1px solid rgba(255,255,255,0.05)` }}>
+                <div style={{ width: 4, height: 4, borderRadius: "50%", background: rule.color, flexShrink: 0, marginTop: 6 }} />
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: TEXT, marginBottom: 4 }}>{rule.label}</div>
+                  <div style={{ fontSize: 11, color: MUTED, lineHeight: 1.5 }}>{rule.desc}</div>
                 </div>
               </div>
             ))}

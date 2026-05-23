@@ -6,9 +6,29 @@ import * as Sentry from "@sentry/nextjs";
 export const config = { api: { responseLimit: false } };
 
 const DUR_INSTR = {
-  60: "DURÉE 1 MIN: 4-5 échanges, max 20 mots/réplique. Structure: CHOC d'ouverture → escalade → révélation unique → question sans réponse.",
-  90: "DURÉE 1MIN30: 6-7 échanges, max 25 mots/réplique. Structure: hook → tension montante → faux pivot → vraie révélation → cliffhanger.",
-  120: "DURÉE 2 MIN: 8-10 échanges, max 30 mots/réplique. Structure: hook → conflit → rebondissement mi-parcours → révélation → cliffhanger brutal.",
+  60: `DURÉE 1 MIN — MINIMUM 10 scènes OBLIGATOIRE. Structure temporelle STRICTE:
+• 0–5s: HOOK — 1 phrase choc max 10 mots. COMMENCER AU PIRE MOMENT POSSIBLE. In medias res absolu. Jamais: "Bonjour", setup, exposition.
+• 5–20s: CONFLIT DIRECT — 3 répliques ultra-courtes. L'enjeu est clair immédiatement. Chaque phrase ATTAQUE, RÉVÈLE ou AGGRAVE.
+• 20–40s: ESCALADE — 4 répliques. Quelqu'un ment / révèle un secret / arrive à l'improviste / trahit / menace / provoque. Montée CONSTANTE.
+• 40–55s: TWIST / RÉVÉLATION — 2-3 répliques. La dynamique BASCULE. Exemples: mauvaise personne accusée, identité révélée, grossesse, vidéo trouvée, vengeance, mensonge exposé.
+• 55–60s: CLIFFHANGER — 1 phrase. COUPER AVANT LA RÉPONSE. TOUJOURS. Question laissée en suspens.
+RÈGLES ABSOLUES: 1 événement toutes les 10-15 secondes maximum. Phrases 5-12 mots. Aucune exposition. LES RELATIONS SONT LE MOTEUR: couples, rivalités, secrets, trahisons.`,
+  90: `DURÉE 1MIN30 — MINIMUM 14 scènes OBLIGATOIRE. Structure temporelle STRICTE:
+• 0–5s: HOOK — COMMENCER AU PIRE MOMENT POSSIBLE.
+• 5–25s: CONFLIT — 4 répliques courtes.
+• 25–50s: ESCALADE — 5 répliques. Montée constante.
+• 50–75s: EXPLOSION + TWIST — 5 répliques. Faux pivot puis vraie révélation dévastatrice.
+• 75–80s: CONSÉQUENCE ÉMOTIONNELLE — 2 répliques. Réaction physique au twist.
+• 80–90s: CLIFFHANGER — COUPER AVANT LA RÉPONSE.
+RÈGLES ABSOLUES: 1 événement toutes les 15 secondes max. Phrases 8-15 mots.`,
+  120: `DURÉE 2 MIN — MINIMUM 18 scènes OBLIGATOIRE. Structure temporelle STRICTE:
+• 0–10s: HOOK — COMMENCER AU PIRE MOMENT POSSIBLE.
+• 10–40s: CONFLIT — 5 répliques.
+• 40–70s: ESCALADE — 6 répliques. Rebondissement OBLIGATOIRE à mi-parcours.
+• 70–105s: RÉVÉLATION MAJEURE — 6 répliques. Tout s'effondre.
+• 105–110s: CONSÉQUENCE — réaction physique brève.
+• 110–120s: CLIFFHANGER DOUBLE — COUPER AVANT LA RÉPONSE.
+RÈGLES ABSOLUES: 1 événement toutes les 20 secondes. 2 acteurs max. 1 seule intrigue centrale.`,
 };
 
 const VALID_MODES = ["fast", "premium"];
