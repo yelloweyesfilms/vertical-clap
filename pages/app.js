@@ -925,6 +925,77 @@ function MesSeriesView({ onLoad, onBack, t }) {
 
 const CUSTOM_PREFIX = "__custom__";
 
+// ── STEP BAR — Progression narrative ─────────────────────────
+const STEP_COLORS = ["#E85C3A", "#f97316", "#eab308", "#22c55e", "#a855f7"];
+const STEP_DATA = {
+  fr: [
+    { emoji: "💡", short: "Idée"     },
+    { emoji: "📖", short: "Bible"    },
+    { emoji: "🎬", short: "Épisodes" },
+    { emoji: "✍️", short: "Script"   },
+    { emoji: "🎞️", short: "Tournage" },
+  ],
+  en: [
+    { emoji: "💡", short: "Idea"     },
+    { emoji: "📖", short: "Bible"    },
+    { emoji: "🎬", short: "Episodes" },
+    { emoji: "✍️", short: "Script"   },
+    { emoji: "🎞️", short: "Shoot"    },
+  ],
+};
+
+function StepBar({ step, lang = "fr" }) {
+  const steps = STEP_DATA[lang] || STEP_DATA.fr;
+  return (
+    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "12px 12px 14px", gap: 0, borderBottom: "1px solid var(--bo)", background: "var(--bg)", overflowX: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
+      {steps.map((s, i) => {
+        const n = i + 1;
+        const done   = n < step;
+        const active = n === step;
+        const color  = STEP_COLORS[i];
+        return (
+          <div key={n} style={{ display: "flex", alignItems: "center", gap: 0 }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 5, minWidth: 44 }}>
+              {/* Circle */}
+              <div style={{
+                width: 30, height: 30, borderRadius: "50%",
+                background: done ? color : active ? color : "transparent",
+                border: `1.5px solid ${done || active ? color : "var(--bo)"}`,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: done ? 12 : 14,
+                color: done || active ? "#fff" : "var(--mt)",
+                fontWeight: 800, fontFamily: "var(--sans)",
+                flexShrink: 0,
+                boxShadow: active ? `0 0 12px ${color}55` : "none",
+                transition: "all .25s",
+              }}>
+                {done ? "✓" : s.emoji}
+              </div>
+              {/* Label */}
+              <span style={{
+                fontSize: 7.5, fontWeight: active ? 800 : 400,
+                color: active ? color : "var(--mt)",
+                whiteSpace: "nowrap", letterSpacing: 0.8,
+                textTransform: "uppercase", opacity: active ? 1 : done ? 0.65 : 0.35,
+                fontFamily: "var(--sans)",
+              }}>{s.short}</span>
+            </div>
+            {/* Connector */}
+            {i < steps.length - 1 && (
+              <div style={{
+                height: 1.5, width: 20, flexShrink: 0,
+                background: done ? `${STEP_COLORS[i]}55` : "var(--bo)",
+                margin: "0 2px", marginBottom: 14,
+                transition: "background .3s",
+              }} />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function SectionHead({ title, sub, sep = true }) {
   return (
     <>
@@ -1377,13 +1448,16 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
     setLoadingCartes(false);
   };
 
+  const bibleStep = (tab === "seq" || tab === "titres") ? 3 : 2;
+
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+      <StepBar step={bibleStep} lang={lang} />
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 13, color: "var(--mt)", marginBottom: 16, cursor: "pointer", padding: 0, display: "flex", alignItems: "center", gap: 5, letterSpacing: 0.3 }}>{t.back_mixer}</button>
         <div style={{ marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--r)" }}>
-            {mode === "fast" ? "FAST DRAMA" : "PREMIUM SUSPENSE"}
+            {mode === "fast" ? "VERTICAL DRAMA" : "SÉRIE PREMIUM"}
           </span>
           <span style={{ color: "var(--bo)" }}>·</span>
           <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)" }}>
@@ -1583,6 +1657,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
   const displayScript = translated || script;
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+      <StepBar step={4} lang={lang} />
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
           <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", cursor: "pointer", padding: 0 }}>← {bible?.titre}</button>
@@ -1923,6 +1998,27 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
         @keyframes teleprompt { from { transform: translateY(100vh); } to { transform: translateY(-100%); } }
         .tp-content { animation: teleprompt ${speed}s linear infinite; animation-play-state: ${playing ? "running" : "paused"}; }
       `}</style>
+
+      {/* Step bar — dark mode */}
+      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "10px 12px 12px", gap: 0, borderBottom: "1px solid #1a1a1a", background: "#0a0a0a", overflowX: "auto", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", flexShrink: 0 }}>
+        {(STEP_DATA[lang] || STEP_DATA.fr).map((s, i) => {
+          const n = i + 1;
+          const done   = n < 5;
+          const active = n === 5;
+          const color  = STEP_COLORS[i];
+          return (
+            <div key={n} style={{ display: "flex", alignItems: "center", gap: 0 }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, minWidth: 44 }}>
+                <div style={{ width: 28, height: 28, borderRadius: "50%", background: done ? color : active ? color : "transparent", border: `1.5px solid ${done || active ? color : "#333"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: done ? 11 : 14, color: done || active ? "#fff" : "#555", fontWeight: 800, fontFamily: "var(--sans)", flexShrink: 0, boxShadow: active ? `0 0 12px ${color}55` : "none" }}>
+                  {done ? "✓" : s.emoji}
+                </div>
+                <span style={{ fontSize: 7.5, fontWeight: active ? 800 : 400, color: active ? color : "#555", whiteSpace: "nowrap", letterSpacing: 0.8, textTransform: "uppercase", opacity: active ? 1 : done ? 0.6 : 0.3, fontFamily: "var(--sans)" }}>{s.short}</span>
+              </div>
+              {i < 4 && <div style={{ height: 1.5, width: 20, flexShrink: 0, background: done && n < 5 ? `${STEP_COLORS[i]}55` : "#222", margin: "0 2px", marginBottom: 14 }} />}
+            </div>
+          );
+        })}
+      </div>
 
       {/* Barre du haut */}
       <div style={{ background: "#111", flexShrink: 0, zIndex: 10 }}>
