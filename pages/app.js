@@ -2858,7 +2858,7 @@ export default function App() {
   // ── Preview mode: force plan=standard when ?preview=standard is in URL ──
   useEffect(() => {
     if (router.isReady && router.query.preview === "standard") setPlan("standard");
-  });
+  }, [router.isReady, router.query.preview]);
 
   const logout = () => { localStorage.removeItem("vs_customer"); localStorage.removeItem("vs_plan"); setCustomerId(null); setPlan("standard"); };
 
