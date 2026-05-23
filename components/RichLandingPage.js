@@ -809,7 +809,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 onKeyDown={e => e.key === "Enter" && startCheckout()}
                 style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${emailError ? RED : "rgba(255,255,255,0.1)"}`, background: "rgba(255,255,255,0.05)", color: TEXT, fontSize: 15, width: 240, outline: "none", backdropFilter: "blur(12px)", transition: "border-color .2s" }} />
               <button onClick={() => startCheckout("standard", "hero")} disabled={loading}
-                style={{ padding: "16px 28px", background: RED, color: "#fff", border: "none", borderRadius: 14, fontSize: 15, fontWeight: 800, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.02em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1 }}>
+                style={{ padding: "16px 28px", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", borderRadius: 14, fontSize: 15, fontWeight: 800, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.02em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1, boxShadow: `0 0 32px rgba(168,85,247,0.35), 0 0 16px rgba(232,92,58,0.25)` }}>
                 {loading ? c.redirecting : c.ctaBtnCreate}
               </button>
             </div>
@@ -843,7 +843,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 onKeyDown={e => e.key === "Enter" && startCheckout("standard", "hero-bottom")}
                 style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${emailError ? RED : "rgba(255,255,255,0.15)"}`, background: "rgba(255,255,255,0.05)", color: TEXT, fontSize: 15, flex: 1, minWidth: 200, outline: "none", backdropFilter: "blur(12px)" }} />
               <button onClick={() => startCheckout("standard", "hero-bottom")} disabled={loading}
-                style={{ padding: "16px 24px", background: `linear-gradient(135deg, ${RED} 0%, #c94424 100%)`, color: "#fff", border: "none", borderRadius: 14, fontSize: 15, fontWeight: 900, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.04em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1, whiteSpace: "nowrap" }}>
+                style={{ padding: "16px 24px", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", borderRadius: 14, fontSize: 15, fontWeight: 900, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.04em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1, whiteSpace: "nowrap", boxShadow: `0 0 32px rgba(168,85,247,0.35), 0 0 16px rgba(232,92,58,0.25)` }}>
                 {loading ? c.redirecting : c.heroCtaBig}
               </button>
             </div>
