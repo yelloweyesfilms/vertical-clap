@@ -14,12 +14,23 @@ const MUTED = "#94a3b8";
 
 const COPY = {
   fr: {
-    studioBadge: "Le studio IA des créateurs verticaux",
+    studioBadge: "Vertical drama · Séries · Univers narratifs",
     heroLine1: "Ta série,",
     heroLine2: "virale,",
     heroLine3: "maintenant.",
     heroTitle: "Du vertical drama",
-    heroTitleItalic: "au cinéma.",
+    heroTitleItalic: "aux univers narratifs.",
+    scaleLabel: "Créez à toutes les échelles",
+    scaleTitle: "Du micro-drama au projet ambitieux.",
+    scaleSub: "Vertical Clap accompagne chaque étape — de la première idée au showrunner confirmé.",
+    scaleSteps: [
+      { emoji: "⚡", label: "Micro-drama", sub: "TikTok · Reels · 60s", color: RED },
+      { emoji: "📱", label: "Série verticale", sub: "10–20 épisodes · Mobile", color: "#f97316" },
+      { emoji: "🎬", label: "Web série", sub: "Storytelling social · Binge", color: "#eab308" },
+      { emoji: "🎭", label: "Série premium", sub: "DramaBox · ReelShort · 90 éps", color: "#22c55e" },
+      { emoji: "🎞️", label: "Film narratif", sub: "Structure · Arcs · Traitement", color: "#3b82f6" },
+      { emoji: "🌌", label: "Univers narratif", sub: "Bible · Spin-offs · Franchise", color: VIO },
+    ],
     heroSubtitle: "Créez des séries, des films et des univers narratifs depuis une seule plateforme.",
     heroSubtitleOld: "Bible, scripts, hooks et cliffhangers générés en 5 minutes — prêts pour TikTok, DramaBox et ReelShort.",
     canceledMsg: "Paiement annulé. Réessaie quand tu veux.",
@@ -74,21 +85,23 @@ const COPY = {
     billedStandardAnnual: "facturé 90€/an",
     billedPremiumAnnual: "facturé 179€/an",
     perMonth: "/mois",
-    planStandard: "Standard",
-    planPremium: "Premium",
+    planStandard: "Creator",
+    planStandardSub: "Pour créateurs, micro-dramas et storytelling social",
+    planPremium: "Storyteller",
+    planPremiumSub: "Pour séries, univers narratifs et projets ambitieux",
     standardFeatures: [
-      "⚡ Fast Drama uniquement",
+      "⚡ Vertical Drama · micro-drama",
       "10 épisodes par série",
-      "Scripts 1 à 2 min",
+      "Scripts 60–90 secondes",
       "Mode Tournage + Téléprompteur",
       "🌍 Traduction en 8 langues",
       "☁️ Sauvegarde cloud",
       "📄 Export PDF",
     ],
     premiumFeatures: [
-      "⚡ Fast Drama + 🎭 Premium Suspense",
+      "⚡ Vertical + 🎭 Série Premium",
       "Jusqu'à 90 épisodes par série",
-      "Scripts 1 à 2 min",
+      "Scripts courts et longs formats",
       "Mode Tournage + Téléprompteur",
       "🎲 3 variations par script",
       "🌍 Traduction en 8 langues",
@@ -97,7 +110,7 @@ const COPY = {
       "📄 Export PDF",
     ],
     recommendedBadge: "⭐ RECOMMANDÉ",
-    ctaBtnPremium: "Commencer Premium →",
+    ctaBtnPremium: "Commencer Storyteller →",
     trustItems: [
       { icon: "🔒", label: "Stripe · Paiement sécurisé" },
       { icon: "✓", label: "Annulable en 1 clic" },
@@ -198,13 +211,24 @@ const COPY = {
     imgVariations: "/les%203%20variations.png",
   },
   en: {
-    studioBadge: "The AI studio for vertical creators",
+    studioBadge: "Vertical drama · Series · Narrative universes",
     heroLine1: "Your series,",
     heroLine2: "viral,",
     heroLine3: "now.",
     heroTitle: "From vertical drama",
-    heroTitleItalic: "to cinema.",
+    heroTitleItalic: "to narrative universes.",
     heroSubtitle: "Create series, films and narrative universes from one single platform.",
+    scaleLabel: "Create at every scale",
+    scaleTitle: "From micro-drama to ambitious projects.",
+    scaleSub: "Vertical Clap accompanies every step — from first idea to confirmed showrunner.",
+    scaleSteps: [
+      { emoji: "⚡", label: "Micro-drama", sub: "TikTok · Reels · 60s", color: RED },
+      { emoji: "📱", label: "Vertical series", sub: "10–20 episodes · Mobile", color: "#f97316" },
+      { emoji: "🎬", label: "Web series", sub: "Social storytelling · Binge", color: "#eab308" },
+      { emoji: "🎭", label: "Premium series", sub: "DramaBox · ReelShort · 90 eps", color: "#22c55e" },
+      { emoji: "🎞️", label: "Narrative film", sub: "Structure · Arcs · Treatment", color: "#3b82f6" },
+      { emoji: "🌌", label: "Narrative universe", sub: "Bible · Spin-offs · Franchise", color: VIO },
+    ],
     heroSubtitleOld: "Bible, scripts, hooks and cliffhangers generated in 5 minutes — ready for TikTok, DramaBox and ReelShort.",
     canceledMsg: "Payment canceled. Try again whenever you're ready.",
     ctaBtnCreate: "Start creating →",
@@ -258,21 +282,23 @@ const COPY = {
     billedStandardAnnual: "billed €90/year",
     billedPremiumAnnual: "billed €179/year",
     perMonth: "/month",
-    planStandard: "Standard",
-    planPremium: "Premium",
+    planStandard: "Creator",
+    planStandardSub: "For creators, micro-dramas and social storytelling",
+    planPremium: "Storyteller",
+    planPremiumSub: "For series, narrative universes and ambitious projects",
     standardFeatures: [
-      "⚡ Fast Drama only",
+      "⚡ Vertical Drama · micro-drama",
       "10 episodes per series",
-      "1 to 2 min scripts",
+      "60–90 second scripts",
       "Shoot Mode + Teleprompter",
       "🌍 Translation in 8 languages",
       "☁️ Cloud save",
       "📄 PDF Export",
     ],
     premiumFeatures: [
-      "⚡ Fast Drama + 🎭 Premium Suspense",
+      "⚡ Vertical + 🎭 Premium Series",
       "Up to 90 episodes per series",
-      "1 to 2 min scripts",
+      "Short and long format scripts",
       "Shoot Mode + Teleprompter",
       "🎲 3 variations per script",
       "🌍 Translation in 8 languages",
@@ -281,7 +307,7 @@ const COPY = {
       "📄 PDF Export",
     ],
     recommendedBadge: "⭐ RECOMMENDED",
-    ctaBtnPremium: "Get started Premium →",
+    ctaBtnPremium: "Get started Storyteller →",
     trustItems: [
       { icon: "🔒", label: "Stripe · Secure payment" },
       { icon: "✓", label: "Cancel in 1 click" },
@@ -788,6 +814,42 @@ export default function RichLandingPage({ lang = "fr" }) {
         </div>
       </div>
 
+      {/* SCALE — Créez à toutes les échelles */}
+      <div style={{ borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}`, padding: "72px 40px", background: "linear-gradient(180deg, rgba(168,85,247,0.03) 0%, transparent 60%)" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 16, fontFamily: "'Space Grotesk', sans-serif" }}>{c.scaleLabel}</p>
+          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.1, marginBottom: 12 }}>{c.scaleTitle}</h2>
+          <p style={{ color: MUTED, fontSize: 15, marginBottom: 48, lineHeight: 1.7, maxWidth: 500, margin: "12px auto 52px" }}>{c.scaleSub}</p>
+
+          {/* Steps — ascending flow */}
+          <div style={{ display: "flex", gap: 0, alignItems: "flex-end", justifyContent: "center", flexWrap: "wrap", rowGap: 12 }}>
+            {c.scaleSteps.map((step, i) => {
+              const height = 72 + i * 18;
+              return (
+                <div key={step.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0, position: "relative" }}>
+                  {/* Connector line */}
+                  {i < c.scaleSteps.length - 1 && (
+                    <div style={{ position: "absolute", right: 0, bottom: height - 2, width: "50%", height: 1.5, background: `linear-gradient(90deg, ${step.color}40, ${c.scaleSteps[i+1].color}40)`, pointerEvents: "none" }} />
+                  )}
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "16px 14px", width: 128, borderTop: `2px solid ${step.color}55`, background: `${step.color}08`, marginTop: "auto", height, justifyContent: "flex-start", borderRadius: "10px 10px 0 0", transition: "all .2s" }}>
+                    <span style={{ fontSize: 22, marginBottom: 8 }}>{step.emoji}</span>
+                    <span style={{ fontSize: 12, fontWeight: 800, color: step.color, letterSpacing: 0.3, textAlign: "center", lineHeight: 1.2, marginBottom: 5 }}>{step.label}</span>
+                    <span style={{ fontSize: 10, color: MUTED, textAlign: "center", lineHeight: 1.35 }}>{step.sub}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Tagline under steps */}
+          <p style={{ fontSize: 13, color: MUTED, marginTop: 40, fontStyle: "italic", letterSpacing: 0.3 }}>
+            {lang === "fr"
+              ? "Le créateur TikTok d'aujourd'hui peut devenir le showrunner de demain."
+              : "Today's TikTok creator can become tomorrow's showrunner."}
+          </p>
+        </div>
+      </div>
+
       {/* CLIFFHANGERS */}
       <div className="sec-img" style={{ textAlign: "center", background: "linear-gradient(180deg, rgba(168,85,247,0.04) 0%, transparent 100%)", borderBottom: `1px solid ${BORDER}` }}>
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 32, fontFamily: "'Space Grotesk', sans-serif" }}>{c.cliffhangersLabel}</p>
@@ -1093,7 +1155,8 @@ export default function RichLandingPage({ lang = "fr" }) {
 
           <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
             <div className="glass" style={{ borderRadius: 24, padding: "36px 32px", position: "relative" }}>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 12 }}>{c.planStandard}</p>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 6 }}>{c.planStandard}</p>
+              {c.planStandardSub && <p style={{ fontSize: 12, color: MUTED, marginBottom: 14, lineHeight: 1.4, opacity: 0.7 }}>{c.planStandardSub}</p>}
               <div style={{ display: "flex", alignItems: "flex-end", gap: 6, marginBottom: 4 }}>
                 <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 58, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                   {billing === "annual" ? "7.5€" : "9€"}
@@ -1117,7 +1180,8 @@ export default function RichLandingPage({ lang = "fr" }) {
 
             <div style={{ borderRadius: 24, padding: "36px 32px", position: "relative", background: "rgba(168,85,247,0.05)", border: "1px solid rgba(168,85,247,0.25)", boxShadow: "0 0 48px rgba(168,85,247,0.08)" }}>
               <div style={{ position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 16px", borderRadius: 20, letterSpacing: 1.5, whiteSpace: "nowrap" }}>{c.recommendedBadge}</div>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 12 }}>{c.planPremium}</p>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 6 }}>{c.planPremium}</p>
+              {c.planPremiumSub && <p style={{ fontSize: 12, color: MUTED, marginBottom: 14, lineHeight: 1.4, opacity: 0.7 }}>{c.planPremiumSub}</p>}
               <div style={{ display: "flex", alignItems: "flex-end", gap: 6, marginBottom: 4 }}>
                 <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 58, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                   {billing === "annual" ? "14.9€" : "19€"}
