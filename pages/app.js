@@ -1054,22 +1054,30 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
       {/* Header */}
-      <div style={{ background: "var(--card)", borderBottom: "1px solid var(--bo)", padding: "14px 16px 12px", flexShrink: 0 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+      <div style={{ background: "var(--card)", borderBottom: "1px solid var(--bo)", padding: "12px 16px 10px", flexShrink: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
           <VCLogo />
-          {/* Mode switcher */}
-          <div style={{ display: "flex", background: "rgba(255,255,255,0.1)", borderRadius: 10, padding: 3, gap: 2 }}>
-            <button
-              onClick={() => set(prev => ({ mode: "fast", univers: prev.mode !== "fast" ? (lang === "en" ? "High school secrets" : "Lycée & Secrets") : prev.univers, secret: prev.mode !== "fast" ? (lang === "en" ? "Love betrayal" : "Trahison amoureuse") : prev.secret, format: prev.format > 20 ? 20 : prev.format, genreFormat: null }))}
-              style={{ padding: "7px 16px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "fast" ? "#E85C3A" : "transparent", color: state.mode === "fast" ? "#fff" : "rgba(255,255,255,0.5)" }}>
-              {t.mode_fast}
-            </button>
-            <button
-              onClick={() => { if (plan === "standard") { alert(lang === "fr" ? "Le mode Série est réservé au plan Storyteller." : "Series mode requires the Storyteller plan."); return; } set(prev => ({ mode: "premium", univers: prev.mode !== "premium" ? (lang === "en" ? "AI startup" : "Start-up IA") : prev.univers, secret: prev.mode !== "premium" ? (lang === "en" ? "Internal sabotage" : "Sabotage interne") : prev.secret, genreFormat: null })); }}
-              style={{ padding: "7px 16px", borderRadius: 8, border: plan === "standard" ? "1px solid rgba(168,85,247,0.4)" : "none", cursor: plan === "standard" ? "not-allowed" : "pointer", fontSize: 12, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "premium" ? "#a855f7" : "transparent", color: state.mode === "premium" ? "#fff" : "rgba(168,85,247,0.8)" }}>
-              {t.mode_premium}{plan === "standard" ? <span style={{ fontSize: 9, marginLeft: 5, verticalAlign: "middle", color: "rgba(168,85,247,0.7)" }}>↑</span> : null}
-            </button>
+          {/* Plan badge */}
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <span style={{ fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, padding: "3px 8px", borderRadius: 20, letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: "var(--sans)" }}>
+              {plan === "standard" ? (lang === "en" ? "Creator · 9€" : "Creator · 9€") : (lang === "en" ? "Storyteller · 19€" : "Storyteller · 19€")}
+            </span>
           </div>
+        </div>
+        {/* Mode switcher */}
+        <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
+          <button
+            onClick={() => set(prev => ({ mode: "fast", univers: prev.mode !== "fast" ? (lang === "en" ? "High school secrets" : "Lycée & Secrets") : prev.univers, secret: prev.mode !== "fast" ? (lang === "en" ? "Love betrayal" : "Trahison amoureuse") : prev.secret, format: prev.format > 20 ? 20 : prev.format, genreFormat: null }))}
+            style={{ flex: 1, padding: "8px 10px", borderRadius: 10, border: `1.5px solid ${state.mode === "fast" ? "#E85C3A" : "var(--bo)"}`, cursor: "pointer", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "fast" ? "rgba(232,92,58,0.15)" : "transparent", textAlign: "left" }}>
+            <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: "0.06em", textTransform: "uppercase", color: state.mode === "fast" ? "#E85C3A" : "var(--mt)" }}>{lang === "en" ? "Vertical" : "Vertical"}</div>
+            <div style={{ fontSize: 10, color: state.mode === "fast" ? "rgba(232,92,58,0.7)" : "var(--mt)", marginTop: 1 }}>{lang === "en" ? "TikTok · Reels · 10–20 eps" : "TikTok · Reels · 10–20 éps"}</div>
+          </button>
+          <button
+            onClick={() => { if (plan === "standard") { alert(lang === "fr" ? "Le mode Série est réservé au plan Storyteller (19€/mois)." : "Series mode requires the Storyteller plan (19€/mo)."); return; } set(prev => ({ mode: "premium", univers: prev.mode !== "premium" ? (lang === "en" ? "AI startup" : "Start-up IA") : prev.univers, secret: prev.mode !== "premium" ? (lang === "en" ? "Internal sabotage" : "Sabotage interne") : prev.secret, genreFormat: null })); }}
+            style={{ flex: 1, padding: "8px 10px", borderRadius: 10, border: `1.5px solid ${state.mode === "premium" ? "#a855f7" : plan === "standard" ? "rgba(168,85,247,0.25)" : "var(--bo)"}`, cursor: plan === "standard" ? "not-allowed" : "pointer", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "premium" ? "rgba(168,85,247,0.15)" : "transparent", textAlign: "left", position: "relative" }}>
+            <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: "0.06em", textTransform: "uppercase", color: state.mode === "premium" ? "#a855f7" : plan === "standard" ? "rgba(168,85,247,0.5)" : "var(--mt)" }}>{lang === "en" ? "Série" : "Série"} {plan === "standard" && <span style={{ fontSize: 9, background: "rgba(168,85,247,0.2)", color: "rgba(168,85,247,0.8)", padding: "1px 5px", borderRadius: 4, marginLeft: 4 }}>19€</span>}</div>
+            <div style={{ fontSize: 10, color: state.mode === "premium" ? "rgba(168,85,247,0.7)" : "var(--mt)", marginTop: 1 }}>{lang === "en" ? "DramaBox · 20–90 eps · premium" : "DramaBox · 20–90 éps · premium"}</div>
+          </button>
         </div>
         {/* Format chips — horizontal scroll */}
         <div style={{ display: "flex", gap: 6, overflowX: "auto", paddingBottom: 4, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
