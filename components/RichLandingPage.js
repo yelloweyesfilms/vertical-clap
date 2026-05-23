@@ -31,6 +31,18 @@ const COPY = {
       { emoji: "🎞️", label: "Film narratif", sub: "Structure · Arcs · Traitement", color: "#3b82f6" },
       { emoji: "🌌", label: "Univers narratif", sub: "Bible · Spin-offs · Franchise", color: VIO },
     ],
+    howLabel: "Studio narratif modulaire",
+    howTitle: "Tu valides. L'IA développe.",
+    howSub: "5 niveaux pour construire n'importe quelle histoire — de l'idée au projet ambitieux.",
+    howSteps: [
+      { n: "01", emoji: "💡", title: "Idée & Hook", you: "Tu choisis un genre, un univers, une tension.", ai: ["Concepts & pitchs", "Hooks percutants", "Tropes narratifs", "Prémisse addictive"], color: RED },
+      { n: "02", emoji: "📖", title: "Bible & Personnages", you: "Tu valides les personnages et les arcs.", ai: ["Synopsis court et long", "Personnages & motivations", "Arcs émotionnels", "Structure globale"], color: "#f97316" },
+      { n: "03", emoji: "🎬", title: "Épisodes & Structure", you: "Tu ajustes le rythme et les tensions.", ai: ["Découpage épisodique", "Cliffhangers calibrés", "Twists & révélations", "Progression des arcs"], color: "#eab308" },
+      { n: "04", emoji: "✍️", title: "Scènes & Dialogues", you: "Tu modifies chaque scène, chaque réplique.", ai: ["Scènes individuelles", "Dialogues & sous-texte", "Moments émotionnels", "Indications de jeu"], color: "#22c55e" },
+      { n: "05", emoji: "🎞️", title: "Script & Tournage", you: "Tu contrôles, tu valides, tu tournes.", ai: ["Script formaté prêt à tourner", "Mode Tournage + Téléprompteur", "Export PDF", "3 variations de ton"], color: VIO },
+    ],
+    howTagline: "Pas un bouton magique. Un studio narratif à ta mesure.",
+    howAiLabel: "L'IA génère",
     heroSubtitle: "Créez des séries, des films et des univers narratifs depuis une seule plateforme.",
     heroSubtitleOld: "Bible, scripts, hooks et cliffhangers générés en 5 minutes — prêts pour TikTok, DramaBox et ReelShort.",
     canceledMsg: "Paiement annulé. Réessaie quand tu veux.",
@@ -229,6 +241,18 @@ const COPY = {
       { emoji: "🎞️", label: "Narrative film", sub: "Structure · Arcs · Treatment", color: "#3b82f6" },
       { emoji: "🌌", label: "Narrative universe", sub: "Bible · Spin-offs · Franchise", color: VIO },
     ],
+    howLabel: "Modular narrative studio",
+    howTitle: "You validate. The AI develops.",
+    howSub: "5 levels to build any story — from first idea to ambitious project.",
+    howSteps: [
+      { n: "01", emoji: "💡", title: "Idea & Hook", you: "You choose a genre, a universe, a tension.", ai: ["Concepts & pitches", "Punchy hooks", "Narrative tropes", "Addictive premise"], color: RED },
+      { n: "02", emoji: "📖", title: "Bible & Characters", you: "You validate the characters and arcs.", ai: ["Short & long synopsis", "Characters & motivations", "Emotional arcs", "Global structure"], color: "#f97316" },
+      { n: "03", emoji: "🎬", title: "Episodes & Structure", you: "You adjust the pacing and tensions.", ai: ["Episode breakdown", "Calibrated cliffhangers", "Twists & reveals", "Arc progression"], color: "#eab308" },
+      { n: "04", emoji: "✍️", title: "Scenes & Dialogue", you: "You edit each scene, each line.", ai: ["Individual scenes", "Dialogue & subtext", "Emotional moments", "Acting notes"], color: "#22c55e" },
+      { n: "05", emoji: "🎞️", title: "Script & Shoot", you: "You control, validate, and shoot.", ai: ["Shoot-ready formatted script", "Shoot Mode + Teleprompter", "PDF Export", "3 tone variations"], color: VIO },
+    ],
+    howTagline: "Not a magic button. A narrative studio built around you.",
+    howAiLabel: "AI generates",
     heroSubtitleOld: "Bible, scripts, hooks and cliffhangers generated in 5 minutes — ready for TikTok, DramaBox and ReelShort.",
     canceledMsg: "Payment canceled. Try again whenever you're ready.",
     ctaBtnCreate: "Start creating →",
@@ -847,6 +871,72 @@ export default function RichLandingPage({ lang = "fr" }) {
               ? "Le créateur TikTok d'aujourd'hui peut devenir le showrunner de demain."
               : "Today's TikTok creator can become tomorrow's showrunner."}
           </p>
+        </div>
+      </div>
+
+      {/* HOW IT WORKS — 5 niveaux */}
+      <div className="sec" style={{ padding: "88px 40px", borderTop: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: 0, right: 0, width: 400, height: 400, background: "radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ maxWidth: 860, margin: "0 auto" }}>
+
+          <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: RED, marginBottom: 16, fontFamily: "'Space Grotesk', sans-serif" }}>{c.howLabel}</p>
+          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(30px, 3.5vw, 52px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.05, textAlign: "center", marginBottom: 12 }}>
+            {c.howTitle}
+          </h2>
+          <p style={{ color: MUTED, fontSize: 15, textAlign: "center", maxWidth: 480, margin: "12px auto 60px", lineHeight: 1.7 }}>{c.howSub}</p>
+
+          {/* Steps */}
+          <div style={{ position: "relative" }}>
+            {/* Vertical line */}
+            <div style={{ position: "absolute", left: 27, top: 8, bottom: 8, width: 1, background: `linear-gradient(to bottom, ${RED}50, ${VIO}50)`, pointerEvents: "none" }} />
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              {c.howSteps.map((step, i) => (
+                <div key={step.n} style={{ display: "flex", gap: 32, paddingBottom: i < c.howSteps.length - 1 ? 36 : 0, alignItems: "flex-start" }}>
+                  {/* Circle */}
+                  <div style={{ width: 54, height: 54, borderRadius: "50%", background: `${step.color}12`, border: `1.5px solid ${step.color}45`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, zIndex: 1, position: "relative", boxShadow: `0 0 16px ${step.color}18` }}>
+                    <span style={{ fontSize: 12, fontWeight: 900, color: step.color, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: 0.5 }}>{step.n}</span>
+                  </div>
+
+                  {/* Content */}
+                  <div className="grid-2" style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, paddingTop: 6 }}>
+                    {/* Left: what you do */}
+                    <div>
+                      <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(18px, 2vw, 22px)", fontWeight: 900, color: TEXT, letterSpacing: -0.5, marginBottom: 10, lineHeight: 1.1 }}>
+                        {step.emoji}&nbsp;&nbsp;{step.title}
+                      </h3>
+                      <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.6 }}>
+                        <span style={{ color: step.color, fontWeight: 700 }}>
+                          {lang === "fr" ? "Toi · " : "You · "}
+                        </span>
+                        {step.you}
+                      </p>
+                    </div>
+                    {/* Right: what AI does */}
+                    <div style={{ background: `${step.color}07`, border: `1px solid ${step.color}20`, borderRadius: 14, padding: "14px 18px" }}>
+                      <p style={{ fontSize: 9, fontWeight: 800, letterSpacing: 2.5, textTransform: "uppercase", color: step.color, marginBottom: 12, fontFamily: "'Space Grotesk', sans-serif" }}>{c.howAiLabel}</p>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+                        {step.ai.map((item, j) => (
+                          <div key={j} style={{ display: "flex", alignItems: "center", gap: 9 }}>
+                            <div style={{ width: 4, height: 4, borderRadius: "50%", background: step.color, flexShrink: 0, opacity: 0.8 }} />
+                            <span style={{ fontSize: 13, color: MUTED, lineHeight: 1.3 }}>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Tagline */}
+          <div style={{ textAlign: "center", marginTop: 56, paddingTop: 40, borderTop: `1px solid ${BORDER}` }}>
+            <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(17px, 2vw, 22px)", fontStyle: "italic", color: "rgba(255,255,255,0.4)", letterSpacing: -0.3 }}>
+              {c.howTagline}
+            </p>
+          </div>
+
         </div>
       </div>
 
