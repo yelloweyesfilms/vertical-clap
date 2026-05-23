@@ -596,7 +596,7 @@ function NewsletterSection({ lang = "fr" }) {
     <div style={{ borderTop: `1px solid ${BORDER}`, padding: "72px 40px", textAlign: "center", background: "rgba(255,255,255,0.01)" }}>
       <div style={{ maxWidth: 480, margin: "0 auto" }}>
         <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>{c.nlLabel}</p>
-        <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(24px, 3vw, 38px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 12 }}>
+        <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(24px, 3vw, 38px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 12 }}>
           {c.nlTitle1}<br /><span style={{ fontStyle: "italic", color: MUTED }}>{c.nlTitle2}</span>
         </h2>
         <p style={{ color: MUTED, fontSize: 15, marginBottom: 28, lineHeight: 1.7 }}>
@@ -630,7 +630,7 @@ const Label = ({ children, color = VIO }) => (
 );
 
 const Title = ({ children, style = {} }) => (
-  <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(30px, 4vw, 52px)", fontWeight: 900, textAlign: "center", marginBottom: 12, letterSpacing: -1.5, lineHeight: 1.1, color: TEXT, ...style }}>{children}</h2>
+  <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(28px, 3.8vw, 50px)", fontWeight: 900, textAlign: "center", marginBottom: 12, letterSpacing: -1, lineHeight: 1.05, color: TEXT, textTransform: "uppercase", ...style }}>{children}</h2>
 );
 
 export default function RichLandingPage({ lang = "fr" }) {
@@ -840,10 +840,19 @@ export default function RichLandingPage({ lang = "fr" }) {
           </div>
 
           {/* Big CTA bottom */}
-          <button onClick={() => startCheckout("standard", "hero-bottom")} disabled={loading}
-            style={{ marginTop: 16, width: "100%", maxWidth: 600, padding: "18px 24px", background: `linear-gradient(135deg, ${RED} 0%, #c94424 100%)`, color: "#fff", border: "none", borderRadius: 14, fontSize: "clamp(14px, 1.5vw, 17px)", fontWeight: 900, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.04em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1, display: "block", margin: "16px auto 0" }}>
-            {loading ? c.redirecting : c.heroCtaBig}
-          </button>
+          <div style={{ marginTop: 20, maxWidth: 600, margin: "20px auto 0" }}>
+            <div className="hero-row" style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 10 }}>
+              <input type="email" placeholder={c.nlEmailPlaceholder} value={email}
+                onChange={e => { setEmail(e.target.value); setEmailError(false); }}
+                onKeyDown={e => e.key === "Enter" && startCheckout("standard", "hero-bottom")}
+                style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${emailError ? RED : "rgba(255,255,255,0.15)"}`, background: "rgba(255,255,255,0.05)", color: TEXT, fontSize: 15, flex: 1, minWidth: 200, outline: "none", backdropFilter: "blur(12px)" }} />
+              <button onClick={() => startCheckout("standard", "hero-bottom")} disabled={loading}
+                style={{ padding: "16px 24px", background: `linear-gradient(135deg, ${RED} 0%, #c94424 100%)`, color: "#fff", border: "none", borderRadius: 14, fontSize: 15, fontWeight: 900, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.04em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1, whiteSpace: "nowrap" }}>
+                {loading ? c.redirecting : c.heroCtaBig}
+              </button>
+            </div>
+            {emailError && <p style={{ color: RED, fontSize: 13, fontWeight: 600, textAlign: "center" }}>{c.emailError}</p>}
+          </div>
 
         </div>
       </div>
@@ -854,7 +863,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 16, fontFamily: "'Space Grotesk', sans-serif" }}>
             {lang === "fr" ? "Deux niveaux d'intensité" : "Two intensity levels"}
           </p>
-          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.05, textAlign: "center", marginBottom: 12 }}>
+          <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.05, textAlign: "center", marginBottom: 12 }}>
             {lang === "fr" ? "Un seul micro-drama." : "One micro-drama."}<br />
             <span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.38)" }}>
               {lang === "fr" ? "Viral ou premium." : "Viral or premium."}
@@ -874,7 +883,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 <div style={{ display: "inline-block", padding: "4px 12px", background: `${RED}15`, border: `1px solid ${RED}30`, borderRadius: 20, fontSize: 11, fontWeight: 700, color: RED, marginBottom: 20, letterSpacing: "0.05em" }}>
                   {lang === "fr" ? "MICRO DRAMA ENGINE" : "MICRO DRAMA ENGINE"}
                 </div>
-                <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(20px, 2.2vw, 28px)", fontWeight: 900, color: TEXT, letterSpacing: -0.8, lineHeight: 1.15, marginBottom: 12 }}>
+                <h3 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(20px, 2.2vw, 28px)", fontWeight: 900, color: TEXT, letterSpacing: -0.8, lineHeight: 1.15, marginBottom: 12 }}>
                   {lang === "fr" ? "Viral. Intense." : "Viral. Intense."}<br />
                   <span style={{ color: "rgba(255,255,255,0.38)", fontStyle: "italic" }}>{lang === "fr" ? "Du premier scroll au binge." : "From first scroll to binge."}</span>
                 </h3>
@@ -918,7 +927,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 <div style={{ display: "inline-block", padding: "4px 12px", background: `${VIO}15`, border: `1px solid ${VIO}30`, borderRadius: 20, fontSize: 11, fontWeight: 700, color: VIO, marginBottom: 20, letterSpacing: "0.05em" }}>
                   {lang === "fr" ? "SÉRIE PREMIUM" : "PREMIUM SERIES"}
                 </div>
-                <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(20px, 2.2vw, 28px)", fontWeight: 900, color: TEXT, letterSpacing: -0.8, lineHeight: 1.15, marginBottom: 12 }}>
+                <h3 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(20px, 2.2vw, 28px)", fontWeight: 900, color: TEXT, letterSpacing: -0.8, lineHeight: 1.15, marginBottom: 12 }}>
                   {lang === "fr" ? "Profond. Addictif." : "Deep. Addictive."}<br />
                   <span style={{ color: "rgba(255,255,255,0.38)", fontStyle: "italic" }}>{lang === "fr" ? "Des personnages qu'on n'oublie pas." : "Characters you can't forget."}</span>
                 </h3>
@@ -989,7 +998,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 {/* Card body */}
                 <div style={{ padding: "20px 22px", flex: 1, display: "flex", flexDirection: "column" }}>
                   {/* Hook */}
-                  <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(15px, 1.5vw, 18px)", fontWeight: 700, color: TEXT, fontStyle: "italic", lineHeight: 1.35, marginBottom: 14 }}>{hook}</p>
+                  <p style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(15px, 1.5vw, 18px)", fontWeight: 700, color: TEXT, fontStyle: "italic", lineHeight: 1.35, marginBottom: 14 }}>{hook}</p>
 
                   {/* Scene */}
                   <p style={{ fontSize: 13, color: "rgba(255,255,255,0.38)", lineHeight: 1.7, marginBottom: 16, paddingLeft: 10, borderLeft: `1.5px solid ${color}50`, flex: 1 }}>{scene}</p>
@@ -1256,7 +1265,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                     {c.planStandardSub && <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.4, opacity: 0.7 }}>{c.planStandardSub}</p>}
                   </div>
                   <div style={{ textAlign: "right" }}>
-                    <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 48, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
+                    <div style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: 48, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                       {billing === "annual" ? "7.5€" : "9€"}
                     </div>
                     <p style={{ color: MUTED, fontSize: 12 }}>{c.perMonth}{billing === "annual" ? " · facturé 90€/an" : ""}</p>
@@ -1292,7 +1301,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                     {c.planPremiumSub && <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.4, opacity: 0.7 }}>{c.planPremiumSub}</p>}
                   </div>
                   <div style={{ textAlign: "right" }}>
-                    <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 48, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
+                    <div style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: 48, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                       {billing === "annual" ? "14.9€" : "19€"}
                     </div>
                     <p style={{ color: MUTED, fontSize: 12 }}>{c.perMonth}{billing === "annual" ? " · facturé 179€/an" : ""}</p>
@@ -1362,7 +1371,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 <div style={{ marginBottom: 16 }}>
                   <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: post.categoryColor, background: `${post.categoryColor}12`, border: `1px solid ${post.categoryColor}25`, padding: "3px 10px", borderRadius: 6 }}>{post.category}</span>
                 </div>
-                <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 900, color: TEXT, letterSpacing: -0.3, lineHeight: 1.3, marginBottom: 12, flex: 1 }}>{post.title}</h3>
+                <h3 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: 18, fontWeight: 900, color: TEXT, letterSpacing: -0.3, lineHeight: 1.3, marginBottom: 12, flex: 1 }}>{post.title}</h3>
                 <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.6, marginBottom: 20 }}>{post.description.slice(0, 100)}…</p>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontSize: 12, color: MUTED }}>{post.readTime} {c.readTime}</span>
@@ -1383,7 +1392,7 @@ export default function RichLandingPage({ lang = "fr" }) {
       <div className="sec" style={{ padding: "100px 40px", textAlign: "center", borderTop: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(168,85,247,0.07) 0%, transparent 60%)`, pointerEvents: "none" }} />
         <div style={{ position: "relative", zIndex: 1 }}>
-          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 900, marginBottom: 20, letterSpacing: -2, lineHeight: 1.0 }}>
+          <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 900, marginBottom: 20, letterSpacing: -2, lineHeight: 1.0 }}>
             {c.ctaFinalTitle1}<br />
             {c.ctaFinalConnector}{" "}
             <span style={{ background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>

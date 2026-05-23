@@ -999,10 +999,13 @@ function StepBar({ step, lang = "fr" }) {
 function SectionHead({ title, sub, sep = true }) {
   return (
     <>
-      {sep && <div style={{ height: 1, background: "var(--bo)", margin: "6px 0 24px" }} />}
-      <div style={{ marginBottom: 18 }}>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, letterSpacing: -0.5, margin: 0, color: "var(--tx)", lineHeight: 1.1 }}>{title}</h2>
-        {sub && <p style={{ fontSize: 12, color: "var(--mt)", margin: "4px 0 0", lineHeight: 1.4 }}>{sub}</p>}
+      {sep && <div style={{ height: 1, background: "var(--bo)", margin: "6px 0 20px" }} />}
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: sub ? 4 : 0 }}>
+          <div style={{ width: 2, height: 14, background: "var(--r)", borderRadius: 2, flexShrink: 0 }} />
+          <h2 style={{ fontFamily: "var(--sans)", fontSize: 11, fontWeight: 900, letterSpacing: "0.12em", margin: 0, color: "var(--tx)", lineHeight: 1.1, textTransform: "uppercase" }}>{title}</h2>
+        </div>
+        {sub && <p style={{ fontSize: 11, color: "var(--mt)", margin: "0 0 0 10px", lineHeight: 1.4 }}>{sub}</p>}
       </div>
     </>
   );
@@ -1528,7 +1531,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
       {/* ═══ Sticky bottom — Generate button ═══ */}
       <div style={{ flexShrink: 0, padding: "14px 20px 18px", borderTop: "1.5px solid var(--bo)", background: "var(--bg)" }}>
-        <button onClick={onGen} style={{ background: "linear-gradient(135deg, #E85C3A 0%, #a855f7 100%)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 800, cursor: "pointer", letterSpacing: 0.8, textTransform: "uppercase", fontFamily: "var(--sans)" }}>
+        <button onClick={onGen} style={{ background: "linear-gradient(135deg, #E85C3A 0%, #c94424 100%)", color: "#fff", border: "none", padding: "18px 20px", borderRadius: 14, width: "100%", fontSize: 15, fontWeight: 900, cursor: "pointer", letterSpacing: "0.05em", textTransform: "uppercase", fontFamily: "var(--sans)", boxShadow: "0 6px 28px rgba(232,92,58,0.4)", transition: "opacity .2s" }}>
           {t.generate}
         </button>
         <p style={{ fontSize: 11, color: "var(--mt)", textAlign: "center", marginTop: 8 }}>
@@ -2984,12 +2987,30 @@ export default function App() {
 
   if (!customerId) {
     return (
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: 40, textAlign: "center", background: "var(--bg)" }}>
-        <div>
-          <h1 style={{ fontFamily: "var(--serif)", fontSize: 32, fontWeight: 900, marginBottom: 10 }}>Vertical Clap</h1>
-          <p style={{ color: "var(--tx)", fontSize: 15, fontWeight: 600, marginBottom: 6 }}>La plateforme d'écriture pensée pour les micro-dramas.</p>
-          <p style={{ color: "var(--mt)", fontSize: 13, letterSpacing: "0.06em", marginBottom: 28 }}>Des hooks. Des twists. Des cliffhangers.</p>
-          <a href="/" style={{ display: "inline-block", background: "var(--r)", color: "#fff", padding: "16px 32px", borderRadius: 12, fontWeight: 700, fontSize: 15 }}>Voir les tarifs →</a>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: 40, textAlign: "center", background: "#0c0c12", position: "relative", overflow: "hidden" }}>
+        {/* Glow */}
+        <div style={{ position: "absolute", top: "30%", left: "50%", transform: "translateX(-50%)", width: 600, height: 300, background: "radial-gradient(ellipse, rgba(232,92,58,0.12) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ position: "relative", zIndex: 1 }}>
+          {/* Logo mark */}
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 32 }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", lineHeight: 1 }}>
+              <span style={{ fontSize: 10, fontWeight: 900, color: "rgba(255,255,255,0.6)", letterSpacing: "0.18em", textTransform: "uppercase", fontFamily: "var(--sans)" }}>VERTICAL</span>
+              <div style={{ width: "100%", height: 1.5, background: "#E85C3A", margin: "3px 0" }} />
+              <span style={{ fontSize: 10, fontWeight: 900, color: "#E85C3A", letterSpacing: "0.18em", textTransform: "uppercase", fontFamily: "var(--sans)" }}>CLAP</span>
+            </div>
+          </div>
+          <h1 style={{ fontFamily: "var(--sans)", fontSize: "clamp(32px, 8vw, 52px)", fontWeight: 900, marginBottom: 12, color: "#f1f5f9", textTransform: "uppercase", letterSpacing: -1, lineHeight: 1 }}>
+            {lang === "en" ? "Create viral series" : "Crée des séries virales"}
+          </h1>
+          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 15, marginBottom: 8, fontFamily: "var(--sans)" }}>
+            {lang === "en" ? "Your AI studio for addictive vertical micro-dramas." : "Ton studio IA pour micro-dramas verticaux addictifs."}
+          </p>
+          <p style={{ color: "rgba(255,255,255,0.28)", fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 32, fontFamily: "var(--sans)" }}>
+            {lang === "en" ? "Hooks · Twists · Cliffhangers" : "Hooks · Twists · Cliffhangers"}
+          </p>
+          <a href="/" style={{ display: "inline-block", background: "#E85C3A", color: "#fff", padding: "16px 32px", borderRadius: 14, fontWeight: 900, fontSize: 14, fontFamily: "var(--sans)", textTransform: "uppercase", letterSpacing: "0.06em", boxShadow: "0 6px 28px rgba(232,92,58,0.4)" }}>
+            {lang === "en" ? "See plans →" : "Voir les tarifs →"}
+          </a>
         </div>
       </div>
     );
