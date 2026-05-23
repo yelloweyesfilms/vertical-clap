@@ -50,8 +50,8 @@ export default async function handler(req, res) {
 
   try {
     const md = mode === "fast"
-      ? "Fast Drama: viralité immédiate, émotions explosives, hooks agressifs, cliffhangers choc"
-      : "Premium Suspense: tension psychologique, sous-texte riche, silences éloquents, réalisme brut";
+      ? "Vertical Drama: viralité immédiate, émotions explosives, hooks agressifs, cliffhangers choc"
+      : "Série Premium: tension psychologique, sous-texte riche, silences éloquents, réalisme brut";
 
     const result = await streamClaude(
       `Tu es showrunner de micro-dramas 9:16 (TikTok, Reels, Shorts). ${md}. ${DUR_INSTR[duree]}

@@ -1307,7 +1307,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </div>
 
         <div style={{ marginBottom: 28 }}>
-          <SectionHead title={lang === "fr" ? "Nombre d'Épisodes" : "Number of Episodes"} sub={state.mode === "fast" && lang === "fr" ? "Max 20 en Fast Drama" : state.mode === "fast" ? "Max 20 in Fast Drama" : lang === "fr" ? "Jusqu'à 90 en Premium Suspense" : "Up to 90 in Premium Suspense"} />
+          <SectionHead title={lang === "fr" ? "Nombre d'Épisodes" : "Number of Episodes"} sub={state.mode === "fast" && lang === "fr" ? "Max 20 en Vertical Drama" : state.mode === "fast" ? "Max 20 in Vertical Drama" : lang === "fr" ? "Jusqu'à 90 en Série Premium" : "Up to 90 in Premium Series"} />
           <div style={{ display: "flex", gap: 8 }}>
             {[10, 20, 40, 60, 90].map(f => {
               const lockedFast = state.mode === "fast" && f > 20;

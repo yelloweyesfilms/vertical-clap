@@ -10,7 +10,7 @@ const MUTED = "#94a3b8";
 const EXEMPLES = [
   {
     mode: "fast",
-    modeLabel: "⚡ Fast Drama",
+    modeLabel: "⚡ Vertical Drama",
     casting: "1 Femme + 1 Homme",
     univers: "Hôpital privé",
     secret: "Double vie",
@@ -46,7 +46,7 @@ const EXEMPLES = [
   },
   {
     mode: "premium",
-    modeLabel: "🎭 Premium Suspense",
+    modeLabel: "🎭 Série Premium",
     casting: "2 Hommes",
     univers: "Finance internationale",
     secret: "Sabotage interne",
@@ -82,7 +82,7 @@ const EXEMPLES = [
   },
   {
     mode: "fast",
-    modeLabel: "⚡ Fast Drama",
+    modeLabel: "⚡ Vertical Drama",
     casting: "Trio mixte",
     univers: "Famille recomposée",
     secret: "Enfant caché",

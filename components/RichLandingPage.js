@@ -103,7 +103,7 @@ const COPY = {
     planPremiumSub: "Pour séries, univers narratifs et projets ambitieux",
     standardFeatures: [
       "⚡ Vertical Drama · micro-drama",
-      "10 épisodes par série",
+      "20 épisodes par série",
       "Scripts 60–90 secondes",
       "Mode Tournage + Téléprompteur",
       "🌍 Traduction en 8 langues",
@@ -137,7 +137,7 @@ const COPY = {
     faqItems: [
       { q: "C'est quoi un micro-drama vertical ?", r: "Un format vidéo court (1 à 2 min), filmé en 9:16 pour mobile, avec une structure dramatique forte : hook percutant, tension montante et cliffhanger final. Le format qui explose sur TikTok, Instagram Reels, YouTube Shorts — et sur les plateformes spécialisées comme DramaBox, ReelShort ou Crazy Maple." },
       { q: "Combien de temps pour générer une série complète ?", r: "Moins de 5 minutes. La bible (titre, logline, personnages) se génère en streaming en quelques secondes. Les épisodes arrivent en parallèle. Le script d'un épisode prend 10 secondes." },
-      { q: "Quelle différence entre Fast Drama et Premium Suspense ?", r: "Fast Drama : émotions frontales, hooks agressifs, rythme maximal — idéal pour TikTok. Premium Suspense : tension psychologique, sous-texte, silences lourds — pour une audience plus mature et des séries premium." },
+      { q: "Quelle différence entre le plan Creator et Storyteller ?", r: "Creator (Vertical Drama) : émotions frontales, hooks agressifs, rythme maximal — idéal pour TikTok, Reels et Shorts. Storyteller (Série Premium) : tension psychologique, sous-texte, silences lourds, Direction Artistique avancée — pour des séries ambitieuses et une audience plus mature." },
       { q: "Les scripts sont-ils vraiment prêts à tourner ?", r: "Oui. Chaque scène inclut le dialogue, l'indication de jeu d'acteur et la directive de cadrage 9:16. Le Mode Tournage intègre un téléprompteur auto-scroll et une checklist décors." },
       { q: "Mes séries sont-elles sauvegardées ?", r: "Elles sont sauvegardées localement sur ton appareil et synchronisées dans le cloud automatiquement. Tu y accèdes depuis n'importe quel appareil via l'onglet ☁️ Cloud." },
       { q: "Puis-je annuler mon abonnement ?", r: "Oui, à tout moment en un clic depuis ton espace Stripe. Aucun engagement, aucune pénalité. Tu gardes l'accès jusqu'à la fin de la période payée." },
@@ -346,7 +346,7 @@ const COPY = {
     faqItems: [
       { q: "What is a vertical micro-drama?", r: "A short video format (1 to 2 min), filmed in 9:16 for mobile, with a strong dramatic structure: punchy hook, rising tension and final cliffhanger. The format exploding on TikTok, Instagram Reels, YouTube Shorts — and on specialized platforms like DramaBox, ReelShort or Crazy Maple." },
       { q: "How long does it take to generate a complete series?", r: "Less than 5 minutes. The bible (title, logline, characters) is generated in streaming in a few seconds. Episodes arrive in parallel. A single episode script takes 10 seconds." },
-      { q: "What's the difference between Fast Drama and Premium Suspense?", r: "Fast Drama: frontal emotions, aggressive hooks, maximum pace — ideal for TikTok. Premium Suspense: psychological tension, subtext, heavy silences — for a more mature audience and premium series." },
+      { q: "What's the difference between Creator and Storyteller?", r: "Creator (Vertical Drama): frontal emotions, aggressive hooks, maximum pace — ideal for TikTok, Reels and Shorts. Storyteller (Premium Series): psychological tension, subtext, heavy silences, advanced Artistic Direction — for ambitious series and a more mature audience." },
       { q: "Are the scripts really ready to shoot?", r: "Yes. Each scene includes dialogue, acting direction and 9:16 framing directive. Shoot Mode includes an auto-scroll teleprompter and a set checklist." },
       { q: "Are my series saved?", r: "They are saved locally on your device and synced to the cloud automatically. You can access them from any device via the ☁️ Cloud tab." },
       { q: "Can I cancel my subscription?", r: "Yes, at any time in one click from your Stripe account. No commitment, no penalty. You keep access until the end of the paid period." },

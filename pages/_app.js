@@ -75,8 +75,8 @@ export default function App({ Component, pageProps }) {
           "applicationCategory": "CreativeApplication",
           "operatingSystem": "Web",
           "offers": [
-            { "@type": "Offer", "price": "9", "priceCurrency": "EUR", "name": "Standard", "description": "Génération de micro-dramas 9:16 avec IA, 10 épisodes par série" },
-            { "@type": "Offer", "price": "19", "priceCurrency": "EUR", "name": "Premium", "description": "Fast Drama + Premium Suspense, 90 épisodes, 3 variations par script" },
+            { "@type": "Offer", "price": "9", "priceCurrency": "EUR", "name": "Creator", "description": "Vertical Drama · micro-drama 9:16 avec IA, 20 épisodes par série" },
+            { "@type": "Offer", "price": "19", "priceCurrency": "EUR", "name": "Storyteller", "description": "Vertical Drama + Série Premium, 90 épisodes, Direction Artistique, 3 variations par script" },
           ],
           "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "50" },
         }) }} />

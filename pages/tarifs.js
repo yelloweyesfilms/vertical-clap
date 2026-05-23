@@ -41,9 +41,9 @@ const Logo = () => (
 );
 
 const FEATURES = [
-  { label: "Mode Fast Drama", std: true, prem: true },
-  { label: "Mode Premium Suspense", std: false, prem: true },
-  { label: "Épisodes par série", std: "10 max", prem: "90 max" },
+  { label: "Vertical Drama (micro-drama)", std: true, prem: true },
+  { label: "Série Premium (tension psychologique)", std: false, prem: true },
+  { label: "Épisodes par série", std: "20 max", prem: "90 max" },
   { label: "Scripts prêts à tourner (9:16)", std: true, prem: true },
   { label: "Hook 3 secondes + Cliffhanger", std: true, prem: true },
   { label: "3 variations par script (Intense / Subtil / Rapide)", std: false, prem: true },
@@ -59,8 +59,8 @@ const FEATURES = [
 ];
 
 const FAQ = [
-  { q: "Quelle est la différence entre Fast Drama et Premium Suspense ?", r: "Fast Drama génère des dialogues directs, des hooks agressifs et un rythme maximal — parfait pour TikTok. Premium Suspense travaille la tension psychologique, les non-dits et les sous-textes. Disponible uniquement en Premium." },
-  { q: "Puis-je passer de Standard à Premium à tout moment ?", r: "Oui, en un clic depuis ton espace Stripe. La différence de prix est proratisée automatiquement." },
+  { q: "Quelle est la différence entre Creator et Storyteller ?", r: "Creator (Vertical Drama) génère des dialogues directs, des hooks agressifs et un rythme maximal — parfait pour TikTok. Storyteller (Série Premium) travaille la tension psychologique, les non-dits, les sous-textes et la Direction Artistique avancée. Disponible uniquement en Storyteller." },
+  { q: "Puis-je passer de Creator à Storyteller à tout moment ?", r: "Oui, en un clic depuis ton espace Stripe. La différence de prix est proratisée automatiquement." },
   { q: "Puis-je annuler mon abonnement ?", r: "Oui, à tout moment depuis ton espace Stripe. Aucun engagement. Tu gardes l'accès jusqu'à la fin de la période payée." },
   { q: "L'abonnement annuel est-il remboursable ?", r: "Oui, dans les 7 jours suivant le débit annuel. Contacte-nous via le chat." },
 ];
@@ -220,7 +220,7 @@ export default function Tarifs() {
             {/* STANDARD */}
             <div className="glass" style={{ borderRadius: 28, padding: "40px 36px", position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${RED}, transparent)` }} />
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 16 }}>Standard</p>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 16 }}>Creator</p>
               <div style={{ display: "flex", alignItems: "flex-end", gap: 8, marginBottom: 4 }}>
                 <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 64, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                   {billing === "annual" ? "7.5€" : "9€"}
@@ -231,13 +231,13 @@ export default function Tarifs() {
               {billing === "annual" && <p style={{ fontSize: 13, color: "#4ade80", fontWeight: 600, marginBottom: 28 }}>facturé 90€/an</p>}
               <button onClick={() => startCheckout("standard", "tarifs")} disabled={loading}
                 style={{ width: "100%", background: RED, color: "#fff", border: "none", padding: "15px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 24px rgba(232,92,58,0.35)`, transition: "all .2s" }}>
-                {loading ? "Redirection…" : "Commencer Standard →"}
+                {loading ? "Redirection…" : "Commencer Creator →"}
               </button>
               <div style={{ height: 1, background: BORDER, margin: "28px 0" }} />
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 {[
-                  "Fast Drama uniquement",
-                  "10 épisodes par série",
+                  "⚡ Vertical Drama · micro-drama",
+                  "20 épisodes par série",
                   "Scripts prêts à tourner (9:16)",
                   "Affiche IA incluse",
                   "Mode Tournage + Téléprompteur",
@@ -257,7 +257,7 @@ export default function Tarifs() {
             <div style={{ borderRadius: 28, padding: "40px 36px", position: "relative", overflow: "hidden", background: "rgba(168,85,247,0.05)", border: "1.5px solid rgba(168,85,247,0.28)", boxShadow: "0 0 60px rgba(168,85,247,0.10)" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${VIO}, ${RED})` }} />
               <div style={{ position: "absolute", top: -14, left: "50%", transform: "translateX(-50%)", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 18px", borderRadius: 20, letterSpacing: 1.5, whiteSpace: "nowrap" }}>⭐ RECOMMANDÉ</div>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 16 }}>Premium</p>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 16 }}>Storyteller</p>
               <div style={{ display: "flex", alignItems: "flex-end", gap: 8, marginBottom: 4 }}>
                 <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 64, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                   {billing === "annual" ? "14.9€" : "19€"}
@@ -268,12 +268,12 @@ export default function Tarifs() {
               {billing === "annual" && <p style={{ fontSize: 13, color: "#4ade80", fontWeight: 600, marginBottom: 28 }}>facturé 179€/an</p>}
               <button onClick={() => startCheckout("premium", "tarifs")} disabled={loading}
                 style={{ width: "100%", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", padding: "15px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 32px rgba(168,85,247,0.3), 0 0 16px rgba(232,92,58,0.2)`, transition: "all .2s" }}>
-                {loading ? "Redirection…" : "Commencer Premium →"}
+                {loading ? "Redirection…" : "Commencer Storyteller →"}
               </button>
               <div style={{ height: 1, background: "rgba(168,85,247,0.15)", margin: "28px 0" }} />
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 {[
-                  { t: "Fast Drama + Premium Suspense", highlight: true },
+                  { t: "⚡ Vertical + 🎭 Série Premium", highlight: true },
                   { t: "Jusqu'à 90 épisodes par série", highlight: true },
                   { t: "Scripts prêts à tourner (9:16)", highlight: false },
                   { t: "Affiche IA incluse", highlight: false },

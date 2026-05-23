@@ -89,7 +89,7 @@ export default function SeriePage({ serie }) {
           {/* Badges */}
           <div style={{ display: "flex", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>
             <span style={{ padding: "5px 14px", borderRadius: 6, background: `${modeColor}15`, border: `1px solid ${modeColor}30`, color: modeColor, fontSize: 11, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase" }}>
-              {mode === "fast" ? "⚡ Fast Drama" : "🎭 Premium Suspense"}
+              {mode === "fast" ? "⚡ Vertical Drama" : "🎭 Série Premium"}
             </span>
             <span style={{ padding: "5px 14px", borderRadius: 6, background: `${platColor}15`, border: `1px solid ${platColor}30`, color: platColor, fontSize: 11, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase" }}>
               {platIcon} {platform}
