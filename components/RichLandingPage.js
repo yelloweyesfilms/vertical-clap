@@ -38,7 +38,7 @@ const COPY = {
       { emoji: "⚡", label: "Micro-drama", sub: "TikTok · Reels · 60s", color: RED },
       { emoji: "📱", label: "Série verticale", sub: "10–20 épisodes · Mobile", color: "#f97316" },
       { emoji: "🎬", label: "Web série", sub: "Storytelling social · Binge", color: "#eab308" },
-      { emoji: "🎭", label: "Série premium", sub: "DramaBox · ReelShort · 90 éps", color: "#22c55e" },
+      { emoji: "🎭", label: "Série premium", sub: "Plateformes premium · 90 éps", color: "#22c55e" },
       { emoji: "🎞️", label: "Film narratif", sub: "Structure · Arcs · Traitement", color: "#3b82f6" },
       { emoji: "🌌", label: "Univers narratif", sub: "Bible · Spin-offs · Franchise", color: VIO },
     ],
@@ -55,7 +55,7 @@ const COPY = {
     howTagline: "Pas un bouton magique. Un studio narratif à ta mesure.",
     howAiLabel: "L'IA génère",
     heroSubtitle: "Des hooks. Des twists. Des cliffhangers.",
-    heroSubtitleOld: "Bible, scripts, hooks et cliffhangers générés en 5 minutes — prêts pour TikTok, DramaBox et ReelShort.",
+    heroSubtitleOld: "Bible, scripts, hooks et cliffhangers générés en 5 minutes — prêts pour TikTok, Reels et Shorts.",
     canceledMsg: "Paiement annulé. Réessaie quand tu veux.",
     ctaBtnCreate: "Commencer à créer →",
     ctaBtnDemo: "Voir les exemples",
@@ -103,7 +103,7 @@ const COPY = {
     forYouProfiles: [
       { emoji: "📱", title: "Le créateur solo", sub: "Tu postes sur TikTok, Reels ou Shorts. Tu veux des séries courtes, des hooks qui accrochent, un rythme maximal. Creator te donne tout ça en 5 minutes.", color: "#E85C3A" },
       { emoji: "🎬", title: "L'auteur en développement", sub: "Tu as des idées plus ambitieuses — personnages complexes, arcs narratifs, plusieurs épisodes. Storyteller te donne la structure et la Direction Artistique.", color: "#f97316" },
-      { emoji: "🎭", title: "Le showrunner", sub: "Tu gères une équipe, tu livres sur des plateformes (DramaBox, ReelShort). 90 épisodes, 3 variations par script, fiche de production — tout y est.", color: "#a855f7" },
+      { emoji: "🎭", title: "Le showrunner", sub: "Tu gères une équipe, tu livres sur des plateformes premium. 90 épisodes, 3 variations par script, fiche de production — tout y est.", color: "#a855f7" },
     ],
     pipelineLabel: "De l'idée au tournage",
     pipelineTitle1: "5 minutes. Série complète.",
@@ -157,7 +157,7 @@ const COPY = {
     faqLabel: "FAQ",
     faqTitle: "Questions fréquentes.",
     faqItems: [
-      { q: "C'est quoi un micro-drama vertical ?", r: "Un format vidéo court (1 à 2 min), filmé en 9:16 pour mobile, avec une structure dramatique forte : hook percutant, tension montante et cliffhanger final. Le format qui explose sur TikTok, Instagram Reels, YouTube Shorts — et sur les plateformes spécialisées comme DramaBox, ReelShort ou Crazy Maple." },
+      { q: "C'est quoi un micro-drama vertical ?", r: "Un format vidéo court (1 à 2 min), filmé en 9:16 pour mobile, avec une structure dramatique forte : hook percutant, tension montante et cliffhanger final. Le format qui explose sur TikTok, Instagram Reels, YouTube Shorts — et sur les plateformes spécialisées de micro-dramas." },
       { q: "Combien de temps pour générer une série complète ?", r: "Moins de 5 minutes. La bible (titre, logline, personnages) se génère en streaming en quelques secondes. Les épisodes arrivent en parallèle. Le script d'un épisode prend 10 secondes." },
       { q: "Quelle différence entre le plan Creator et Storyteller ?", r: "Creator (Vertical Drama) : émotions frontales, hooks agressifs, rythme maximal — idéal pour TikTok, Reels et Shorts. Storyteller (Série Premium) : tension psychologique, sous-texte, silences lourds, Direction Artistique avancée — pour des séries ambitieuses et une audience plus mature." },
       { q: "Les scripts sont-ils vraiment prêts à tourner ?", r: "Oui. Chaque scène inclut le dialogue, l'indication de jeu d'acteur et la directive de cadrage 9:16. Le Mode Tournage intègre un téléprompteur auto-scroll et une checklist décors." },
@@ -277,7 +277,7 @@ const COPY = {
       { emoji: "⚡", label: "Micro-drama", sub: "TikTok · Reels · 60s", color: RED },
       { emoji: "📱", label: "Vertical series", sub: "10–20 episodes · Mobile", color: "#f97316" },
       { emoji: "🎬", label: "Web series", sub: "Social storytelling · Binge", color: "#eab308" },
-      { emoji: "🎭", label: "Premium series", sub: "DramaBox · ReelShort · 90 eps", color: "#22c55e" },
+      { emoji: "🎭", label: "Premium series", sub: "Premium platforms · 90 eps", color: "#22c55e" },
       { emoji: "🎞️", label: "Narrative film", sub: "Structure · Arcs · Treatment", color: "#3b82f6" },
       { emoji: "🌌", label: "Narrative universe", sub: "Bible · Spin-offs · Franchise", color: VIO },
     ],
@@ -293,7 +293,7 @@ const COPY = {
     ],
     howTagline: "Not a magic button. A narrative studio built around you.",
     howAiLabel: "AI generates",
-    heroSubtitleOld: "Bible, scripts, hooks and cliffhangers generated in 5 minutes — ready for TikTok, DramaBox and ReelShort.",
+    heroSubtitleOld: "Bible, scripts, hooks and cliffhangers generated in 5 minutes — ready for TikTok, Reels and Shorts.",
     canceledMsg: "Payment canceled. Try again whenever you're ready.",
     ctaBtnCreate: "Start creating →",
     ctaBtnDemo: "See examples",
@@ -341,7 +341,7 @@ const COPY = {
     forYouProfiles: [
       { emoji: "📱", title: "The solo creator", sub: "You post on TikTok, Reels or Shorts. You want short series, hooks that grab, maximum pace. Creator gives you all that in 5 minutes.", color: "#E85C3A" },
       { emoji: "🎬", title: "The developing author", sub: "You have bigger ideas — complex characters, narrative arcs, multi-episode formats. Storyteller gives you the structure and Artistic Direction.", color: "#f97316" },
-      { emoji: "🎭", title: "The showrunner", sub: "You manage a team, deliver to platforms (DramaBox, ReelShort). 90 episodes, 3 variations per script, production sheet — all there.", color: "#a855f7" },
+      { emoji: "🎭", title: "The showrunner", sub: "You manage a team, deliver to premium platforms. 90 episodes, 3 variations per script, production sheet — all there.", color: "#a855f7" },
     ],
     pipelineLabel: "From idea to shoot",
     pipelineTitle1: "5 minutes. Complete series.",
@@ -395,7 +395,7 @@ const COPY = {
     faqLabel: "FAQ",
     faqTitle: "Frequently asked questions.",
     faqItems: [
-      { q: "What is a vertical micro-drama?", r: "A short video format (1 to 2 min), filmed in 9:16 for mobile, with a strong dramatic structure: punchy hook, rising tension and final cliffhanger. The format exploding on TikTok, Instagram Reels, YouTube Shorts — and on specialized platforms like DramaBox, ReelShort or Crazy Maple." },
+      { q: "What is a vertical micro-drama?", r: "A short video format (1 to 2 min), filmed in 9:16 for mobile, with a strong dramatic structure: punchy hook, rising tension and final cliffhanger. The format exploding on TikTok, Instagram Reels, YouTube Shorts — and on specialized micro-drama platforms." },
       { q: "How long does it take to generate a complete series?", r: "Less than 5 minutes. The bible (title, logline, characters) is generated in streaming in a few seconds. Episodes arrive in parallel. A single episode script takes 10 seconds." },
       { q: "What's the difference between Creator and Storyteller?", r: "Creator (Vertical Drama): frontal emotions, aggressive hooks, maximum pace — ideal for TikTok, Reels and Shorts. Storyteller (Premium Series): psychological tension, subtext, heavy silences, advanced Artistic Direction — for ambitious series and a more mature audience." },
       { q: "Are the scripts really ready to shoot?", r: "Yes. Each scene includes dialogue, acting direction and 9:16 framing directive. Shoot Mode includes an auto-scroll teleprompter and a set checklist." },
@@ -764,6 +764,7 @@ export default function RichLandingPage({ lang = "fr" }) {
         </nav>
       </div>
 
+      <main>
       {/* HERO — BOLD COMMERCIAL */}
       <div style={{ position: "relative", overflow: "hidden" }}>
         {/* Background glow */}
@@ -818,7 +819,7 @@ export default function RichLandingPage({ lang = "fr" }) {
               </button>
             </div>
             <a href={lang === "en" ? "/en/exemples" : "/exemples"}
-              style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, color: "rgba(255,255,255,0.3)", fontWeight: 600, letterSpacing: 0.3, textDecoration: "none" }}>
+              style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, color: "rgba(255,255,255,0.65)", fontWeight: 600, letterSpacing: 0.3, textDecoration: "none" }}>
               <span style={{ width: 18, height: 18, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, flexShrink: 0 }}>▶</span>
               {c.ctaBtnDemo}
             </a>
@@ -834,7 +835,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             ].map((s, i) => (
               <div key={i} style={{ flex: 1, padding: "20px 16px", borderRight: i < 2 ? "1px solid rgba(255,255,255,0.07)" : "none", textAlign: "center" }}>
                 <div style={{ fontSize: "clamp(22px, 3vw, 34px)", fontWeight: 900, color: i === 2 ? RED : TEXT, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: -1, lineHeight: 1 }}>{s.val}</div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", marginTop: 6, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>{s.label}</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.65)", marginTop: 6, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -885,7 +886,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 </div>
                 <h3 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(20px, 2.2vw, 28px)", fontWeight: 900, color: TEXT, letterSpacing: -0.8, lineHeight: 1.15, marginBottom: 12 }}>
                   {lang === "fr" ? "Viral. Intense." : "Viral. Intense."}<br />
-                  <span style={{ color: "rgba(255,255,255,0.38)", fontStyle: "italic" }}>{lang === "fr" ? "Du premier scroll au binge." : "From first scroll to binge."}</span>
+                  <span style={{ color: "rgba(255,255,255,0.62)", fontStyle: "italic" }}>{lang === "fr" ? "Du premier scroll au binge." : "From first scroll to binge."}</span>
                 </h3>
                 <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.7, marginBottom: 24 }}>
                   {lang === "fr"
@@ -929,12 +930,12 @@ export default function RichLandingPage({ lang = "fr" }) {
                 </div>
                 <h3 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(20px, 2.2vw, 28px)", fontWeight: 900, color: TEXT, letterSpacing: -0.8, lineHeight: 1.15, marginBottom: 12 }}>
                   {lang === "fr" ? "Profond. Addictif." : "Deep. Addictive."}<br />
-                  <span style={{ color: "rgba(255,255,255,0.38)", fontStyle: "italic" }}>{lang === "fr" ? "Des personnages qu'on n'oublie pas." : "Characters you can't forget."}</span>
+                  <span style={{ color: "rgba(255,255,255,0.62)", fontStyle: "italic" }}>{lang === "fr" ? "Des personnages qu'on n'oublie pas." : "Characters you can't forget."}</span>
                 </h3>
                 <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.7, marginBottom: 24 }}>
                   {lang === "fr"
-                    ? "Tension psychologique, sous-texte, Direction Artistique avancée. Pour des micro-dramas premium sur DramaBox et ReelShort."
-                    : "Psychological tension, subtext, advanced Artistic Direction. For premium micro-dramas on DramaBox and ReelShort."}
+                    ? "Tension psychologique, sous-texte, Direction Artistique avancée. Pour des micro-dramas premium sur les plateformes verticales."
+                    : "Psychological tension, subtext, advanced Artistic Direction. For premium micro-dramas on vertical platforms."}
                 </p>
               </div>
               <div style={{ borderTop: `1px solid ${BORDER}`, padding: "18px 28px 24px", display: "flex", flexDirection: "column", gap: 9 }}>
@@ -943,13 +944,13 @@ export default function RichLandingPage({ lang = "fr" }) {
                   "Tension en sous-texte et silences",
                   "Jusqu'à 90 épisodes par série",
                   "3 variations de ton par script",
-                  "DramaBox · ReelShort · Plateformes",
+                  "Plateformes premium · verticales",
                 ] : [
                   "Characters with arcs and psychology",
                   "Tension through subtext and silence",
                   "Up to 90 episodes per series",
                   "3 tone variations per script",
-                  "DramaBox · ReelShort · Platforms",
+                  "Premium vertical platforms",
                 ]).map(item => (
                   <div key={item} style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <div style={{ width: 5, height: 5, borderRadius: "50%", background: VIO, flexShrink: 0 }} />
@@ -971,7 +972,7 @@ export default function RichLandingPage({ lang = "fr" }) {
       <div className="sec" style={{ padding: "80px 40px", background: "linear-gradient(180deg, rgba(168,85,247,0.04) 0%, transparent 100%)", borderBottom: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={VIO}>{c.cliffhangersLabel}</Label>
-          <Title>{lang === "fr" ? "Chaque épisode se termine" : "Every episode ends"}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{lang === "fr" ? "par une scène impossible à ignorer." : "with a scene impossible to ignore."}</span></Title>
+          <Title>{lang === "fr" ? "Chaque épisode se termine" : "Every episode ends"}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.62)" }}>{lang === "fr" ? "par une scène impossible à ignorer." : "with a scene impossible to ignore."}</span></Title>
           <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>{c.cliffhangersCaption}</p>
 
           <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
@@ -1027,7 +1028,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           <Label color={RED}>{lang === "fr" ? "La structure" : "The structure"}</Label>
           <Title style={{ textAlign: "center", marginBottom: 12 }}>
             {lang === "fr" ? "1 minute." : "1 minute."}<br />
-            <span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{lang === "fr" ? "5 phases. Zéro temps mort." : "5 phases. Zero dead time."}</span>
+            <span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.62)" }}>{lang === "fr" ? "5 phases. Zéro temps mort." : "5 phases. Zero dead time."}</span>
           </Title>
           <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>
             {lang === "fr"
@@ -1127,7 +1128,7 @@ export default function RichLandingPage({ lang = "fr" }) {
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={RED}>{c.mixerLabel}</Label>
-          <Title>{lang === "fr" ? "Ton studio narratif," : "Your narrative studio,"}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{lang === "fr" ? "organisé en 4 onglets." : "organized in 4 tabs."}</span></Title>
+          <Title>{lang === "fr" ? "Ton studio narratif," : "Your narrative studio,"}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.62)" }}>{lang === "fr" ? "organisé en 4 onglets." : "organized in 4 tabs."}</span></Title>
           <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>
             {lang === "fr"
               ? "Chaque paramètre à sa place. Le bouton Générer toujours visible."
@@ -1262,7 +1263,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
                   <div>
                     <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 6 }}>{c.planStandard}</p>
-                    {c.planStandardSub && <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.4, opacity: 0.7 }}>{c.planStandardSub}</p>}
+                    {c.planStandardSub && <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.4 }}>{c.planStandardSub}</p>}
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <div style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: 48, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
@@ -1298,7 +1299,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
                   <div>
                     <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 6 }}>{c.planPremium}</p>
-                    {c.planPremiumSub && <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.4, opacity: 0.7 }}>{c.planPremiumSub}</p>}
+                    {c.planPremiumSub && <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.4 }}>{c.planPremiumSub}</p>}
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <div style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: 48, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
@@ -1404,7 +1405,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           <div className="hero-row" style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
             <input type="email" placeholder={c.nlEmailPlaceholder} value={email} onChange={e => setEmail(e.target.value)}
               style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 240, outline: "none" }} />
-            <GlowBtn onClick={() => startCheckout("standard", "cta_final")} disabled={loading} gradient>
+            <GlowBtn onClick={() => startCheckout("standard", "cta_final")} disabled={loading}>
               {loading ? c.redirecting : c.ctaBtn}
             </GlowBtn>
           </div>
@@ -1418,6 +1419,8 @@ export default function RichLandingPage({ lang = "fr" }) {
           </div>
         </div>
       </div>
+
+      </main>
 
       {/* FOOTER */}
       <footer style={{ borderTop: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.01)" }}>
@@ -1451,7 +1454,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           <div style={{ borderTop: `1px solid ${BORDER}`, paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
             <p style={{ color: MUTED, fontSize: 12 }}>{c.footerCopyright}</p>
             <div style={{ display: "flex", gap: 6 }}>
-              {["TikTok", "Reels", "Shorts", "DramaBox", "ReelShort"].map(p => (
+              {["TikTok", "Reels", "Shorts", "Plateformes premium"].map(p => (
                 <span key={p} style={{ fontSize: 10, color: MUTED, background: SURFACE, border: `1px solid ${BORDER}`, padding: "3px 8px", borderRadius: 6, fontWeight: 500 }}>{p}</span>
               ))}
             </div>

@@ -878,7 +878,7 @@ function MesSeriesView({ onLoad, onBack, t }) {
       <div style={{ background: "var(--card)", borderBottom: "1px solid var(--bo)", padding: "20px 20px 18px" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", color: "var(--mt)", fontSize: 13, cursor: "pointer", padding: 0, marginBottom: 12, fontFamily: "var(--sans)" }}>{t.back}</button>
         <h1 style={{ fontFamily: "var(--sans)", fontSize: 20, fontWeight: 900, color: "var(--tx)", letterSpacing: "0.05em", textTransform: "uppercase" }}>{t.my_series_title}</h1>
-        <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 4 }}>{series.length} {t.saved}</p>
+        <p style={{ fontSize: 12, color: "var(--mt)", marginTop: 4 }}>{series.length} {t.saved}</p>
       </div>
       <div style={{ padding: "20px", maxWidth: 520, margin: "0 auto" }}>
         {series.length === 0 ? (
@@ -1024,18 +1024,13 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
     : [{ id: "univers", label: "Univers" }, { id: "persos", label: "Persos" }, { id: "ambiance", label: "Ambiance" }, { id: "format", label: "Format" }];
 
   const selectFormat = (f) => {
-    const locked = f.mode === "premium" && plan === "standard";
-    if (locked) return;
     set(prev => ({
       genreFormat: prev.genreFormat === f.id ? null : f.id,
-      mode: f.mode,
       genre: f.genre,
       tropes: f.tropes ? f.tropes : prev.tropes,
       ambianceVisuelle: f.ambianceVisuelle ? f.ambianceVisuelle : prev.ambianceVisuelle,
       style: f.style,
-      univers: f.mode !== prev.mode ? (f.mode === "fast" ? opts.univers_fast[0] : opts.univers_prem[0]) : prev.univers,
-      secret: f.mode !== prev.mode ? (f.mode === "fast" ? opts.secret_fast[0] : opts.secret_prem[0]) : prev.secret,
-      format: f.mode === "fast" && prev.format > 20 ? 20 : prev.format,
+      univers: f.mode !== prev.mode ? (f.mode === "fast" ? prev.univers : prev.univers) : prev.univers,
     }));
   };
 
@@ -1076,18 +1071,17 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             onClick={() => { if (plan === "standard") { alert(lang === "fr" ? "Le mode Série est réservé au plan Storyteller (19€/mois)." : "Series mode requires the Storyteller plan (19€/mo)."); return; } set(prev => ({ mode: "premium", univers: prev.mode !== "premium" ? (lang === "en" ? "AI startup" : "Start-up IA") : prev.univers, secret: prev.mode !== "premium" ? (lang === "en" ? "Internal sabotage" : "Sabotage interne") : prev.secret, genreFormat: null })); }}
             style={{ flex: 1, padding: "8px 10px", borderRadius: 10, border: `1.5px solid ${state.mode === "premium" ? "#a855f7" : plan === "standard" ? "rgba(168,85,247,0.25)" : "var(--bo)"}`, cursor: plan === "standard" ? "not-allowed" : "pointer", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "premium" ? "rgba(168,85,247,0.15)" : "transparent", textAlign: "left", position: "relative" }}>
             <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: "0.06em", textTransform: "uppercase", color: state.mode === "premium" ? "#a855f7" : plan === "standard" ? "rgba(168,85,247,0.5)" : "var(--mt)" }}>{lang === "en" ? "Série" : "Série"} {plan === "standard" && <span style={{ fontSize: 9, background: "rgba(168,85,247,0.2)", color: "rgba(168,85,247,0.8)", padding: "1px 5px", borderRadius: 4, marginLeft: 4 }}>19€</span>}</div>
-            <div style={{ fontSize: 10, color: state.mode === "premium" ? "rgba(168,85,247,0.7)" : "var(--mt)", marginTop: 1 }}>{lang === "en" ? "DramaBox · 20–90 eps · premium" : "DramaBox · 20–90 éps · premium"}</div>
+            <div style={{ fontSize: 10, color: state.mode === "premium" ? "rgba(168,85,247,0.7)" : "var(--mt)", marginTop: 1 }}>{lang === "en" ? "Plateformes premium · 20–90 eps" : "Plateformes premium · 20–90 éps"}</div>
           </button>
         </div>
         {/* Format chips — horizontal scroll */}
         <div style={{ display: "flex", gap: 6, overflowX: "auto", paddingBottom: 4, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
           {STORY_FORMATS.map(f => {
-            const locked = f.mode === "premium" && plan === "standard";
             const active = state.genreFormat === f.id;
             return (
               <button key={f.id} onClick={() => selectFormat(f)}
-                style={{ flexShrink: 0, padding: "7px 12px", borderRadius: 20, border: `1.5px solid ${active ? f.color : locked ? "rgba(168,85,247,0.25)" : "rgba(255,255,255,0.15)"}`, background: active ? `${f.color}30` : "transparent", cursor: locked ? "not-allowed" : "pointer", transition: "all .18s", opacity: locked ? 0.5 : 1 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: active ? f.color : locked ? "rgba(168,85,247,0.7)" : "rgba(255,255,255,0.8)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{f.label[lang] || f.label.fr}</span>
+                style={{ flexShrink: 0, padding: "7px 12px", borderRadius: 20, border: `1.5px solid ${active ? f.color : "var(--bo)"}`, background: active ? `${f.color}30` : "transparent", cursor: "pointer", transition: "all .18s" }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: active ? f.color : "var(--mt)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{f.label[lang] || f.label.fr}</span>
               </button>
             );
           })}
@@ -1555,25 +1549,10 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   );
 }
 
-function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, onProfils, onCalendrier, onSaison2, t, lang }) {
+function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, onCalendrier, onSaison2, t, lang }) {
   const [tab, setTab] = useState("bible");
-  const [titres, setTitres] = useState(null);
-  const [loadingTitres, setLoadingTitres] = useState(false);
   const [cartes, setCartes] = useState(null);
   const [loadingCartes, setLoadingCartes] = useState(false);
-
-  const genTitres = async () => {
-    setTab("titres");
-    setLoadingTitres(true);
-    try {
-      const r = await gen("titres", { titre: bible.titre, logline: bible.logline, pitch: bible.pitch, mode, lang }, customerId);
-      setTitres(r.titres || []);
-    } catch (e) {
-      console.error(e);
-      setTitres([]);
-    }
-    setLoadingTitres(false);
-  };
 
   const genCartes = async () => {
     setTab("persos");
@@ -1589,7 +1568,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
     setLoadingCartes(false);
   };
 
-  const bibleStep = (tab === "seq" || tab === "titres") ? 3 : 2;
+  const bibleStep = tab === "seq" ? 3 : 2;
 
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
@@ -1613,13 +1592,9 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
             { k: "bible", l: t.bible_tab },
             { k: "persos", l: t.persos_tab },
             { k: "seq", l: `Saison 1` },
-            { k: "titres", l: plan === "standard" ? t.titres_locked : t.titres_tab },
           ].map(({ k, l }) => {
-            const locked = k === "titres" && plan === "standard";
-            const onClick = locked
-              ? () => alert(t.premium_titles)
-              : k === "titres" ? (titres ? () => setTab("titres") : genTitres)
-              : k === "persos" ? genCartes
+            const locked = false;
+            const onClick = k === "persos" ? genCartes
               : () => setTab(k);
             return (
               <button key={k} onClick={onClick}
@@ -1657,9 +1632,6 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
             <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
               <button onClick={onSaison2} style={{ flex: "1 1 80px", background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
                 {t.saison2_btn}
-              </button>
-              <button onClick={onProfils} style={{ flex: "1 1 80px", background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
-                {t.profils_btn}
               </button>
               <button onClick={onCalendrier} style={{ flex: "1 1 80px", background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 14, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
                 {t.calendrier_btn}
@@ -1710,26 +1682,6 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               );
             })}
             {!cartes && <button onClick={genCartes} style={{ background: "var(--n)", color: "#fff", border: "none", padding: 16, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", marginTop: 8 }}>{t.enrich}</button>}
-          </>
-        ) : tab === "titres" ? (
-          <>
-            {loadingTitres ? (
-              <div style={{ textAlign: "center", padding: "40px 0", color: "var(--mt)" }}>
-                <div style={{ fontSize: 28, marginBottom: 12, animation: "pulse 1.2s infinite" }}>🔥</div>
-                <p>{t.loading_titres}</p>
-              </div>
-            ) : (titres || []).map((t, i) => (
-              <div key={i} style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 12, border: "1.5px solid var(--bo)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                  <h3 style={{ fontFamily: "var(--serif)", fontSize: 17, fontWeight: 800, flex: 1 }}>{t.titre}</h3>
-                  <div style={{ background: t.score >= 90 ? "var(--r)" : t.score >= 80 ? "#f59e0b" : "var(--n)", color: "#fff", borderRadius: 8, padding: "4px 10px", fontSize: 13, fontWeight: 800, marginLeft: 10, flexShrink: 0 }}>
-                    {t.score}
-                  </div>
-                </div>
-                <p style={{ fontSize: 13, fontWeight: 600, color: "var(--tx)", marginBottom: 4 }}>« {t.accroche} »</p>
-                <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5 }}>{t.pourquoi}</p>
-              </div>
-            ))}
           </>
         ) : (
           <>
@@ -3049,7 +3001,7 @@ export default function App() {
 
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} />}
-      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} onProfils={genProfils} onCalendrier={genCalendrier} onSaison2={genSaison2} t={t} lang={lang} />}
+      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} onCalendrier={genCalendrier} onSaison2={genSaison2} t={t} lang={lang} />}
       {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
