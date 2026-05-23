@@ -2808,7 +2808,8 @@ export default function App() {
   useEffect(() => {
     if (!router.isReady) return;
     const stored = localStorage.getItem("vs_customer");
-    const { session_id, admin } = router.query;
+    const { session_id, admin, preview } = router.query;
+    if (preview === "standard") { setPlan("standard"); setChecking(false); return; }
     if (admin && admin === process.env.NEXT_PUBLIC_JETON_ADMIN) {
       localStorage.setItem("vs_customer", admin);
       setCustomerId(admin);
