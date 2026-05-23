@@ -875,9 +875,9 @@ function MesSeriesView({ onLoad, onBack, t }) {
 
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-      <div style={{ background: "var(--tx)", padding: "28px 20px 24px" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.5)", fontSize: 13, cursor: "pointer", padding: 0, marginBottom: 14, fontFamily: "var(--sans)" }}>{t.back}</button>
-        <h1 style={{ fontFamily: "var(--serif)", fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>{t.my_series_title}</h1>
+      <div style={{ background: "var(--card)", borderBottom: "1px solid var(--bo)", padding: "20px 20px 18px" }}>
+        <button onClick={onBack} style={{ background: "none", border: "none", color: "var(--mt)", fontSize: 13, cursor: "pointer", padding: 0, marginBottom: 12, fontFamily: "var(--sans)" }}>{t.back}</button>
+        <h1 style={{ fontFamily: "var(--sans)", fontSize: 20, fontWeight: 900, color: "var(--tx)", letterSpacing: "0.05em", textTransform: "uppercase" }}>{t.my_series_title}</h1>
         <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 4 }}>{series.length} {t.saved}</p>
       </div>
       <div style={{ padding: "20px", maxWidth: 520, margin: "0 auto" }}>
@@ -891,7 +891,7 @@ function MesSeriesView({ onLoad, onBack, t }) {
           <div key={s.id} style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 12, border: "1.5px solid var(--bo)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <h3 style={{ fontFamily: "var(--serif)", fontSize: 18, fontWeight: 800, marginBottom: 4 }}>{s.bible.titre}</h3>
+                <h3 style={{ fontFamily: "var(--sans)", fontSize: 16, fontWeight: 900, marginBottom: 4 }}>{s.bible.titre}</h3>
                 <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5, marginBottom: 6 }}>{s.bible.logline}</p>
                 <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                   <span style={{ fontSize: 11, background: s.state.mode === "fast" ? "#fff0ec" : "#e8edf2", color: s.state.mode === "fast" ? "var(--r)" : "var(--n)", padding: "2px 8px", borderRadius: 4, fontWeight: 700 }}>
@@ -1001,11 +1001,11 @@ function SectionHead({ title, sub, sep = true }) {
     <>
       {sep && <div style={{ height: 1, background: "var(--bo)", margin: "6px 0 20px" }} />}
       <div style={{ marginBottom: 16 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: sub ? 4 : 0 }}>
-          <div style={{ width: 2, height: 14, background: "var(--r)", borderRadius: 2, flexShrink: 0 }} />
-          <h2 style={{ fontFamily: "var(--sans)", fontSize: 11, fontWeight: 900, letterSpacing: "0.12em", margin: 0, color: "var(--tx)", lineHeight: 1.1, textTransform: "uppercase" }}>{title}</h2>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: sub ? 5 : 0 }}>
+          <div style={{ width: 2.5, height: 16, background: "var(--r)", borderRadius: 2, flexShrink: 0 }} />
+          <h2 style={{ fontFamily: "var(--sans)", fontSize: 13, fontWeight: 900, letterSpacing: "0.1em", margin: 0, color: "var(--tx)", lineHeight: 1.1, textTransform: "uppercase" }}>{title}</h2>
         </div>
-        {sub && <p style={{ fontSize: 11, color: "var(--mt)", margin: "0 0 0 10px", lineHeight: 1.4 }}>{sub}</p>}
+        {sub && <p style={{ fontSize: 11, color: "var(--mt)", margin: "3px 0 0 10px", lineHeight: 1.4 }}>{sub}</p>}
       </div>
     </>
   );
@@ -1054,7 +1054,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
       {/* Header */}
-      <div style={{ background: "var(--tx)", padding: "14px 16px 12px", flexShrink: 0 }}>
+      <div style={{ background: "var(--card)", borderBottom: "1px solid var(--bo)", padding: "14px 16px 12px", flexShrink: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
           <VCLogo />
           {/* Mode switcher */}
@@ -1597,7 +1597,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
             {DUR_LABEL[lang][duree]} / {lang === "fr" ? "épisode" : "episode"}
           </span>
         </div>
-        <h1 style={{ fontFamily: "var(--serif)", fontSize: 30, fontWeight: 900, letterSpacing: -0.5, lineHeight: 1.1, marginBottom: 8 }}>{bible.titre}</h1>
+        <h1 style={{ fontFamily: "var(--sans)", fontSize: 24, fontWeight: 900, letterSpacing: -0.5, lineHeight: 1.1, textTransform: "uppercase", marginBottom: 8 }}>{bible.titre}</h1>
         <p style={{ fontFamily: "var(--serif)", fontSize: 14, fontStyle: "italic", color: "var(--mt)", lineHeight: 1.6, marginBottom: 10 }}>« {bible.logline} »</p>
         <p style={{ fontSize: 13, lineHeight: 1.75, marginBottom: 16, color: "var(--mt)" }}>{bible.pitch}</p>
         <div style={{ display: "flex", borderBottom: "1.5px solid var(--bo)", marginBottom: 0 }}>
@@ -1634,9 +1634,9 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 <p style={{ fontSize: 13, color: "var(--mt)", lineHeight: 1.5, borderLeft: "2px solid #E85C3A22", paddingLeft: 8 }}>{p.secret}</p>
               </div>
             ))}
-            <div style={{ background: "var(--tx)", borderRadius: 12, padding: 16, marginBottom: 20, marginTop: 4 }}>
+            <div style={{ background: "rgba(232,92,58,0.08)", border: "1px solid rgba(232,92,58,0.2)", borderRadius: 12, padding: 16, marginBottom: 20, marginTop: 4 }}>
               <p style={{ fontSize: 14, fontWeight: 800, color: "var(--r)", marginBottom: 8 }}>{t.question_centrale}</p>
-              <p style={{ fontFamily: "var(--serif)", fontSize: 15, fontStyle: "italic", color: "#fff", lineHeight: 1.5 }}>« {bible.tension_centrale} »</p>
+              <p style={{ fontFamily: "var(--sans)", fontSize: 15, fontStyle: "italic", color: "var(--tx)", lineHeight: 1.5 }}>« {bible.tension_centrale} »</p>
             </div>
             <div style={{ display: "flex", gap: 8, marginTop: 4, flexWrap: "wrap" }}>
               <button onClick={() => setTab("seq")} style={{ flex: "2 1 120px", background: "var(--r)", color: "#fff", border: "none", padding: 16, borderRadius: 14, fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
@@ -1676,7 +1676,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 <div key={i} style={{ background: "var(--card)", borderRadius: 16, overflow: "hidden", marginBottom: 14, border: `2px solid ${couleur}22` }}>
                   <div style={{ background: couleur, padding: "16px 18px 14px" }}>
                     <div>
-                      <h3 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, color: "#fff", marginBottom: 2 }}>{nom}</h3>
+                      <h3 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", color: "#fff", marginBottom: 2 }}>{nom}</h3>
                       <p style={{ fontSize: 11, color: "rgba(255,255,255,0.75)", fontWeight: 600, textTransform: "uppercase", letterSpacing: 1 }}>{perso.role} · {perso.age} ans</p>
                     </div>
                     {carte?.citation && <p style={{ fontSize: 13, fontStyle: "italic", color: "rgba(255,255,255,0.9)", marginTop: 10, lineHeight: 1.4 }}>« {carte.citation} »</p>}
@@ -1900,7 +1900,7 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Studio</button>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>3 versions</h2>
+        <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>3 versions</h2>
         <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre} — Choisissez la meilleure</p>
       </div>
       <div style={{ padding: "0 20px 40px", maxWidth: 520, margin: "0 auto" }}>
@@ -1960,7 +1960,7 @@ function AfficheView({ affiche, loading, bible, onBack, t }) {
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_bible}</button>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{t.affiche_title}</h2>
+        <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>{t.affiche_title}</h2>
         <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{t.affiche_sub}</p>
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
@@ -2035,7 +2035,7 @@ function SocialView({ social, loading, ep, bible, onBack, t }) {
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_studio}</button>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{t.social_title}</h2>
+        <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>{t.social_title}</h2>
         <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre}</p>
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
@@ -2266,7 +2266,7 @@ function ProfilsView({ profils, loading, bible, onBack, t }) {
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_bible}</button>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{t.profils_title}</h2>
+        <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>{t.profils_title}</h2>
         <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{bible?.titre}</p>
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
@@ -2358,7 +2358,7 @@ function CalendrierView({ calendrier, loading, bible, onBack, t }) {
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_bible}</button>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{t.calendrier_title}</h2>
+        <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>{t.calendrier_title}</h2>
         <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{bible?.titre}</p>
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
@@ -2435,7 +2435,7 @@ function StoryboardView({ storyboard, loading, ep, bible, onBack, t }) {
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_studio}</button>
-        <h2 style={{ fontFamily: "var(--serif)", fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{t.storyboard_title}</h2>
+        <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>{t.storyboard_title}</h2>
         <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre}</p>
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
