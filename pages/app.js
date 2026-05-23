@@ -60,6 +60,11 @@ const T = {
     casting_ia_label: "🎭 Casting IA", casting_ia_sub: "— donne une identité forte à tes personnages",
     casting_ia_age: "ans",
     ambiance_vis_label: "🎨 Ambiance Visuelle", ambiance_vis_sub: "— l'identité visuelle de ta série",
+    budget_label: "🎬 Production Scale", budget_sub: "— adapte l'écriture à ton budget réel",
+    budget_lieux: "📍 Lieux tournables",
+    budget_guide: "🎬 Guide Prod",
+    budget_teleprompter: "▶ Script",
+    budget_equip: "📦 Équipement", budget_lumiere: "💡 Lumière", budget_tricks: "✨ Fake expensive", budget_decors: "🎨 Décors",
     logout: "Déconnexion", custom: "✏️ Perso.",
     choose_lang: "Choisir la langue", back: "← Retour", my_series_title: "Mes Séries",
     affiche_title: "🎨 Dossier de présentation", affiche_sub: "Ton kit visuel complet — affiche + direction artistique + image IA",
@@ -116,6 +121,11 @@ const T = {
     casting_ia_label: "🎭 Casting IA", casting_ia_sub: "— give your characters a powerful identity",
     casting_ia_age: "yo",
     ambiance_vis_label: "🎨 Visual Ambiance", ambiance_vis_sub: "— your series' visual identity",
+    budget_label: "🎬 Production Scale", budget_sub: "— adapts writing to your real budget",
+    budget_lieux: "📍 Shootable locations",
+    budget_guide: "🎬 Prod Guide",
+    budget_teleprompter: "▶ Script",
+    budget_equip: "📦 Equipment", budget_lumiere: "💡 Lighting", budget_tricks: "✨ Fake expensive", budget_decors: "🎨 Sets",
     logout: "Sign out", custom: "✏️ Custom",
     choose_lang: "Choose language", back: "← Back", my_series_title: "My Series",
     affiche_title: "🎨 Presentation kit", affiche_sub: "Your complete visual kit — poster + art direction + AI image",
@@ -316,6 +326,102 @@ const TROPES = [
   { id: "hidden-identity",    cat: "drama",   emoji: "🎭", label: { fr: "Identité cachée",       en: "Hidden identity"    }, instr: "hidden identity: un personnage n'est pas celui qu'il prétend être — fausse identité, infiltré, double vie" },
   { id: "betrayal",           cat: "drama",   emoji: "🗡️", label: { fr: "Trahison",              en: "Betrayal"           }, instr: "betrayal: la trahison vient de l'intérieur — l'allié de confiance est le vrai ennemi" },
   { id: "obsession",          cat: "drama",   emoji: "👁️", label: { fr: "Obsession",             en: "Obsession"          }, instr: "obsession: un personnage est consumé par un autre — amour toxique, stalking, possession émotionnelle" },
+];
+
+// ── BUDGET MODE ─────────────────────────────────────────────
+const BUDGET_LEVELS = [
+  {
+    id: "zero", emoji: "💸", stars: "⭐",
+    label: { fr: "Zéro Budget",  en: "Zero Budget" },
+    sub:   { fr: "Seul·e chez soi", en: "Alone at home" },
+    color: "#16a34a",
+    scriptInstr: "BUDGET ZÉRO — CONTRAINTES ABSOLUES: MAX 2 personnages à l'écran simultanément. 1 seul lieu intérieur simple (chambre, salle de bain, cuisine, voiture, couloir). INTERDIT: décors extérieurs complexes, figurants, effets spéciaux, éclairage professionnel, cascades, explosions, foule. Équipement présumé: smartphone fixe sur trépied ou pile de livres + lumière naturelle ou LED ring. Techniques autorisées: faux appel téléphone, SMS à l'écran, POV, reflet dans miroir, monologue, voix off. visuel_916 = UNIQUEMENT plans réalisables avec un smartphone fixe: gros plan, plan épaule, plan table. Aucun travelling, aucun drone, aucune grue.",
+    guide: {
+      fr: {
+        equip: ["📱 Smartphone (mode vidéo Portrait ou Cinématique)", "📐 Trépied ou pile de livres stables", "💡 LED ring ou lampe de bureau", "🎙️ Écouteurs avec micro intégré (son correct)"],
+        lumiere: ["Tourner près d'une fenêtre — lumière côté, jamais de face", "Éteindre tous les plafonniers (tuent l'image)", "1 seule source de lumière = plus cinématographique", "Rideau blanc = diffuseur gratuit contre une fenêtre trop dure"],
+        tricks: ["Flou d'arrière-plan → mets un objet flou au premier plan", "Couleur → LED colorée à 10€ ou gélatine sur lampe", "Profondeur → filme depuis un angle, pas face au mur", "Luxe → cadre vide, verre d'eau, fleur dans un vase", "Ombre dramatique → lampe au sol pointée vers le mur"],
+        decors: { romance: ["Guirlande LED chaude", "Draps blancs", "Bougies (flicker = cinéma)", "Miroir posé"], teen: ["LED colorées", "Posters au mur", "Vêtements épars", "Écran TikTok visible"], thriller: ["Lampe unique au sol", "Pièce sombre", "Ombre sur mur", "Porte entrouverte"] },
+      },
+      en: {
+        equip: ["📱 Smartphone (Portrait or Cinematic video mode)", "📐 Tripod or stable stack of books", "💡 LED ring or desk lamp", "🎙️ Earphones with integrated mic (decent sound)"],
+        lumiere: ["Shoot near a window — light from the side, never face-on", "Turn off all ceiling lights (they kill the image)", "1 single light source = more cinematic", "White curtain = free diffuser against a harsh window"],
+        tricks: ["Background blur → put an object out of focus in the foreground", "Color → €10 colored LED or gel on a lamp", "Depth → film from an angle, not facing the wall", "Luxury → empty frame, glass of water, a flower in a vase", "Dramatic shadow → floor lamp pointed at the wall"],
+        decors: { romance: ["Warm LED string lights", "White sheets", "Candles (flicker = cinema)", "Propped mirror"], teen: ["Colored LEDs", "Wall posters", "Scattered clothes", "TikTok screen visible"], thriller: ["Single floor lamp", "Dark room", "Wall shadow", "Door ajar"] },
+      },
+    },
+    lieux: [
+      { id: "chambre", emoji: "🛏", label: { fr: "Chambre", en: "Bedroom" }, tip: { fr: "Le meilleur décor du drama vertical", en: "The best vertical drama set" } },
+      { id: "sdb", emoji: "🚿", label: { fr: "Salle de bain", en: "Bathroom" }, tip: { fr: "Miroir + vapeur = ultra ciné", en: "Mirror + steam = ultra cinematic" } },
+      { id: "cuisine", emoji: "🍽", label: { fr: "Cuisine", en: "Kitchen" }, tip: { fr: "Réaliste et dramatique", en: "Realistic and dramatic" } },
+      { id: "voiture", emoji: "🚗", label: { fr: "Voiture", en: "Car" }, tip: { fr: "Disputes, aveux, tension", en: "Arguments, confessions, tension" } },
+      { id: "rue-nuit", emoji: "🌃", label: { fr: "Rue de nuit", en: "Night street" }, tip: { fr: "Même avec un iPhone c'est beau", en: "Beautiful even with just an iPhone" } },
+    ],
+  },
+  {
+    id: "low", emoji: "💵", stars: "⭐⭐",
+    label: { fr: "Low Budget",   en: "Low Budget" },
+    sub:   { fr: "Petit tournage créateur", en: "Small creator shoot" },
+    color: "#2563eb",
+    scriptInstr: "BUDGET LOW — 2-3 personnages max. Lieux simples accessibles: café, appartement arrangé, voiture, parc, couloir d'immeuble. Équipement: smartphone + stabilisateur ou DSLR basique. Lumière: naturelle + LED ring ou panneau LED. Mouvements lents autorisés. Pas de figurants, pas d'effets visuels, pas d'explosions. visuel_916 = plans réalistes avec stabilisateur: lent traveling à main levée, panoramique lent, suivi d'acteur.",
+    guide: {
+      fr: { equip: ["📱 Smartphone + stabilisateur (DJI OM 6, ~100€)", "💡 Panneau LED bicolore (~40€)", "🎙️ Micro-cravate sans fil (~50€)", "🎭 Fond de couleur uni ou tapisserie sobre"], lumiere: ["Lumière principale → côté", "Fill light → réflecteur carton blanc", "Backlight → lampe derrière le sujet = profondeur"], tricks: ["Mise au point manuelle sur le sujet = fond flou automatique", "Sous-exposer légèrement = plus cinématographique", "LUT gratuite en post = look pro instantané"], decors: { romance: ["Café vide le matin (avant ouverture)", "Appartement avec belle fenêtre"], teen: ["Parking underground", "Couloir d'immeuble"], thriller: ["Garage", "Cage d'escalier"] }, },
+      en: { equip: ["📱 Smartphone + gimbal (DJI OM 6, ~€100)", "💡 Bicolor LED panel (~€40)", "🎙️ Wireless clip mic (~€50)", "🎭 Plain color backdrop or subtle wallpaper"], lumiere: ["Key light → side", "Fill → white cardboard reflector", "Backlight → lamp behind subject = depth"], tricks: ["Manual focus on subject = automatic background blur", "Slightly underexpose = more cinematic", "Free LUT in post = instant pro look"], decors: { romance: ["Empty café in the morning (before opening)", "Apartment with beautiful window"], teen: ["Underground parking", "Building corridor"], thriller: ["Garage", "Stairwell"] }, },
+    },
+    lieux: [
+      { id: "cafe", emoji: "☕", label: { fr: "Café", en: "Café" }, tip: { fr: "Réserver tôt le matin", en: "Book early morning" } },
+      { id: "voiture", emoji: "🚗", label: { fr: "Voiture", en: "Car" }, tip: { fr: "Son naturel + intimité", en: "Natural sound + intimacy" } },
+      { id: "parc", emoji: "🌳", label: { fr: "Parc / extérieur", en: "Park / outdoors" }, tip: { fr: "Lumière naturelle gratuite", en: "Free natural light" } },
+      { id: "parking", emoji: "🅿️", label: { fr: "Parking underground", en: "Underground parking" }, tip: { fr: "Look industriel gratis", en: "Free industrial look" } },
+    ],
+  },
+  {
+    id: "creator", emoji: "💰", stars: "⭐⭐⭐",
+    label: { fr: "Creator+",     en: "Creator+" },
+    sub:   { fr: "Mini équipe",  en: "Mini crew" },
+    color: "#9333ea",
+    scriptInstr: "BUDGET CREATOR — jusqu'à 4 personnages. Lieux loués ou prêtés: appartement stylisé, bureau, restaurant, rooftop accessible. DSLR/mirrorless + cage + kit LED 3 points. Travellings simples sur glissière autorisés. Figurants simples possibles. visuel_916 = plans plus travaillés: travelling avant lent, rack focus, plan séquence court.",
+    guide: {
+      fr: { equip: ["📷 DSLR/Mirrorless + objectif 50mm ou 35mm", "💡 Kit 3 panneaux LED (~200€)", "🎙️ Perche son + mixette", "📐 Glissière de travelling (~80€)"], lumiere: ["Triangle 3 points: key + fill + backlight", "Gels de couleur pour ambiance", "Diffuseurs softbox pliables"], tricks: ["Rack focus entre 2 sujets = tension dramatique", "Plan séquence = impression de budget plus élevé", "Couleur de prod cohérente = look série"], decors: {}, },
+      en: { equip: ["📷 DSLR/Mirrorless + 50mm or 35mm lens", "💡 3 LED panel kit (~€200)", "🎙️ Boom mic + mixer", "📐 Slider rail (~€80)"], lumiere: ["3-point triangle: key + fill + backlight", "Color gels for mood", "Foldable softbox diffusers"], tricks: ["Rack focus between 2 subjects = dramatic tension", "One-shot sequence = impression of higher budget", "Consistent color palette = series look"], decors: {}, },
+    },
+    lieux: [
+      { id: "loft", emoji: "🏙️", label: { fr: "Loft / appart stylisé", en: "Loft / styled apartment" }, tip: { fr: "Airbnb loué 1 journée", en: "Airbnb rented for 1 day" } },
+      { id: "bureau", emoji: "💼", label: { fr: "Bureau / open space", en: "Office / open space" }, tip: { fr: "Emprunté le week-end", en: "Borrowed on the weekend" } },
+      { id: "resto", emoji: "🍷", label: { fr: "Restaurant / bar", en: "Restaurant / bar" }, tip: { fr: "Fermé = décor gratuit", en: "Closed = free set" } },
+    ],
+  },
+  {
+    id: "cinema", emoji: "🎬", stars: "⭐⭐⭐⭐",
+    label: { fr: "Cinéma",       en: "Cinema" },
+    sub:   { fr: "Production ambitieuse", en: "Ambitious production" },
+    color: "#dc2626",
+    scriptInstr: "BUDGET CINÉMA — jusqu'à 8 personnages + figurants. Lieux variés incluant extérieurs urbains travaillés, restaurants, rooftops, hôtels. Caméra ciné (BMPCC, FX3, FX6). Lumière pro complète. Steadicam, drone, grue légère autorisés. Effets pratiques possibles (fumée, pluie artificielle). visuel_916 = plans cinématographiques ambitieux: steadicam, drone bas, split focus.",
+    guide: {
+      fr: { equip: ["🎥 Caméra ciné (BMPCC 6K, Sony FX3)", "💡 Kit lumière pro complet", "🎙️ Son pro + perchman dédié", "🚁 Drone DJI + pilote", "📐 Steadicam ou cardan motorisé"], lumiere: ["Direction artistique lumière complète", "Pluie artificielle pour scènes dramatiques", "Color grade professionnel en post"], tricks: [], decors: {}, },
+      en: { equip: ["🎥 Cinema camera (BMPCC 6K, Sony FX3)", "💡 Full professional light kit", "🎙️ Pro sound + dedicated boom op", "🚁 DJI drone + pilot", "📐 Steadicam or motorized gimbal"], lumiere: ["Complete lighting art direction", "Artificial rain for dramatic scenes", "Professional color grade in post"], tricks: [], decors: {}, },
+    },
+    lieux: [
+      { id: "rooftop", emoji: "🌃", label: { fr: "Rooftop", en: "Rooftop" }, tip: { fr: "Location possible dès 300€/j", en: "Location from €300/day" } },
+      { id: "hotel", emoji: "🏨", label: { fr: "Hôtel", en: "Hotel" }, tip: { fr: "Suites louées pour tournage", en: "Suites rented for shooting" } },
+      { id: "urbain", emoji: "🌆", label: { fr: "Extérieurs urbains", en: "Urban exteriors" }, tip: { fr: "Autorisation mairie selon ville", en: "City permit required" } },
+    ],
+  },
+  {
+    id: "premium", emoji: "👑", stars: "⭐⭐⭐⭐⭐",
+    label: { fr: "Premium",      en: "Premium" },
+    sub:   { fr: "Netflix / Luxe", en: "Netflix / Luxury" },
+    color: "#b8860b",
+    scriptInstr: "BUDGET PREMIUM — production complète sans contraintes. Tous lieux, tous effets, toute technique. Studio professionnel, cascadeurs, effets spéciaux pratiques et numériques, drone, hélicoptère, figurants nombreux, cast professionnel. Écrire la scène IDÉALE sans aucune limite de production.",
+    guide: {
+      fr: { equip: ["🎥 RED ou ARRI Alexa", "💡 DA lumière cinéma complet", "🎙️ Son pro multicanal", "🚁 Drone cinéma + hélicoptère", "🎭 Studio + décors construits"], lumiere: ["Direction artistique luxe", "Éclairage de nuit motorisé", "CGI et effets numériques"], tricks: [], decors: {}, },
+      en: { equip: ["🎥 RED or ARRI Alexa", "💡 Full cinema lighting DA", "🎙️ Pro multichannel sound", "🚁 Cinema drone + helicopter", "🎭 Studio + built sets"], lumiere: ["Luxury art direction", "Motorized night lighting", "CGI and digital effects"], tricks: [], decors: {}, },
+    },
+    lieux: [
+      { id: "studio", emoji: "🎭", label: { fr: "Studio pro", en: "Pro studio" }, tip: { fr: "Construction de décors", en: "Set construction" } },
+      { id: "villa", emoji: "🏡", label: { fr: "Villa / domaine", en: "Villa / estate" }, tip: { fr: "Location événementielle", en: "Event venue rental" } },
+    ],
+  },
 ];
 
 // ── AMBIANCE VISUELLE ────────────────────────────────────────
@@ -730,6 +836,49 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
       </div>
 
       <div style={{ padding: "24px 20px", maxWidth: 520, margin: "0 auto" }}>
+
+        {/* Budget / Production Scale */}
+        <div style={{ marginBottom: 28 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
+            {t.budget_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.budget_sub}</span>
+          </p>
+          <div style={{ display: "flex", gap: 6, marginBottom: 14 }}>
+            {BUDGET_LEVELS.map(b => {
+              const bLabel = b.label[lang] || b.label.fr;
+              const bSub = b.sub[lang] || b.sub.fr;
+              const active = state.budget === b.id;
+              return (
+                <button key={b.id} onClick={() => set({ budget: b.id, lieu: "" })} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "10px 4px", borderRadius: 12, border: `2px solid ${active ? b.color : "var(--bo)"}`, background: active ? `${b.color}18` : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", gap: 3 }}>
+                  <span style={{ fontSize: 18 }}>{b.emoji}</span>
+                  <span style={{ fontSize: 10, fontWeight: 800, color: active ? b.color : "var(--tx)", textAlign: "center", lineHeight: 1.2 }}>{bLabel}</span>
+                  <span style={{ fontSize: 8, color: "var(--mt)", textAlign: "center", lineHeight: 1.2 }}>{b.stars}</span>
+                </button>
+              );
+            })}
+          </div>
+          {/* Shootable locations for this budget */}
+          {(() => {
+            const bLevel = BUDGET_LEVELS.find(b => b.id === state.budget);
+            if (!bLevel?.lieux?.length) return null;
+            return (
+              <div>
+                <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)", marginBottom: 8 }}>{t.budget_lieux}</p>
+                <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+                  {bLevel.lieux.map(l => {
+                    const lLabel = l.label[lang] || l.label.fr;
+                    const lTip = l.tip[lang] || l.tip.fr;
+                    const active = state.lieu === lLabel;
+                    return (
+                      <button key={l.id} onClick={() => set({ lieu: active ? "" : lLabel })} title={lTip} style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "6px 11px", borderRadius: 100, border: `1.5px solid ${active ? bLevel.color : "var(--bo)"}`, background: active ? `${bLevel.color}22` : "var(--card)", color: active ? bLevel.color : "var(--tx)", cursor: "pointer", fontSize: 11, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s" }}>
+                        <span>{l.emoji}</span><span>{lLabel}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
+        </div>
 
         {/* Universe Packs */}
         <div style={{ marginBottom: 28 }}>
@@ -1536,11 +1685,15 @@ function SocialView({ social, loading, ep, bible, onBack, t }) {
   );
 }
 
-function TournageView({ script, ep, duree, onBack }) {
+function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
   const [playing, setPlaying] = useState(false);
   const [fontSize, setFontSize] = useState(28);
   const [speed, setSpeed] = useState(duree <= 60 ? 50 : duree <= 90 ? 70 : 90);
   const [showSettings, setShowSettings] = useState(false);
+  const [tab, setTab] = useState("script"); // "script" | "guide"
+  const ll = lang === "en" ? "en" : "fr";
+  const bLevel = BUDGET_LEVELS.find(b => b.id === budget) || BUDGET_LEVELS[0];
+  const guide = bLevel.guide[ll];
 
   if (!script) return (
     <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "#000" }}>
@@ -1564,12 +1717,22 @@ function TournageView({ script, ep, duree, onBack }) {
       `}</style>
 
       {/* Barre du haut */}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", background: "#111", flexShrink: 0, zIndex: 10 }}>
-        <button onClick={onBack} style={{ background: "none", border: "1px solid #333", color: "#aaa", cursor: "pointer", padding: "8px 12px", borderRadius: 8, fontFamily: "var(--sans)", fontSize: 13 }}>← Retour</button>
-        <button onClick={() => setPlaying(p => !p)} style={{ background: playing ? "#333" : "var(--r)", border: "none", cursor: "pointer", padding: "10px 18px", borderRadius: 8, fontSize: 14, fontWeight: 700, color: "#fff", fontFamily: "var(--sans)", minWidth: 100 }}>
-          {playing ? "⏸ Pause" : "▶ Démarrer"}
-        </button>
-        <button onClick={() => setShowSettings(s => !s)} style={{ background: showSettings ? "#333" : "none", border: "1px solid #333", color: "#aaa", cursor: "pointer", padding: "8px 12px", borderRadius: 8, fontFamily: "var(--sans)", fontSize: 16 }}>⚙️</button>
+      <div style={{ background: "#111", flexShrink: 0, zIndex: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px" }}>
+          <button onClick={onBack} style={{ background: "none", border: "1px solid #333", color: "#aaa", cursor: "pointer", padding: "8px 12px", borderRadius: 8, fontFamily: "var(--sans)", fontSize: 13 }}>← Retour</button>
+          <div style={{ display: "flex", gap: 6 }}>
+            {[["script", t?.budget_teleprompter || "▶ Script"], ["guide", t?.budget_guide || "🎬 Guide Prod"]].map(([k, lbl]) => (
+              <button key={k} onClick={() => setTab(k)} style={{ padding: "8px 14px", borderRadius: 8, border: "none", background: tab === k ? (k === "guide" ? bLevel.color : "var(--r)") : "#222", color: "#fff", cursor: "pointer", fontSize: 12, fontWeight: 700, fontFamily: "var(--sans)" }}>{lbl}</button>
+            ))}
+          </div>
+          {tab === "script" && <button onClick={() => setShowSettings(s => !s)} style={{ background: showSettings ? "#333" : "none", border: "1px solid #333", color: "#aaa", cursor: "pointer", padding: "8px 12px", borderRadius: 8, fontFamily: "var(--sans)", fontSize: 16 }}>⚙️</button>}
+          {tab === "guide" && <span style={{ fontSize: 16 }}>{bLevel.emoji}</span>}
+        </div>
+        {tab === "script" && <div style={{ display: "flex", padding: "0 16px 12px" }}>
+          <button onClick={() => setPlaying(p => !p)} style={{ flex: 1, background: playing ? "#333" : "var(--r)", border: "none", cursor: "pointer", padding: "10px 18px", borderRadius: 8, fontSize: 14, fontWeight: 700, color: "#fff", fontFamily: "var(--sans)" }}>
+            {playing ? "⏸ Pause" : "▶ Démarrer"}
+          </button>
+        </div>}
       </div>
 
       {/* Panneau réglages */}
@@ -1596,8 +1759,52 @@ function TournageView({ script, ep, duree, onBack }) {
         </div>
       )}
 
+      {/* Zone Guide Prod */}
+      {tab === "guide" && (
+        <div style={{ flex: 1, overflowY: "auto", background: "#0a0a0f", padding: "20px 20px 40px" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 20, padding: "8px 16px", borderRadius: 100, background: `${bLevel.color}22`, border: `1.5px solid ${bLevel.color}` }}>
+            <span style={{ fontSize: 20 }}>{bLevel.emoji}</span>
+            <span style={{ fontSize: 14, fontWeight: 800, color: bLevel.color }}>{bLevel.label[ll]}</span>
+            <span style={{ fontSize: 11, color: "#888" }}>{bLevel.stars}</span>
+          </div>
+          {guide?.equip?.length > 0 && (
+            <div style={{ marginBottom: 20 }}>
+              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "#888", marginBottom: 10 }}>{t?.budget_equip || "Équipement"}</p>
+              {guide.equip.map((e, i) => <p key={i} style={{ fontSize: 14, color: "#e2e8f0", lineHeight: 1.6, marginBottom: 6, paddingLeft: 4 }}>{e}</p>)}
+            </div>
+          )}
+          {guide?.lumiere?.length > 0 && (
+            <div style={{ marginBottom: 20 }}>
+              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "#888", marginBottom: 10 }}>{t?.budget_lumiere || "Lumière"}</p>
+              {guide.lumiere.map((e, i) => <p key={i} style={{ fontSize: 14, color: "#e2e8f0", lineHeight: 1.6, marginBottom: 6, paddingLeft: 4 }}>→ {e}</p>)}
+            </div>
+          )}
+          {guide?.tricks?.length > 0 && (
+            <div style={{ marginBottom: 20, background: "#111", borderRadius: 14, padding: "16px 18px", border: `1px solid ${bLevel.color}44` }}>
+              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: bLevel.color, marginBottom: 10 }}>{t?.budget_tricks || "✨ Fake Expensive"}</p>
+              {guide.tricks.map((e, i) => <p key={i} style={{ fontSize: 13, color: "#e2e8f0", lineHeight: 1.6, marginBottom: 6 }}>✓ {e}</p>)}
+            </div>
+          )}
+          {guide?.decors && Object.keys(guide.decors).length > 0 && (
+            <div style={{ marginBottom: 20 }}>
+              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "#888", marginBottom: 10 }}>{t?.budget_decors || "Décors"}</p>
+              {Object.entries(guide.decors).map(([cat, items]) => (
+                <div key={cat} style={{ marginBottom: 14 }}>
+                  <p style={{ fontSize: 10, fontWeight: 700, color: bLevel.color, textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>
+                    {cat === "romance" ? "❤️ Romance" : cat === "teen" ? "🔥 Teen" : cat === "thriller" ? "🩸 Thriller" : cat}
+                  </p>
+                  <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+                    {items.map((item, i) => <span key={i} style={{ background: "#1a1a2e", border: "1px solid #333", padding: "5px 10px", borderRadius: 100, fontSize: 12, color: "#e2e8f0" }}>{item}</span>)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Zone téléprompteur */}
-      <div style={{ flex: 1, overflow: "hidden", position: "relative" }}>
+      {tab === "script" && <div style={{ flex: 1, overflow: "hidden", position: "relative" }}>
         <div className="tp-content" style={{ padding: "0 28px", willChange: "transform" }}>
           {lines.map((l, i) => {
             if (l.t === "lbl") return <p key={i} style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "var(--r)", marginBottom: 8, marginTop: 40, textAlign: "center" }}>{l.v}</p>;
@@ -1609,7 +1816,7 @@ function TournageView({ script, ep, duree, onBack }) {
           })}
           <div style={{ height: "100vh" }} />
         </div>
-      </div>
+      </div>}
     </div>
   );
 }
@@ -1671,7 +1878,7 @@ export default function App() {
   const t = T[lang];
   const opts = OPTS[lang];
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", budget: "zero", lieu: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
@@ -1825,7 +2032,8 @@ export default function App() {
     setScript(null);
     setLoading(true);
     try {
-      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, ambianceVisuelle: state.ambianceVisuelle || "", lang }, customerId);
+      const bLevel = BUDGET_LEVELS.find(b => b.id === state.budget);
+      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, ambianceVisuelle: state.ambianceVisuelle || "", budgetInstr: bLevel?.scriptInstr || "", lang }, customerId);
       if (epReqRef.current === reqId) {
         setScript(s);
         setScripts(prev => {
@@ -2117,7 +2325,7 @@ export default function App() {
       {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} t={t} lang={lang} />}
       {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} />}
-      {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} />}
+      {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
       {screen === "social" && <SocialView social={social} loading={loadingSocial} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} />}
       {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
 
