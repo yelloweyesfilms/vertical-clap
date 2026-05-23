@@ -81,8 +81,13 @@ const COPY = {
     mixerTitle1: "12 univers, 16 secrets, 4 castings.",
     mixerTitle2: "Ou entre le tien.",
     forYouLabel: "Fait pour toi",
-    forYouTitle1: "Solo, équipe ou studio.",
-    forYouTitle2: "Tu tournes, on écrit.",
+    forYouTitle1: "Du créateur TikTok",
+    forYouTitle2: "au showrunner.",
+    forYouProfiles: [
+      { emoji: "📱", title: "Le créateur solo", sub: "Tu postes sur TikTok, Reels ou Shorts. Tu veux des séries courtes, des hooks qui accrochent, un rythme maximal. Creator te donne tout ça en 5 minutes.", color: "#E85C3A" },
+      { emoji: "🎬", title: "L'auteur en développement", sub: "Tu as des idées plus ambitieuses — personnages complexes, arcs narratifs, plusieurs épisodes. Storyteller te donne la structure et la Direction Artistique.", color: "#f97316" },
+      { emoji: "🎭", title: "Le showrunner", sub: "Tu gères une équipe, tu livres sur des plateformes (DramaBox, ReelShort). 90 épisodes, 3 variations par script, fiche de production — tout y est.", color: "#a855f7" },
+    ],
     pipelineLabel: "De l'idée au tournage",
     pipelineTitle1: "5 minutes. Série complète.",
     pipelineTitle2: "Du concept au script prêt à tourner.",
@@ -290,8 +295,13 @@ const COPY = {
     mixerTitle1: "12 universes, 16 secrets, 4 castings.",
     mixerTitle2: "Or enter your own.",
     forYouLabel: "Built for you",
-    forYouTitle1: "Solo, team or studio.",
-    forYouTitle2: "You shoot, we write.",
+    forYouTitle1: "From TikTok creator",
+    forYouTitle2: "to showrunner.",
+    forYouProfiles: [
+      { emoji: "📱", title: "The solo creator", sub: "You post on TikTok, Reels or Shorts. You want short series, hooks that grab, maximum pace. Creator gives you all that in 5 minutes.", color: "#E85C3A" },
+      { emoji: "🎬", title: "The developing author", sub: "You have bigger ideas — complex characters, narrative arcs, multi-episode formats. Storyteller gives you the structure and Artistic Direction.", color: "#f97316" },
+      { emoji: "🎭", title: "The showrunner", sub: "You manage a team, deliver to platforms (DramaBox, ReelShort). 90 episodes, 3 variations per script, production sheet — all there.", color: "#a855f7" },
+    ],
     pipelineLabel: "From idea to shoot",
     pipelineTitle1: "5 minutes. Complete series.",
     pipelineTitle2: "From concept to shoot-ready script.",
@@ -1187,7 +1197,34 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Label color={RED}>{c.forYouLabel}</Label>
           <Title>{c.forYouTitle1}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.4)" }}>{c.forYouTitle2}</span></Title>
-          <Image src={c.imgCreateurs} alt="Fait pour les créateurs qui tournent vraiment — solo, équipe, pro" width={1536} height={1024} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: "100%", height: "auto", display: "block", borderRadius: 20, boxShadow: "0 0 60px rgba(232,92,58,0.1), 0 32px 80px rgba(0,0,0,0.5)", marginTop: 48 }} />
+          <p style={{ textAlign: "center", color: MUTED, fontSize: 16, maxWidth: 540, margin: "12px auto 56px", lineHeight: 1.7 }}>
+            {lang === "fr"
+              ? "Un seul outil pour toutes les étapes de ta carrière créative."
+              : "One tool for every stage of your creative career."}
+          </p>
+          <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+            {c.forYouProfiles.map(({ emoji, title, sub, color }, i) => (
+              <div key={i} style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 24, padding: "36px 28px", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${color}, transparent)` }} />
+                <div style={{ width: 56, height: 56, borderRadius: 16, background: `${color}15`, border: `1px solid ${color}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, marginBottom: 20 }}>
+                  {emoji}
+                </div>
+                <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 20, fontWeight: 900, color: TEXT, marginBottom: 12, letterSpacing: -0.3, lineHeight: 1.2 }}>{title}</h3>
+                <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.75 }}>{sub}</p>
+                <div style={{ marginTop: 20, display: "inline-flex", alignItems: "center", gap: 6, fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color }}>
+                  {i === 0 ? (lang === "fr" ? "⚡ Plan Creator" : "⚡ Creator plan") : i === 1 ? (lang === "fr" ? "🎭 Plan Storyteller" : "🎭 Storyteller plan") : (lang === "fr" ? "🎭 Plan Storyteller" : "🎭 Storyteller plan")}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 24, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+            {[0, 1, 2].map(i => (
+              <div key={i} style={{ width: i === 2 ? 32 : 8, height: 8, borderRadius: 4, background: i === 0 ? "#E85C3A" : i === 1 ? "#f97316" : "#a855f7", opacity: i === 2 ? 1 : 0.4 }} />
+            ))}
+            <span style={{ fontSize: 12, color: MUTED, marginLeft: 8 }}>
+              {lang === "fr" ? "Commencez là où vous êtes. Évoluez à votre rythme." : "Start where you are. Grow at your pace."}
+            </span>
+          </div>
         </div>
       </div>
 
