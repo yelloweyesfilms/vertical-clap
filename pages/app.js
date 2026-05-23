@@ -71,6 +71,8 @@ const T = {
     gen_episodes_batch: "Épisodes %a–%b générés… (%c/%d)",
     premium_titles: "Les titres viraux sont réservés au plan Premium.",
     premium_variations: "Les variations sont réservées au plan Premium.",
+    loading_cartes: "Création des fiches personnages…",
+    loading_titres: "Analyse de la viralité…",
   },
   en: {
     mode_fast: "⚡ Fast Drama", mode_premium: "🎭 Premium Suspense",
@@ -119,6 +121,8 @@ const T = {
     gen_episodes_batch: "Episodes %a–%b generated… (%c/%d)",
     premium_titles: "Viral titles are reserved for Premium plan.",
     premium_variations: "Variations are reserved for Premium plan.",
+    loading_cartes: "Creating character profiles…",
+    loading_titres: "Analysing virality…",
   },
 };
 
@@ -669,7 +673,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
             {loadingCartes ? (
               <div style={{ textAlign: "center", padding: "40px 0", color: "var(--mt)" }}>
                 <div style={{ fontSize: 28, marginBottom: 12, animation: "pulse 1.2s infinite" }}>🎭</div>
-                <p>Création des fiches personnages…</p>
+                <p>{t.loading_cartes}</p>
               </div>
             ) : (cartes || bible.personnages || []).map((p, i) => {
               const carte = cartes ? cartes[i] : null;
@@ -712,7 +716,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
             {loadingTitres ? (
               <div style={{ textAlign: "center", padding: "40px 0", color: "var(--mt)" }}>
                 <div style={{ fontSize: 28, marginBottom: 12, animation: "pulse 1.2s infinite" }}>🔥</div>
-                <p>Analyse de la viralité…</p>
+                <p>{t.loading_titres}</p>
               </div>
             ) : (titres || []).map((t, i) => (
               <div key={i} style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 12, border: "1.5px solid var(--bo)" }}>
