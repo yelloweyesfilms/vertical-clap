@@ -582,6 +582,7 @@ export default function RichLandingPage({ lang = "fr" }) {
   const [emailError, setEmailError] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
   const [billing, setBilling] = useState("monthly");
+  const [planTab, setPlanTab] = useState("storyteller");
   const router = useRouter();
   const canceled = router.query.canceled;
 
@@ -1243,56 +1244,101 @@ export default function RichLandingPage({ lang = "fr" }) {
             style={{ width: "100%", maxWidth: 400, display: "block", margin: `0 auto ${emailError ? "6px" : "32px"}`, padding: "14px 18px", borderRadius: 12, border: `1px solid ${emailError ? RED : BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, outline: "none", transition: "border-color .2s" }} />
           {emailError && <p style={{ textAlign: "center", color: RED, fontSize: 13, fontWeight: 600, marginBottom: 26 }}>{c.emailError}</p>}
 
-          <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
-            <div className="glass" style={{ borderRadius: 24, padding: "36px 32px", position: "relative" }}>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 6 }}>{c.planStandard}</p>
-              {c.planStandardSub && <p style={{ fontSize: 12, color: MUTED, marginBottom: 14, lineHeight: 1.4, opacity: 0.7 }}>{c.planStandardSub}</p>}
-              <div style={{ display: "flex", alignItems: "flex-end", gap: 6, marginBottom: 4 }}>
-                <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 58, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
-                  {billing === "annual" ? "7.5€" : "9€"}
-                </div>
-                {billing === "annual" && <span style={{ fontSize: 14, color: MUTED, marginBottom: 10, textDecoration: "line-through" }}>9€</span>}
-              </div>
-              <p style={{ color: MUTED, fontSize: 13, marginBottom: billing === "annual" ? 6 : 28 }}>{c.perMonth}</p>
-              {billing === "annual" && <p style={{ fontSize: 12, color: "#4ade80", fontWeight: 600, marginBottom: 22 }}>{c.billedStandardAnnual}</p>}
-              <div style={{ marginBottom: 28 }}>
-                {c.standardFeatures.map((item, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                    <Check />
-                    <span style={{ color: MUTED, fontSize: 14 }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <GlowBtn onClick={() => startCheckout("standard", "pricing")} disabled={loading} style={{ width: "100%", fontSize: 15, padding: 16 }}>
-                {loading ? c.redirecting : c.ctaBtn}
-              </GlowBtn>
-            </div>
-
-            <div style={{ borderRadius: 24, padding: "36px 32px", position: "relative", background: "rgba(168,85,247,0.05)", border: "1px solid rgba(168,85,247,0.25)", boxShadow: "0 0 48px rgba(168,85,247,0.08)" }}>
-              <div style={{ position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 16px", borderRadius: 20, letterSpacing: 1.5, whiteSpace: "nowrap" }}>{c.recommendedBadge}</div>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 6 }}>{c.planPremium}</p>
-              {c.planPremiumSub && <p style={{ fontSize: 12, color: MUTED, marginBottom: 14, lineHeight: 1.4, opacity: 0.7 }}>{c.planPremiumSub}</p>}
-              <div style={{ display: "flex", alignItems: "flex-end", gap: 6, marginBottom: 4 }}>
-                <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 58, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
-                  {billing === "annual" ? "14.9€" : "19€"}
-                </div>
-                {billing === "annual" && <span style={{ fontSize: 14, color: MUTED, marginBottom: 10, textDecoration: "line-through" }}>19€</span>}
-              </div>
-              <p style={{ color: MUTED, fontSize: 13, marginBottom: billing === "annual" ? 6 : 28 }}>{c.perMonth}</p>
-              {billing === "annual" && <p style={{ fontSize: 12, color: "#4ade80", fontWeight: 600, marginBottom: 22 }}>{c.billedPremiumAnnual}</p>}
-              <div style={{ marginBottom: 28 }}>
-                {c.premiumFeatures.map((item, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                    <Check color={VIO} />
-                    <span style={{ color: MUTED, fontSize: 14 }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <GlowBtn onClick={() => startCheckout("premium", "pricing")} disabled={loading} gradient style={{ width: "100%", fontSize: 15, padding: 16 }}>
-                {loading ? c.redirecting : c.ctaBtnPremium}
-              </GlowBtn>
+          {/* Plan tab switcher */}
+          <div style={{ maxWidth: 480, margin: "0 auto 28px" }}>
+            <div style={{ display: "flex", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 18, padding: 5, gap: 5 }}>
+              {[
+                { id: "creator", emoji: "⚡", label: c.planStandard, price: billing === "annual" ? "7.5€" : "9€", color: RED },
+                { id: "storyteller", emoji: "🎭", label: c.planPremium, price: billing === "annual" ? "14.9€" : "19€", color: VIO, badge: "⭐" },
+              ].map(tab => {
+                const active = planTab === tab.id;
+                return (
+                  <button key={tab.id} onClick={() => setPlanTab(tab.id)} style={{
+                    flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
+                    padding: "13px 8px", borderRadius: 13, border: "none",
+                    background: active ? (tab.id === "storyteller" ? `linear-gradient(135deg, ${RED}22, ${VIO}22)` : `${RED}18`) : "transparent",
+                    boxShadow: active ? `inset 0 0 0 1.5px ${tab.color}55` : "none",
+                    cursor: "pointer", transition: "all .2s", fontFamily: "'Space Grotesk', sans-serif",
+                  }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                      <span style={{ fontSize: 16 }}>{tab.emoji}</span>
+                      <span style={{ fontSize: 14, fontWeight: 800, color: active ? tab.color : MUTED }}>{tab.label}</span>
+                      {tab.badge && <span style={{ fontSize: 11 }}>{tab.badge}</span>}
+                    </div>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: active ? TEXT : MUTED }}>{tab.price}<span style={{ fontWeight: 400, fontSize: 11 }}>{c.perMonth}</span></span>
+                  </button>
+                );
+              })}
             </div>
           </div>
+
+          {/* Creator plan */}
+          {planTab === "creator" && (
+            <div style={{ maxWidth: 480, margin: "0 auto" }}>
+              <div className="glass" style={{ borderRadius: 24, padding: "36px 32px", position: "relative" }}>
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, borderRadius: "24px 24px 0 0", background: `linear-gradient(90deg, ${RED}, transparent)` }} />
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
+                  <div>
+                    <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 6 }}>{c.planStandard}</p>
+                    {c.planStandardSub && <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.4, opacity: 0.7 }}>{c.planStandardSub}</p>}
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 48, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
+                      {billing === "annual" ? "7.5€" : "9€"}
+                    </div>
+                    <p style={{ color: MUTED, fontSize: 12 }}>{c.perMonth}{billing === "annual" ? " · facturé 90€/an" : ""}</p>
+                  </div>
+                </div>
+                <div style={{ marginBottom: 24 }}>
+                  {c.standardFeatures.map((item, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 9 }}>
+                      <Check />
+                      <span style={{ color: MUTED, fontSize: 14 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <GlowBtn onClick={() => startCheckout("standard", "pricing")} disabled={loading} style={{ width: "100%", fontSize: 15, padding: 16 }}>
+                  {loading ? c.redirecting : c.ctaBtn}
+                </GlowBtn>
+                <p style={{ textAlign: "center", marginTop: 10, fontSize: 11, color: MUTED }}>
+                  <button onClick={() => setPlanTab("storyteller")} style={{ background: "none", border: "none", color: VIO, fontWeight: 700, cursor: "pointer", fontSize: 11, padding: 0 }}>Voir Storyteller →</button>
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Storyteller plan */}
+          {planTab === "storyteller" && (
+            <div style={{ maxWidth: 480, margin: "0 auto" }}>
+              <div style={{ borderRadius: 24, padding: "36px 32px", position: "relative", background: "rgba(168,85,247,0.04)", border: "1.5px solid rgba(168,85,247,0.28)", boxShadow: "0 0 48px rgba(168,85,247,0.08)" }}>
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, borderRadius: "24px 24px 0 0", background: `linear-gradient(90deg, ${VIO}, ${RED})` }} />
+                <div style={{ position: "absolute", top: -13, right: 24, background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 14px", borderRadius: 20, letterSpacing: 1.5 }}>{c.recommendedBadge}</div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
+                  <div>
+                    <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 6 }}>{c.planPremium}</p>
+                    {c.planPremiumSub && <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.4, opacity: 0.7 }}>{c.planPremiumSub}</p>}
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 48, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
+                      {billing === "annual" ? "14.9€" : "19€"}
+                    </div>
+                    <p style={{ color: MUTED, fontSize: 12 }}>{c.perMonth}{billing === "annual" ? " · facturé 179€/an" : ""}</p>
+                  </div>
+                </div>
+                <div style={{ marginBottom: 24 }}>
+                  {c.premiumFeatures.map((item, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 9 }}>
+                      <Check color={VIO} />
+                      <span style={{ color: MUTED, fontSize: 14, fontWeight: i < 2 ? 600 : 400 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <GlowBtn onClick={() => startCheckout("premium", "pricing")} disabled={loading} gradient style={{ width: "100%", fontSize: 15, padding: 16 }}>
+                  {loading ? c.redirecting : c.ctaBtnPremium}
+                </GlowBtn>
+              </div>
+            </div>
+          )}
 
           <div className="trust-row" style={{ display: "flex", justifyContent: "center", gap: 28, flexWrap: "wrap", marginTop: 28 }}>
             {c.trustItems.map(({ icon, label }) => (
