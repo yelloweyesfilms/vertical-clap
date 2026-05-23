@@ -1250,15 +1250,16 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                 <button key={p.id} onClick={() => {
                   if (locked) return;
                   set({ mode: p.mode, casting: pCasting, univers: pUnivers, secret: pSecret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 20 : state.format });
-                }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${active ? "var(--r)" : "var(--bo)"}`, background: active ? "var(--r)" : "var(--card)", cursor: locked ? "not-allowed" : "pointer", fontFamily: "var(--sans)", textAlign: "left", opacity: locked ? 0.45 : 1, transition: "all .15s" }}>
-                  <span style={{ fontSize: 28, flexShrink: 0 }}>{p.emoji}</span>
-                  <div style={{ flex: 1, minWidth: 0 }}>
+                }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${locked ? "rgba(168,85,247,0.2)" : active ? "var(--r)" : "var(--bo)"}`, background: locked ? "rgba(168,85,247,0.04)" : active ? "var(--r)" : "var(--card)", cursor: locked ? "pointer" : "pointer", fontFamily: "var(--sans)", textAlign: "left", transition: "all .15s", position: "relative" }}>
+                  <span style={{ fontSize: 28, flexShrink: 0, opacity: locked ? 0.5 : 1 }}>{p.emoji}</span>
+                  <div style={{ flex: 1, minWidth: 0, opacity: locked ? 0.7 : 1 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
                       <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#fff" : "var(--tx)" }}>{pLabel}</span>
-                      <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: locked ? "rgba(168,85,247,0.15)" : p.mode === "premium" ? "#a855f7" : "rgba(232,92,58,0.15)", color: locked ? "#a855f7" : p.mode === "premium" ? "#fff" : "#E85C3A", fontWeight: 700, letterSpacing: 0.5, border: locked ? "1px solid rgba(168,85,247,0.3)" : "none" }}>{locked ? "Premium" : p.mode === "premium" ? "Série" : "Vertical"}</span>
+                      <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: locked ? "rgba(168,85,247,0.15)" : p.mode === "premium" ? "#a855f7" : "rgba(232,92,58,0.15)", color: locked ? "#a855f7" : p.mode === "premium" ? "#fff" : "#E85C3A", fontWeight: 700, letterSpacing: 0.5, border: locked ? "1px solid rgba(168,85,247,0.3)" : "none" }}>{locked ? "PRO" : p.mode === "premium" ? "Série" : "Vertical"}</span>
                     </div>
                     <span style={{ fontSize: 11, color: active ? "rgba(255,255,255,0.8)" : "var(--mt)", lineHeight: 1.3 }}>{pDesc}</span>
                   </div>
+                  {locked && <span style={{ fontSize: 16, flexShrink: 0 }}>🔒</span>}
                 </button>
               );
             })}
@@ -1467,7 +1468,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                 <div key={f} style={{ flex: 1 }}>
                   <Chip
                     label={`${f} ép.`}
-                    sub={lockedPlan ? "Premium" : inactiveSerie ? "Série →" : `${Math.round(f * state.duree / 60)} min`}
+                    sub={lockedPlan ? "🔒 PRO" : inactiveSerie ? "Série →" : `${Math.round(f * state.duree / 60)} min`}
                     block
                     active={state.format === f && state.mode === (f > 20 ? "premium" : state.mode)}
                     onClick={handleClick}
@@ -1725,7 +1726,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 <button key={k} onClick={onClick}
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, width: "100%", padding: "13px 16px", border: "none", borderBottom: idx < arr.length - 1 ? "1px solid var(--bo)" : "none", background: "none", cursor: locked ? "default" : "pointer", fontSize: 13, fontWeight: 700, color: locked ? "var(--mt)" : tab === k ? "var(--r)" : "var(--tx)", textAlign: "left", fontFamily: "var(--sans)", opacity: locked ? 0.6 : 1 }}>
                   <span style={{ display: "flex", alignItems: "center", gap: 10 }}><span>{emoji}</span>{l}</span>
-                  {locked && <span style={{ fontSize: 10, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.25)", padding: "2px 7px", borderRadius: 6, letterSpacing: 0.5 }}>Premium</span>}
+                  {locked && <span style={{ fontSize: 10, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.25)", padding: "2px 7px", borderRadius: 6, letterSpacing: 0.5 }}>🔒 PRO</span>}
                 </button>
               ))}
             </div>
@@ -1994,7 +1995,9 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
               <span>{t.revelation}</span>
               <span style={{ fontSize: 11, fontWeight: 500, opacity: 0.85 }}>— {t.revelation_sub}</span>
             </button>
-            <button onClick={plan === "standard" ? () => onUpgrade("variations") : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "pointer" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? t.variations_locked : t.variations}</button>
+            <button onClick={plan === "standard" ? () => onUpgrade("variations") : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: `1.5px solid ${plan === "standard" ? "rgba(168,85,247,0.2)" : "var(--bo)"}`, padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", marginBottom: 10, fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+              {plan === "standard" ? <><span>🔒</span><span>{t.variations_locked}</span><span style={{ fontSize: 10, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.25)", padding: "2px 7px", borderRadius: 6 }}>PRO</span></> : t.variations}
+            </button>
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
               <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.shooting}</button>
               <button onClick={onStoryboard} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.storyboard_btn}</button>
