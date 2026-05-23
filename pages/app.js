@@ -3309,6 +3309,11 @@ export default function App() {
       {/* Top bar: dark mode + lang toggle + logout */}
       {screen !== "tour" && (
         <div style={{ position: "absolute", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 10 }}>
+          {router.query.admin === process.env.NEXT_PUBLIC_JETON_ADMIN && (
+            <button onClick={() => setPlan(p => p === "standard" ? "premium" : "standard")} style={{ background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, borderRadius: 8, padding: "3px 8px", fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>
+              👁 {plan === "standard" ? "Créateur" : "Premium"}
+            </button>
+          )}
           <button onClick={toggleLang} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, padding: "3px 8px", fontSize: 11, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>{lang === "fr" ? "EN" : "FR"}</button>
           <button onClick={() => setDarkMode(d => !d)} style={{ background: "none", border: "1px solid var(--bo)", color: "var(--mt)", fontSize: 11, fontWeight: 700, cursor: "pointer", padding: "4px 10px", borderRadius: 6, letterSpacing: 0.5, fontFamily: "var(--sans)" }} title={darkMode ? "Mode jour" : "Mode nuit"}>{darkMode ? "Jour" : "Nuit"}</button>
           <button onClick={logout} style={{ background: "none", border: "none", fontSize: 12, color: "var(--mt)", cursor: "pointer" }}>{t.logout}</button>
