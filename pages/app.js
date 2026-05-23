@@ -854,20 +854,9 @@ async function gen(action, payload, customerId) {
 
 // ── COMPONENTS ───────────────────────────────────────────────
 function VCLogo() {
-  const hasImg = true;
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 9, userSelect: "none" }}>
-      {hasImg ? (
-        <img src="/1024.png" alt="VC" style={{ width: 32, height: 32, borderRadius: 8, flexShrink: 0 }} onError={e => { e.target.style.display='none'; }} />
-      ) : (
-        <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #E85C3A, #c94424)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 2px 8px rgba(232,92,58,0.35)" }}>
-          <span style={{ fontFamily: "var(--sans)", fontSize: 13, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>VC</span>
-        </div>
-      )}
-      <div style={{ lineHeight: 1 }}>
-        <div style={{ fontFamily: "var(--sans)", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--mt)", marginBottom: 1 }}>VERTICAL</div>
-        <div style={{ fontFamily: "var(--sans)", fontSize: 15, fontWeight: 900, letterSpacing: "-0.02em", lineHeight: 1, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>CLAP</div>
-      </div>
+    <div style={{ userSelect: "none" }}>
+      <img src="/1024.png" alt="VC" style={{ width: 36, height: 36, borderRadius: "50%", flexShrink: 0, display: "block" }} onError={e => { e.target.style.display='none'; }} />
     </div>
   );
 }
