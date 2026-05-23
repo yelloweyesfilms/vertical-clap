@@ -57,6 +57,8 @@ const T = {
     packs_label: "🎬 Packs d'univers", packs_sub: "— tout configuré en 1 clic",
     tropes_label: "💘 Tropes", tropes_sub: "— injecte les codes narratifs qui cartonnent",
     tropes_romance: "Romance", tropes_drama: "Drama",
+    casting_ia_label: "🎭 Casting IA", casting_ia_sub: "— donne une identité forte à tes personnages",
+    casting_ia_age: "ans",
     logout: "Déconnexion", custom: "✏️ Perso.",
     choose_lang: "Choisir la langue", back: "← Retour", my_series_title: "Mes Séries",
     affiche_title: "🎨 Dossier de présentation", affiche_sub: "Ton kit visuel complet — affiche + direction artistique + image IA",
@@ -110,6 +112,8 @@ const T = {
     packs_label: "🎬 Universe packs", packs_sub: "— all set in 1 click",
     tropes_label: "💘 Tropes", tropes_sub: "— inject the narrative codes that go viral",
     tropes_romance: "Romance", tropes_drama: "Drama",
+    casting_ia_label: "🎭 Casting IA", casting_ia_sub: "— give your characters a powerful identity",
+    casting_ia_age: "yo",
     logout: "Sign out", custom: "✏️ Custom",
     choose_lang: "Choose language", back: "← Back", my_series_title: "My Series",
     affiche_title: "🎨 Presentation kit", affiche_sub: "Your complete visual kit — poster + art direction + AI image",
@@ -131,6 +135,73 @@ const T = {
     loading_titres: "Analysing virality…",
   },
 };
+
+// ── CASTING IA ───────────────────────────────────────────────
+const CASTING_IA = [
+  {
+    id: "blonde-pop", emoji: "👱‍♀️",
+    label: { fr: "Blonde populaire", en: "Popular Blonde" },
+    age: "19-22",
+    voix: { fr: "cristalline, assurée, légèrement condescendante", en: "crystal clear, confident, slightly condescending" },
+    style: { fr: "tout en blanc, plissé, chaînes dorées, ongles acryliques", en: "all-white, pleated, gold chains, acrylic nails" },
+    perso: { fr: "leader naturelle, masque de perfection sur une insécurité profonde", en: "natural leader, mask of perfection hiding deep insecurity" },
+    aura: { fr: "lumineuse et froide — attire tout le monde, n'aime personne vraiment", en: "radiant and cold — attracts everyone, genuinely loves no one" },
+  },
+  {
+    id: "bad-boy", emoji: "🖤",
+    label: { fr: "Bad boy tatoué", en: "Tattooed bad boy" },
+    age: "22-26",
+    voix: { fr: "grave, lente, chaque mot calculé", en: "deep, slow, every word calculated" },
+    style: { fr: "perfecto noir, tatouages au cou et aux mains, boots", en: "black leather jacket, neck and hand tattoos, boots" },
+    perso: { fr: "mur de silence sur une blessure d'enfance, loyal jusqu'à la mort", en: "wall of silence over a childhood wound, loyal to death for those he chooses" },
+    aura: { fr: "dangereuse et magnétique — les gens s'écartent mais ne peuvent pas détacher les yeux", en: "dangerous and magnetic — people step away but can't stop staring" },
+  },
+  {
+    id: "nerd", emoji: "🤓",
+    label: { fr: "Nerd timide", en: "Shy nerd" },
+    age: "17-20",
+    voix: { fr: "hésitante, s'emballe quand passionné, se bloque sous pression", en: "hesitant, rushes when passionate, freezes under pressure" },
+    style: { fr: "pulls oversized, lunettes rondes, sac plein de livres", en: "oversized sweaters, round glasses, backpack full of books" },
+    perso: { fr: "génie incompris qui observe tout — sait des secrets sur tout le monde", en: "misunderstood genius who sees everything — knows everyone's secrets" },
+    aura: { fr: "invisible jusqu'au moment où il·elle devient le pivot de la scène", en: "invisible until the moment they become the pivot of everything" },
+  },
+  {
+    id: "latina", emoji: "🔥",
+    label: { fr: "Latina rebelle", en: "Rebel Latina" },
+    age: "20-24",
+    voix: { fr: "rapide, directe, les mots claquent", en: "fast, direct, words that hit hard" },
+    style: { fr: "crop tops, talons partout, boucles énormes, rouge à lèvres foncé", en: "crop tops, heels everywhere, huge earrings, dark lipstick" },
+    perso: { fr: "dit ce que les autres pensent tout bas — fuit sa famille tout en l'aimant désespérément", en: "says what others only think — runs from family while desperately loving them" },
+    aura: { fr: "explosive et authentique — la seule qui ose dire la vérité en face", en: "explosive and authentic — the only one brave enough to say it" },
+  },
+  {
+    id: "ceo", emoji: "👔",
+    label: { fr: "CEO froid", en: "Cold CEO" },
+    age: "30-38",
+    voix: { fr: "posée, aucune émotion visible, chaque mot est une décision", en: "measured, no visible emotion, every word is a decision" },
+    style: { fr: "costume sur mesure, montre de luxe, jamais une mèche déplacée", en: "tailored suit, luxury watch, not a hair out of place" },
+    perso: { fr: "a tout sacrifié pour le pouvoir — seul malgré tout", en: "sacrificed everything for power — alone despite it all" },
+    aura: { fr: "intimidante et énigmatique — une vulnérabilité cachée derrière une armure parfaite", en: "intimidating and enigmatic — vulnerability hidden behind a perfect armor" },
+  },
+  {
+    id: "idol", emoji: "🌸",
+    label: { fr: "Idol coréenne", en: "K-pop idol" },
+    age: "20-24",
+    voix: { fr: "douce et chantante en public, glaciale en privé", en: "soft and melodic in public, icy in private" },
+    style: { fr: "outfits pastel de scène, make-up parfait, sourire entraîné des années durant", en: "pastel stage outfits, flawless makeup, a smile trained over years" },
+    perso: { fr: "derrière la perfection scénique — une rebelle qui étouffe dans son image", en: "behind the stage perfection — a rebel suffocating inside her brand image" },
+    aura: { fr: "lumineuse en public, vide en privé — la célébrité comme prison", en: "radiant in public, empty in private — fame as a prison" },
+  },
+  {
+    id: "mystere", emoji: "🌑",
+    label: { fr: "Garçon mystérieux", en: "Mysterious boy" },
+    age: "21-25",
+    voix: { fr: "rare, chuchotée, chaque phrase compte double", en: "rare, hushed, every sentence means twice" },
+    style: { fr: "vêtements sombres sans marque, capuche, jamais de bijoux", en: "dark unmarked clothes, hoodie, never any jewelry" },
+    perso: { fr: "connaît tout sur les autres, ne révèle rien sur lui — arrive et repart sans explication", en: "knows everything about others, reveals nothing — appears and vanishes without explanation" },
+    aura: { fr: "énigmatique et inquiétante — on ne sait jamais de quel côté il est", en: "enigmatic and unsettling — you never know whose side he's really on" },
+  },
+];
 
 // ── TROPES ──────────────────────────────────────────────────
 const TROPES = [
@@ -501,6 +572,35 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                     </div>
                     <span style={{ fontSize: 11, color: active ? "rgba(255,255,255,0.8)" : "var(--mt)", lineHeight: 1.3 }}>{pDesc}</span>
                   </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Casting IA */}
+        <div style={{ marginBottom: 28 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--mt)", marginBottom: 12 }}>
+            {t.casting_ia_label} <span style={{ fontSize: 10, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>{t.casting_ia_sub}</span>
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+            {CASTING_IA.map(a => {
+              const aLabel = typeof a.label === "object" ? (a.label[lang] || a.label.fr) : a.label;
+              const aAura = typeof a.aura === "object" ? (a.aura[lang] || a.aura.fr) : a.aura;
+              const aStyle = typeof a.style === "object" ? (a.style[lang] || a.style.fr) : a.style;
+              const active = (state.castingIA || []).includes(a.id);
+              return (
+                <button key={a.id} onClick={() => set(prev => {
+                  const sel = prev.castingIA || [];
+                  return { castingIA: active ? sel.filter(x => x !== a.id) : [...sel, a.id] };
+                })} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", padding: "12px 13px", borderRadius: 14, border: `2px solid ${active ? "var(--r)" : "var(--bo)"}`, background: active ? "var(--r)11" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "left", transition: "all .15s", gap: 6 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                    <span style={{ fontSize: 26 }}>{a.emoji}</span>
+                    <span style={{ fontSize: 9, padding: "2px 7px", borderRadius: 20, background: active ? "var(--r)" : "var(--bo)", color: active ? "#fff" : "var(--mt)", fontWeight: 700 }}>{a.age} {t.casting_ia_age}</span>
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: active ? "var(--r)" : "var(--tx)", lineHeight: 1.2 }}>{aLabel}</div>
+                  <div style={{ fontSize: 10, color: "var(--mt)", lineHeight: 1.4, fontStyle: "italic" }}>{aAura}</div>
+                  <div style={{ fontSize: 10, color: "var(--mt)", lineHeight: 1.3, borderTop: "1px solid var(--bo)", paddingTop: 6, width: "100%" }}>👗 {aStyle}</div>
                 </button>
               );
             })}
@@ -1307,7 +1407,7 @@ export default function App() {
   const t = T[lang];
   const opts = OPTS[lang];
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", tropesSel: [], packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", tropes: "", tropesSel: [], castingIA: [], packId: null, style: "⚡ TikTok Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 } });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
@@ -1391,7 +1491,13 @@ export default function App() {
     setScreen("load");
     try {
       setLoadMsg(t.gen_bible);
-      const b = await gen("bible", { ...cleanState(state), lang }, customerId);
+      const castingIAInstr = (state.castingIA || []).map(id => {
+        const a = CASTING_IA.find(x => x.id === id);
+        if (!a) return "";
+        const l = lang === "en" ? "en" : "fr";
+        return `${a.label[l]} (${a.age} ${t.casting_ia_age}) — voix: ${a.voix[l]}; style: ${a.style[l]}; personnalité: ${a.perso[l]}; aura: ${a.aura[l]}`;
+      }).filter(Boolean).join(" || ");
+      const b = await gen("bible", { ...cleanState(state), lang, castingIA: castingIAInstr || undefined }, customerId);
       setBible(b);
 
       const totalBatches = Math.ceil(state.format / 10);
