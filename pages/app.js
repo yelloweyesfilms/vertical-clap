@@ -39,6 +39,7 @@ const T = {
     writing: "Écriture du script", hook: "⚡ Hook — 3 premières secondes",
     script_label: "Script", repliques: "répliques",
     spice: "🌶 Pimenter", subtle: "🤫 Subtil", simplify: "🎬 Simple",
+    revelation: "💥 Révélation", revelation_sub: "Insère un secret explosif dans le script",
     variations_locked: "🔒 Générer 3 versions", variations: "🎲 Générer 3 versions",
     shooting: "📱 Mode Tournage", social: "🔥 Social",
     translate: "🌍 Traduire le script", translate_back: "↩ Original", translating: "🌍 Traduction en cours…",
@@ -89,6 +90,7 @@ const T = {
     writing: "Writing script", hook: "⚡ Hook — First 3 seconds",
     script_label: "Script", repliques: "lines",
     spice: "🌶 Spice up", subtle: "🤫 Subtle", simplify: "🎬 Simplify",
+    revelation: "💥 Revelation", revelation_sub: "Drop an explosive secret into the script",
     variations_locked: "🔒 Generate 3 versions", variations: "🎲 Generate 3 versions",
     shooting: "📱 Shooting mode", social: "🔥 Social",
     translate: "🌍 Translate script", translate_back: "↩ Original", translating: "🌍 Translating…",
@@ -884,6 +886,10 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onB
                 <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "11px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
               ))}
             </div>
+            <button onClick={() => onEdit("revelation")} disabled={loading} style={{ width: "100%", marginBottom: 10, padding: "14px 16px", borderRadius: 12, border: "none", background: "linear-gradient(135deg, #E85C3A, #c0392b)", color: "#fff", cursor: "pointer", fontSize: 14, fontWeight: 800, fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, boxShadow: "0 4px 18px rgba(232,92,58,0.35)" }}>
+              <span>{t.revelation}</span>
+              <span style={{ fontSize: 11, fontWeight: 500, opacity: 0.85 }}>— {t.revelation_sub}</span>
+            </button>
             <button onClick={plan === "standard" ? () => alert(t.premium_variations) : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: plan === "standard" ? "not-allowed" : "pointer", marginBottom: 10, fontFamily: "var(--sans)", opacity: plan === "standard" ? 0.6 : 1 }}>{plan === "standard" ? t.variations_locked : t.variations}</button>
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
               <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.shooting}</button>

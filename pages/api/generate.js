@@ -45,7 +45,7 @@ const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres", "variati
 const VALID_MODES = ["fast", "premium"];
 const VALID_DUREES = [60, 90, 120];
 const VALID_FORMATS = [10, 20, 40, 60, 90];
-const VALID_EDIT_TYPES = ["pimenter", "subtil", "simplifier", "rewrite_hook", "rewrite_ending"];
+const VALID_EDIT_TYPES = ["pimenter", "subtil", "simplifier", "rewrite_hook", "rewrite_ending", "revelation"];
 
 function validatePayload(action, payload) {
   if (!payload || typeof payload !== "object") return "Payload invalide";
@@ -305,6 +305,7 @@ export default async function handler(req, res) {
         simplifier: `SIMPLIFIE radicalement ce script. Un seul lieu. Une seule révélation centrale. Répliques 5-8 mots max, chaque mot compte. Supprime tout ce qui n'est pas essentiel à la tension principale. Max ${maxS} échanges. Même structure JSON.`,
         rewrite_hook: `RÉÉCRIS UNIQUEMENT le hook d'ouverture (hook_scene). Le hook actuel est: "${currentHook}" — tu DOIS produire quelque chose de radicalement différent: autre situation de départ, autre émotion d'ouverture, autre dynamique entre les personnages. INTERDIT de reprendre les mêmes mots ou la même situation. Le reste du script (scenes + cliffhanger_scene) reste identique. Même structure JSON.`,
         rewrite_ending: `RÉÉCRIS UNIQUEMENT la fin (cliffhanger_scene). Le cliffhanger actuel est: "${currentCliff}" — tu DOIS produire quelque chose de complètement différent: autre révélation, autre retournement, autre question laissée ouverte. INTERDIT de reprendre les mêmes mots ou la même situation. Pense: trahison inattendue, révélation d'identité, objet découvert, mensonge exposé, arrivée surprise. Le hook et les scenes du milieu restent identiques. Même structure JSON.`,
+        revelation: `INSÈRE UNE RÉVÉLATION EXPLOSIVE dans ce script. Choisis LE SECRET LE PLUS DÉVASTATEUR et inattendu qui colle aux personnages et à l'univers — parmi ces possibilités: adoption cachée, mensonge sur l'âge réel, grossesse secrète, ruine financière dissimulée, fausse identité / faux profil, connaissait déjà la victime depuis le début, liaison cachée avec un proche, enfant caché, trahison organisée depuis le premier épisode, double vie révélée. La révélation DOIT tomber comme une bombe: un personnage lâche la vérité (ou la découvre) de façon brutale et irréversible. RÉÉCRIS le cliffhanger_scene pour que ce secret éclate au grand jour — réaction de choc, silence, fuite ou confrontation immédiate. Adapte 1 ou 2 scenes du milieu pour que la révélation soit crédible rétrospectivement (des indices qui prennent sens). Garde le hook_scene identique. Même structure JSON.`,
       };
       const langInstr = buildLangInstr(lang);
       const result = await callClaude(
