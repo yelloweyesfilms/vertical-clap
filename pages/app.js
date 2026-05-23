@@ -854,17 +854,19 @@ async function gen(action, payload, customerId) {
 
 // ── COMPONENTS ───────────────────────────────────────────────
 function VCLogo() {
+  const hasImg = false; // passer à true quand /public/vc-logo.png est uploadé
   return (
-    <div style={{ display: "flex", alignItems: "stretch", gap: 10, userSelect: "none" }}>
-      <div style={{ width: 3, borderRadius: 2, background: "linear-gradient(to bottom, #ff8c42, #E85C3A)", flexShrink: 0 }} />
-      <svg width={17} height={28} viewBox="0 0 17 28" fill="none" style={{ flexShrink: 0, alignSelf: "center" }}>
-        <rect x="1" y="1" width="15" height="26" rx="3" stroke="white" strokeWidth="1.5"/>
-        <circle cx="8.5" cy="23.5" r="1.1" fill="white" opacity="0.5"/>
-        <rect x="5.5" y="3.5" width="6" height="1" rx="0.5" fill="white" opacity="0.4"/>
-      </svg>
-      <div style={{ alignSelf: "center", lineHeight: 1 }}>
-        <div style={{ fontFamily: "var(--sans)", fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
-        <div style={{ fontFamily: "var(--sans)", fontSize: 18, fontWeight: 800, letterSpacing: -0.5, lineHeight: 1, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>CLAP</div>
+    <div style={{ display: "flex", alignItems: "center", gap: 9, userSelect: "none" }}>
+      {hasImg ? (
+        <img src="/vc-logo.png" alt="VC" style={{ width: 32, height: 32, borderRadius: 8, flexShrink: 0 }} />
+      ) : (
+        <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #E85C3A, #c94424)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 2px 8px rgba(232,92,58,0.35)" }}>
+          <span style={{ fontFamily: "var(--sans)", fontSize: 13, fontWeight: 900, color: "#fff", letterSpacing: -0.5 }}>VC</span>
+        </div>
+      )}
+      <div style={{ lineHeight: 1 }}>
+        <div style={{ fontFamily: "var(--sans)", fontSize: 9, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--mt)", marginBottom: 1 }}>VERTICAL</div>
+        <div style={{ fontFamily: "var(--sans)", fontSize: 15, fontWeight: 900, letterSpacing: "-0.02em", lineHeight: 1, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>CLAP</div>
       </div>
     </div>
   );
@@ -1127,12 +1129,19 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
       <div style={{ background: "var(--card)", borderBottom: "1px solid var(--bo)", padding: "12px 16px 10px", flexShrink: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
           <VCLogo />
-          {/* Plan badge */}
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <span style={{ fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, padding: "3px 8px", borderRadius: 20, letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: "var(--sans)" }}>
-              {plan === "standard" ? (lang === "en" ? "Creator · 9€" : "Créateur · 9€") : (lang === "en" ? "Premium · 19€" : "Premium · 19€")}
+          {/* Plan badge — cliquable */}
+          <button onClick={async () => {
+            if (plan === "standard") { onUpgrade("serie"); return; }
+            try { const r = await fetch("/api/portal", { method: "POST" }); const d = await r.json(); if (d.url) window.location.href = d.url; } catch {}
+          }} style={{ display: "flex", alignItems: "center", gap: 5, background: plan === "standard" ? "rgba(232,92,58,0.08)" : "rgba(168,85,247,0.08)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.25)" : "rgba(168,85,247,0.25)"}`, borderRadius: 20, padding: "4px 10px 4px 8px", cursor: "pointer" }}>
+            <span style={{ fontSize: 9, color: "var(--mt)", fontWeight: 600, fontFamily: "var(--sans)", textTransform: "uppercase", letterSpacing: 1 }}>
+              {lang === "en" ? "Plan" : "Plan"}
             </span>
-          </div>
+            <span style={{ fontSize: 10, fontWeight: 800, color: plan === "standard" ? "#E85C3A" : "#a855f7", letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: "var(--sans)" }}>
+              {plan === "standard" ? (lang === "en" ? "Creator" : "Créateur") : "Premium"}
+            </span>
+            <span style={{ fontSize: 9, color: plan === "standard" ? "#E85C3A" : "#a855f7", opacity: 0.6 }}>›</span>
+          </button>
         </div>
         {/* Mode switcher */}
         <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
