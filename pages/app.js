@@ -1130,10 +1130,18 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
           <VCLogo />
           {/* Plan badge — cliquable */}
-          <button onClick={async () => {
+          <button onClick={async (e) => {
             if (plan === "standard") { onUpgrade("serie"); return; }
-            try { const r = await fetch("/api/portal", { method: "POST" }); const d = await r.json(); if (d.url) window.location.href = d.url; } catch {}
-          }} style={{ display: "flex", alignItems: "center", gap: 5, background: plan === "standard" ? "rgba(232,92,58,0.08)" : "rgba(168,85,247,0.08)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.25)" : "rgba(168,85,247,0.25)"}`, borderRadius: 20, padding: "4px 10px 4px 8px", cursor: "pointer" }}>
+            const btn = e.currentTarget;
+            btn.style.opacity = "0.5";
+            try {
+              const r = await fetch("/api/portal", { method: "POST" });
+              const d = await r.json();
+              if (d.url) { window.location.href = d.url; return; }
+            } catch {}
+            btn.style.opacity = "1";
+            window.location.href = "https://verticalclap.com/#pricing";
+          }} style={{ display: "flex", alignItems: "center", gap: 5, background: plan === "standard" ? "rgba(232,92,58,0.08)" : "rgba(168,85,247,0.08)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.25)" : "rgba(168,85,247,0.25)"}`, borderRadius: 20, padding: "4px 10px 4px 8px", cursor: "pointer", transition: "opacity .2s" }}>
             <span style={{ fontSize: 9, color: "var(--mt)", fontWeight: 600, fontFamily: "var(--sans)", textTransform: "uppercase", letterSpacing: 1 }}>
               {lang === "en" ? "Plan" : "Plan"}
             </span>
