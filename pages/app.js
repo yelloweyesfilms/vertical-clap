@@ -853,6 +853,15 @@ async function gen(action, payload, customerId) {
 }
 
 // ── COMPONENTS ───────────────────────────────────────────────
+function LoadingVC({ msg }) {
+  return (
+    <div style={{ textAlign: "center", padding: "60px 0" }}>
+      <img src="/1024.png" alt="VC" style={{ width: 56, height: 56, borderRadius: 14, marginBottom: 16, animation: "pulse 1.5s infinite", boxShadow: "0 0 24px rgba(232,92,58,0.45)" }} />
+      {msg && <p style={{ fontSize: 14, color: "var(--mt)" }}>{msg}</p>}
+    </div>
+  );
+}
+
 function VCLogo() {
   return (
     <div style={{ userSelect: "none" }}>
@@ -1945,10 +1954,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
       </div>
       <div style={{ padding: "16px 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
-          <div style={{ textAlign: "center", padding: "60px 0" }}>
-            <div style={{ fontSize: 36, marginBottom: 14, animation: "pulse 1.2s infinite" }}>📝</div>
-            <p style={{ fontSize: 14, color: "var(--mt)" }}>{t.writing} ({DUR_LABEL[lang][duree]})…</p>
-          </div>
+          <LoadingVC msg={`${t.writing} (${DUR_LABEL[lang][duree]})…`} />
         ) : script ? (
           <>
             <div style={{ background: "var(--card)", border: "2px solid var(--r)", borderRadius: 14, padding: 16, marginBottom: 16 }}>
@@ -2037,9 +2043,7 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
       </div>
       <div style={{ padding: "0 20px 40px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
-          <div style={{ textAlign: "center", padding: "60px 0" }}>
-            <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>🎲</div>
-            <p style={{ color: "var(--mt)" }}>Génération de 3 versions en parallèle…</p>
+          <LoadingVC msg="Génération de 3 versions en parallèle…" />
           </div>
         ) : (variations || []).map((v, i) => (
           <div key={i} style={{ background: "var(--card)", borderRadius: 16, padding: 18, marginBottom: 16, border: "1.5px solid var(--bo)" }}>
@@ -2097,9 +2101,7 @@ function AfficheView({ affiche, loading, bible, onBack, t }) {
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
-          <div style={{ textAlign: "center", padding: "60px 0" }}>
-            <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>🎨</div>
-            <p style={{ color: "var(--mt)" }}>{t.affiche_loading}</p>
+          <LoadingVC msg={t.affiche_loading} />
           </div>
         ) : affiche ? (
           <>
@@ -2172,10 +2174,7 @@ function SocialView({ social, loading, ep, bible, onBack, t }) {
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
-          <div style={{ textAlign: "center", padding: "60px 0" }}>
-            <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>📱</div>
-            <p style={{ color: "var(--mt)" }}>{t.social_loading}</p>
-          </div>
+          <LoadingVC msg={t.social_loading} />
         ) : social ? (
           <>
             {/* Légende TikTok */}
@@ -2403,10 +2402,7 @@ function ProfilsView({ profils, loading, bible, onBack, t }) {
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
-          <div style={{ textAlign: "center", padding: "60px 0" }}>
-            <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>👤</div>
-            <p style={{ color: "var(--mt)" }}>{t.loading_profils}</p>
-          </div>
+          <LoadingVC msg={t.loading_profils} />
         ) : data.map((p, i) => {
           const couleur = p.couleur || (i === 0 ? "#E85C3A" : "#3a5040");
           return (
@@ -2495,10 +2491,7 @@ function CalendrierView({ calendrier, loading, bible, onBack, t }) {
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
-          <div style={{ textAlign: "center", padding: "60px 0" }}>
-            <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>📅</div>
-            <p style={{ color: "var(--mt)" }}>{t.loading_calendrier}</p>
-          </div>
+          <LoadingVC msg={t.loading_calendrier} />
         ) : data ? (
           <>
             {data.strategie && (
@@ -2572,10 +2565,7 @@ function StoryboardView({ storyboard, loading, ep, bible, onBack, t }) {
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
-          <div style={{ textAlign: "center", padding: "60px 0" }}>
-            <div style={{ fontSize: 32, marginBottom: 16, animation: "pulse 1.2s infinite" }}>🎬</div>
-            <p style={{ color: "var(--mt)" }}>{t.loading_storyboard}</p>
-          </div>
+          <LoadingVC msg={t.loading_storyboard} />
         ) : shots.map((shot, i) => (
           <div key={i} style={{ background: "var(--card)", borderRadius: 14, overflow: "hidden", marginBottom: 12, border: "1.5px solid var(--bo)" }}>
             <div style={{ background: "#0a0a0f", padding: "10px 14px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -3236,7 +3226,7 @@ export default function App() {
   };
 
   // ── Render ──
-  if (checking) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh" }}><div style={{ width: 48, height: 48, borderRadius: "50%", background: "#E85C3A", animation: "pulse 1.5s infinite" }} /></div>;
+  if (checking) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", background: "#0c0c12" }}><LoadingVC /></div>;
 
   if (!customerId) {
     return (
