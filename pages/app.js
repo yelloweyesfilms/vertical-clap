@@ -72,7 +72,7 @@ const T = {
     affiche_sec1_title: "01 — Affiche de présentation", affiche_sec1_sub: "Imprime-la ou joins-la à ton PDF d'épisodes pour présenter ta série.",
     affiche_sec2_title: "02 — Direction artistique", affiche_sec2_sub: "L'ambiance visuelle de ta série — pour briefer un DA, un graphiste ou une IA.",
     affiche_sec3_title: "03 — Générer l'image de couverture", affiche_sec3_sub: "Copie ce prompt et colle-le dans Midjourney, DALL-E (ChatGPT), Gemini ou Ideogram pour générer l'affiche.",
-    affiche_copy: "📋 Copier le prompt", affiche_tools: "Midjourney → /imagine + colle · ChatGPT → \"Génère cette image :\" + colle · Gemini → même chose",
+    affiche_copy: "Copier le prompt", affiche_tools: "Midjourney → /imagine + colle · ChatGPT → \"Génère cette image :\" + colle · Gemini → même chose",
     vc_presents: "VERTICAL CLAP PRESENTS",
     social_title: "Distribution & Réseaux", social_loading: "Génération du contenu…",
     social_tiktok_legend: "Légende de publication", social_copy: "Copier",
@@ -85,7 +85,7 @@ const T = {
     loading_cartes: "Création des fiches personnages…",
     loading_titres: "Analyse de la viralité…",
     style_voixoff: "Narration intime",
-    voix_off_label: "📢 Voix Off",
+    voix_off_label: "Voix Off",
     profils_btn: "Profils",
     loading_profils: "Création des profils réseaux…",
     profils_title: "Profils Réseaux",
@@ -148,7 +148,7 @@ const T = {
     affiche_sec1_title: "01 — Presentation poster", affiche_sec1_sub: "Print it or attach it to your episode PDF to present your series.",
     affiche_sec2_title: "02 — Art direction", affiche_sec2_sub: "Your series visual identity — to brief a designer, an art director, or an AI.",
     affiche_sec3_title: "03 — Generate cover image", affiche_sec3_sub: "Copy this prompt and paste it into Midjourney, DALL-E (ChatGPT), Gemini or Ideogram to generate the poster.",
-    affiche_copy: "📋 Copy prompt", affiche_tools: "Midjourney → /imagine + paste · ChatGPT → \"Generate this image:\" + paste · Gemini → same",
+    affiche_copy: "Copy prompt", affiche_tools: "Midjourney → /imagine + paste · ChatGPT → \"Generate this image:\" + paste · Gemini → same",
     vc_presents: "VERTICAL CLAP PRESENTS",
     social_title: "Distribution & Social", social_loading: "Generating content…",
     social_tiktok_legend: "Publication caption", social_copy: "Copy",
@@ -161,7 +161,7 @@ const T = {
     loading_cartes: "Creating character profiles…",
     loading_titres: "Analysing virality…",
     style_voixoff: "Intimate narration",
-    voix_off_label: "📢 Voice Over",
+    voix_off_label: "Voice Over",
     profils_btn: "Profiles",
     loading_profils: "Creating social profiles…",
     profils_title: "Social Profiles",
@@ -1815,7 +1815,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
                 <p style={{ fontSize: 14, lineHeight: 1.55, marginBottom: 6, fontWeight: 500 }}>{s.dialogue}</p>
                 {s.voix_off && (
                   <div style={{ background: "rgba(58,80,64,0.1)", border: "1px solid rgba(58,80,64,0.2)", borderRadius: 8, padding: "8px 10px", marginBottom: 6, display: "flex", alignItems: "flex-start", gap: 6 }}>
-                    <span style={{ fontSize: 11, flexShrink: 0 }}>📢</span>
+                    <div style={{ width: 3, height: 3, borderRadius: "50%", background: "var(--n)", flexShrink: 0, marginTop: 5 }} />
                     <p style={{ fontSize: 12, fontStyle: "italic", color: "var(--n)", lineHeight: 1.5 }}>{s.voix_off}</p>
                   </div>
                 )}
