@@ -1357,13 +1357,13 @@ export default function RichLandingPage({ lang = "fr" }) {
 
           {/* Chiffres clés XXL + visuel packs */}
           <Reveal>
-            <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 16, alignItems: "stretch" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {/* Image packs */}
-              <div style={{ borderRadius: 20, overflow: "hidden", minHeight: 280, background: "rgba(255,255,255,0.02)", display: "flex", alignItems: "center" }}>
+              <div style={{ borderRadius: 20, overflow: "hidden", background: "rgba(255,255,255,0.02)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <img src="/packs.png" alt="" aria-hidden="true" style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }} />
               </div>
               {/* Stats */}
-              <div className="mixeur-stats" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 2, background: BORDER, borderRadius: 20, overflow: "hidden" }}>
+              <div className="mixeur-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2, background: BORDER, borderRadius: 20, overflow: "hidden" }}>
                 {(lang === "fr" ? [
                   { n: "12", label: "packs univers", sub: "Romance, Thriller, K-Drama, Dark Drama…", color: RED },
                   { n: "48", label: "personnages", sub: "Archétypes avec morphologie, culture & aura", color: "#f97316" },
