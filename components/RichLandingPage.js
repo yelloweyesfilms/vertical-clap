@@ -1261,7 +1261,11 @@ export default function RichLandingPage({ lang = "fr" }) {
           </Reveal>
 
           <Reveal>
-            <p style={{ textAlign: "center", color: MUTED, fontSize: 16, maxWidth: 520, margin: "0 auto 40px", lineHeight: 1.7 }}>
+            <Label color={RED}>{c.mixerLabel}</Label>
+            <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(32px, 4.5vw, 60px)", fontWeight: 900, textAlign: "center", marginBottom: 12, letterSpacing: -2, lineHeight: 1.05, color: TEXT, textTransform: "uppercase" }}>
+              {lang === "fr" ? <>Tu choisis.<br /><span style={{ color: RED }}>L'IA génère tout.</span></> : <>You choose.<br /><span style={{ color: RED }}>AI generates everything.</span></>}
+            </h2>
+            <p style={{ textAlign: "center", color: MUTED, fontSize: 16, maxWidth: 520, margin: "12px auto 40px", lineHeight: 1.7 }}>
               {lang === "fr"
                 ? "Sélectionne un genre, un personnage, un secret — ou tape ton idée. La bible complète + 10 épisodes arrivent en 30 secondes."
                 : "Pick a genre, a character, a secret — or type your idea. Full bible + 10 episodes in 30 seconds."}
