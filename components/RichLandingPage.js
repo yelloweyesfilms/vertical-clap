@@ -163,7 +163,7 @@ const COPY = {
       { q: "Mes séries sont-elles sauvegardées ?", r: "Elles sont sauvegardées localement et synchronisées dans le cloud automatiquement. Tu y accèdes depuis n'importe quel appareil via l'onglet ☁️ Cloud." },
       { q: "Puis-je annuler mon abonnement ?", r: "Oui, à tout moment en un clic depuis ton espace Stripe. Aucun engagement, aucune pénalité. Tu gardes l'accès jusqu'à la fin de la période payée." },
     ],
-    nlLabel: "Ressources gratuites",
+    nlLabel: "Pas encore prêt ?",
     nlTitle1: "Reçois le guide",
     nlTitle2: "pour bien démarrer.",
     nlBody: "On t'envoie les ressources essentielles pour créer ta première série : hooks, structure d'épisode, plateformes. Un seul email, pas de spam.",
@@ -400,7 +400,7 @@ const COPY = {
       { q: "Are my series saved?", r: "They are saved locally and synced to the cloud automatically. Access them from any device via the ☁️ Cloud tab." },
       { q: "Can I cancel my subscription?", r: "Yes, at any time in one click from your Stripe account. No commitment, no penalty. You keep access until the end of the paid period." },
     ],
-    nlLabel: "Free resources",
+    nlLabel: "Not ready yet?",
     nlTitle1: "Get the starter guide",
     nlTitle2: "to launch your first series.",
     nlBody: "We'll send you the essentials to create your first series: hooks, episode structure, platforms. One email, no spam.",
@@ -1412,6 +1412,9 @@ export default function RichLandingPage({ lang = "fr" }) {
         </div>
       </div>
 
+      {/* GUIDE DE DÉMARRAGE */}
+      <NewsletterSection lang={lang} />
+
       {/* FAQ */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
@@ -1435,9 +1438,6 @@ export default function RichLandingPage({ lang = "fr" }) {
           </div>
         </div>
       </div>
-
-      {/* NEWSLETTER */}
-      <NewsletterSection lang={lang} />
 
       {/* BLOG */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
