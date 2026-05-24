@@ -1216,13 +1216,28 @@ export default function RichLandingPage({ lang = "fr" }) {
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
 
-          {/* Titre */}
+          {/* Bannière casting */}
           <Reveal>
-            <Label color={RED}>{c.mixerLabel}</Label>
-            <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "clamp(32px, 5vw, 60px)", fontWeight: 900, textAlign: "center", letterSpacing: -2, lineHeight: 1.05, color: TEXT, textTransform: "uppercase", marginBottom: 16 }}>
-              {lang === "fr" ? <>Tu choisis.<br /><span style={{ color: RED }}>L'IA génère tout.</span></> : <>You choose.<br /><span style={{ color: RED }}>AI generates everything.</span></>}
-            </h2>
-            <p style={{ textAlign: "center", color: MUTED, fontSize: 17, maxWidth: 520, margin: "0 auto 52px", lineHeight: 1.7 }}>
+          <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", marginBottom: 48, height: 260 }}>
+            <img src="/casting-hero.png" alt="Casting VerticalClap" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%", display: "block" }} />
+            {/* Overlays */}
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(9,9,15,0.85) 0%, rgba(9,9,15,0.4) 50%, rgba(9,9,15,0.75) 100%)" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(9,9,15,0.9) 100%)" }} />
+            {/* Texte sur l'image */}
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "0 40px" }}>
+              <Label color={RED}>{c.mixerLabel}</Label>
+              <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "clamp(32px, 5vw, 60px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, color: TEXT, textTransform: "uppercase", marginBottom: 12 }}>
+                {lang === "fr" ? <>Tu choisis.<br /><span style={{ color: RED }}>L'IA génère tout.</span></> : <>You choose.<br /><span style={{ color: RED }}>AI generates everything.</span></>}
+              </h2>
+              <p style={{ color: "rgba(255,255,255,0.65)", fontSize: 15, maxWidth: 480, lineHeight: 1.6, margin: 0 }}>
+                {lang === "fr" ? "48 archétypes · 12 univers · 16 secrets" : "48 archetypes · 12 universes · 16 secrets"}
+              </p>
+            </div>
+          </div>
+          </Reveal>
+
+          <Reveal>
+            <p style={{ textAlign: "center", color: MUTED, fontSize: 16, maxWidth: 520, margin: "0 auto 40px", lineHeight: 1.7 }}>
               {lang === "fr"
                 ? "Sélectionne un genre, un personnage, un secret — ou tape ton idée. La bible complète + 10 épisodes arrivent en 30 secondes."
                 : "Pick a genre, a character, a secret — or type your idea. Full bible + 10 episodes in 30 seconds."}
