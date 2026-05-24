@@ -102,8 +102,8 @@ const COPY = {
     forYouTitle2: "au showrunner.",
     forYouProfiles: [
       { emoji: "📱", title: "Le créateur solo", sub: "Tu postes sur TikTok, Reels ou Shorts. Tu veux des hooks qui accrochent et du contenu prêt à tourner — sans passer 3 heures à écrire. Plan Créateur à 9€.", color: "#E85C3A" },
-      { emoji: "🎬", title: "L'auteur ambitieux", sub: "Tu veux des personnages complexes, des arcs narratifs sur plusieurs épisodes, une Direction Artistique réelle. Plan Storyteller à 19€.", color: "#f97316" },
-      { emoji: "🎭", title: "Le showrunner", sub: "Tu livres sur des plateformes premium. 90 épisodes, 3 variations par script, fiche technique de production — tout y est en Storyteller.", color: "#a855f7" },
+      { emoji: "🎬", title: "L'auteur ambitieux", sub: "Tu veux des personnages complexes, des arcs narratifs sur plusieurs épisodes, une Direction Artistique réelle. Plan Pro à 19€.", color: "#f97316" },
+      { emoji: "🎭", title: "Le showrunner", sub: "Tu livres sur des plateformes premium. 90 épisodes, 3 variations par script, fiche technique de production — tout y est en Pro.", color: "#a855f7" },
     ],
     pipelineLabel: "De l'idée au tournage",
     pipelineTitle1: "5 minutes. Série complète.",
@@ -121,7 +121,7 @@ const COPY = {
     perMonth: "/mois",
     planStandard: "Créateur",
     planStandardSub: "Micro-dramas viraux pour TikTok, Reels et Shorts",
-    planPremium: "Storyteller",
+    planPremium: "Pro",
     planPremiumSub: "Séries longues, direction artistique et univers narratifs",
     standardFeatures: [
       "⚡ Vertical Drama · micro-drama",
@@ -143,7 +143,7 @@ const COPY = {
       "☁️ Cloud · Export PDF",
     ],
     recommendedBadge: "RECOMMANDÉ",
-    ctaBtnPremium: "Commencer Storyteller →",
+    ctaBtnPremium: "Commencer Pro →",
     trustItems: [
       { icon: "·", label: "Stripe · Paiement sécurisé" },
       { icon: "·", label: "Annulable en 1 clic" },
@@ -158,7 +158,7 @@ const COPY = {
     faqItems: [
       { q: "C'est quoi un micro-drama vertical ?", r: "Un format vidéo court (1 à 2 min), filmé en 9:16 pour mobile, avec une structure dramatique forte : hook percutant, tension montante et cliffhanger final. Le format qui explose sur TikTok, Instagram Reels, YouTube Shorts — et sur les plateformes spécialisées de micro-dramas comme DramaBox et ReelShort." },
       { q: "Combien de temps pour générer une série complète ?", r: "Moins de 5 minutes. La bible (titre, logline, personnages, tension centrale) se génère en quelques secondes. Les épisodes arrivent en parallèle. Le script formaté d'un épisode prend 10 secondes." },
-      { q: "Quelle différence entre Creator et Storyteller ?", r: "Creator (9€) : émotions frontales, hooks agressifs, rythme maximal — idéal pour TikTok, Reels et Shorts. Storyteller (19€) : tension psychologique, sous-texte, silences lourds, Direction Artistique avancée, 90 épisodes — pour des séries ambitieuses et une audience plus mature." },
+      { q: "Quelle différence entre Creator et Pro ?", r: "Creator (9€) : émotions frontales, hooks agressifs, rythme maximal — idéal pour TikTok, Reels et Shorts. Pro (19€) : tension psychologique, sous-texte, silences lourds, Direction Artistique avancée, 90 épisodes — pour des séries ambitieuses et une audience plus mature." },
       { q: "Les scripts sont-ils vraiment prêts à tourner ?", r: "Oui. Chaque scène inclut le dialogue, l'indication de jeu d'acteur et la directive de cadrage 9:16. Le Mode Tournage intègre un téléprompteur auto-scroll. Tu tournes directement depuis l'écran." },
       { q: "Mes séries sont-elles sauvegardées ?", r: "Elles sont sauvegardées localement et synchronisées dans le cloud automatiquement. Tu y accèdes depuis n'importe quel appareil via l'onglet ☁️ Cloud." },
       { q: "Puis-je annuler mon abonnement ?", r: "Oui, à tout moment en un clic depuis ton espace Stripe. Aucun engagement, aucune pénalité. Tu gardes l'accès jusqu'à la fin de la période payée." },
@@ -339,8 +339,8 @@ const COPY = {
     forYouTitle2: "to showrunner.",
     forYouProfiles: [
       { emoji: "📱", title: "The solo creator", sub: "You post on TikTok, Reels or Shorts. You want hooks that grab and content ready to shoot — without spending 3 hours writing. Creator plan at €9.", color: "#E85C3A" },
-      { emoji: "🎬", title: "The ambitious author", sub: "You want complex characters, multi-episode narrative arcs, real Artistic Direction. Storyteller plan at €19.", color: "#f97316" },
-      { emoji: "🎭", title: "The showrunner", sub: "You deliver to premium platforms. 90 episodes, 3 variations per script, production sheet — all in Storyteller.", color: "#a855f7" },
+      { emoji: "🎬", title: "The ambitious author", sub: "You want complex characters, multi-episode narrative arcs, real Artistic Direction. Pro plan at €19.", color: "#f97316" },
+      { emoji: "🎭", title: "The showrunner", sub: "You deliver to premium platforms. 90 episodes, 3 variations per script, production sheet — all in Pro.", color: "#a855f7" },
     ],
     pipelineLabel: "From idea to shoot",
     pipelineTitle1: "5 minutes. Complete series.",
@@ -358,7 +358,7 @@ const COPY = {
     perMonth: "/month",
     planStandard: "Creator",
     planStandardSub: "Viral micro-dramas for TikTok, Reels and Shorts",
-    planPremium: "Storyteller",
+    planPremium: "Pro",
     planPremiumSub: "Long series, artistic direction and narrative universes",
     standardFeatures: [
       "⚡ Vertical Drama · micro-drama",
@@ -380,7 +380,7 @@ const COPY = {
       "☁️ Cloud · PDF Export",
     ],
     recommendedBadge: "RECOMMENDED",
-    ctaBtnPremium: "Get started Storyteller →",
+    ctaBtnPremium: "Get started Pro →",
     trustItems: [
       { icon: "·", label: "Stripe · Secure payment" },
       { icon: "·", label: "Cancel in 1 click" },
@@ -395,7 +395,7 @@ const COPY = {
     faqItems: [
       { q: "What is a vertical micro-drama?", r: "A short video format (1 to 2 min), filmed in 9:16 for mobile, with a strong dramatic structure: punchy hook, rising tension and final cliffhanger. The format exploding on TikTok, Instagram Reels, YouTube Shorts — and on specialized platforms like DramaBox and ReelShort." },
       { q: "How long does it take to generate a complete series?", r: "Less than 5 minutes. The bible (title, logline, characters, central tension) generates in seconds. Episodes arrive in parallel. A formatted episode script takes 10 seconds." },
-      { q: "What's the difference between Creator and Storyteller?", r: "Creator (€9): frontal emotions, aggressive hooks, maximum pace — ideal for TikTok, Reels and Shorts. Storyteller (€19): psychological tension, subtext, heavy silences, advanced Artistic Direction, 90 episodes — for ambitious series and a more mature audience." },
+      { q: "What's the difference between Creator and Pro?", r: "Creator (€9): frontal emotions, aggressive hooks, maximum pace — ideal for TikTok, Reels and Shorts. Pro (€19): psychological tension, subtext, heavy silences, advanced Artistic Direction, 90 episodes — for ambitious series and a more mature audience." },
       { q: "Are the scripts really ready to shoot?", r: "Yes. Each scene includes dialogue, acting direction and 9:16 framing directive. Shoot Mode includes an auto-scroll teleprompter. You shoot straight from the screen." },
       { q: "Are my series saved?", r: "They are saved locally and synced to the cloud automatically. Access them from any device via the ☁️ Cloud tab." },
       { q: "Can I cancel my subscription?", r: "Yes, at any time in one click from your Stripe account. No commitment, no penalty. You keep access until the end of the paid period." },
@@ -1339,14 +1339,14 @@ export default function RichLandingPage({ lang = "fr" }) {
             <div style={{ display: "flex", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 18, padding: 5, gap: 5 }}>
               {[
                 { id: "creator", label: c.planStandard, price: billing === "annual" ? "7.5€" : "9€", color: RED },
-                { id: "storyteller", label: c.planPremium, price: billing === "annual" ? "14.9€" : "19€", color: VIO },
+                { id: "pro", label: c.planPremium, price: billing === "annual" ? "14.9€" : "19€", color: VIO },
               ].map(tab => {
                 const active = planTab === tab.id;
                 return (
                   <button key={tab.id} onClick={() => setPlanTab(tab.id)} style={{
                     flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
                     padding: "13px 8px", borderRadius: 13, border: "none",
-                    background: active ? (tab.id === "storyteller" ? `linear-gradient(135deg, ${RED}22, ${VIO}22)` : `${RED}18`) : "transparent",
+                    background: active ? (tab.id === "pro" ? `linear-gradient(135deg, ${RED}22, ${VIO}22)` : `${RED}18`) : "transparent",
                     boxShadow: active ? `inset 0 0 0 1.5px ${tab.color}55` : "none",
                     cursor: "pointer", transition: "all .2s", fontFamily: "'Space Grotesk', sans-serif",
                   }}>
@@ -1391,15 +1391,15 @@ export default function RichLandingPage({ lang = "fr" }) {
                   {loading ? c.redirecting : c.ctaBtn}
                 </GlowBtn>
                 <p style={{ textAlign: "center", marginTop: 10, fontSize: 11, color: MUTED }}>
-                  <button onClick={() => setPlanTab("storyteller")} style={{ background: "none", border: "none", color: VIO, fontWeight: 700, cursor: "pointer", fontSize: 11, padding: 0 }}>Voir Premium →</button>
+                  <button onClick={() => setPlanTab("pro")} style={{ background: "none", border: "none", color: VIO, fontWeight: 700, cursor: "pointer", fontSize: 11, padding: 0 }}>Voir Premium →</button>
                 </p>
               </div>
             </div>
             </Reveal>
           )}
 
-          {/* Storyteller plan */}
-          {planTab === "storyteller" && (
+          {/* Pro plan */}
+          {planTab === "pro" && (
             <Reveal>
             <div style={{ maxWidth: 480, margin: "0 auto" }}>
               <div className="card-hover" style={{ borderRadius: 24, padding: "36px 32px", position: "relative", background: "rgba(168,85,247,0.04)", border: "1.5px solid rgba(168,85,247,0.28)", boxShadow: "0 0 48px rgba(168,85,247,0.08)" }}>

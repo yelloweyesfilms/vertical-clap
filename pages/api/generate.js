@@ -333,13 +333,13 @@ export default async function handler(req, res) {
   // Restrictions plan Standard
   const PREMIUM_ACTIONS = ["variations", "titres"];
   if (plan === "standard" && PREMIUM_ACTIONS.includes(action)) {
-    return res.status(403).json({ error: "Cette fonctionnalité est réservée au plan Storyteller. Passez à Storyteller pour débloquer les variations et les titres viraux." });
+    return res.status(403).json({ error: "Cette fonctionnalité est réservée au plan Pro. Passez à Pro pour débloquer les variations et les titres viraux." });
   }
   if (plan === "standard" && action === "bible" && payload?.mode === "premium") {
-    return res.status(403).json({ error: "Le mode Série est réservé au plan Storyteller." });
+    return res.status(403).json({ error: "Le mode Série est réservé au plan Pro." });
   }
   if (plan === "standard" && action === "bible" && payload?.format > 20) {
-    return res.status(403).json({ error: "Le plan Creator est limité à 20 épisodes. Passez à Storyteller pour créer jusqu'à 90 épisodes." });
+    return res.status(403).json({ error: "Le plan Creator est limité à 20 épisodes. Passez à Pro pour créer jusqu'à 90 épisodes." });
   }
 
   const validationError = validatePayload(action, payload);

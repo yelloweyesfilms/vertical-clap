@@ -80,10 +80,10 @@ const T = {
     gen_bible: "Création de la bible de la série…",
     gen_episodes: "Génération des épisodes…",
     gen_episodes_batch: "Épisodes %a–%b générés… (%c/%d)",
-    premium_variations: "Les variations sont réservées au plan Premium.",
-    premium_calendrier: "Le calendrier éditorial est réservé au plan Premium (19€/mois).",
-    premium_saison2: "La préparation de la Saison 2 est réservée au plan Premium (19€/mois).",
-    accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passez au plan Premium pour les générer pour tous vos épisodes.",
+    premium_variations: "Les variations sont réservées au plan Pro.",
+    premium_calendrier: "Le calendrier éditorial est réservé au plan Pro (19€/mois).",
+    premium_saison2: "La préparation de la Saison 2 est réservée au plan Pro (19€/mois).",
+    accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passez au plan Pro pour les générer pour tous vos épisodes.",
     loading_cartes: "Création des fiches personnages…",
     style_voixoff: "Narration intime",
     voix_off_label: "Voix Off",
@@ -161,11 +161,11 @@ const T = {
     gen_bible: "Creating series bible…",
     gen_episodes: "Generating episodes…",
     gen_episodes_batch: "Episodes %a–%b generated… (%c/%d)",
-    premium_titles: "Viral titles are reserved for Premium plan.",
-    premium_variations: "Variations are reserved for Premium plan.",
-    premium_calendrier: "The editorial calendar is reserved for the Premium plan (€19/month).",
-    premium_saison2: "Season 2 preparation is reserved for the Premium plan (€19/month).",
-    accroches_locked_hint: "The first 3 hooks are included. Upgrade to Premium to generate hooks for all your episodes.",
+    premium_titles: "Viral titles are reserved for Pro plan.",
+    premium_variations: "Variations are reserved for Pro plan.",
+    premium_calendrier: "The editorial calendar is reserved for the Pro plan (€19/month).",
+    premium_saison2: "Season 2 preparation is reserved for the Pro plan (€19/month).",
+    accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passez au plan Pro pour les générer pour tous vos épisodes.",
     loading_cartes: "Creating character profiles…",
     style_voixoff: "Intimate narration",
     voix_off_label: "Voice Over",
@@ -1851,8 +1851,8 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 })}
                 {plan === "standard" && accroches.length > 3 && (
                   <div style={{ background: "rgba(168,85,247,0.08)", border: "1.5px solid rgba(168,85,247,0.25)", borderRadius: 14, padding: "16px 18px", marginTop: 8, textAlign: "center" }}>
-                    <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.6, marginBottom: 12 }}>{t.accroches_locked_hint}</p>
-                    <span style={{ fontSize: 11, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.15)", border: "1px solid rgba(168,85,247,0.3)", padding: "5px 12px", borderRadius: 8 }}>Premium · 19€/mois</span>
+                    <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.6, marginBottom: 12 }}>{t.accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passez au plan Pro pour les générer pour tous vos épisodes.",
+                    <span style={{ fontSize: 11, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.15)", border: "1px solid rgba(168,85,247,0.3)", padding: "5px 12px", borderRadius: 8 }}>Pro · 19€/mois</span>
                   </div>
                 )}
               </>
@@ -2655,7 +2655,7 @@ function UpgradeModal({ feature, onClose, lang }) {
       <div onClick={e => e.stopPropagation()} style={{ background: "var(--card)", borderRadius: "20px 20px 0 0", padding: "28px 24px 36px", maxWidth: 520, width: "100%", border: "1.5px solid var(--bo)", borderBottom: "none" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
           <div>
-            <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "#a855f7" }}>Premium · 19€/mois</span>
+            <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "#a855f7" }}>Pro · 19€/mois</span>
             <h2 style={{ fontFamily: "var(--sans)", fontSize: 20, fontWeight: 900, marginTop: 4, lineHeight: 1.2 }}>{info.title}</h2>
           </div>
           <button onClick={onClose} style={{ background: "var(--bg)", border: "1.5px solid var(--bo)", borderRadius: 10, width: 34, height: 34, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 16, color: "var(--mt)", flexShrink: 0 }}>✕</button>

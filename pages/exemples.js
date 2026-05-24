@@ -159,7 +159,7 @@ const EXEMPLES = [
 
 const STATS = [
   { val: "5 min", label: "pour générer une série complète" },
-  { val: "90 ép.", label: "maximum par série (plan Storyteller)" },
+  { val: "90 ép.", label: "maximum par série (plan Pro)" },
   { val: "8", label: "langues de traduction disponibles" },
 ];
 

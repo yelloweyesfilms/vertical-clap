@@ -54,15 +54,15 @@ const FEATURES = [
 ];
 
 const FAQ = [
-  { q: "Quelle est la différence entre Creator et Storyteller ?", r: "Creator (Vertical Drama) génère des dialogues directs, des hooks agressifs et un rythme maximal — parfait pour TikTok. Storyteller (Série Premium) travaille la tension psychologique, les non-dits, les sous-textes et la Direction Artistique avancée. Disponible uniquement en Storyteller." },
-  { q: "Puis-je passer de Creator à Storyteller à tout moment ?", r: "Oui, en un clic depuis ton espace Stripe. La différence de prix est proratisée automatiquement." },
+  { q: "Quelle est la différence entre Creator et Pro ?", r: "Creator (Vertical Drama) génère des dialogues directs, des hooks agressifs et un rythme maximal — parfait pour TikTok. Pro (Série Premium) travaille la tension psychologique, les non-dits, les sous-textes et la Direction Artistique avancée. Disponible uniquement en Pro." },
+  { q: "Puis-je passer de Creator à Pro à tout moment ?", r: "Oui, en un clic depuis ton espace Stripe. La différence de prix est proratisée automatiquement." },
   { q: "Puis-je annuler mon abonnement ?", r: "Oui, à tout moment depuis ton espace Stripe. Aucun engagement. Tu gardes l'accès jusqu'à la fin de la période payée." },
   { q: "L'abonnement annuel est-il remboursable ?", r: "Oui, dans les 7 jours suivant le débit annuel. Contacte-nous via le chat." },
 ];
 
 export default function Tarifs() {
   const [billing, setBilling] = useState("monthly");
-  const [planTab, setPlanTab] = useState("storyteller");
+  const [planTab, setPlanTab] = useState("pro");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
@@ -108,10 +108,10 @@ export default function Tarifs() {
     <>
       <Head>
         <title>Tarifs VerticalClap — Créer des micro-dramas IA dès 9€/mois</title>
-        <meta name="description" content="Deux plans simples : Creator 9€/mois (micro-drama vertical, 20 épisodes) et Storyteller 19€/mois (séries longues, 90 épisodes, direction artistique). Sans engagement. Annulable à tout moment." />
+        <meta name="description" content="Deux plans simples : Creator 9€/mois (micro-drama vertical, 20 épisodes) et Pro 19€/mois (séries longues, 90 épisodes, direction artistique). Sans engagement. Annulable à tout moment." />
         <link rel="canonical" href={`${SITE}/tarifs`} />
         <meta property="og:title" content="Tarifs VerticalClap — Créer des micro-dramas IA dès 9€/mois" />
-        <meta property="og:description" content="Creator 9€/mois ou Storyteller 19€/mois. Générez des séries complètes pour TikTok, DramaBox, ReelShort. Sans engagement." />
+        <meta property="og:description" content="Creator 9€/mois ou Pro 19€/mois. Générez des séries complètes pour TikTok, DramaBox, ReelShort. Sans engagement." />
         <meta property="og:url" content={`${SITE}/tarifs`} />
         <meta property="og:image" content={`${SITE}/banniere%20hero.png`} />
         <meta property="og:image:width" content="1200" />
@@ -122,7 +122,7 @@ export default function Tarifs() {
           "@type": "FAQPage",
           "mainEntity": [
             { "@type": "Question", "name": "Puis-je annuler à tout moment ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, sans frais ni engagement. Vous pouvez annuler depuis votre espace client à tout moment." } },
-            { "@type": "Question", "name": "Quelle est la différence entre Creator et Storyteller ?", "acceptedAnswer": { "@type": "Answer", "text": "Creator (9€/mois) génère des micro-dramas verticaux de 10 à 20 épisodes pour TikTok, Reels et Shorts. Storyteller (19€/mois) ajoute les séries longues jusqu'à 90 épisodes, 3 variations de script, direction artistique et calendrier éditorial." } },
+            { "@type": "Question", "name": "Quelle est la différence entre Creator et Pro ?", "acceptedAnswer": { "@type": "Answer", "text": "Creator (9€/mois) génère des micro-dramas verticaux de 10 à 20 épisodes pour TikTok, Reels et Shorts. Pro (19€/mois) ajoute les séries longues jusqu'à 90 épisodes, 3 variations de script, direction artistique et calendrier éditorial." } },
             { "@type": "Question", "name": "Y a-t-il un essai gratuit ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, vous pouvez générer votre première série gratuitement pour tester la plateforme avant de souscrire." } },
             { "@type": "Question", "name": "L'abonnement annuel est-il remboursable ?", "acceptedAnswer": { "@type": "Answer", "text": "L'abonnement annuel bénéficie d'un remboursement sous 14 jours si vous n'êtes pas satisfait." } },
           ]
@@ -233,7 +233,7 @@ export default function Tarifs() {
           )}
         </div>
 
-        {/* PLANS — onglets Creator / Storyteller */}
+        {/* PLANS — onglets Creator / Pro */}
         <div className="page-pad" style={{ padding: "0 40px 80px" }}>
           <div style={{ maxWidth: 520, margin: "0 auto" }}>
 
@@ -241,14 +241,14 @@ export default function Tarifs() {
             <div style={{ display: "flex", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 18, padding: 5, gap: 5, marginBottom: 28 }}>
               {[
                 { id: "creator", label: "Creator", price: billing === "annual" ? "7.5€" : "9€", color: RED },
-                { id: "storyteller", label: "Storyteller", price: billing === "annual" ? "14.9€" : "19€", color: VIO },
+                { id: "pro", label: "Pro", price: billing === "annual" ? "14.9€" : "19€", color: VIO },
               ].map(tab => {
                 const active = planTab === tab.id;
                 return (
                   <button key={tab.id} onClick={() => setPlanTab(tab.id)} style={{
                     flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
                     padding: "14px 8px", borderRadius: 13, border: "none",
-                    background: active ? (tab.id === "storyteller" ? `linear-gradient(135deg, ${RED}22, ${VIO}22)` : `${RED}18`) : "transparent",
+                    background: active ? (tab.id === "pro" ? `linear-gradient(135deg, ${RED}22, ${VIO}22)` : `${RED}18`) : "transparent",
                     boxShadow: active ? `inset 0 0 0 1.5px ${tab.color}55` : "none",
                     cursor: "pointer", transition: "all .2s", fontFamily: "'Space Grotesk', sans-serif",
                   }}>
@@ -309,20 +309,20 @@ export default function Tarifs() {
                   <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.6 }}>
                     <span style={{ color: RED, fontWeight: 700 }}>Pas inclus : </span>
                     Série Premium · 3 variations · Titres viraux · Direction Artistique · Fiche de production
-                    {" "}<button onClick={() => setPlanTab("storyteller")} style={{ background: "none", border: "none", color: VIO, fontWeight: 700, cursor: "pointer", fontSize: 12, padding: 0 }}>→ Voir Storyteller</button>
+                    {" "}<button onClick={() => setPlanTab("pro")} style={{ background: "none", border: "none", color: VIO, fontWeight: 700, cursor: "pointer", fontSize: 12, padding: 0 }}>→ Voir Pro</button>
                   </p>
                 </div>
               </div>
             )}
 
-            {/* Storyteller plan */}
-            {planTab === "storyteller" && (
+            {/* Pro plan */}
+            {planTab === "pro" && (
               <div className="plan-card" style={{ borderRadius: 24, padding: "36px 32px", position: "relative", overflow: "hidden", background: "rgba(168,85,247,0.04)", border: `1.5px solid rgba(168,85,247,0.28)`, boxShadow: `0 0 60px rgba(168,85,247,0.08)` }}>
                 <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${VIO}, ${RED})` }} />
                 <div style={{ position: "absolute", top: -12, right: 24, background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 14px", borderRadius: 20, letterSpacing: 1.5 }}>RECOMMANDÉ</div>
                 <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 4 }}>
                   <div>
-                    <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 8 }}>Storyteller</p>
+                    <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 8 }}>Pro</p>
                     <div style={{ display: "flex", alignItems: "flex-end", gap: 6 }}>
                       <span className="plan-price" style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 56, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                         {billing === "annual" ? "14.9€" : "19€"}
@@ -338,7 +338,7 @@ export default function Tarifs() {
                 </div>
                 <button onClick={() => startCheckout("premium", "tarifs")} disabled={loading}
                   style={{ width: "100%", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", padding: "16px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 32px rgba(168,85,247,0.3)`, transition: "all .2s", marginTop: 24 }}>
-                  {loading ? "Redirection…" : "Commencer Storyteller →"}
+                  {loading ? "Redirection…" : "Commencer Pro →"}
                 </button>
                 <div style={{ height: 1, background: "rgba(168,85,247,0.15)", margin: "24px 0" }} />
                 <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
@@ -396,13 +396,13 @@ export default function Tarifs() {
           <div style={{ maxWidth: 860, margin: "0 auto" }}>
             <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 12 }}>Comparaison</p>
             <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 900, textAlign: "center", marginBottom: 48, letterSpacing: -1.5, lineHeight: 1.1, color: TEXT }}>
-              Creator vs Storyteller<br /><span style={{ fontStyle: "italic", color: MUTED }}>en détail.</span>
+              Creator vs Pro<br /><span style={{ fontStyle: "italic", color: MUTED }}>en détail.</span>
             </h2>
             <div style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, overflow: "hidden" }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 140px 140px", borderBottom: `1px solid ${BORDER}`, padding: "18px 24px" }}>
                 <div style={{ fontSize: 11, fontWeight: 700, color: MUTED, letterSpacing: 2, textTransform: "uppercase" }}>Fonctionnalité</div>
                 <div style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: RED }}>Creator</div>
-                <div style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: VIO }}>Storyteller</div>
+                <div style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: VIO }}>Pro</div>
               </div>
               {FEATURES.map(({ label, std, prem }, i) => (
                 <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 140px 140px", padding: "14px 24px", borderBottom: i < FEATURES.length - 1 ? `1px solid ${BORDER}` : "none", background: i % 2 === 0 ? "rgba(255,255,255,0.01)" : "transparent" }}>

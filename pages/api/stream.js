@@ -76,7 +76,7 @@ export default async function handler(req, res) {
   if (!VALID_MODES.includes(mode)) return res.status(400).json({ error: "Mode invalide" });
   if (!VALID_DUREES.includes(duree)) return res.status(400).json({ error: "Durée invalide" });
   if (!VALID_FORMATS.includes(format)) return res.status(400).json({ error: "Format invalide" });
-  if (plan === "standard" && mode === "premium") return res.status(403).json({ error: "Mode Premium réservé au plan Premium." });
+  if (plan === "standard" && mode === "premium") return res.status(403).json({ error: "Mode Premium réservé au plan Pro." });
   if (plan === "standard" && format > 10) return res.status(403).json({ error: "Le plan Standard est limité à 10 épisodes." });
   if (typeof casting !== "string" || casting.length > 100) return res.status(400).json({ error: "Casting invalide" });
   if (typeof univers !== "string" || univers.length > 100) return res.status(400).json({ error: "Univers invalide" });
