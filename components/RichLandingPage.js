@@ -1359,8 +1359,8 @@ export default function RichLandingPage({ lang = "fr" }) {
           <Reveal>
             <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 16, alignItems: "stretch" }}>
               {/* Image packs */}
-              <div style={{ borderRadius: 20, overflow: "hidden", minHeight: 280 }}>
-                <img src="/packs.png" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+              <div style={{ borderRadius: 20, overflow: "hidden", minHeight: 280, background: "rgba(255,255,255,0.02)", display: "flex", alignItems: "center" }}>
+                <img src="/packs.png" alt="" aria-hidden="true" style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }} />
               </div>
               {/* Stats */}
               <div className="mixeur-stats" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 2, background: BORDER, borderRadius: 20, overflow: "hidden" }}>
