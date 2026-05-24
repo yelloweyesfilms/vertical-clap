@@ -1355,26 +1355,33 @@ export default function RichLandingPage({ lang = "fr" }) {
             </div>
           </Reveal>
 
-          {/* Chiffres clés XXL */}
+          {/* Chiffres clés XXL + visuel packs */}
           <Reveal>
-            <div className="mixeur-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2, background: BORDER, borderRadius: 20, overflow: "hidden" }}>
-              {(lang === "fr" ? [
-                { n: "12", label: "packs univers", sub: "Romance, Thriller, K-Drama, Dark Drama…", color: RED },
-                { n: "48", label: "personnages", sub: "Archétypes avec morphologie, culture & aura", color: "#f97316" },
-                { n: "16", label: "secrets", sub: "Le twist qui propulse toute la série", color: VIO },
-                { n: "8", label: "ambiances", sub: "Néon urbain, cinéma doré, minimaliste…", color: "#22c55e" },
-              ] : [
-                { n: "12", label: "universe packs", sub: "Romance, Thriller, K-Drama, Dark Drama…", color: RED },
-                { n: "48", label: "characters", sub: "Archetypes with body type, culture & aura", color: "#f97316" },
-                { n: "16", label: "secrets", sub: "The twist that drives the whole series", color: VIO },
-                { n: "8", label: "styles", sub: "Urban neon, golden cinema, minimalist…", color: "#22c55e" },
-              ]).map(({ n, label, sub, color }) => (
-                <div key={label} style={{ background: "rgba(9,9,15,0.95)", padding: "28px 20px", textAlign: "center" }}>
-                  <div style={{ fontSize: "clamp(40px, 5vw, 64px)", fontWeight: 900, color, letterSpacing: -3, lineHeight: 1, marginBottom: 6, fontFamily: "'Space Grotesk', sans-serif" }}>{n}</div>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: TEXT, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>{label}</div>
-                  <div style={{ fontSize: 11, color: MUTED, lineHeight: 1.4 }}>{sub}</div>
-                </div>
-              ))}
+            <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 16, alignItems: "stretch" }}>
+              {/* Image packs */}
+              <div style={{ borderRadius: 20, overflow: "hidden", minHeight: 280 }}>
+                <img src="/packs.png" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+              </div>
+              {/* Stats */}
+              <div className="mixeur-stats" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 2, background: BORDER, borderRadius: 20, overflow: "hidden" }}>
+                {(lang === "fr" ? [
+                  { n: "12", label: "packs univers", sub: "Romance, Thriller, K-Drama, Dark Drama…", color: RED },
+                  { n: "48", label: "personnages", sub: "Archétypes avec morphologie, culture & aura", color: "#f97316" },
+                  { n: "16", label: "secrets", sub: "Le twist qui propulse toute la série", color: VIO },
+                  { n: "8", label: "ambiances", sub: "Néon urbain, cinéma doré, minimaliste…", color: "#22c55e" },
+                ] : [
+                  { n: "12", label: "universe packs", sub: "Romance, Thriller, K-Drama, Dark Drama…", color: RED },
+                  { n: "48", label: "characters", sub: "Archetypes with body type, culture & aura", color: "#f97316" },
+                  { n: "16", label: "secrets", sub: "The twist that drives the whole series", color: VIO },
+                  { n: "8", label: "styles", sub: "Urban neon, golden cinema, minimalist…", color: "#22c55e" },
+                ]).map(({ n, label, sub, color }) => (
+                  <div key={label} style={{ background: "rgba(9,9,15,0.95)", padding: "28px 20px", textAlign: "center" }}>
+                    <div style={{ fontSize: "clamp(36px, 4vw, 56px)", fontWeight: 900, color, letterSpacing: -3, lineHeight: 1, marginBottom: 6, fontFamily: "'Space Grotesk', sans-serif" }}>{n}</div>
+                    <div style={{ fontSize: 13, fontWeight: 800, color: TEXT, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>{label}</div>
+                    <div style={{ fontSize: 11, color: MUTED, lineHeight: 1.4 }}>{sub}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </Reveal>
         </div>
