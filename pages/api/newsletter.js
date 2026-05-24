@@ -32,9 +32,12 @@ export default async function handler(req, res) {
   try {
     await sendNewsletterWelcomeEmail({ email: normalized, lang });
   } catch (e) {
-    console.error("[newsletter] sendNewsletterWelcomeEmail failed:", e?.message || e);
-    return res.json({ ok: true, already: !isNew, emailError: e?.message });
+    const msg = e?.message || String(e);
+    console.error("[newsletter] sendNewsletterWelcomeEmail failed for", normalized, ":", msg);
+    // Still return ok so UX shows success, but include error for debugging
+    return res.json({ ok: true, already: !isNew, emailError: msg });
   }
 
+  console.log("[newsletter] welcome email sent to", normalized, "lang:", lang);
   return res.json({ ok: true, already: !isNew });
 }
