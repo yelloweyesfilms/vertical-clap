@@ -240,15 +240,15 @@ const COPY = {
       { user: "marc_prod", comment: "épisode 9 MAINTENANT je peux pas attendre", likes: "2.9k", color: VIO },
       { user: "créa.studio", comment: "comment ils écrivent aussi bien ?? 🔥", likes: "445", color: RED },
     ],
-    imgHero: "/banniere hero.webp",
-    imgCliffhangers: "/cliffhangers .webp",
-    imgBible: "/bible complete .webp",
-    imgScript: "/script à l'écran.webp",
-    imgViral: "/serie virale.webp",
-    imgMixeur: "/le mixeur.webp",
-    imgCreateurs: "/les createurs.webp",
+    imgHero: "/banniere%20hero.webp",
+    imgCliffhangers: "/cliffhangers%20.webp",
+    imgBible: "/bible%20complete%20.webp",
+    imgScript: "/script%20%C3%A0%20l'%C3%A9cran.webp",
+    imgViral: "/serie%20virale.webp",
+    imgMixeur: "/le%20mixeur.webp",
+    imgCreateurs: "/les%20createurs.webp",
     imgPipeline: "/pipeline.webp",
-    imgVariations: "/les 3 variations.webp",
+    imgVariations: "/les%203%20variations.webp",
   },
   en: {
     studioBadge: "AI Studio · Micro-drama · Vertical Drama",
@@ -477,15 +477,15 @@ const COPY = {
       { user: "marc_prod", comment: "episode 9 NOW i can't wait", likes: "2.9k", color: VIO },
       { user: "crea.studio", comment: "how do they write this well?? 🔥", likes: "445", color: RED },
     ],
-    imgHero: "/banniere hero.webp",
-    imgCliffhangers: "/cliffhangers .webp",
-    imgBible: "/bible complete .webp",
-    imgScript: "/script à l'écran.webp",
-    imgViral: "/serie virale.webp",
-    imgMixeur: "/le mixeur.webp",
-    imgCreateurs: "/les createurs.webp",
+    imgHero: "/banniere%20hero.webp",
+    imgCliffhangers: "/cliffhangers%20.webp",
+    imgBible: "/bible%20complete%20.webp",
+    imgScript: "/script%20%C3%A0%20l'%C3%A9cran.webp",
+    imgViral: "/serie%20virale.webp",
+    imgMixeur: "/le%20mixeur.webp",
+    imgCreateurs: "/les%20createurs.webp",
     imgPipeline: "/pipeline.webp",
-    imgVariations: "/les 3 variations.webp",
+    imgVariations: "/les%203%20variations.webp",
   },
 };
 
@@ -1145,7 +1145,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           <Reveal>
           <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", marginBottom: 52, height: 280 }}>
             <img
-              src={lang === "fr" ? "/la structure.webp" : "/la structure EN.webp"}
+              src={lang === "fr" ? "/la%20structure.webp" : "/la%20structure%20EN.webp"}
               alt=""
               aria-hidden="true"
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", display: "block" }}

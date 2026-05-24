@@ -22,8 +22,6 @@ module.exports = withSentryConfig(nextConfig, {
   project: process.env.SENTRY_PROJECT,
   silent: true,
   widenClientFileUpload: true,
-  webpack: {
-    treeshake: { removeDebugLogging: true },
-    automaticVercelMonitors: false,
-  },
+  disableLogger: true,
+  automaticVercelMonitors: false,
 });
