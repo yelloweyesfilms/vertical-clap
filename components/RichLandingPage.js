@@ -179,7 +179,7 @@ const COPY = {
     readTime: "de lecture",
     viewAllGuides: "Voir tous les guides →",
     footerBlogLinks: [
-      { href: "/blog", label: "Blog" },
+      { href: "/blog", label: "Ressources" },
       { href: "/blog/qu-est-ce-qu-un-micro-drama", label: "Guide micro-drama" },
       { href: "/blog/comment-ecrire-un-hook-tiktok", label: "Écrire un hook" },
       { href: "/blog/monetiser-micro-drama-dramabox-reelshort", label: "Monétiser sa série" },
@@ -416,7 +416,7 @@ const COPY = {
     readTime: "read",
     viewAllGuides: "View all guides →",
     footerBlogLinks: [
-      { href: "/en/blog", label: "Blog" },
+      { href: "/en/blog", label: "Resources" },
       { href: "/en/blog/qu-est-ce-qu-un-micro-drama", label: "Micro-drama guide" },
       { href: "/en/blog/comment-ecrire-un-hook-tiktok", label: "Write a hook" },
       { href: "/en/blog/tiktok-vs-dramabox-vs-reelshort-ou-publier-micro-drama", label: "Monetize your series" },

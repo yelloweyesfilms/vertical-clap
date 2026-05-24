@@ -32,10 +32,10 @@ export default function BlogIndex() {
   return (
     <>
       <Head>
-        <title>Blog VerticalClap — Guides micro-drama et écriture verticale</title>
+        <title>Ressources VerticalClap — Guides micro-drama et écriture verticale</title>
         <meta name="description" content="Guides pratiques sur le micro-drama vertical : comment écrire un hook TikTok, structurer vos épisodes, choisir vos plateformes et générer des séries avec l'IA." />
         <link rel="canonical" href={`${SITE}/blog`} />
-        <meta property="og:title" content="Blog VerticalClap — Guides micro-drama et écriture verticale" />
+        <meta property="og:title" content="Ressources VerticalClap — Guides micro-drama et écriture verticale" />
         <meta property="og:url" content={`${SITE}/blog`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListSchema) }} />
       </Head>
@@ -64,7 +64,7 @@ export default function BlogIndex() {
         {/* HERO */}
         <div className="page-pad" style={{ padding: "72px 40px 56px", textAlign: "center", position: "relative" }}>
           <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 600, height: 300, background: `radial-gradient(ellipse, rgba(168,85,247,0.07) 0%, transparent 65%)`, pointerEvents: "none" }} />
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 16 }}>Blog</p>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 16 }}>Ressources</p>
           <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(32px, 5vw, 60px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, marginBottom: 16, color: TEXT }}>
             Guides & ressources<br />
             <span style={{ fontStyle: "italic", color: MUTED }}>micro-drama.</span>
