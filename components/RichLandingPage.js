@@ -1064,64 +1064,6 @@ export default function RichLandingPage({ lang = "fr" }) {
         </div>
       </div>
 
-      {/* CLIFFHANGERS */}
-      <div className="sec" style={{ padding: "80px 40px", background: "linear-gradient(180deg, rgba(168,85,247,0.04) 0%, transparent 100%)", borderBottom: `1px solid ${BORDER}` }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <Reveal>
-          <Label color={VIO}>{c.cliffhangersLabel}</Label>
-          <Title>{lang === "fr" ? "Chaque épisode se termine" : "Every episode ends"}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.62)" }}>{lang === "fr" ? "par une scène impossible à ignorer." : "with a scene impossible to ignore."}</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>{c.cliffhangersCaption}</p>
-          </Reveal>
-
-          <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
-            {c.cliffExamples.map(({ genre, color, hook, scene, cliff, next }, idx) => (
-              <Reveal key={genre} delay={idx * 80}>
-              <div className="card-hover" style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, overflow: "hidden", display: "flex", flexDirection: "column", height: "100%" }}>
-
-                {/* Poster header — cinematic mood */}
-                <div style={{ position: "relative", height: 110, overflow: "hidden", flexShrink: 0 }}>
-                  {/* Atmosphere */}
-                  <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${color}28 0%, rgba(4,2,10,0.95) 100%)` }} />
-                  <div style={{ position: "absolute", bottom: "10%", left: "10%", width: "40%", height: "70%", background: `radial-gradient(ellipse, ${color}40 0%, transparent 70%)`, filter: "blur(20px)" }} />
-                  <div style={{ position: "absolute", top: "5%", right: "8%", width: "30%", height: "55%", background: `radial-gradient(ellipse, rgba(168,85,247,0.25) 0%, transparent 70%)`, filter: "blur(16px)" }} />
-                  {/* Scanlines */}
-                  <div style={{ position: "absolute", inset: 0, backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.008) 3px, rgba(255,255,255,0.008) 4px)" }} />
-                  {/* Genre tag — TikTok style */}
-                  <div style={{ position: "absolute", bottom: 12, left: 14, display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#fff", background: color, padding: "3px 10px", borderRadius: 4 }}>{genre}</span>
-                    <span style={{ fontSize: 9, color: "rgba(255,255,255,0.4)", fontWeight: 600, letterSpacing: "0.1em" }}>VERTICAL DRAMA</span>
-                  </div>
-                  {/* Top-right episode indicator */}
-                  <div style={{ position: "absolute", top: 10, right: 12, fontSize: 9, color: "rgba(255,255,255,0.3)", fontWeight: 700, letterSpacing: "0.1em" }}>ÉP. 01</div>
-                </div>
-
-                {/* Card body */}
-                <div style={{ padding: "20px 22px", flex: 1, display: "flex", flexDirection: "column" }}>
-                  {/* Hook */}
-                  <p style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(15px, 1.5vw, 18px)", fontWeight: 700, color: TEXT, fontStyle: "italic", lineHeight: 1.35, marginBottom: 14 }}>{hook}</p>
-
-                  {/* Scene */}
-                  <p style={{ fontSize: 13, color: "rgba(255,255,255,0.38)", lineHeight: 1.7, marginBottom: 16, paddingLeft: 10, borderLeft: `1.5px solid ${color}50`, flex: 1 }}>{scene}</p>
-
-                  {/* Cliffhanger */}
-                  <div style={{ background: `${color}0c`, border: `1px solid ${color}28`, borderRadius: 10, padding: "11px 14px", marginBottom: 12 }}>
-                    <p style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color, marginBottom: 5 }}>CLIFFHANGER</p>
-                    <p style={{ fontSize: 13, color: "rgba(255,255,255,0.82)", lineHeight: 1.6, fontWeight: 500 }}>{cliff}</p>
-                  </div>
-
-                  {/* Next episode */}
-                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: color, animation: "pulse 2s infinite", flexShrink: 0 }} />
-                    <span style={{ fontSize: 11, fontWeight: 700, color, letterSpacing: "0.06em" }}>{next}</span>
-                  </div>
-                </div>
-              </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* EPISODE STRUCTURE */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
