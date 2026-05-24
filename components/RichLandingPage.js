@@ -930,21 +930,6 @@ export default function RichLandingPage({ lang = "fr" }) {
             ))}
           </div>
 
-          {/* Big CTA bottom */}
-          <div style={{ marginTop: 20, maxWidth: 600, margin: "20px auto 0" }}>
-            <div className="hero-row" style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center", marginBottom: 10 }}>
-              <input type="email" placeholder={c.nlEmailPlaceholder} value={email}
-                onChange={e => { setEmail(e.target.value); setEmailError(false); }}
-                onKeyDown={e => e.key === "Enter" && startCheckout("standard", "hero-bottom")}
-                style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${emailError ? RED : "rgba(255,255,255,0.15)"}`, background: "rgba(255,255,255,0.05)", color: TEXT, fontSize: 15, flex: 1, minWidth: 200, outline: "none", backdropFilter: "blur(12px)" }} />
-              <button onClick={() => startCheckout("standard", "hero-bottom")} disabled={loading}
-                style={{ padding: "16px 24px", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", borderRadius: 14, fontSize: 15, fontWeight: 900, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.04em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1, whiteSpace: "nowrap", boxShadow: `0 0 32px rgba(168,85,247,0.35), 0 0 16px rgba(232,92,58,0.25)` }}>
-                {loading ? c.redirecting : c.heroCtaBig}
-              </button>
-            </div>
-            {emailError && <p style={{ color: RED, fontSize: 13, fontWeight: 600, textAlign: "center" }}>{c.emailError}</p>}
-          </div>
-
         </div>
       </div>
 
@@ -1239,12 +1224,12 @@ export default function RichLandingPage({ lang = "fr" }) {
 
               {/* Bouton Générer */}
               <div style={{ textAlign: "center" }}>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: 12, background: `linear-gradient(135deg, ${RED}, ${VIO})`, borderRadius: 16, padding: "18px 40px", boxShadow: `0 0 40px rgba(168,85,247,0.3)` }}>
+                <a href="/app" style={{ display: "inline-flex", alignItems: "center", gap: 12, background: `linear-gradient(135deg, ${RED}, ${VIO})`, borderRadius: 16, padding: "18px 40px", boxShadow: `0 0 40px rgba(168,85,247,0.3)`, textDecoration: "none", cursor: "pointer" }}>
                   <span style={{ fontSize: 22 }}>✨</span>
                   <span style={{ fontSize: 17, fontWeight: 800, color: "#fff", letterSpacing: -0.3 }}>
                     {lang === "fr" ? "Générer la bible →" : "Generate bible →"}
                   </span>
-                </div>
+                </a>
                 <p style={{ color: MUTED, fontSize: 13, marginTop: 12 }}>
                   {lang === "fr" ? "⚡ Bible complète + 10 épisodes en moins de 30 secondes" : "⚡ Full bible + 10 episodes in under 30 seconds"}
                 </p>
