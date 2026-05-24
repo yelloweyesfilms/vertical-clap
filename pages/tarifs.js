@@ -107,13 +107,26 @@ export default function Tarifs() {
   return (
     <>
       <Head>
-        <title>Tarifs VerticalClap — Micro-drama IA dès 7,50€/mois</title>
-        <meta name="description" content="Comparez les plans Standard (9€/mois) et Premium (19€/mois) de VerticalClap. Générez des micro-dramas 9:16 complets pour TikTok, Reels, Shorts et DramaBox. Sans engagement." />
+        <title>Tarifs VerticalClap — Créer des micro-dramas IA dès 9€/mois</title>
+        <meta name="description" content="Deux plans simples : Creator 9€/mois (micro-drama vertical, 20 épisodes) et Storyteller 19€/mois (séries longues, 90 épisodes, direction artistique). Sans engagement. Annulable à tout moment." />
         <link rel="canonical" href={`${SITE}/tarifs`} />
-        <meta property="og:title" content="Tarifs VerticalClap — Micro-drama IA dès 7,50€/mois" />
-        <meta property="og:description" content="Standard 9€/mois ou Premium 19€/mois. Générez des séries complètes pour TikTok, DramaBox, ReelShort. Sans engagement." />
+        <meta property="og:title" content="Tarifs VerticalClap — Créer des micro-dramas IA dès 9€/mois" />
+        <meta property="og:description" content="Creator 9€/mois ou Storyteller 19€/mois. Générez des séries complètes pour TikTok, DramaBox, ReelShort. Sans engagement." />
         <meta property="og:url" content={`${SITE}/tarifs`} />
+        <meta property="og:image" content={`${SITE}/banniere%20hero.png`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "Puis-je annuler à tout moment ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, sans frais ni engagement. Vous pouvez annuler depuis votre espace client à tout moment." } },
+            { "@type": "Question", "name": "Quelle est la différence entre Creator et Storyteller ?", "acceptedAnswer": { "@type": "Answer", "text": "Creator (9€/mois) génère des micro-dramas verticaux de 10 à 20 épisodes pour TikTok, Reels et Shorts. Storyteller (19€/mois) ajoute les séries longues jusqu'à 90 épisodes, 3 variations de script, direction artistique et calendrier éditorial." } },
+            { "@type": "Question", "name": "Y a-t-il un essai gratuit ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, vous pouvez générer votre première série gratuitement pour tester la plateforme avant de souscrire." } },
+            { "@type": "Question", "name": "L'abonnement annuel est-il remboursable ?", "acceptedAnswer": { "@type": "Answer", "text": "L'abonnement annuel bénéficie d'un remboursement sous 14 jours si vous n'êtes pas satisfait." } },
+          ]
+        }) }} />
       </Head>
 
       <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "'Space Grotesk', system-ui, sans-serif" }}>
