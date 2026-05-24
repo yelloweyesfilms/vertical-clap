@@ -193,22 +193,44 @@ export default function Admin() {
         <div style={{ margin: "20px 32px 0" }}>
           <div style={s.card}>
             <p style={{ fontWeight: 700, fontSize: 14, marginBottom: 16 }}>Funnel — Conversions</p>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 12 }}>
               {[
                 { label: "Vues landing", val: stats.ab.page_view || 0, color: "#60a5fa" },
+                { label: "Vues exemples", val: (stats.ab.page_view_exemples || 0), color: "#818cf8" },
+                { label: "Clics démo", val: stats.ab.demo_click || 0, color: "#c084fc" },
                 { label: "Checkout démarré", val: stats.ab.checkout_started || 0, color: "#f59e0b" },
                 { label: "Paiements", val: stats.ab.checkout_success || 0, color: "#4ade80" },
+                { label: "Newsletter", val: stats.ab.newsletter_submit || 0, color: "#fb7185" },
               ].map(({ label, val, color }) => {
                 const pv = stats.ab.page_view || 0;
                 return (
                   <div key={label} style={{ background: "rgba(255,255,255,0.03)", borderRadius: 10, padding: "14px 16px", textAlign: "center" }}>
-                    <div style={{ fontFamily: "var(--serif)", fontSize: 32, fontWeight: 900, color, lineHeight: 1 }}>{val}</div>
+                    <div style={{ fontFamily: "var(--serif)", fontSize: 28, fontWeight: 900, color, lineHeight: 1 }}>{val}</div>
                     <div style={{ fontSize: 11, color: MUTED, marginTop: 5, fontWeight: 600 }}>{label}</div>
-                    {pv > 0 && val !== pv && <div style={{ fontSize: 10, color: MUTED, marginTop: 3, opacity: 0.6 }}>{((val / pv) * 100).toFixed(1)}% des vues</div>}
+                    {pv > 0 && val !== pv && <div style={{ fontSize: 10, color: MUTED, marginTop: 3, opacity: 0.6 }}>{((val / pv) * 100).toFixed(1)}%</div>}
                   </div>
                 );
               })}
             </div>
+            {/* Scroll depth */}
+            {(stats.ab["scroll_depth_50"] !== undefined || stats.ab["scroll_depth_75"] !== undefined) && (
+              <div style={{ marginTop: 16, paddingTop: 14, borderTop: `1px solid ${BORDER}` }}>
+                <p style={{ fontSize: 11, fontWeight: 700, color: MUTED, marginBottom: 10, letterSpacing: 1, textTransform: "uppercase" }}>Profondeur de scroll</p>
+                <div style={{ display: "flex", gap: 8 }}>
+                  {[25, 50, 75, 100].map(d => {
+                    const val = stats.ab[`scroll_depth_${d}`] || 0;
+                    const pv = stats.ab.page_view || 1;
+                    return (
+                      <div key={d} style={{ flex: 1, background: "rgba(255,255,255,0.02)", borderRadius: 8, padding: "10px 8px", textAlign: "center" }}>
+                        <div style={{ fontSize: 16, fontWeight: 800, color: "#60a5fa" }}>{val}</div>
+                        <div style={{ fontSize: 10, color: MUTED, marginTop: 3 }}>{d}%</div>
+                        <div style={{ fontSize: 9, color: MUTED, opacity: 0.6 }}>{((val / pv) * 100).toFixed(0)}% des vues</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

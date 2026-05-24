@@ -619,6 +619,7 @@ function NewsletterSection({ lang = "fr" }) {
   const [nlEmail, setNlEmail] = useState("");
   const [nlState, setNlState] = useState("idle");
   const c = COPY[lang];
+  const track = (event, meta = {}) => fetch("/api/analytics", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ event, meta }) }).catch(() => {});
 
   const submit = async () => {
     if (!nlEmail || !nlEmail.includes("@")) return;
@@ -626,7 +627,8 @@ function NewsletterSection({ lang = "fr" }) {
     try {
       const res = await fetch("/api/newsletter", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: nlEmail, lang }) });
       const data = await res.json();
-      setNlState(data.ok ? "done" : "error");
+      if (data.ok) { track("newsletter_submit", { lang }); setNlState("done"); }
+      else setNlState("error");
     } catch { setNlState("error"); }
   };
 
@@ -686,6 +688,26 @@ export default function RichLandingPage({ lang = "fr" }) {
   const track = (event, meta = {}) => fetch("/api/analytics", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ event, meta }) }).catch(() => {});
 
   useEffect(() => { track("page_view"); }, []);
+
+  // Scroll depth tracking
+  useEffect(() => {
+    const milestones = [25, 50, 75, 100];
+    const fired = new Set();
+    const check = () => {
+      const scrolled = window.scrollY + window.innerHeight;
+      const total = document.documentElement.scrollHeight;
+      const pct = Math.round((scrolled / total) * 100);
+      milestones.forEach(m => {
+        if (pct >= m && !fired.has(m)) {
+          fired.add(m);
+          track("scroll_depth", { depth: m });
+        }
+      });
+    };
+    window.addEventListener("scroll", check, { passive: true });
+    return () => window.removeEventListener("scroll", check);
+  }, []);
+
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 700);
     check();
@@ -886,6 +908,7 @@ export default function RichLandingPage({ lang = "fr" }) {
               </button>
             </div>
             <a href={lang === "en" ? "/en/exemples" : "/exemples"}
+              onClick={() => track("demo_click", { position: "hero" })}
               style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, color: "rgba(255,255,255,0.65)", fontWeight: 600, letterSpacing: 0.3, textDecoration: "none" }}>
               <span style={{ width: 18, height: 18, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, flexShrink: 0 }}>▶</span>
               {c.ctaBtnDemo}
@@ -1419,7 +1442,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             ))}
           </div>
           <p style={{ textAlign: "center", fontSize: 12, color: MUTED, marginTop: 16 }}>
-            {c.tryFreeText1}<a href={lang === "en" ? "/en/exemples" : "/exemples"} style={{ color: VIO, fontWeight: 600 }}>{c.tryFreeLink}</a>{c.tryFreeText2}
+            {c.tryFreeText1}<a href={lang === "en" ? "/en/exemples" : "/exemples"} onClick={() => track("demo_click", { position: "pricing" })} style={{ color: VIO, fontWeight: 600 }}>{c.tryFreeLink}</a>{c.tryFreeText2}
           </p>
         </div>
       </div>
@@ -1435,7 +1458,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             {FAQ_ITEMS.map((item, i) => (
               <Reveal key={i} delay={i * 50}>
               <div style={{ borderBottom: `1px solid ${BORDER}` }}>
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="faq-item"
+                <button onClick={() => { const next = openFaq === i ? null : i; setOpenFaq(next); if (next !== null) track("faq_open", { index: i, q: item.q?.slice(0, 50) }); }} className="faq-item"
                   style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 8px", background: "none", border: "none", cursor: "pointer", textAlign: "left", fontFamily: "'Space Grotesk', sans-serif", borderRadius: 8 }}>
                   <span style={{ fontSize: 15, fontWeight: 600, color: TEXT, paddingRight: 16 }}>{item.q}</span>
                   <span style={{ color: VIO, fontSize: 22, flexShrink: 0, transition: "transform .2s", display: "inline-block", transform: openFaq === i ? "rotate(45deg)" : "none" }}>+</span>

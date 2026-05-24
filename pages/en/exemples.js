@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 
 const RED = "#E85C3A";
@@ -163,10 +163,14 @@ const STATS = [
   { val: "8", label: "translation languages available" },
 ];
 
+const track = (event, meta = {}) => fetch("/api/analytics", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ event, meta }) }).catch(() => {});
+
 export default function ExemplesEn() {
   const [active, setActive] = useState(0);
   const ex = EXAMPLES[active];
   const isPremium = ex.mode === "premium";
+
+  useEffect(() => { track("page_view_exemples", { lang: "en" }); }, []);
 
   return (
     <>
@@ -262,7 +266,7 @@ export default function ExemplesEn() {
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: MUTED, textTransform: "uppercase", marginBottom: 20 }}>Choose an example</p>
           <div className="ex-tabs">
             {EXAMPLES.map((e, i) => (
-              <button key={i} onClick={() => setActive(i)} style={{
+              <button key={i} onClick={() => { setActive(i); track("example_tab", { index: i, title: e.title }); }} style={{
                 padding: "10px 20px", borderRadius: 100, flexShrink: 0,
                 border: `1px solid ${active === i ? RED : BORDER}`,
                 background: active === i ? RED : "rgba(255,255,255,0.04)",

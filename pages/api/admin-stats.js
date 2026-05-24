@@ -104,7 +104,14 @@ export default async function handler(req, res) {
     let ab = { page_view: 0, page_view_A: 0, page_view_B: 0, checkout_started: 0, checkout_started_A: 0, checkout_started_B: 0, checkout_success: 0, jours: [] };
     if (redis) {
       const today2 = new Date();
-      const abFields = ["page_view", "page_view:A", "page_view:B", "checkout_started", "checkout_started:A", "checkout_started:B", "checkout_success"];
+      const abFields = [
+        "page_view", "page_view:A", "page_view:B",
+        "checkout_started", "checkout_started:A", "checkout_started:B",
+        "checkout_success",
+        "page_view_exemples", "demo_click", "newsletter_submit",
+        "scroll_depth:25", "scroll_depth:50", "scroll_depth:75", "scroll_depth:100",
+        "faq_open",
+      ];
       const abDates = [];
       for (let i = Number(days) - 1; i >= 0; i--) {
         const d = new Date(today2);
@@ -112,14 +119,18 @@ export default async function handler(req, res) {
         abDates.push(d.toISOString().slice(0, 10));
       }
 
-      const abTotals = { page_view: 0, page_view_A: 0, page_view_B: 0, checkout_started: 0, checkout_started_A: 0, checkout_started_B: 0, checkout_success: 0 };
+      const abTotals = {};
+      abFields.forEach(f => { abTotals[f.replace(/:/g, "_")] = 0; });
+      // legacy keys
+      abTotals.page_view_A = 0; abTotals.page_view_B = 0;
+      abTotals.checkout_started_A = 0; abTotals.checkout_started_B = 0;
       const abJours = [];
 
       for (const dateStr of abDates) {
         const vals = await redis.hmget(`analytics:${dateStr}`, ...abFields);
         const entry = { date: dateStr };
         abFields.forEach((f, i) => {
-          const key = f.replace(":", "_");
+          const key = f.replace(/:/g, "_");
           entry[key] = Number(vals[i] || 0);
           abTotals[key] = (abTotals[key] || 0) + entry[key];
         });
