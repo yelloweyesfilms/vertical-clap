@@ -125,7 +125,7 @@ export default function BlogPost({ post, otherPosts }) {
           <nav style={{ maxWidth: 1100, margin: "0 auto", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <a href="/"><Logo /></a>
             <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-              <a href="/blog" style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>← Ressources</a>
+              <a href="/blog" style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>← Blog</a>
               <a href="/app" style={{ fontSize: 14, color: TEXT, fontWeight: 700, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>Se connecter →</a>
             </div>
           </nav>
@@ -192,7 +192,7 @@ export default function BlogPost({ post, otherPosts }) {
           <Logo />
           <div style={{ display: "flex", gap: 20, fontSize: 13, color: MUTED }}>
             <a href="/">Accueil</a>
-            <a href="/blog">Ressources</a>
+            <a href="/blog">Blog</a>
             <a href="/tarifs">Tarifs</a>
             <a href="/cgu">CGU</a>
           </div>

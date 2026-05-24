@@ -106,7 +106,7 @@ export default function BlogEnPost({ post, otherPosts }) {
           <nav style={{ maxWidth: 1100, margin: "0 auto", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <a href="/en"><Logo /></a>
             <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-              <a href="/en/blog" style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>← Resources</a>
+              <a href="/en/blog" style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>← Blog</a>
               <a href="/app" style={{ fontSize: 14, color: TEXT, fontWeight: 700, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>Sign in →</a>
             </div>
           </nav>
@@ -173,7 +173,7 @@ export default function BlogEnPost({ post, otherPosts }) {
           <Logo />
           <div style={{ display: "flex", gap: 20, fontSize: 13, color: MUTED }}>
             <a href="/en">Home</a>
-            <a href="/en/blog">Resources</a>
+            <a href="/en/blog">Blog</a>
             <a href="/en#tarifs">Pricing</a>
             <a href="/cgu">Terms</a>
           </div>

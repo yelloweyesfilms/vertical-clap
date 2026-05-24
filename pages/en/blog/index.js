@@ -24,12 +24,12 @@ export default function BlogEnIndex() {
   return (
     <>
       <Head>
-        <title>Resources VerticalClap — Micro-drama guides and vertical writing</title>
+        <title>Blog VerticalClap — Micro-drama guides and vertical writing</title>
         <meta name="description" content="Practical guides on vertical micro-drama: how to write a TikTok hook, structure your episodes, choose your platforms and generate series with AI." />
         <link rel="canonical" href={`${SITE}/en/blog`} />
         <link rel="alternate" hrefLang="fr" href={`${SITE}/blog`} />
         <link rel="alternate" hrefLang="en" href={`${SITE}/en/blog`} />
-        <meta property="og:title" content="Resources VerticalClap — Micro-drama guides and vertical writing" />
+        <meta property="og:title" content="Blog VerticalClap — Micro-drama guides and vertical writing" />
         <meta property="og:url" content={`${SITE}/en/blog`} />
       </Head>
 
@@ -55,7 +55,7 @@ export default function BlogEnIndex() {
 
         <div className="page-pad" style={{ padding: "72px 40px 56px", textAlign: "center", position: "relative" }}>
           <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 600, height: 300, background: `radial-gradient(ellipse, rgba(168,85,247,0.07) 0%, transparent 65%)`, pointerEvents: "none" }} />
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 16 }}>Resources</p>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 16 }}>Blog</p>
           <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(32px, 5vw, 60px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, marginBottom: 16, color: TEXT }}>
             Guides & resources<br />
             <span style={{ fontStyle: "italic", color: MUTED }}>micro-drama.</span>
