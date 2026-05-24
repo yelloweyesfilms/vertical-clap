@@ -183,10 +183,36 @@ export default function Exemples() {
       </Head>
 
       <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
+        <style>{`
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          a { text-decoration: none; color: inherit; }
+          input { font-size: 16px !important; }
+          .ex-tabs { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+          @media (max-width: 640px) {
+            .ex-nav { padding: 12px 16px !important; }
+            .ex-header { padding: 48px 16px 0 !important; }
+            .ex-stats { flex-direction: column !important; }
+            .ex-stats > div { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; }
+            .ex-stats > div:last-child { border-bottom: none !important; }
+            .ex-tabs-wrap { padding: 0 16px 36px !important; }
+            .ex-tabs { flex-direction: row !important; overflow-x: auto !important; flex-wrap: nowrap !important; justify-content: flex-start !important; padding-bottom: 4px !important; scrollbar-width: none !important; }
+            .ex-tabs::-webkit-scrollbar { display: none !important; }
+            .ex-content { padding: 0 16px 60px !important; }
+            .ex-cta { padding: 36px 20px !important; }
+            .ex-screen { padding: 0 12px 36px !important; }
+          }
+          @media (max-width: 480px) {
+            .ex-header { padding: 40px 14px 0 !important; }
+            .ex-content { padding: 0 14px 60px !important; }
+          }
+          @media (hover: none) {
+            button:hover { opacity: 1 !important; }
+          }
+        `}</style>
 
         {/* NAV */}
         <div style={{ borderBottom: `1px solid ${BORDER}`, background: "rgba(9,9,15,0.95)", backdropFilter: "blur(12px)", position: "sticky", top: 0, zIndex: 50 }}>
-          <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 40px", maxWidth: 1100, margin: "0 auto" }}>
+          <nav className="ex-nav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 40px", maxWidth: 1100, margin: "0 auto" }}>
             <a href="/" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none" }}>
               <img src="/1024.png" alt="VC" style={{ width: 32, height: 32, borderRadius: "50%" }} />
               <div style={{ lineHeight: 1 }}>
@@ -201,7 +227,7 @@ export default function Exemples() {
         </div>
 
         {/* HEADER */}
-        <div style={{ maxWidth: 860, margin: "0 auto", padding: "72px 24px 0", textAlign: "center" }}>
+        <div className="ex-header" style={{ maxWidth: 860, margin: "0 auto", padding: "72px 24px 0", textAlign: "center" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: `rgba(232,92,58,0.1)`, border: `1px solid rgba(232,92,58,0.25)`, borderRadius: 20, padding: "5px 16px", marginBottom: 24 }}>
             <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase" }}>Générés par l'IA en 30 secondes</span>
           </div>
@@ -213,7 +239,7 @@ export default function Exemples() {
           </p>
 
           {/* STATS */}
-          <div style={{ display: "flex", gap: 0, justifyContent: "center", marginBottom: 64, border: `1px solid ${BORDER}`, borderRadius: 16, overflow: "hidden", background: "rgba(255,255,255,0.02)", maxWidth: 560, margin: "0 auto 64px" }}>
+          <div className="ex-stats" style={{ display: "flex", gap: 0, justifyContent: "center", marginBottom: 64, border: `1px solid ${BORDER}`, borderRadius: 16, overflow: "hidden", background: "rgba(255,255,255,0.02)", maxWidth: 560, margin: "0 auto 64px" }}>
             {STATS.map((s, i) => (
               <div key={i} style={{ flex: 1, padding: "20px 12px", borderRight: i < STATS.length - 1 ? `1px solid ${BORDER}` : "none", textAlign: "center" }}>
                 <div style={{ fontSize: 24, fontWeight: 900, color: i === 1 ? VIO : RED, letterSpacing: -1, lineHeight: 1 }}>{s.val}</div>
@@ -224,17 +250,17 @@ export default function Exemples() {
         </div>
 
         {/* SCREENSHOT */}
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px 56px" }}>
+        <div className="ex-screen" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px 56px" }}>
           <img src="/ecran.png" alt="Interface VerticalClap" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: `0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)`, border: `1px solid ${BORDER}` }} />
         </div>
 
         {/* TABS */}
-        <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 48px", textAlign: "center" }}>
+        <div className="ex-tabs-wrap" style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 48px", textAlign: "center" }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: MUTED, textTransform: "uppercase", marginBottom: 20 }}>Choisir un exemple</p>
-          <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+          <div className="ex-tabs">
             {EXEMPLES.map((e, i) => (
               <button key={i} onClick={() => setActive(i)} style={{
-                padding: "10px 20px", borderRadius: 100,
+                padding: "10px 20px", borderRadius: 100, flexShrink: 0,
                 border: `1px solid ${active === i ? RED : BORDER}`,
                 background: active === i ? RED : "rgba(255,255,255,0.04)",
                 color: active === i ? "#fff" : MUTED,
@@ -248,7 +274,7 @@ export default function Exemples() {
         </div>
 
         {/* CONTENT */}
-        <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 100px" }}>
+        <div className="ex-content" style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 100px" }}>
 
           {/* META */}
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 28, alignItems: "center" }}>
@@ -312,7 +338,7 @@ export default function Exemples() {
           </div>
 
           {/* CTA */}
-          <div style={{ textAlign: "center", background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}`, borderRadius: 24, padding: "48px 32px" }}>
+          <div className="ex-cta" style={{ textAlign: "center", background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}`, borderRadius: 24, padding: "48px 32px" }}>
             <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase", marginBottom: 16 }}>Prêt à créer ta série ?</p>
             <h2 style={{ fontSize: "clamp(24px, 4vw, 36px)", fontWeight: 900, color: TEXT, letterSpacing: -1, marginBottom: 12, textTransform: "uppercase", lineHeight: 1.1 }}>
               Ta première série<br /><span style={{ color: RED }}>en 5 minutes.</span>

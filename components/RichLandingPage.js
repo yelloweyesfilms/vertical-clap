@@ -797,6 +797,30 @@ export default function RichLandingPage({ lang = "fr" }) {
           .variations-grid { grid-template-columns: 1fr !important; }
           .ep-phases-grid { grid-template-columns: repeat(3, 1fr) !important; }
         }
+        @media (max-width: 480px) {
+          .hero-pad { padding: 48px 16px 32px !important; }
+          .sec { padding: 48px 16px !important; }
+          nav { padding: 10px 12px !important; }
+          .hero-visual-wrap { padding: 0 8px 36px !important; }
+          .sec-img { padding: 48px 8px !important; }
+          .stats-bar { flex-direction: column !important; gap: 0 !important; padding: 0 !important; border-radius: 14px !important; }
+          .stats-bar > div { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.07) !important; padding: 14px 16px !important; }
+          .stats-bar > div:last-child { border-bottom: none !important; }
+          .footer-inner > div:first-child { grid-template-columns: 1fr !important; }
+          .feat-grid { grid-template-columns: 1fr 1fr !important; }
+          .trust-row { flex-direction: column !important; align-items: center !important; gap: 8px !important; }
+          .hero-feats { gap: 14px !important; flex-direction: column !important; align-items: flex-start !important; padding: 0 4px !important; }
+        }
+        @media (max-width: 390px) {
+          .hero-pad { padding: 40px 14px 28px !important; }
+          .sec { padding: 40px 14px !important; }
+          .nav-signin { font-size: 11px !important; padding: 6px 10px !important; }
+        }
+        @media (hover: none) {
+          .card-hover:hover { transform: none !important; box-shadow: none !important; }
+          .faq-item:hover { background: none !important; }
+          button:hover { opacity: 1 !important; }
+        }
       `}</style>
 
       {/* NAV */}
@@ -827,7 +851,7 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 860, margin: "0 auto", padding: "88px 40px 72px", position: "relative", zIndex: 1, textAlign: "center" }} className="hero-pad">
 
           {/* Big headline */}
-          <h1 className="hero-h1" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif", fontWeight: 900, letterSpacing: -2, marginBottom: 0, color: TEXT, lineHeight: 1.0, fontSize: "clamp(46px, 7.5vw, 112px)", textTransform: "uppercase" }}>
+          <h1 className="hero-h1" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif", fontWeight: 900, letterSpacing: -2, marginBottom: 0, color: TEXT, lineHeight: 1.0, fontSize: "clamp(36px, 7.5vw, 112px)", textTransform: "uppercase" }}>
             {c.heroHeadline1}<br />
             <span style={{ color: RED }}>{c.heroHeadline2}</span>
           </h1>
@@ -857,7 +881,7 @@ export default function RichLandingPage({ lang = "fr" }) {
               <input type="email" placeholder={c.nlEmailPlaceholder} value={email}
                 onChange={e => { setEmail(e.target.value); setEmailError(false); }}
                 onKeyDown={e => e.key === "Enter" && startCheckout()}
-                style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${emailError ? RED : "rgba(255,255,255,0.1)"}`, background: "rgba(255,255,255,0.05)", color: TEXT, fontSize: 15, width: 240, outline: "none", backdropFilter: "blur(12px)", transition: "border-color .2s" }} />
+                style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${emailError ? RED : "rgba(255,255,255,0.1)"}`, background: "rgba(255,255,255,0.05)", color: TEXT, fontSize: 15, flex: "1 1 200px", minWidth: 0, outline: "none", backdropFilter: "blur(12px)", transition: "border-color .2s" }} />
               <button onClick={() => startCheckout("standard", "hero")} disabled={loading} className="cta-btn-glow"
                 style={{ padding: "16px 28px", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", borderRadius: 14, fontSize: 15, fontWeight: 800, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.02em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1 }}>
                 {loading ? c.redirecting : c.ctaBtnCreate}
@@ -879,8 +903,8 @@ export default function RichLandingPage({ lang = "fr" }) {
               { val: c.heroStatGoal, label: c.heroStatGoalLabel },
             ].map((s, i) => (
               <div key={i} style={{ flex: 1, padding: "20px 16px", borderRight: i < 2 ? "1px solid rgba(255,255,255,0.07)" : "none", textAlign: "center" }}>
-                <div style={{ fontSize: "clamp(22px, 3vw, 34px)", fontWeight: 900, color: i === 2 ? RED : TEXT, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: -1, lineHeight: 1 }}>{s.val}</div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.65)", marginTop: 6, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>{s.label}</div>
+                <div style={{ fontSize: "clamp(18px, 3vw, 34px)", fontWeight: 900, color: i === 2 ? RED : TEXT, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: -1, lineHeight: 1 }}>{s.val}</div>
+                <div style={{ fontSize: "clamp(9px, 1.5vw, 11px)", color: "rgba(255,255,255,0.65)", marginTop: 6, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>{s.label}</div>
               </div>
             ))}
           </div>

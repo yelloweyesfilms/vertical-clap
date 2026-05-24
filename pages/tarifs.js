@@ -144,8 +144,19 @@ export default function Tarifs() {
             .faq-grid { grid-template-columns: 1fr !important; }
           }
           @media (max-width: 640px) {
-            .page-pad { padding: 60px 20px !important; }
-            nav { padding: 14px 16px !important; }
+            .page-pad { padding: 48px 20px !important; }
+            nav { padding: 12px 16px !important; }
+            .nav-examples { display: none !important; }
+            .plan-card { padding: 28px 20px !important; }
+            .plan-price { font-size: clamp(36px, 8vw, 56px) !important; }
+          }
+          @media (max-width: 480px) {
+            .page-pad { padding: 40px 14px !important; }
+            nav { padding: 10px 12px !important; }
+            .plan-card { padding: 24px 16px !important; }
+          }
+          @media (hover: none) {
+            button:hover { opacity: 1 !important; }
           }
         `}</style>
 
@@ -154,7 +165,7 @@ export default function Tarifs() {
           <nav style={{ maxWidth: 1100, margin: "0 auto", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <a href="/"><Logo /></a>
             <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-              <a href="/exemples" style={{ fontSize: 14, color: MUTED, fontWeight: 600 }}>Exemples</a>
+              <a href="/exemples" className="nav-examples" style={{ fontSize: 14, color: MUTED, fontWeight: 600 }}>Exemples</a>
               <a href="/app" style={{ fontSize: 14, color: TEXT, fontWeight: 700, background: SURFACE, border: `1px solid ${BORDER}`, padding: "8px 16px", borderRadius: 10 }}>Se connecter →</a>
             </div>
           </nav>
@@ -253,13 +264,13 @@ export default function Tarifs() {
 
             {/* Creator plan */}
             {planTab === "creator" && (
-              <div className="glass" style={{ borderRadius: 24, padding: "36px 32px", position: "relative", overflow: "hidden" }}>
+              <div className="glass plan-card" style={{ borderRadius: 24, padding: "36px 32px", position: "relative", overflow: "hidden" }}>
                 <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${RED}, transparent)` }} />
                 <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 4 }}>
                   <div>
                     <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 8 }}>Creator</p>
                     <div style={{ display: "flex", alignItems: "flex-end", gap: 6 }}>
-                      <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 56, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
+                      <span className="plan-price" style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 56, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                         {billing === "annual" ? "7.5€" : "9€"}
                       </span>
                       {billing === "annual" && <span style={{ fontSize: 14, color: MUTED, marginBottom: 10, textDecoration: "line-through" }}>9€</span>}
@@ -306,14 +317,14 @@ export default function Tarifs() {
 
             {/* Storyteller plan */}
             {planTab === "storyteller" && (
-              <div style={{ borderRadius: 24, padding: "36px 32px", position: "relative", overflow: "hidden", background: "rgba(168,85,247,0.04)", border: `1.5px solid rgba(168,85,247,0.28)`, boxShadow: `0 0 60px rgba(168,85,247,0.08)` }}>
+              <div className="plan-card" style={{ borderRadius: 24, padding: "36px 32px", position: "relative", overflow: "hidden", background: "rgba(168,85,247,0.04)", border: `1.5px solid rgba(168,85,247,0.28)`, boxShadow: `0 0 60px rgba(168,85,247,0.08)` }}>
                 <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${VIO}, ${RED})` }} />
                 <div style={{ position: "absolute", top: -12, right: 24, background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 14px", borderRadius: 20, letterSpacing: 1.5 }}>RECOMMANDÉ</div>
                 <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 4 }}>
                   <div>
                     <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 8 }}>Storyteller</p>
                     <div style={{ display: "flex", alignItems: "flex-end", gap: 6 }}>
-                      <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 56, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
+                      <span className="plan-price" style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 56, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                         {billing === "annual" ? "14.9€" : "19€"}
                       </span>
                       {billing === "annual" && <span style={{ fontSize: 14, color: MUTED, marginBottom: 10, textDecoration: "line-through" }}>19€</span>}
