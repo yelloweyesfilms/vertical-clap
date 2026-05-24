@@ -1851,7 +1851,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 })}
                 {plan === "standard" && accroches.length > 3 && (
                   <div style={{ background: "rgba(168,85,247,0.08)", border: "1.5px solid rgba(168,85,247,0.25)", borderRadius: 14, padding: "16px 18px", marginTop: 8, textAlign: "center" }}>
-                    <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.6, marginBottom: 12 }}>{t.accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passez au plan Pro pour les générer pour tous vos épisodes.",
+                    <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.6, marginBottom: 12 }}>{t.accroches_locked_hint || (lang === "en" ? "The first 3 hooks are available. Upgrade to Pro to generate them for all your episodes." : "Les 3 premières accroches sont disponibles. Passez au plan Pro pour les générer pour tous vos épisodes.")}</p>
                     <span style={{ fontSize: 11, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.15)", border: "1px solid rgba(168,85,247,0.3)", padding: "5px 12px", borderRadius: 8 }}>Pro · 19€/mois</span>
                   </div>
                 )}
