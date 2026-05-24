@@ -1135,6 +1135,19 @@ export default function RichLandingPage({ lang = "fr" }) {
           </p>
           </Reveal>
 
+          {/* Bannière visuelle structure */}
+          <Reveal>
+          <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", marginBottom: 52, height: 280 }}>
+            <img
+              src={lang === "fr" ? "/la%20structure.png" : "/la%20structure%20EN.png"}
+              alt=""
+              aria-hidden="true"
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", display: "block" }}
+            />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(9,9,15,0.15) 0%, rgba(9,9,15,0.6) 85%, rgba(9,9,15,0.95) 100%)" }} />
+          </div>
+          </Reveal>
+
           {/* Timeline bar */}
           <div style={{ position: "relative", marginBottom: 48 }}>
             {/* Progress bar */}
@@ -1230,7 +1243,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           {/* Bannière casting */}
           <Reveal>
           <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", marginBottom: 48, height: 420 }}>
-            <img src="/casting-hero.png" alt="Casting VerticalClap" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+            <img src="/arch%C3%A9types.png" alt="Archétypes VerticalClap" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
             {/* Overlay gauche seulement — laisse les persos visibles à droite */}
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(9,9,15,0.92) 0%, rgba(9,9,15,0.7) 35%, rgba(9,9,15,0.1) 65%, transparent 100%)" }} />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 50%, rgba(9,9,15,0.6) 100%)" }} />
@@ -1381,8 +1394,8 @@ export default function RichLandingPage({ lang = "fr" }) {
             <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 24, alignItems: "stretch" }}>
               {/* Image cinématique */}
               <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", minHeight: 340 }}>
-                <img src="/acteur realisateur.png" alt="" aria-hidden="true"
-                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", position: "absolute", inset: 0 }} />
+                <img src="/4%20univers.png" alt="" aria-hidden="true"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", display: "block", position: "absolute", inset: 0 }} />
                 {/* Overlay léger */}
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, rgba(232,92,58,0.12) 0%, rgba(9,9,15,0.35) 100%)" }} />
                 {/* Badge 9:16 */}
