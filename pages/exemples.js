@@ -311,9 +311,16 @@ export default function Exemples() {
 
           {/* SCRIPT */}
           <div style={{ background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}`, borderRadius: 20, padding: 28, marginBottom: 48 }}>
-            <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 24, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 16, flexWrap: "wrap" }}>
               <span style={{ background: RED, color: "#fff", borderRadius: 8, padding: "5px 12px", fontSize: 11, fontWeight: 800, letterSpacing: 1 }}>ÉP. {ex.script.numero}</span>
               <span style={{ fontSize: 18, fontWeight: 800, color: TEXT }}>✍️ {ex.script.titre}</span>
+            </div>
+            {/* Disclaimer extrait */}
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 10, background: "rgba(255,255,255,0.03)", border: `1px solid rgba(255,255,255,0.08)`, borderRadius: 12, padding: "12px 16px", marginBottom: 20 }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>ℹ️</span>
+              <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.6, margin: 0 }}>
+                <strong style={{ color: TEXT }}>Ceci est un extrait.</strong> Un script complet 1 min contient un hook, 8 à 12 répliques sur 4 à 6 scènes, et un cliffhanger — soit 130 à 150 mots au total. L'app génère la version intégrale en 10 secondes, prête à tourner avec le téléprompteur.
+              </p>
             </div>
             <div style={{ background: "rgba(232,92,58,0.08)", border: `1px solid rgba(232,92,58,0.25)`, borderRadius: 12, padding: 18, marginBottom: 20 }}>
               <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase", marginBottom: 10 }}>⚡ Hook — 3 premières secondes</p>
