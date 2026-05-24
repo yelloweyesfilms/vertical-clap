@@ -639,7 +639,7 @@ function NewsletterSection({ lang = "fr" }) {
       <div style={{ maxWidth: 860, margin: "0 auto", display: "flex", alignItems: "center", gap: 64, position: "relative", zIndex: 1, flexWrap: "wrap", justifyContent: "center" }}>
         {/* Visual — image sans texte */}
         <div style={{ flexShrink: 0, width: 220, height: 220, borderRadius: 24, overflow: "hidden", boxShadow: `0 0 48px rgba(168,85,247,0.2), 0 0 24px rgba(0,0,0,0.4)`, border: `1px solid rgba(168,85,247,0.2)` }}>
-          <img src="/arch%C3%A9types.png" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.9 }} />
+          <img src="/poster-hero.png" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.85 }} />
         </div>
         {/* Content */}
         <div style={{ flex: 1, minWidth: 280, textAlign: "left" }}>
