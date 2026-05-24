@@ -1393,11 +1393,9 @@ export default function RichLandingPage({ lang = "fr" }) {
           <Reveal>
             <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 24, alignItems: "stretch" }}>
               {/* Image cinématique */}
-              <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", minHeight: 340 }}>
+              <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", minHeight: 340, display: "flex", flexDirection: "column" }}>
                 <img src="/partout.png" alt="" aria-hidden="true"
-                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", display: "block", position: "absolute", inset: 0 }} />
-                {/* Overlay léger */}
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, rgba(232,92,58,0.12) 0%, rgba(9,9,15,0.35) 100%)" }} />
+                  style={{ width: "100%", flex: 1, objectFit: "cover", objectPosition: "center center", display: "block", minHeight: 340 }} />
                 {/* Badge 9:16 */}
                 <div style={{ position: "absolute", bottom: 20, left: 20, background: "rgba(9,9,15,0.8)", backdropFilter: "blur(8px)", border: `1px solid rgba(232,92,58,0.4)`, borderRadius: 10, padding: "8px 14px" }}>
                   <span style={{ fontSize: 11, fontWeight: 800, color: RED, letterSpacing: 2, textTransform: "uppercase" }}>Format 9:16</span>
