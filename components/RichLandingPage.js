@@ -933,6 +933,73 @@ export default function RichLandingPage({ lang = "fr" }) {
         </div>
       </div>
 
+      {/* POSTER VISUAL */}
+      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center" }} className="grid-2">
+
+            {/* Image téléphone 9:16 */}
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <div style={{ position: "relative", width: "min(300px, 100%)", aspectRatio: "9/16", borderRadius: 32, overflow: "hidden", boxShadow: "0 0 80px rgba(168,85,247,0.25), 0 0 40px rgba(232,92,58,0.15), 0 32px 64px rgba(0,0,0,0.6)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                {/* Encoche téléphone */}
+                <div style={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)", width: 60, height: 6, background: "rgba(0,0,0,0.8)", borderRadius: 3, zIndex: 10 }} />
+                <img
+                  src="/poster-hero.jpg"
+                  alt="Micro-drama généré par VerticalClap"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  onError={e => { e.target.style.display = "none"; }}
+                />
+                {/* Overlay gradient bas */}
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "40%", background: "linear-gradient(transparent, rgba(9,9,15,0.9))" }} />
+                {/* Badge genre */}
+                <div style={{ position: "absolute", bottom: 24, left: 16, right: 16 }}>
+                  <div style={{ display: "inline-block", background: "rgba(232,92,58,0.9)", borderRadius: 6, padding: "3px 10px", fontSize: 9, fontWeight: 800, color: "#fff", letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 6 }}>THRILLER · ÉP. 1</div>
+                  <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", lineHeight: 1.3, margin: 0, textShadow: "0 1px 8px rgba(0,0,0,0.8)" }}>« Il est mort à cause de toi. »</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Texte droite */}
+            <div>
+              <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: RED, marginBottom: 16 }}>
+                {lang === "fr" ? "Ce que tu vas créer" : "What you'll create"}
+              </p>
+              <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.05, marginBottom: 20, textTransform: "uppercase" }}>
+                {lang === "fr" ? <>Une série<br /><span style={{ color: RED }}>prête à filmer.</span><br />En 30 secondes.</> : <>A series<br /><span style={{ color: RED }}>ready to shoot.</span><br />In 30 seconds.</>}
+              </h2>
+              <p style={{ color: MUTED, fontSize: 16, lineHeight: 1.8, marginBottom: 32 }}>
+                {lang === "fr"
+                  ? "VerticalClap génère tout ce dont tu as besoin : le poster, la bible, les personnages, les scripts épisode par épisode — au format 9:16, prêt pour TikTok, Reels et Shorts."
+                  : "VerticalClap generates everything you need: the poster, the bible, the characters, the scripts episode by episode — in 9:16 format, ready for TikTok, Reels and Shorts."}
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 36 }}>
+                {(lang === "fr" ? [
+                  { emoji: "📖", text: "Bible complète générée en 30 secondes" },
+                  { emoji: "✍️", text: "Scripts avec hook, dialogues et cliffhanger" },
+                  { emoji: "🎬", text: "Mode Tournage — téléprompteur intégré" },
+                  { emoji: "📱", text: "Format 9:16 natif — TikTok · Reels · Shorts" },
+                ] : [
+                  { emoji: "📖", text: "Full bible generated in 30 seconds" },
+                  { emoji: "✍️", text: "Scripts with hook, dialogue and cliffhanger" },
+                  { emoji: "🎬", text: "Shoot Mode — built-in teleprompter" },
+                  { emoji: "📱", text: "Native 9:16 — TikTok · Reels · Shorts" },
+                ]).map(({ emoji, text }) => (
+                  <div key={text} style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                    <span style={{ fontSize: 20, flexShrink: 0 }}>{emoji}</span>
+                    <span style={{ fontSize: 15, fontWeight: 600, color: TEXT }}>{text}</span>
+                  </div>
+                ))}
+              </div>
+              <a href="/app" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "16px 32px", borderRadius: 14, fontSize: 15, fontWeight: 800, textDecoration: "none", letterSpacing: -0.2, boxShadow: `0 0 32px rgba(168,85,247,0.25)` }}>
+                {lang === "fr" ? "Créer ma série →" : "Create my series →"}
+              </a>
+            </div>
+          </div>
+          </Reveal>
+        </div>
+      </div>
+
       {/* TWO ENGINES */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
