@@ -1436,9 +1436,6 @@ export default function RichLandingPage({ lang = "fr" }) {
         </div>
       </div>
 
-      {/* NEWSLETTER */}
-      <NewsletterSection lang={lang} />
-
       {/* BLOG */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
