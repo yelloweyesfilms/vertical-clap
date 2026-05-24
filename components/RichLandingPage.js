@@ -1231,41 +1231,66 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <Reveal>
           <Label color={RED}>{c.mixerLabel}</Label>
-          <Title>{lang === "fr" ? "Ton studio narratif," : "Your narrative studio,"}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.62)" }}>{lang === "fr" ? "organisé en 4 onglets." : "organized in 4 tabs."}</span></Title>
-          <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>
+          <Title>{c.mixerTitle1}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.62)" }}>{c.mixerTitle2}</span></Title>
+          <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 560, margin: "12px auto 40px", lineHeight: 1.7 }}>
             {lang === "fr"
-              ? "Chaque paramètre à sa place. Le bouton Générer toujours visible."
-              : "Every parameter in its place. The Generate button always visible."}
+              ? "Le Mixeur, c'est ton point de départ. Tu choisis un pack en 1 clic — ou tu tapes ta propre idée — et l'IA génère une bible complète avec titre, personnages et 10 épisodes en moins de 30 secondes."
+              : "The Mixer is your starting point. Pick a pack in 1 click — or type your own idea — and the AI generates a full bible with title, characters and 10 episodes in under 30 seconds."}
           </p>
           </Reveal>
 
+          {/* Chiffres clés */}
+          <Reveal>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 12, marginBottom: 40 }}>
+            {(lang === "fr" ? [
+              { n: "12", label: "packs univers", desc: "Romance, Thriller, K-Drama, Dark Drama, Fantastique, Revenge…", color: RED },
+              { n: "48", label: "personnages", desc: "Archétypes IA avec morphologie, culture, aura & compatibilité dramatique", color: "#f97316" },
+              { n: "16", label: "secrets centraux", desc: "Le twist caché qui propulse toute la série dès l'épisode 1", color: VIO },
+              { n: "8", label: "ambiances visuelles", desc: "Cinéma doré, néon urbain, minimaliste, chaud, froid, fantastique…", color: "#22c55e" },
+            ] : [
+              { n: "12", label: "universe packs", desc: "Romance, Thriller, K-Drama, Dark Drama, Fantasy, Revenge…", color: RED },
+              { n: "48", label: "characters", desc: "AI archetypes with body type, culture, aura & dramatic compatibility", color: "#f97316" },
+              { n: "16", label: "central secrets", desc: "The hidden twist that drives the whole series from episode 1", color: VIO },
+              { n: "8", label: "visual styles", desc: "Golden cinema, urban neon, minimalist, warm, cold, fantasy…", color: "#22c55e" },
+            ]).map(({ n, label, desc, color }) => (
+              <div key={n + label} style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 18, padding: "20px 24px", flex: "1 1 200px", maxWidth: 240, position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${color}, transparent)` }} />
+                <div style={{ fontSize: 36, fontWeight: 900, color, letterSpacing: -2, lineHeight: 1, marginBottom: 4, fontFamily: "'Space Grotesk', sans-serif" }}>{n}</div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: TEXT, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em" }}>{label}</div>
+                <div style={{ fontSize: 12, color: MUTED, lineHeight: 1.5 }}>{desc}</div>
+              </div>
+            ))}
+          </div>
+          </Reveal>
+
           {/* 4 tabs preview */}
-          <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16, marginBottom: 32 }}>
+          <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16, marginBottom: 24 }}>
             {[
-              { emoji: "🎬", tab: lang === "fr" ? "Univers" : "Story", color: RED, items: lang === "fr"
-                ? ["Packs univers (1 clic)", "Casting · Univers · Secret central", "Codes narratifs & tropes"]
-                : ["Universe packs (1 click)", "Casting · Setting · Central secret", "Narrative codes & tropes"] },
-              { emoji: "🎭", tab: lang === "fr" ? "Persos" : "Cast", color: "#f97316", items: lang === "fr"
-                ? ["Archetypes IA (48 personnages)", "Morphologie · Culture · Aura", "Badge de compatibilité dramatique"]
-                : ["AI archetypes (48 characters)", "Body type · Culture · Aura", "Dramatic compatibility badge"] },
-              { emoji: "🎨", tab: lang === "fr" ? "Ambiance" : "Style", color: VIO, items: lang === "fr"
-                ? ["Identité visuelle (8 esthétiques)", "Moteur Émotionnel (fast) · Direction Artistique (premium)", "Style de script · Inspiration série"]
-                : ["Visual identity (8 aesthetics)", "Emotional Engine (fast) · Artistic Direction (premium)", "Script style · Series inspiration"] },
-              { emoji: "⚙️", tab: lang === "fr" ? "Format" : "Format", color: "#22c55e", items: lang === "fr"
-                ? ["Budget de tournage (0€ → Pro)", "Durée par épisode (60 · 90 · 120 sec)", "Nombre d'épisodes (10 → 90)"]
-                : ["Shooting budget (€0 → Pro)", "Duration per episode (60 · 90 · 120 sec)", "Number of episodes (10 → 90)"] },
-            ].map(({ emoji, tab, color, items }) => (
+              { emoji: "🎬", tab: lang === "fr" ? "Univers" : "Story", color: RED, title: lang === "fr" ? "Choisis ton univers" : "Choose your universe", items: lang === "fr"
+                ? ["12 packs thématiques prêts en 1 clic", "Genre · Sous-genre · Ton narratif", "16 secrets centraux (le twist qui propulse tout)", "Ou tape ta propre idée librement"]
+                : ["12 thematic packs ready in 1 click", "Genre · Sub-genre · Narrative tone", "16 central secrets (the twist that drives everything)", "Or type your own idea freely"] },
+              { emoji: "🎭", tab: lang === "fr" ? "Personnages" : "Cast", color: "#f97316", title: lang === "fr" ? "Construis ton casting" : "Build your cast", items: lang === "fr"
+                ? ["48 archétypes IA (héros, rival, mentor, traître…)", "Morphologie · Origine culturelle · Aura", "Compatibilité dramatique entre persos", "2 à 5 personnages par série"]
+                : ["48 AI archetypes (hero, rival, mentor, traitor…)", "Body type · Cultural background · Aura", "Dramatic compatibility between characters", "2 to 5 characters per series"] },
+              { emoji: "🎨", tab: lang === "fr" ? "Ambiance" : "Style", color: VIO, title: lang === "fr" ? "Définis le style visuel" : "Set the visual style", items: lang === "fr"
+                ? ["8 esthétiques visuelles (néon, cinéma doré, minimaliste…)", "Direction artistique complète (plan Pro)", "Style de script : épuré, immersif, haletant", "Inspiration série de référence"]
+                : ["8 visual aesthetics (neon, golden cinema, minimal…)", "Full artistic direction (Pro plan)", "Script style: clean, immersive, breathless", "Reference series inspiration"] },
+              { emoji: "⚙️", tab: "Format", color: "#22c55e", title: lang === "fr" ? "Calibre le format" : "Set the format", items: lang === "fr"
+                ? ["60 sec (130-150 mots) · 90 sec · 2 min par épisode", "10 à 90 épisodes par série (plan Pro)", "Budget tournage 0€ → production", "Contraintes de plateau (solo, intérieur…)"]
+                : ["60s (130-150 words) · 90s · 2min per episode", "10 to 90 episodes per series (Pro plan)", "Shooting budget €0 → production", "Set constraints (solo, indoor…)"] },
+            ].map(({ emoji, tab, color, title, items }) => (
               <div key={tab} style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, padding: "24px 22px", position: "relative", overflow: "hidden" }}>
                 <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${color}, transparent)` }} />
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
-                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: color, flexShrink: 0 }} />
-                  <span style={{ fontSize: 13, fontWeight: 800, color, textTransform: "uppercase", letterSpacing: "0.08em" }}>{tab}</span>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                  <span style={{ fontSize: 18 }}>{emoji}</span>
+                  <span style={{ fontSize: 11, fontWeight: 800, color, textTransform: "uppercase", letterSpacing: "0.1em" }}>{tab}</span>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <p style={{ fontSize: 14, fontWeight: 700, color: TEXT, marginBottom: 14, lineHeight: 1.3 }}>{title}</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
                   {items.map((item, i) => (
                     <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
-                      <span style={{ color, fontSize: 12, marginTop: 1, flexShrink: 0 }}>▸</span>
-                      <span style={{ fontSize: 13, color: MUTED, lineHeight: 1.5 }}>{item}</span>
+                      <span style={{ color, fontSize: 11, marginTop: 2, flexShrink: 0 }}>▸</span>
+                      <span style={{ fontSize: 12, color: MUTED, lineHeight: 1.5 }}>{item}</span>
                     </div>
                   ))}
                 </div>
@@ -1273,14 +1298,14 @@ export default function RichLandingPage({ lang = "fr" }) {
             ))}
           </div>
 
-          {/* 6 Story Formats */}
-          <div style={{ background: "rgba(9,9,15,0.8)", border: `1px solid ${BORDER}`, borderRadius: 20, padding: "24px 28px" }}>
-            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 16, textAlign: "center" }}>
-              {lang === "fr" ? "6 FORMATS NARRATIFS — TOUJOURS VISIBLES" : "6 NARRATIVE FORMATS — ALWAYS VISIBLE"}
+          {/* Formats narratifs */}
+          <div style={{ background: "rgba(9,9,15,0.8)", border: `1px solid ${BORDER}`, borderRadius: 20, padding: "20px 28px" }}>
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: MUTED, marginBottom: 14, textAlign: "center" }}>
+              {lang === "fr" ? "6 FORMATS NARRATIFS INCLUS" : "6 NARRATIVE FORMATS INCLUDED"}
             </p>
             <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
               {[
-                { label: lang === "fr" ? "Vertical Drama" : "Vertical Drama", color: "#E85C3A" },
+                { label: "Vertical Drama", color: "#E85C3A" },
                 { label: lang === "fr" ? "Série Premium" : "Premium Series", color: "#a855f7" },
                 { label: "K-Drama", color: "#ec4899" },
                 { label: "Thriller", color: "#f97316" },
