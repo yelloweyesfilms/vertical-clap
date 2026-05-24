@@ -163,14 +163,14 @@ const COPY = {
       { q: "Mes séries sont-elles sauvegardées ?", r: "Elles sont sauvegardées localement et synchronisées dans le cloud automatiquement. Tu y accèdes depuis n'importe quel appareil via l'onglet ☁️ Cloud." },
       { q: "Puis-je annuler mon abonnement ?", r: "Oui, à tout moment en un clic depuis ton espace Stripe. Aucun engagement, aucune pénalité. Tu gardes l'accès jusqu'à la fin de la période payée." },
     ],
-    nlLabel: "Pas prêt à sauter ?",
-    nlTitle1: "Reste dans la boucle.",
-    nlTitle2: "On t'envoie du concret.",
-    nlBody: "Hooks, trends, plateformes — les outils concrets pour percer avec tes séries. Zéro bla-bla.",
-    nlDone: "Tu es dans la boucle — à bientôt !",
-    nlSubscribe: "M'inscrire",
+    nlLabel: "Ressources gratuites",
+    nlTitle1: "Reçois le guide",
+    nlTitle2: "pour bien démarrer.",
+    nlBody: "On t'envoie les ressources essentielles pour créer ta première série : hooks, structure d'épisode, plateformes. Un seul email, pas de spam.",
+    nlDone: "Check ta boîte mail — c'est parti !",
+    nlSubscribe: "Recevoir le guide",
     nlError: "Une erreur est survenue, réessaie.",
-    nlNoSpam: "Aucun spam. Désabonnement en 1 clic.",
+    nlNoSpam: "Un seul email. Pas de spam.",
     nlEmailPlaceholder: "ton@email.com",
     resourcesLabel: "Ressources",
     resourcesTitle: "Guides pour créateurs",
@@ -400,14 +400,14 @@ const COPY = {
       { q: "Are my series saved?", r: "They are saved locally and synced to the cloud automatically. Access them from any device via the ☁️ Cloud tab." },
       { q: "Can I cancel my subscription?", r: "Yes, at any time in one click from your Stripe account. No commitment, no penalty. You keep access until the end of the paid period." },
     ],
-    nlLabel: "Not ready to jump?",
-    nlTitle1: "Stay in the loop.",
-    nlTitle2: "We'll send you the good stuff.",
-    nlBody: "Hooks, trends, platforms — actionable tools to break through with your series. Zero fluff.",
-    nlDone: "You're in the loop — see you soon!",
-    nlSubscribe: "Subscribe",
+    nlLabel: "Free resources",
+    nlTitle1: "Get the starter guide",
+    nlTitle2: "to launch your first series.",
+    nlBody: "We'll send you the essentials to create your first series: hooks, episode structure, platforms. One email, no spam.",
+    nlDone: "Check your inbox — on its way!",
+    nlSubscribe: "Get the guide",
     nlError: "An error occurred, please try again.",
-    nlNoSpam: "No spam. Unsubscribe in 1 click.",
+    nlNoSpam: "One email. No spam.",
     nlEmailPlaceholder: "your@email.com",
     resourcesLabel: "Resources",
     resourcesTitle: "Guides for creators",
@@ -1435,6 +1435,9 @@ export default function RichLandingPage({ lang = "fr" }) {
           </div>
         </div>
       </div>
+
+      {/* NEWSLETTER */}
+      <NewsletterSection lang={lang} />
 
       {/* BLOG */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
