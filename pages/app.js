@@ -1887,7 +1887,11 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 </div>
                 <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4 }}>
                   <Dots t={ep.tension} />
-                  <span style={{ fontSize: 10, color: "var(--mt)" }}>›</span>
+                  {ep.is_paywall ? (
+                    <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: 0.5, color: "#f59e0b", background: "rgba(245,158,11,0.12)", border: "1px solid rgba(245,158,11,0.3)", borderRadius: 4, padding: "1px 5px" }}>PIVOT</span>
+                  ) : (
+                    <span style={{ fontSize: 10, color: "var(--mt)" }}>›</span>
+                  )}
                 </div>
               </div>
             ))}
@@ -1962,8 +1966,15 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
               <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 8, color: "var(--tx)" }}>{displayScript.hook_scene?.texte}</p>
               <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic" }}>[9:16] {displayScript.hook_scene?.visuel_916}</p>
             </div>
-            <p style={{ fontSize: 15, fontWeight: 700, color: "var(--mt)", marginBottom: 10 }}>
-              {t.script_label} · {DUR_LABEL[lang][duree]} · {(displayScript.scenes || []).length} {t.repliques}
+            <p style={{ fontSize: 15, fontWeight: 700, color: "var(--mt)", marginBottom: 10, display: "flex", alignItems: "center", gap: 10 }}>
+              <span>{t.script_label} · {DUR_LABEL[lang][duree]} · {(displayScript.scenes || []).length} {t.repliques}</span>
+              {(() => {
+                const words = [displayScript.hook_scene?.texte, ...(displayScript.scenes || []).map(s => s.dialogue + " " + (s.jeu || "")), displayScript.cliffhanger_scene?.texte].filter(Boolean).join(" ").trim().split(/\s+/).filter(Boolean).length;
+                const targets = { 60: [130, 150], 90: [200, 225], 120: [270, 300] };
+                const [min, max] = targets[duree] || [0, 999];
+                const ok = words >= min && words <= max;
+                return <span style={{ fontSize: 11, fontWeight: 700, color: ok ? "#4ade80" : "#f59e0b", background: ok ? "rgba(74,222,128,0.08)" : "rgba(245,158,11,0.08)", border: `1px solid ${ok ? "rgba(74,222,128,0.25)" : "rgba(245,158,11,0.3)"}`, borderRadius: 6, padding: "2px 8px" }}>{words} mots {ok ? "✓" : `(cible: ${min}-${max})`}</span>;
+              })()}
             </p>
             {(displayScript.scenes || []).map((s, i) => (
               <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: 14, borderLeft: "3px solid var(--bo)", marginBottom: 10 }}>
@@ -1992,6 +2003,19 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
                 <span style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "6px 12px", fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: 1, textTransform: "uppercase" }}>{displayScript.cliffhanger_scene.label}</span>
               )}
             </div>
+            {displayScript.choix && displayScript.choix.length === 2 && (
+              <div style={{ background: "linear-gradient(135deg, rgba(168,85,247,0.08), rgba(232,92,58,0.06))", border: "1px solid rgba(168,85,247,0.25)", borderRadius: 14, padding: 16, marginBottom: 14 }}>
+                <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--n)", marginBottom: 12 }}>🎮 {lang === "en" ? "Your choice" : "Ton choix"}</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {displayScript.choix.map((c, i) => (
+                    <div key={i} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, padding: "12px 14px" }}>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: i === 0 ? "var(--r)" : "var(--n)", marginBottom: 4 }}>{i === 0 ? "A" : "B"} — {c.label}</p>
+                      <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic", lineHeight: 1.4 }}>{c.consequence}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
               {[["pimenter", t.spice], ["subtil", t.subtle], ["simplifier", t.simplify]].map(([k, l]) => (
                 <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "11px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
@@ -2930,7 +2954,7 @@ export default function App() {
     setLoading(true);
     try {
       const bLevel = BUDGET_LEVELS.find(b => b.id === state.budget);
-      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, dramaPremium: state.dramaPremium, ambianceVisuelle: state.ambianceVisuelle || "", budgetInstr: bLevel?.scriptInstr || "", lang }, customerId);
+      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, dramaPremium: state.dramaPremium, ambianceVisuelle: state.ambianceVisuelle || "", budgetInstr: bLevel?.scriptInstr || "", lang, isChoix: !!episodes[idx]?.has_choix }, customerId);
       if (epReqRef.current === reqId) {
         setScript(s);
         setScripts(prev => {

@@ -92,6 +92,7 @@ function validatePayload(action, payload) {
     if (!ep || typeof ep !== "object") return "Épisode invalide";
     if (!bible || typeof bible !== "object") return "Bible invalide";
     if (payload.budgetInstr !== undefined && (typeof payload.budgetInstr !== "string" || payload.budgetInstr.length > 1200)) return "Budget invalide";
+    if (payload.isChoix !== undefined && typeof payload.isChoix !== "boolean") return "isChoix invalide";
   } else if (action === "edit") {
     const { script, type, duree } = payload;
     if (!VALID_EDIT_TYPES.includes(type)) return "Type d'édition invalide";
@@ -287,7 +288,8 @@ const DUR_INSTR = {
 • 20–40s: ESCALADE — 4 répliques. Quelqu'un ment / révèle un secret / arrive à l'improviste / trahit / menace / provoque. La situation empire à chaque échange. Montée CONSTANTE.
 • 40–55s: TWIST / RÉVÉLATION — 2-3 répliques. La dynamique BASCULE. Exemples qui fonctionnent: mauvaise personne accusée, identité révélée, manipulation découverte, grossesse, vidéo trouvée, vengeance, mensonge exposé. Ce twist DOIT relancer le désir de regarder.
 • 55–60s: CLIFFHANGER — 1 phrase. COUPER AVANT LA RÉPONSE. TOUJOURS. Question laissée en suspens, jamais résolue dans cet épisode.
-RÈGLES ABSOLUES: 1 événement toutes les 10-15 secondes maximum (sinon le cerveau décroche). Phrases 5-12 mots. Aucune exposition, aucune politesse. 1 SEULE idée forte par épisode. Les ÉMOTIONS visibles immédiatement: colère, désir, jalousie, peur, humiliation. Les RELATIONS sont le moteur: couples, rivalités, secrets, trahisons.`,
+RÈGLES ABSOLUES: 1 événement toutes les 10-15 secondes maximum (sinon le cerveau décroche). Phrases 5-12 mots. Aucune exposition, aucune politesse. 1 SEULE idée forte par épisode. Les ÉMOTIONS visibles immédiatement: colère, désir, jalousie, peur, humiliation. Les RELATIONS sont le moteur: couples, rivalités, secrets, trahisons.
+CALIBRAGE MOTS STRICT: 130 à 150 mots au total (somme des dialogues + indications de jeu). Ni plus, ni moins.`,
 
   90: `DURÉE 1MIN30 — MINIMUM 14 scènes OBLIGATOIRE. Structure temporelle STRICTE:
 • 0–5s: HOOK — 1 phrase choc. COMMENCER AU PIRE MOMENT POSSIBLE. Situation déjà explosive.
@@ -296,7 +298,8 @@ RÈGLES ABSOLUES: 1 événement toutes les 10-15 secondes maximum (sinon le cerv
 • 50–75s: EXPLOSION + TWIST — 5 répliques. Faux pivot d'abord, puis vraie révélation dévastatrice. La dynamique bascule complètement.
 • 75–80s: CONSÉQUENCE ÉMOTIONNELLE — 2 répliques. Réaction physique au twist: silence, fuite, larmes, cri, choc.
 • 80–90s: CLIFFHANGER — COUPER AVANT LA RÉPONSE. Question suspendue, jamais résolue. Le spectateur DOIT lancer l'épisode suivant.
-RÈGLES ABSOLUES: 1 événement toutes les 15 secondes maximum. Phrases 8-15 mots. Sous-texte riche. Silences pesants. 1 idée centrale.`,
+RÈGLES ABSOLUES: 1 événement toutes les 15 secondes maximum. Phrases 8-15 mots. Sous-texte riche. Silences pesants. 1 idée centrale.
+CALIBRAGE MOTS STRICT: 200 à 225 mots au total (somme des dialogues + indications de jeu). Ni plus, ni moins.`,
 
   120: `DURÉE 2 MIN — MINIMUM 18 scènes OBLIGATOIRE. Structure temporelle STRICTE:
 • 0–10s: HOOK — COMMENCER AU PIRE MOMENT POSSIBLE. Situation déjà en crise.
@@ -305,7 +308,8 @@ RÈGLES ABSOLUES: 1 événement toutes les 15 secondes maximum. Phrases 8-15 mot
 • 70–105s: RÉVÉLATION MAJEURE — 6 répliques. Tout s'effondre. La dynamique bascule complètement et irréversiblement.
 • 105–110s: CONSÉQUENCE — réaction physique brève à la révélation.
 • 110–120s: CLIFFHANGER DOUBLE — 2 révélations simultanées ou question dévastatrice. COUPER AVANT LA RÉPONSE.
-RÈGLES ABSOLUES: 1 événement toutes les 20 secondes. Phrases 10-20 mots. 2 acteurs max à l'écran. 1 seule intrigue centrale.`,
+RÈGLES ABSOLUES: 1 événement toutes les 20 secondes. Phrases 10-20 mots. 2 acteurs max à l'écran. 1 seule intrigue centrale.
+CALIBRAGE MOTS STRICT: 270 à 300 mots au total (somme des dialogues + indications de jeu). Ni plus, ni moins.`,
 };
 
 export default async function handler(req, res) {
@@ -396,9 +400,15 @@ export default async function handler(req, res) {
         : total <= 35
         ? `ARC NARRATIF (${total} épisodes): ép.1-${Math.ceil(total*0.15)} = HOOK (accroche immédiate, secret central posé) → ép.${Math.ceil(total*0.15)+1}-${Math.ceil(total*0.35)} = ESCALADE (sous-intrigues se développent) → ép.${Math.ceil(total*0.35)+1}-${Math.ceil(total*0.5)} = PREMIER TWIST (retournement mi-série) → ép.${Math.ceil(total*0.5)+1}-${Math.ceil(total*0.7)} = NOUVELLE DYNAMIQUE (rapport de force inversé) → ép.${Math.ceil(total*0.7)+1}-${Math.ceil(total*0.85)} = TRAHISON CENTRALE (le secret le plus lourd éclate) → ép.${Math.ceil(total*0.85)+1}-${total} = CLIMAX + fin ouverte.`
         : `ARC NARRATIF (${total} épisodes — 6 arcs de ~${Math.ceil(total/6)} ép.): ARC 1 = Installation du secret central. ARC 2 = Première escalade, secrets révélés aux mauvaises personnes. ARC 3 = TWIST MAJEUR, les alliances se brisent. ARC 4 = Nouvelle dynamique post-twist, personnages transformés. ARC 5 = Trahisons ultimes, le pire arrive. ARC 6 = Climax total + fin qui prépare S2.`;
+      const paywallNums = [];
+      for (let n = 5; n <= total; n += 5) paywallNums.push(n);
+      const paywallInBatch = paywallNums.filter(n => n >= from && n <= to);
+      const paywallInstr = paywallInBatch.length > 0
+        ? `\nÉPISODES PIVOTS (PAYWALL + CHOIX INTERACTIF): les épisodes numéros ${paywallInBatch.join(", ")} sont des épisodes pivots à très haute rétention. Pour ces épisodes spécifiquement: cliffhanger MAXIMAL (le plus insoutenable de la série jusqu'ici), is_paywall: true, has_choix: true. Pour tous les autres épisodes: is_paywall: false, has_choix: false.`
+        : `\nPour tous les épisodes de ce batch: is_paywall: false, has_choix: false.`;
       const result = await callClaude(
-        `${MICRO_DRAMA_PSYCHOLOGY}\nTu es showrunner expert de micro-dramas 9:16. JSON uniquement.${langInstr}\nRègles pour chaque épisode:\n- titre: 2-3 mots max, teaser sans spoiler, crée la curiosité (ex: "Le mensonge", "Elle sait", "Trop tard")\n- cliffhanger: action ou révélation COUPÉE NET — jamais de résolution dans cet épisode. COUPER AVANT LA RÉPONSE. La dernière phrase est une question laissée en suspens, un aveu coupé, une découverte sans réaction. Format: phrase courte, 8-15 mots maximum.\n- tension: entier 1-10 en progression logique sur la série\n${arcInstr}`,
-        `Série "${titre}" — ${logline}. Mode: ${md}.\nÉpisodes ${from} à ${to} (série de ${total} épisodes). Tension globale: ${tFrom} → ${tTo}/10.\nJSON: {"episodes":[{"numero":${from},"titre":"","cliffhanger":"","tension":${tFrom}}]}`,
+        `${MICRO_DRAMA_PSYCHOLOGY}\nTu es showrunner expert de micro-dramas 9:16. JSON uniquement.${langInstr}\nRègles pour chaque épisode:\n- titre: 2-3 mots max, teaser sans spoiler, crée la curiosité (ex: "Le mensonge", "Elle sait", "Trop tard")\n- cliffhanger: action ou révélation COUPÉE NET — jamais de résolution dans cet épisode. COUPER AVANT LA RÉPONSE. La dernière phrase est une question laissée en suspens, un aveu coupé, une découverte sans réaction. Format: phrase courte, 8-15 mots maximum.\n- tension: entier 1-10 en progression logique sur la série\n- is_paywall: boolean — true uniquement pour les épisodes pivots désignés\n- has_choix: boolean — true uniquement pour les épisodes pivots (mêmes que is_paywall)\n${arcInstr}${paywallInstr}`,
+        `Série "${titre}" — ${logline}. Mode: ${md}.\nÉpisodes ${from} à ${to} (série de ${total} épisodes). Tension globale: ${tFrom} → ${tTo}/10.\nJSON: {"episodes":[{"numero":${from},"titre":"","cliffhanger":"","tension":${tFrom},"is_paywall":false,"has_choix":false}]}`,
         2500
       );
       setCached(ck, result);
@@ -407,7 +417,7 @@ export default async function handler(req, res) {
     }
 
     if (action === "script") {
-      const { ep, bible, mode, duree, prevEps, lang, ambianceVisuelle: scriptAV, budgetInstr, dramaPremium: scriptDramaPremium } = payload;
+      const { ep, bible, mode, duree, prevEps, lang, ambianceVisuelle: scriptAV, budgetInstr, dramaPremium: scriptDramaPremium, isChoix = false } = payload;
       const md = mode === "fast"
         ? "Vertical Drama: émotions explosives, confrontations directes, cliffhangers choc"
         : "Série Premium: sous-texte intense, silences signifiants, tension dramatique progressive";
@@ -428,9 +438,13 @@ export default async function handler(req, res) {
       const scriptLangInstr = buildLangInstr(lang);
       const scriptAVInstr = scriptAV ? `\n${scriptAV}\nLes descriptions visuel_916 DOIVENT refléter cette identité visuelle précisément.` : "";
       const scriptBudgetInstr = budgetInstr ? `\n${budgetInstr}` : "";
+      const choixInstr = isChoix
+        ? `\n\nÉPISODE PIVOT INTERACTIF — GAMIFICATION: après le cliffhanger, le spectateur doit choisir la suite. Génère un champ "choix" avec exactement 2 options narratives distinctes, concrètes et engageantes. Chaque option DOIT influencer la direction de la série de façon significative. Les 2 options doivent être irrésistibles et opposées (ex: "affronter" vs "fuir", "révéler" vs "mentir encore", "pardonner" vs "se venger"). Format: [{"label":"Option A — action courte et forte","consequence":"ce qui arrive si ce choix est fait — 1 phrase dramatique"},{"label":"Option B — action radicalement différente","consequence":"ce qui arrive — 1 phrase dramatique"}]`
+        : "";
+      const choixSchema = isChoix ? `,"choix":[{"label":"","consequence":""}]` : "";
       const result = await callClaude(
-        `${MICRO_DRAMA_PSYCHOLOGY}\nTu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptAVInstr}${scriptBudgetInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• COMMENCER AU PIRE MOMENT POSSIBLE — in medias res absolu, INTERDIT: "Bonjour", setup, exposition, question banale\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• LES RELATIONS SONT LE MOTEUR — couples, rivalités, trahisons, secrets entre proches. L'enjeu est toujours personnel.\n• COUPER AVANT LA RÉPONSE. TOUJOURS. Le cliffhanger = question suspendue, jamais résolue dans cet épisode.\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.`,
-        `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.\nTension: ${bible.tension_centrale || ""}.\nCliffhanger cible: ${ep.cliffhanger}.${prevEpsInstr}\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]}`,
+        `${MICRO_DRAMA_PSYCHOLOGY}\nTu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptAVInstr}${scriptBudgetInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• COMMENCER AU PIRE MOMENT POSSIBLE — in medias res absolu, INTERDIT: "Bonjour", setup, exposition, question banale\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• LES RELATIONS SONT LE MOTEUR — couples, rivalités, trahisons, secrets entre proches. L'enjeu est toujours personnel.\n• COUPER AVANT LA RÉPONSE. TOUJOURS. Le cliffhanger = question suspendue, jamais résolue dans cet épisode.\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court (ex: "retient ses larmes", "sourire glacial", "voix qui tremble")\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.${choixInstr}`,
+        `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.\nTension: ${bible.tension_centrale || ""}.\nCliffhanger cible: ${ep.cliffhanger}.${prevEpsInstr}\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]${choixSchema}}`,
         4000
       );
       trackAction("script", customerId);
