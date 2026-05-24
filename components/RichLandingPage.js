@@ -1376,52 +1376,67 @@ export default function RichLandingPage({ lang = "fr" }) {
             </p>
           </Reveal>
 
-          {/* Visual + platforms */}
+          {/* Layout 2 colonnes : visuel à gauche, plateformes à droite */}
           <Reveal>
-            <div style={{ position: "relative", borderRadius: 28, overflow: "hidden", background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}` }}>
-              {/* Image d'arrière-plan */}
-              <div style={{ position: "relative", height: 320, overflow: "hidden" }}>
-                <img src="/series virales .png" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%", display: "block" }} />
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(9,9,15,0.1) 0%, rgba(9,9,15,0.7) 70%, rgba(9,9,15,0.95) 100%)" }} />
+            <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 24, alignItems: "stretch" }}>
+              {/* Image cinématique */}
+              <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", minHeight: 340 }}>
+                <img src="/acteur realisateur.png" alt="" aria-hidden="true"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", position: "absolute", inset: 0 }} />
+                {/* Overlay léger */}
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, rgba(232,92,58,0.12) 0%, rgba(9,9,15,0.35) 100%)" }} />
                 {/* Badge 9:16 */}
-                <div style={{ position: "absolute", top: 20, right: 20, background: "rgba(9,9,15,0.75)", backdropFilter: "blur(8px)", border: `1px solid ${BORDER}`, borderRadius: 10, padding: "8px 14px" }}>
+                <div style={{ position: "absolute", bottom: 20, left: 20, background: "rgba(9,9,15,0.8)", backdropFilter: "blur(8px)", border: `1px solid rgba(232,92,58,0.4)`, borderRadius: 10, padding: "8px 14px" }}>
                   <span style={{ fontSize: 11, fontWeight: 800, color: RED, letterSpacing: 2, textTransform: "uppercase" }}>Format 9:16</span>
                 </div>
               </div>
 
               {/* Plateformes */}
-              <div style={{ padding: "32px 40px 36px" }}>
+              <div style={{ background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}`, borderRadius: 24, padding: "32px 32px 36px" }}>
                 {/* Réseaux sociaux */}
                 <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2.5, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>{lang === "fr" ? "Réseaux sociaux" : "Social networks"}</p>
-                <div className="platform-row" style={{ display: "flex", gap: 12, marginBottom: 28, flexWrap: "wrap" }}>
+                <div className="platform-row" style={{ display: "flex", gap: 10, marginBottom: 32, flexWrap: "wrap" }}>
                   {[
-                    { name: "TikTok", color: "#fff", bg: "rgba(255,255,255,0.06)", border: "rgba(255,255,255,0.12)", icon: <TikTokIcon size={18} /> },
-                    { name: "Instagram Reels", color: "#e879a0", bg: "rgba(232,121,160,0.08)", border: "rgba(232,121,160,0.25)", icon: <ReelsIcon size={18} /> },
-                    { name: "YouTube Shorts", color: "#ef4444", bg: "rgba(239,68,68,0.08)", border: "rgba(239,68,68,0.25)", icon: <ShortsIcon size={18} /> },
-                    { name: "Facebook Reels", color: "#60a5fa", bg: "rgba(96,165,250,0.08)", border: "rgba(96,165,250,0.25)", icon: <span style={{ fontSize: 16 }}>📘</span> },
-                    { name: "Snapchat", color: "#facc15", bg: "rgba(250,204,21,0.08)", border: "rgba(250,204,21,0.25)", icon: <span style={{ fontSize: 16 }}>👻</span> },
+                    { name: "TikTok", color: "#fff", bg: "rgba(255,255,255,0.06)", border: "rgba(255,255,255,0.12)", icon: <TikTokIcon size={16} /> },
+                    { name: "Instagram Reels", color: "#e879a0", bg: "rgba(232,121,160,0.08)", border: "rgba(232,121,160,0.3)", icon: <ReelsIcon size={16} /> },
+                    { name: "YouTube Shorts", color: "#ef4444", bg: "rgba(239,68,68,0.08)", border: "rgba(239,68,68,0.3)", icon: <ShortsIcon size={16} /> },
+                    { name: "Facebook Reels", color: "#60a5fa", bg: "rgba(96,165,250,0.08)", border: "rgba(96,165,250,0.3)", icon: "📘" },
+                    { name: "Snapchat", color: "#facc15", bg: "rgba(250,204,21,0.08)", border: "rgba(250,204,21,0.3)", icon: "👻" },
                   ].map(p => (
-                    <div key={p.name} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: p.bg, border: `1px solid ${p.border}`, borderRadius: 10, padding: "9px 16px" }}>
-                      <span style={{ color: p.color, display: "flex", alignItems: "center" }}>{p.icon}</span>
+                    <div key={p.name} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: p.bg, border: `1px solid ${p.border}`, borderRadius: 10, padding: "9px 14px" }}>
+                      <span style={{ color: p.color, display: "flex", alignItems: "center", fontSize: 15 }}>{p.icon}</span>
                       <span style={{ fontSize: 13, fontWeight: 700, color: p.color }}>{p.name}</span>
                     </div>
                   ))}
                 </div>
 
+                {/* Séparateur */}
+                <div style={{ height: 1, background: BORDER, marginBottom: 28 }} />
+
                 {/* Plateformes micro-drama */}
                 <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2.5, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>{lang === "fr" ? "Plateformes micro-drama" : "Micro-drama platforms"}</p>
-                <div className="platform-row" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                <div className="platform-row" style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 32 }}>
                   {[
-                    { name: "DramaBox", color: "#f97316", bg: "rgba(249,115,22,0.08)", border: "rgba(249,115,22,0.25)", icon: "🎬" },
-                    { name: "ReelShort", color: "#a855f7", bg: "rgba(168,85,247,0.08)", border: "rgba(168,85,247,0.25)", icon: "📱" },
-                    { name: "ShortTV", color: "#22c55e", bg: "rgba(34,197,94,0.08)", border: "rgba(34,197,94,0.25)", icon: "📺" },
-                    { name: "Flexclip", color: "#60a5fa", bg: "rgba(96,165,250,0.08)", border: "rgba(96,165,250,0.25)", icon: "🎞️" },
+                    { name: "DramaBox", color: "#f97316", bg: "rgba(249,115,22,0.08)", border: "rgba(249,115,22,0.3)", icon: "🎬" },
+                    { name: "ReelShort", color: "#a855f7", bg: "rgba(168,85,247,0.08)", border: "rgba(168,85,247,0.3)", icon: "📱" },
+                    { name: "ShortTV", color: "#22c55e", bg: "rgba(34,197,94,0.08)", border: "rgba(34,197,94,0.3)", icon: "📺" },
+                    { name: "Flexclip", color: "#60a5fa", bg: "rgba(96,165,250,0.08)", border: "rgba(96,165,250,0.3)", icon: "🎞️" },
                   ].map(p => (
-                    <div key={p.name} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: p.bg, border: `1px solid ${p.border}`, borderRadius: 10, padding: "9px 16px" }}>
-                      <span style={{ fontSize: 16 }}>{p.icon}</span>
+                    <div key={p.name} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: p.bg, border: `1px solid ${p.border}`, borderRadius: 10, padding: "9px 14px" }}>
+                      <span style={{ fontSize: 15 }}>{p.icon}</span>
                       <span style={{ fontSize: 13, fontWeight: 700, color: p.color }}>{p.name}</span>
                     </div>
                   ))}
+                </div>
+
+                {/* CTA discret */}
+                <div style={{ padding: "14px 18px", background: `${RED}0a`, border: `1px solid ${RED}25`, borderRadius: 12 }}>
+                  <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.6 }}>
+                    <span style={{ color: RED, fontWeight: 700 }}>→ </span>
+                    {lang === "fr"
+                      ? "Chaque script généré est formaté 9:16, avec hook et cliffhanger calibrés pour maximiser la rétention sur chaque plateforme."
+                      : "Every generated script is 9:16 formatted, with hooks and cliffhangers calibrated to maximize retention on each platform."}
+                  </p>
                 </div>
               </div>
             </div>
