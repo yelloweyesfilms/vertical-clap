@@ -190,7 +190,6 @@ export default function ExemplesEn() {
 
       <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap');
           * { box-sizing: border-box; margin: 0; padding: 0; }
           a { text-decoration: none; color: inherit; }
           input { font-size: 16px !important; }

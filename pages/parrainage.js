@@ -129,7 +129,6 @@ export default function Parrainage() {
 
       <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "'Space Grotesk', system-ui, sans-serif" }}>
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap');
           @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
           @keyframes spin { to { transform: rotate(360deg); } }
           @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }

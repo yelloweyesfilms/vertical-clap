@@ -95,7 +95,6 @@ export default function BlogEnPost({ post, otherPosts }) {
 
       <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "'Space Grotesk', system-ui, sans-serif" }}>
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap');
           * { box-sizing: border-box; margin: 0; padding: 0; }
           a { text-decoration: none; color: inherit; }
           a:hover { opacity: 0.85; }

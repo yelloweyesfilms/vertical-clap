@@ -20,7 +20,6 @@ export default function NotFound() {
   return (
     <div style={{ minHeight: "100vh", background: DARK, display: "flex", alignItems: "center", justifyContent: "center", padding: "40px 24px", fontFamily: "'Space Grotesk', system-ui, sans-serif", color: TEXT }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:wght@900&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         a:hover { opacity: 0.85; }
       `}</style>
