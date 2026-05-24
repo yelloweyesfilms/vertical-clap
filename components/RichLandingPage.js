@@ -1394,7 +1394,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 24, alignItems: "stretch" }}>
               {/* Image cinématique */}
               <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", minHeight: 340 }}>
-                <img src="/4%20univers.png" alt="" aria-hidden="true"
+                <img src="/partout.png" alt="" aria-hidden="true"
                   style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", display: "block", position: "absolute", inset: 0 }} />
                 {/* Overlay léger */}
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, rgba(232,92,58,0.12) 0%, rgba(9,9,15,0.35) 100%)" }} />
