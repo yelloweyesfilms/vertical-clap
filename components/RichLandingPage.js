@@ -1278,7 +1278,7 @@ export default function RichLandingPage({ lang = "fr" }) {
               {/* Titre du widget */}
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
                 <span style={{ fontSize: 20 }}>🎲</span>
-                <span style={{ fontSize: 14, fontWeight: 800, color: TEXT, textTransform: "uppercase", letterSpacing: "0.1em" }}>{lang === "fr" ? "Le Mixeur" : "The Mixer"}</span>
+                <span style={{ fontSize: 22, fontWeight: 900, color: TEXT, textTransform: "uppercase", letterSpacing: "-0.5px", fontFamily: "'Space Grotesk', sans-serif" }}>{lang === "fr" ? "Le Mixeur" : "The Mixer"}</span>
                 <span style={{ fontSize: 11, color: MUTED, background: "rgba(255,255,255,0.05)", border: `1px solid ${BORDER}`, borderRadius: 6, padding: "2px 8px" }}>{lang === "fr" ? "1 clic pour changer" : "1 click to change"}</span>
               </div>
 
