@@ -5,4 +5,4 @@ Disallow: /admin
 Disallow: /app
 Disallow: /success
 
-Sitemap: https://verticalclap.app/sitemap.xml
+Sitemap: https://verticalclap.com/sitemap.xml

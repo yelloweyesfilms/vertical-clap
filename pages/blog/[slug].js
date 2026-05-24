@@ -20,20 +20,62 @@ const Logo = () => (
   </div>
 );
 
+function renderInline(text) {
+  // Handle **bold** and *italic*
+  const parts = text.split(/(\*\*[^*]+?\*\*|\*[^*]+?\*)/g);
+  return parts.map((part, j) => {
+    if (part.startsWith("**") && part.endsWith("**")) return <strong key={j} style={{ color: TEXT, fontWeight: 700 }}>{part.slice(2, -2)}</strong>;
+    if (part.startsWith("*") && part.endsWith("*")) return <em key={j} style={{ color: TEXT, fontStyle: "italic" }}>{part.slice(1, -1)}</em>;
+    return part;
+  });
+}
+
 function renderBody(text) {
   return text.split("\n\n").map((para, i) => {
-    if (para.startsWith("**") && para.includes("**\n")) {
-      const parts = para.split(/\*\*(.+?)\*\*/g);
+    // Horizontal rule
+    if (para.trim() === "---") return <hr key={i} style={{ border: "none", borderTop: `1px solid ${BORDER}`, margin: "24px 0" }} />;
+
+    // Blockquote: lines starting with >
+    if (para.startsWith("> ") || para.startsWith(">\n")) {
+      const content = para.replace(/^> ?/gm, "").trim();
       return (
-        <p key={i} style={{ color: MUTED, fontSize: 16, lineHeight: 1.8, marginBottom: 20 }}>
-          {parts.map((part, j) => j % 2 === 1 ? <strong key={j} style={{ color: TEXT, fontWeight: 700 }}>{part}</strong> : part)}
-        </p>
+        <blockquote key={i} style={{ borderLeft: `3px solid ${VIO}`, paddingLeft: 20, margin: "0 0 20px", color: MUTED, fontSize: 15, lineHeight: 1.8, fontStyle: "italic" }}>
+          {renderInline(content)}
+        </blockquote>
       );
     }
-    const parts = para.split(/\*\*(.+?)\*\*/g);
+
+    // Numbered list: lines starting with "1." "2." etc.
+    const lines = para.split("\n");
+    if (lines.length > 1 && /^\d+\.\s/.test(lines[0])) {
+      return (
+        <ol key={i} style={{ paddingLeft: 24, marginBottom: 20, color: MUTED, fontSize: 16, lineHeight: 1.8 }}>
+          {lines.map((line, j) => {
+            const match = line.match(/^\d+\.\s(.+)/);
+            if (!match) return null;
+            return <li key={j} style={{ marginBottom: 8 }}>{renderInline(match[1])}</li>;
+          })}
+        </ol>
+      );
+    }
+
+    // Bullet list: lines starting with - or •
+    if (lines.length > 1 && /^[-•]\s/.test(lines[0])) {
+      return (
+        <ul key={i} style={{ paddingLeft: 24, marginBottom: 20, color: MUTED, fontSize: 16, lineHeight: 1.8, listStyle: "disc" }}>
+          {lines.map((line, j) => {
+            const match = line.match(/^[-•]\s(.+)/);
+            if (!match) return null;
+            return <li key={j} style={{ marginBottom: 6 }}>{renderInline(match[1])}</li>;
+          })}
+        </ul>
+      );
+    }
+
+    // Multi-line paragraph with embedded \n (keep as single block)
     return (
       <p key={i} style={{ color: MUTED, fontSize: 16, lineHeight: 1.8, marginBottom: 20 }}>
-        {parts.map((part, j) => j % 2 === 1 ? <strong key={j} style={{ color: TEXT, fontWeight: 700 }}>{part}</strong> : part)}
+        {renderInline(para)}
       </p>
     );
   });
@@ -118,9 +160,14 @@ export default function BlogPost({ post, otherPosts }) {
           <div style={{ background: "rgba(168,85,247,0.05)", border: "1px solid rgba(168,85,247,0.2)", borderRadius: 24, padding: "36px", textAlign: "center", margin: "48px 0" }}>
             <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 900, color: TEXT, marginBottom: 12, letterSpacing: -0.5 }}>{post.cta.text}</p>
             <p style={{ color: MUTED, fontSize: 14, marginBottom: 24 }}>{post.cta.sub}</p>
-            <a href="/tarifs" style={{ display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "14px 28px", borderRadius: 12, fontSize: 15, fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 24px rgba(168,85,247,0.25)` }}>
-              Voir les exemples →
-            </a>
+            <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+              <a href="/tarifs" style={{ display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "14px 28px", borderRadius: 12, fontSize: 15, fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 24px rgba(168,85,247,0.25)` }}>
+                Commencer gratuitement →
+              </a>
+              <a href="/exemples" style={{ display: "inline-block", background: "rgba(255,255,255,0.04)", border: `1px solid ${BORDER}`, color: TEXT, padding: "14px 24px", borderRadius: 12, fontSize: 14, fontWeight: 600, fontFamily: "'Space Grotesk', sans-serif" }}>
+                Voir des exemples
+              </a>
+            </div>
           </div>
         </div>
 
