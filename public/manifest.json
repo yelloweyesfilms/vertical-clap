@@ -4,10 +4,15 @@
   "short_name": "V.Clap",
   "description": "Génère des micro-dramas 9:16 complets avec l'IA — bible, scripts, hooks, cliffhangers.",
   "start_url": "/app",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "background_color": "#09090f",
   "theme_color": "#09090f",
   "orientation": "portrait",
+  "lang": "fr",
+  "categories": ["entertainment", "productivity"],
+  "privacy_policy_url": "https://verticalclap.com/confidentialite",
   "icons": [
     {
       "src": "/ios/192.png",
@@ -58,9 +63,17 @@
     {
       "src": "/og.png",
       "sizes": "1200x630",
-      "type": "image/png"
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "VerticalClap — Studio IA pour micro-dramas"
     }
   ],
-  "categories": ["entertainment", "productivity"],
-  "lang": "fr"
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.verticalclap.twa",
+      "id": "com.verticalclap.twa"
+    }
+  ],
+  "prefer_related_applications": false
 }
