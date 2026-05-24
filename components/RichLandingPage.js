@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { POSTS } from "../lib/posts";
@@ -541,6 +541,51 @@ const ClockIcon = ({ size = 22 }) => (
   </svg>
 );
 
+/* ── Scroll-reveal wrapper ── */
+function Reveal({ children, delay = 0, direction = "up", style = {} }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.12 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  const transforms = { up: "translateY(32px)", down: "translateY(-24px)", left: "translateX(-32px)", right: "translateX(32px)" };
+  return (
+    <div ref={ref} style={{
+      opacity: visible ? 1 : 0,
+      transform: visible ? "none" : (transforms[direction] || "translateY(32px)"),
+      transition: `opacity 0.6s ease ${delay}ms, transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94) ${delay}ms`,
+      ...style,
+    }}>{children}</div>
+  );
+}
+
+/* ── Animated number counter ── */
+function useCountUp(target, duration = 1400, startOnMount = false) {
+  const [count, setCount] = useState(startOnMount ? 0 : target);
+  const started = useRef(false);
+  const start = useCallback(() => {
+    if (started.current) return;
+    started.current = true;
+    const startTime = performance.now();
+    const tick = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [target, duration]);
+  return [count, start];
+}
+
 const Logo = ({ size = "md" }) => {
   const sm = size === "sm";
   return (
@@ -683,6 +728,20 @@ export default function RichLandingPage({ lang = "fr" }) {
         @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
         @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
         @keyframes scrollComments { 0%{transform:translateY(0)} 100%{transform:translateY(-50%)} }
+        @keyframes heroFadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+        @keyframes heroBadge { from{opacity:0;transform:scale(0.88)} to{opacity:1;transform:scale(1)} }
+        @keyframes glowPulse { 0%,100%{box-shadow:0 0 32px rgba(168,85,247,0.35),0 0 16px rgba(232,92,58,0.25)} 50%{box-shadow:0 0 48px rgba(168,85,247,0.55),0 0 28px rgba(232,92,58,0.4)} }
+        .hero-badge { animation: heroBadge 0.5s ease both; }
+        .hero-h1 { animation: heroFadeUp 0.7s ease 0.15s both; }
+        .hero-sub { animation: heroFadeUp 0.7s ease 0.3s both; }
+        .hero-feats { animation: heroFadeUp 0.7s ease 0.42s both; }
+        .hero-cta { animation: heroFadeUp 0.7s ease 0.55s both; }
+        .hero-stats { animation: heroFadeUp 0.7s ease 0.7s both; }
+        .cta-btn-glow { animation: glowPulse 2.8s ease-in-out infinite; }
+        .card-hover { transition: transform 0.22s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.22s ease, border-color 0.22s ease !important; }
+        .card-hover:hover { transform: translateY(-4px) !important; box-shadow: 0 12px 40px rgba(0,0,0,0.45) !important; }
+        .faq-item { transition: background 0.18s ease !important; }
+        .faq-item:hover { background: rgba(255,255,255,0.05) !important; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         input { font-size: 16px !important; }
         input::placeholder { color: ${MUTED}; }
@@ -768,18 +827,18 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 860, margin: "0 auto", padding: "88px 40px 72px", position: "relative", zIndex: 1, textAlign: "center" }} className="hero-pad">
 
           {/* Big headline */}
-          <h1 style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif", fontWeight: 900, letterSpacing: -2, marginBottom: 0, color: TEXT, lineHeight: 1.0, fontSize: "clamp(46px, 7.5vw, 112px)", textTransform: "uppercase" }}>
+          <h1 className="hero-h1" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif", fontWeight: 900, letterSpacing: -2, marginBottom: 0, color: TEXT, lineHeight: 1.0, fontSize: "clamp(46px, 7.5vw, 112px)", textTransform: "uppercase" }}>
             {c.heroHeadline1}<br />
             <span style={{ color: RED }}>{c.heroHeadline2}</span>
           </h1>
 
           {/* Subtitle */}
-          <p style={{ fontSize: "clamp(15px, 1.5vw, 18px)", color: "rgba(255,255,255,0.55)", margin: "28px auto 0", lineHeight: 1.6, maxWidth: 480 }}>
+          <p className="hero-sub" style={{ fontSize: "clamp(15px, 1.5vw, 18px)", color: "rgba(255,255,255,0.55)", margin: "28px auto 0", lineHeight: 1.6, maxWidth: 480 }}>
             {c.heroSubtitleBold}
           </p>
 
           {/* Features strip */}
-          <div style={{ display: "flex", gap: 24, justifyContent: "center", flexWrap: "wrap", margin: "28px 0 44px" }}>
+          <div className="hero-feats" style={{ display: "flex", gap: 24, justifyContent: "center", flexWrap: "wrap", margin: "28px 0 44px" }}>
             {(c.heroFeatures || []).map((f, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <div style={{ width: 18, height: 18, borderRadius: 4, background: `${RED}22`, border: `1px solid ${RED}44`, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -793,14 +852,14 @@ export default function RichLandingPage({ lang = "fr" }) {
           {canceled && <p style={{ color: RED, marginBottom: 16, fontSize: 14 }}>{c.canceledMsg}</p>}
 
           {/* Email + CTA */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 14, alignItems: "center" }}>
+          <div className="hero-cta" style={{ display: "flex", flexDirection: "column", gap: 14, alignItems: "center" }}>
             <div className="hero-row" style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
               <input type="email" placeholder={c.nlEmailPlaceholder} value={email}
                 onChange={e => { setEmail(e.target.value); setEmailError(false); }}
                 onKeyDown={e => e.key === "Enter" && startCheckout()}
                 style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${emailError ? RED : "rgba(255,255,255,0.1)"}`, background: "rgba(255,255,255,0.05)", color: TEXT, fontSize: 15, width: 240, outline: "none", backdropFilter: "blur(12px)", transition: "border-color .2s" }} />
-              <button onClick={() => startCheckout("standard", "hero")} disabled={loading}
-                style={{ padding: "16px 28px", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", borderRadius: 14, fontSize: 15, fontWeight: 800, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.02em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1, boxShadow: `0 0 32px rgba(168,85,247,0.35), 0 0 16px rgba(232,92,58,0.25)` }}>
+              <button onClick={() => startCheckout("standard", "hero")} disabled={loading} className="cta-btn-glow"
+                style={{ padding: "16px 28px", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", borderRadius: 14, fontSize: 15, fontWeight: 800, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.02em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1 }}>
                 {loading ? c.redirecting : c.ctaBtnCreate}
               </button>
             </div>
@@ -813,7 +872,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           {emailError && <p style={{ color: RED, fontSize: 13, fontWeight: 600, marginTop: 10 }}>{c.emailError}</p>}
 
           {/* Stats bar */}
-          <div style={{ display: "flex", gap: 0, justifyContent: "center", marginTop: 56, border: `1px solid rgba(255,255,255,0.07)`, borderRadius: 16, overflow: "hidden", background: "rgba(255,255,255,0.02)" }} className="stats-bar">
+          <div style={{ display: "flex", gap: 0, justifyContent: "center", marginTop: 56, border: `1px solid rgba(255,255,255,0.07)`, borderRadius: 16, overflow: "hidden", background: "rgba(255,255,255,0.02)" }} className="stats-bar hero-stats">
             {[
               { val: c.heroStatViews, label: c.heroStatViewsLabel },
               { val: c.heroStatCreators, label: c.heroStatCreatorsLabel },
@@ -847,6 +906,7 @@ export default function RichLandingPage({ lang = "fr" }) {
       {/* TWO ENGINES */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <Reveal>
           <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 16, fontFamily: "'Space Grotesk', sans-serif" }}>
             {lang === "fr" ? "Deux niveaux d'intensité" : "Two intensity levels"}
           </p>
@@ -861,10 +921,12 @@ export default function RichLandingPage({ lang = "fr" }) {
               ? "Chaque micro-drama peut être écrit en mode viral immédiat ou en mode tension profonde."
               : "Every micro-drama can be written in immediate viral mode or deep tension mode."}
           </p>
+          </Reveal>
 
           <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
             {/* MICRO DRAMA ENGINE */}
-            <div style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 24, overflow: "hidden", position: "relative" }}>
+            <Reveal delay={0}>
+            <div className="card-hover" style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 24, overflow: "hidden", position: "relative", height: "100%" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${RED}, #f97316)` }} />
               <div style={{ padding: "28px 28px 12px" }}>
                 <div style={{ display: "inline-block", padding: "4px 12px", background: `${RED}15`, border: `1px solid ${RED}30`, borderRadius: 20, fontSize: 11, fontWeight: 700, color: RED, marginBottom: 20, letterSpacing: "0.05em" }}>
@@ -906,9 +968,11 @@ export default function RichLandingPage({ lang = "fr" }) {
                 </div>
               </div>
             </div>
+            </Reveal>
 
             {/* SÉRIE PREMIUM ENGINE */}
-            <div style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 24, overflow: "hidden", position: "relative" }}>
+            <Reveal delay={120}>
+            <div className="card-hover" style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 24, overflow: "hidden", position: "relative", height: "100%" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${VIO}, #e879f9)` }} />
               <div style={{ padding: "28px 28px 12px" }}>
                 <div style={{ display: "inline-block", padding: "4px 12px", background: `${VIO}15`, border: `1px solid ${VIO}30`, borderRadius: 20, fontSize: 11, fontWeight: 700, color: VIO, marginBottom: 20, letterSpacing: "0.05em" }}>
@@ -950,6 +1014,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 </div>
               </div>
             </div>
+            </Reveal>
           </div>
         </div>
       </div>
@@ -957,13 +1022,16 @@ export default function RichLandingPage({ lang = "fr" }) {
       {/* CLIFFHANGERS */}
       <div className="sec" style={{ padding: "80px 40px", background: "linear-gradient(180deg, rgba(168,85,247,0.04) 0%, transparent 100%)", borderBottom: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <Reveal>
           <Label color={VIO}>{c.cliffhangersLabel}</Label>
           <Title>{lang === "fr" ? "Chaque épisode se termine" : "Every episode ends"}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.62)" }}>{lang === "fr" ? "par une scène impossible à ignorer." : "with a scene impossible to ignore."}</span></Title>
           <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>{c.cliffhangersCaption}</p>
+          </Reveal>
 
           <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
-            {c.cliffExamples.map(({ genre, color, hook, scene, cliff, next }) => (
-              <div key={genre} style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, overflow: "hidden", display: "flex", flexDirection: "column" }}>
+            {c.cliffExamples.map(({ genre, color, hook, scene, cliff, next }, idx) => (
+              <Reveal key={genre} delay={idx * 80}>
+              <div className="card-hover" style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, overflow: "hidden", display: "flex", flexDirection: "column", height: "100%" }}>
 
                 {/* Poster header — cinematic mood */}
                 <div style={{ position: "relative", height: 110, overflow: "hidden", flexShrink: 0 }}>
@@ -1003,6 +1071,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                   </div>
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -1011,6 +1080,7 @@ export default function RichLandingPage({ lang = "fr" }) {
       {/* EPISODE STRUCTURE */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <Reveal>
           <Label color={RED}>{lang === "fr" ? "La structure" : "The structure"}</Label>
           <Title style={{ textAlign: "center", marginBottom: 12 }}>
             {lang === "fr" ? "1 minute." : "1 minute."}<br />
@@ -1021,6 +1091,7 @@ export default function RichLandingPage({ lang = "fr" }) {
               ? "Chaque épisode généré suit cette architecture temporelle exacte. Le cerveau n'a pas le temps de décrocher."
               : "Every generated episode follows this exact time architecture. The brain has no time to disengage."}
           </p>
+          </Reveal>
 
           {/* Timeline bar */}
           <div style={{ position: "relative", marginBottom: 48 }}>
@@ -1113,6 +1184,7 @@ export default function RichLandingPage({ lang = "fr" }) {
       {/* LE MIXEUR */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <Reveal>
           <Label color={RED}>{c.mixerLabel}</Label>
           <Title>{lang === "fr" ? "Ton studio narratif," : "Your narrative studio,"}<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.62)" }}>{lang === "fr" ? "organisé en 4 onglets." : "organized in 4 tabs."}</span></Title>
           <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>
@@ -1120,6 +1192,7 @@ export default function RichLandingPage({ lang = "fr" }) {
               ? "Chaque paramètre à sa place. Le bouton Générer toujours visible."
               : "Every parameter in its place. The Generate button always visible."}
           </p>
+          </Reveal>
 
           {/* 4 tabs preview */}
           <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16, marginBottom: 32 }}>
@@ -1182,8 +1255,10 @@ export default function RichLandingPage({ lang = "fr" }) {
       {/* PRICING */}
       <div id="tarifs" className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 860, margin: "0 auto" }}>
+          <Reveal>
           <Label color={VIO}>{c.pricingLabel}</Label>
           <Title>{c.pricingTitle}</Title>
+          </Reveal>
 
           <div style={{ display: "flex", justifyContent: "center", marginBottom: 36 }}>
             <div style={{ display: "inline-flex", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 14, padding: 4, gap: 4 }}>
@@ -1243,8 +1318,9 @@ export default function RichLandingPage({ lang = "fr" }) {
 
           {/* Creator plan */}
           {planTab === "creator" && (
+            <Reveal>
             <div style={{ maxWidth: 480, margin: "0 auto" }}>
-              <div className="glass" style={{ borderRadius: 24, padding: "36px 32px", position: "relative" }}>
+              <div className="glass card-hover" style={{ borderRadius: 24, padding: "36px 32px", position: "relative" }}>
                 <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, borderRadius: "24px 24px 0 0", background: `linear-gradient(90deg, ${RED}, transparent)` }} />
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
                   <div>
@@ -1274,12 +1350,14 @@ export default function RichLandingPage({ lang = "fr" }) {
                 </p>
               </div>
             </div>
+            </Reveal>
           )}
 
           {/* Storyteller plan */}
           {planTab === "storyteller" && (
+            <Reveal>
             <div style={{ maxWidth: 480, margin: "0 auto" }}>
-              <div style={{ borderRadius: 24, padding: "36px 32px", position: "relative", background: "rgba(168,85,247,0.04)", border: "1.5px solid rgba(168,85,247,0.28)", boxShadow: "0 0 48px rgba(168,85,247,0.08)" }}>
+              <div className="card-hover" style={{ borderRadius: 24, padding: "36px 32px", position: "relative", background: "rgba(168,85,247,0.04)", border: "1.5px solid rgba(168,85,247,0.28)", boxShadow: "0 0 48px rgba(168,85,247,0.08)" }}>
                 <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, borderRadius: "24px 24px 0 0", background: `linear-gradient(90deg, ${VIO}, ${RED})` }} />
                 <div style={{ position: "absolute", top: -13, right: 24, background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", fontSize: 10, fontWeight: 800, padding: "4px 14px", borderRadius: 20, letterSpacing: 1.5 }}>{c.recommendedBadge}</div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
@@ -1307,6 +1385,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 </GlowBtn>
               </div>
             </div>
+            </Reveal>
           )}
 
           <div className="trust-row" style={{ display: "flex", justifyContent: "center", gap: 28, flexWrap: "wrap", marginTop: 28 }}>
@@ -1326,18 +1405,22 @@ export default function RichLandingPage({ lang = "fr" }) {
       {/* FAQ */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <Reveal>
           <Label color={RED}>{c.faqLabel}</Label>
           <Title>{c.faqTitle}</Title>
+          </Reveal>
           <div style={{ marginTop: 48 }}>
             {FAQ_ITEMS.map((item, i) => (
-              <div key={i} style={{ borderBottom: `1px solid ${BORDER}` }}>
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 0", background: "none", border: "none", cursor: "pointer", textAlign: "left", fontFamily: "'Space Grotesk', sans-serif" }}>
+              <Reveal key={i} delay={i * 50}>
+              <div style={{ borderBottom: `1px solid ${BORDER}` }}>
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="faq-item"
+                  style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 8px", background: "none", border: "none", cursor: "pointer", textAlign: "left", fontFamily: "'Space Grotesk', sans-serif", borderRadius: 8 }}>
                   <span style={{ fontSize: 15, fontWeight: 600, color: TEXT, paddingRight: 16 }}>{item.q}</span>
                   <span style={{ color: VIO, fontSize: 22, flexShrink: 0, transition: "transform .2s", display: "inline-block", transform: openFaq === i ? "rotate(45deg)" : "none" }}>+</span>
                 </button>
-                {openFaq === i && <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.75, paddingBottom: 20 }}>{item.r}</p>}
+                {openFaq === i && <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.75, paddingBottom: 20, paddingLeft: 8 }}>{item.r}</p>}
               </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -1378,6 +1461,7 @@ export default function RichLandingPage({ lang = "fr" }) {
       {/* CTA FINAL */}
       <div className="sec" style={{ padding: "100px 40px", textAlign: "center", borderTop: `1px solid ${BORDER}`, position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(168,85,247,0.07) 0%, transparent 60%)`, pointerEvents: "none" }} />
+        <Reveal>
         <div style={{ position: "relative", zIndex: 1 }}>
           <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 900, marginBottom: 20, letterSpacing: -2, lineHeight: 1.0 }}>
             {c.ctaFinalTitle1}<br />
@@ -1404,6 +1488,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             ))}
           </div>
         </div>
+        </Reveal>
       </div>
 
       </main>
