@@ -636,9 +636,9 @@ function NewsletterSection({ lang = "fr" }) {
     <div style={{ borderTop: `1px solid ${BORDER}`, padding: "72px 40px", background: "rgba(255,255,255,0.01)", position: "relative", overflow: "hidden" }}>
       {/* Background subtle glow */}
       <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 600, height: 300, background: `radial-gradient(ellipse, ${VIO}0a 0%, transparent 70%)`, pointerEvents: "none" }} />
-      <div style={{ maxWidth: 860, margin: "0 auto", display: "flex", alignItems: "center", gap: 64, position: "relative", zIndex: 1, flexWrap: "wrap", justifyContent: "center" }}>
+      <div className="nl-layout" style={{ maxWidth: 860, margin: "0 auto", display: "flex", alignItems: "center", gap: 64, position: "relative", zIndex: 1, flexWrap: "wrap", justifyContent: "center" }}>
         {/* Visual — image sans texte */}
-        <div style={{ flexShrink: 0, width: 220, height: 220, borderRadius: 24, overflow: "hidden", boxShadow: `0 0 48px rgba(168,85,247,0.2), 0 0 24px rgba(0,0,0,0.4)`, border: `1px solid rgba(168,85,247,0.2)` }}>
+        <div className="nl-visual" style={{ flexShrink: 0, width: 220, height: 220, borderRadius: 24, overflow: "hidden", boxShadow: `0 0 48px rgba(168,85,247,0.2), 0 0 24px rgba(0,0,0,0.4)`, border: `1px solid rgba(168,85,247,0.2)` }}>
           <img src="/poster-hero.png" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.85 }} />
         </div>
         {/* Content */}
@@ -815,7 +815,11 @@ export default function RichLandingPage({ lang = "fr" }) {
           .mixeur-tabs-grid { grid-template-columns: 1fr !important; }
           .for-you-grid { grid-template-columns: 1fr !important; }
           .mixeur-cols { grid-template-columns: repeat(2, 1fr) !important; }
+          .mixeur-stats { grid-template-columns: repeat(2, 1fr) !important; }
           .platform-row { flex-wrap: wrap !important; justify-content: center !important; }
+          .casting-banner { height: 280px !important; }
+          .nl-layout { flex-direction: column !important; align-items: center !important; }
+          .nl-visual { display: none !important; }
           .cliff-grid { grid-template-columns: 1fr !important; }
           .ep-phases-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .ep-rules-grid { grid-template-columns: 1fr !important; }
@@ -841,6 +845,8 @@ export default function RichLandingPage({ lang = "fr" }) {
           .feat-grid { grid-template-columns: 1fr 1fr !important; }
           .trust-row { flex-direction: column !important; align-items: center !important; gap: 8px !important; }
           .hero-feats { gap: 14px !important; flex-direction: column !important; align-items: flex-start !important; padding: 0 4px !important; }
+          .mixeur-cols { grid-template-columns: 1fr !important; }
+          .mixeur-stats { grid-template-columns: repeat(2, 1fr) !important; }
         }
         @media (max-width: 390px) {
           .hero-pad { padding: 40px 14px 28px !important; }
@@ -1242,7 +1248,7 @@ export default function RichLandingPage({ lang = "fr" }) {
 
           {/* Bannière casting */}
           <Reveal>
-          <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", marginBottom: 48, height: 420 }}>
+          <div className="casting-banner" style={{ position: "relative", borderRadius: 24, overflow: "hidden", marginBottom: 48, height: 420 }}>
             <img src="/casting-hero.png" alt="Casting VerticalClap" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
             {/* Overlay gauche seulement — laisse les persos visibles à droite */}
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(9,9,15,0.92) 0%, rgba(9,9,15,0.7) 35%, rgba(9,9,15,0.1) 65%, transparent 100%)" }} />
@@ -1351,7 +1357,7 @@ export default function RichLandingPage({ lang = "fr" }) {
 
           {/* Chiffres clés XXL */}
           <Reveal>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2, background: BORDER, borderRadius: 20, overflow: "hidden" }}>
+            <div className="mixeur-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2, background: BORDER, borderRadius: 20, overflow: "hidden" }}>
               {(lang === "fr" ? [
                 { n: "12", label: "packs univers", sub: "Romance, Thriller, K-Drama, Dark Drama…", color: RED },
                 { n: "48", label: "personnages", sub: "Archétypes avec morphologie, culture & aura", color: "#f97316" },
