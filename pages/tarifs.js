@@ -171,8 +171,8 @@ export default function Tarifs() {
         </div>
 
         {/* HERO */}
-        <div className="page-pad" style={{ padding: "80px 40px 48px", textAlign: "center", position: "relative" }}>
-          <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 600, height: 300, background: `radial-gradient(ellipse, rgba(168,85,247,0.08) 0%, transparent 70%)`, pointerEvents: "none" }} />
+        <div className="page-pad" style={{ padding: "80px 40px 48px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: "min(600px, 100vw)", height: 300, background: `radial-gradient(ellipse, rgba(168,85,247,0.08) 0%, transparent 70%)`, pointerEvents: "none" }} />
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 20 }}>Tarifs</p>
           <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.0, marginBottom: 20, color: TEXT }}>
             Simple.<br />

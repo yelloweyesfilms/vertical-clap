@@ -240,15 +240,15 @@ const COPY = {
       { user: "marc_prod", comment: "épisode 9 MAINTENANT je peux pas attendre", likes: "2.9k", color: VIO },
       { user: "créa.studio", comment: "comment ils écrivent aussi bien ?? 🔥", likes: "445", color: RED },
     ],
-    imgHero: "/banniere%20hero.png",
-    imgCliffhangers: "/cliffhangers%20.png",
-    imgBible: "/bible%20complete%20.png",
-    imgScript: "/script%20%C3%A0%20l'%C3%A9cran.png",
-    imgViral: "/serie%20virale.png",
-    imgMixeur: "/le%20mixeur.png",
-    imgCreateurs: "/les%20createurs.png",
-    imgPipeline: "/pipeline.png",
-    imgVariations: "/les%203%20variations.png",
+    imgHero: "/banniere hero.webp",
+    imgCliffhangers: "/cliffhangers .webp",
+    imgBible: "/bible complete .webp",
+    imgScript: "/script à l'écran.webp",
+    imgViral: "/serie virale.webp",
+    imgMixeur: "/le mixeur.webp",
+    imgCreateurs: "/les createurs.webp",
+    imgPipeline: "/pipeline.webp",
+    imgVariations: "/les 3 variations.webp",
   },
   en: {
     studioBadge: "AI Studio · Micro-drama · Vertical Drama",
@@ -477,15 +477,15 @@ const COPY = {
       { user: "marc_prod", comment: "episode 9 NOW i can't wait", likes: "2.9k", color: VIO },
       { user: "crea.studio", comment: "how do they write this well?? 🔥", likes: "445", color: RED },
     ],
-    imgHero: "/banniere%20hero.png",
-    imgCliffhangers: "/cliffhangers%20.png",
-    imgBible: "/bible%20complete%20.png",
-    imgScript: "/script%20%C3%A0%20l'%C3%A9cran.png",
-    imgViral: "/serie%20virale.png",
-    imgMixeur: "/le%20mixeur.png",
-    imgCreateurs: "/les%20createurs.png",
-    imgPipeline: "/pipeline.png",
-    imgVariations: "/les%203%20variations.png",
+    imgHero: "/banniere hero.webp",
+    imgCliffhangers: "/cliffhangers .webp",
+    imgBible: "/bible complete .webp",
+    imgScript: "/script à l'écran.webp",
+    imgViral: "/serie virale.webp",
+    imgMixeur: "/le mixeur.webp",
+    imgCreateurs: "/les createurs.webp",
+    imgPipeline: "/pipeline.webp",
+    imgVariations: "/les 3 variations.webp",
   },
 };
 
@@ -639,7 +639,7 @@ function NewsletterSection({ lang = "fr" }) {
       <div className="nl-layout" style={{ maxWidth: 860, margin: "0 auto", display: "flex", alignItems: "center", gap: 64, position: "relative", zIndex: 1, flexWrap: "wrap", justifyContent: "center" }}>
         {/* Visual — image sans texte */}
         <div className="nl-visual" style={{ flexShrink: 0, width: 220, height: 220, borderRadius: 24, overflow: "hidden", boxShadow: `0 0 48px rgba(168,85,247,0.2), 0 0 24px rgba(0,0,0,0.4)`, border: `1px solid rgba(168,85,247,0.2)` }}>
-          <img src="/poster-hero.png" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.85 }} />
+          <img src="/poster-hero.webp" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.85 }} />
         </div>
         {/* Content */}
         <div style={{ flex: 1, minWidth: 280, textAlign: "left" }}>
@@ -962,7 +962,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 {/* Encoche téléphone */}
                 <div style={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)", width: 60, height: 6, background: "rgba(0,0,0,0.8)", borderRadius: 3, zIndex: 10 }} />
                 <img
-                  src="/poster-hero.png"
+                  src="/poster-hero.webp"
                   alt="Micro-drama généré par VerticalClap"
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   onError={e => { e.target.style.display = "none"; }}
@@ -1145,7 +1145,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           <Reveal>
           <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", marginBottom: 52, height: 280 }}>
             <img
-              src={lang === "fr" ? "/la%20structure.png" : "/la%20structure%20EN.png"}
+              src={lang === "fr" ? "/la structure.webp" : "/la structure EN.webp"}
               alt=""
               aria-hidden="true"
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", display: "block" }}
@@ -1249,7 +1249,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           {/* Bannière casting */}
           <Reveal>
           <div className="casting-banner" style={{ position: "relative", borderRadius: 24, overflow: "hidden", marginBottom: 48, height: 420 }}>
-            <img src="/casting-hero.png" alt="Casting VerticalClap" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+            <img src="/casting-hero.webp" alt="Casting VerticalClap" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
             {/* Overlay gauche seulement — laisse les persos visibles à droite */}
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(9,9,15,0.92) 0%, rgba(9,9,15,0.7) 35%, rgba(9,9,15,0.1) 65%, transparent 100%)" }} />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 50%, rgba(9,9,15,0.6) 100%)" }} />
@@ -1360,7 +1360,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {/* Image packs */}
               <div style={{ borderRadius: 20, overflow: "hidden", background: "rgba(255,255,255,0.02)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <img src="/packsbis.png" alt="" aria-hidden="true" style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }} />
+                <img src="/packsbis.webp" alt="" aria-hidden="true" style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }} />
               </div>
               {/* Stats */}
               <div className="mixeur-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2, background: BORDER, borderRadius: 20, overflow: "hidden" }}>
@@ -1407,7 +1407,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 24, alignItems: "stretch" }}>
               {/* Image cinématique */}
               <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", minHeight: 340, display: "flex", flexDirection: "column" }}>
-                <img src="/partout.png" alt="" aria-hidden="true"
+                <img src="/partout.webp" alt="" aria-hidden="true"
                   style={{ width: "100%", flex: 1, objectFit: "cover", objectPosition: "center center", display: "block", minHeight: 340 }} />
                 {/* Badge 9:16 */}
                 <div style={{ position: "absolute", bottom: 20, left: 20, background: "rgba(9,9,15,0.8)", backdropFilter: "blur(8px)", border: `1px solid rgba(232,92,58,0.4)`, borderRadius: 10, padding: "8px 14px" }}>
