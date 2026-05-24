@@ -1218,18 +1218,18 @@ export default function RichLandingPage({ lang = "fr" }) {
 
           {/* Bannière casting */}
           <Reveal>
-          <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", marginBottom: 48, height: 260 }}>
-            <img src="/casting-hero.png" alt="Casting VerticalClap" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%", display: "block" }} />
-            {/* Overlays */}
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(9,9,15,0.85) 0%, rgba(9,9,15,0.4) 50%, rgba(9,9,15,0.75) 100%)" }} />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(9,9,15,0.9) 100%)" }} />
-            {/* Texte sur l'image */}
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "0 40px" }}>
-              <Label color={RED}>{c.mixerLabel}</Label>
-              <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "clamp(32px, 5vw, 60px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, color: TEXT, textTransform: "uppercase", marginBottom: 12 }}>
+          <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", marginBottom: 48, height: 420 }}>
+            <img src="/casting-hero.png" alt="Casting VerticalClap" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+            {/* Overlay gauche seulement — laisse les persos visibles à droite */}
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(9,9,15,0.92) 0%, rgba(9,9,15,0.7) 35%, rgba(9,9,15,0.1) 65%, transparent 100%)" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 50%, rgba(9,9,15,0.6) 100%)" }} />
+            {/* Texte à gauche */}
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "center", padding: "0 52px" }}>
+              <Label color={RED} style={{ textAlign: "left" }}>{c.mixerLabel}</Label>
+              <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "clamp(32px, 4.5vw, 56px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, color: TEXT, textTransform: "uppercase", marginBottom: 16, textAlign: "left" }}>
                 {lang === "fr" ? <>Tu choisis.<br /><span style={{ color: RED }}>L'IA génère tout.</span></> : <>You choose.<br /><span style={{ color: RED }}>AI generates everything.</span></>}
               </h2>
-              <p style={{ color: "rgba(255,255,255,0.65)", fontSize: 15, maxWidth: 480, lineHeight: 1.6, margin: 0 }}>
+              <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 15, lineHeight: 1.6, margin: 0 }}>
                 {lang === "fr" ? "48 archétypes · 12 univers · 16 secrets" : "48 archetypes · 12 universes · 16 secrets"}
               </p>
             </div>
