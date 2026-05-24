@@ -1011,8 +1011,8 @@ export default function RichLandingPage({ lang = "fr" }) {
         </div>
       </div>
 
-      {/* TWO ENGINES */}
-      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
+      {/* TWO ENGINES — supprimé (doublon avec tarifs) */}
+      {false && <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <Reveal>
           <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 16, fontFamily: "'Space Grotesk', sans-serif" }}>
@@ -1117,7 +1117,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             </Reveal>
           </div>
         </div>
-      </div>
+      </div>}
 
       {/* EPISODE STRUCTURE */}
       <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
