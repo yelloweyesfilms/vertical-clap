@@ -945,7 +945,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 {/* Encoche téléphone */}
                 <div style={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)", width: 60, height: 6, background: "rgba(0,0,0,0.8)", borderRadius: 3, zIndex: 10 }} />
                 <img
-                  src="/poster-hero.jpg"
+                  src="/poster-hero.png"
                   alt="Micro-drama généré par VerticalClap"
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   onError={e => { e.target.style.display = "none"; }}
