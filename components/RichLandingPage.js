@@ -1243,7 +1243,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           {/* Bannière casting */}
           <Reveal>
           <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", marginBottom: 48, height: 420 }}>
-            <img src="/arch%C3%A9types.png" alt="Archétypes VerticalClap" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+            <img src="/casting-hero.png" alt="Casting VerticalClap" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
             {/* Overlay gauche seulement — laisse les persos visibles à droite */}
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(9,9,15,0.92) 0%, rgba(9,9,15,0.7) 35%, rgba(9,9,15,0.1) 65%, transparent 100%)" }} />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 50%, rgba(9,9,15,0.6) 100%)" }} />
