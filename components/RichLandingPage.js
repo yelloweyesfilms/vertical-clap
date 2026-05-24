@@ -633,40 +633,49 @@ function NewsletterSection({ lang = "fr" }) {
   };
 
   return (
-    <div style={{ borderTop: `1px solid ${BORDER}`, padding: "72px 40px", textAlign: "center", background: "rgba(255,255,255,0.01)" }}>
-      <div style={{ maxWidth: 480, margin: "0 auto" }}>
-        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>{c.nlLabel}</p>
-        <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(24px, 3vw, 38px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 12 }}>
-          {c.nlTitle1}<br /><span style={{ fontStyle: "italic", color: MUTED }}>{c.nlTitle2}</span>
-        </h2>
-        <p style={{ color: MUTED, fontSize: 15, marginBottom: 28, lineHeight: 1.7 }}>
-          {c.nlBody}
-        </p>
-        {nlState === "done" ? (
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.25)", borderRadius: 14, padding: "16px 28px" }}>
-            <span style={{ color: "#4ade80", fontSize: 18 }}>✓</span>
-            <span style={{ color: "#4ade80", fontWeight: 700, fontSize: 15 }}>{c.nlDone}</span>
-          </div>
-        ) : (
-          <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
-            <input type="email" placeholder={c.nlEmailPlaceholder} value={nlEmail} onChange={e => setNlEmail(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && submit()}
-              style={{ padding: "14px 18px", borderRadius: 12, border: `1px solid ${nlState === "error" ? RED : BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 240, outline: "none" }} />
-            <button onClick={submit} disabled={nlState === "loading"}
-              style={{ background: SURFACE, border: `1px solid ${BORDER}`, color: TEXT, padding: "14px 24px", borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", transition: "all .2s" }}>
-              {nlState === "loading" ? "…" : c.nlSubscribe}
-            </button>
-          </div>
-        )}
-        {nlState === "error" && <p style={{ color: RED, fontSize: 13, marginTop: 10 }}>{c.nlError}</p>}
-        <p style={{ color: MUTED, fontSize: 12, marginTop: 14 }}>{c.nlNoSpam}</p>
+    <div style={{ borderTop: `1px solid ${BORDER}`, padding: "72px 40px", background: "rgba(255,255,255,0.01)", position: "relative", overflow: "hidden" }}>
+      {/* Background subtle glow */}
+      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 600, height: 300, background: `radial-gradient(ellipse, ${VIO}0a 0%, transparent 70%)`, pointerEvents: "none" }} />
+      <div style={{ maxWidth: 860, margin: "0 auto", display: "flex", alignItems: "center", gap: 64, position: "relative", zIndex: 1, flexWrap: "wrap", justifyContent: "center" }}>
+        {/* Visual — image sans texte */}
+        <div style={{ flexShrink: 0, width: 220, height: 220, borderRadius: 24, overflow: "hidden", boxShadow: `0 0 48px rgba(168,85,247,0.2), 0 0 24px rgba(0,0,0,0.4)`, border: `1px solid rgba(168,85,247,0.2)` }}>
+          <img src="/poster-hero.png" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.85 }} />
+        </div>
+        {/* Content */}
+        <div style={{ flex: 1, minWidth: 280, textAlign: "left" }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>{c.nlLabel}</p>
+          <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(24px, 3vw, 38px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 12 }}>
+            {c.nlTitle1}<br /><span style={{ fontStyle: "italic", color: MUTED }}>{c.nlTitle2}</span>
+          </h2>
+          <p style={{ color: MUTED, fontSize: 15, marginBottom: 28, lineHeight: 1.7 }}>
+            {c.nlBody}
+          </p>
+          {nlState === "done" ? (
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.25)", borderRadius: 14, padding: "16px 28px" }}>
+              <span style={{ color: "#4ade80", fontSize: 18 }}>✓</span>
+              <span style={{ color: "#4ade80", fontWeight: 700, fontSize: 15 }}>{c.nlDone}</span>
+            </div>
+          ) : (
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+              <input type="email" placeholder={c.nlEmailPlaceholder} value={nlEmail} onChange={e => setNlEmail(e.target.value)}
+                onKeyDown={e => e.key === "Enter" && submit()}
+                style={{ padding: "14px 18px", borderRadius: 12, border: `1px solid ${nlState === "error" ? RED : BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 240, outline: "none", flex: "1 1 200px" }} />
+              <button onClick={submit} disabled={nlState === "loading"}
+                style={{ background: SURFACE, border: `1px solid ${BORDER}`, color: TEXT, padding: "14px 24px", borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", transition: "all .2s", flexShrink: 0 }}>
+                {nlState === "loading" ? "…" : c.nlSubscribe}
+              </button>
+            </div>
+          )}
+          {nlState === "error" && <p style={{ color: RED, fontSize: 13, marginTop: 10 }}>{c.nlError}</p>}
+          <p style={{ color: MUTED, fontSize: 12, marginTop: 14 }}>{c.nlNoSpam}</p>
+        </div>
       </div>
     </div>
   );
 }
 
 const Label = ({ children, color = VIO }) => (
-  <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color, marginBottom: 16, fontFamily: "'Space Grotesk', sans-serif" }}>{children}</p>
+  <p style={{ textAlign: "center", fontSize: 13, fontWeight: 800, letterSpacing: 2.5, textTransform: "uppercase", color, marginBottom: 16, fontFamily: "'Space Grotesk', sans-serif", opacity: 0.95 }}>{children}</p>
 );
 
 const Title = ({ children, style = {} }) => (
@@ -805,8 +814,10 @@ export default function RichLandingPage({ lang = "fr" }) {
           .variations-grid { grid-template-columns: 1fr !important; }
           .mixeur-tabs-grid { grid-template-columns: 1fr !important; }
           .for-you-grid { grid-template-columns: 1fr !important; }
+          .mixeur-cols { grid-template-columns: repeat(2, 1fr) !important; }
+          .platform-row { flex-wrap: wrap !important; justify-content: center !important; }
           .cliff-grid { grid-template-columns: 1fr !important; }
-          .ep-phases-grid { grid-template-columns: 1fr !important; }
+          .ep-phases-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .ep-rules-grid { grid-template-columns: 1fr !important; }
           .compare-table { display: none !important; }
         }
@@ -1230,7 +1241,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 {lang === "fr" ? <>Tu choisis.<br /><span style={{ color: RED }}>L'IA génère tout.</span></> : <>You choose.<br /><span style={{ color: RED }}>AI generates everything.</span></>}
               </h2>
               <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 15, lineHeight: 1.6, margin: 0 }}>
-                {lang === "fr" ? "48 archétypes · 12 univers · 16 secrets" : "48 archetypes · 12 universes · 16 secrets"}
+                {lang === "fr" ? "48 archétypes · 12 univers · 16 secrets · 8 ambiances" : "48 archetypes · 12 universes · 16 secrets · 8 styles"}
               </p>
             </div>
           </div>
@@ -1254,8 +1265,8 @@ export default function RichLandingPage({ lang = "fr" }) {
                 <span style={{ fontSize: 11, color: MUTED, background: "rgba(255,255,255,0.05)", border: `1px solid ${BORDER}`, borderRadius: 6, padding: "2px 8px" }}>{lang === "fr" ? "1 clic pour changer" : "1 click to change"}</span>
               </div>
 
-              {/* 3 sélecteurs côte à côte */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: 24 }}>
+              {/* 4 sélecteurs côte à côte */}
+              <div className="mixeur-cols" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 24 }}>
                 {/* Genre */}
                 <div style={{ background: "rgba(232,92,58,0.06)", border: `1.5px solid rgba(232,92,58,0.3)`, borderRadius: 16, padding: "18px 16px" }}>
                   <p style={{ fontSize: 10, fontWeight: 800, color: RED, textTransform: "uppercase", letterSpacing: 2, marginBottom: 12 }}>🎬 {lang === "fr" ? "Genre" : "Genre"}</p>
@@ -1294,6 +1305,20 @@ export default function RichLandingPage({ lang = "fr" }) {
                   ))}
                   <p style={{ fontSize: 11, color: MUTED, marginTop: 8, fontStyle: "italic" }}>+11 {lang === "fr" ? "secrets" : "secrets"}…</p>
                 </div>
+
+                {/* Ambiances */}
+                <div style={{ background: "rgba(34,197,94,0.05)", border: `1.5px solid rgba(34,197,94,0.25)`, borderRadius: 16, padding: "18px 16px" }}>
+                  <p style={{ fontSize: 10, fontWeight: 800, color: "#22c55e", textTransform: "uppercase", letterSpacing: 2, marginBottom: 12 }}>🎨 {lang === "fr" ? "Ambiance" : "Style"}</p>
+                  {(lang === "fr"
+                    ? ["Néon urbain", "Cinéma doré", "Minimaliste", "Rétro 90s", "Sombre brumeux"]
+                    : ["Urban neon", "Golden cinema", "Minimalist", "Retro 90s", "Dark foggy"]
+                  ).map((a, i) => (
+                    <div key={a} style={{ padding: "8px 10px", borderRadius: 8, marginBottom: 4, background: i === 0 ? "rgba(34,197,94,0.12)" : "transparent", border: i === 0 ? `1px solid rgba(34,197,94,0.35)` : "1px solid transparent" }}>
+                      <span style={{ fontSize: 13, fontWeight: i === 0 ? 700 : 500, color: i === 0 ? TEXT : MUTED }}>{a}</span>
+                    </div>
+                  ))}
+                  <p style={{ fontSize: 11, color: MUTED, marginTop: 8, fontStyle: "italic" }}>+3 {lang === "fr" ? "ambiances" : "styles"}…</p>
+                </div>
               </div>
 
               {/* Bouton Générer */}
@@ -1331,6 +1356,74 @@ export default function RichLandingPage({ lang = "fr" }) {
                   <div style={{ fontSize: 11, color: MUTED, lineHeight: 1.4 }}>{sub}</div>
                 </div>
               ))}
+            </div>
+          </Reveal>
+        </div>
+      </div>
+
+      {/* PLATFORMS / RÉSEAUX SOCIAUX */}
+      <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
+        <div style={{ maxWidth: 960, margin: "0 auto" }}>
+          <Reveal>
+            <Label color={RED}>{lang === "fr" ? "Ton format tourne partout" : "Your format runs everywhere"}</Label>
+            <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(28px, 3.8vw, 50px)", fontWeight: 900, textAlign: "center", marginBottom: 12, letterSpacing: -1, lineHeight: 1.05, color: TEXT, textTransform: "uppercase" }}>
+              {lang === "fr" ? <>Posté aujourd'hui.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.55)" }}>Viral demain.</span></> : <>Posted today.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.55)" }}>Viral tomorrow.</span></>}
+            </h2>
+            <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>
+              {lang === "fr"
+                ? "Scripts 9:16 nativement optimisés pour chaque plateforme où ton audience regarde."
+                : "9:16 scripts natively optimized for every platform where your audience watches."}
+            </p>
+          </Reveal>
+
+          {/* Visual + platforms */}
+          <Reveal>
+            <div style={{ position: "relative", borderRadius: 28, overflow: "hidden", background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}` }}>
+              {/* Image d'arrière-plan */}
+              <div style={{ position: "relative", height: 320, overflow: "hidden" }}>
+                <img src="/series virales .png" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%", display: "block" }} />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(9,9,15,0.1) 0%, rgba(9,9,15,0.7) 70%, rgba(9,9,15,0.95) 100%)" }} />
+                {/* Badge 9:16 */}
+                <div style={{ position: "absolute", top: 20, right: 20, background: "rgba(9,9,15,0.75)", backdropFilter: "blur(8px)", border: `1px solid ${BORDER}`, borderRadius: 10, padding: "8px 14px" }}>
+                  <span style={{ fontSize: 11, fontWeight: 800, color: RED, letterSpacing: 2, textTransform: "uppercase" }}>Format 9:16</span>
+                </div>
+              </div>
+
+              {/* Plateformes */}
+              <div style={{ padding: "32px 40px 36px" }}>
+                {/* Réseaux sociaux */}
+                <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2.5, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>{lang === "fr" ? "Réseaux sociaux" : "Social networks"}</p>
+                <div className="platform-row" style={{ display: "flex", gap: 12, marginBottom: 28, flexWrap: "wrap" }}>
+                  {[
+                    { name: "TikTok", color: "#fff", bg: "rgba(255,255,255,0.06)", border: "rgba(255,255,255,0.12)", icon: <TikTokIcon size={18} /> },
+                    { name: "Instagram Reels", color: "#e879a0", bg: "rgba(232,121,160,0.08)", border: "rgba(232,121,160,0.25)", icon: <ReelsIcon size={18} /> },
+                    { name: "YouTube Shorts", color: "#ef4444", bg: "rgba(239,68,68,0.08)", border: "rgba(239,68,68,0.25)", icon: <ShortsIcon size={18} /> },
+                    { name: "Facebook Reels", color: "#60a5fa", bg: "rgba(96,165,250,0.08)", border: "rgba(96,165,250,0.25)", icon: <span style={{ fontSize: 16 }}>📘</span> },
+                    { name: "Snapchat", color: "#facc15", bg: "rgba(250,204,21,0.08)", border: "rgba(250,204,21,0.25)", icon: <span style={{ fontSize: 16 }}>👻</span> },
+                  ].map(p => (
+                    <div key={p.name} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: p.bg, border: `1px solid ${p.border}`, borderRadius: 10, padding: "9px 16px" }}>
+                      <span style={{ color: p.color, display: "flex", alignItems: "center" }}>{p.icon}</span>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: p.color }}>{p.name}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Plateformes micro-drama */}
+                <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2.5, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>{lang === "fr" ? "Plateformes micro-drama" : "Micro-drama platforms"}</p>
+                <div className="platform-row" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                  {[
+                    { name: "DramaBox", color: "#f97316", bg: "rgba(249,115,22,0.08)", border: "rgba(249,115,22,0.25)", icon: "🎬" },
+                    { name: "ReelShort", color: "#a855f7", bg: "rgba(168,85,247,0.08)", border: "rgba(168,85,247,0.25)", icon: "📱" },
+                    { name: "ShortTV", color: "#22c55e", bg: "rgba(34,197,94,0.08)", border: "rgba(34,197,94,0.25)", icon: "📺" },
+                    { name: "Flexclip", color: "#60a5fa", bg: "rgba(96,165,250,0.08)", border: "rgba(96,165,250,0.25)", icon: "🎞️" },
+                  ].map(p => (
+                    <div key={p.name} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: p.bg, border: `1px solid ${p.border}`, borderRadius: 10, padding: "9px 16px" }}>
+                      <span style={{ fontSize: 16 }}>{p.icon}</span>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: p.color }}>{p.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </Reveal>
         </div>
