@@ -956,45 +956,41 @@ export default function RichLandingPage({ lang = "fr" }) {
           <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
             {/* MICRO DRAMA ENGINE */}
             <Reveal delay={0}>
-            <div className="card-hover" style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 24, overflow: "hidden", position: "relative", height: "100%" }}>
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${RED}, #f97316)` }} />
-              <div style={{ padding: "28px 28px 12px" }}>
-                <div style={{ display: "inline-block", padding: "4px 12px", background: `${RED}15`, border: `1px solid ${RED}30`, borderRadius: 20, fontSize: 11, fontWeight: 700, color: RED, marginBottom: 20, letterSpacing: "0.05em" }}>
-                  {lang === "fr" ? "MICRO DRAMA ENGINE" : "MICRO DRAMA ENGINE"}
+            <div className="card-hover" style={{ background: SURFACE, border: `1px solid rgba(232,92,58,0.3)`, borderRadius: 24, overflow: "hidden", position: "relative", height: "100%" }}>
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${RED}, #f97316)` }} />
+              <div style={{ padding: "32px 28px 28px" }}>
+                <div style={{ display: "inline-block", padding: "5px 14px", background: `${RED}18`, border: `1px solid ${RED}40`, borderRadius: 20, fontSize: 11, fontWeight: 800, color: RED, marginBottom: 20, letterSpacing: "0.08em" }}>
+                  {lang === "fr" ? "⚡ MICRO DRAMA ENGINE" : "⚡ MICRO DRAMA ENGINE"}
                 </div>
-                <h3 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(20px, 2.2vw, 28px)", fontWeight: 900, color: TEXT, letterSpacing: -0.8, lineHeight: 1.15, marginBottom: 12 }}>
-                  {lang === "fr" ? "Viral. Intense." : "Viral. Intense."}<br />
-                  <span style={{ color: "rgba(255,255,255,0.62)", fontStyle: "italic" }}>{lang === "fr" ? "Du premier scroll au binge." : "From first scroll to binge."}</span>
+                <h3 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(24px, 2.5vw, 36px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 16 }}>
+                  {lang === "fr" ? <>Viral.<br />Du premier scroll<br /><span style={{ color: RED }}>au binge.</span></> : <>Viral.<br />From first scroll<br /><span style={{ color: RED }}>to binge.</span></>}
                 </h3>
-                <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.7, marginBottom: 24 }}>
+                <p style={{ fontSize: 15, color: MUTED, lineHeight: 1.7, marginBottom: 28 }}>
                   {lang === "fr"
-                    ? "Hooks ultra-rapides, cliffhangers immédiats, rythme maximal. Conçu pour TikTok, Reels et Shorts."
-                    : "Ultra-fast hooks, immediate cliffhangers, maximum pace. Built for TikTok, Reels and Shorts."}
+                    ? "Hook en 3 secondes, cliffhanger à chaque fin, rythme maximal. Le format natif de TikTok, Reels et Shorts."
+                    : "Hook in 3 seconds, cliffhanger every end, maximum pace. The native format of TikTok, Reels and Shorts."}
                 </p>
-              </div>
-              <div style={{ borderTop: `1px solid ${BORDER}`, padding: "18px 28px 24px", display: "flex", flexDirection: "column", gap: 9 }}>
-                {(lang === "fr" ? [
-                  "Hook en 3 secondes ou moins",
-                  "Cliffhanger à chaque fin d'épisode",
-                  "Épisodes 30–90 secondes",
-                  "Format 9:16 mobile-first",
-                  "TikTok · Reels · Shorts",
-                ] : [
-                  "Hook in 3 seconds or less",
-                  "Cliffhanger at every episode end",
-                  "30–90 second episodes",
-                  "9:16 mobile-first format",
-                  "TikTok · Reels · Shorts",
-                ]).map(item => (
-                  <div key={item} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: RED, flexShrink: 0 }} />
-                    <span style={{ fontSize: 13, color: MUTED }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <div style={{ padding: "0 28px 24px" }}>
-                <div style={{ fontSize: 11, color: MUTED, padding: "8px 14px", background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}`, borderRadius: 10 }}>
-                  {lang === "fr" ? "Plan Creator · 20 épisodes par série" : "Creator plan · 20 episodes per series"}
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  {(lang === "fr" ? [
+                    { emoji: "⚡", label: "Hook en 3 sec", desc: "Les 3 premières secondes décident tout" },
+                    { emoji: "🎬", label: "Cliffhanger calibré", desc: "Chaque fin oblige à regarder le suivant" },
+                    { emoji: "📱", label: "Format 9:16 natif", desc: "TikTok · Reels · Shorts · 60 à 90 sec" },
+                  ] : [
+                    { emoji: "⚡", label: "Hook in 3 sec", desc: "The first 3 seconds decide everything" },
+                    { emoji: "🎬", label: "Calibrated cliffhanger", desc: "Every ending forces viewers to watch next" },
+                    { emoji: "📱", label: "Native 9:16 format", desc: "TikTok · Reels · Shorts · 60 to 90 sec" },
+                  ]).map(f => (
+                    <div key={f.label} style={{ display: "flex", gap: 14, alignItems: "flex-start", background: `rgba(232,92,58,0.06)`, border: `1px solid rgba(232,92,58,0.15)`, borderRadius: 12, padding: "12px 14px" }}>
+                      <span style={{ fontSize: 20, flexShrink: 0 }}>{f.emoji}</span>
+                      <div>
+                        <p style={{ fontSize: 14, fontWeight: 700, color: TEXT, margin: 0, marginBottom: 2 }}>{f.label}</p>
+                        <p style={{ fontSize: 12, color: MUTED, margin: 0, lineHeight: 1.4 }}>{f.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ marginTop: 20, fontSize: 12, color: RED, padding: "8px 14px", background: `${RED}10`, border: `1px solid ${RED}25`, borderRadius: 10, fontWeight: 700 }}>
+                  {lang === "fr" ? "→ Plan Creator · dès 9€/mois" : "→ Creator plan · from €9/month"}
                 </div>
               </div>
             </div>
@@ -1002,45 +998,41 @@ export default function RichLandingPage({ lang = "fr" }) {
 
             {/* SÉRIE PREMIUM ENGINE */}
             <Reveal delay={120}>
-            <div className="card-hover" style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 24, overflow: "hidden", position: "relative", height: "100%" }}>
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${VIO}, #e879f9)` }} />
-              <div style={{ padding: "28px 28px 12px" }}>
-                <div style={{ display: "inline-block", padding: "4px 12px", background: `${VIO}15`, border: `1px solid ${VIO}30`, borderRadius: 20, fontSize: 11, fontWeight: 700, color: VIO, marginBottom: 20, letterSpacing: "0.05em" }}>
-                  {lang === "fr" ? "SÉRIE PREMIUM" : "PREMIUM SERIES"}
+            <div className="card-hover" style={{ background: SURFACE, border: `1px solid rgba(168,85,247,0.3)`, borderRadius: 24, overflow: "hidden", position: "relative", height: "100%" }}>
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${VIO}, #e879f9)` }} />
+              <div style={{ padding: "32px 28px 28px" }}>
+                <div style={{ display: "inline-block", padding: "5px 14px", background: `${VIO}18`, border: `1px solid ${VIO}40`, borderRadius: 20, fontSize: 11, fontWeight: 800, color: VIO, marginBottom: 20, letterSpacing: "0.08em" }}>
+                  {lang === "fr" ? "🎭 SÉRIE PREMIUM" : "🎭 PREMIUM SERIES"}
                 </div>
-                <h3 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(20px, 2.2vw, 28px)", fontWeight: 900, color: TEXT, letterSpacing: -0.8, lineHeight: 1.15, marginBottom: 12 }}>
-                  {lang === "fr" ? "Profond. Addictif." : "Deep. Addictive."}<br />
-                  <span style={{ color: "rgba(255,255,255,0.62)", fontStyle: "italic" }}>{lang === "fr" ? "Des personnages qu'on n'oublie pas." : "Characters you can't forget."}</span>
+                <h3 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(24px, 2.5vw, 36px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 16 }}>
+                  {lang === "fr" ? <>Profond.<br />Des personnages<br /><span style={{ color: VIO }}>qu'on n'oublie pas.</span></> : <>Deep.<br />Characters<br /><span style={{ color: VIO }}>you won't forget.</span></>}
                 </h3>
-                <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.7, marginBottom: 24 }}>
+                <p style={{ fontSize: 15, color: MUTED, lineHeight: 1.7, marginBottom: 28 }}>
                   {lang === "fr"
-                    ? "Tension psychologique, sous-texte, Direction Artistique avancée. Pour des micro-dramas premium sur les plateformes verticales."
-                    : "Psychological tension, subtext, advanced Artistic Direction. For premium micro-dramas on vertical platforms."}
+                    ? "Tension psychologique, sous-texte, Direction Artistique complète. Pour des séries longues sur les plateformes verticales premium."
+                    : "Psychological tension, subtext, full Artistic Direction. For long-form series on premium vertical platforms."}
                 </p>
-              </div>
-              <div style={{ borderTop: `1px solid ${BORDER}`, padding: "18px 28px 24px", display: "flex", flexDirection: "column", gap: 9 }}>
-                {(lang === "fr" ? [
-                  "Personnages avec arcs et psychologie",
-                  "Tension en sous-texte et silences",
-                  "Jusqu'à 90 épisodes par série",
-                  "3 variations de ton par script",
-                  "Plateformes premium · verticales",
-                ] : [
-                  "Characters with arcs and psychology",
-                  "Tension through subtext and silence",
-                  "Up to 90 episodes per series",
-                  "3 tone variations per script",
-                  "Premium vertical platforms",
-                ]).map(item => (
-                  <div key={item} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: VIO, flexShrink: 0 }} />
-                    <span style={{ fontSize: 13, color: MUTED }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <div style={{ padding: "0 28px 24px" }}>
-                <div style={{ fontSize: 11, color: MUTED, padding: "8px 14px", background: "rgba(255,255,255,0.02)", border: `1px solid ${BORDER}`, borderRadius: 10 }}>
-                  {lang === "fr" ? "Plan Premium · Direction artistique avancée" : "Premium plan · Advanced artistic direction"}
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  {(lang === "fr" ? [
+                    { emoji: "🧠", label: "Personnages avec psychologie", desc: "Arcs narratifs, secrets, contradictions" },
+                    { emoji: "🌑", label: "Tension en sous-texte", desc: "Ce qui ne se dit pas pèse plus que les mots" },
+                    { emoji: "📺", label: "Jusqu'à 90 épisodes", desc: "Séries longues · Direction artistique avancée" },
+                  ] : [
+                    { emoji: "🧠", label: "Characters with psychology", desc: "Narrative arcs, secrets, contradictions" },
+                    { emoji: "🌑", label: "Subtext tension", desc: "What's unsaid weighs more than words" },
+                    { emoji: "📺", label: "Up to 90 episodes", desc: "Long series · Advanced artistic direction" },
+                  ]).map(f => (
+                    <div key={f.label} style={{ display: "flex", gap: 14, alignItems: "flex-start", background: `rgba(168,85,247,0.06)`, border: `1px solid rgba(168,85,247,0.15)`, borderRadius: 12, padding: "12px 14px" }}>
+                      <span style={{ fontSize: 20, flexShrink: 0 }}>{f.emoji}</span>
+                      <div>
+                        <p style={{ fontSize: 14, fontWeight: 700, color: TEXT, margin: 0, marginBottom: 2 }}>{f.label}</p>
+                        <p style={{ fontSize: 12, color: MUTED, margin: 0, lineHeight: 1.4 }}>{f.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ marginTop: 20, fontSize: 12, color: VIO, padding: "8px 14px", background: `${VIO}10`, border: `1px solid ${VIO}25`, borderRadius: 10, fontWeight: 700 }}>
+                  {lang === "fr" ? "→ Plan Pro · dès 19€/mois" : "→ Pro plan · from €19/month"}
                 </div>
               </div>
             </div>
