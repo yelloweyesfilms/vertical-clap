@@ -565,28 +565,16 @@ const AMBIANCE_VIS = [
 // ── STORY FORMATS ────────────────────────────────────────────
 const STORY_FORMATS = [
   {
-    id: "vertical",
-    emoji: "⚡",
-    label: { fr: "Vertical", en: "Vertical" },
-    sub: { fr: "60–90s · Mobile first", en: "60–90s · Mobile first" },
-    color: "#E85C3A",
+    id: "romance",
+    emoji: "💕",
+    label: { fr: "Romance", en: "Romance" },
+    sub: { fr: "Love story · Tension", en: "Love story · Tension" },
+    color: "#f59e0b",
     mode: "fast",
-    genre: "",
-    tropes: "",
-    ambianceVisuelle: "",
-    style: "⚡ Vertical Drama",
-  },
-  {
-    id: "serie",
-    emoji: "🎭",
-    label: { fr: "Série", en: "Series" },
-    sub: { fr: "Drama long · 90 épisodes", en: "Long drama · 90 episodes" },
-    color: "#3a5040",
-    mode: "premium",
-    genre: "",
-    tropes: "",
-    ambianceVisuelle: "",
-    style: "🎭 Soap Opera",
+    genre: "Romance Drama",
+    tropes: "enemies to lovers, fake dating, forbidden love, friends to lovers",
+    ambianceVisuelle: "golden-hour",
+    style: "⚡ Format Vertical",
   },
   {
     id: "kdrama",
@@ -601,6 +589,18 @@ const STORY_FORMATS = [
     style: "🎬 Cinéma",
   },
   {
+    id: "famille",
+    emoji: "👨‍👩‍👧",
+    label: { fr: "Famille", en: "Family" },
+    sub: { fr: "Secrets · Trahisons · Retrouvailles", en: "Secrets · Betrayals · Reunions" },
+    color: "#f97316",
+    mode: "fast",
+    genre: "Drame familial",
+    tropes: "secret child, betrayal, hidden identity — liens du sang, secrets enfouis, retrouvailles explosives",
+    ambianceVisuelle: "golden-hour",
+    style: "⚡ Format Vertical",
+  },
+  {
     id: "thriller",
     emoji: "🔪",
     label: { fr: "Thriller", en: "Thriller" },
@@ -613,18 +613,6 @@ const STORY_FORMATS = [
     style: "🎬 Cinéma",
   },
   {
-    id: "romance",
-    emoji: "💕",
-    label: { fr: "Romance", en: "Romance" },
-    sub: { fr: "Love story · Tension", en: "Love story · Tension" },
-    color: "#f59e0b",
-    mode: "fast",
-    genre: "Romance Drama",
-    tropes: "enemies to lovers, fake dating, forbidden love, friends to lovers",
-    ambianceVisuelle: "golden-hour",
-    style: "⚡ Vertical Drama",
-  },
-  {
     id: "dark",
     emoji: "🌃",
     label: { fr: "Dark Drama", en: "Dark Drama" },
@@ -635,6 +623,78 @@ const STORY_FORMATS = [
     tropes: "betrayal, revenge, obsession, hidden identity — atmosphère sombre, personnages brisés, rédemption impossible",
     ambianceVisuelle: "urban-night",
     style: "🎬 Cinéma",
+  },
+  {
+    id: "fantastique",
+    emoji: "🌙",
+    label: { fr: "Fantastique", en: "Fantasy" },
+    sub: { fr: "Surnaturel · Pouvoirs · Paranormal", en: "Supernatural · Powers · Paranormal" },
+    color: "#8b5cf6",
+    mode: "premium",
+    genre: "Fantastique surnaturel",
+    tropes: "hidden identity, obsession, forbidden love — pouvoirs cachés, monde secret, destin impossible à fuir",
+    ambianceVisuelle: "dark-cine",
+    style: "🎬 Cinéma",
+  },
+  {
+    id: "vengeance",
+    emoji: "🔥",
+    label: { fr: "Vengeance", en: "Revenge" },
+    sub: { fr: "Justice · Plan · Trahison", en: "Justice · Plot · Betrayal" },
+    color: "#ef4444",
+    mode: "fast",
+    genre: "Drame de vengeance",
+    tropes: "revenge, betrayal, hidden identity — plan minutieux, humiliation retournée, le coupable ne s'y attend pas",
+    ambianceVisuelle: "urban-night",
+    style: "⚡ Format Vertical",
+  },
+  {
+    id: "elite",
+    emoji: "👑",
+    label: { fr: "Élite & Pouvoir", en: "Elite & Power" },
+    sub: { fr: "Argent · Héritiers · Secrets", en: "Money · Heirs · Secrets" },
+    color: "#ca8a04",
+    mode: "premium",
+    genre: "Drama élite et pouvoir",
+    tropes: "hidden identity, betrayal, forbidden love — guerre d'héritiers, façades parfaites, secrets financiers",
+    ambianceVisuelle: "dark-cine",
+    style: "🎬 Cinéma",
+  },
+  {
+    id: "medical",
+    emoji: "🏥",
+    label: { fr: "Médical", en: "Medical" },
+    sub: { fr: "Urgences · Dilemmes · Secrets", en: "ER · Dilemmas · Secrets" },
+    color: "#0ea5e9",
+    mode: "fast",
+    genre: "Drama médical",
+    tropes: "hidden identity, secret child, forbidden love — vies en jeu, double vie, secrets entre collègues",
+    ambianceVisuelle: "dark-cine",
+    style: "⚡ Format Vertical",
+  },
+  {
+    id: "teen",
+    emoji: "🎒",
+    label: { fr: "Teen Drama", en: "Teen Drama" },
+    sub: { fr: "Lycée · Scandale · Réseau social", en: "High school · Scandal · Social media" },
+    color: "#06b6d4",
+    mode: "fast",
+    genre: "Teen drama scolaire",
+    tropes: "enemies-to-lovers, forbidden love, hidden identity — secret révélé en live, rumeur virale, jalousie scolaire",
+    ambianceVisuelle: "golden-hour",
+    style: "⚡ Format Vertical",
+  },
+  {
+    id: "comedie",
+    emoji: "😂",
+    label: { fr: "Comédie", en: "Comedy" },
+    sub: { fr: "Quiproquos · Gags · Romance", en: "Mix-ups · Gags · Romance" },
+    color: "#22c55e",
+    mode: "fast",
+    genre: "Comédie romantique",
+    tropes: "fake dating, friends to lovers, grumpy x sunshine — quiproquos, maladresses, happy ending inattendu",
+    ambianceVisuelle: "golden-hour",
+    style: "⚡ Format Vertical",
   },
 ];
 
@@ -1099,12 +1159,17 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
     : [{ id: "univers", label: "Univers" }, { id: "persos", label: "Persos" }, { id: "ambiance", label: "Ambiance" }, { id: "format", label: "Format" }];
 
   const FORMAT_TROPES = {
-    kdrama:  ["enemies-to-lovers", "forbidden-love"],
-    thriller: ["betrayal", "hidden-identity"],
-    romance:  ["enemies-to-lovers", "fake-dating"],
-    dark:     ["betrayal", "revenge"],
-    vertical: [],
-    serie:    [],
+    romance:     ["enemies-to-lovers", "fake-dating"],
+    kdrama:      ["enemies-to-lovers", "forbidden-love"],
+    famille:     ["secret-child", "betrayal"],
+    thriller:    ["betrayal", "hidden-identity"],
+    dark:        ["betrayal", "revenge"],
+    fantastique: ["hidden-identity", "forbidden-love"],
+    vengeance:   ["revenge", "betrayal"],
+    elite:       ["hidden-identity", "betrayal"],
+    medical:     ["hidden-identity", "secret-child"],
+    teen:        ["enemies-to-lovers", "hidden-identity"],
+    comedie:     ["fake-dating", "friends-to-lovers"],
   };
 
   const selectFormat = (f) => {
@@ -1161,13 +1226,16 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           </button>
         </div>
         {/* Format chips — horizontal scroll */}
+        <div style={{ marginBottom: 4 }}>
+          <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--mt)", fontFamily: "var(--sans)" }}>{lang === "fr" ? "Genre" : "Genre"}</span>
+        </div>
         <div style={{ display: "flex", gap: 6, overflowX: "auto", paddingBottom: 4, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
           {STORY_FORMATS.map(f => {
             const active = state.genreFormat === f.id;
             return (
               <button key={f.id} onClick={() => selectFormat(f)}
                 style={{ flexShrink: 0, padding: "7px 12px", borderRadius: 20, border: `1.5px solid ${active ? f.color : "var(--bo)"}`, background: active ? `${f.color}30` : "transparent", cursor: "pointer", transition: "all .18s" }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: active ? f.color : "var(--mt)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{f.label[lang] || f.label.fr}</span>
+                <span style={{ fontSize: 11, fontWeight: 700, color: active ? f.color : "var(--mt)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{f.emoji} {f.label[lang] || f.label.fr}</span>
               </button>
             );
           })}
