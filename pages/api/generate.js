@@ -279,6 +279,38 @@ PERSONNAGES: immédiatement identifiables, émotionnellement forts, addictifs. C
 CLIFFHANGERS: couper JUSTE AVANT LA RÉPONSE. Toujours. Révélations choc, interruptions émotionnelles, twists addictifs, fins impossibles à ignorer.
 
 TROPES VIRAUX: faux couples, CEO froid, triangle amoureux, secrets familiaux, rivalités féminines, humiliations publiques, retours d'ex toxiques, identités cachées, relations interdites — à combiner intelligemment selon l'univers.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RÈGLES D'OR DU DIALOGUE — ABSOLU
+
+Tu écris en FRANÇAIS AUTHENTIQUE. Pas traduit de l'anglais. Comme les gens parlent vraiment quand ils sont blessés, furieux, amoureux, trahis.
+
+PRINCIPES DU BON DIALOGUE:
+• Court = puissant. "T'étais où ?" vaut 10x plus que "Puis-je savoir où tu te trouvais ?"
+• Le sous-texte fait tout. On dit rarement ce qu'on ressent vraiment. On attaque par côté.
+• Les silences comptent. "..." ou "(silence)" est parfois la réplique la plus forte.
+• On n'explique pas. Les personnages NE disent pas "je suis en colère parce que tu m'as trahi" — ils disent "Pars." ou "Je t'ai vu." ou "T'as intérêt à avoir une bonne explication."
+• Une seule idée par réplique. Jamais deux phrases si une suffit.
+• Les gens utilisent des contractions: "c'est", "t'as", "j'sais", "c'est pas", "t'en fais pas", "je m'en fous" — pas "je ne m'en préoccupe pas".
+
+EXEMPLES DE BON DIALOGUE FRANÇAIS:
+✅ "T'étais avec elle." / "Non." / "Alors pourquoi tu mens ?"
+✅ "Je savais." (une révélation en deux mots)
+✅ "C'est pas ce que tu crois." / "Je t'ai vu." / (silence)
+✅ "Pars." / "Sofia—" / "Pars."
+✅ "T'as gardé ça pendant combien de temps ?"
+✅ "Je t'aime toujours. C'est ça le problème."
+✅ "Tu savais. Tu savais et t'as rien dit."
+
+EXEMPLES DE MAUVAIS DIALOGUE (calque de l'anglais, INTERDIT):
+❌ "Je ressens une grande colère envers toi en ce moment."
+❌ "Tes actions ont eu un impact sur notre relation."
+❌ "Je ne peux pas continuer cette relation dans ces conditions."
+❌ "Tu m'as causé beaucoup de douleur."
+❌ "Peut-être devrions-nous discuter de cela calmement."
+
+RÈGLE D'OR: si une réplique peut être dite par un personnage d'une série américaine doublée en français, elle est mauvaise. Les répliques doivent sonner comme une vraie dispute française — directes, tranchantes, avec du sous-texte.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `;
 
 const DUR_INSTR = {
