@@ -1227,46 +1227,50 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           </button>
         </div>
 
-        {/* Format chips — horizontal scroll — seulement en mode Mixeur */}
-        {creationMode === "mixeur" && <div style={{ marginBottom: 4 }}>
-          <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--mt)", fontFamily: "var(--sans)" }}>{lang === "fr" ? "Genre" : "Genre"}</span>
-        </div>}
-        {creationMode === "mixeur" && <div style={{ display: "flex", gap: 6, overflowX: "auto", paddingBottom: 4, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
-          {STORY_FORMATS.map(f => {
-            const active = state.genreFormat === f.id;
-            return (
-              <button key={f.id} onClick={() => selectFormat(f)}
-                style={{ flexShrink: 0, padding: "7px 12px", borderRadius: 20, border: `1.5px solid ${active ? f.color : "var(--bo)"}`, background: active ? `${f.color}30` : "transparent", cursor: "pointer", transition: "all .18s" }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: active ? f.color : "var(--mt)", whiteSpace: "nowrap", letterSpacing: 0.2 }}>{f.emoji} {f.label[lang] || f.label.fr}</span>
-              </button>
-            );
-          })}
-        </div>}
+        {/* Genre — seulement en mode Mixeur */}
+        {creationMode === "mixeur" && <>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <div style={{ width: 3, height: 18, background: "var(--r)", borderRadius: 2, flexShrink: 0 }} />
+            <span style={{ fontSize: 14, fontWeight: 900, letterSpacing: "0.06em", color: "var(--tx)", fontFamily: "var(--sans)", textTransform: "uppercase" }}>{lang === "fr" ? "Genre" : "Genre"}</span>
+          </div>
+          <div style={{ display: "flex", gap: 7, overflowX: "auto", paddingBottom: 4, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
+            {STORY_FORMATS.map(f => {
+              const active = state.genreFormat === f.id;
+              return (
+                <button key={f.id} onClick={() => selectFormat(f)}
+                  style={{ flexShrink: 0, padding: "8px 14px", borderRadius: 22, border: `2px solid ${active ? f.color : "var(--bo)"}`, background: active ? `${f.color}28` : "var(--card)", cursor: "pointer", transition: "all .18s" }}>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: active ? f.color : "var(--tx)", whiteSpace: "nowrap" }}>{f.emoji} {f.label[lang] || f.label.fr}</span>
+                </button>
+              );
+            })}
+          </div>
+        </>}
       </div>
 
-      {/* ═══ BUDGET — compact horizontal scroll ═══ */}
-      {creationMode === "mixeur" && <div style={{ padding: "8px 16px 8px", borderBottom: "1.5px solid var(--bo)", flexShrink: 0 }}>
-        <p style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--mt)", marginBottom: 6, fontFamily: "var(--sans)" }}>
-          {lang === "fr" ? "💸 Budget" : "💸 Budget"}
-        </p>
-        <div style={{ display: "flex", gap: 5, overflowX: "auto", paddingBottom: 2, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
+      {/* ═══ BUDGET + LIEUX ═══ */}
+      {creationMode === "mixeur" && <div style={{ padding: "12px 16px 10px", borderBottom: "1.5px solid var(--bo)", flexShrink: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+          <div style={{ width: 3, height: 18, background: "var(--r)", borderRadius: 2, flexShrink: 0 }} />
+          <span style={{ fontSize: 14, fontWeight: 900, letterSpacing: "0.06em", color: "var(--tx)", fontFamily: "var(--sans)", textTransform: "uppercase" }}>{lang === "fr" ? "Budget" : "Budget"}</span>
+        </div>
+        <div style={{ display: "flex", gap: 7, marginBottom: 10 }}>
           {BUDGET_LEVELS.map(b => {
             const bLabel = b.label[lang] || b.label.fr;
             const active = state.budget === b.id;
             return (
-              <button key={b.id} onClick={() => set({ budget: b.id, lieu: "" })} style={{ flexShrink: 0, display: "flex", alignItems: "center", gap: 4, padding: "5px 10px", borderRadius: 20, border: `1.5px solid ${active ? b.color : "var(--bo)"}`, background: active ? `${b.color}18` : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s" }}>
-                <span style={{ fontSize: 13 }}>{b.emoji}</span>
-                <span style={{ fontSize: 10, fontWeight: active ? 800 : 500, color: active ? b.color : "var(--tx)", whiteSpace: "nowrap" }}>{bLabel}</span>
+              <button key={b.id} onClick={() => set({ budget: b.id, lieu: "" })} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, padding: "9px 6px", borderRadius: 12, border: `2px solid ${active ? b.color : "var(--bo)"}`, background: active ? `${b.color}18` : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s" }}>
+                <span style={{ fontSize: 18 }}>{b.emoji}</span>
+                <span style={{ fontSize: 11, fontWeight: active ? 800 : 500, color: active ? b.color : "var(--tx)", textAlign: "center", lineHeight: 1.2 }}>{bLabel}</span>
               </button>
             );
           })}
         </div>
-        <div style={{ display: "flex", gap: 5, overflowX: "auto", paddingBottom: 2, marginTop: 6, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
+        <div style={{ display: "flex", gap: 5, overflowX: "auto", paddingBottom: 2, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
           {ALL_LIEUX.map(l => {
             const lLabel = l.label[lang] || l.label.fr;
             const active = state.lieu === lLabel;
             return (
-              <button key={l.id} onClick={() => set({ lieu: active ? "" : lLabel })} style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 3, padding: "4px 9px", borderRadius: 100, border: `1.5px solid ${active ? "var(--r)" : "var(--bo)"}`, background: active ? "rgba(232,92,58,0.12)" : "var(--card)", color: active ? "var(--r)" : "var(--tx)", cursor: "pointer", fontSize: 10, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s", whiteSpace: "nowrap" }}>
+              <button key={l.id} onClick={() => set({ lieu: active ? "" : lLabel })} style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 3, padding: "5px 10px", borderRadius: 100, border: `1.5px solid ${active ? "var(--r)" : "var(--bo)"}`, background: active ? "rgba(232,92,58,0.12)" : "var(--card)", color: active ? "var(--r)" : "var(--tx)", cursor: "pointer", fontSize: 11, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s", whiteSpace: "nowrap" }}>
                 <span>{l.emoji}</span><span>{lLabel}</span>
               </button>
             );

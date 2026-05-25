@@ -64,7 +64,7 @@ function validatePayload(action, payload) {
     if (payload.tropes !== undefined && (typeof payload.tropes !== "string" || payload.tropes.length > 800)) return "Tropes invalides";
     if (payload.castingIA !== undefined && (typeof payload.castingIA !== "string" || payload.castingIA.length > 1200)) return "Casting IA invalide";
     if (payload.ambianceVisuelle !== undefined && (typeof payload.ambianceVisuelle !== "string" || payload.ambianceVisuelle.length > 800)) return "Ambiance visuelle invalide";
-    if (payload.saison2 !== undefined && (typeof payload.saison2 !== "object" || payload.saison2 === null || typeof payload.saison2.titre !== "string")) return "Saison 2 invalide";
+    if (payload.saison2 !== undefined && payload.saison2 !== null && (typeof payload.saison2 !== "object" || typeof payload.saison2.titre !== "string")) return "Saison 2 invalide";
     if (payload.remakeInspiration !== undefined && (typeof payload.remakeInspiration !== "string" || payload.remakeInspiration.length > 300)) return "Remake invalide";
     if (payload.drama !== undefined) {
       if (typeof payload.drama !== "object" || payload.drama === null) return "Drama invalide";
