@@ -1350,9 +1350,6 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
       {creationMode === "mixeur" && <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "22px 20px 8px", maxWidth: 520, margin: "0 auto" }}>
 
-        {/* ═══ TAB: FORMAT ═══ */}
-        {mixTab === "format" && (<>
-
         {/* ═══ TAB: UNIVERS ═══ */}
         {mixTab === "univers" && (<>
 
@@ -1712,7 +1709,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </>)} {/* end TAB: AMBIANCE */}
 
       </div>
-      </div>} {/* end scrollable content — mode mixeur */}
+      </div>}
 
       {/* ═══ Sticky bottom — Generate button ═══ */}
       <div style={{ flexShrink: 0, padding: "14px 20px 18px", borderTop: "1.5px solid var(--bo)", background: "var(--bg)" }}>
