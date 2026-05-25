@@ -1294,15 +1294,15 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </div>
         {/* Mode selector — Packs vs Mixeur */}
         <div style={{ display: "flex", gap: 8 }}>
-          <button onClick={() => setCreationMode("mixeur")} style={{ flex: 1, padding: "12px 10px", borderRadius: 14, border: `2px solid ${creationMode === "mixeur" ? "var(--r)" : "var(--bo)"}`, background: creationMode === "mixeur" ? "rgba(232,92,58,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-            <span style={{ fontSize: 22 }}>🎛️</span>
-            <div style={{ fontSize: 13, fontWeight: 900, color: creationMode === "mixeur" ? "var(--r)" : "var(--tx)" }}>{lang === "fr" ? "Mixeur" : "Mixer"}</div>
-            <div style={{ fontSize: 10, color: "var(--mt)", textAlign: "center" }}>{lang === "fr" ? "Je configure" : "I set it up"}</div>
+          <button onClick={() => setCreationMode("mixeur")} style={{ flex: 1, padding: "8px 10px", borderRadius: 12, border: `2px solid ${creationMode === "mixeur" ? "var(--r)" : "var(--bo)"}`, background: creationMode === "mixeur" ? "rgba(232,92,58,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+            <span style={{ fontSize: 18 }}>🎛️</span>
+            <div style={{ fontSize: 12, fontWeight: 900, color: creationMode === "mixeur" ? "var(--r)" : "var(--tx)" }}>{lang === "fr" ? "Mixeur" : "Mixer"}</div>
+            <div style={{ fontSize: 9, color: "var(--mt)", textAlign: "center" }}>{lang === "fr" ? "Je configure" : "I set it up"}</div>
           </button>
-          <button onClick={() => setCreationMode("packs")} style={{ flex: 1, padding: "12px 10px", borderRadius: 14, border: `2px solid ${creationMode === "packs" ? "#a855f7" : "var(--bo)"}`, background: creationMode === "packs" ? "rgba(168,85,247,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-            <span style={{ fontSize: 22 }}>🎯</span>
-            <div style={{ fontSize: 13, fontWeight: 900, color: creationMode === "packs" ? "#a855f7" : "var(--tx)" }}>{lang === "fr" ? "Packs" : "Packs"}</div>
-            <div style={{ fontSize: 10, color: "var(--mt)", textAlign: "center" }}>{lang === "fr" ? "1 clic, c'est prêt" : "1-click ready"}</div>
+          <button onClick={() => setCreationMode("packs")} style={{ flex: 1, padding: "8px 10px", borderRadius: 12, border: `2px solid ${creationMode === "packs" ? "#a855f7" : "var(--bo)"}`, background: creationMode === "packs" ? "rgba(168,85,247,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+            <span style={{ fontSize: 18 }}>🎯</span>
+            <div style={{ fontSize: 12, fontWeight: 900, color: creationMode === "packs" ? "#a855f7" : "var(--tx)" }}>{lang === "fr" ? "Packs" : "Packs"}</div>
+            <div style={{ fontSize: 9, color: "var(--mt)", textAlign: "center" }}>{lang === "fr" ? "1 clic, c'est prêt" : "1-click ready"}</div>
           </button>
         </div>
       </div>
