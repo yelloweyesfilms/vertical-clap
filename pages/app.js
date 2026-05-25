@@ -1242,6 +1242,42 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </div>
       </div>
 
+      {/* ═══ BUDGET — toujours visible, avant les onglets ═══ */}
+      <div style={{ padding: "14px 16px 0", borderBottom: "1.5px solid var(--bo)" }}>
+        <p style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--mt)", marginBottom: 8, fontFamily: "var(--sans)" }}>
+          {lang === "fr" ? "💸 Budget de tournage" : "💸 Shooting budget"}
+        </p>
+        <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
+          {BUDGET_LEVELS.map(b => {
+            const bLabel = b.label[lang] || b.label.fr;
+            const active = state.budget === b.id;
+            return (
+              <button key={b.id} onClick={() => set({ budget: b.id, lieu: "" })} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "8px 4px", borderRadius: 10, border: `2px solid ${active ? b.color : "var(--bo)"}`, background: active ? `${b.color}18` : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", gap: 2 }}>
+                <span style={{ fontSize: 16 }}>{b.emoji}</span>
+                <span style={{ fontSize: 9, fontWeight: 800, color: active ? b.color : "var(--tx)", textAlign: "center", lineHeight: 1.2 }}>{bLabel}</span>
+              </button>
+            );
+          })}
+        </div>
+        {(() => {
+          const bLevel = BUDGET_LEVELS.find(b => b.id === state.budget);
+          if (!bLevel?.lieux?.length) return null;
+          return (
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
+              {bLevel.lieux.map(l => {
+                const lLabel = l.label[lang] || l.label.fr;
+                const active = state.lieu === lLabel;
+                return (
+                  <button key={l.id} onClick={() => set({ lieu: active ? "" : lLabel })} style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "5px 10px", borderRadius: 100, border: `1.5px solid ${active ? bLevel.color : "var(--bo)"}`, background: active ? `${bLevel.color}22` : "var(--card)", color: active ? bLevel.color : "var(--tx)", cursor: "pointer", fontSize: 10, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s" }}>
+                    <span>{l.emoji}</span><span>{lLabel}</span>
+                  </button>
+                );
+              })}
+            </div>
+          );
+        })()}
+      </div>
+
       {/* Tab bar — sticky */}
       <div style={{ display: "flex", background: "var(--bg)", borderBottom: "1.5px solid var(--bo)", flexShrink: 0 }}>
         {MIX_TABS.map(tab => {
@@ -1260,49 +1296,6 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
         {/* ═══ TAB: FORMAT ═══ */}
         {mixTab === "format" && (<>
-
-        {/* Budget / Production Scale */}
-        <div style={{ marginBottom: 28 }}>
-          <SectionHead sep={false} title={lang === "fr" ? "Budget" : "Budget"} sub={lang === "fr" ? "Adapte l'écriture à ton budget de tournage réel" : "Adapts writing to your real shooting budget"} />
-          <div style={{ display: "flex", gap: 6, marginBottom: 14 }}>
-            {BUDGET_LEVELS.map(b => {
-              const bLabel = b.label[lang] || b.label.fr;
-              const bSub = b.sub[lang] || b.sub.fr;
-              const active = state.budget === b.id;
-              return (
-                <button key={b.id} onClick={() => set({ budget: b.id, lieu: "" })} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "10px 4px", borderRadius: 12, border: `2px solid ${active ? b.color : "var(--bo)"}`, background: active ? `${b.color}18` : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", gap: 3 }}>
-                  <span style={{ fontSize: 18 }}>{b.emoji}</span>
-                  <span style={{ fontSize: 10, fontWeight: 800, color: active ? b.color : "var(--tx)", textAlign: "center", lineHeight: 1.2 }}>{bLabel}</span>
-                  <span style={{ fontSize: 8, color: "var(--mt)", textAlign: "center", lineHeight: 1.2 }}>{b.stars}</span>
-                </button>
-              );
-            })}
-          </div>
-          {/* Shootable locations for this budget */}
-          {(() => {
-            const bLevel = BUDGET_LEVELS.find(b => b.id === state.budget);
-            if (!bLevel?.lieux?.length) return null;
-            return (
-              <div>
-                <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 8 }}>{t.budget_lieux}</p>
-                <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
-                  {bLevel.lieux.map(l => {
-                    const lLabel = l.label[lang] || l.label.fr;
-                    const lTip = l.tip[lang] || l.tip.fr;
-                    const active = state.lieu === lLabel;
-                    return (
-                      <button key={l.id} onClick={() => set({ lieu: active ? "" : lLabel })} title={lTip} style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "6px 11px", borderRadius: 100, border: `1.5px solid ${active ? bLevel.color : "var(--bo)"}`, background: active ? `${bLevel.color}22` : "var(--card)", color: active ? bLevel.color : "var(--tx)", cursor: "pointer", fontSize: 11, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s" }}>
-                        <span>{l.emoji}</span><span>{lLabel}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })()}
-        </div>
-
-        </>)} {/* end TAB: FORMAT - budget */}
 
         {/* ═══ TAB: UNIVERS ═══ */}
         {mixTab === "univers" && (<>
