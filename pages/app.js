@@ -1309,7 +1309,16 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
       {/* ═══ MODE PACKS ═══ */}
       {creationMode === "packs" && (
         <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-          <div style={{ padding: "16px 16px 8px" }}>
+          {/* Hero banner */}
+          <div style={{ position: "relative", width: "100%", height: 160, overflow: "hidden", flexShrink: 0 }}>
+            <img src="/studio.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(9,9,15,0.15) 0%, rgba(9,9,15,0.7) 70%, var(--bg) 100%)" }} />
+            <div style={{ position: "absolute", bottom: 12, left: 16 }}>
+              <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.6)", marginBottom: 3 }}>VERTICAL CLAP</p>
+              <p style={{ fontSize: 19, fontWeight: 900, color: "#fff", fontFamily: "var(--sans)", letterSpacing: -0.3, lineHeight: 1.1 }}>{lang === "fr" ? "Ta prochaine série" : "Your next series"}</p>
+            </div>
+          </div>
+          <div style={{ padding: "12px 16px 8px" }}>
             <p style={{ fontSize: 18, fontWeight: 900, color: "var(--tx)", fontFamily: "var(--sans)", letterSpacing: -0.5, marginBottom: 4 }}>
               {lang === "fr" ? "🎯 Tu veux pas te prendre la tête ?" : "🎯 Don't want to overthink it?"}
             </p>
@@ -1349,6 +1358,15 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
       {/* Scrollable content per tab — seulement en mode Mixeur */}
       {creationMode === "mixeur" && <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+      {/* Hero banner */}
+      <div style={{ position: "relative", width: "100%", height: 150, overflow: "hidden", flexShrink: 0 }}>
+        <img src="/studio.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(9,9,15,0.1) 0%, rgba(9,9,15,0.65) 65%, var(--bg) 100%)" }} />
+        <div style={{ position: "absolute", bottom: 10, left: 16 }}>
+          <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.55)", marginBottom: 2 }}>VERTICAL CLAP</p>
+          <p style={{ fontSize: 18, fontWeight: 900, color: "#fff", fontFamily: "var(--sans)", letterSpacing: -0.3, lineHeight: 1.1 }}>{lang === "fr" ? "Crée ta série" : "Create your series"}</p>
+        </div>
+      </div>
       <div style={{ padding: "22px 20px 8px", maxWidth: 520, margin: "0 auto" }}>
 
         {/* ═══ TAB: AMBIANCE ═══ */}
