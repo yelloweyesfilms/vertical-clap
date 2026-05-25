@@ -1809,7 +1809,6 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 </div>
               );
             })}
-            {!cartes && <button onClick={genCartes} style={{ background: "var(--n)", color: "#fff", border: "none", padding: 16, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", marginTop: 8 }}>{t.enrich}</button>}
           </>
         ) : tab === "accroches" ? (
           <>
