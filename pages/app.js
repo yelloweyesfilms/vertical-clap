@@ -379,96 +379,67 @@ const TROPES = [
 // ── BUDGET MODE ─────────────────────────────────────────────
 const BUDGET_LEVELS = [
   {
-    id: "zero", emoji: "💸", stars: "⭐",
-    label: { fr: "Zéro Budget",  en: "Zero Budget" },
-    sub:   { fr: "Seul·e chez soi", en: "Alone at home" },
+    id: "smartphone", emoji: "📱", stars: "",
+    label: { fr: "Smartphone",   en: "Smartphone" },
+    sub:   { fr: "Seul·e, 1 lieu, tension pure", en: "Solo, 1 location, pure tension" },
     color: "#16a34a",
-    scriptInstr: "BUDGET ZÉRO — CONTRAINTES ABSOLUES (la contrainte EST la force créative): MAX 2 personnages à l'écran simultanément. 1 seul lieu intérieur simple (chambre, salle de bain, cuisine, voiture, couloir). INTERDIT: décors extérieurs complexes, figurants, effets spéciaux, éclairage professionnel, cascades, explosions, foule. Équipement présumé: smartphone fixe sur trépied + lumière naturelle ou LED ring. COMPENSER LA CONTRAINTE PAR: tension psychologique pure, dialogues incisifs, secrets, conflits intimes, proximité émotionnelle maximale, hors-champ, suggestion visuelle — la chambre peut être le lieu de tous les drames. Techniques autorisées: faux appel téléphone, SMS à l'écran, POV, reflet dans miroir, monologue, voix off. visuel_916 = UNIQUEMENT plans réalisables avec un smartphone fixe: gros plan serré, plan épaule, plan table. Aucun travelling, aucun drone.",
+    scriptInstr: "BUDGET SMARTPHONE — CONTRAINTES ABSOLUES (la contrainte EST la force créative): MAX 2 personnages à l'écran. 1 seul lieu intérieur simple (chambre, salle de bain, cuisine, voiture). INTERDIT: décors extérieurs complexes, figurants, effets spéciaux, éclairage professionnel. Équipement: smartphone fixe + lumière naturelle. COMPENSER PAR: tension psychologique pure, dialogues incisifs, secrets, conflits intimes, hors-champ, suggestion visuelle. visuel_916 = gros plan serré, plan épaule, plan table uniquement. Aucun travelling.",
     guide: {
       fr: {
-        equip: ["📱 Smartphone (mode vidéo Portrait ou Cinématique)", "📐 Trépied ou pile de livres stables", "💡 LED ring ou lampe de bureau", "🎙️ Écouteurs avec micro intégré (son correct)"],
-        lumiere: ["Tourner près d'une fenêtre — lumière côté, jamais de face", "Éteindre tous les plafonniers (tuent l'image)", "1 seule source de lumière = plus cinématographique", "Rideau blanc = diffuseur gratuit contre une fenêtre trop dure"],
-        tricks: ["Flou d'arrière-plan → mets un objet flou au premier plan", "Couleur → LED colorée à 10€ ou gélatine sur lampe", "Profondeur → filme depuis un angle, pas face au mur", "Luxe → cadre vide, verre d'eau, fleur dans un vase", "Ombre dramatique → lampe au sol pointée vers le mur"],
-        decors: { romance: ["Guirlande LED chaude", "Draps blancs", "Bougies (flicker = cinéma)", "Miroir posé"], teen: ["LED colorées", "Posters au mur", "Vêtements épars", "Écran TikTok visible"], thriller: ["Lampe unique au sol", "Pièce sombre", "Ombre sur mur", "Porte entrouverte"] },
+        equip: ["📱 Smartphone (mode Portrait ou Cinématique)", "📐 Trépied ou pile de livres stables", "💡 LED ring ou lampe de bureau", "🎙️ Écouteurs avec micro intégré"],
+        lumiere: ["Fenêtre côté — jamais de face", "Éteindre les plafonniers", "1 seule source = plus cinématographique", "Rideau blanc = diffuseur gratuit"],
+        tricks: ["Flou → objet hors-focus au premier plan", "Couleur → LED colorée 10€", "Ombre dramatique → lampe au sol vers le mur", "Luxe → cadre vide, verre d'eau, une fleur"],
+        decors: { romance: ["Guirlande LED chaude", "Draps blancs", "Bougies"], teen: ["LED colorées", "Posters au mur", "Vêtements épars"], thriller: ["Lampe unique au sol", "Pièce sombre", "Porte entrouverte"] },
       },
       en: {
-        equip: ["📱 Smartphone (Portrait or Cinematic video mode)", "📐 Tripod or stable stack of books", "💡 LED ring or desk lamp", "🎙️ Earphones with integrated mic (decent sound)"],
-        lumiere: ["Shoot near a window — light from the side, never face-on", "Turn off all ceiling lights (they kill the image)", "1 single light source = more cinematic", "White curtain = free diffuser against a harsh window"],
-        tricks: ["Background blur → put an object out of focus in the foreground", "Color → €10 colored LED or gel on a lamp", "Depth → film from an angle, not facing the wall", "Luxury → empty frame, glass of water, a flower in a vase", "Dramatic shadow → floor lamp pointed at the wall"],
-        decors: { romance: ["Warm LED string lights", "White sheets", "Candles (flicker = cinema)", "Propped mirror"], teen: ["Colored LEDs", "Wall posters", "Scattered clothes", "TikTok screen visible"], thriller: ["Single floor lamp", "Dark room", "Wall shadow", "Door ajar"] },
+        equip: ["📱 Smartphone (Portrait or Cinematic mode)", "📐 Tripod or stable stack of books", "💡 LED ring or desk lamp", "🎙️ Earphones with mic"],
+        lumiere: ["Window from the side — never face-on", "Turn off ceiling lights", "1 light source = more cinematic", "White curtain = free diffuser"],
+        tricks: ["Blur → out-of-focus object in foreground", "Color → €10 colored LED", "Dramatic shadow → floor lamp toward wall", "Luxury → empty frame, glass of water, a flower"],
+        decors: { romance: ["Warm LED string lights", "White sheets", "Candles"], teen: ["Colored LEDs", "Wall posters", "Scattered clothes"], thriller: ["Single floor lamp", "Dark room", "Door ajar"] },
       },
     },
-    lieux: [
-      { id: "chambre", emoji: "🛏", label: { fr: "Chambre", en: "Bedroom" }, tip: { fr: "Le meilleur décor du drama vertical", en: "The best vertical drama set" } },
-      { id: "sdb", emoji: "🚿", label: { fr: "Salle de bain", en: "Bathroom" }, tip: { fr: "Miroir + vapeur = ultra ciné", en: "Mirror + steam = ultra cinematic" } },
-      { id: "cuisine", emoji: "🍽", label: { fr: "Cuisine", en: "Kitchen" }, tip: { fr: "Réaliste et dramatique", en: "Realistic and dramatic" } },
-      { id: "voiture", emoji: "🚗", label: { fr: "Voiture", en: "Car" }, tip: { fr: "Disputes, aveux, tension", en: "Arguments, confessions, tension" } },
-      { id: "rue-nuit", emoji: "🌃", label: { fr: "Rue de nuit", en: "Night street" }, tip: { fr: "Même avec un iPhone c'est beau", en: "Beautiful even with just an iPhone" } },
-    ],
   },
   {
-    id: "low", emoji: "💵", stars: "⭐⭐",
-    label: { fr: "Low Budget",   en: "Low Budget" },
-    sub:   { fr: "Petit tournage créateur", en: "Small creator shoot" },
-    color: "#2563eb",
-    scriptInstr: "BUDGET LOW — 2-3 personnages max. Lieux simples accessibles: café, appartement arrangé, voiture, parc, couloir d'immeuble. Stylisation visuelle possible: lumière naturelle travaillée, couleur de production cohérente. Mouvements lents autorisés. Pas de figurants nombreux, pas d'effets visuels. ÉCRITURE: scènes avec légère ambition visuelle — exploiter les textures, lumières naturelles, décors expressifs, dynamiques spatiales entre personnages. visuel_916 = plans réalistes avec stabilisateur: travelling main levée lent, panoramique lent, suivi d'acteur.",
-    guide: {
-      fr: { equip: ["📱 Smartphone + stabilisateur (DJI OM 6, ~100€)", "💡 Panneau LED bicolore (~40€)", "🎙️ Micro-cravate sans fil (~50€)", "🎭 Fond de couleur uni ou tapisserie sobre"], lumiere: ["Lumière principale → côté", "Fill light → réflecteur carton blanc", "Backlight → lampe derrière le sujet = profondeur"], tricks: ["Mise au point manuelle sur le sujet = fond flou automatique", "Sous-exposer légèrement = plus cinématographique", "LUT gratuite en post = look pro instantané"], decors: { romance: ["Café vide le matin (avant ouverture)", "Appartement avec belle fenêtre"], teen: ["Parking underground", "Couloir d'immeuble"], thriller: ["Garage", "Cage d'escalier"] }, },
-      en: { equip: ["📱 Smartphone + gimbal (DJI OM 6, ~€100)", "💡 Bicolor LED panel (~€40)", "🎙️ Wireless clip mic (~€50)", "🎭 Plain color backdrop or subtle wallpaper"], lumiere: ["Key light → side", "Fill → white cardboard reflector", "Backlight → lamp behind subject = depth"], tricks: ["Manual focus on subject = automatic background blur", "Slightly underexpose = more cinematic", "Free LUT in post = instant pro look"], decors: { romance: ["Empty café in the morning (before opening)", "Apartment with beautiful window"], teen: ["Underground parking", "Building corridor"], thriller: ["Garage", "Stairwell"] }, },
-    },
-    lieux: [
-      { id: "cafe", emoji: "☕", label: { fr: "Café", en: "Café" }, tip: { fr: "Réserver tôt le matin", en: "Book early morning" } },
-      { id: "voiture", emoji: "🚗", label: { fr: "Voiture", en: "Car" }, tip: { fr: "Son naturel + intimité", en: "Natural sound + intimacy" } },
-      { id: "parc", emoji: "🌳", label: { fr: "Parc / extérieur", en: "Park / outdoors" }, tip: { fr: "Lumière naturelle gratuite", en: "Free natural light" } },
-      { id: "parking", emoji: "🅿️", label: { fr: "Parking underground", en: "Underground parking" }, tip: { fr: "Look industriel gratis", en: "Free industrial look" } },
-    ],
-  },
-  {
-    id: "creator", emoji: "💰", stars: "⭐⭐⭐",
-    label: { fr: "Creator+",     en: "Creator+" },
-    sub:   { fr: "Mini équipe",  en: "Mini crew" },
+    id: "equipe", emoji: "🎬", stars: "",
+    label: { fr: "Mini-équipe",  en: "Small crew" },
+    sub:   { fr: "2-4 persos, lieux variés", en: "2-4 chars, varied locations" },
     color: "#9333ea",
-    scriptInstr: "BUDGET CREATOR — jusqu'à 4 personnages, figurants possibles. Lieux loués ou prêtés: appartement stylisé, bureau, restaurant, rooftop. DSLR/mirrorless + kit LED 3 points. ÉCRITURE: ambition visuelle réelle — décors expressifs, mise en scène construite, compositions travaillées, identité de couleur. Les scènes doivent exploiter la richesse du lieu. visuel_916 = plans soignés: travelling avant lent, rack focus dramatique, plan séquence court, angles expressifs.",
+    scriptInstr: "BUDGET MINI-ÉQUIPE — 2-4 personnages, figurants possibles. Lieux variés: café, appartement stylisé, bureau, rooftop, restaurant. Stabilisateur + kit LED 3 points. ÉCRITURE: ambition visuelle réelle — décors expressifs, compositions travaillées, identité de couleur forte. Les scènes exploitent l'espace et la lumière. visuel_916 = plans soignés: travelling lent, rack focus, plan séquence court, angles expressifs.",
     guide: {
-      fr: { equip: ["📷 DSLR/Mirrorless + objectif 50mm ou 35mm", "💡 Kit 3 panneaux LED (~200€)", "🎙️ Perche son + mixette", "📐 Glissière de travelling (~80€)"], lumiere: ["Triangle 3 points: key + fill + backlight", "Gels de couleur pour ambiance", "Diffuseurs softbox pliables"], tricks: ["Rack focus entre 2 sujets = tension dramatique", "Plan séquence = impression de budget plus élevé", "Couleur de prod cohérente = look série"], decors: {}, },
-      en: { equip: ["📷 DSLR/Mirrorless + 50mm or 35mm lens", "💡 3 LED panel kit (~€200)", "🎙️ Boom mic + mixer", "📐 Slider rail (~€80)"], lumiere: ["3-point triangle: key + fill + backlight", "Color gels for mood", "Foldable softbox diffusers"], tricks: ["Rack focus between 2 subjects = dramatic tension", "One-shot sequence = impression of higher budget", "Consistent color palette = series look"], decors: {}, },
+      fr: {
+        equip: ["📱 Smartphone + stabilisateur (DJI OM, ~100€)", "💡 Panneau LED bicolore (~40€)", "🎙️ Micro-cravate sans fil (~50€)", "📐 Petit slider (~60€)"],
+        lumiere: ["Triangle 3 points: key + fill + backlight", "Gels de couleur pour l'ambiance", "Sous-exposer légèrement = plus ciné"],
+        tricks: ["Rack focus entre 2 sujets = tension", "Plan séquence = impression de budget élevé", "LUT gratuite en post = look pro"],
+        decors: { romance: ["Café vide le matin", "Appart avec belle fenêtre"], teen: ["Parking underground", "Couloir d'immeuble"], thriller: ["Garage", "Cage d'escalier"] },
+      },
+      en: {
+        equip: ["📱 Smartphone + gimbal (DJI OM, ~€100)", "💡 Bicolor LED panel (~€40)", "🎙️ Wireless clip mic (~€50)", "📐 Small slider (~€60)"],
+        lumiere: ["3-point triangle: key + fill + backlight", "Color gels for mood", "Slightly underexpose = more cinematic"],
+        tricks: ["Rack focus between 2 subjects = tension", "One-shot sequence = higher budget feel", "Free LUT in post = pro look"],
+        decors: { romance: ["Empty café in the morning", "Apartment with nice window"], teen: ["Underground parking", "Building corridor"], thriller: ["Garage", "Stairwell"] },
+      },
     },
-    lieux: [
-      { id: "loft", emoji: "🏙️", label: { fr: "Loft / appart stylisé", en: "Loft / styled apartment" }, tip: { fr: "Airbnb loué 1 journée", en: "Airbnb rented for 1 day" } },
-      { id: "bureau", emoji: "💼", label: { fr: "Bureau / open space", en: "Office / open space" }, tip: { fr: "Emprunté le week-end", en: "Borrowed on the weekend" } },
-      { id: "resto", emoji: "🍷", label: { fr: "Restaurant / bar", en: "Restaurant / bar" }, tip: { fr: "Fermé = décor gratuit", en: "Closed = free set" } },
-    ],
   },
   {
-    id: "cinema", emoji: "🎬", stars: "⭐⭐⭐⭐",
-    label: { fr: "Cinéma",       en: "Cinema" },
-    sub:   { fr: "Production ambitieuse", en: "Ambitious production" },
-    color: "#dc2626",
-    scriptInstr: "BUDGET CINÉMA — jusqu'à 8 personnages + figurants. Lieux variés: extérieurs urbains travaillés, restaurants, rooftops, hôtels, espaces industriels. Caméra ciné (BMPCC, FX3). Lumière pro complète. Steadicam, drone, grue légère, effets pratiques (fumée, pluie). ÉCRITURE: mise en scène sophistiquée, scènes spectaculaires possibles, univers visuels forts, ambition cinématographique assumée. Les décors et l'espace font partie du récit. visuel_916 = plans ambitieux: steadicam, drone bas, split focus, plan séquence, profondeur de champ.",
+    id: "ambitieux", emoji: "🚀", stars: "",
+    label: { fr: "Ambitieux",    en: "Ambitious" },
+    sub:   { fr: "Production complète, sans limites", en: "Full production, no limits" },
+    color: "#E85C3A",
+    scriptInstr: "BUDGET AMBITIEUX — production complète sans contraintes. Tous lieux, tous effets, toute technique. Jusqu'à 8 personnages + figurants. Caméra ciné, lumière pro, drone, steadicam. ÉCRITURE: écrire la scène IDÉALE sans aucune limite — celle qui serait dans une série Netflix premium. Mise en scène sophistiquée, univers visuel fort, ambition cinématographique maximale. Chaque plan a une intention. Chaque décor est un personnage.",
     guide: {
-      fr: { equip: ["🎥 Caméra ciné (BMPCC 6K, Sony FX3)", "💡 Kit lumière pro complet", "🎙️ Son pro + perchman dédié", "🚁 Drone DJI + pilote", "📐 Steadicam ou cardan motorisé"], lumiere: ["Direction artistique lumière complète", "Pluie artificielle pour scènes dramatiques", "Color grade professionnel en post"], tricks: [], decors: {}, },
-      en: { equip: ["🎥 Cinema camera (BMPCC 6K, Sony FX3)", "💡 Full professional light kit", "🎙️ Pro sound + dedicated boom op", "🚁 DJI drone + pilot", "📐 Steadicam or motorized gimbal"], lumiere: ["Complete lighting art direction", "Artificial rain for dramatic scenes", "Professional color grade in post"], tricks: [], decors: {}, },
+      fr: {
+        equip: ["🎥 Caméra ciné (Sony FX3, BMPCC 6K)", "💡 Kit lumière pro complet", "🎙️ Son pro + perchman", "🚁 Drone DJI", "📐 Steadicam ou cardan motorisé"],
+        lumiere: ["Direction artistique lumière complète", "Color grade professionnel en post", "Effets pratiques: fumée, pluie, contre-jour"],
+        tricks: ["Steadicam = fluidité premium", "Drone bas = planète cinéma", "Split focus = deux mondes dans 1 plan"],
+        decors: {},
+      },
+      en: {
+        equip: ["🎥 Cinema camera (Sony FX3, BMPCC 6K)", "💡 Full professional light kit", "🎙️ Pro sound + boom op", "🚁 DJI drone", "📐 Steadicam or motorized gimbal"],
+        lumiere: ["Complete lighting art direction", "Professional color grade in post", "Practical effects: smoke, rain, backlight"],
+        tricks: ["Steadicam = premium fluidity", "Low drone = cinematic grandeur", "Split focus = two worlds in 1 shot"],
+        decors: {},
+      },
     },
-    lieux: [
-      { id: "rooftop", emoji: "🌃", label: { fr: "Rooftop", en: "Rooftop" }, tip: { fr: "Location possible dès 300€/j", en: "Location from €300/day" } },
-      { id: "hotel", emoji: "🏨", label: { fr: "Hôtel", en: "Hotel" }, tip: { fr: "Suites louées pour tournage", en: "Suites rented for shooting" } },
-      { id: "urbain", emoji: "🌆", label: { fr: "Extérieurs urbains", en: "Urban exteriors" }, tip: { fr: "Autorisation mairie selon ville", en: "City permit required" } },
-    ],
-  },
-  {
-    id: "premium", emoji: "👑", stars: "⭐⭐⭐⭐⭐",
-    label: { fr: "Premium",      en: "Premium" },
-    sub:   { fr: "Netflix / Luxe", en: "Netflix / Luxury" },
-    color: "#b8860b",
-    scriptInstr: "BUDGET PREMIUM — production complète sans contraintes. Tous lieux, tous effets, toute technique. Studio professionnel, cascadeurs, effets spéciaux pratiques et numériques, drone, hélicoptère, figurants nombreux, cast professionnel. ÉCRITURE: écrire la scène IDÉALE sans aucune limite — celle qui serait dans une série Netflix premium. Mise en scène sophistiquée, univers visuel fort et cohérent, ambition narrative et cinématographique maximale. Chaque plan a une intention. Chaque décor est un personnage.",
-    guide: {
-      fr: { equip: ["🎥 RED ou ARRI Alexa", "💡 DA lumière cinéma complet", "🎙️ Son pro multicanal", "🚁 Drone cinéma + hélicoptère", "🎭 Studio + décors construits"], lumiere: ["Direction artistique luxe", "Éclairage de nuit motorisé", "CGI et effets numériques"], tricks: [], decors: {}, },
-      en: { equip: ["🎥 RED or ARRI Alexa", "💡 Full cinema lighting DA", "🎙️ Pro multichannel sound", "🚁 Cinema drone + helicopter", "🎭 Studio + built sets"], lumiere: ["Luxury art direction", "Motorized night lighting", "CGI and digital effects"], tricks: [], decors: {}, },
-    },
-    lieux: [
-      { id: "studio", emoji: "🎭", label: { fr: "Studio pro", en: "Pro studio" }, tip: { fr: "Construction de décors", en: "Set construction" } },
-      { id: "villa", emoji: "🏡", label: { fr: "Villa / domaine", en: "Villa / estate" }, tip: { fr: "Location événementielle", en: "Event venue rental" } },
-    ],
   },
 ];
 
@@ -1243,20 +1214,16 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           </div>
         </div>
         {/* Mode selector — Packs vs Mixeur */}
-        <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
-          <button onClick={() => setCreationMode("mixeur")} style={{ flex: 1, padding: "7px 8px", borderRadius: 10, border: `2px solid ${creationMode === "mixeur" ? "var(--r)" : "var(--bo)"}`, background: creationMode === "mixeur" ? "rgba(232,92,58,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", alignItems: "center", gap: 6 }}>
-            <span style={{ fontSize: 14 }}>🎛️</span>
-            <div style={{ textAlign: "left" }}>
-              <div style={{ fontSize: 11, fontWeight: 800, color: creationMode === "mixeur" ? "var(--r)" : "var(--tx)" }}>{lang === "fr" ? "Mixeur" : "Mixer"}</div>
-              <div style={{ fontSize: 9, color: "var(--mt)" }}>{lang === "fr" ? "Je configure moi-même" : "I configure it"}</div>
-            </div>
+        <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
+          <button onClick={() => setCreationMode("mixeur")} style={{ flex: 1, padding: "12px 10px", borderRadius: 14, border: `2px solid ${creationMode === "mixeur" ? "var(--r)" : "var(--bo)"}`, background: creationMode === "mixeur" ? "rgba(232,92,58,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+            <span style={{ fontSize: 22 }}>🎛️</span>
+            <div style={{ fontSize: 13, fontWeight: 900, color: creationMode === "mixeur" ? "var(--r)" : "var(--tx)" }}>{lang === "fr" ? "Mixeur" : "Mixer"}</div>
+            <div style={{ fontSize: 10, color: "var(--mt)", textAlign: "center" }}>{lang === "fr" ? "Je configure" : "I set it up"}</div>
           </button>
-          <button onClick={() => setCreationMode("packs")} style={{ flex: 1, padding: "7px 8px", borderRadius: 10, border: `2px solid ${creationMode === "packs" ? "#a855f7" : "var(--bo)"}`, background: creationMode === "packs" ? "rgba(168,85,247,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", alignItems: "center", gap: 6 }}>
-            <span style={{ fontSize: 14 }}>🎯</span>
-            <div style={{ textAlign: "left" }}>
-              <div style={{ fontSize: 11, fontWeight: 800, color: creationMode === "packs" ? "#a855f7" : "var(--tx)" }}>{lang === "fr" ? "Packs" : "Packs"}</div>
-              <div style={{ fontSize: 9, color: "var(--mt)" }}>{lang === "fr" ? "Tout en 1 clic" : "1-click ready"}</div>
-            </div>
+          <button onClick={() => setCreationMode("packs")} style={{ flex: 1, padding: "12px 10px", borderRadius: 14, border: `2px solid ${creationMode === "packs" ? "#a855f7" : "var(--bo)"}`, background: creationMode === "packs" ? "rgba(168,85,247,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+            <span style={{ fontSize: 22 }}>🎯</span>
+            <div style={{ fontSize: 13, fontWeight: 900, color: creationMode === "packs" ? "#a855f7" : "var(--tx)" }}>{lang === "fr" ? "Packs" : "Packs"}</div>
+            <div style={{ fontSize: 10, color: "var(--mt)", textAlign: "center" }}>{lang === "fr" ? "1 clic, c'est prêt" : "1-click ready"}</div>
           </button>
         </div>
 
@@ -2756,7 +2723,7 @@ export default function App() {
   const t = T[lang];
   const opts = OPTS[lang];
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", budget: "zero", lieu: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ Vertical Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 }, dramaPremium: { emotion: null, rythme: null, narration: null, ton: null, tension: null }, remake: null, saison2: null, genreFormat: null });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", budget: "smartphone", lieu: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ Vertical Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 }, dramaPremium: { emotion: null, rythme: null, narration: null, ton: null, tension: null }, remake: null, saison2: null, genreFormat: null });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);

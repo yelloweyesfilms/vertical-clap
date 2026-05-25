@@ -530,7 +530,7 @@ export default async function handler(req, res) {
       const scriptLangInstr = buildLangInstr(lang);
       const scriptAVInstr = scriptAV ? `\n${scriptAV}\nLes descriptions visuel_916 DOIVENT refléter cette identité visuelle précisément.` : "";
       const scriptBudgetInstr = budgetInstr ? `\n${budgetInstr}` : "";
-      const isLowBudget = !budgetInstr || budgetInstr.includes("BUDGET ZÉRO") || budgetInstr.includes("BUDGET LOW");
+      const isLowBudget = !budgetInstr || budgetInstr.includes("BUDGET SMARTPHONE") || budgetInstr.includes("BUDGET MINI-ÉQUIPE") || budgetInstr.includes("BUDGET ZÉRO") || budgetInstr.includes("BUDGET LOW");
       const lowBudgetInstr = isLowBudget ? `\n${LOW_BUDGET_PSYCHOLOGY}` : "";
       const GENRE_ADN = {
         romance:    "GENRE: Romance Drama — douceur tendue, silences, désir retenu, non-dits, gestes hésitants. Ton: Normal People, Maxton Hall.",
