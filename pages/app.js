@@ -1379,26 +1379,37 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         {mixTab === "univers" && (<>
         {/* Codes Narratifs */}
         <div style={{ marginBottom: 28 }}>
-          <SectionHead sep={false} title={lang === "fr" ? "Codes Narratifs" : "Story Codes"} sub={lang === "fr" ? "Les tropes qui créent l'addiction — choisis plusieurs" : "The tropes that create addiction — pick several"} />
-          {[{ cat: "romance", label: t.tropes_romance, color: "#e879a0" }, { cat: "drama", label: t.tropes_drama, color: "var(--n)" }].map(({ cat, label: catLabel, color }) => (
-            <div key={cat} style={{ marginBottom: 14 }}>
-              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color, marginBottom: 8 }}>{catLabel}</p>
-              <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
-                {TROPES.filter(tr => tr.cat === cat).map(tr => {
-                  const tLabel = typeof tr.label === "object" ? (tr.label[lang] || tr.label.fr) : tr.label;
-                  const active = (state.tropesSel || []).includes(tr.id);
-                  return (
-                    <button key={tr.id} onClick={() => set(prev => {
-                      const sel = prev.tropesSel || [];
-                      return { tropesSel: active ? sel.filter(x => x !== tr.id) : [...sel, tr.id] };
-                    })} style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "7px 12px", borderRadius: 100, border: `1.5px solid ${active ? (cat === "romance" ? "#e879a0" : "var(--n)") : "var(--bo)"}`, background: active ? (cat === "romance" ? "#e879a022" : "var(--n)22") : "var(--card)", color: active ? (cat === "romance" ? "#e879a0" : "var(--n)") : "var(--tx)", cursor: "pointer", fontSize: 12, fontWeight: active ? 700 : 500, fontFamily: "var(--sans)", transition: "all .15s" }}>
-                      <span>{tLabel}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
+          {(() => {
+            const MAX_TROPES = 2;
+            const selCount = (state.tropesSel || []).length;
+            const atMax = selCount >= MAX_TROPES;
+            return (<>
+              <SectionHead sep={false} title={lang === "fr" ? "Codes Narratifs" : "Story Codes"} sub={lang === "fr" ? `Choisis 1 ou 2 tropes — ${selCount === 0 ? "aucun sélectionné" : selCount === 1 ? "1 sélectionné" : `${selCount}/${MAX_TROPES} — max atteint`}` : `Pick 1 or 2 — ${selCount === 0 ? "none selected" : selCount === 1 ? "1 selected" : `${selCount}/${MAX_TROPES} — max reached`}`} />
+              {[{ cat: "romance", label: t.tropes_romance, color: "#e879a0" }, { cat: "drama", label: t.tropes_drama, color: "var(--n)" }].map(({ cat, label: catLabel, color }) => (
+                <div key={cat} style={{ marginBottom: 14 }}>
+                  <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color, marginBottom: 8 }}>{catLabel}</p>
+                  <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+                    {TROPES.filter(tr => tr.cat === cat).map(tr => {
+                      const tLabel = typeof tr.label === "object" ? (tr.label[lang] || tr.label.fr) : tr.label;
+                      const active = (state.tropesSel || []).includes(tr.id);
+                      const disabled = atMax && !active;
+                      return (
+                        <button key={tr.id} onClick={() => {
+                          if (disabled) return;
+                          set(prev => {
+                            const sel = prev.tropesSel || [];
+                            return { tropesSel: active ? sel.filter(x => x !== tr.id) : [...sel, tr.id] };
+                          });
+                        }} style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "7px 12px", borderRadius: 100, border: `1.5px solid ${active ? (cat === "romance" ? "#e879a0" : "var(--n)") : "var(--bo)"}`, background: active ? (cat === "romance" ? "#e879a022" : "var(--n)22") : "var(--card)", color: active ? (cat === "romance" ? "#e879a0" : "var(--n)") : disabled ? "var(--mt)" : "var(--tx)", cursor: disabled ? "default" : "pointer", opacity: disabled ? 0.4 : 1, fontSize: 12, fontWeight: active ? 700 : 500, fontFamily: "var(--sans)", transition: "all .15s" }}>
+                          <span>{tLabel}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </>);
+          })()}
         </div>
 
         {[
