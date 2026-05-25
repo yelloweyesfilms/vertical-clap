@@ -1213,15 +1213,17 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             </button>
           </div>
         </div>
-        {/* Mode selector — Packs vs Mixeur (compact) */}
-        <div style={{ display: "flex", gap: 6 }}>
-          <button onClick={() => setCreationMode("mixeur")} style={{ flex: 1, padding: "8px 10px", borderRadius: 10, border: `2px solid ${creationMode === "mixeur" ? "var(--r)" : "var(--bo)"}`, background: creationMode === "mixeur" ? "rgba(232,92,58,0.12)" : "transparent", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
-            <span style={{ fontSize: 16 }}>🎛️</span>
-            <span style={{ fontSize: 13, fontWeight: 800, color: creationMode === "mixeur" ? "var(--r)" : "var(--mt)" }}>{lang === "fr" ? "Mixeur" : "Mixer"}</span>
+        {/* Mode selector — Packs vs Mixeur */}
+        <div style={{ display: "flex", gap: 8 }}>
+          <button onClick={() => setCreationMode("mixeur")} style={{ flex: 1, padding: "12px 10px", borderRadius: 14, border: `2px solid ${creationMode === "mixeur" ? "var(--r)" : "var(--bo)"}`, background: creationMode === "mixeur" ? "rgba(232,92,58,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+            <span style={{ fontSize: 22 }}>🎛️</span>
+            <div style={{ fontSize: 13, fontWeight: 900, color: creationMode === "mixeur" ? "var(--r)" : "var(--tx)" }}>{lang === "fr" ? "Mixeur" : "Mixer"}</div>
+            <div style={{ fontSize: 10, color: "var(--mt)", textAlign: "center" }}>{lang === "fr" ? "Je configure" : "I set it up"}</div>
           </button>
-          <button onClick={() => setCreationMode("packs")} style={{ flex: 1, padding: "8px 10px", borderRadius: 10, border: `2px solid ${creationMode === "packs" ? "#a855f7" : "var(--bo)"}`, background: creationMode === "packs" ? "rgba(168,85,247,0.12)" : "transparent", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
-            <span style={{ fontSize: 16 }}>🎯</span>
-            <span style={{ fontSize: 13, fontWeight: 800, color: creationMode === "packs" ? "#a855f7" : "var(--mt)" }}>{lang === "fr" ? "Packs" : "Packs"}</span>
+          <button onClick={() => setCreationMode("packs")} style={{ flex: 1, padding: "12px 10px", borderRadius: 14, border: `2px solid ${creationMode === "packs" ? "#a855f7" : "var(--bo)"}`, background: creationMode === "packs" ? "rgba(168,85,247,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+            <span style={{ fontSize: 22 }}>🎯</span>
+            <div style={{ fontSize: 13, fontWeight: 900, color: creationMode === "packs" ? "#a855f7" : "var(--tx)" }}>{lang === "fr" ? "Packs" : "Packs"}</div>
+            <div style={{ fontSize: 10, color: "var(--mt)", textAlign: "center" }}>{lang === "fr" ? "1 clic, c'est prêt" : "1-click ready"}</div>
           </button>
         </div>
       </div>
@@ -1709,7 +1711,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   );
 }
 
-function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, t, lang, onUpgrade }) {
+function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, t, lang, onUpgrade, toggleLang, logout, isAdmin }) {
   const [tab, setTab] = useState("bible");
   const [cartes, setCartes] = useState(null);
   const [loadingCartes, setLoadingCartes] = useState(false);
@@ -1749,7 +1751,14 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <StepBar step={bibleStep} lang={lang} />
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 13, color: "var(--mt)", marginBottom: 16, cursor: "pointer", padding: 0, display: "flex", alignItems: "center", gap: 5, letterSpacing: 0.3 }}>{t.back_mixer}</button>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+          <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 13, color: "var(--mt)", cursor: "pointer", padding: 0, display: "flex", alignItems: "center", gap: 5, letterSpacing: 0.3 }}>{t.back_mixer}</button>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            {isAdmin && <button onClick={() => onUpgrade && onUpgrade("admin")} style={{ background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, borderRadius: 8, padding: "3px 8px", fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)" }}>👁 {plan === "standard" ? "Créateur" : "Premium"}</button>}
+            <button onClick={toggleLang} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, padding: "3px 8px", fontSize: 11, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)" }}>{lang === "fr" ? "EN" : "FR"}</button>
+            <button onClick={logout} style={{ background: "none", border: "none", fontSize: 12, color: "var(--mt)", cursor: "pointer" }}>{t.logout}</button>
+          </div>
+        </div>
         <div style={{ marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--r)" }}>
             {mode === "fast" ? "VERTICAL DRAMA" : "SÉRIE PREMIUM"}
@@ -1898,7 +1907,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   );
 }
 
-function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onStoryboard, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onTranslate, t, lang, onUpgrade }) {
+function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onStoryboard, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onTranslate, t, lang, onUpgrade, toggleLang, logout, isAdmin }) {
   const [showLangs, setShowLangs] = useState(false);
   const [translating, setTranslating] = useState(false);
   const [translated, setTranslated] = useState(null);
@@ -1935,10 +1944,12 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
           <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", cursor: "pointer", padding: 0 }}>← {bible?.titre}</button>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <button onClick={onPrev} disabled={epIdx === 0} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, width: 34, height: 34, cursor: epIdx === 0 ? "not-allowed" : "pointer", fontSize: 16, opacity: epIdx === 0 ? 0.3 : 1, display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
-            <span style={{ fontSize: 12, color: "var(--mt)", minWidth: 40, textAlign: "center" }}>{epIdx + 1} / {totalEps}</span>
-            <button onClick={onNext} disabled={epIdx === totalEps - 1} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, width: 34, height: 34, cursor: epIdx === totalEps - 1 ? "not-allowed" : "pointer", fontSize: 16, opacity: epIdx === totalEps - 1 ? 0.3 : 1, display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <button onClick={onPrev} disabled={epIdx === 0} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, width: 32, height: 32, cursor: epIdx === 0 ? "not-allowed" : "pointer", fontSize: 16, opacity: epIdx === 0 ? 0.3 : 1, display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
+            <span style={{ fontSize: 12, color: "var(--mt)", minWidth: 36, textAlign: "center" }}>{epIdx + 1} / {totalEps}</span>
+            <button onClick={onNext} disabled={epIdx === totalEps - 1} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, width: 32, height: 32, cursor: epIdx === totalEps - 1 ? "not-allowed" : "pointer", fontSize: 16, opacity: epIdx === totalEps - 1 ? 0.3 : 1, display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
+            {toggleLang && <button onClick={toggleLang} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, padding: "3px 7px", fontSize: 11, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)" }}>{lang === "fr" ? "EN" : "FR"}</button>}
+            {logout && <button onClick={logout} style={{ background: "none", border: "none", fontSize: 12, color: "var(--mt)", cursor: "pointer" }}>{t.logout}</button>}
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, flexWrap: "wrap" }}>
@@ -3206,16 +3217,16 @@ export default function App() {
 
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} setPlan={setPlan} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} />}
-      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} t={t} lang={lang} onUpgrade={showUpgrade} />}
-      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} onUpgrade={showUpgrade} />}
+      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} t={t} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} />}
+      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
       {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
       {screen === "profils" && <ProfilsView profils={profils} loading={loadingProfils} bible={bible} onBack={() => setScreen("bible")} t={t} />}
       {screen === "storyboard" && <StoryboardView storyboard={storyboard} loading={loadingStoryboard} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} />}
 
-      {/* Top bar: lang toggle + logout — seulement sur les écrans sans header propre */}
-      {screen !== "tour" && screen !== "mix" && (
+      {/* Top bar: lang toggle + logout — uniquement sur les écrans intermédiaires sans header propre */}
+      {screen !== "tour" && screen !== "mix" && screen !== "bible" && screen !== "studio" && screen !== "variations" && screen !== "affiche" && screen !== "profils" && screen !== "storyboard" && (
         <div style={{ position: "absolute", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 10 }}>
           {isAdmin && (
             <button onClick={() => setPlan(p => p === "standard" ? "premium" : "standard")} style={{ background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, borderRadius: 8, padding: "3px 8px", fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>
