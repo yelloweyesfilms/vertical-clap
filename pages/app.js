@@ -1242,9 +1242,9 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
               const pSecret = typeof p.secret === "object" ? (p.secret[lang] || p.secret.fr) : p.secret;
               return (
                 <button key={p.id} onClick={() => {
-                  if (locked) return;
+                  if (locked) { onUpgrade("serie"); return; }
                   set({ mode: p.mode, casting: pCasting, univers: pUnivers, secret: pSecret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 20 : state.format });
-                }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${locked ? "rgba(168,85,247,0.2)" : active ? "var(--r)" : "var(--bo)"}`, background: locked ? "rgba(168,85,247,0.04)" : active ? "var(--r)" : "var(--card)", cursor: locked ? "pointer" : "pointer", fontFamily: "var(--sans)", textAlign: "left", transition: "all .15s", position: "relative" }}>
+                }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${locked ? "rgba(168,85,247,0.2)" : active ? "var(--r)" : "var(--bo)"}`, background: locked ? "rgba(168,85,247,0.04)" : active ? "var(--r)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "left", transition: "all .15s", position: "relative" }}>
                   <span style={{ fontSize: 28, flexShrink: 0, opacity: locked ? 0.5 : 1 }}>{p.emoji}</span>
                   <div style={{ flex: 1, minWidth: 0, opacity: locked ? 0.7 : 1 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
@@ -1719,7 +1719,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 { k: "affiche", l: t.poster_btn, emoji: "🎬", locked: false, onClick: () => { setShowMore(false); onAffiche(); } },
               ].map(({ k, l, emoji, locked, onClick }, idx, arr) => (
                 <button key={k} onClick={onClick}
-                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, width: "100%", padding: "13px 16px", border: "none", borderBottom: idx < arr.length - 1 ? "1px solid var(--bo)" : "none", background: "none", cursor: locked ? "default" : "pointer", fontSize: 13, fontWeight: 700, color: locked ? "var(--mt)" : tab === k ? "var(--r)" : "var(--tx)", textAlign: "left", fontFamily: "var(--sans)", opacity: locked ? 0.6 : 1 }}>
+                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, width: "100%", padding: "13px 16px", border: "none", borderBottom: idx < arr.length - 1 ? "1px solid var(--bo)" : "none", background: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, color: locked ? "var(--mt)" : tab === k ? "var(--r)" : "var(--tx)", textAlign: "left", fontFamily: "var(--sans)", opacity: locked ? 0.75 : 1 }}>
                   <span style={{ display: "flex", alignItems: "center", gap: 10 }}><span>{emoji}</span>{l}</span>
                   {locked && <span style={{ fontSize: 10, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.25)", padding: "2px 7px", borderRadius: 6, letterSpacing: 0.5 }}>🔒 PRO</span>}
                 </button>
