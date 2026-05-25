@@ -180,7 +180,7 @@ export default function Exemples() {
     <div className={`${spaceGrotesk.variable} ${playfair.variable}`}>
       <Head>
         <title>Exemples de séries générées par VerticalClap — Micro-dramas 9:16</title>
-        <meta name="description" content="Découvrez 4 séries complètes générées par VerticalClap : médical, finance, famille, romance. Bible, personnages, scripts et cliffhangers prêts à tourner pour TikTok et Reels." />
+        <meta name="description" content="Découvrez 4 séries complètes générées par VerticalClap en 30 secondes : médical, finance, famille, romance. Bible, personnages, scripts et cliffhangers — toi, tu tournes." />
         <link rel="canonical" href={`${SITE}/exemples`} />
         <meta property="og:title" content="Exemples de séries — VerticalClap" />
         <meta property="og:description" content="4 micro-dramas complets générés par IA : médical, finance, famille, romance. Bible, scripts, hooks et cliffhangers pour TikTok, Reels et Shorts." />
@@ -240,10 +240,10 @@ export default function Exemples() {
             <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase" }}>Générés par l'IA en 30 secondes</span>
           </div>
           <h1 style={{ fontFamily: "var(--sans)", fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: -2, marginBottom: 16, color: TEXT, textTransform: "uppercase" }}>
-            4 séries prêtes<br /><span style={{ color: RED }}>à tourner.</span>
+            4 séries générées<br /><span style={{ color: RED }}>en 30 secondes.</span>
           </h1>
           <p style={{ color: MUTED, fontSize: 16, lineHeight: 1.7, maxWidth: 520, margin: "0 auto 48px" }}>
-            Médical, finance, famille, romance — chaque bible, script et cliffhanger généré en moins de 30 secondes avec VerticalClap.
+            Médical, finance, famille, romance — bible complète, personnages et scripts générés par l'IA. Toi, tu tournes.
           </p>
 
           {/* STATS */}
@@ -359,7 +359,7 @@ export default function Exemples() {
               Ta première série<br /><span style={{ color: RED }}>en 5 minutes.</span>
             </h2>
             <p style={{ color: MUTED, fontSize: 14, marginBottom: 32, lineHeight: 1.6, maxWidth: 400, margin: "0 auto 32px" }}>
-              Bible complète, scripts prêts à tourner, hooks et cliffhangers — tout généré en moins de 5 minutes.
+              Bible, personnages, scripts, hooks et cliffhangers — tout généré en moins de 5 minutes. Toi, tu tournes.
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
               <a href="/tarifs" style={{ display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "16px 36px", borderRadius: 14, fontWeight: 800, fontSize: 15, textDecoration: "none", letterSpacing: -0.2, boxShadow: `0 0 32px rgba(168,85,247,0.3)` }}>
