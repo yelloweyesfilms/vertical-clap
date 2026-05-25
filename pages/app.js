@@ -1743,13 +1743,10 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   );
 }
 
-function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, onCalendrier, onSaison2, t, lang, onUpgrade }) {
+function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, t, lang, onUpgrade }) {
   const [tab, setTab] = useState("bible");
   const [cartes, setCartes] = useState(null);
   const [loadingCartes, setLoadingCartes] = useState(false);
-  const [accroches, setAccroches] = useState(null);
-  const [loadingAccroches, setLoadingAccroches] = useState(false);
-  const [copiedIdx, setCopiedIdx] = useState(null);
   const [showMore, setShowMore] = useState(false);
   const moreRef = React.useRef(null);
 
@@ -1776,23 +1773,8 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
     setLoadingCartes(false);
   };
 
-  const genAccroches = async () => {
-    if (accroches || loadingAccroches) return;
-    setLoadingAccroches(true);
-    try {
-      const r = await gen("accroches", { titre: bible.titre, logline: bible.logline, genre: bible.genre, episodes, lang }, customerId);
-      setAccroches(r.accroches || []);
-    } catch (e) {
-      console.error(e);
-      setAccroches([]);
-    }
-    setLoadingAccroches(false);
-  };
-
-  const copyAccroche = (idx, text) => {
+  const copyText = (text) => {
     navigator.clipboard?.writeText(text).catch(() => {});
-    setCopiedIdx(idx);
-    setTimeout(() => setCopiedIdx(null), 2000);
   };
 
   const bibleStep = tab === "seq" ? 3 : 2;
@@ -1826,14 +1808,11 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               </button>
             ))}
             <button onClick={() => setShowMore(v => !v)}
-              style={{ width: 44, padding: "10px 0", border: "none", background: "none", cursor: "pointer", fontSize: 18, color: ["accroches","calendrier","saison2","affiche"].includes(tab) ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${["accroches","calendrier","saison2","affiche"].includes(tab) ? "var(--r)" : "transparent"}`, marginBottom: -2, letterSpacing: 1 }}>···</button>
+              style={{ width: 44, padding: "10px 0", border: "none", background: "none", cursor: "pointer", fontSize: 18, color: tab === "affiche" ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${tab === "affiche" ? "var(--r)" : "transparent"}`, marginBottom: -2, letterSpacing: 1 }}>···</button>
           </div>
           {showMore && (
             <div ref={moreRef} style={{ position: "absolute", right: 0, top: "calc(100% + 4px)", background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 14, zIndex: 50, minWidth: 180, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.25)" }}>
               {[
-                { k: "accroches", l: t.accroches_tab, emoji: "📣", locked: false, onClick: () => { setTab("accroches"); setShowMore(false); if (!accroches && !loadingAccroches) genAccroches(); } },
-                { k: "calendrier", l: t.calendrier_btn, emoji: "📅", locked: plan === "standard", onClick: () => { setShowMore(false); if (plan === "standard") { onUpgrade("calendrier"); return; } onCalendrier(); } },
-                { k: "saison2", l: t.saison2_btn, emoji: "🔄", locked: plan === "standard", onClick: () => { setShowMore(false); if (plan === "standard") { onUpgrade("saison2"); return; } onSaison2(); } },
                 { k: "affiche", l: t.poster_btn, emoji: "🎬", locked: false, onClick: () => { setShowMore(false); onAffiche(); } },
               ].map(({ k, l, emoji, locked, onClick }, idx, arr) => (
                 <button key={k} onClick={onClick}
@@ -1912,58 +1891,6 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 </div>
               );
             })}
-          </>
-        ) : tab === "accroches" ? (
-          <>
-            <div style={{ marginBottom: 16 }}>
-              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--r)", marginBottom: 3 }}>TIKTOK · REELS · SHORTS</p>
-              <p style={{ fontSize: 13, color: "var(--mt)" }}>{lang === "fr" ? "Légendes virales prêtes à poster" : "Viral captions ready to post"}</p>
-            </div>
-            {loadingAccroches ? (
-              <div style={{ textAlign: "center", padding: "40px 0", color: "var(--mt)" }}>
-                <div style={{ display: "flex", gap: 6, marginBottom: 16, justifyContent: "center" }}>
-                  {[0,1,2].map(i => <div key={i} style={{ width: 6, height: 6, borderRadius: "50%", background: i === 0 ? "#E85C3A" : i === 1 ? "#a855f7" : "rgba(255,255,255,0.2)", animation: `pulse 1.2s ${i*0.2}s infinite` }} />)}
-                </div>
-                <p>{t.loading_accroches}</p>
-              </div>
-            ) : accroches ? (
-              <>
-                {accroches.map((a, i) => {
-                  const ep = episodes[i] || {};
-                  const fullText = `${a.legende}\n${(a.hashtags || []).join(" ")}`;
-                  const isLocked = plan === "standard" && i >= 3;
-                  return (
-                    <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: "14px 16px", marginBottom: 8, border: "1px solid var(--bo)", opacity: isLocked ? 0.4 : 1, filter: isLocked ? "blur(3px)" : "none", pointerEvents: isLocked ? "none" : "auto" }}>
-                      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
-                        <div style={{ flex: 1 }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                            <span style={{ fontFamily: "var(--serif)", fontSize: 16, fontWeight: 900, color: "var(--mt)" }}>{a.numero || ep.numero}</span>
-                            <span style={{ fontSize: 12, fontWeight: 700, color: "var(--tx)" }}>{ep.titre}</span>
-                          </div>
-                          <p style={{ fontSize: 14, lineHeight: 1.5, color: "var(--tx)", marginBottom: 8 }}>{a.legende}</p>
-                          <p style={{ fontSize: 12, color: "var(--r)", fontWeight: 700 }}>{(a.hashtags || []).join(" ")}</p>
-                        </div>
-                        <button
-                          onClick={() => copyAccroche(i, fullText)}
-                          style={{ flexShrink: 0, background: copiedIdx === i ? "rgba(34,197,94,0.15)" : "var(--bg)", border: `1.5px solid ${copiedIdx === i ? "#22c55e" : "var(--bo)"}`, color: copiedIdx === i ? "#22c55e" : "var(--mt)", padding: "8px 12px", borderRadius: 10, fontSize: 12, fontWeight: 700, cursor: "pointer", transition: "all .2s", fontFamily: "var(--sans)", whiteSpace: "nowrap" }}>
-                          {copiedIdx === i ? t.accroches_copied : t.accroches_copy}
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-                {plan === "standard" && accroches.length > 3 && (
-                  <div style={{ background: "rgba(168,85,247,0.08)", border: "1.5px solid rgba(168,85,247,0.25)", borderRadius: 14, padding: "16px 18px", marginTop: 8, textAlign: "center" }}>
-                    <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.6, marginBottom: 12 }}>{t.accroches_locked_hint || (lang === "en" ? "The first 3 hooks are available. Upgrade to Pro to generate them for all your episodes." : "Les 3 premières accroches sont disponibles. Passe au plan Pro pour les générer sur tous tes épisodes.")}</p>
-                    <span style={{ fontSize: 11, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.15)", border: "1px solid rgba(168,85,247,0.3)", padding: "5px 12px", borderRadius: 8 }}>Pro · 19€/mois</span>
-                  </div>
-                )}
-              </>
-            ) : (
-              <button onClick={genAccroches} style={{ background: "var(--r)", color: "#fff", border: "none", padding: 18, borderRadius: 14, width: "100%", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
-                {t.gen_accroches}
-              </button>
-            )}
           </>
         ) : (
           <>
@@ -2935,9 +2862,7 @@ export default function App() {
       const avInstr = avPreset ? (avPreset.instr[lang === "en" ? "en" : "fr"]) : undefined;
       const remakeObj = REMAKE_INSPIRATIONS.find(r => r.id === state.remake);
       const remakeInspiration = remakeObj ? remakeObj.instr : undefined;
-      const saison2 = saison2Ref.current || undefined;
-      if (saison2Ref.current) saison2Ref.current = null;
-      const b = await gen("bible", { ...cleanState(state), lang, castingIA: castingIAInstr, ambianceVisuelle: avInstr, remakeInspiration, saison2 }, customerId);
+      const b = await gen("bible", { ...cleanState(state), lang, castingIA: castingIAInstr, ambianceVisuelle: avInstr, remakeInspiration }, customerId);
       setBible(b);
 
       const totalBatches = Math.ceil(state.format / 10);
@@ -3032,11 +2957,8 @@ export default function App() {
   const [loadingAffiche, setLoadingAffiche] = useState(false);
   const [profils, setProfils] = useState(null);
   const [loadingProfils, setLoadingProfils] = useState(false);
-  const [calendrier, setCalendrier] = useState(null);
-  const [loadingCalendrier, setLoadingCalendrier] = useState(false);
   const [storyboard, setStoryboard] = useState(null);
   const [loadingStoryboard, setLoadingStoryboard] = useState(false);
-  const saison2Ref = useRef(null);
 
   const genVariations = async () => {
     setVariations(null);
@@ -3075,15 +2997,6 @@ export default function App() {
     setLoadingProfils(false);
   };
 
-  const genCalendrier = async () => {
-    setCalendrier(null); setLoadingCalendrier(true); setScreen("calendrier");
-    try {
-      const r = await gen("calendrier", { titre: bible.titre, logline: bible.logline, episodes: episodes.slice(0, 20), lang }, customerId);
-      setCalendrier(r);
-    } catch(e) { console.error(e); }
-    setLoadingCalendrier(false);
-  };
-
   const genStoryboard = async () => {
     setStoryboard(null); setLoadingStoryboard(true); setScreen("storyboard");
     try {
@@ -3093,14 +3006,7 @@ export default function App() {
     setLoadingStoryboard(false);
   };
 
-  const genSaison2 = () => {
-    saison2Ref.current = {
-      titre: bible.titre,
-      logline: bible.logline,
-      tension_centrale: bible.tension_centrale,
-    };
-    generate();
-  };
+
 
   const exportScript = async () => {
     const b = bible, ep = episodes[epIdx], s = script;
@@ -3332,13 +3238,12 @@ export default function App() {
 
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} setPlan={setPlan} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} />}
-      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} onCalendrier={genCalendrier} onSaison2={genSaison2} t={t} lang={lang} onUpgrade={showUpgrade} />}
+      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} t={t} lang={lang} onUpgrade={showUpgrade} />}
       {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} onUpgrade={showUpgrade} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
       {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
       {screen === "profils" && <ProfilsView profils={profils} loading={loadingProfils} bible={bible} onBack={() => setScreen("bible")} t={t} />}
-      {screen === "calendrier" && <CalendrierView calendrier={calendrier} loading={loadingCalendrier} bible={bible} onBack={() => setScreen("bible")} t={t} />}
       {screen === "storyboard" && <StoryboardView storyboard={storyboard} loading={loadingStoryboard} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} />}
 
       {/* Top bar: lang toggle + logout — seulement sur les écrans sans header propre */}

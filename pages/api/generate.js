@@ -286,6 +286,41 @@ Le cliffhanger modifie ce qu'on croit, ce qu'on ressent, ou la dynamique de la r
 IMPERFECTION HUMAINE : les personnages hésitent, se contredisent, réagissent de façon disproportionnée, ratent leurs moments, disent "ça va" quand tout s'effondre. Les humains ne communiquent pas de manière optimale. C'est ça qui crée l'empathie.
 `;
 
+// ─── LOW BUDGET PSYCHOLOGY — injecté pour budget zéro/low ───────────────────
+const LOW_BUDGET_PSYCHOLOGY = `
+MODE PRODUCTION CONTRAINTE — OBJECTIF: intensité dramatique maximale dans des conditions minimales.
+La contrainte n'est PAS une limitation — c'est la force créative principale.
+
+HORS-CHAMP CINÉMATOGRAPHIQUE: suggérer l'invisible plutôt que le montrer.
+Au lieu de montrer l'accident → montrer: téléphone brisé, sang sur une manche, quelqu'un qui retient son souffle, sirènes dehors, main qui tremble, silence après l'impact.
+Au lieu de la bagarre → montrer: la porte qui claque, le regard après, la marque sur le visage.
+Toujours préférer: sons, réactions, objets, conséquences, regards, gestes — jamais l'action directe si elle coûte.
+
+UN SEUL LIEU QUI VIT: le même espace évolue à travers la lumière, la tension, l'heure, les relations, le silence.
+Une chambre peut être: refuge / prison / ring de boxe / aveu final / scène d'humiliation / espace d'amour.
+Le lieu n'est jamais neutre — il porte l'émotion de la scène.
+
+FORMAT VERTICAL NATIF: chaque scène pensée pour un écran tenu à la main.
+✅ Gros plans serrés sur les yeux, la bouche, les mains, le cou
+✅ Proximité inconfortable entre les corps dans le cadre
+✅ Compositions centrées avec avant-plan/arrière-plan en tension
+✅ Contact visuel direct avec la caméra = voyeurisme = addiction
+❌ Plans larges où les personnages sont petits et lointains
+❌ Information horizontale (action à gauche + à droite simultanément)
+
+RÉFÉRENCES CINÉMA CONTRAINTE: efficacité de Coherence, Locke, The Guilty, Buried.
+Un seul lieu. Peu de personnages. Tension pure par l'écriture et le jeu.
+Jamais copier leurs intrigues — s'inspirer de leur intelligence narrative.
+
+ARCHÉTYPES NATURELLEMENT LOW BUDGET (à privilégier):
+confrontation de rupture · secret impossible à garder · piège à deux dans une pièce ·
+dîner qui dérape · voisin inquiétant · rendez-vous catastrophe · manipulation psychologique ·
+appel téléphonique sous tension · confession de nuit · suspicion de trahison · disparition mystérieuse ·
+live qui tourne mal · piégés ensemble · scan de mensonge
+
+PENSÉE DU RÉALISATEUR INDÉPENDANT: chaque épisode généré doit être tournables demain, avec un smartphone, dans une pièce. Émotionnellement puissant, visuellement intentionnel.
+`;
+
 // ─── BIBLE EXT — ajouté uniquement pour bible + liste d'épisodes ─────────────
 const BIBLE_PSYCHOLOGY = `
 IDENTITÉ ARTISTIQUE : chaque série a une tonalité unique et cohérente du début à la fin. Romance ≠ thriller ≠ teen drama — le ton ne dérive jamais. Chaque projet a un univers, une sensibilité, une signature.
@@ -495,6 +530,8 @@ export default async function handler(req, res) {
       const scriptLangInstr = buildLangInstr(lang);
       const scriptAVInstr = scriptAV ? `\n${scriptAV}\nLes descriptions visuel_916 DOIVENT refléter cette identité visuelle précisément.` : "";
       const scriptBudgetInstr = budgetInstr ? `\n${budgetInstr}` : "";
+      const isLowBudget = !budgetInstr || budgetInstr.includes("BUDGET ZÉRO") || budgetInstr.includes("BUDGET LOW");
+      const lowBudgetInstr = isLowBudget ? `\n${LOW_BUDGET_PSYCHOLOGY}` : "";
       const GENRE_ADN = {
         romance:    "GENRE: Romance Drama — douceur tendue, silences, désir retenu, non-dits, gestes hésitants. Ton: Normal People, Maxton Hall.",
         kdrama:     "GENRE: K-Drama Romance — émotions amplifiées, regards prolongés, humour gêné, cliffhangers relationnels purs, romantisme intense. Ton: Crash Landing on You.",
@@ -514,7 +551,7 @@ export default async function handler(req, res) {
         : "";
       const choixSchema = isChoix ? `,"choix":[{"label":"","consequence":""}]` : "";
       const result = await callClaude(
-        `${CORE_PSYCHOLOGY}\n${SCRIPT_PSYCHOLOGY}\nTu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptAVInstr}${scriptBudgetInstr}${scriptGenreInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• COMMENCER AU PIRE MOMENT POSSIBLE — in medias res absolu, INTERDIT: "Bonjour", setup, exposition, question banale\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• LES RELATIONS SONT LE MOTEUR — couples, rivalités, trahisons, secrets entre proches. L'enjeu est toujours personnel.\n• COUPER AVANT LA RÉPONSE. TOUJOURS. Le cliffhanger = question suspendue, jamais résolue dans cet épisode.\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court en FRANÇAIS NATUREL — jamais de calque de l'anglais. Pas "dominance froide", pas "shift émotionnel". Utilise: "retient ses larmes", "sourire qui cache tout", "voix qui se brise", "regard qui fuit", "mâchoire serrée", "souffle coupé", "force un calme qu'elle n'a pas"\n• LANGUE: tous les textes en français authentique, pas traduit de l'anglais. Dialogues naturels, comme parlent vraiment les gens.\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.${choixInstr}`,
+        `${CORE_PSYCHOLOGY}\n${SCRIPT_PSYCHOLOGY}${lowBudgetInstr}\nTu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptAVInstr}${scriptBudgetInstr}${scriptGenreInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• COMMENCER AU PIRE MOMENT POSSIBLE — in medias res absolu, INTERDIT: "Bonjour", setup, exposition, question banale\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• LES RELATIONS SONT LE MOTEUR — couples, rivalités, trahisons, secrets entre proches. L'enjeu est toujours personnel.\n• COUPER AVANT LA RÉPONSE. TOUJOURS. Le cliffhanger = question suspendue, jamais résolue dans cet épisode.\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court en FRANÇAIS NATUREL — jamais de calque de l'anglais. Pas "dominance froide", pas "shift émotionnel". Utilise: "retient ses larmes", "sourire qui cache tout", "voix qui se brise", "regard qui fuit", "mâchoire serrée", "souffle coupé", "force un calme qu'elle n'a pas"\n• LANGUE: tous les textes en français authentique, pas traduit de l'anglais. Dialogues naturels, comme parlent vraiment les gens.\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.${choixInstr}`,
         `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.\nTension: ${bible.tension_centrale || ""}.\nCliffhanger cible: ${ep.cliffhanger}.${prevEpsInstr}\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]${choixSchema}}`,
         4000
       );
