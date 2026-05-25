@@ -498,10 +498,12 @@ export default async function handler(req, res) {
       const paywallInstr = paywallInBatch.length > 0
         ? `\nÉPISODES PIVOTS (PAYWALL + CHOIX INTERACTIF): les épisodes numéros ${paywallInBatch.join(", ")} sont des épisodes pivots à très haute rétention. Pour ces épisodes spécifiquement: cliffhanger MAXIMAL (le plus insoutenable de la série jusqu'ici), is_paywall: true, has_choix: true. Pour tous les autres épisodes: is_paywall: false, has_choix: false.`
         : `\nPour tous les épisodes de ce batch: is_paywall: false, has_choix: false.`;
+      const epCount = to - from + 1;
+      const epTemplate = Array.from({ length: epCount }, (_, i) => `{"numero":${from + i},"titre":"","cliffhanger":"","tension":${Math.round(tFrom + (tTo - tFrom) * i / Math.max(1, epCount - 1))},"is_paywall":false,"has_choix":false}`).join(",");
       const result = await callClaude(
         `${CORE_PSYCHOLOGY}\n${BIBLE_PSYCHOLOGY}\nTu es showrunner expert de micro-dramas 9:16. JSON uniquement.${langInstr}\nRègles pour chaque épisode:\n- titre: 2-3 mots max, teaser sans spoiler, crée la curiosité (ex: "Le mensonge", "Elle sait", "Trop tard")\n- cliffhanger: action ou révélation COUPÉE NET — jamais de résolution dans cet épisode. COUPER AVANT LA RÉPONSE. La dernière phrase est une question laissée en suspens, un aveu coupé, une découverte sans réaction. Format: phrase courte, 8-15 mots maximum.\n- tension: entier 1-10 en progression logique sur la série\n- is_paywall: boolean — true uniquement pour les épisodes pivots désignés\n- has_choix: boolean — true uniquement pour les épisodes pivots (mêmes que is_paywall)\n${arcInstr}${paywallInstr}`,
-        `Série "${titre}" — ${logline}. Mode: ${md}.\nÉpisodes ${from} à ${to} (série de ${total} épisodes). Tension globale: ${tFrom} → ${tTo}/10.\nJSON: {"episodes":[{"numero":${from},"titre":"","cliffhanger":"","tension":${tFrom},"is_paywall":false,"has_choix":false}]}`,
-        2500
+        `Série "${titre}" — ${logline}. Mode: ${md}.\nGÉNÈRE EXACTEMENT ${epCount} ÉPISODES numérotés de ${from} à ${to} (série de ${total} épisodes au total). Tension globale: ${tFrom} → ${tTo}/10.\nCHAQUE épisode doit apparaître dans le tableau — pas d'omission.\nJSON: {"episodes":[${epTemplate}]}`,
+        3200
       );
       setCached(ck, result);
       trackAction("episodes", customerId);
