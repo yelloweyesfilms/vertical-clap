@@ -243,7 +243,7 @@ export default function Exemples() {
             4 séries générées<br /><span style={{ color: RED }}>en 30 secondes.</span>
           </h1>
           <p style={{ color: MUTED, fontSize: 16, lineHeight: 1.7, maxWidth: 520, margin: "0 auto 48px" }}>
-            Médical, finance, famille, romance — bible complète, personnages et scripts générés par l'IA. Toi, tu tournes.
+            Médical, finance, famille, romance — bible complète, personnages et scripts générés par l'IA en 30 secondes.
           </p>
 
           {/* STATS */}
@@ -359,7 +359,7 @@ export default function Exemples() {
               Ta première série<br /><span style={{ color: RED }}>en 5 minutes.</span>
             </h2>
             <p style={{ color: MUTED, fontSize: 14, marginBottom: 32, lineHeight: 1.6, maxWidth: 400, margin: "0 auto 32px" }}>
-              Bible, personnages, scripts, hooks et cliffhangers — tout généré en moins de 5 minutes. Toi, tu tournes.
+              Bible, personnages, scripts, hooks et cliffhangers — tout généré en moins de 5 minutes.
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
               <a href="/tarifs" style={{ display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "16px 36px", borderRadius: 14, fontWeight: 800, fontSize: 15, textDecoration: "none", letterSpacing: -0.2, boxShadow: `0 0 32px rgba(168,85,247,0.3)` }}>
