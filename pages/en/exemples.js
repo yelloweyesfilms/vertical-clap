@@ -320,12 +320,13 @@ export default function ExemplesEn() {
             <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 16, flexWrap: "wrap" }}>
               <span style={{ background: RED, color: "#fff", borderRadius: 8, padding: "5px 12px", fontSize: 11, fontWeight: 800, letterSpacing: 1 }}>EP. {ex.script.number}</span>
               <span style={{ fontSize: 18, fontWeight: 800, color: TEXT }}>✍️ {ex.script.title}</span>
+              <span style={{ fontSize: 11, fontWeight: 800, color: RED, background: "rgba(232,92,58,0.12)", border: `1px solid rgba(232,92,58,0.35)`, borderRadius: 6, padding: "3px 10px", letterSpacing: 0.5, textTransform: "uppercase" }}>Excerpt</span>
             </div>
             {/* Disclaimer excerpt */}
-            <div style={{ display: "flex", alignItems: "flex-start", gap: 10, background: "rgba(255,255,255,0.03)", border: `1px solid rgba(255,255,255,0.08)`, borderRadius: 12, padding: "12px 16px", marginBottom: 20 }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>ℹ️</span>
-              <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.6, margin: 0 }}>
-                <strong style={{ color: TEXT }}>This is an excerpt.</strong> A full 1-min script includes a hook, 8 to 12 lines across 4 to 6 scenes, and a cliffhanger — 130 to 150 words total. The app generates the complete version in 10 seconds, ready to shoot with the teleprompter.
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 10, background: "rgba(232,92,58,0.07)", border: `1px solid rgba(232,92,58,0.25)`, borderRadius: 12, padding: "12px 16px", marginBottom: 20 }}>
+              <span style={{ fontSize: 16, flexShrink: 0 }}>⚠️</span>
+              <p style={{ fontSize: 13, color: TEXT, lineHeight: 1.6, margin: 0 }}>
+                <strong style={{ color: RED }}>Excerpts only.</strong> <span style={{ color: MUTED }}>A full 1-min script includes a hook, 8 to 12 lines across 4 to 6 scenes, and a cliffhanger. The app generates the complete version in 10 seconds.</span>
               </p>
             </div>
             <div style={{ background: "rgba(232,92,58,0.08)", border: `1px solid rgba(232,92,58,0.25)`, borderRadius: 12, padding: 18, marginBottom: 20 }}>
