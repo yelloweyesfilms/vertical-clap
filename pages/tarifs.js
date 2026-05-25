@@ -12,7 +12,7 @@ const DARK = "#09090f";
 const SURFACE = "rgba(255,255,255,0.04)";
 const BORDER = "rgba(255,255,255,0.08)";
 const TEXT = "#f1f5f9";
-const MUTED = "#94a3b8";
+const MUTED = "#b0bfd4";
 const SITE = "https://verticalclap.com";
 
 const Check = ({ color = RED }) => (
@@ -176,13 +176,13 @@ export default function Tarifs() {
 
         {/* HERO */}
         <div className="page-pad" style={{ padding: "80px 40px 48px", textAlign: "center", position: "relative", overflow: "hidden" }}>
-          <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: "min(600px, 100vw)", height: 300, background: `radial-gradient(ellipse, rgba(168,85,247,0.08) 0%, transparent 70%)`, pointerEvents: "none" }} />
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 20 }}>Tarifs</p>
-          <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.0, marginBottom: 20, color: TEXT }}>
+          <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: "min(600px, 100vw)", height: 300, background: `radial-gradient(ellipse, rgba(232,92,58,0.06) 0%, transparent 70%)`, pointerEvents: "none" }} />
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: `rgba(232,92,58,0.1)`, border: `1px solid rgba(232,92,58,0.25)`, borderRadius: 20, padding: "5px 16px", marginBottom: 24 }}>
+            <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase" }}>Tarifs</span>
+          </div>
+          <h1 style={{ fontFamily: "var(--sans)", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.0, marginBottom: 20, color: TEXT, textTransform: "uppercase" }}>
             Simple.<br />
-            <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
-              Transparent.
-            </span>
+            <span style={{ color: RED }}>Transparent.</span>
           </h1>
           <p style={{ color: MUTED, fontSize: 17, maxWidth: 460, margin: "0 auto 48px", lineHeight: 1.7 }}>
             Deux plans, zéro surprise. Annulable à tout moment.
