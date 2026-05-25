@@ -115,7 +115,7 @@ export default function Tarifs() {
         <meta name="description" content="Deux plans simples : Creator 9€/mois (micro-drama vertical, 20 épisodes) et Pro 19€/mois (séries longues, 90 épisodes, direction artistique). Sans engagement. Annulable à tout moment." />
         <link rel="canonical" href={`${SITE}/tarifs`} />
         <meta property="og:title" content="Tarifs VerticalClap — Créer des micro-dramas IA dès 9€/mois" />
-        <meta property="og:description" content="Creator 9€/mois ou Pro 19€/mois. Générez des séries complètes pour TikTok, DramaBox, ReelShort. Sans engagement." />
+        <meta property="og:description" content="Creator 9€/mois ou Pro 19€/mois. Crée des séries complètes pour TikTok, DramaBox, ReelShort. Sans engagement." />
         <meta property="og:url" content={`${SITE}/tarifs`} />
         <meta property="og:image" content={`${SITE}/banniere%20hero.png`} />
         <meta property="og:image:width" content="1200" />

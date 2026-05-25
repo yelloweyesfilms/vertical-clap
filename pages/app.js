@@ -44,7 +44,7 @@ const T = {
     shooting: "Tournage", social: "Distribution",
     translate: "Traduire le script", translate_back: "↩ Original", translating: "Traduction…",
     export_pdf: "Exporter en PDF",
-    saved: "séries sauvegardées", no_series: "Aucune série sauvegardée", generate_first: "Créez votre première série",
+    saved: "séries sauvegardées", no_series: "Aucune série sauvegardée", generate_first: "Crée ta première série",
     open: "Ouvrir →", perso_input: "Décris ton %s en quelques mots…",
     dur_std: "Court", dur_intense: "Standard", dur_epic: "Long",
     style_cinema: "Silences & regards", style_tiktok: "Rythme haletant", style_soap: "Révélations multiples",
@@ -83,7 +83,7 @@ const T = {
     premium_variations: "Les variations sont réservées au plan Pro.",
     premium_calendrier: "Le calendrier éditorial est réservé au plan Pro (19€/mois).",
     premium_saison2: "La préparation de la Saison 2 est réservée au plan Pro (19€/mois).",
-    accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passez au plan Pro pour les générer pour tous vos épisodes.",
+    accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passe au plan Pro pour les générer sur tous tes épisodes.",
     loading_cartes: "Création des fiches personnages…",
     style_voixoff: "Narration intime",
     voix_off_label: "Voix Off",
@@ -165,7 +165,7 @@ const T = {
     premium_variations: "Variations are reserved for Pro plan.",
     premium_calendrier: "The editorial calendar is reserved for the Pro plan (€19/month).",
     premium_saison2: "Season 2 preparation is reserved for the Pro plan (€19/month).",
-    accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passez au plan Pro pour les générer pour tous vos épisodes.",
+    accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passe au plan Pro pour les générer sur tous tes épisodes.",
     loading_cartes: "Creating character profiles…",
     style_voixoff: "Intimate narration",
     voix_off_label: "Voice Over",
@@ -1940,7 +1940,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 })}
                 {plan === "standard" && accroches.length > 3 && (
                   <div style={{ background: "rgba(168,85,247,0.08)", border: "1.5px solid rgba(168,85,247,0.25)", borderRadius: 14, padding: "16px 18px", marginTop: 8, textAlign: "center" }}>
-                    <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.6, marginBottom: 12 }}>{t.accroches_locked_hint || (lang === "en" ? "The first 3 hooks are available. Upgrade to Pro to generate them for all your episodes." : "Les 3 premières accroches sont disponibles. Passez au plan Pro pour les générer pour tous vos épisodes.")}</p>
+                    <p style={{ fontSize: 13, color: "var(--tx)", lineHeight: 1.6, marginBottom: 12 }}>{t.accroches_locked_hint || (lang === "en" ? "The first 3 hooks are available. Upgrade to Pro to generate them for all your episodes." : "Les 3 premières accroches sont disponibles. Passe au plan Pro pour les générer sur tous tes épisodes.")}</p>
                     <span style={{ fontSize: 11, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.15)", border: "1px solid rgba(168,85,247,0.3)", padding: "5px 12px", borderRadius: 8 }}>Pro · 19€/mois</span>
                   </div>
                 )}
@@ -2152,7 +2152,7 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Studio</button>
         <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>3 versions</h2>
-        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre} — Choisissez la meilleure</p>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre} — Choisis la meilleure</p>
       </div>
       <div style={{ padding: "0 20px 40px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
@@ -2177,7 +2177,7 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
                 {s.visuel_916 && <p style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {s.visuel_916}</p>}
               </div>
             ))}
-            {(v.scenes || []).length > 2 && <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic" }}>+ {v.scenes.length - 2} réplique(s)…</p>}
+            {(v.scenes || []).length > 2 && <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic" }}>+ {v.scenes.length - 2} réplique{v.scenes.length - 2 > 1 ? "s" : ""}…</p>}
             <div style={{ background: "var(--tx)", borderRadius: 10, padding: 12, marginTop: 10 }}>
               <p style={{ fontSize: 14, fontWeight: 700, color: "var(--r)", marginBottom: 6 }}>🎬 Cliffhanger</p>
               <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", lineHeight: 1.4, marginBottom: 4 }}>{v.cliffhanger_scene?.texte}</p>
