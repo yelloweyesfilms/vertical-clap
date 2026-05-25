@@ -36,25 +36,25 @@ const Logo = () => (
 );
 
 const FEATURES = [
-  { label: "Vertical Drama (micro-drama)", std: true, prem: true },
-  { label: "Série Premium (tension psychologique)", std: false, prem: true },
   { label: "Épisodes par série", std: "20 max", prem: "90 max" },
-  { label: "Scripts prêts à tourner (9:16)", std: true, prem: true },
-  { label: "Hook 3 secondes + Cliffhanger", std: true, prem: true },
-  { label: "3 variations par script (Intense / Subtil / Rapide)", std: false, prem: true },
+  { label: "Bible + scripts prêts à tourner (9:16)", std: true, prem: true },
+  { label: "Hook 3 secondes + Cliffhanger calibré", std: true, prem: true },
+  { label: "Packs univers Creator (K-Drama, Thriller…)", std: true, prem: true },
+  { label: "Packs univers Pro (Dark Romance, Psycho…)", std: false, prem: true },
+  { label: "3 variations par script (Intense / Subtil / Épuré)", std: false, prem: true },
   { label: "Générateur de titres viraux", std: false, prem: true },
-  { label: "Fiche technique de production", std: false, prem: true },
-  { label: "Affiche IA (9:16)", std: true, prem: true },
+  { label: "Calendrier éditorial", std: false, prem: true },
+  { label: "Saison 2 automatique", std: false, prem: true },
+  { label: "Guide Prod — tournage Zéro Budget", std: true, prem: true },
+  { label: "Découpage technique plan par plan", std: true, prem: true },
   { label: "Mode Tournage + Téléprompteur", std: true, prem: true },
+  { label: "Affiche IA (9:16)", std: true, prem: true },
   { label: "Traduction en 8 langues", std: true, prem: true },
-  { label: "Mixeur de séries (12 univers, 16 secrets)", std: true, prem: true },
-  { label: "Packs thématiques (12 packs)", std: true, prem: true },
-  { label: "Sauvegarde cloud multi-appareils", std: true, prem: true },
   { label: "Export PDF", std: true, prem: true },
 ];
 
 const FAQ = [
-  { q: "Quelle est la différence entre Creator et Pro ?", r: "Creator (Vertical Drama) génère des dialogues directs, des hooks agressifs et un rythme maximal — parfait pour TikTok. Pro (Série Premium) travaille la tension psychologique, les non-dits, les sous-textes et la Direction Artistique avancée. Disponible uniquement en Pro." },
+  { q: "Quelle est la différence entre Creator et Pro ?", r: "Creator (9€/mois) permet de créer jusqu'à 20 épisodes par série avec tous les outils essentiels. Pro (19€/mois) débloque jusqu'à 90 épisodes, les packs univers avancés, 3 variations par script, le calendrier éditorial et la génération de Saison 2 automatique." },
   { q: "Puis-je passer de Creator à Pro à tout moment ?", r: "Oui, en un clic depuis ton espace Stripe. La différence de prix est proratisée automatiquement." },
   { q: "Puis-je annuler mon abonnement ?", r: "Oui, à tout moment depuis ton espace Stripe. Aucun engagement. Tu gardes l'accès jusqu'à la fin de la période payée." },
   { q: "L'abonnement annuel est-il remboursable ?", r: "Oui, dans les 7 jours suivant le débit annuel. Contacte-nous via le chat." },
