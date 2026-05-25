@@ -989,12 +989,14 @@ export default function RichLandingPage({ lang = "fr" }) {
                   { emoji: "✍️", text: "Scripts avec hook, dialogues et cliffhanger" },
                   { emoji: "🎬", text: "Mode Tournage — téléprompteur intégré" },
                   { emoji: "🎞️", text: "Découpage technique plan par plan" },
+                  { emoji: "🎥", text: "Guide Prod — tournage Zéro Budget inclus" },
                   { emoji: "📱", text: "Format 9:16 natif — TikTok · Reels · Shorts" },
                 ] : [
                   { emoji: "📖", text: "Full bible generated in 30 seconds" },
                   { emoji: "✍️", text: "Scripts with hook, dialogue and cliffhanger" },
                   { emoji: "🎬", text: "Shoot Mode — built-in teleprompter" },
                   { emoji: "🎞️", text: "Shot-by-shot technical breakdown" },
+                  { emoji: "🎥", text: "Prod Guide — Zero Budget shooting included" },
                   { emoji: "📱", text: "Native 9:16 — TikTok · Reels · Shorts" },
                 ]).map(({ emoji, text }) => (
                   <div key={text} style={{ display: "flex", alignItems: "center", gap: 14 }}>
