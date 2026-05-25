@@ -1146,7 +1146,7 @@ function SectionHead({ title, sub, sep = true }) {
   );
 }
 
-function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang, onUpgrade }) {
+function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang, onUpgrade, toggleLang, logout, isAdmin, setPlan }) {
   const univOpts = state.mode === "fast" ? opts.univers_fast : opts.univers_prem;
   const secOpts = state.mode === "fast" ? opts.secret_fast : opts.secret_prem;
   const totalMin = Math.round(state.format * state.duree / 60);
@@ -1204,27 +1204,30 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
       <div style={{ background: "var(--card)", borderBottom: "1px solid var(--bo)", padding: "12px 16px 10px", flexShrink: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
           <VCLogo />
-          {/* Plan badge — cliquable */}
-          <button onClick={async (e) => {
-            if (plan === "standard") { onUpgrade("serie"); return; }
-            const btn = e.currentTarget;
-            btn.style.opacity = "0.5";
-            try {
-              const r = await fetch("/api/portal", { method: "POST" });
-              const d = await r.json();
-              if (d.url) { window.location.href = d.url; return; }
-            } catch {}
-            btn.style.opacity = "1";
-            window.location.href = "/tarifs";
-          }} style={{ display: "flex", alignItems: "center", gap: 5, background: plan === "standard" ? "rgba(232,92,58,0.08)" : "rgba(168,85,247,0.08)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.25)" : "rgba(168,85,247,0.25)"}`, borderRadius: 20, padding: "4px 10px 4px 8px", cursor: "pointer", transition: "opacity .2s" }}>
-            <span style={{ fontSize: 9, color: "var(--mt)", fontWeight: 600, fontFamily: "var(--sans)", textTransform: "uppercase", letterSpacing: 1 }}>
-              {lang === "en" ? "Plan" : "Plan"}
-            </span>
-            <span style={{ fontSize: 10, fontWeight: 800, color: plan === "standard" ? "#E85C3A" : "#a855f7", letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: "var(--sans)" }}>
-              {plan === "standard" ? (lang === "en" ? "Creator" : "Créateur") : "Premium"}
-            </span>
-            <span style={{ fontSize: 9, color: plan === "standard" ? "#E85C3A" : "#a855f7", opacity: 0.6 }}>›</span>
-          </button>
+          {/* Droite: plan badge + EN + logout — tout en 1 ligne, pas d'overlap */}
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            {isAdmin && <button onClick={() => setPlan(p => p === "standard" ? "premium" : "standard")} style={{ background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, borderRadius: 8, padding: "3px 7px", fontSize: 9, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)" }}>👁</button>}
+            <button onClick={toggleLang} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, padding: "3px 7px", fontSize: 10, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>{lang === "fr" ? "EN" : "FR"}</button>
+            <button onClick={logout} style={{ background: "none", border: "none", fontSize: 11, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)" }}>{t.logout}</button>
+            <button onClick={async (e) => {
+              if (plan === "standard") { onUpgrade("serie"); return; }
+              const btn = e.currentTarget;
+              btn.style.opacity = "0.5";
+              try {
+                const r = await fetch("/api/portal", { method: "POST" });
+                const d = await r.json();
+                if (d.url) { window.location.href = d.url; return; }
+              } catch {}
+              btn.style.opacity = "1";
+              window.location.href = "/tarifs";
+            }} style={{ display: "flex", alignItems: "center", gap: 4, background: plan === "standard" ? "rgba(232,92,58,0.08)" : "rgba(168,85,247,0.08)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.25)" : "rgba(168,85,247,0.25)"}`, borderRadius: 20, padding: "4px 10px 4px 8px", cursor: "pointer", transition: "opacity .2s" }}>
+              <span style={{ fontSize: 9, color: "var(--mt)", fontWeight: 600, fontFamily: "var(--sans)", textTransform: "uppercase", letterSpacing: 1 }}>Plan</span>
+              <span style={{ fontSize: 10, fontWeight: 800, color: plan === "standard" ? "#E85C3A" : "#a855f7", letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: "var(--sans)" }}>
+                {plan === "standard" ? (lang === "en" ? "Creator" : "Créateur") : "Premium"}
+              </span>
+              <span style={{ fontSize: 9, color: plan === "standard" ? "#E85C3A" : "#a855f7", opacity: 0.6 }}>›</span>
+            </button>
+          </div>
         </div>
         {/* Mode selector — Packs vs Mixeur */}
         <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
@@ -3398,7 +3401,7 @@ export default function App() {
         </div>
       )}
 
-      {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} onUpgrade={showUpgrade} />}
+      {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} setPlan={setPlan} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} />}
       {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} onCalendrier={genCalendrier} onSaison2={genSaison2} t={t} lang={lang} onUpgrade={showUpgrade} />}
       {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} onUpgrade={showUpgrade} />}
@@ -3410,8 +3413,8 @@ export default function App() {
       {screen === "calendrier" && <CalendrierView calendrier={calendrier} loading={loadingCalendrier} bible={bible} onBack={() => setScreen("bible")} t={t} />}
       {screen === "storyboard" && <StoryboardView storyboard={storyboard} loading={loadingStoryboard} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} />}
 
-      {/* Top bar: dark mode + lang toggle + logout */}
-      {screen !== "tour" && (
+      {/* Top bar: lang toggle + logout — seulement sur les écrans sans header propre */}
+      {screen !== "tour" && screen !== "mix" && (
         <div style={{ position: "absolute", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 10 }}>
           {isAdmin && (
             <button onClick={() => setPlan(p => p === "standard" ? "premium" : "standard")} style={{ background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, borderRadius: 8, padding: "3px 8px", fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>
