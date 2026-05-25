@@ -257,11 +257,6 @@ export default function Exemples() {
           </div>
         </div>
 
-        {/* SCREENSHOT */}
-        <div className="ex-screen" style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px 56px" }}>
-          <img src="/ecran.png" alt="Interface VerticalClap" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: `0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)`, border: `1px solid ${BORDER}` }} />
-        </div>
-
         {/* TABS */}
         <div className="ex-tabs-wrap" style={{ maxWidth: 860, margin: "0 auto", padding: "0 24px 48px", textAlign: "center" }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: MUTED, textTransform: "uppercase", marginBottom: 20 }}>Choisir un exemple</p>
@@ -349,6 +344,11 @@ export default function Exemples() {
                 <span style={{ display: "inline-block", background: RED, borderRadius: 6, padding: "6px 14px", fontSize: 11, fontWeight: 800, color: "#fff", letterSpacing: 1.5, textTransform: "uppercase" }}>{ex.script.cliffhanger_scene.label}</span>
               )}
             </div>
+          </div>
+
+          {/* SCREENSHOT */}
+          <div className="ex-screen" style={{ margin: "0 0 48px" }}>
+            <img src="/ecran.png" alt="Interface VerticalClap" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: `0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)`, border: `1px solid ${BORDER}` }} />
           </div>
 
           {/* CTA */}
