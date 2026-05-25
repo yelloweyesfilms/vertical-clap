@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
+import { Space_Grotesk, Playfair_Display } from "next/font/google";
+
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400","500","600","700","800","900"], variable: "--font-sg", display: "swap" });
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["700","900"], style: ["normal","italic"], variable: "--font-pd", display: "swap" });
 
 const RED = "#E85C3A";
 const VIO = "#a855f7";
 const DARK = "#09090f";
 const BORDER = "rgba(255,255,255,0.08)";
 const TEXT = "#f1f5f9";
-const MUTED = "#94a3b8";
+const MUTED = "#b0bfd4";
 const SITE = "https://verticalclap.com";
 
 const EXEMPLES = [
   {
     mode: "fast",
-    modeLabel: "⚡ Vertical Drama",
+    modeLabel: "⚡ Creator",
     genre: "Medical · Thriller",
     casting: "1 Femme + 1 Homme",
     univers: "Hôpital privé",
@@ -48,7 +52,7 @@ const EXEMPLES = [
   },
   {
     mode: "premium",
-    modeLabel: "🎭 Série Premium",
+    modeLabel: "🎭 Pro",
     genre: "Finance · Thriller psychologique",
     casting: "2 Hommes",
     univers: "Finance internationale",
@@ -84,7 +88,7 @@ const EXEMPLES = [
   },
   {
     mode: "fast",
-    modeLabel: "⚡ Vertical Drama",
+    modeLabel: "⚡ Creator",
     genre: "Romance · Dark Drama",
     casting: "Trio mixte",
     univers: "Famille recomposée",
@@ -121,7 +125,7 @@ const EXEMPLES = [
   },
   {
     mode: "fast",
-    modeLabel: "⚡ Vertical Drama",
+    modeLabel: "⚡ Creator",
     genre: "K-Drama · Romance",
     casting: "1 Femme + 1 Homme",
     univers: "Mode & Influence",
@@ -173,7 +177,7 @@ export default function Exemples() {
   useEffect(() => { track("page_view_exemples", { lang: "fr" }); }, []);
 
   return (
-    <>
+    <div className={`${spaceGrotesk.variable} ${playfair.variable}`}>
       <Head>
         <title>Exemples de séries générées par VerticalClap — Micro-dramas 9:16</title>
         <meta name="description" content="Découvrez 4 séries complètes générées par VerticalClap : médical, finance, famille, romance. Bible, personnages, scripts et cliffhangers prêts à tourner pour TikTok et Reels." />
@@ -186,7 +190,7 @@ export default function Exemples() {
         <meta property="og:image:height" content="630" />
       </Head>
 
-      <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
+      <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "var(--sans)" }}>
         <style>{`
           * { box-sizing: border-box; margin: 0; padding: 0; }
           a { text-decoration: none; color: inherit; }
@@ -220,7 +224,7 @@ export default function Exemples() {
             <a href="/" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none" }}>
               <img src="/1024.png" alt="VC" style={{ width: 32, height: 32, borderRadius: "50%" }} />
               <div style={{ lineHeight: 1 }}>
-                <div style={{ fontSize: 8, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: 2 }}>VERTICAL</div>
+                <div style={{ fontSize: 8, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", marginBottom: 2 }}>VERTICAL</div>
                 <div style={{ fontSize: 14, fontWeight: 900, letterSpacing: "-0.02em", background: `linear-gradient(135deg, #ff8c42, ${RED})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>CLAP</div>
               </div>
             </a>
@@ -235,7 +239,7 @@ export default function Exemples() {
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: `rgba(232,92,58,0.1)`, border: `1px solid rgba(232,92,58,0.25)`, borderRadius: 20, padding: "5px 16px", marginBottom: 24 }}>
             <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase" }}>Générés par l'IA en 30 secondes</span>
           </div>
-          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: -2, marginBottom: 16, color: TEXT, textTransform: "uppercase" }}>
+          <h1 style={{ fontFamily: "var(--sans)", fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: -2, marginBottom: 16, color: TEXT, textTransform: "uppercase" }}>
             4 séries prêtes<br /><span style={{ color: RED }}>à tourner.</span>
           </h1>
           <p style={{ color: MUTED, fontSize: 16, lineHeight: 1.7, maxWidth: 520, margin: "0 auto 48px" }}>
@@ -269,7 +273,7 @@ export default function Exemples() {
                 background: active === i ? RED : "rgba(255,255,255,0.04)",
                 color: active === i ? "#fff" : MUTED,
                 fontSize: 13, fontWeight: 600, cursor: "pointer",
-                fontFamily: "'Space Grotesk', sans-serif", transition: "all .2s",
+                fontFamily: "var(--sans)", transition: "all .2s",
               }}>
                 {e.bible.titre}
               </button>
@@ -291,9 +295,9 @@ export default function Exemples() {
           <div style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${BORDER}`, borderRadius: 20, padding: 32, marginBottom: 16, position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, background: `radial-gradient(circle, ${isPremium ? "rgba(168,85,247,0.08)" : "rgba(232,92,58,0.08)"} 0%, transparent 70%)`, pointerEvents: "none" }} />
             <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase", marginBottom: 16 }}>📖 La Bible</p>
-            <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 28, fontWeight: 900, color: TEXT, marginBottom: 12, letterSpacing: -1, lineHeight: 1.1 }}>{ex.bible.titre}</h2>
+            <h2 style={{ fontFamily: "var(--sans)", fontSize: 28, fontWeight: 900, color: TEXT, marginBottom: 12, letterSpacing: -1, lineHeight: 1.1 }}>{ex.bible.titre}</h2>
             <p style={{ fontSize: 15, fontStyle: "italic", color: MUTED, lineHeight: 1.6, marginBottom: 20, borderLeft: `3px solid ${RED}`, paddingLeft: 16 }}>« {ex.bible.logline} »</p>
-            <p style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.75, marginBottom: 28 }}>{ex.bible.pitch}</p>
+            <p style={{ fontSize: 14, color: "rgba(255,255,255,0.8)", lineHeight: 1.75, marginBottom: 28 }}>{ex.bible.pitch}</p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12, marginBottom: 20 }}>
               {ex.bible.personnages.map((p, i) => (
                 <div key={i} style={{ background: "rgba(255,255,255,0.04)", borderRadius: 12, padding: 16, borderLeft: `3px solid ${i === 0 ? RED : VIO}` }}>
@@ -365,10 +369,10 @@ export default function Exemples() {
                 Voir les tarifs
               </a>
             </div>
-            <p style={{ fontSize: 12, color: MUTED, marginTop: 20, opacity: 0.7 }}>À partir de 9€/mois · Sans engagement · Annulable à tout moment</p>
+            <p style={{ fontSize: 12, color: MUTED, marginTop: 20 }}>À partir de 9€/mois · Sans engagement · Annulable à tout moment</p>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
