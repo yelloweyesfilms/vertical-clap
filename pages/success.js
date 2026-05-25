@@ -183,7 +183,7 @@ export default function Success() {
               {c.cta}
             </a>
             <p style={{ color: MUTED, fontSize: 13, marginTop: 16 }}>
-              {c.doubt} <a href="mailto:hello@verticalclap.com" style={{ color: VIO, fontWeight: 600 }}>hello@verticalclap.com</a>
+              {c.doubt} <a href="mailto:sophieattelann@gmail.com" style={{ color: VIO, fontWeight: 600 }}>sophieattelann@gmail.com</a>
             </p>
           </div>
         </div>
