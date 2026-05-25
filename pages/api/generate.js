@@ -531,6 +531,108 @@ GÉNÉRIQUE ❌ → SPÉCIFIQUE ✅ :
 RÈGLE : chaque scène doit contenir au moins 1 détail sensoriel ou physique précis — une couleur, un objet, un geste, une texture, un son. Ce détail doit révéler quelque chose du personnage ou de la situation.
 
 Les meilleurs détails font deux choses à la fois : ils décrivent ET ils révèlent.
+
+═══════════════════════════════════════════════════════
+PLANTS & PAYOFFS — ÉCRITURE INTELLIGENTE
+═══════════════════════════════════════════════════════
+
+Les révélations doivent donner l'impression : "C'était là depuis le début."
+
+Un détail planté tôt peut devenir crucial plus tard : un objet, une phrase, une blessure, une photo, une habitude, un mensonge, une peur, un souvenir, un détail vestimentaire, une information anodine en apparence.
+
+RÈGLE : chaque twist doit avoir été préparé. Jamais sorti de nulle part. Le spectateur doit pouvoir relire l'épisode 1 et se dire "comment j'ai pas vu ça venir ?"
+
+Les payoffs émotionnels se construisent progressivement. Planter en ep 1, nourrir en ep 3–4, récolter en ep 7–8.
+
+C'est ce qui donne la sensation d'écriture intelligente — et c'est ce qui manque aux IA.
+
+═══════════════════════════════════════════════════════
+RYTHME ÉMOTIONNEL & RESPIRATION
+═══════════════════════════════════════════════════════
+
+Tension permanente = émoussement. Le spectateur ne ressent plus rien.
+
+UNE SÉRIE ALTERNE : tension → relâchement → gêne → humour involontaire → intimité → silence → explosion → douceur → violence émotionnelle.
+
+ÉVITER : personnages constamment hystériques, conflits sans respiration, émotions répétitives dans le même registre.
+
+LES MOMENTS CALMES SERVENT À : créer l'attachement au personnage, préparer la prochaine explosion, laisser la tension s'installer par le silence plutôt que les mots.
+
+Une scène de complicité sincère entre deux personnages qui vont se trahir — c'est là que naît la vraie douleur dramatique. Le calme rend le chaos insupportable.
+
+═══════════════════════════════════════════════════════
+MICRO-COMPORTEMENTS & LANGAGE CORPOREL
+═══════════════════════════════════════════════════════
+
+Les émotions passent par le corps avant de passer par les mots. C'est du vrai cinéma.
+
+UTILISER : gestes, regards, hésitations, posture, respiration, tics, comportements involontaires, objets manipulés, évitement physique.
+
+EXEMPLES CONCRETS :
+• Il remet sa manche pour cacher une cicatrice
+• Elle tape trois fois son téléphone avant de répondre — puis efface tout
+• Il sourit une demi-seconde avant de mentir
+• Elle relit le message. Ne l'envoie pas. Le supprime.
+• Il ouvre le frigo. Le referme. L'ouvre encore. N'était pas là pour manger.
+• Elle arrange les coussins du canapé alors que la conversation devient impossible
+
+RÈGLE : chaque épisode doit avoir au moins 1 micro-comportement qui exprime ce que le personnage ne dit pas. Privilégier systématiquement les réactions physiques aux explications verbales.
+
+═══════════════════════════════════════════════════════
+OBJECTIF DRAMATIQUE DE SCÈNE — McKEE / TRUBY
+═══════════════════════════════════════════════════════
+
+Une scène n'est pas un dialogue. C'est une bataille.
+
+CHAQUE SCÈNE CONTIENT : un objectif (ce que quelqu'un veut), un obstacle (ce qui l'en empêche), une tension (le risque si ça échoue), une évolution (quelque chose a changé à la fin).
+
+Une scène où personne ne veut rien est une scène statique. INTERDIT.
+
+LA SCÈNE DOIT MODIFIER au moins un de ces éléments : la relation, l'information détenue, le rapport de pouvoir, ou l'état émotionnel d'un personnage.
+
+Entrer dans la scène le plus tard possible. En sortir dès que l'évolution est faite. Zéro traîne.
+
+═══════════════════════════════════════════════════════
+CLIFFHANGERS ÉMOTIONNELS — PAS JUSTE NARRATIFS
+═══════════════════════════════════════════════════════
+
+MAUVAIS CLIFFHANGERS ❌ :
+• "quelqu'un frappe à la porte"
+• "elle est choquée"
+• "il reçoit un appel mystérieux"
+• fin sans vrai enjeu émotionnel
+
+BONS CLIFFHANGERS ✅ :
+• révélation qui recontextualise tout ce qu'on a vu
+• trahison de la part d'un personnage qu'on aimait
+• choix impossible posé au spectateur, pas au personnage
+• retournement relationnel — on pensait savoir qui aimait qui, qui haïssait qui
+• danger intime — pas physique, émotionnel
+• aveu qu'on attendait depuis 3 épisodes — dit au mauvais moment, à la mauvaise personne
+
+LE CLIFFHANGER DOIT MODIFIER : ce qu'on croyait savoir, ce qu'un personnage ressent, ou la dynamique de la relation. Sinon c'est de la mécanique, pas de l'écriture.
+
+═══════════════════════════════════════════════════════
+IMPERFECTION HUMAINE — LE MODE HUMAIN
+═══════════════════════════════════════════════════════
+
+C'est ce qui différencie le plus une vraie écriture d'une écriture IA.
+
+LES PERSONNAGES DOIVENT PARFOIS :
+• hésiter au mauvais moment
+• se contredire sans s'en rendre compte
+• être injustes avec la mauvaise personne
+• mentir maladroitement — et être à moitié crus
+• réagir de façon disproportionnée à une petite chose
+• ne pas trouver les bons mots alors que c'est crucial
+• éviter la conversation importante pour parler de rien
+• changer de sujet quand ça devient trop réel
+• faire semblant de ne pas avoir vu, entendu, compris
+• dire "ça va" alors que tout s'effondre
+
+ÉVITER les dialogues trop parfaits, trop intelligents, trop bien construits. Les humains ne communiquent pas de manière optimale. Ils ratent leurs moments. Ils disent trop ou pas assez. Ils sont parfois lâches, parfois stupidement courageux.
+
+L'imperfection EST le réalisme. C'est elle qui crée l'empathie.
 `;
 
 const DUR_INSTR = {
