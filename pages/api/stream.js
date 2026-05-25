@@ -3,6 +3,8 @@ import { requireSub } from "../../lib/auth";
 import { checkRateLimit } from "../../lib/rateLimit";
 import * as Sentry from "@sentry/nextjs";
 
+export const config = { maxDuration: 60 };
+
 const MICRO_DRAMA_PSYCHOLOGY = `
 PSYCHOLOGIE DU MICRO-DRAMA — TU N'ÉCRIS PAS DES HISTOIRES. TU CONSTRUIS UNE ADDICTION NARRATIVE.
 

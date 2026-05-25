@@ -4,6 +4,8 @@ import { checkRateLimit } from "../../lib/rateLimit";
 import { Redis } from "@upstash/redis";
 import * as Sentry from "@sentry/nextjs";
 
+export const config = { maxDuration: 60 };
+
 function getRedis() {
   if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) return null;
   return new Redis({ url: process.env.UPSTASH_REDIS_REST_URL, token: process.env.UPSTASH_REDIS_REST_TOKEN });
