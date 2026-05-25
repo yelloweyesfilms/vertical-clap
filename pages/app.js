@@ -1049,9 +1049,9 @@ function StepBar({ step, lang = "fr" }) {
               {/* Label */}
               <span style={{
                 fontSize: 7.5, fontWeight: active ? 800 : 400,
-                color: active ? color : "var(--mt)",
+                color: active ? color : "var(--tx)",
                 whiteSpace: "nowrap", letterSpacing: 0.8,
-                textTransform: "uppercase", opacity: active ? 1 : done ? 0.65 : 0.35,
+                textTransform: "uppercase", opacity: active ? 1 : done ? 0.85 : 0.6,
                 fontFamily: "var(--sans)",
               }}>{s.short}</span>
             </div>
@@ -1719,7 +1719,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
               { k: "seq", l: lang === "fr" ? "Saison 1" : "Season 1", onClick: () => setTab("seq") },
             ].map(({ k, l, onClick }) => (
               <button key={k} onClick={onClick}
-                style={{ flex: 1, padding: "10px 0", border: "none", background: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, color: tab === k ? "var(--r)" : "var(--mt)", borderBottom: `2px solid ${tab === k ? "var(--r)" : "transparent"}`, marginBottom: -2, fontFamily: "var(--sans)" }}>{l}
+                style={{ flex: 1, padding: "10px 0", border: "none", background: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, color: tab === k ? "var(--r)" : "var(--tx)", borderBottom: `2px solid ${tab === k ? "var(--r)" : "transparent"}`, marginBottom: -2, fontFamily: "var(--sans)" }}>{l}
               </button>
             ))}
             <button onClick={() => setShowMore(v => !v)}
