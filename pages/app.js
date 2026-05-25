@@ -1309,7 +1309,14 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
         {/* Universe Packs */}
         <div style={{ marginBottom: 28 }}>
-          <SectionHead title={lang === "fr" ? "Packs Univers" : "Universe Packs"} sub={lang === "fr" ? "Tout configuré en 1 clic — genre, casting, secret, ambiance" : "Everything set in 1 click — genre, casting, secret, mood"} />
+          <div style={{ marginBottom: 16 }}>
+            <p style={{ fontSize: 18, fontWeight: 900, color: "var(--tx)", fontFamily: "var(--sans)", letterSpacing: -0.5, marginBottom: 4 }}>
+              {lang === "fr" ? "🎯 Tu veux pas te prendre la tête ?" : "🎯 Don't want to overthink it?"}
+            </p>
+            <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5 }}>
+              {lang === "fr" ? "Choisis un pack — genre, casting, ambiance, secrets, tout est déjà configuré." : "Pick a pack — genre, casting, mood, secrets, everything's already set."}
+            </p>
+          </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {UNIVERSE_PACKS.map(p => {
               const locked = p.mode === "premium" && plan === "standard";
