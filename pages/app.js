@@ -1660,14 +1660,15 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
 
   const genCartes = async () => {
     setTab("persos");
-    if (cartes) return;
+    if (cartes && cartes.length > 0) return;
+    setCartes(null);
     setLoadingCartes(true);
     try {
       const r = await gen("cartes", { personnages: bible.personnages || [], titre: bible.titre, genre: bible.genre, lang }, customerId);
       setCartes(r.cartes || []);
     } catch (e) {
       console.error(e);
-      setCartes([]);
+      setCartes(null);
     }
     setLoadingCartes(false);
   };
