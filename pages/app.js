@@ -1136,13 +1136,13 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   const totalMin = Math.round(state.format * state.duree / 60);
   const [customInputs, setCustomInputs] = useState({ casting: "", univers: "", secret: "" });
   const [castingCat, setCastingCat] = useState("romance");
-  const [mixTab, setMixTab] = useState("univers");
+  const [mixTab, setMixTab] = useState("format");
   const [creationMode, setCreationMode] = useState("mixeur"); // "mixeur" | "packs"
   const [showHelp, setShowHelp] = useState(false);
 
   const MIX_TABS = lang === "en"
-    ? [{ id: "univers", label: "Story" }, { id: "persos", label: "Cast" }, { id: "ambiance", label: "Style" }, { id: "format", label: "Format" }]
-    : [{ id: "univers", label: "Univers" }, { id: "persos", label: "Persos" }, { id: "ambiance", label: "Ambiance" }, { id: "format", label: "Format" }];
+    ? [{ id: "format", label: "Format" }, { id: "persos", label: "Cast" }, { id: "univers", label: "Story" }, { id: "ambiance", label: "Style" }]
+    : [{ id: "format", label: "Format" }, { id: "persos", label: "Persos" }, { id: "univers", label: "Univers" }, { id: "ambiance", label: "Ambiance" }];
 
   const FORMAT_TROPES = {
     romance:     ["enemies-to-lovers", "fake-dating"],
