@@ -1941,14 +1941,14 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
   useEffect(() => { setTranslated(null); setActiveLang(null); setShowLangs(false); }, [ep?.numero]);
 
   const LANGS = [
-    { code: "en", flag: "🇬🇧", label: "EN" },
-    { code: "es", flag: "🇪🇸", label: "ES" },
-    { code: "de", flag: "🇩🇪", label: "DE" },
-    { code: "pt", flag: "🇵🇹", label: "PT" },
-    { code: "it", flag: "🇮🇹", label: "IT" },
-    { code: "ar", flag: "🇸🇦", label: "AR" },
-    { code: "he", flag: "🇮🇱", label: "HE" },
-    { code: "zh", flag: "🇨🇳", label: "ZH" },
+    { code: "en", flag: "🇬🇧", label: "Anglais",   labelEn: "English"    },
+    { code: "es", flag: "🇪🇸", label: "Espagnol",  labelEn: "Spanish"    },
+    { code: "de", flag: "🇩🇪", label: "Allemand",  labelEn: "German"     },
+    { code: "pt", flag: "🇵🇹", label: "Portugais", labelEn: "Portuguese" },
+    { code: "it", flag: "🇮🇹", label: "Italien",   labelEn: "Italian"    },
+    { code: "ar", flag: "🇸🇦", label: "Arabe",     labelEn: "Arabic"     },
+    { code: "he", flag: "🇮🇱", label: "Hébreu",    labelEn: "Hebrew"     },
+    { code: "zh", flag: "🇨🇳", label: "Chinois",   labelEn: "Chinese"    },
   ];
 
   const handleTranslate = async (code) => {
@@ -2067,11 +2067,12 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
             </button>
             {showLangs && !translating && (
               <div style={{ background: "var(--card)", borderRadius: 12, padding: 14, marginBottom: 6, border: "1.5px solid var(--bo)" }}>
-                <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 10 }}>{t.choose_lang}</p>
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                <p style={{ fontSize: 13, fontWeight: 700, color: "var(--mt)", marginBottom: 10 }}>{t.choose_lang}</p>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                   {LANGS.map(l => (
-                    <button key={l.code} onClick={() => handleTranslate(l.code)} style={{ padding: "8px 12px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--bg)", cursor: "pointer", fontSize: 13, fontFamily: "var(--sans)", display: "flex", alignItems: "center", gap: 5 }}>
-                      <span>{l.flag}</span><span style={{ fontWeight: 700 }}>{l.label}</span>
+                    <button key={l.code} onClick={() => handleTranslate(l.code)} style={{ padding: "10px 12px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--bg)", cursor: "pointer", fontFamily: "var(--sans)", display: "flex", alignItems: "center", gap: 8, textAlign: "left" }}>
+                      <span style={{ fontSize: 20 }}>{l.flag}</span>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)" }}>{lang === "en" ? l.labelEn : l.label}</span>
                     </button>
                   ))}
                 </div>
