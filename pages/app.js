@@ -1098,14 +1098,25 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
     ? [{ id: "univers", label: "Story" }, { id: "persos", label: "Cast" }, { id: "ambiance", label: "Style" }, { id: "format", label: "Format" }]
     : [{ id: "univers", label: "Univers" }, { id: "persos", label: "Persos" }, { id: "ambiance", label: "Ambiance" }, { id: "format", label: "Format" }];
 
+  const FORMAT_TROPES = {
+    kdrama:  ["enemies-to-lovers", "forbidden-love"],
+    thriller: ["betrayal", "hidden-identity"],
+    romance:  ["enemies-to-lovers", "fake-dating"],
+    dark:     ["betrayal", "revenge"],
+    vertical: [],
+    serie:    [],
+  };
+
   const selectFormat = (f) => {
+    const isToggleOff = false; // never deselect — always apply
     set(prev => ({
       genreFormat: prev.genreFormat === f.id ? null : f.id,
       genre: f.genre,
       tropes: f.tropes ? f.tropes : prev.tropes,
       ambianceVisuelle: f.ambianceVisuelle ? f.ambianceVisuelle : prev.ambianceVisuelle,
       style: f.style,
-      univers: f.mode !== prev.mode ? (f.mode === "fast" ? prev.univers : prev.univers) : prev.univers,
+      tropesSel: FORMAT_TROPES[f.id] || [],
+      packId: null, // reset pack to avoid conflicts
     }));
   };
 
