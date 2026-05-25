@@ -1369,38 +1369,50 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           })()}
           {/* Modifiers */}
           {[
-            { key: "physique",   mods: CASTING_PHYSIQUE,  label: { fr: "🧬 Morphologie",           en: "🧬 Body type" } },
-            { key: "culture",    mods: CASTING_CULTURE,   label: { fr: "🌍 Origine culturelle",     en: "🌍 Cultural origin" } },
-            { key: "aesthetic",  mods: CASTING_AESTHETIC, label: { fr: "✨ Esthétique",             en: "✨ Aesthetic" } },
-            { key: "blessure",   mods: CASTING_BLESSURE,  label: { fr: "💔 Défauts & Blessures",    en: "💔 Flaws & Wounds" } },
-            { key: "aura",       mods: CASTING_AURA,      label: { fr: "✨ Aura",                   en: "✨ Aura" } },
-          ].map(({ key, mods, label }) => (
+            { key: "physique",   mods: CASTING_PHYSIQUE,  max: 1, label: { fr: "🧬 Morphologie",           en: "🧬 Body type" } },
+            { key: "culture",    mods: CASTING_CULTURE,   max: 1, label: { fr: "🌍 Origine culturelle",     en: "🌍 Cultural origin" } },
+            { key: "aesthetic",  mods: CASTING_AESTHETIC, max: 2, label: { fr: "✨ Esthétique",             en: "✨ Aesthetic" } },
+            { key: "blessure",   mods: CASTING_BLESSURE,  max: 2, label: { fr: "💔 Défauts & Blessures",    en: "💔 Flaws & Wounds" } },
+            { key: "aura",       mods: CASTING_AURA,      max: 1, label: { fr: "✨ Aura",                   en: "✨ Aura" } },
+          ].map(({ key, mods, max, label }) => {
+            const sel = state.castingMods?.[key] || [];
+            const atMax = sel.length >= max;
+            return (
             <div key={key} style={{ marginBottom: 14 }}>
-              <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 8 }}>{label[lang] || label.fr}</p>
+              <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
+                <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)" }}>{label[lang] || label.fr}</p>
+                <span style={{ fontSize: 10, color: atMax ? "var(--r)" : "var(--bo)", fontWeight: 700 }}>
+                  {sel.length}/{max}
+                </span>
+              </div>
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                 {mods.map(m => {
                   const mLabel = m.label[lang] || m.label.fr;
-                  const active = (state.castingMods?.[key] || []).includes(m.id);
+                  const active = sel.includes(m.id);
+                  const disabled = atMax && !active;
                   return (
-                    <button key={m.id} onClick={() => set(prev => {
-                      const cur = prev.castingMods?.[key] || [];
-                      const next = active ? cur.filter(x => x !== m.id) : [...cur, m.id];
-                      return { castingMods: { ...(prev.castingMods || {}), [key]: next } };
-                    })} style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "5px 10px", borderRadius: 100, border: `1.5px solid ${active ? "var(--n)" : "var(--bo)"}`, background: active ? "var(--n)22" : "var(--card)", color: active ? "var(--n)" : "var(--tx)", cursor: "pointer", fontSize: 11, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s" }}>
+                    <button key={m.id} onClick={() => {
+                      if (disabled) return;
+                      set(prev => {
+                        const cur = prev.castingMods?.[key] || [];
+                        const next = active ? cur.filter(x => x !== m.id) : [...cur, m.id];
+                        return { castingMods: { ...(prev.castingMods || {}), [key]: next } };
+                      });
+                    }} style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "5px 10px", borderRadius: 100, border: `1.5px solid ${active ? "var(--n)" : "var(--bo)"}`, background: active ? "var(--n)22" : "var(--card)", color: active ? "var(--n)" : disabled ? "var(--bo)" : "var(--tx)", cursor: disabled ? "default" : "pointer", opacity: disabled ? 0.35 : 1, fontSize: 11, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s" }}>
                       <span>{m.emoji}</span><span>{mLabel}</span>
                     </button>
                   );
                 })}
               </div>
               {/* Desc pour les chips avec description (ex: Diaspora) */}
-              {(state.castingMods?.[key] || []).map(id => {
+              {sel.map(id => {
                 const m = mods.find(x => x.id === id);
                 if (!m?.desc) return null;
                 const d = m.desc[lang] || m.desc.fr;
                 return <p key={id} style={{ fontSize: 11, color: "var(--n)", marginTop: 6, fontStyle: "italic" }}>🧳 {d}</p>;
               })}
             </div>
-          ))}
+          );})}
         </div>
 
         </>)} {/* end TAB: PERSOS */}
