@@ -1230,16 +1230,20 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           </div>
         </div>
         {/* Mode selector — Packs vs Mixeur */}
-        <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
-          <button onClick={() => setCreationMode("mixeur")} style={{ flex: 1, padding: "10px 8px", borderRadius: 12, border: `2px solid ${creationMode === "mixeur" ? "var(--r)" : "var(--bo)"}`, background: creationMode === "mixeur" ? "rgba(232,92,58,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s" }}>
-            <div style={{ fontSize: 15, marginBottom: 2 }}>🎛️</div>
-            <div style={{ fontSize: 11, fontWeight: 800, color: creationMode === "mixeur" ? "var(--r)" : "var(--tx)" }}>{lang === "fr" ? "Mixeur" : "Mixer"}</div>
-            <div style={{ fontSize: 9, color: "var(--mt)", lineHeight: 1.3 }}>{lang === "fr" ? "Je configure moi-même" : "I'll configure it myself"}</div>
+        <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
+          <button onClick={() => setCreationMode("mixeur")} style={{ flex: 1, padding: "7px 8px", borderRadius: 10, border: `2px solid ${creationMode === "mixeur" ? "var(--r)" : "var(--bo)"}`, background: creationMode === "mixeur" ? "rgba(232,92,58,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", alignItems: "center", gap: 6 }}>
+            <span style={{ fontSize: 14 }}>🎛️</span>
+            <div style={{ textAlign: "left" }}>
+              <div style={{ fontSize: 11, fontWeight: 800, color: creationMode === "mixeur" ? "var(--r)" : "var(--tx)" }}>{lang === "fr" ? "Mixeur" : "Mixer"}</div>
+              <div style={{ fontSize: 9, color: "var(--mt)" }}>{lang === "fr" ? "Je configure moi-même" : "I configure it"}</div>
+            </div>
           </button>
-          <button onClick={() => setCreationMode("packs")} style={{ flex: 1, padding: "10px 8px", borderRadius: 12, border: `2px solid ${creationMode === "packs" ? "#a855f7" : "var(--bo)"}`, background: creationMode === "packs" ? "rgba(168,85,247,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s" }}>
-            <div style={{ fontSize: 15, marginBottom: 2 }}>🎯</div>
-            <div style={{ fontSize: 11, fontWeight: 800, color: creationMode === "packs" ? "#a855f7" : "var(--tx)" }}>{lang === "fr" ? "Packs" : "Packs"}</div>
-            <div style={{ fontSize: 9, color: "var(--mt)", lineHeight: 1.3 }}>{lang === "fr" ? "Tout en 1 clic" : "Everything in 1 click"}</div>
+          <button onClick={() => setCreationMode("packs")} style={{ flex: 1, padding: "7px 8px", borderRadius: 10, border: `2px solid ${creationMode === "packs" ? "#a855f7" : "var(--bo)"}`, background: creationMode === "packs" ? "rgba(168,85,247,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", alignItems: "center", gap: 6 }}>
+            <span style={{ fontSize: 14 }}>🎯</span>
+            <div style={{ textAlign: "left" }}>
+              <div style={{ fontSize: 11, fontWeight: 800, color: creationMode === "packs" ? "#a855f7" : "var(--tx)" }}>{lang === "fr" ? "Packs" : "Packs"}</div>
+              <div style={{ fontSize: 9, color: "var(--mt)" }}>{lang === "fr" ? "Tout en 1 clic" : "1-click ready"}</div>
+            </div>
           </button>
         </div>
 
@@ -1260,19 +1264,19 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </div>}
       </div>
 
-      {/* ═══ BUDGET — visible seulement en mode Mixeur ═══ */}
-      {creationMode === "mixeur" && <div style={{ padding: "14px 16px 0", borderBottom: "1.5px solid var(--bo)" }}>
-        <p style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--mt)", marginBottom: 8, fontFamily: "var(--sans)" }}>
-          {lang === "fr" ? "💸 Budget de tournage" : "💸 Shooting budget"}
+      {/* ═══ BUDGET — compact horizontal scroll ═══ */}
+      {creationMode === "mixeur" && <div style={{ padding: "8px 16px 8px", borderBottom: "1.5px solid var(--bo)", flexShrink: 0 }}>
+        <p style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--mt)", marginBottom: 6, fontFamily: "var(--sans)" }}>
+          {lang === "fr" ? "💸 Budget" : "💸 Budget"}
         </p>
-        <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
+        <div style={{ display: "flex", gap: 5, overflowX: "auto", paddingBottom: 2, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
           {BUDGET_LEVELS.map(b => {
             const bLabel = b.label[lang] || b.label.fr;
             const active = state.budget === b.id;
             return (
-              <button key={b.id} onClick={() => set({ budget: b.id, lieu: "" })} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "8px 4px", borderRadius: 10, border: `2px solid ${active ? b.color : "var(--bo)"}`, background: active ? `${b.color}18` : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", gap: 2 }}>
-                <span style={{ fontSize: 16 }}>{b.emoji}</span>
-                <span style={{ fontSize: 9, fontWeight: 800, color: active ? b.color : "var(--tx)", textAlign: "center", lineHeight: 1.2 }}>{bLabel}</span>
+              <button key={b.id} onClick={() => set({ budget: b.id, lieu: "" })} style={{ flexShrink: 0, display: "flex", alignItems: "center", gap: 4, padding: "5px 10px", borderRadius: 20, border: `1.5px solid ${active ? b.color : "var(--bo)"}`, background: active ? `${b.color}18` : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s" }}>
+                <span style={{ fontSize: 13 }}>{b.emoji}</span>
+                <span style={{ fontSize: 10, fontWeight: active ? 800 : 500, color: active ? b.color : "var(--tx)", whiteSpace: "nowrap" }}>{bLabel}</span>
               </button>
             );
           })}
@@ -1281,12 +1285,12 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           const bLevel = BUDGET_LEVELS.find(b => b.id === state.budget);
           if (!bLevel?.lieux?.length) return null;
           return (
-            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
+            <div style={{ display: "flex", gap: 5, overflowX: "auto", paddingBottom: 2, marginTop: 6, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
               {bLevel.lieux.map(l => {
                 const lLabel = l.label[lang] || l.label.fr;
                 const active = state.lieu === lLabel;
                 return (
-                  <button key={l.id} onClick={() => set({ lieu: active ? "" : lLabel })} style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "5px 10px", borderRadius: 100, border: `1.5px solid ${active ? bLevel.color : "var(--bo)"}`, background: active ? `${bLevel.color}22` : "var(--card)", color: active ? bLevel.color : "var(--tx)", cursor: "pointer", fontSize: 10, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s" }}>
+                  <button key={l.id} onClick={() => set({ lieu: active ? "" : lLabel })} style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 3, padding: "4px 9px", borderRadius: 100, border: `1.5px solid ${active ? bLevel.color : "var(--bo)"}`, background: active ? `${bLevel.color}22` : "var(--card)", color: active ? bLevel.color : "var(--tx)", cursor: "pointer", fontSize: 10, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s", whiteSpace: "nowrap" }}>
                     <span>{l.emoji}</span><span>{lLabel}</span>
                   </button>
                 );
