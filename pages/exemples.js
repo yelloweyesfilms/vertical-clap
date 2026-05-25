@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Space_Grotesk, Playfair_Display } from "next/font/google";
 
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400","500","600","700","800","900"], variable: "--font-sg", display: "swap" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400","500","600","700"], variable: "--font-sg", display: "swap" });
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["700","900"], style: ["normal","italic"], variable: "--font-pd", display: "swap" });
 
 const RED = "#E85C3A";
