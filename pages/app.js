@@ -1251,7 +1251,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
       )}
       {/* Hero banner — au-dessus du header */}
       <div style={{ position: "relative", width: "100%", height: 130, overflow: "hidden", flexShrink: 0 }}>
-        <img src="/studio.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 25%" }} />
+        <img src="/studio.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 45%" }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(9,9,15,0.25) 0%, rgba(9,9,15,0.55) 60%, rgba(19,19,30,1) 100%)" }} />
         {/* Logo + boutons en overlay sur la bannière */}
         <div style={{ position: "absolute", top: 10, left: 16, right: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
