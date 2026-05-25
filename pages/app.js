@@ -1254,7 +1254,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
               return (
                 <button key={p.id} onClick={() => {
                   if (locked) { onUpgrade("serie"); return; }
-                  set({ mode: p.mode, casting: pCasting, univers: pUnivers, secret: pSecret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 20 : state.format });
+                  set({ mode: p.mode, casting: pCasting, univers: pUnivers, secret: pSecret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, tropesSel: [], packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 20 : state.format });
                 }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${locked ? "rgba(168,85,247,0.2)" : active ? "var(--r)" : "var(--bo)"}`, background: locked ? "rgba(168,85,247,0.04)" : active ? "var(--r)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "left", transition: "all .15s", position: "relative" }}>
                   <span style={{ fontSize: 28, flexShrink: 0, opacity: locked ? 0.5 : 1 }}>{p.emoji}</span>
                   <div style={{ flex: 1, minWidth: 0, opacity: locked ? 0.7 : 1 }}>
