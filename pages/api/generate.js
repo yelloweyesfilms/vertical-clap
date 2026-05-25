@@ -339,16 +339,16 @@ SPÉCIFICITÉ : "une Clio rouge avec le rétroviseur cassé" > "une voiture". "l
 const MICRO_DRAMA_PSYCHOLOGY = CORE_PSYCHOLOGY;
 
 const DUR_INSTR = {
-  60: `DURÉE 1 MIN — MINIMUM 10 scènes OBLIGATOIRE. Structure temporelle STRICTE:
+  60: `DURÉE 1 MIN — MINIMUM 12 scènes OBLIGATOIRE. Structure temporelle STRICTE:
 • 0–5s: HOOK — 1 phrase choc max 10 mots. COMMENCER AU PIRE MOMENT POSSIBLE. In medias res absolu. Jamais: "Bonjour", setup, exposition.
 • 5–20s: CONFLIT DIRECT — 3 répliques ultra-courtes. L'enjeu est clair immédiatement. Chaque phrase ATTAQUE, RÉVÈLE ou AGGRAVE. Chaque réplique doit aggraver la situation.
 • 20–40s: ESCALADE — 4 répliques. Quelqu'un ment / révèle un secret / arrive à l'improviste / trahit / menace / provoque. La situation empire à chaque échange. Montée CONSTANTE.
 • 40–55s: TWIST / RÉVÉLATION — 2-3 répliques. La dynamique BASCULE. Exemples qui fonctionnent: mauvaise personne accusée, identité révélée, manipulation découverte, grossesse, vidéo trouvée, vengeance, mensonge exposé. Ce twist DOIT relancer le désir de regarder.
 • 55–60s: CLIFFHANGER — 1 phrase. COUPER AVANT LA RÉPONSE. TOUJOURS. Question laissée en suspens, jamais résolue dans cet épisode.
 RÈGLES ABSOLUES: 1 événement toutes les 10-15 secondes maximum (sinon le cerveau décroche). Phrases 5-12 mots. Aucune exposition, aucune politesse. 1 SEULE idée forte par épisode. Les ÉMOTIONS visibles immédiatement: colère, désir, jalousie, peur, humiliation. Les RELATIONS sont le moteur: couples, rivalités, secrets, trahisons.
-CALIBRAGE MOTS STRICT: 130 à 150 mots au total (somme des dialogues + indications de jeu). Ni plus, ni moins.`,
+CALIBRAGE MOTS STRICT: 260 à 300 mots au total (somme des dialogues + indications de jeu). Ni plus, ni moins.`,
 
-  90: `DURÉE 1MIN30 — MINIMUM 14 scènes OBLIGATOIRE. Structure temporelle STRICTE:
+  90: `DURÉE 1MIN30 — MINIMUM 16 scènes OBLIGATOIRE. Structure temporelle STRICTE:
 • 0–5s: HOOK — 1 phrase choc. COMMENCER AU PIRE MOMENT POSSIBLE. Situation déjà explosive.
 • 5–25s: CONFLIT — 4 répliques courtes. Tension immédiate, enjeu clair, chaque réplique aggrave.
 • 25–50s: ESCALADE — 5 répliques. Quelqu'un ment, trahit ou révèle quelque chose. Montée constante, le spectateur sent l'inévitable.
@@ -356,9 +356,9 @@ CALIBRAGE MOTS STRICT: 130 à 150 mots au total (somme des dialogues + indicatio
 • 75–80s: CONSÉQUENCE ÉMOTIONNELLE — 2 répliques. Réaction physique au twist: silence, fuite, larmes, cri, choc.
 • 80–90s: CLIFFHANGER — COUPER AVANT LA RÉPONSE. Question suspendue, jamais résolue. Le spectateur DOIT lancer l'épisode suivant.
 RÈGLES ABSOLUES: 1 événement toutes les 15 secondes maximum. Phrases 8-15 mots. Sous-texte riche. Silences pesants. 1 idée centrale.
-CALIBRAGE MOTS STRICT: 200 à 225 mots au total (somme des dialogues + indications de jeu). Ni plus, ni moins.`,
+CALIBRAGE MOTS STRICT: 390 à 440 mots au total (somme des dialogues + indications de jeu). Ni plus, ni moins.`,
 
-  120: `DURÉE 2 MIN — MINIMUM 18 scènes OBLIGATOIRE. Structure temporelle STRICTE:
+  120: `DURÉE 2 MIN — MINIMUM 22 scènes OBLIGATOIRE. Structure temporelle STRICTE:
 • 0–10s: HOOK — COMMENCER AU PIRE MOMENT POSSIBLE. Situation déjà en crise.
 • 10–40s: CONFLIT — 5 répliques. Contexte minimal par l'ACTION (pas les mots). L'enjeu est immédiatement dramatique.
 • 40–70s: ESCALADE — 6 répliques. Rebondissement OBLIGATOIRE à mi-parcours. La situation empire deux fois.
@@ -366,7 +366,7 @@ CALIBRAGE MOTS STRICT: 200 à 225 mots au total (somme des dialogues + indicatio
 • 105–110s: CONSÉQUENCE — réaction physique brève à la révélation.
 • 110–120s: CLIFFHANGER DOUBLE — 2 révélations simultanées ou question dévastatrice. COUPER AVANT LA RÉPONSE.
 RÈGLES ABSOLUES: 1 événement toutes les 20 secondes. Phrases 10-20 mots. 2 acteurs max à l'écran. 1 seule intrigue centrale.
-CALIBRAGE MOTS STRICT: 270 à 300 mots au total (somme des dialogues + indications de jeu). Ni plus, ni moins.`,
+CALIBRAGE MOTS STRICT: 520 à 580 mots au total (somme des dialogues + indications de jeu). Ni plus, ni moins.`,
 };
 
 export default async function handler(req, res) {
