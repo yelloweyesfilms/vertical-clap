@@ -2053,7 +2053,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
             <div style={{ background: "var(--card)", border: "2px solid var(--r)", borderRadius: 14, padding: 16, marginBottom: 16 }}>
               <p style={{ fontSize: 15, fontWeight: 800, color: "var(--r)", marginBottom: 8 }}>{t.hook}</p>
               <p style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.4, marginBottom: 8, color: "var(--tx)" }}>{displayScript.hook_scene?.texte}</p>
-              <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic" }}>[9:16] {displayScript.hook_scene?.visuel_916}</p>
+              <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {displayScript.hook_scene?.visuel_916}</p>
             </div>
             <p style={{ fontSize: 15, fontWeight: 700, color: "var(--mt)", marginBottom: 10, display: "flex", alignItems: "center", gap: 10 }}>
               <span>{t.script_label} · {DUR_LABEL[lang][duree]} · {(displayScript.scenes || []).length} {t.repliques}</span>
@@ -2168,7 +2168,7 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
             <div style={{ background: "#fff5f2", borderRadius: 10, padding: 12, marginBottom: 10 }}>
               <p style={{ fontSize: 14, fontWeight: 700, color: "var(--r)", marginBottom: 6 }}>⚡ Hook</p>
               <p style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.4, marginBottom: 4 }}>{v.hook_scene?.texte}</p>
-              {v.hook_scene?.visuel_916 && <p style={{ fontSize: 11, color: "var(--r)", fontStyle: "italic" }}>[9:16] {v.hook_scene.visuel_916}</p>}
+              {v.hook_scene?.visuel_916 && <p style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {v.hook_scene.visuel_916}</p>}
             </div>
             {(v.scenes || []).slice(0, 2).map((s, j) => (
               <div key={j} style={{ borderLeft: "2px solid var(--bo)", paddingLeft: 10, marginBottom: 8 }}>
@@ -2178,10 +2178,10 @@ function VariationsView({ variations, loading, ep, onSelect, onBack }) {
               </div>
             ))}
             {(v.scenes || []).length > 2 && <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic" }}>+ {v.scenes.length - 2} réplique{v.scenes.length - 2 > 1 ? "s" : ""}…</p>}
-            <div style={{ background: "var(--tx)", borderRadius: 10, padding: 12, marginTop: 10 }}>
+            <div style={{ background: "rgba(232,92,58,0.08)", border: "1px solid rgba(232,92,58,0.2)", borderRadius: 10, padding: 12, marginTop: 10 }}>
               <p style={{ fontSize: 14, fontWeight: 700, color: "var(--r)", marginBottom: 6 }}>🎬 Cliffhanger</p>
-              <p style={{ fontSize: 13, fontWeight: 700, color: "#fff", lineHeight: 1.4, marginBottom: 4 }}>{v.cliffhanger_scene?.texte}</p>
-              {v.cliffhanger_scene?.visuel_916 && <p style={{ fontSize: 11, color: "var(--r)", fontStyle: "italic" }}>[9:16] {v.cliffhanger_scene.visuel_916}</p>}
+              <p style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)", lineHeight: 1.4, marginBottom: 4 }}>{v.cliffhanger_scene?.texte}</p>
+              {v.cliffhanger_scene?.visuel_916 && <p style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {v.cliffhanger_scene.visuel_916}</p>}
             </div>
           </div>
         ))}
