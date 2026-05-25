@@ -20,8 +20,8 @@ const CHANNELS = [
     icon: "✉️",
     title: "Email général",
     desc: "Questions, suggestions, partenariats.",
-    link: "mailto:sophieattelann@gmail.com",
-    label: "sophieattelann@gmail.com",
+    link: "mailto:hello@verticalclap.com",
+    label: "hello@verticalclap.com",
   },
   {
     icon: "🛠️",
@@ -34,7 +34,7 @@ const CHANNELS = [
     icon: "⚖️",
     title: "Données personnelles",
     desc: "Exercer vos droits RGPD, demande de suppression.",
-    link: "mailto:sophieattelann@gmail.com?subject=RGPD%20—%20demande",
+    link: "mailto:hello@verticalclap.com?subject=RGPD%20—%20demande",
     label: "Envoyer une demande RGPD →",
   },
 ];
@@ -162,7 +162,7 @@ export default function Contact() {
                   />
                 </div>
                 {status === "error" && (
-                  <p style={{ fontSize: 13, color: RED, margin: 0 }}>Une erreur s'est produite. Réessaie ou écris directement à sophieattelann@gmail.com.</p>
+                  <p style={{ fontSize: 13, color: RED, margin: 0 }}>Une erreur s'est produite. Réessaie ou écris directement à hello@verticalclap.com.</p>
                 )}
                 <button
                   type="submit" disabled={status === "sending"}
