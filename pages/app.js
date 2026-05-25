@@ -1138,6 +1138,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   const [castingCat, setCastingCat] = useState("romance");
   const [mixTab, setMixTab] = useState("univers");
   const [creationMode, setCreationMode] = useState("mixeur"); // "mixeur" | "packs"
+  const [showHelp, setShowHelp] = useState(false);
 
   const MIX_TABS = lang === "en"
     ? [{ id: "univers", label: "Story" }, { id: "persos", label: "Cast" }, { id: "ambiance", label: "Style" }, { id: "format", label: "Format" }]
@@ -1182,8 +1183,72 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
     set({ [key]: CUSTOM_PREFIX + val });
   };
 
+  const HELP_STEPS = [
+    { emoji: "💡", label: "IDÉE", desc: "Genre, budget, univers, casting, secret central" },
+    { emoji: "📖", label: "BIBLE", desc: "L'IA génère le concept complet : titre, logline, persos, tension" },
+    { emoji: "🎬", label: "ÉPISODES", desc: "La série entière planifiée automatiquement (10 à 90 épisodes)" },
+    { emoji: "✍️", label: "SCRIPT", desc: "Génère chaque script, modifie-le (Pimenter, Simplifier...)" },
+    { emoji: "🎥", label: "TOURNAGE", desc: "Checklist, storyboard, export PDF" },
+  ];
+
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+      {/* Help Modal */}
+      {showHelp && (
+        <div style={{
+          position: "fixed", inset: 0, zIndex: 200,
+          background: "rgba(9,9,15,0.92)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          padding: 20,
+        }} onClick={() => setShowHelp(false)}>
+          <div style={{
+            background: "#13131e",
+            border: "1px solid #2a2a40",
+            borderRadius: 20,
+            padding: "24px 20px",
+            maxWidth: 400,
+            width: "100%",
+            maxHeight: "80vh",
+            overflowY: "auto",
+            position: "relative",
+          }} onClick={e => e.stopPropagation()}>
+            <button onClick={() => setShowHelp(false)} style={{
+              position: "absolute", top: 14, right: 14,
+              background: "none", border: "none",
+              fontSize: 20, color: "rgba(255,255,255,0.4)",
+              cursor: "pointer", lineHeight: 1, padding: 4,
+              fontFamily: "var(--sans)",
+            }}>×</button>
+            <h2 style={{
+              fontFamily: "var(--sans)", fontSize: 17, fontWeight: 800,
+              color: "var(--tx)", marginBottom: 20, letterSpacing: -0.3,
+            }}>Comment ça marche ?</h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
+              {HELP_STEPS.map((step, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+                  <div style={{
+                    width: 28, height: 28, borderRadius: "50%",
+                    background: "#E85C3A",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: 11, fontWeight: 800, color: "#fff", flexShrink: 0,
+                  }}>{i + 1}</div>
+                  <div style={{ paddingTop: 3 }}>
+                    <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1.2, textTransform: "uppercase", color: "#E85C3A", marginBottom: 2 }}>{step.emoji} {step.label}</div>
+                    <div style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", lineHeight: 1.4 }}>{step.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <a href="/aide" style={{
+              display: "block", textAlign: "center",
+              fontFamily: "var(--sans)", fontSize: 13, fontWeight: 700,
+              color: "#E85C3A", textDecoration: "none",
+              padding: "10px 0",
+              borderTop: "1px solid #2a2a40",
+            }}>Guide complet →</a>
+          </div>
+        </div>
+      )}
       {/* Header */}
       <div style={{ background: "var(--card)", borderBottom: "1px solid var(--bo)", padding: "12px 16px 10px", flexShrink: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
@@ -1192,6 +1257,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             {isAdmin && <button onClick={() => setPlan(p => p === "standard" ? "premium" : "standard")} style={{ background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, borderRadius: 8, padding: "3px 7px", fontSize: 9, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)" }}>👁</button>}
             <button onClick={toggleLang} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, padding: "3px 7px", fontSize: 10, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>{lang === "fr" ? "EN" : "FR"}</button>
+            <button onClick={() => setShowHelp(true)} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: "50%", width: 24, height: 24, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)", padding: 0, flexShrink: 0 }}>?</button>
             <button onClick={logout} style={{ background: "none", border: "none", fontSize: 11, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)" }}>{t.logout}</button>
             <button onClick={async (e) => {
               if (plan === "standard") { onUpgrade("serie"); return; }
