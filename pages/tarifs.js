@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { Space_Grotesk, Playfair_Display } from "next/font/google";
+
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400","500","600","700"], variable: "--font-sg", display: "swap" });
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["700","900"], style: ["normal","italic"], variable: "--font-pd", display: "swap" });
 
 const RED = "#E85C3A";
 const VIO = "#a855f7";
@@ -29,8 +33,8 @@ const Logo = () => (
   <div style={{ display: "flex", alignItems: "center", gap: 9, userSelect: "none" }}>
     <img src="/1024.png" alt="VC" style={{ width: 34, height: 34, borderRadius: "50%", flexShrink: 0, boxShadow: "0 2px 12px rgba(232,92,58,0.35)" }} onError={e => { e.target.style.display = "none"; }} />
     <div style={{ alignSelf: "center", lineHeight: 1 }}>
-      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
-      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 18, fontWeight: 800, letterSpacing: -0.5, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1 }}>CLAP</div>
+      <div style={{ fontFamily: "var(--sans)", fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
+      <div style={{ fontFamily: "var(--sans)", fontSize: 18, fontWeight: 800, letterSpacing: -0.5, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1 }}>CLAP</div>
     </div>
   </div>
 );
@@ -105,7 +109,7 @@ export default function Tarifs() {
   };
 
   return (
-    <>
+    <div className={`${spaceGrotesk.variable} ${playfair.variable}`}>
       <Head>
         <title>Tarifs VerticalClap — Créer des micro-dramas IA dès 9€/mois</title>
         <meta name="description" content="Deux plans simples : Creator 9€/mois (micro-drama vertical, 20 épisodes) et Pro 19€/mois (séries longues, 90 épisodes, direction artistique). Sans engagement. Annulable à tout moment." />
@@ -129,7 +133,7 @@ export default function Tarifs() {
         }) }} />
       </Head>
 
-      <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "'Space Grotesk', system-ui, sans-serif" }}>
+      <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "var(--sans, 'Space Grotesk', system-ui, sans-serif)" }}>
         <style>{`
           @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
           * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -174,7 +178,7 @@ export default function Tarifs() {
         <div className="page-pad" style={{ padding: "80px 40px 48px", textAlign: "center", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: "min(600px, 100vw)", height: 300, background: `radial-gradient(ellipse, rgba(168,85,247,0.08) 0%, transparent 70%)`, pointerEvents: "none" }} />
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 20 }}>Tarifs</p>
-          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.0, marginBottom: 20, color: TEXT }}>
+          <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.0, marginBottom: 20, color: TEXT }}>
             Simple.<br />
             <span style={{ background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
               Transparent.
@@ -204,7 +208,7 @@ export default function Tarifs() {
               ].map(({ k, l, badge }) => (
                 <button key={k} onClick={() => setBilling(k)} style={{
                   padding: "9px 22px", borderRadius: 10, border: "none",
-                  fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, fontWeight: 700,
+                  fontFamily: "var(--sans)", fontSize: 13, fontWeight: 700,
                   cursor: "pointer", transition: "all .2s",
                   background: billing === k ? TEXT : "transparent",
                   color: billing === k ? DARK : MUTED,
@@ -249,7 +253,7 @@ export default function Tarifs() {
                     padding: "14px 8px", borderRadius: 13, border: "none",
                     background: active ? (tab.id === "pro" ? `linear-gradient(135deg, ${RED}22, ${VIO}22)` : `${RED}18`) : "transparent",
                     boxShadow: active ? `inset 0 0 0 1.5px ${tab.color}55` : "none",
-                    cursor: "pointer", transition: "all .2s", fontFamily: "'Space Grotesk', sans-serif",
+                    cursor: "pointer", transition: "all .2s", fontFamily: "var(--sans)",
                   }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                       <div style={{ width: 6, height: 6, borderRadius: "50%", background: active ? tab.color : MUTED, flexShrink: 0 }} />
@@ -269,7 +273,7 @@ export default function Tarifs() {
                   <div>
                     <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: MUTED, textTransform: "uppercase", marginBottom: 8 }}>Creator</p>
                     <div style={{ display: "flex", alignItems: "flex-end", gap: 6 }}>
-                      <span className="plan-price" style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 56, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
+                      <span className="plan-price" style={{ fontFamily: "var(--serif)", fontSize: 56, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                         {billing === "annual" ? "7.5€" : "9€"}
                       </span>
                       {billing === "annual" && <span style={{ fontSize: 14, color: MUTED, marginBottom: 10, textDecoration: "line-through" }}>9€</span>}
@@ -282,7 +286,7 @@ export default function Tarifs() {
                   </div>
                 </div>
                 <button onClick={() => startCheckout("standard", "tarifs")} disabled={loading}
-                  style={{ width: "100%", background: RED, color: "#fff", border: "none", padding: "16px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 24px rgba(232,92,58,0.35)`, transition: "all .2s", marginTop: 24 }}>
+                  style={{ width: "100%", background: RED, color: "#fff", border: "none", padding: "16px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", boxShadow: `0 0 24px rgba(232,92,58,0.35)`, transition: "all .2s", marginTop: 24 }}>
                   {loading ? "Redirection…" : "Commencer Creator →"}
                 </button>
                 <div style={{ height: 1, background: BORDER, margin: "24px 0" }} />
@@ -323,7 +327,7 @@ export default function Tarifs() {
                   <div>
                     <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: 3, color: VIO, textTransform: "uppercase", marginBottom: 8 }}>Pro</p>
                     <div style={{ display: "flex", alignItems: "flex-end", gap: 6 }}>
-                      <span className="plan-price" style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 56, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
+                      <span className="plan-price" style={{ fontFamily: "var(--serif)", fontSize: 56, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                         {billing === "annual" ? "14.9€" : "19€"}
                       </span>
                       {billing === "annual" && <span style={{ fontSize: 14, color: MUTED, marginBottom: 10, textDecoration: "line-through" }}>19€</span>}
@@ -336,7 +340,7 @@ export default function Tarifs() {
                   </div>
                 </div>
                 <button onClick={() => startCheckout("premium", "tarifs")} disabled={loading}
-                  style={{ width: "100%", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", padding: "16px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 32px rgba(168,85,247,0.3)`, transition: "all .2s", marginTop: 24 }}>
+                  style={{ width: "100%", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", padding: "16px 0", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", boxShadow: `0 0 32px rgba(168,85,247,0.3)`, transition: "all .2s", marginTop: 24 }}>
                   {loading ? "Redirection…" : "Commencer Pro →"}
                 </button>
                 <div style={{ height: 1, background: "rgba(168,85,247,0.15)", margin: "24px 0" }} />
@@ -394,7 +398,7 @@ export default function Tarifs() {
         <div className="compare-table" style={{ borderTop: `1px solid ${BORDER}`, padding: "80px 40px" }}>
           <div style={{ maxWidth: 860, margin: "0 auto" }}>
             <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 12 }}>Comparaison</p>
-            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 900, textAlign: "center", marginBottom: 48, letterSpacing: -1.5, lineHeight: 1.1, color: TEXT }}>
+            <h2 style={{ fontFamily: "var(--serif)", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 900, textAlign: "center", marginBottom: 48, letterSpacing: -1.5, lineHeight: 1.1, color: TEXT }}>
               Creator vs Pro<br /><span style={{ fontStyle: "italic", color: MUTED }}>en détail.</span>
             </h2>
             <div style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, overflow: "hidden" }}>
@@ -422,13 +426,13 @@ export default function Tarifs() {
         <div style={{ borderTop: `1px solid ${BORDER}`, padding: "80px 40px" }}>
           <div style={{ maxWidth: 720, margin: "0 auto" }}>
             <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: RED, marginBottom: 12 }}>FAQ</p>
-            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 900, textAlign: "center", marginBottom: 48, letterSpacing: -1.5, lineHeight: 1.1, color: TEXT }}>
+            <h2 style={{ fontFamily: "var(--serif)", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 900, textAlign: "center", marginBottom: 48, letterSpacing: -1.5, lineHeight: 1.1, color: TEXT }}>
               Questions fréquentes.
             </h2>
             {FAQ.map((item, i) => (
               <div key={i} style={{ borderBottom: `1px solid ${BORDER}` }}>
                 <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 0", background: "none", border: "none", cursor: "pointer", textAlign: "left", fontFamily: "'Space Grotesk', sans-serif" }}>
+                  style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 0", background: "none", border: "none", cursor: "pointer", textAlign: "left", fontFamily: "var(--sans)" }}>
                   <span style={{ fontSize: 15, fontWeight: 600, color: TEXT, paddingRight: 16 }}>{item.q}</span>
                   <span style={{ color: VIO, fontSize: 22, flexShrink: 0, transition: "transform .2s", display: "inline-block", transform: openFaq === i ? "rotate(45deg)" : "none" }}>+</span>
                 </button>
@@ -442,7 +446,7 @@ export default function Tarifs() {
         <div style={{ borderTop: `1px solid ${BORDER}`, padding: "80px 40px", textAlign: "center", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(168,85,247,0.06) 0%, transparent 60%)`, pointerEvents: "none" }} />
           <div style={{ position: "relative", zIndex: 1 }}>
-            <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(30px, 5vw, 58px)", fontWeight: 900, marginBottom: 16, letterSpacing: -2, lineHeight: 1.1, color: TEXT }}>
+            <h2 style={{ fontFamily: "var(--serif)", fontSize: "clamp(30px, 5vw, 58px)", fontWeight: 900, marginBottom: 16, letterSpacing: -2, lineHeight: 1.1, color: TEXT }}>
               Ta première série<br />
               dans{" "}
               <span style={{ background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
@@ -456,7 +460,7 @@ export default function Tarifs() {
               <input type="email" placeholder="ton@email.com" value={email} onChange={e => setEmail(e.target.value)}
                 style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 240, outline: "none" }} />
               <button onClick={() => startCheckout("standard", "cta_final")} disabled={loading}
-                style={{ background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", padding: "16px 32px", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 32px rgba(168,85,247,0.3)` }}>
+                style={{ background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", padding: "16px 32px", borderRadius: 14, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", boxShadow: `0 0 32px rgba(168,85,247,0.3)` }}>
                 {loading ? "Redirection…" : "Commencer →"}
               </button>
             </div>
@@ -474,6 +478,6 @@ export default function Tarifs() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

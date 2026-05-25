@@ -2722,7 +2722,7 @@ export default function App() {
   const [plan, setPlan] = useState("standard");
   const [checking, setChecking] = useState(true);
   const [screen, setScreen] = useState("mix");
-  const [darkMode, setDarkMode] = useState(true);
+  const darkMode = true;
   const [savedCount, setSavedCount] = useState(0);
   const [lang, setLang] = useState("fr");
   const [upgradeFeature, setUpgradeFeature] = useState(null);
@@ -2732,7 +2732,6 @@ export default function App() {
 
   useEffect(() => {
     try {
-      if (localStorage.getItem("vs_theme") === "dark") setDarkMode(true);
       setSavedCount(JSON.parse(localStorage.getItem(SAVE_KEY) || "[]").length);
       const storedPlan = localStorage.getItem("vs_plan");
       if (storedPlan) setPlan(storedPlan);
@@ -2750,7 +2749,6 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "");
-    try { localStorage.setItem("vs_theme", darkMode ? "dark" : "light"); } catch {}
   }, [darkMode]);
 
   const toggleLang = () => {
@@ -3317,7 +3315,6 @@ export default function App() {
             </button>
           )}
           <button onClick={toggleLang} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, padding: "3px 8px", fontSize: 11, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>{lang === "fr" ? "EN" : "FR"}</button>
-          <button onClick={() => setDarkMode(d => !d)} style={{ background: "none", border: "1px solid var(--bo)", color: "var(--mt)", fontSize: 11, fontWeight: 700, cursor: "pointer", padding: "4px 10px", borderRadius: 6, letterSpacing: 0.5, fontFamily: "var(--sans)" }} title={darkMode ? "Mode jour" : "Mode nuit"}>{darkMode ? "Jour" : "Nuit"}</button>
           <button onClick={logout} style={{ background: "none", border: "none", fontSize: 12, color: "var(--mt)", cursor: "pointer" }}>{t.logout}</button>
         </div>
       )}
