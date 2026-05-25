@@ -3047,7 +3047,7 @@ export default function App() {
     setLoading(true);
     try {
       const bLevel = BUDGET_LEVELS.find(b => b.id === state.budget);
-      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, dramaPremium: state.dramaPremium, ambianceVisuelle: state.ambianceVisuelle || "", budgetInstr: bLevel?.scriptInstr || "", lang, isChoix: !!episodes[idx]?.has_choix }, customerId);
+      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, dramaPremium: state.dramaPremium, ambianceVisuelle: state.ambianceVisuelle || "", budgetInstr: bLevel?.scriptInstr || "", lang, isChoix: !!episodes[idx]?.has_choix, genreFormat: state.genreFormat || null }, customerId);
       if (epReqRef.current === reqId) {
         setScript(s);
         setScripts(prev => {

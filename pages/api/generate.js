@@ -375,19 +375,39 @@ Les personnages parlent et agissent selon leur âge, leur classe sociale, leur c
 Les références culturelles, réactions émotionnelles et comportements sont cohérents avec leur réalité sociale.
 Éviter les personnages génériques universels — c'est ce qui crée la sensation de vérité.
 
-━━ RÉFÉRENCES DE TON PAR GENRE ━━
-S'inspirer uniquement du ton, du rythme, du niveau émotionnel, du réalisme — jamais des intrigues ou dialogues.
+━━ ADN NARRATIF PAR GENRE ━━
+Chaque genre a son propre rythme, sa propre énergie émotionnelle, sa propre mise en scène, sa propre façon d'écrire les dialogues. Le moteur adapte automatiquement structure, ton, cliffhangers, réactions, style de dialogue, niveau de réalisme selon le genre.
+S'inspirer du ton, du rythme, de l'énergie, de la qualité émotionnelle — jamais copier intrigues ou dialogues.
 
-Teen / émotion réaliste → SKAM France, Euphoria, Heartstopper
-Thriller psychologique → Gone Girl, You, Black Swan
-Romance addictive → Normal People, Maxton Hall
-Mélodrame / tension familiale → This Is Us, Elite
-Humour gênant / cringe réaliste → Fleabag, The Office
-Romance française → Dix pour cent, En thérapie
-Drame social → La Haine, Bac Nord, Les Misérables (série)
-Action / tension → Lupin, Le Bureau des Légendes
+TEEN DRAMA RÉALISTE (SKAM, Heartstopper, Euphoria, Sex Education)
+ADN : émotions brutes, réalisme générationnel, gêne, désir, identité, réseaux sociaux, caméra proche des visages, dialogues naturels et imparfaits, silences qui pèsent, intensité émotionnelle immédiate.
 
-Un pack thriller ne s'écrit pas pareil qu'une romance. Un teen drama français ≠ un soap latino ≠ une dark romance ≠ un drame social.
+DARK ROMANCE (Cruel Intentions, You, After)
+ADN : attraction toxique, manipulation, obsession, tension sexuelle, jalousie, pouvoir émotionnel, secrets, rapports de domination, intensité addictive, désir contre le jugement.
+
+THRILLER PSYCHOLOGIQUE (Gone Girl, Black Swan, Prisoners, Shining)
+ADN : paranoïa, tension lente, ambiguïté, ironie dramatique, malaise, détails inquiétants, révélations progressives, psychologie instable, mise en scène sensorielle — chaque info peut être un mensonge.
+
+K-DRAMA ROMANCE (Crash Landing on You, True Beauty, Business Proposal)
+ADN : émotions amplifiées, romantisme intense, humour, gêne magnifiée, regards prolongés, montée émotionnelle progressive, personnages très attachants, musique émotionnelle implicite, cliffhangers relationnels purs.
+
+SOAP / MÉLODRAME ADDICTIF (Elite, Dynasty, Gossip Girl)
+ADN : trahisons, secrets, triangles amoureux, conflits familiaux, luxe, humiliation, retournements rapides, révélations explosives, rythme ultra-addictif — tout le monde a quelque chose à cacher.
+
+COMÉDIE GÊNANTE / CRINGE (Fleabag, The Office, Girls)
+ADN : malaise, silence pesant, auto-sabotage, humour humain involontaire, contradictions, comportements absurdes mais crédibles, dialogues spontanés, vérité émotionnelle derrière le ridicule.
+
+HORREUR SOCIALE / PARANOÏA (Get Out, Hereditary, Smile)
+ADN : tension progressive, malaise invisible, menace psychologique souterraine, détails perturbants, comportements anormaux subtils, peur émotionnelle avant la peur physique, montée lente vers le chaos.
+
+DRAME INTIME (Blue Valentine, Marriage Story, Normal People)
+ADN : vulnérabilité, non-dits, micro-émotions, silences, réalisme, intimité, douleur relationnelle, écriture naturaliste — rien n'explose, tout s'effrite.
+
+MIXES PUISSANTS POSSIBLES :
+"SKAM + Gone Girl" → teen drama sous tension paranoïaque
+"Euphoria + Black Swan" → identité fragmentée, esthétique sensorielle
+"Elite + Squid Game" → soap addictif à enjeux mortels
+"Normal People + You" → romance intime teintée d'obsession dangereuse
 
 ═══════════════════════════════════════════════════════
 MÉCANIQUE D'ADDICTION NARRATIVE — DOPAMINE LOOP
@@ -771,7 +791,7 @@ export default async function handler(req, res) {
     }
 
     if (action === "script") {
-      const { ep, bible, mode, duree, prevEps, lang, ambianceVisuelle: scriptAV, budgetInstr, dramaPremium: scriptDramaPremium, isChoix = false } = payload;
+      const { ep, bible, mode, duree, prevEps, lang, ambianceVisuelle: scriptAV, budgetInstr, dramaPremium: scriptDramaPremium, isChoix = false, genreFormat } = payload;
       const md = mode === "fast"
         ? "Vertical Drama: émotions explosives, confrontations directes, cliffhangers choc"
         : "Série Premium: sous-texte intense, silences signifiants, tension dramatique progressive";
@@ -792,12 +812,26 @@ export default async function handler(req, res) {
       const scriptLangInstr = buildLangInstr(lang);
       const scriptAVInstr = scriptAV ? `\n${scriptAV}\nLes descriptions visuel_916 DOIVENT refléter cette identité visuelle précisément.` : "";
       const scriptBudgetInstr = budgetInstr ? `\n${budgetInstr}` : "";
+      const GENRE_ADN = {
+        romance:    "GENRE: Romance Drama — douceur tendue, silences, désir retenu, non-dits, gestes hésitants. Ton: Normal People, Maxton Hall.",
+        kdrama:     "GENRE: K-Drama Romance — émotions amplifiées, regards prolongés, humour gêné, cliffhangers relationnels purs, romantisme intense. Ton: Crash Landing on You.",
+        famille:    "GENRE: Drame Familial — blessures profondes, loyautés impossibles, trahisons intimes, non-dits entre proches. Ton: This Is Us, Marriage Story.",
+        thriller:   "GENRE: Thriller Psychologique — paranoïa, ambiguïté, ironie dramatique, malaise, chaque info peut être un mensonge. Ton: Gone Girl, Prisoners.",
+        dark:       "GENRE: Dark Drama — atmosphère lourde, personnages fracturés, violence émotionnelle, esthétique sensorielle sombre. Ton: Black Swan, Euphoria.",
+        fantastique:"GENRE: Fantastique — réalisme ancré + rupture fantastique, étrangeté progressive, tension entre normal et impossible. Ton: Stranger Things, Dark.",
+        vengeance:  "GENRE: Vengeance — plan froid, humiliation → riposte, montée inexorable, retournements, satisfaction cathartique différée. Ton: Oldboy, Revenge.",
+        elite:      "GENRE: Soap Élite — trahisons, secrets, luxe, humiliation, triangles amoureux, révélations explosives. Ton: Elite, Gossip Girl, Dynasty.",
+        medical:    "GENRE: Drame Médical — urgence émotionnelle, décisions impossibles, tension vie/mort, relations sous pression extrême. Ton: Grey's Anatomy, House.",
+        teen:       "GENRE: Teen Drama Réaliste — émotions brutes, gêne, désir, identité, réseaux sociaux, dialogues naturels imparfaits. Ton: SKAM, Sex Education.",
+        comedie:    "GENRE: Comédie Gênante — malaise, auto-sabotage, humour involontaire, contradictions, absurde crédible. Ton: Fleabag, The Office.",
+      };
+      const scriptGenreInstr = genreFormat && GENRE_ADN[genreFormat] ? `\n${GENRE_ADN[genreFormat]}` : "";
       const choixInstr = isChoix
         ? `\n\nÉPISODE PIVOT INTERACTIF — GAMIFICATION: après le cliffhanger, le spectateur doit choisir la suite. Génère un champ "choix" avec exactement 2 options narratives distinctes, concrètes et engageantes. Chaque option DOIT influencer la direction de la série de façon significative. Les 2 options doivent être irrésistibles et opposées (ex: "affronter" vs "fuir", "révéler" vs "mentir encore", "pardonner" vs "se venger"). Format: [{"label":"Option A — action courte et forte","consequence":"ce qui arrive si ce choix est fait — 1 phrase dramatique"},{"label":"Option B — action radicalement différente","consequence":"ce qui arrive — 1 phrase dramatique"}]`
         : "";
       const choixSchema = isChoix ? `,"choix":[{"label":"","consequence":""}]` : "";
       const result = await callClaude(
-        `${MICRO_DRAMA_PSYCHOLOGY}\nTu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptAVInstr}${scriptBudgetInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• COMMENCER AU PIRE MOMENT POSSIBLE — in medias res absolu, INTERDIT: "Bonjour", setup, exposition, question banale\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• LES RELATIONS SONT LE MOTEUR — couples, rivalités, trahisons, secrets entre proches. L'enjeu est toujours personnel.\n• COUPER AVANT LA RÉPONSE. TOUJOURS. Le cliffhanger = question suspendue, jamais résolue dans cet épisode.\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court en FRANÇAIS NATUREL — jamais de calque de l'anglais. Pas "dominance froide", pas "shift émotionnel". Utilise: "retient ses larmes", "sourire qui cache tout", "voix qui se brise", "regard qui fuit", "mâchoire serrée", "souffle coupé", "force un calme qu'elle n'a pas"\n• LANGUE: tous les textes en français authentique, pas traduit de l'anglais. Dialogues naturels, comme parlent vraiment les gens.\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.${choixInstr}`,
+        `${MICRO_DRAMA_PSYCHOLOGY}\nTu es scénariste expert de micro-dramas 9:16 viraux. ${DUR_INSTR[duree]} Mode: ${md}. ${styleInstr}${scriptDramaInstr}${scriptAVInstr}${scriptBudgetInstr}${scriptGenreInstr}${scriptLangInstr}\nRÈGLES ABSOLUES:\n• COMMENCER AU PIRE MOMENT POSSIBLE — in medias res absolu, INTERDIT: "Bonjour", setup, exposition, question banale\n• 1 SEULE idée forte par épisode — jamais 5 conflits en 1 minute\n• Chaque réplique révèle OU cache — zéro remplissage, zéro politesse\n• LES RELATIONS SONT LE MOTEUR — couples, rivalités, trahisons, secrets entre proches. L'enjeu est toujours personnel.\n• COUPER AVANT LA RÉPONSE. TOUJOURS. Le cliffhanger = question suspendue, jamais résolue dans cet épisode.\n• Max 2 acteurs à l'écran, format 9:16 gros plans\n• Ce qui fonctionne: jalousie, humiliation, secret révélé, tension sexuelle, retournement brutal\n• Ce qui tue: dialogues longs, scènes lentes, trop de personnages, concepts compliqués\n• visuel_916: NOM DU PLAN + émotion précise (ex: "gros plan yeux larmoyants", "zoom lent sur main qui tremble")\n• jeu: état interne court en FRANÇAIS NATUREL — jamais de calque de l'anglais. Pas "dominance froide", pas "shift émotionnel". Utilise: "retient ses larmes", "sourire qui cache tout", "voix qui se brise", "regard qui fuit", "mâchoire serrée", "souffle coupé", "force un calme qu'elle n'a pas"\n• LANGUE: tous les textes en français authentique, pas traduit de l'anglais. Dialogues naturels, comme parlent vraiment les gens.\n• label cliffhanger: question du spectateur (ex: "Il sait?", "C'était lui?")\nJSON uniquement.${choixInstr}`,
         `Script ép.${ep.numero} "${ep.titre}". Série: "${bible.titre}". Personnages: ${persos}.\nTension: ${bible.tension_centrale || ""}.\nCliffhanger cible: ${ep.cliffhanger}.${prevEpsInstr}\nJSON: {"hook_scene":{"texte":"","visuel_916":""},"scenes":[{"perso":"","dialogue":"","jeu":"","visuel_916":""}],"cliffhanger_scene":{"texte":"","visuel_916":"","label":""},"checklist":[""]${choixSchema}}`,
         4000
       );
