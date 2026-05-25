@@ -458,6 +458,79 @@ Chaque scène est pensée en rythme, en émotion, en image, en tension, en faisa
 Le résultat donne l'impression : d'une vraie série développée en writers room, pensée pour être tournée, pensée pour être montée, pensée pour captiver immédiatement.
 
 Pas seulement "ce qu'il se passe" — mais COMMENT c'est écrit, COMMENT c'est filmé, COMMENT ça se ressent.
+
+═══════════════════════════════════════════════════════
+ARC NARRATIF & CONTINUITÉ INTER-ÉPISODES
+═══════════════════════════════════════════════════════
+
+Une série n'est pas une suite d'épisodes indépendants. C'est une progression dramatique continue.
+
+STRUCTURE DE SAISON :
+• Ep 1–2 : installation → personnages, désirs, tension initiale, secret planté
+• Ep 3–5 : escalade → les liens se resserrent, les erreurs s'accumulent, le secret fragilise
+• Ep 6–8 : crise → une révélation change tout, les relations basculent
+• Ep 9–10 : conséquences + cliffhanger final → rien ne sera comme avant, mais la question reste ouverte
+
+RÈGLES DE PROGRESSION :
+• La tension augmente à chaque épisode — jamais de redescente sans raison
+• Les secrets se dévoilent PROGRESSIVEMENT — ep 1 = indice, ep 4 = demi-révélation, ep 8 = vérité
+• Les relations évoluent — une romance en ep 6 ≠ une romance en ep 1
+• Ce qui est planté en ep 1 est récolté en ep 7–9
+• Chaque épisode laisse une question ouverte ET en ferme une plus petite
+
+CONTINUITÉ : les personnages se souviennent. Ce qui s'est passé en ep 2 pèse sur ep 5. Les blessures restent. Les trahisons marquent.
+
+═══════════════════════════════════════════════════════
+IRONIE DRAMATIQUE — L'ARME HITCHCOCK
+═══════════════════════════════════════════════════════
+
+Le spectateur sait quelque chose que le personnage ne sait pas encore. C'est le moteur de tension le plus puissant qui existe.
+
+EXEMPLES CONCRETS :
+• On voit le message entrant — le personnage ne l'a pas encore lu
+• On sait qui est derrière la porte — le personnage ouvre naïvement
+• On a entendu la conversation — le personnage croit son secret intact
+• On voit la photo dans le téléphone — le personnage parle de confiance
+
+RÉSULTAT : le spectateur crie intérieurement "non, arrête, tu ne sais pas que—". C'est l'addiction pure.
+
+Utiliser l'ironie dramatique dans au moins 1 scène par épisode. Construire des situations où le spectateur EST plus avancé que le personnage. La révélation finale n'en sera que plus dévastatrice.
+
+═══════════════════════════════════════════════════════
+DYNAMIQUE DE POUVOIR — LE MOTEUR DE CHAQUE SCÈNE
+═══════════════════════════════════════════════════════
+
+Toute scène est un rapport de force. Qui veut quelque chose ? Qui le détient ? Qui le cache ?
+
+LA TENSION NAÎT DU DÉSÉQUILIBRE :
+• Celui qui sait / celui qui ignore
+• Celui qui veut / celui qui refuse
+• Celui qui peut partir / celui qui est piégé
+• Celui qui ment / celui qui commence à douter
+• Celui qui aime encore / celui qui a déjà décidé
+
+CE DÉSÉQUILIBRE CHANGE AU COURS DE LA SCÈNE :
+Quelqu'un entre avec le pouvoir. Quelqu'un en ressort avec. Ce basculement = la scène.
+
+Chaque échange de répliques doit légèrement déplacer le rapport de force. À la fin d'une scène, qui a gagné ? Qui a perdu ? Qui a menti pour survivre ? C'est ça l'enjeu dramatique réel.
+
+═══════════════════════════════════════════════════════
+SPÉCIFICITÉ & DÉTAILS CONCRETS — CONTRE LE GÉNÉRIQUE
+═══════════════════════════════════════════════════════
+
+Un seul détail précis vaut dix descriptions génériques. La spécificité crée la vérité.
+
+GÉNÉRIQUE ❌ → SPÉCIFIQUE ✅ :
+• "une voiture" → "une Clio rouge avec le rétroviseur cassé"
+• "un message" → "le contact enregistré sous 'Ne pas décrocher'"
+• "une photo" → "la photo du lac, celle qu'il avait promise de supprimer"
+• "elle pleure" → "elle mord l'intérieur de sa joue pour ne pas pleurer"
+• "il est en colère" → "il aligne les verres sur le bord de l'évier, un par un, sans rien dire"
+• "un vêtement" → "le sweat gris qu'elle lui avait offert pour son anniversaire"
+
+RÈGLE : chaque scène doit contenir au moins 1 détail sensoriel ou physique précis — une couleur, un objet, un geste, une texture, un son. Ce détail doit révéler quelque chose du personnage ou de la situation.
+
+Les meilleurs détails font deux choses à la fois : ils décrivent ET ils révèlent.
 `;
 
 const DUR_INSTR = {
