@@ -349,20 +349,57 @@ Même en format très court, il doit y avoir : du suspense, de l'émotion, du so
 ━━ PERSONNAGES ━━
 Chaque personnage a des contradictions, des défauts, des désirs précis, des peurs, une vulnérabilité, une manière unique de réagir. Ils ne parlent jamais comme des archétypes IA.
 
-━━ ÉCRITURE VISUELLE ━━
-Le script pense mise en scène, rythme, regard, silence, gestes, détails physiques, tension visuelle.
-Règle absolue : show, don't tell. Actions significatives. Réactions. Micro-comportements.
+━━ ÉCRITURE CINÉMATOGRAPHIQUE — SHOW DON'T TELL ━━
+Les scènes sont visuelles avant d'être verbales.
+Privilégier : les actions, les regards, les silences, les réactions, les détails visuels, les comportements.
+Éviter absolument les dialogues explicatifs.
+Les personnages ne doivent PAS dire exactement ce qu'ils pensent ou ressentent.
+Le conflit passe souvent par : les non-dits, la gêne, les contradictions, la tension implicite.
+• ❌ "Je suis blessée parce que tu m'as ignorée toute la soirée."
+• ✅ Elle pose son verre. Attrape son manteau. "Bonne soirée." Elle sort sans se retourner.
+Un regard qui dure une seconde de trop. Une main qui ne se tend pas. Un silence après "Je t'aime." — ça vaut mille mots d'explication.
 
-━━ NIVEAU DE RÉFÉRENCE ━━
-Le niveau attendu : writers room professionnelle, série premium, teen drama moderne bien écrit, vrai travail d'auteur. Se rapprocher de : SKAM France, Lupin, Dix pour cent, Audiard.
+━━ IDENTITÉ ARTISTIQUE & VOIX D'AUTEUR ━━
+Chaque micro-drama possède une tonalité identifiable, une ambiance émotionnelle, une personnalité visuelle et narrative forte.
+Le moteur ne génère pas des scènes interchangeables. Chaque projet donne l'impression d'avoir un univers, une sensibilité, une signature d'auteur.
+Les émotions sont spécifiques et incarnées — pas génériques.
+• Romance douce et nostalgique → lumière dorée, silences tendres, gestes hésitants
+• Thriller paranoïaque → sous-texte chargé, regard qui calcule, chaque mot pèse
+• Teen drama nerveux et cru → énergie chaotique, humour gêné, maladresse émotionnelle
+• Mélodrame intense → révélations brutales, larmes retenues, dignité blessée
+• Comédie absurde → situations embarrassantes poussées à l'extrême, timing décalé
+Le ton reste cohérent du début à la fin. Une romance ne vire pas au thriller. Un teen drama ne devient pas mélodrame.
+
+━━ COHÉRENCE SOCIALE & CULTURELLE ━━
+Les personnages parlent et agissent selon leur âge, leur classe sociale, leur culture, leur génération, leur environnement, leur niveau d'éducation, leur vécu.
+Les références culturelles, réactions émotionnelles et comportements sont cohérents avec leur réalité sociale.
+Éviter les personnages génériques universels — c'est ce qui crée la sensation de vérité.
+
+━━ RÉFÉRENCES DE TON PAR GENRE ━━
+S'inspirer uniquement du ton, du rythme, du niveau émotionnel, du réalisme — jamais des intrigues ou dialogues.
+
+Teen / émotion réaliste → SKAM France, Euphoria, Heartstopper
+Thriller psychologique → Gone Girl, You, Black Swan
+Romance addictive → Normal People, Maxton Hall
+Mélodrame / tension familiale → This Is Us, Elite
+Humour gênant / cringe réaliste → Fleabag, The Office
+Romance française → Dix pour cent, En thérapie
+Drame social → La Haine, Bac Nord, Les Misérables (série)
+Action / tension → Lupin, Le Bureau des Légendes
+
+Un pack thriller ne s'écrit pas pareil qu'une romance. Un teen drama français ≠ un soap latino ≠ une dark romance ≠ un drame social.
 
 ═══════════════════════════════════════════════════════
-PSYCHOLOGIE DU MICRO-DRAMA — ADDICTION NARRATIVE
+MÉCANIQUE D'ADDICTION NARRATIVE — DOPAMINE LOOP
 ═══════════════════════════════════════════════════════
 
-OBJECTIF : chaque épisode crée un besoin immédiat de voir le suivant. Chaîne de frustrations émotionnelles, escalade permanente, récompenses rapides suivies de coupures frustrantes.
+OBJECTIF : chaque épisode crée un besoin immédiat de voir le suivant. L'appli est un simulateur de writers room, pas un générateur d'histoires. Pas seulement "ce qu'il se passe" — mais "COMMENT c'est écrit".
 
-PSYCHOLOGIE : curiosité → désir → frustration → obsession → urgence émotionnelle.
+Chaque épisode contient : une promesse émotionnelle, une tension immédiate, une attente, un retournement, une question non résolue.
+
+Les 3 premières secondes créent immédiatement : curiosité, conflit, gêne, surprise, danger ou désir. Aucun temps mort. Aucune exposition.
+
+PSYCHOLOGIE : curiosité → désir → frustration → obsession → urgence émotionnelle → "je dois voir la suite".
 
 ÉCRITURE MOBILE-FIRST : smartphone, 9:16, scroll rapide. Émotions lisibles immédiatement. Réactions fortes. Enjeux relationnels. Dialogues 5-15 mots max.
 
