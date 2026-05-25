@@ -14,7 +14,7 @@ const MUTED = "#b0bfd4";
 
 const COPY = {
   fr: {
-    studioBadge: "Studio IA · Micro-drama · Vertical Drama",
+    studioBadge: "Studio IA · Micro-drama · Séries verticales",
     heroLine1: "Ta série,",
     heroLine2: "virale,",
     heroLine3: "maintenant.",
@@ -124,7 +124,7 @@ const COPY = {
     planPremium: "Pro",
     planPremiumSub: "Séries longues, direction artistique et univers narratifs",
     standardFeatures: [
-      "⚡ Vertical Drama · micro-drama",
+      "Bible + scripts générés par l'IA",
       "20 épisodes par série",
       "Scripts 9:16 prêts à tourner",
       "Hook 3 sec + Cliffhanger calibré",
@@ -133,8 +133,7 @@ const COPY = {
       "☁️ Cloud · Export PDF",
     ],
     premiumFeatures: [
-      "⚡ Vertical + 🎭 Série Premium",
-      "Jusqu'à 90 épisodes par série",
+      "Tout Creator + séries jusqu'à 90 épisodes",
       "Direction Artistique avancée",
       "🎲 3 variations de ton par script",
       "🎬 Fiche technique de production",
@@ -251,7 +250,7 @@ const COPY = {
     imgVariations: "/les%203%20variations.webp",
   },
   en: {
-    studioBadge: "AI Studio · Micro-drama · Vertical Drama",
+    studioBadge: "AI Studio · Micro-drama · Vertical Series",
     heroLine1: "Your series,",
     heroLine2: "viral,",
     heroLine3: "now.",
@@ -361,7 +360,7 @@ const COPY = {
     planPremium: "Pro",
     planPremiumSub: "Long series, artistic direction and narrative universes",
     standardFeatures: [
-      "⚡ Vertical Drama · micro-drama",
+      "AI-generated bible + scripts",
       "20 episodes per series",
       "9:16 shoot-ready scripts",
       "3-sec hook + calibrated cliffhanger",
@@ -370,8 +369,7 @@ const COPY = {
       "☁️ Cloud · PDF Export",
     ],
     premiumFeatures: [
-      "⚡ Vertical + 🎭 Premium Series",
-      "Up to 90 episodes per series",
+      "Everything in Creator + up to 90 episodes",
       "Advanced Artistic Direction",
       "🎲 3 tone variations per script",
       "🎬 Production sheet",

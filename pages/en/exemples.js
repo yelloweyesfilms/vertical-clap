@@ -12,7 +12,7 @@ const SITE = "https://verticalclap.com";
 const EXAMPLES = [
   {
     mode: "fast",
-    modeLabel: "⚡ Vertical Drama",
+    modeLabel: "⚡ Creator",
     genre: "Medical · Thriller",
     casting: "1 Woman + 1 Man",
     setting: "Private hospital",
@@ -84,7 +84,7 @@ const EXAMPLES = [
   },
   {
     mode: "fast",
-    modeLabel: "⚡ Vertical Drama",
+    modeLabel: "⚡ Creator",
     genre: "Romance · Dark Drama",
     casting: "Mixed trio",
     setting: "Blended family",
@@ -121,7 +121,7 @@ const EXAMPLES = [
   },
   {
     mode: "fast",
-    modeLabel: "⚡ Vertical Drama",
+    modeLabel: "⚡ Creator",
     genre: "K-Drama · Romance",
     casting: "1 Woman + 1 Man",
     setting: "Fashion & Influence",

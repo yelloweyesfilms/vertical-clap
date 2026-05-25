@@ -2628,7 +2628,7 @@ function StoryboardView({ storyboard, loading, ep, bible, onBack, t }) {
 function UpgradeModal({ feature, onClose, lang }) {
   const FEATURES = {
     fr: {
-      serie:       { title: "Mode Série Premium", desc: "Séries longues jusqu'à 90 épisodes, arcs narratifs complexes, direction artistique avancée.", perks: ["Jusqu'à 90 épisodes par série", "3 variations de script par épisode", "Tous les packs univers", "Calendrier éditorial", "Préparation Saison 2"] },
+      serie:       { title: "Plan Pro", desc: "Séries longues jusqu'à 90 épisodes, arcs narratifs complexes, direction artistique avancée.", perks: ["Jusqu'à 90 épisodes par série", "3 variations de script par épisode", "Tous les packs univers", "Calendrier éditorial", "Préparation Saison 2"] },
       episodes:    { title: "Séries longues", desc: "Dépasse les 20 épisodes et construis des arcs narratifs de série complète.", perks: ["40, 60 ou 90 épisodes", "Arc narratif complet calculé", "Progression de tension optimisée"] },
       variations:  { title: "3 variations de script", desc: "Génère 3 versions différentes d'un même épisode pour choisir la meilleure.", perks: ["3 scripts par épisode", "Angles narratifs différents", "Choisir ou mixer les versions"] },
       calendrier:  { title: "Calendrier éditorial", desc: "Un plan de publication semaine par semaine avec légendes et hashtags par plateforme.", perks: ["Planning semaine par semaine", "Légendes virales par plateforme", "TikTok, Reels, Shorts, Vertical"] },

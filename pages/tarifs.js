@@ -292,7 +292,7 @@ export default function Tarifs() {
                 <div style={{ height: 1, background: BORDER, margin: "24px 0" }} />
                 <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
                   {[
-                    { t: "Vertical Drama · micro-drama", hi: true },
+                    { t: "Bible + scripts 9:16 générés par l'IA", hi: true },
                     { t: "20 épisodes par série", hi: true },
                     { t: "Scripts 9:16 prêts à tourner", hi: false },
                     { t: "Hook 3 sec + Cliffhanger automatique", hi: false },
@@ -311,7 +311,7 @@ export default function Tarifs() {
                 <div style={{ marginTop: 20, padding: "14px 16px", borderRadius: 12, background: `${RED}10`, border: `1px solid ${RED}25` }}>
                   <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.6 }}>
                     <span style={{ color: RED, fontWeight: 700 }}>Pas inclus : </span>
-                    Série Premium · 3 variations · Titres viraux · Direction Artistique · Fiche de production
+                    90 épisodes · 3 variations · Titres viraux · Direction Artistique · Fiche de production
                     {" "}<button onClick={() => setPlanTab("pro")} style={{ background: "none", border: "none", color: VIO, fontWeight: 700, cursor: "pointer", fontSize: 12, padding: 0 }}>→ Voir Pro</button>
                   </p>
                 </div>
@@ -346,7 +346,7 @@ export default function Tarifs() {
                 <div style={{ height: 1, background: "rgba(168,85,247,0.15)", margin: "24px 0" }} />
                 <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
                   {[
-                    { t: "Vertical Drama + Série Premium", hi: true },
+                    { t: "Tout Creator + séries longues jusqu'à 90 épisodes", hi: true },
                     { t: "Jusqu'à 90 épisodes par série", hi: true },
                     { t: "Direction Artistique (émotion, rythme, narration…)", hi: true },
                     { t: "3 variations par script — Intense · Subtil · Rapide", hi: true },
@@ -368,7 +368,7 @@ export default function Tarifs() {
                 <div style={{ marginTop: 20, padding: "14px 16px", borderRadius: 12, background: `${VIO}08`, border: `1px solid ${VIO}20` }}>
                   <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.6 }}>
                     <span style={{ color: VIO, fontWeight: 700 }}>Tout Creator, plus : </span>
-                    Série Premium · Direction Artistique · 3 variations · Titres viraux · Fiche de production · 90 épisodes
+                    Direction Artistique · 3 variations · Titres viraux · Fiche de production · 90 épisodes
                   </p>
                 </div>
               </div>
