@@ -10,7 +10,7 @@ const DARK = "#09090f";
 const SURFACE = "rgba(255,255,255,0.04)";
 const BORDER = "rgba(255,255,255,0.08)";
 const TEXT = "#f1f5f9";
-const MUTED = "#94a3b8";
+const MUTED = "#b0bfd4";
 
 const COPY = {
   fr: {
@@ -894,7 +894,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           </h1>
 
           {/* Subtitle */}
-          <p className="hero-sub" style={{ fontSize: "clamp(15px, 1.5vw, 18px)", color: "rgba(255,255,255,0.55)", margin: "28px auto 0", lineHeight: 1.6, maxWidth: 480 }}>
+          <p className="hero-sub" style={{ fontSize: "clamp(15px, 1.5vw, 18px)", color: "rgba(255,255,255,0.72)", margin: "28px auto 0", lineHeight: 1.6, maxWidth: 480 }}>
             {c.heroSubtitleBold}
           </p>
 
@@ -920,7 +920,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             </button>
             <a href={lang === "en" ? "/en/exemples" : "/exemples"}
               onClick={() => track("demo_click", { position: "hero" })}
-              style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, color: "rgba(255,255,255,0.65)", fontWeight: 600, letterSpacing: 0.3, textDecoration: "none" }}>
+              style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, color: "rgba(255,255,255,0.78)", fontWeight: 600, letterSpacing: 0.3, textDecoration: "none" }}>
               <span style={{ width: 18, height: 18, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, flexShrink: 0 }}>▶</span>
               {c.ctaBtnDemo}
             </a>
@@ -935,7 +935,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             ].map((s, i) => (
               <div key={i} style={{ flex: 1, padding: "20px 16px", borderRight: i < 2 ? "1px solid rgba(255,255,255,0.07)" : "none", textAlign: "center" }}>
                 <div style={{ fontSize: "clamp(18px, 3vw, 34px)", fontWeight: 900, color: i === 2 ? RED : TEXT, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: -1, lineHeight: 1 }}>{s.val}</div>
-                <div style={{ fontSize: "clamp(9px, 1.5vw, 11px)", color: "rgba(255,255,255,0.65)", marginTop: 6, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>{s.label}</div>
+                <div style={{ fontSize: "clamp(9px, 1.5vw, 11px)", color: "rgba(255,255,255,0.78)", marginTop: 6, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -1023,7 +1023,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           </p>
           <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.05, textAlign: "center", marginBottom: 12 }}>
             {lang === "fr" ? "Un seul micro-drama." : "One micro-drama."}<br />
-            <span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.62)" }}>
+            <span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.75)" }}>
               {lang === "fr" ? "Viral ou premium." : "Viral or premium."}
             </span>
           </h2>
@@ -1129,7 +1129,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           <Label color={RED}>{lang === "fr" ? "La structure" : "The structure"}</Label>
           <Title style={{ textAlign: "center", marginBottom: 12 }}>
             {lang === "fr" ? "1 minute." : "1 minute."}<br />
-            <span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.62)" }}>{lang === "fr" ? "5 phases. Zéro temps mort." : "5 phases. Zero dead time."}</span>
+            <span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.75)" }}>{lang === "fr" ? "5 phases. Zéro temps mort." : "5 phases. Zero dead time."}</span>
           </Title>
           <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>
             {lang === "fr"
@@ -1213,7 +1213,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 }}>
                   <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.12em", color: phase.color, textTransform: "uppercase" }}>{phase.time}</div>
                   <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "0.08em", color: TEXT, textTransform: "uppercase" }}>{phase.label}</div>
-                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", lineHeight: 1.5, margin: 0, flex: 1 }}>{phase.desc}</p>
+                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.78)", lineHeight: 1.5, margin: 0, flex: 1 }}>{phase.desc}</p>
                   <div style={{ fontSize: 9, fontWeight: 700, color: phase.color, letterSpacing: "0.06em", paddingTop: 6, borderTop: `1px solid ${phase.color}20` }}>{phase.rule}</div>
                 </div>
               ))}
@@ -1390,7 +1390,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           <Reveal>
             <Label color={RED}>{lang === "fr" ? "Ton format tourne partout" : "Your format runs everywhere"}</Label>
             <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(28px, 3.8vw, 50px)", fontWeight: 900, textAlign: "center", marginBottom: 12, letterSpacing: -1, lineHeight: 1.05, color: TEXT, textTransform: "uppercase" }}>
-              {lang === "fr" ? <>Posté aujourd'hui.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.55)" }}>Viral demain.</span></> : <>Posted today.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.55)" }}>Viral tomorrow.</span></>}
+              {lang === "fr" ? <>Posté aujourd'hui.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.72)" }}>Viral demain.</span></> : <>Posted today.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.72)" }}>Viral tomorrow.</span></>}
             </h2>
             <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>
               {lang === "fr"

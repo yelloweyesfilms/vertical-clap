@@ -900,7 +900,7 @@ function Chip({ label, active, onClick, block, sub }) {
       }}
     >
       <span style={{ fontSize: block ? 15 : 13, fontWeight: 700 }}>{label}</span>
-      {sub && <span style={{ fontSize: 10, opacity: 0.75 }}>{sub}</span>}
+      {sub && <span style={{ fontSize: 10, color: "var(--mt)" }}>{sub}</span>}
     </div>
   );
 }
@@ -1048,10 +1048,10 @@ function StepBar({ step, lang = "fr" }) {
               </div>
               {/* Label */}
               <span style={{
-                fontSize: 7.5, fontWeight: active ? 800 : 400,
-                color: active ? color : "var(--tx)",
+                fontSize: 7.5, fontWeight: active ? 800 : done ? 600 : 400,
+                color: active ? color : done ? "var(--tx)" : "var(--mt)",
                 whiteSpace: "nowrap", letterSpacing: 0.8,
-                textTransform: "uppercase", opacity: active ? 1 : done ? 0.85 : 0.6,
+                textTransform: "uppercase", opacity: 1,
                 fontFamily: "var(--sans)",
               }}>{s.short}</span>
             </div>
@@ -1283,7 +1283,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                   </div>
                   <div style={{ fontSize: 12, fontWeight: 800, color: active ? av.palette[2] : "var(--tx)", lineHeight: 1.2 }}>{avLabel}</div>
                   <div style={{ fontSize: 10, color: "var(--mt)", lineHeight: 1.4 }}>{avDesc}</div>
-                  <div style={{ fontSize: 9, color: "var(--mt)", fontStyle: "italic", opacity: 0.7 }}>{av.refs}</div>
+                  <div style={{ fontSize: 9, color: "var(--mt)", fontStyle: "italic" }}>{av.refs}</div>
                 </button>
               );
             })}
@@ -1544,8 +1544,8 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                     onChange={e => set({ drama: { ...(state.drama || {}), [key]: Number(e.target.value) } })}
                     style={{ width: "100%", accentColor: accent, cursor: "pointer" }} />
                   <div style={{ display: "flex", justifyContent: "space-between", marginTop: 3 }}>
-                    <span style={{ fontSize: 9, color: "var(--mt)", opacity: 0.6 }}>{lo}</span>
-                    <span style={{ fontSize: 9, color: "var(--mt)", opacity: 0.6 }}>{hi}</span>
+                    <span style={{ fontSize: 9, color: "var(--mt)" }}>{lo}</span>
+                    <span style={{ fontSize: 9, color: "var(--mt)" }}>{hi}</span>
                   </div>
                 </div>
               );
@@ -2008,7 +2008,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
             </div>
             <button onClick={() => onEdit("revelation")} disabled={loading} style={{ width: "100%", marginBottom: 10, padding: "14px 16px", borderRadius: 12, border: "none", background: "linear-gradient(135deg, #E85C3A, #c0392b)", color: "#fff", cursor: "pointer", fontSize: 14, fontWeight: 800, fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, boxShadow: "0 4px 18px rgba(232,92,58,0.35)" }}>
               <span>{t.revelation}</span>
-              <span style={{ fontSize: 11, fontWeight: 500, opacity: 0.85 }}>— {t.revelation_sub}</span>
+              <span style={{ fontSize: 11, fontWeight: 500, color: "rgba(255,255,255,0.85)" }}>— {t.revelation_sub}</span>
             </button>
             <button onClick={plan === "standard" ? () => onUpgrade("variations") : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: `1.5px solid ${plan === "standard" ? "rgba(168,85,247,0.2)" : "var(--bo)"}`, padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", marginBottom: 10, fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
               {plan === "standard" ? <><span>🔒</span><span>{t.variations_locked}</span><span style={{ fontSize: 10, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.25)", padding: "2px 7px", borderRadius: 6 }}>PRO</span></> : t.variations}

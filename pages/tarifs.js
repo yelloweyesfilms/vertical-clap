@@ -12,7 +12,7 @@ const DARK = "#09090f";
 const SURFACE = "rgba(255,255,255,0.04)";
 const BORDER = "rgba(255,255,255,0.08)";
 const TEXT = "#f1f5f9";
-const MUTED = "#64748b";
+const MUTED = "#94a3b8";
 const SITE = "https://verticalclap.com";
 
 const Check = ({ color = RED }) => (
