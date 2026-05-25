@@ -1249,48 +1249,34 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           </div>
         </div>
       )}
-      {/* Hero banner — au-dessus du header */}
-      <div style={{ position: "relative", width: "100%", height: 130, overflow: "hidden", flexShrink: 0 }}>
-        <img src="/studio.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 10%" }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(9,9,15,0.25) 0%, rgba(9,9,15,0.55) 60%, rgba(19,19,30,1) 100%)" }} />
-        {/* Logo + boutons en overlay sur la bannière */}
-        <div style={{ position: "absolute", top: 10, left: 16, right: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      {/* Header fixe — logo + boutons + plan + toggle Mixeur/Packs */}
+      <div style={{ background: "var(--card)", borderBottom: "1px solid var(--bo)", padding: "10px 16px 10px", flexShrink: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
           <VCLogo />
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            {isAdmin && <button onClick={() => setPlan(p => p === "standard" ? "premium" : "standard")} style={{ background: "rgba(0,0,0,0.4)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.5)" : "rgba(168,85,247,0.5)"}`, borderRadius: 8, padding: "3px 7px", fontSize: 9, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)" }}>👁</button>}
-            <button onClick={toggleLang} style={{ background: "rgba(0,0,0,0.4)", border: "1.5px solid rgba(255,255,255,0.2)", borderRadius: 8, padding: "3px 7px", fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.8)", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>{lang === "fr" ? "EN" : "FR"}</button>
-            <button onClick={() => setShowHelp(true)} style={{ background: "rgba(0,0,0,0.4)", border: "1.5px solid rgba(255,255,255,0.2)", borderRadius: "50%", width: 24, height: 24, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.8)", cursor: "pointer", fontFamily: "var(--sans)", padding: 0, flexShrink: 0 }}>?</button>
-            <button onClick={logout} style={{ background: "none", border: "none", fontSize: 11, color: "rgba(255,255,255,0.6)", cursor: "pointer", fontFamily: "var(--sans)" }}>{t.logout}</button>
+            {isAdmin && <button onClick={() => setPlan(p => p === "standard" ? "premium" : "standard")} style={{ background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, borderRadius: 8, padding: "3px 7px", fontSize: 9, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)" }}>👁</button>}
+            <button onClick={toggleLang} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, padding: "3px 7px", fontSize: 10, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>{lang === "fr" ? "EN" : "FR"}</button>
+            <button onClick={() => setShowHelp(true)} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: "50%", width: 24, height: 24, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)", padding: 0, flexShrink: 0 }}>?</button>
+            <button onClick={logout} style={{ background: "none", border: "none", fontSize: 11, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)" }}>{t.logout}</button>
+            <button onClick={async (e) => {
+              if (plan === "standard") { onUpgrade("serie"); return; }
+              const btn = e.currentTarget;
+              btn.style.opacity = "0.5";
+              try {
+                const r = await fetch("/api/portal", { method: "POST" });
+                const d = await r.json();
+                if (d.url) { window.location.href = d.url; return; }
+              } catch {}
+              btn.style.opacity = "1";
+              window.location.href = "/tarifs";
+            }} style={{ display: "flex", alignItems: "center", gap: 4, background: plan === "standard" ? "rgba(232,92,58,0.08)" : "rgba(168,85,247,0.08)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.25)" : "rgba(168,85,247,0.25)"}`, borderRadius: 20, padding: "4px 10px 4px 8px", cursor: "pointer", transition: "opacity .2s" }}>
+              <span style={{ fontSize: 9, color: "var(--mt)", fontWeight: 600, fontFamily: "var(--sans)", textTransform: "uppercase", letterSpacing: 1 }}>Plan</span>
+              <span style={{ fontSize: 10, fontWeight: 800, color: plan === "standard" ? "#E85C3A" : "#a855f7", letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: "var(--sans)" }}>
+                {plan === "standard" ? (lang === "en" ? "Creator" : "Créateur") : "Premium"}
+              </span>
+              <span style={{ fontSize: 9, color: plan === "standard" ? "#E85C3A" : "#a855f7", opacity: 0.6 }}>›</span>
+            </button>
           </div>
-        </div>
-        {/* Titre en bas de la bannière */}
-        <div style={{ position: "absolute", bottom: 8, left: 16 }}>
-          <p style={{ fontSize: 18, fontWeight: 900, color: "#fff", fontFamily: "var(--sans)", letterSpacing: -0.3 }}>{lang === "fr" ? "Crée ta série !" : "Create your series!"}</p>
-        </div>
-      </div>
-
-      {/* Header réduit — plan badge + Mixeur/Packs toggle */}
-      <div style={{ background: "var(--card)", borderBottom: "1px solid var(--bo)", padding: "10px 16px 10px", flexShrink: 0 }}>
-        {/* Plan badge aligné à droite */}
-        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 8 }}>
-          <button onClick={async (e) => {
-            if (plan === "standard") { onUpgrade("serie"); return; }
-            const btn = e.currentTarget;
-            btn.style.opacity = "0.5";
-            try {
-              const r = await fetch("/api/portal", { method: "POST" });
-              const d = await r.json();
-              if (d.url) { window.location.href = d.url; return; }
-            } catch {}
-            btn.style.opacity = "1";
-            window.location.href = "/tarifs";
-          }} style={{ display: "flex", alignItems: "center", gap: 4, background: plan === "standard" ? "rgba(232,92,58,0.08)" : "rgba(168,85,247,0.08)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.25)" : "rgba(168,85,247,0.25)"}`, borderRadius: 20, padding: "4px 10px 4px 8px", cursor: "pointer", transition: "opacity .2s" }}>
-            <span style={{ fontSize: 9, color: "var(--mt)", fontWeight: 600, fontFamily: "var(--sans)", textTransform: "uppercase", letterSpacing: 1 }}>Plan</span>
-            <span style={{ fontSize: 10, fontWeight: 800, color: plan === "standard" ? "#E85C3A" : "#a855f7", letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: "var(--sans)" }}>
-              {plan === "standard" ? (lang === "en" ? "Creator" : "Créateur") : "Premium"}
-            </span>
-            <span style={{ fontSize: 9, color: plan === "standard" ? "#E85C3A" : "#a855f7", opacity: 0.6 }}>›</span>
-          </button>
         </div>
         {/* Mode selector — Packs vs Mixeur */}
         <div style={{ display: "flex", gap: 8 }}>
@@ -1322,6 +1308,14 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
       {/* ═══ MODE PACKS ═══ */}
       {creationMode === "packs" && (
         <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+          {/* Bannière scrollable */}
+          <div style={{ position: "relative", width: "100%", height: 140, overflow: "hidden" }}>
+            <img src="/studio.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 10%" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(9,9,15,0.2) 0%, rgba(9,9,15,0.6) 65%, var(--bg) 100%)" }} />
+            <div style={{ position: "absolute", bottom: 10, left: 16 }}>
+              <p style={{ fontSize: 18, fontWeight: 900, color: "#fff", fontFamily: "var(--sans)", letterSpacing: -0.3 }}>{lang === "fr" ? "Crée ta série !" : "Create your series!"}</p>
+            </div>
+          </div>
           <div style={{ padding: "12px 16px 8px" }}>
             <p style={{ fontSize: 18, fontWeight: 900, color: "var(--tx)", fontFamily: "var(--sans)", letterSpacing: -0.5, marginBottom: 4 }}>
               {lang === "fr" ? "🎯 Tu veux pas te prendre la tête ?" : "🎯 Don't want to overthink it?"}
@@ -1362,7 +1356,15 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
       {/* Scrollable content per tab — seulement en mode Mixeur */}
       {creationMode === "mixeur" && <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-      <div style={{ padding: "22px 20px 8px", maxWidth: 520, margin: "0 auto" }}>
+      {/* Bannière scrollable */}
+      <div style={{ position: "relative", width: "100%", height: 140, overflow: "hidden" }}>
+        <img src="/studio.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 10%" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(9,9,15,0.2) 0%, rgba(9,9,15,0.6) 65%, var(--bg) 100%)" }} />
+        <div style={{ position: "absolute", bottom: 10, left: 16 }}>
+          <p style={{ fontSize: 18, fontWeight: 900, color: "#fff", fontFamily: "var(--sans)", letterSpacing: -0.3 }}>{lang === "fr" ? "Crée ta série !" : "Create your series!"}</p>
+        </div>
+      </div>
+      <div style={{ padding: "16px 20px 8px", maxWidth: 520, margin: "0 auto" }}>
 
         {/* ═══ TAB: AMBIANCE ═══ */}
         {mixTab === "ambiance" && (<>
