@@ -912,18 +912,12 @@ export default function RichLandingPage({ lang = "fr" }) {
 
           {canceled && <p style={{ color: RED, marginBottom: 16, fontSize: 14 }}>{c.canceledMsg}</p>}
 
-          {/* Email + CTA */}
+          {/* CTA direct checkout */}
           <div className="hero-cta" style={{ display: "flex", flexDirection: "column", gap: 14, alignItems: "center" }}>
-            <div className="hero-row" style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
-              <input type="email" placeholder={c.nlEmailPlaceholder} value={email}
-                onChange={e => { setEmail(e.target.value); setEmailError(false); }}
-                onKeyDown={e => e.key === "Enter" && startCheckout()}
-                style={{ padding: "16px 20px", borderRadius: 14, border: `1px solid ${emailError ? RED : "rgba(255,255,255,0.1)"}`, background: "rgba(255,255,255,0.05)", color: TEXT, fontSize: 15, flex: "1 1 200px", minWidth: 0, outline: "none", backdropFilter: "blur(12px)", transition: "border-color .2s" }} />
-              <button onClick={() => startCheckout("standard", "hero")} disabled={loading} className="cta-btn-glow"
-                style={{ padding: "16px 28px", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", borderRadius: 14, fontSize: 15, fontWeight: 800, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.02em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1 }}>
-                {loading ? c.redirecting : c.ctaBtnCreate}
-              </button>
-            </div>
+            <button onClick={() => startCheckout("standard", "hero")} disabled={loading} className="cta-btn-glow"
+              style={{ padding: "18px 40px", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", borderRadius: 14, fontSize: 16, fontWeight: 800, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.02em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1 }}>
+              {loading ? c.redirecting : c.ctaBtnCreate}
+            </button>
             <a href={lang === "en" ? "/en/exemples" : "/exemples"}
               onClick={() => track("demo_click", { position: "hero" })}
               style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, color: "rgba(255,255,255,0.65)", fontWeight: 600, letterSpacing: 0.3, textDecoration: "none" }}>
@@ -931,7 +925,6 @@ export default function RichLandingPage({ lang = "fr" }) {
               {c.ctaBtnDemo}
             </a>
           </div>
-          {emailError && <p style={{ color: RED, fontSize: 13, fontWeight: 600, marginTop: 10 }}>{c.emailError}</p>}
 
           {/* Stats bar */}
           <div style={{ display: "flex", gap: 0, justifyContent: "center", marginTop: 56, border: `1px solid rgba(255,255,255,0.07)`, borderRadius: 16, overflow: "hidden", background: "rgba(255,255,255,0.02)" }} className="stats-bar hero-stats">
@@ -1010,9 +1003,9 @@ export default function RichLandingPage({ lang = "fr" }) {
                   </div>
                 ))}
               </div>
-              <a href="/app" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "16px 32px", borderRadius: 14, fontSize: 15, fontWeight: 800, textDecoration: "none", letterSpacing: -0.2, boxShadow: `0 0 32px rgba(168,85,247,0.25)` }}>
-                {lang === "fr" ? "Créer ma série →" : "Create my series →"}
-              </a>
+              <button onClick={() => startCheckout("standard", "features")} disabled={loading} style={{ display: "inline-flex", alignItems: "center", gap: 10, background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "16px 32px", borderRadius: 14, fontSize: 15, fontWeight: 800, border: "none", cursor: loading ? "not-allowed" : "pointer", letterSpacing: -0.2, boxShadow: `0 0 32px rgba(168,85,247,0.25)`, opacity: loading ? 0.7 : 1 }}>
+                {loading ? c.redirecting : (lang === "fr" ? "Créer ma série →" : "Create my series →")}
+              </button>
             </div>
           </div>
           </Reveal>
@@ -1344,12 +1337,12 @@ export default function RichLandingPage({ lang = "fr" }) {
 
               {/* Bouton Générer */}
               <div style={{ textAlign: "center" }}>
-                <a href="/app" style={{ display: "inline-flex", alignItems: "center", gap: 12, background: `linear-gradient(135deg, ${RED}, ${VIO})`, borderRadius: 16, padding: "18px 40px", boxShadow: `0 0 40px rgba(168,85,247,0.3)`, textDecoration: "none", cursor: "pointer" }}>
+                <button onClick={() => startCheckout("standard", "demo")} disabled={loading} style={{ display: "inline-flex", alignItems: "center", gap: 12, background: `linear-gradient(135deg, ${RED}, ${VIO})`, borderRadius: 16, padding: "18px 40px", boxShadow: `0 0 40px rgba(168,85,247,0.3)`, border: "none", cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1 }}>
                   <span style={{ fontSize: 22 }}>✨</span>
                   <span style={{ fontSize: 17, fontWeight: 800, color: "#fff", letterSpacing: -0.3 }}>
-                    {lang === "fr" ? "Générer la bible →" : "Generate bible →"}
+                    {loading ? c.redirecting : (lang === "fr" ? "Générer la bible →" : "Generate bible →")}
                   </span>
-                </a>
+                </button>
                 <p style={{ color: MUTED, fontSize: 13, marginTop: 12 }}>
                   {lang === "fr" ? "⚡ Bible complète + 10 épisodes en moins de 30 secondes" : "⚡ Full bible + 10 episodes in under 30 seconds"}
                 </p>
