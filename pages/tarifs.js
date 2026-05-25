@@ -133,7 +133,7 @@ export default function Tarifs() {
         }) }} />
       </Head>
 
-      <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "var(--sans, 'Space Grotesk', system-ui, sans-serif)" }}>
+      <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "var(--sans)" }}>
         <style>{`
           @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
           * { box-sizing: border-box; margin: 0; padding: 0; }

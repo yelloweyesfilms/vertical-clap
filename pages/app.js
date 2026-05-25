@@ -1506,11 +1506,11 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {[
               { v: "🎬 Cinéma", s: t.style_cinema },
-              { v: "⚡ Vertical Drama", s: t.style_tiktok },
+              { v: "⚡ Format Vertical", s: t.style_tiktok },
               { v: "🎭 Soap Opera", s: t.style_soap },
               { v: "🎙️ Voix Off", s: t.style_voixoff },
             ].map(({ v, s }) => {
-              const isActive = state.style === v || (v === "⚡ Vertical Drama" && state.style === "⚡ TikTok Drama");
+              const isActive = state.style === v || (v === "⚡ Format Vertical" && (state.style === "⚡ TikTok Drama" || state.style === "⚡ Vertical Drama"));
               return (
                 <button key={v} onClick={() => set({ style: v })} style={{ flex: "1 1 40%", padding: "10px 8px", borderRadius: 12, border: `2px solid ${isActive ? "var(--r)" : "var(--bo)"}`, background: isActive ? "var(--r)" : "var(--card)", color: isActive ? "#fff" : "var(--tx)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "center" }}>
                   <div style={{ fontSize: 13, fontWeight: 700 }}>{v}</div>

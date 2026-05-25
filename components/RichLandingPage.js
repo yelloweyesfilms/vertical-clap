@@ -588,8 +588,8 @@ const Logo = ({ size = "md" }) => {
     <div style={{ display: "flex", alignItems: "center", gap: sm ? 7 : 9, userSelect: "none" }}>
       <img src="/1024.png" alt="VC" style={{ width: sm ? 26 : 34, height: sm ? 26 : 34, borderRadius: sm ? 7 : 9, flexShrink: 0, boxShadow: "0 2px 12px rgba(232,92,58,0.35)" }} />
       <div style={{ alignSelf: "center", lineHeight: 1 }}>
-        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: sm ? 8 : 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
-        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: sm ? 13 : 18, fontWeight: 800, letterSpacing: -0.5, lineHeight: 1, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>CLAP</div>
+        <div style={{ fontFamily: "var(--sans)", fontSize: sm ? 8 : 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
+        <div style={{ fontFamily: "var(--sans)", fontSize: sm ? 13 : 18, fontWeight: 800, letterSpacing: -0.5, lineHeight: 1, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>CLAP</div>
       </div>
     </div>
   );
@@ -600,7 +600,7 @@ const GlowBtn = ({ children, onClick, disabled, gradient, style = {} }) => (
     background: gradient ? `linear-gradient(135deg, ${RED}, ${VIO})` : RED,
     color: "#fff", border: "none", padding: "16px 32px", borderRadius: 14,
     fontSize: 15, fontWeight: 700, cursor: disabled ? "not-allowed" : "pointer",
-    opacity: disabled ? 0.7 : 1, fontFamily: "'Space Grotesk', sans-serif",
+    opacity: disabled ? 0.7 : 1, fontFamily: "var(--sans)",
     boxShadow: gradient ? `0 0 32px rgba(168,85,247,0.35), 0 0 16px rgba(232,92,58,0.25)` : `0 0 24px rgba(232,92,58,0.4)`,
     transition: "all .2s", letterSpacing: -0.3, ...style,
   }}>{children}</button>
@@ -642,7 +642,7 @@ function NewsletterSection({ lang = "fr" }) {
         {/* Content */}
         <div style={{ flex: 1, minWidth: 280, textAlign: "left" }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: MUTED, marginBottom: 16 }}>{c.nlLabel}</p>
-          <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(24px, 3vw, 38px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 12 }}>
+          <h2 style={{ fontFamily: "var(--sans)", fontSize: "clamp(24px, 3vw, 38px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 12 }}>
             {c.nlTitle1}<br /><span style={{ fontStyle: "italic", color: MUTED }}>{c.nlTitle2}</span>
           </h2>
           <p style={{ color: MUTED, fontSize: 15, marginBottom: 28, lineHeight: 1.7 }}>
@@ -659,7 +659,7 @@ function NewsletterSection({ lang = "fr" }) {
                 onKeyDown={e => e.key === "Enter" && submit()}
                 style={{ padding: "14px 18px", borderRadius: 12, border: `1px solid ${nlState === "error" ? RED : BORDER}`, background: SURFACE, color: TEXT, fontSize: 15, width: 240, outline: "none", flex: "1 1 200px" }} />
               <button onClick={submit} disabled={nlState === "loading"}
-                style={{ background: SURFACE, border: `1px solid ${BORDER}`, color: TEXT, padding: "14px 24px", borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "'Space Grotesk', sans-serif", transition: "all .2s", flexShrink: 0 }}>
+                style={{ background: SURFACE, border: `1px solid ${BORDER}`, color: TEXT, padding: "14px 24px", borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", transition: "all .2s", flexShrink: 0 }}>
                 {nlState === "loading" ? "…" : c.nlSubscribe}
               </button>
             </div>
@@ -673,11 +673,11 @@ function NewsletterSection({ lang = "fr" }) {
 }
 
 const Label = ({ children, color = VIO }) => (
-  <p style={{ textAlign: "center", fontSize: 13, fontWeight: 800, letterSpacing: 2.5, textTransform: "uppercase", color, marginBottom: 16, fontFamily: "'Space Grotesk', sans-serif", opacity: 0.95 }}>{children}</p>
+  <p style={{ textAlign: "center", fontSize: 13, fontWeight: 800, letterSpacing: 2.5, textTransform: "uppercase", color, marginBottom: 16, fontFamily: "var(--sans)", opacity: 0.95 }}>{children}</p>
 );
 
 const Title = ({ children, style = {} }) => (
-  <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(28px, 3.8vw, 50px)", fontWeight: 900, textAlign: "center", marginBottom: 12, letterSpacing: -1, lineHeight: 1.05, color: TEXT, textTransform: "uppercase", ...style }}>{children}</h2>
+  <h2 style={{ fontFamily: "var(--sans)", fontSize: "clamp(28px, 3.8vw, 50px)", fontWeight: 900, textAlign: "center", marginBottom: 12, letterSpacing: -1, lineHeight: 1.05, color: TEXT, textTransform: "uppercase", ...style }}>{children}</h2>
 );
 
 export default function RichLandingPage({ lang = "fr" }) {
@@ -748,7 +748,7 @@ export default function RichLandingPage({ lang = "fr" }) {
   const FAQ_ITEMS = c.faqItems;
 
   return (
-    <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "'Space Grotesk', system-ui, sans-serif", overflowX: "hidden" }}>
+    <div style={{ minHeight: "100vh", background: DARK, color: TEXT, fontFamily: "var(--sans)", overflowX: "hidden" }}>
       <style>{`
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
         @keyframes glow { 0%,100%{opacity:.7} 50%{opacity:1} }
@@ -886,7 +886,7 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 860, margin: "0 auto", padding: "88px 40px 72px", position: "relative", zIndex: 1, textAlign: "center" }} className="hero-pad">
 
           {/* Big headline */}
-          <h1 className="hero-h1" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif", fontWeight: 900, letterSpacing: -2, marginBottom: 0, color: TEXT, lineHeight: 1.0, fontSize: "clamp(36px, 7.5vw, 112px)", textTransform: "uppercase" }}>
+          <h1 className="hero-h1" style={{ fontFamily: "var(--sans)", fontWeight: 900, letterSpacing: -2, marginBottom: 0, color: TEXT, lineHeight: 1.0, fontSize: "clamp(36px, 7.5vw, 112px)", textTransform: "uppercase" }}>
             {c.heroHeadline1}<br />
             <span style={{ color: RED }}>{c.heroHeadline2}</span>
           </h1>
@@ -903,7 +903,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 <div style={{ width: 18, height: 18, borderRadius: 4, background: `${RED}22`, border: `1px solid ${RED}44`, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <div style={{ width: 6, height: 6, borderRadius: "50%", background: RED }} />
                 </div>
-                <span style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "'Space Grotesk', sans-serif" }}>{f}</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "var(--sans)" }}>{f}</span>
               </div>
             ))}
           </div>
@@ -913,7 +913,7 @@ export default function RichLandingPage({ lang = "fr" }) {
           {/* CTA direct checkout */}
           <div className="hero-cta" style={{ display: "flex", flexDirection: "column", gap: 14, alignItems: "center" }}>
             <button onClick={() => startCheckout("standard", "hero")} disabled={loading} className="cta-btn-glow"
-              style={{ padding: "18px 40px", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", borderRadius: 14, fontSize: 16, fontWeight: 800, cursor: loading ? "not-allowed" : "pointer", fontFamily: "'Space Grotesk', sans-serif", letterSpacing: "0.02em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1 }}>
+              style={{ padding: "18px 40px", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", border: "none", borderRadius: 14, fontSize: 16, fontWeight: 800, cursor: loading ? "not-allowed" : "pointer", fontFamily: "var(--sans)", letterSpacing: "0.02em", textTransform: "uppercase", transition: "opacity .2s", opacity: loading ? 0.6 : 1 }}>
               {loading ? c.redirecting : c.ctaBtnCreate}
             </button>
             <a href={lang === "en" ? "/en/exemples" : "/exemples"}
@@ -932,7 +932,7 @@ export default function RichLandingPage({ lang = "fr" }) {
               { val: c.heroStatGoal, label: c.heroStatGoalLabel },
             ].map((s, i) => (
               <div key={i} style={{ flex: 1, padding: "20px 16px", borderRight: i < 2 ? "1px solid rgba(255,255,255,0.07)" : "none", textAlign: "center" }}>
-                <div style={{ fontSize: "clamp(18px, 3vw, 34px)", fontWeight: 900, color: i === 2 ? RED : TEXT, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: -1, lineHeight: 1 }}>{s.val}</div>
+                <div style={{ fontSize: "clamp(18px, 3vw, 34px)", fontWeight: 900, color: i === 2 ? RED : TEXT, fontFamily: "var(--sans)", letterSpacing: -1, lineHeight: 1 }}>{s.val}</div>
                 <div style={{ fontSize: "clamp(9px, 1.5vw, 11px)", color: "rgba(255,255,255,0.78)", marginTop: 6, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>{s.label}</div>
               </div>
             ))}
@@ -973,7 +973,7 @@ export default function RichLandingPage({ lang = "fr" }) {
               <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, textTransform: "uppercase", color: RED, marginBottom: 16 }}>
                 {lang === "fr" ? "Ce que tu vas créer" : "What you'll create"}
               </p>
-              <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.05, marginBottom: 20, textTransform: "uppercase" }}>
+              <h2 style={{ fontFamily: "var(--sans)", fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.05, marginBottom: 20, textTransform: "uppercase" }}>
                 {lang === "fr" ? <>Une série<br /><span style={{ color: RED }}>prête à filmer.</span><br />En 30 secondes.</> : <>A series<br /><span style={{ color: RED }}>ready to shoot.</span><br />In 30 seconds.</>}
               </h2>
               <p style={{ color: MUTED, fontSize: 16, lineHeight: 1.8, marginBottom: 32 }}>
@@ -1016,10 +1016,10 @@ export default function RichLandingPage({ lang = "fr" }) {
       {false && <div className="sec" style={{ padding: "80px 40px", borderTop: `1px solid ${BORDER}` }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <Reveal>
-          <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 16, fontFamily: "'Space Grotesk', sans-serif" }}>
+          <p style={{ textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 16, fontFamily: "var(--sans)" }}>
             {lang === "fr" ? "Deux niveaux d'intensité" : "Two intensity levels"}
           </p>
-          <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.05, textAlign: "center", marginBottom: 12 }}>
+          <h2 style={{ fontFamily: "var(--sans)", fontSize: "clamp(28px, 3.5vw, 48px)", fontWeight: 900, color: TEXT, letterSpacing: -1.5, lineHeight: 1.05, textAlign: "center", marginBottom: 12 }}>
             {lang === "fr" ? "Un seul micro-drama." : "One micro-drama."}<br />
             <span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.75)" }}>
               {lang === "fr" ? "Viral ou premium." : "Viral or premium."}
@@ -1041,7 +1041,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 <div style={{ display: "inline-block", padding: "5px 14px", background: `${RED}18`, border: `1px solid ${RED}40`, borderRadius: 20, fontSize: 11, fontWeight: 800, color: RED, marginBottom: 20, letterSpacing: "0.08em" }}>
                   {lang === "fr" ? "⚡ MICRO DRAMA ENGINE" : "⚡ MICRO DRAMA ENGINE"}
                 </div>
-                <h3 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(24px, 2.5vw, 36px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 16 }}>
+                <h3 style={{ fontFamily: "var(--sans)", fontSize: "clamp(24px, 2.5vw, 36px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 16 }}>
                   {lang === "fr" ? <>Viral.<br />Du premier scroll<br /><span style={{ color: RED }}>au binge.</span></> : <>Viral.<br />From first scroll<br /><span style={{ color: RED }}>to binge.</span></>}
                 </h3>
                 <p style={{ fontSize: 15, color: MUTED, lineHeight: 1.7, marginBottom: 28 }}>
@@ -1083,7 +1083,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 <div style={{ display: "inline-block", padding: "5px 14px", background: `${VIO}18`, border: `1px solid ${VIO}40`, borderRadius: 20, fontSize: 11, fontWeight: 800, color: VIO, marginBottom: 20, letterSpacing: "0.08em" }}>
                   {lang === "fr" ? "🎭 SÉRIE PREMIUM" : "🎭 PREMIUM SERIES"}
                 </div>
-                <h3 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(24px, 2.5vw, 36px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 16 }}>
+                <h3 style={{ fontFamily: "var(--sans)", fontSize: "clamp(24px, 2.5vw, 36px)", fontWeight: 900, color: TEXT, letterSpacing: -1, lineHeight: 1.1, marginBottom: 16 }}>
                   {lang === "fr" ? <>Profond.<br />Des personnages<br /><span style={{ color: VIO }}>qu'on n'oublie pas.</span></> : <>Deep.<br />Characters<br /><span style={{ color: VIO }}>you won't forget.</span></>}
                 </h3>
                 <p style={{ fontSize: 15, color: MUTED, lineHeight: 1.7, marginBottom: 28 }}>
@@ -1251,7 +1251,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             {/* Texte à gauche */}
             <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-end", padding: "0 52px 48px" }}>
               <Label color={RED} style={{ textAlign: "left" }}>{c.mixerLabel}</Label>
-              <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "clamp(32px, 4.5vw, 56px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, color: TEXT, textTransform: "uppercase", marginBottom: 16, textAlign: "left" }}>
+              <h2 style={{ fontFamily: "var(--sans)", fontSize: "clamp(32px, 4.5vw, 56px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, color: TEXT, textTransform: "uppercase", marginBottom: 16, textAlign: "left" }}>
                 {lang === "fr" ? <>Tu choisis.<br /><span style={{ color: RED }}>L'IA génère tout.</span></> : <>You choose.<br /><span style={{ color: RED }}>AI generates everything.</span></>}
               </h2>
               <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 15, lineHeight: 1.6, margin: 0 }}>
@@ -1275,7 +1275,7 @@ export default function RichLandingPage({ lang = "fr" }) {
               {/* Titre du widget */}
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
                 <span style={{ fontSize: 20 }}>🎲</span>
-                <span style={{ fontSize: 22, fontWeight: 900, color: TEXT, textTransform: "uppercase", letterSpacing: "-0.5px", fontFamily: "'Space Grotesk', sans-serif" }}>{lang === "fr" ? "Le Mixeur" : "The Mixer"}</span>
+                <span style={{ fontSize: 22, fontWeight: 900, color: TEXT, textTransform: "uppercase", letterSpacing: "-0.5px", fontFamily: "var(--sans)" }}>{lang === "fr" ? "Le Mixeur" : "The Mixer"}</span>
                 <span style={{ fontSize: 11, color: MUTED, background: "rgba(255,255,255,0.05)", border: `1px solid ${BORDER}`, borderRadius: 6, padding: "2px 8px" }}>{lang === "fr" ? "1 clic pour changer" : "1 click to change"}</span>
               </div>
 
@@ -1371,7 +1371,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                   { n: "8", label: "styles", sub: "Urban neon, golden cinema, minimalist…", color: "#22c55e" },
                 ]).map(({ n, label, sub, color }) => (
                   <div key={label} style={{ background: "rgba(9,9,15,0.95)", padding: "28px 20px", textAlign: "center" }}>
-                    <div style={{ fontSize: "clamp(36px, 4vw, 56px)", fontWeight: 900, color, letterSpacing: -3, lineHeight: 1, marginBottom: 6, fontFamily: "'Space Grotesk', sans-serif" }}>{n}</div>
+                    <div style={{ fontSize: "clamp(36px, 4vw, 56px)", fontWeight: 900, color, letterSpacing: -3, lineHeight: 1, marginBottom: 6, fontFamily: "var(--sans)" }}>{n}</div>
                     <div style={{ fontSize: 13, fontWeight: 800, color: TEXT, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>{label}</div>
                     <div style={{ fontSize: 11, color: MUTED, lineHeight: 1.4 }}>{sub}</div>
                   </div>
@@ -1387,7 +1387,7 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ maxWidth: 960, margin: "0 auto" }}>
           <Reveal>
             <Label color={RED}>{lang === "fr" ? "Ton format tourne partout" : "Your format runs everywhere"}</Label>
-            <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(28px, 3.8vw, 50px)", fontWeight: 900, textAlign: "center", marginBottom: 12, letterSpacing: -1, lineHeight: 1.05, color: TEXT, textTransform: "uppercase" }}>
+            <h2 style={{ fontFamily: "var(--sans)", fontSize: "clamp(28px, 3.8vw, 50px)", fontWeight: 900, textAlign: "center", marginBottom: 12, letterSpacing: -1, lineHeight: 1.05, color: TEXT, textTransform: "uppercase" }}>
               {lang === "fr" ? <>Posté aujourd'hui.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.72)" }}>Viral demain.</span></> : <>Posted today.<br /><span style={{ fontStyle: "italic", color: "rgba(255,255,255,0.72)" }}>Viral tomorrow.</span></>}
             </h2>
             <p style={{ textAlign: "center", color: MUTED, fontSize: 15, maxWidth: 520, margin: "12px auto 52px", lineHeight: 1.7 }}>
@@ -1478,7 +1478,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 { k: "annual",  l: c.billingAnnual, badge: "-17%" },
               ].map(({ k, l, badge }) => (
                 <button key={k} onClick={() => setBilling(k)} style={{
-                  padding: "9px 20px", borderRadius: 10, border: "none", fontFamily: "'Space Grotesk', sans-serif",
+                  padding: "9px 20px", borderRadius: 10, border: "none", fontFamily: "var(--sans)",
                   fontSize: 13, fontWeight: 700, cursor: "pointer", transition: "all .2s",
                   background: billing === k ? TEXT : "transparent",
                   color: billing === k ? DARK : MUTED,
@@ -1514,7 +1514,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                     padding: "13px 8px", borderRadius: 13, border: "none",
                     background: active ? (tab.id === "pro" ? `linear-gradient(135deg, ${RED}22, ${VIO}22)` : `${RED}18`) : "transparent",
                     boxShadow: active ? `inset 0 0 0 1.5px ${tab.color}55` : "none",
-                    cursor: "pointer", transition: "all .2s", fontFamily: "'Space Grotesk', sans-serif",
+                    cursor: "pointer", transition: "all .2s", fontFamily: "var(--sans)",
                   }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                       <div style={{ width: 6, height: 6, borderRadius: "50%", background: active ? tab.color : MUTED, flexShrink: 0 }} />
@@ -1539,7 +1539,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                     {c.planStandardSub && <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.4 }}>{c.planStandardSub}</p>}
                   </div>
                   <div style={{ textAlign: "right" }}>
-                    <div style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: 48, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
+                    <div style={{ fontFamily: "var(--sans)", fontSize: 48, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                       {billing === "annual" ? "7.5€" : "9€"}
                     </div>
                     <p style={{ color: MUTED, fontSize: 12 }}>{c.perMonth}{billing === "annual" ? " · facturé 90€/an" : ""}</p>
@@ -1577,7 +1577,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                     {c.planPremiumSub && <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.4 }}>{c.planPremiumSub}</p>}
                   </div>
                   <div style={{ textAlign: "right" }}>
-                    <div style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: 48, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
+                    <div style={{ fontFamily: "var(--sans)", fontSize: 48, fontWeight: 900, color: TEXT, lineHeight: 1, letterSpacing: -2 }}>
                       {billing === "annual" ? "14.9€" : "19€"}
                     </div>
                     <p style={{ color: MUTED, fontSize: 12 }}>{c.perMonth}{billing === "annual" ? " · facturé 179€/an" : ""}</p>
@@ -1628,7 +1628,7 @@ export default function RichLandingPage({ lang = "fr" }) {
               <Reveal key={i} delay={i * 50}>
               <div style={{ borderBottom: `1px solid ${BORDER}` }}>
                 <button onClick={() => { const next = openFaq === i ? null : i; setOpenFaq(next); if (next !== null) track("faq_open", { index: i, q: item.q?.slice(0, 50) }); }} className="faq-item"
-                  style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 8px", background: "none", border: "none", cursor: "pointer", textAlign: "left", fontFamily: "'Space Grotesk', sans-serif", borderRadius: 8 }}>
+                  style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 8px", background: "none", border: "none", cursor: "pointer", textAlign: "left", fontFamily: "var(--sans)", borderRadius: 8 }}>
                   <span style={{ fontSize: 15, fontWeight: 600, color: TEXT, paddingRight: 16 }}>{item.q}</span>
                   <span style={{ color: VIO, fontSize: 22, flexShrink: 0, transition: "transform .2s", display: "inline-block", transform: openFaq === i ? "rotate(45deg)" : "none" }}>+</span>
                 </button>
@@ -1652,7 +1652,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 <div style={{ marginBottom: 16 }}>
                   <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: post.categoryColor, background: `${post.categoryColor}12`, border: `1px solid ${post.categoryColor}25`, padding: "3px 10px", borderRadius: 6 }}>{post.category}</span>
                 </div>
-                <h3 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: 18, fontWeight: 900, color: TEXT, letterSpacing: -0.3, lineHeight: 1.3, marginBottom: 12, flex: 1 }}>{post.title}</h3>
+                <h3 style={{ fontFamily: "var(--sans)", fontSize: 18, fontWeight: 900, color: TEXT, letterSpacing: -0.3, lineHeight: 1.3, marginBottom: 12, flex: 1 }}>{post.title}</h3>
                 <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.6, marginBottom: 20 }}>{post.description.slice(0, 100)}…</p>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontSize: 12, color: MUTED }}>{post.readTime} {c.readTime}</span>
@@ -1674,7 +1674,7 @@ export default function RichLandingPage({ lang = "fr" }) {
         <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, rgba(168,85,247,0.07) 0%, transparent 60%)`, pointerEvents: "none" }} />
         <Reveal>
         <div style={{ position: "relative", zIndex: 1 }}>
-          <h2 style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 900, marginBottom: 20, letterSpacing: -2, lineHeight: 1.0 }}>
+          <h2 style={{ fontFamily: "var(--sans)", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 900, marginBottom: 20, letterSpacing: -2, lineHeight: 1.0 }}>
             {c.ctaFinalTitle1}<br />
             {c.ctaFinalConnector}{" "}
             <span style={{ background: `linear-gradient(135deg, ${RED}, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontStyle: "italic" }}>
