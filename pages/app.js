@@ -1149,21 +1149,6 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             <span style={{ fontSize: 9, color: plan === "standard" ? "#E85C3A" : "#a855f7", opacity: 0.6 }}>›</span>
           </button>
         </div>
-        {/* Mode switcher */}
-        <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
-          <button
-            onClick={() => set(prev => ({ mode: "fast", univers: prev.mode !== "fast" ? (lang === "en" ? "High school secrets" : "Lycée & Secrets") : prev.univers, secret: prev.mode !== "fast" ? (lang === "en" ? "Love betrayal" : "Trahison amoureuse") : prev.secret, format: prev.format > 20 ? 20 : prev.format, genreFormat: null }))}
-            style={{ flex: 1, padding: "8px 10px", borderRadius: 10, border: `1.5px solid ${state.mode === "fast" ? "#E85C3A" : "var(--bo)"}`, cursor: "pointer", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "fast" ? "rgba(232,92,58,0.15)" : "transparent", textAlign: "left" }}>
-            <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: "0.06em", textTransform: "uppercase", color: state.mode === "fast" ? "#E85C3A" : "var(--mt)" }}>{lang === "en" ? "Vertical" : "Vertical"}</div>
-            <div style={{ fontSize: 10, color: "var(--mt)", marginTop: 1 }}>{lang === "en" ? "TikTok · Reels · 10–20 eps" : "TikTok · Reels · 10–20 éps"}</div>
-          </button>
-          <button
-            onClick={() => { if (plan === "standard") { onUpgrade("serie"); return; } set(prev => ({ mode: "premium", univers: prev.mode !== "premium" ? (lang === "en" ? "AI startup" : "Start-up IA") : prev.univers, secret: prev.mode !== "premium" ? (lang === "en" ? "Internal sabotage" : "Sabotage interne") : prev.secret, genreFormat: null })); }}
-            style={{ flex: 1, padding: "8px 10px", borderRadius: 10, border: `1.5px solid ${state.mode === "premium" ? "#a855f7" : plan === "standard" ? "rgba(168,85,247,0.25)" : "var(--bo)"}`, cursor: plan === "standard" ? "not-allowed" : "pointer", fontFamily: "var(--sans)", transition: "all .18s", background: state.mode === "premium" ? "rgba(168,85,247,0.15)" : "transparent", textAlign: "left", position: "relative" }}>
-            <div style={{ fontSize: 11, fontWeight: 900, letterSpacing: "0.06em", textTransform: "uppercase", color: state.mode === "premium" ? "#a855f7" : plan === "standard" ? "rgba(168,85,247,0.5)" : "var(--mt)" }}>{lang === "en" ? "Série" : "Série"} {plan === "standard" && <span style={{ fontSize: 9, background: "rgba(168,85,247,0.2)", color: "rgba(168,85,247,0.8)", padding: "1px 5px", borderRadius: 4, marginLeft: 4 }}>19€</span>}</div>
-            <div style={{ fontSize: 10, color: "var(--mt)", marginTop: 1 }}>{lang === "en" ? "Plateformes premium · 20–90 eps" : "Plateformes premium · 20–90 éps"}</div>
-          </button>
-        </div>
         {/* Format chips — horizontal scroll */}
         <div style={{ display: "flex", gap: 6, overflowX: "auto", paddingBottom: 4, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
           {STORY_FORMATS.map(f => {
@@ -1455,7 +1440,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </div>
 
         <div style={{ marginBottom: 28 }}>
-          <SectionHead title={lang === "fr" ? "Nombre d'Épisodes" : "Number of Episodes"} sub={state.mode === "fast" && lang === "fr" ? "Max 20 en Vertical Drama · 40–90 disponibles en Série" : state.mode === "fast" ? "Max 20 in Vertical · 40–90 available in Series mode" : lang === "fr" ? "Jusqu'à 90 épisodes" : "Up to 90 episodes"} />
+          <SectionHead title={lang === "fr" ? "Nombre d'Épisodes" : "Number of Episodes"} sub={plan === "standard" ? (lang === "fr" ? "Max 20 épisodes · jusqu'à 90 avec le plan Pro" : "Max 20 episodes · up to 90 with Pro plan") : (lang === "fr" ? "Jusqu'à 90 épisodes" : "Up to 90 episodes")} />
           <div style={{ display: "flex", gap: 8 }}>
             {[10, 20, 40, 60, 90].map(f => {
               const needsSerie = f > 20;
@@ -2788,6 +2773,11 @@ export default function App() {
       secret: prev.mode === "fast" ? OPTS[lang].secret_fast[0] : OPTS[lang].secret_prem[0],
     }));
   }, [lang]);
+
+  // Auto-set mode selon le plan
+  useEffect(() => {
+    setState(prev => ({ ...prev, mode: plan === "premium" ? "premium" : "fast" }));
+  }, [plan]);
 
   const t = T[lang];
   const opts = OPTS[lang];
