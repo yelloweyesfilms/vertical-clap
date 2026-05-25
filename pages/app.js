@@ -1153,6 +1153,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   const [customInputs, setCustomInputs] = useState({ casting: "", univers: "", secret: "" });
   const [castingCat, setCastingCat] = useState("romance");
   const [mixTab, setMixTab] = useState("univers");
+  const [creationMode, setCreationMode] = useState("mixeur"); // "mixeur" | "packs"
 
   const MIX_TABS = lang === "en"
     ? [{ id: "univers", label: "Story" }, { id: "persos", label: "Cast" }, { id: "ambiance", label: "Style" }, { id: "format", label: "Format" }]
@@ -1225,11 +1226,25 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             <span style={{ fontSize: 9, color: plan === "standard" ? "#E85C3A" : "#a855f7", opacity: 0.6 }}>›</span>
           </button>
         </div>
-        {/* Format chips — horizontal scroll */}
-        <div style={{ marginBottom: 4 }}>
-          <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--mt)", fontFamily: "var(--sans)" }}>{lang === "fr" ? "Genre" : "Genre"}</span>
+        {/* Mode selector — Packs vs Mixeur */}
+        <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
+          <button onClick={() => setCreationMode("mixeur")} style={{ flex: 1, padding: "10px 8px", borderRadius: 12, border: `2px solid ${creationMode === "mixeur" ? "var(--r)" : "var(--bo)"}`, background: creationMode === "mixeur" ? "rgba(232,92,58,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s" }}>
+            <div style={{ fontSize: 15, marginBottom: 2 }}>🎛️</div>
+            <div style={{ fontSize: 11, fontWeight: 800, color: creationMode === "mixeur" ? "var(--r)" : "var(--tx)" }}>{lang === "fr" ? "Mixeur" : "Mixer"}</div>
+            <div style={{ fontSize: 9, color: "var(--mt)", lineHeight: 1.3 }}>{lang === "fr" ? "Je configure moi-même" : "I'll configure it myself"}</div>
+          </button>
+          <button onClick={() => setCreationMode("packs")} style={{ flex: 1, padding: "10px 8px", borderRadius: 12, border: `2px solid ${creationMode === "packs" ? "#a855f7" : "var(--bo)"}`, background: creationMode === "packs" ? "rgba(168,85,247,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s" }}>
+            <div style={{ fontSize: 15, marginBottom: 2 }}>🎯</div>
+            <div style={{ fontSize: 11, fontWeight: 800, color: creationMode === "packs" ? "#a855f7" : "var(--tx)" }}>{lang === "fr" ? "Packs" : "Packs"}</div>
+            <div style={{ fontSize: 9, color: "var(--mt)", lineHeight: 1.3 }}>{lang === "fr" ? "Tout en 1 clic" : "Everything in 1 click"}</div>
+          </button>
         </div>
-        <div style={{ display: "flex", gap: 6, overflowX: "auto", paddingBottom: 4, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
+
+        {/* Format chips — horizontal scroll — seulement en mode Mixeur */}
+        {creationMode === "mixeur" && <div style={{ marginBottom: 4 }}>
+          <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--mt)", fontFamily: "var(--sans)" }}>{lang === "fr" ? "Genre" : "Genre"}</span>
+        </div>}
+        {creationMode === "mixeur" && <div style={{ display: "flex", gap: 6, overflowX: "auto", paddingBottom: 4, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
           {STORY_FORMATS.map(f => {
             const active = state.genreFormat === f.id;
             return (
@@ -1239,11 +1254,11 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
               </button>
             );
           })}
-        </div>
+        </div>}
       </div>
 
-      {/* ═══ BUDGET — toujours visible, avant les onglets ═══ */}
-      <div style={{ padding: "14px 16px 0", borderBottom: "1.5px solid var(--bo)" }}>
+      {/* ═══ BUDGET — visible seulement en mode Mixeur ═══ */}
+      {creationMode === "mixeur" && <div style={{ padding: "14px 16px 0", borderBottom: "1.5px solid var(--bo)" }}>
         <p style={{ fontSize: 9, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--mt)", marginBottom: 8, fontFamily: "var(--sans)" }}>
           {lang === "fr" ? "💸 Budget de tournage" : "💸 Shooting budget"}
         </p>
@@ -1276,10 +1291,10 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             </div>
           );
         })()}
-      </div>
+      </div>}
 
-      {/* Tab bar — sticky */}
-      <div style={{ display: "flex", background: "var(--bg)", borderBottom: "1.5px solid var(--bo)", flexShrink: 0 }}>
+      {/* Tab bar + contenu — seulement en mode Mixeur */}
+      {creationMode === "mixeur" && <div style={{ display: "flex", background: "var(--bg)", borderBottom: "1.5px solid var(--bo)", flexShrink: 0 }}>
         {MIX_TABS.map(tab => {
           const active = mixTab === tab.id;
           return (
@@ -1288,10 +1303,51 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             </button>
           );
         })}
-      </div>
+      </div>}
 
-      {/* Scrollable content per tab */}
-      <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+      {/* ═══ MODE PACKS ═══ */}
+      {creationMode === "packs" && (
+        <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+          <div style={{ padding: "16px 16px 8px" }}>
+            <p style={{ fontSize: 18, fontWeight: 900, color: "var(--tx)", fontFamily: "var(--sans)", letterSpacing: -0.5, marginBottom: 4 }}>
+              {lang === "fr" ? "🎯 Tu veux pas te prendre la tête ?" : "🎯 Don't want to overthink it?"}
+            </p>
+            <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5, marginBottom: 16 }}>
+              {lang === "fr" ? "Choisis un pack — genre, casting, ambiance, secrets, tout est déjà configuré." : "Pick a pack — genre, casting, mood, secrets, everything's already set."}
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {UNIVERSE_PACKS.map(p => {
+                const locked = p.mode === "premium" && plan === "standard";
+                const active = state.packId === p.id;
+                const pLabel = typeof p.label === "object" ? (p.label[lang] || p.label.fr) : p.label;
+                const pDesc = typeof p.desc === "object" ? (p.desc[lang] || p.desc.fr) : p.desc;
+                const pCasting = typeof p.casting === "object" ? (p.casting[lang] || p.casting.fr) : p.casting;
+                const pUnivers = typeof p.univers === "object" ? (p.univers[lang] || p.univers.fr) : p.univers;
+                const pSecret = typeof p.secret === "object" ? (p.secret[lang] || p.secret.fr) : p.secret;
+                return (
+                  <button key={p.id} onClick={() => {
+                    if (locked) { onUpgrade("serie"); return; }
+                    set({ mode: p.mode, casting: pCasting, univers: pUnivers, secret: pSecret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, tropesSel: [], packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 20 : state.format });
+                  }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${locked ? "rgba(168,85,247,0.2)" : active ? "var(--r)" : "var(--bo)"}`, background: locked ? "rgba(168,85,247,0.04)" : active ? "var(--r)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "left", transition: "all .15s", position: "relative" }}>
+                    <span style={{ fontSize: 28, flexShrink: 0, opacity: locked ? 0.5 : 1 }}>{p.emoji}</span>
+                    <div style={{ flex: 1, minWidth: 0, opacity: locked ? 0.7 : 1 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
+                        <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#fff" : "var(--tx)" }}>{pLabel}</span>
+                        <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: p.mode === "premium" ? "rgba(168,85,247,0.15)" : "rgba(232,92,58,0.15)", color: p.mode === "premium" ? "#a855f7" : "#E85C3A", fontWeight: 700, letterSpacing: 0.5, border: p.mode === "premium" ? "1px solid rgba(168,85,247,0.3)" : "none" }}>{p.mode === "premium" ? "🔒 PRO" : "Creator"}</span>
+                      </div>
+                      <span style={{ fontSize: 11, color: active ? "rgba(255,255,255,0.8)" : "var(--mt)", lineHeight: 1.3 }}>{pDesc}</span>
+                    </div>
+                    {locked && <span style={{ fontSize: 16, flexShrink: 0 }}>🔒</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Scrollable content per tab — seulement en mode Mixeur */}
+      {creationMode === "mixeur" && <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "22px 20px 8px", maxWidth: 520, margin: "0 auto" }}>
 
         {/* ═══ TAB: FORMAT ═══ */}
@@ -1300,46 +1356,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         {/* ═══ TAB: UNIVERS ═══ */}
         {mixTab === "univers" && (<>
 
-        {/* Universe Packs */}
-        <div style={{ marginBottom: 28 }}>
-          <div style={{ marginBottom: 16 }}>
-            <p style={{ fontSize: 18, fontWeight: 900, color: "var(--tx)", fontFamily: "var(--sans)", letterSpacing: -0.5, marginBottom: 4 }}>
-              {lang === "fr" ? "🎯 Tu veux pas te prendre la tête ?" : "🎯 Don't want to overthink it?"}
-            </p>
-            <p style={{ fontSize: 12, color: "var(--mt)", lineHeight: 1.5 }}>
-              {lang === "fr" ? "Choisis un pack — genre, casting, ambiance, secrets, tout est déjà configuré." : "Pick a pack — genre, casting, mood, secrets, everything's already set."}
-            </p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {UNIVERSE_PACKS.map(p => {
-              const locked = p.mode === "premium" && plan === "standard";
-              const active = state.packId === p.id;
-              const pLabel = typeof p.label === "object" ? (p.label[lang] || p.label.fr) : p.label;
-              const pDesc = typeof p.desc === "object" ? (p.desc[lang] || p.desc.fr) : p.desc;
-              const pCasting = typeof p.casting === "object" ? (p.casting[lang] || p.casting.fr) : p.casting;
-              const pUnivers = typeof p.univers === "object" ? (p.univers[lang] || p.univers.fr) : p.univers;
-              const pSecret = typeof p.secret === "object" ? (p.secret[lang] || p.secret.fr) : p.secret;
-              return (
-                <button key={p.id} onClick={() => {
-                  if (locked) { onUpgrade("serie"); return; }
-                  set({ mode: p.mode, casting: pCasting, univers: pUnivers, secret: pSecret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, tropesSel: [], packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 20 : state.format });
-                }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${locked ? "rgba(168,85,247,0.2)" : active ? "var(--r)" : "var(--bo)"}`, background: locked ? "rgba(168,85,247,0.04)" : active ? "var(--r)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "left", transition: "all .15s", position: "relative" }}>
-                  <span style={{ fontSize: 28, flexShrink: 0, opacity: locked ? 0.5 : 1 }}>{p.emoji}</span>
-                  <div style={{ flex: 1, minWidth: 0, opacity: locked ? 0.7 : 1 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
-                      <span style={{ fontSize: 14, fontWeight: 800, color: active ? "#fff" : "var(--tx)" }}>{pLabel}</span>
-                      <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: p.mode === "premium" ? "rgba(168,85,247,0.15)" : "rgba(232,92,58,0.15)", color: p.mode === "premium" ? "#a855f7" : "#E85C3A", fontWeight: 700, letterSpacing: 0.5, border: p.mode === "premium" ? "1px solid rgba(168,85,247,0.3)" : "none" }}>{p.mode === "premium" ? "🔒 PRO" : "Creator"}</span>
-                    </div>
-                    <span style={{ fontSize: 11, color: active ? "rgba(255,255,255,0.8)" : "var(--mt)", lineHeight: 1.3 }}>{pDesc}</span>
-                  </div>
-                  {locked && <span style={{ fontSize: 16, flexShrink: 0 }}>🔒</span>}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        </>)} {/* end TAB: UNIVERS - packs only */}
+        </>)} {/* end TAB: UNIVERS */}
 
         {/* ═══ TAB: AMBIANCE ═══ */}
         {mixTab === "ambiance" && (<>
@@ -1695,7 +1712,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </>)} {/* end TAB: AMBIANCE */}
 
       </div>
-      </div> {/* end scrollable content */}
+      </div>} {/* end scrollable content — mode mixeur */}
 
       {/* ═══ Sticky bottom — Generate button ═══ */}
       <div style={{ flexShrink: 0, padding: "14px 20px 18px", borderTop: "1.5px solid var(--bo)", background: "var(--bg)" }}>
