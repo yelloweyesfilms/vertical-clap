@@ -1265,7 +1265,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </div>
         {/* Titre en bas de la bannière */}
         <div style={{ position: "absolute", bottom: 8, left: 16 }}>
-          <p style={{ fontSize: 18, fontWeight: 900, color: "#fff", fontFamily: "var(--sans)", letterSpacing: -0.3 }}>{lang === "fr" ? "Crée ta série" : "Create your series"}</p>
+          <p style={{ fontSize: 18, fontWeight: 900, color: "#fff", fontFamily: "var(--sans)", letterSpacing: -0.3 }}>{lang === "fr" ? "Crée ta série !" : "Create your series!"}</p>
         </div>
       </div>
 
