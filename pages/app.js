@@ -472,6 +472,25 @@ const BUDGET_LEVELS = [
   },
 ];
 
+// ── LIEUX — liste complète indépendante du budget ────────────
+const ALL_LIEUX = [
+  { id: "chambre",   emoji: "🛏",  label: { fr: "Chambre",           en: "Bedroom"            } },
+  { id: "sdb",       emoji: "🚿",  label: { fr: "Salle de bain",     en: "Bathroom"           } },
+  { id: "cuisine",   emoji: "🍽",  label: { fr: "Cuisine",           en: "Kitchen"            } },
+  { id: "voiture",   emoji: "🚗",  label: { fr: "Voiture",           en: "Car"                } },
+  { id: "cafe",      emoji: "☕",  label: { fr: "Café",              en: "Café"               } },
+  { id: "rue-nuit",  emoji: "🌃",  label: { fr: "Rue de nuit",       en: "Night street"       } },
+  { id: "parc",      emoji: "🌳",  label: { fr: "Parc / extérieur",  en: "Park / outdoors"    } },
+  { id: "bureau",    emoji: "💼",  label: { fr: "Bureau",            en: "Office"             } },
+  { id: "resto",     emoji: "🍷",  label: { fr: "Restaurant / bar",  en: "Restaurant / bar"   } },
+  { id: "parking",   emoji: "🅿️",  label: { fr: "Parking",           en: "Underground parking" } },
+  { id: "loft",      emoji: "🏙️",  label: { fr: "Loft / appart",     en: "Loft / apartment"   } },
+  { id: "rooftop",   emoji: "🌅",  label: { fr: "Rooftop",           en: "Rooftop"            } },
+  { id: "hotel",     emoji: "🏨",  label: { fr: "Hôtel",             en: "Hotel"              } },
+  { id: "studio",    emoji: "🎭",  label: { fr: "Studio",            en: "Studio"             } },
+  { id: "villa",     emoji: "🏡",  label: { fr: "Villa",             en: "Villa"              } },
+];
+
 // ── AMBIANCE VISUELLE ────────────────────────────────────────
 const AMBIANCE_VIS = [
   {
@@ -1275,23 +1294,17 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             );
           })}
         </div>
-        {(() => {
-          const bLevel = BUDGET_LEVELS.find(b => b.id === state.budget);
-          if (!bLevel?.lieux?.length) return null;
-          return (
-            <div style={{ display: "flex", gap: 5, overflowX: "auto", paddingBottom: 2, marginTop: 6, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
-              {bLevel.lieux.map(l => {
-                const lLabel = l.label[lang] || l.label.fr;
-                const active = state.lieu === lLabel;
-                return (
-                  <button key={l.id} onClick={() => set({ lieu: active ? "" : lLabel })} style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 3, padding: "4px 9px", borderRadius: 100, border: `1.5px solid ${active ? bLevel.color : "var(--bo)"}`, background: active ? `${bLevel.color}22` : "var(--card)", color: active ? bLevel.color : "var(--tx)", cursor: "pointer", fontSize: 10, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s", whiteSpace: "nowrap" }}>
-                    <span>{l.emoji}</span><span>{lLabel}</span>
-                  </button>
-                );
-              })}
-            </div>
-          );
-        })()}
+        <div style={{ display: "flex", gap: 5, overflowX: "auto", paddingBottom: 2, marginTop: 6, WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
+          {ALL_LIEUX.map(l => {
+            const lLabel = l.label[lang] || l.label.fr;
+            const active = state.lieu === lLabel;
+            return (
+              <button key={l.id} onClick={() => set({ lieu: active ? "" : lLabel })} style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 3, padding: "4px 9px", borderRadius: 100, border: `1.5px solid ${active ? "var(--r)" : "var(--bo)"}`, background: active ? "rgba(232,92,58,0.12)" : "var(--card)", color: active ? "var(--r)" : "var(--tx)", cursor: "pointer", fontSize: 10, fontWeight: active ? 700 : 400, fontFamily: "var(--sans)", transition: "all .15s", whiteSpace: "nowrap" }}>
+                <span>{l.emoji}</span><span>{lLabel}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>}
 
       {/* Tab bar + contenu — seulement en mode Mixeur */}
