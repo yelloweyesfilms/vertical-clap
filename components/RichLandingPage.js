@@ -22,8 +22,8 @@ const COPY = {
     heroTitleItalic: "pensée pour les micro-dramas.",
     heroHeadline1: "Crée des séries virales",
     heroHeadline2: "en 5 minutes.",
-    heroSubtitleBold: "Bible, scripts, hooks — générés en 30 sec. Toi, tu tournes.",
-    heroFeatures: ["Bible en 30 sec", "Cliffhanger calibré", "Format 9:16 natif", "Script prêt à tourner"],
+    heroSubtitleBold: "Du script au tournage — tout généré en 30 sec. Tu n'as plus qu'à filmer.",
+    heroFeatures: ["Bible en 30 sec", "Script prêt à tourner", "Guide Prod inclus", "Mode Tournage"],
     heroStatViews: "10M+",
     heroStatViewsLabel: "vues générées",
     heroStatCreators: "500+",
@@ -50,7 +50,7 @@ const COPY = {
       { n: "02", emoji: "📖", title: "Bible & Personnages", you: "Tu valides les personnages et les arcs.", ai: ["Synopsis court et long", "Personnages & motivations", "Arcs émotionnels", "Structure globale"], color: "#f97316" },
       { n: "03", emoji: "🎬", title: "Épisodes & Structure", you: "Tu ajustes le rythme et les tensions.", ai: ["Découpage épisodique", "Cliffhangers calibrés", "Twists & révélations", "Progression des arcs"], color: "#eab308" },
       { n: "04", emoji: "✍️", title: "Scènes & Dialogues", you: "Tu modifies chaque scène, chaque réplique.", ai: ["Scènes individuelles", "Dialogues & sous-texte", "Moments émotionnels", "Indications de jeu"], color: "#22c55e" },
-      { n: "05", emoji: "🎞️", title: "Script & Tournage", you: "Tu contrôles, tu valides, tu tournes.", ai: ["Script formaté prêt à tourner", "Mode Tournage + Téléprompteur", "Export PDF", "3 variations de ton"], color: VIO },
+      { n: "05", emoji: "🎞️", title: "Tournage & Prod", you: "Tu contrôles, tu valides, tu tournes.", ai: ["Script formaté prêt à tourner", "Découpage technique plan par plan", "Guide Prod Zéro Budget", "Mode Tournage + Téléprompteur"], color: VIO },
     ],
     howTagline: "Pas un bouton magique. Un studio narratif à ta mesure.",
     howAiLabel: "L'IA génère",
@@ -260,8 +260,8 @@ const COPY = {
     heroSubtitle: "Hooks. Twists. Cliffhangers.",
     heroHeadline1: "Create viral series",
     heroHeadline2: "in 5 minutes.",
-    heroSubtitleBold: "Bible, scripts, hooks — generated in 30 sec. You shoot.",
-    heroFeatures: ["Bible in 30 sec", "Calibrated cliffhanger", "Native 9:16 format", "Shoot-ready script"],
+    heroSubtitleBold: "From script to shoot — everything generated in 30 sec. Just press record.",
+    heroFeatures: ["Bible in 30 sec", "Shoot-ready script", "Prod Guide included", "Shoot Mode"],
     heroStatViews: "10M+",
     heroStatViewsLabel: "views generated",
     heroStatCreators: "500+",
@@ -288,7 +288,7 @@ const COPY = {
       { n: "02", emoji: "📖", title: "Bible & Characters", you: "You validate the characters and arcs.", ai: ["Short & long synopsis", "Characters & motivations", "Emotional arcs", "Global structure"], color: "#f97316" },
       { n: "03", emoji: "🎬", title: "Episodes & Structure", you: "You adjust the pacing and tensions.", ai: ["Episode breakdown", "Calibrated cliffhangers", "Twists & reveals", "Arc progression"], color: "#eab308" },
       { n: "04", emoji: "✍️", title: "Scenes & Dialogue", you: "You edit each scene, each line.", ai: ["Individual scenes", "Dialogue & subtext", "Emotional moments", "Acting notes"], color: "#22c55e" },
-      { n: "05", emoji: "🎞️", title: "Script & Shoot", you: "You control, validate, and shoot.", ai: ["Shoot-ready formatted script", "Shoot Mode + Teleprompter", "PDF Export", "3 tone variations"], color: VIO },
+      { n: "05", emoji: "🎞️", title: "Shoot & Prod", you: "You control, validate, and shoot.", ai: ["Shoot-ready formatted script", "Shot-by-shot technical breakdown", "Zero Budget Prod Guide", "Shoot Mode + Teleprompter"], color: VIO },
     ],
     howTagline: "Not a magic button. A narrative studio built around you.",
     howAiLabel: "AI generates",
@@ -980,8 +980,8 @@ export default function RichLandingPage({ lang = "fr" }) {
               </h2>
               <p style={{ color: MUTED, fontSize: 16, lineHeight: 1.8, marginBottom: 32 }}>
                 {lang === "fr"
-                  ? "VerticalClap génère tout ce dont tu as besoin : le poster, la bible, les personnages, les scripts épisode par épisode — au format 9:16, prêt pour TikTok, Reels et Shorts."
-                  : "VerticalClap generates everything you need: the poster, the bible, the characters, the scripts episode by episode — in 9:16 format, ready for TikTok, Reels and Shorts."}
+                  ? "VerticalClap génère tout : bible, personnages, scripts 9:16 — et va jusqu'au tournage. Découpage technique plan par plan, Guide Prod Zéro Budget, Mode Tournage avec téléprompteur intégré."
+                  : "VerticalClap generates everything: bible, characters, 9:16 scripts — all the way to the shoot. Shot-by-shot breakdown, Zero Budget Prod Guide, Shoot Mode with built-in teleprompter."}
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 36 }}>
                 {(lang === "fr" ? [
