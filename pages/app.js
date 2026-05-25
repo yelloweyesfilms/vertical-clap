@@ -1098,14 +1098,25 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
     ? [{ id: "univers", label: "Story" }, { id: "persos", label: "Cast" }, { id: "ambiance", label: "Style" }, { id: "format", label: "Format" }]
     : [{ id: "univers", label: "Univers" }, { id: "persos", label: "Persos" }, { id: "ambiance", label: "Ambiance" }, { id: "format", label: "Format" }];
 
+  const FORMAT_TROPES = {
+    kdrama:  ["enemies-to-lovers", "forbidden-love"],
+    thriller: ["betrayal", "hidden-identity"],
+    romance:  ["enemies-to-lovers", "fake-dating"],
+    dark:     ["betrayal", "revenge"],
+    vertical: [],
+    serie:    [],
+  };
+
   const selectFormat = (f) => {
+    const isToggleOff = false; // never deselect — always apply
     set(prev => ({
       genreFormat: prev.genreFormat === f.id ? null : f.id,
       genre: f.genre,
       tropes: f.tropes ? f.tropes : prev.tropes,
       ambianceVisuelle: f.ambianceVisuelle ? f.ambianceVisuelle : prev.ambianceVisuelle,
       style: f.style,
-      univers: f.mode !== prev.mode ? (f.mode === "fast" ? prev.univers : prev.univers) : prev.univers,
+      tropesSel: FORMAT_TROPES[f.id] || [],
+      packId: null, // reset pack to avoid conflicts
     }));
   };
 
@@ -1242,9 +1253,9 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
               const pSecret = typeof p.secret === "object" ? (p.secret[lang] || p.secret.fr) : p.secret;
               return (
                 <button key={p.id} onClick={() => {
-                  if (locked) return;
+                  if (locked) { onUpgrade("serie"); return; }
                   set({ mode: p.mode, casting: pCasting, univers: pUnivers, secret: pSecret, genre: p.genre, ambiance: p.ambiance, tropes: p.tropes, packId: active ? null : p.id, format: p.mode === "fast" && state.format > 20 ? 20 : state.format });
-                }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${locked ? "rgba(168,85,247,0.2)" : active ? "var(--r)" : "var(--bo)"}`, background: locked ? "rgba(168,85,247,0.04)" : active ? "var(--r)" : "var(--card)", cursor: locked ? "pointer" : "pointer", fontFamily: "var(--sans)", textAlign: "left", transition: "all .15s", position: "relative" }}>
+                }} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 14, border: `2px solid ${locked ? "rgba(168,85,247,0.2)" : active ? "var(--r)" : "var(--bo)"}`, background: locked ? "rgba(168,85,247,0.04)" : active ? "var(--r)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", textAlign: "left", transition: "all .15s", position: "relative" }}>
                   <span style={{ fontSize: 28, flexShrink: 0, opacity: locked ? 0.5 : 1 }}>{p.emoji}</span>
                   <div style={{ flex: 1, minWidth: 0, opacity: locked ? 0.7 : 1 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
@@ -1379,26 +1390,37 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         {mixTab === "univers" && (<>
         {/* Codes Narratifs */}
         <div style={{ marginBottom: 28 }}>
-          <SectionHead sep={false} title={lang === "fr" ? "Codes Narratifs" : "Story Codes"} sub={lang === "fr" ? "Les tropes qui créent l'addiction — choisis plusieurs" : "The tropes that create addiction — pick several"} />
-          {[{ cat: "romance", label: t.tropes_romance, color: "#e879a0" }, { cat: "drama", label: t.tropes_drama, color: "var(--n)" }].map(({ cat, label: catLabel, color }) => (
-            <div key={cat} style={{ marginBottom: 14 }}>
-              <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color, marginBottom: 8 }}>{catLabel}</p>
-              <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
-                {TROPES.filter(tr => tr.cat === cat).map(tr => {
-                  const tLabel = typeof tr.label === "object" ? (tr.label[lang] || tr.label.fr) : tr.label;
-                  const active = (state.tropesSel || []).includes(tr.id);
-                  return (
-                    <button key={tr.id} onClick={() => set(prev => {
-                      const sel = prev.tropesSel || [];
-                      return { tropesSel: active ? sel.filter(x => x !== tr.id) : [...sel, tr.id] };
-                    })} style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "7px 12px", borderRadius: 100, border: `1.5px solid ${active ? (cat === "romance" ? "#e879a0" : "var(--n)") : "var(--bo)"}`, background: active ? (cat === "romance" ? "#e879a022" : "var(--n)22") : "var(--card)", color: active ? (cat === "romance" ? "#e879a0" : "var(--n)") : "var(--tx)", cursor: "pointer", fontSize: 12, fontWeight: active ? 700 : 500, fontFamily: "var(--sans)", transition: "all .15s" }}>
-                      <span>{tLabel}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
+          {(() => {
+            const MAX_TROPES = 2;
+            const selCount = (state.tropesSel || []).length;
+            const atMax = selCount >= MAX_TROPES;
+            return (<>
+              <SectionHead sep={false} title={lang === "fr" ? "Codes Narratifs" : "Story Codes"} sub={lang === "fr" ? `Choisis 1 ou 2 tropes — ${selCount === 0 ? "aucun sélectionné" : selCount === 1 ? "1 sélectionné" : `${selCount}/${MAX_TROPES} — max atteint`}` : `Pick 1 or 2 — ${selCount === 0 ? "none selected" : selCount === 1 ? "1 selected" : `${selCount}/${MAX_TROPES} — max reached`}`} />
+              {[{ cat: "romance", label: t.tropes_romance, color: "#e879a0" }, { cat: "drama", label: t.tropes_drama, color: "var(--n)" }].map(({ cat, label: catLabel, color }) => (
+                <div key={cat} style={{ marginBottom: 14 }}>
+                  <p style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", color, marginBottom: 8 }}>{catLabel}</p>
+                  <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
+                    {TROPES.filter(tr => tr.cat === cat).map(tr => {
+                      const tLabel = typeof tr.label === "object" ? (tr.label[lang] || tr.label.fr) : tr.label;
+                      const active = (state.tropesSel || []).includes(tr.id);
+                      const disabled = atMax && !active;
+                      return (
+                        <button key={tr.id} onClick={() => {
+                          if (disabled) return;
+                          set(prev => {
+                            const sel = prev.tropesSel || [];
+                            return { tropesSel: active ? sel.filter(x => x !== tr.id) : [...sel, tr.id] };
+                          });
+                        }} style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "7px 12px", borderRadius: 100, border: `1.5px solid ${active ? (cat === "romance" ? "#e879a0" : "var(--n)") : "var(--bo)"}`, background: active ? (cat === "romance" ? "#e879a022" : "var(--n)22") : "var(--card)", color: active ? (cat === "romance" ? "#e879a0" : "var(--n)") : disabled ? "var(--mt)" : "var(--tx)", cursor: disabled ? "default" : "pointer", opacity: disabled ? 0.4 : 1, fontSize: 12, fontWeight: active ? 700 : 500, fontFamily: "var(--sans)", transition: "all .15s" }}>
+                          <span>{tLabel}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </>);
+          })()}
         </div>
 
         {[
@@ -1719,7 +1741,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                 { k: "affiche", l: t.poster_btn, emoji: "🎬", locked: false, onClick: () => { setShowMore(false); onAffiche(); } },
               ].map(({ k, l, emoji, locked, onClick }, idx, arr) => (
                 <button key={k} onClick={onClick}
-                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, width: "100%", padding: "13px 16px", border: "none", borderBottom: idx < arr.length - 1 ? "1px solid var(--bo)" : "none", background: "none", cursor: locked ? "default" : "pointer", fontSize: 13, fontWeight: 700, color: locked ? "var(--mt)" : tab === k ? "var(--r)" : "var(--tx)", textAlign: "left", fontFamily: "var(--sans)", opacity: locked ? 0.6 : 1 }}>
+                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, width: "100%", padding: "13px 16px", border: "none", borderBottom: idx < arr.length - 1 ? "1px solid var(--bo)" : "none", background: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, color: locked ? "var(--mt)" : tab === k ? "var(--r)" : "var(--tx)", textAlign: "left", fontFamily: "var(--sans)", opacity: locked ? 0.75 : 1 }}>
                   <span style={{ display: "flex", alignItems: "center", gap: 10 }}><span>{emoji}</span>{l}</span>
                   {locked && <span style={{ fontSize: 10, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.25)", padding: "2px 7px", borderRadius: 6, letterSpacing: 0.5 }}>🔒 PRO</span>}
                 </button>
