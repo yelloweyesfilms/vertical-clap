@@ -288,7 +288,7 @@ const CASTING_CULTURE = [
   { id: "italienne",  emoji: "🇮🇹", label: { fr: "Italienne",    en: "Italian" } },
   { id: "brésilienne",emoji: "🇧🇷", label: { fr: "Brésilienne",  en: "Brazilian" } },
   { id: "mixte",      emoji: "🌍",  label: { fr: "Mixte",         en: "Mixed" } },
-  { id: "diaspora",   emoji: "🧳",  label: { fr: "Diaspora",      en: "Diaspora" } },
+  { id: "diaspora",   emoji: "🧳",  label: { fr: "Diaspora",      en: "Diaspora" }, desc: { fr: "Né·e ici, racines là-bas — vit entre deux cultures", en: "Born here, roots elsewhere — lives between two cultures" } },
 ];
 const CASTING_AESTHETIC = [
   { id: "soft-girl",   emoji: "🌸", label: { fr: "Soft girl",     en: "Soft girl" } },
@@ -1392,6 +1392,13 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                   );
                 })}
               </div>
+              {/* Desc pour les chips avec description (ex: Diaspora) */}
+              {(state.castingMods?.[key] || []).map(id => {
+                const m = mods.find(x => x.id === id);
+                if (!m?.desc) return null;
+                const d = m.desc[lang] || m.desc.fr;
+                return <p key={id} style={{ fontSize: 11, color: "var(--n)", marginTop: 6, fontStyle: "italic" }}>🧳 {d}</p>;
+              })}
             </div>
           ))}
         </div>
