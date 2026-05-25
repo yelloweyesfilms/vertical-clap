@@ -240,10 +240,13 @@ export default function Exemples() {
             <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase" }}>Générés par l'IA en 30 secondes</span>
           </div>
           <h1 style={{ fontFamily: "var(--sans)", fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: -2, marginBottom: 16, color: TEXT, textTransform: "uppercase" }}>
-            4 extraits de séries<br /><span style={{ color: RED }}>générés en 30 sec.</span>
+            4 séries générées<br /><span style={{ color: RED }}>en 30 secondes.</span>
           </h1>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(232,92,58,0.12)", border: `1px solid rgba(232,92,58,0.35)`, borderRadius: 20, padding: "6px 18px", marginBottom: 20 }}>
+            <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, color: RED, textTransform: "uppercase" }}>⚠️ Extraits — pas des scripts complets</span>
+          </div>
           <p style={{ color: MUTED, fontSize: 16, lineHeight: 1.7, maxWidth: 520, margin: "0 auto 48px" }}>
-            Médical, finance, famille, romance — bible complète, personnages et scripts générés par l'IA en 30 secondes. <strong style={{ color: TEXT }}>Ce sont des extraits.</strong>
+            Médical, finance, famille, romance — bible complète, personnages et scripts générés par l'IA en 30 secondes.
           </p>
 
           {/* STATS */}
