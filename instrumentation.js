@@ -1,4 +1,7 @@
 export async function register() {
+  // Ne pas initialiser Sentry si DSN absent — évite crash au démarrage
+  if (!process.env.NEXT_PUBLIC_SENTRY_DSN) return;
+
   if (process.env.NEXT_RUNTIME === "nodejs") {
     const Sentry = await import("@sentry/nextjs");
     Sentry.init({
