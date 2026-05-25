@@ -732,6 +732,10 @@ export default async function handler(req, res) {
     }
 
   } catch (e) {
+    // Rate limit Anthropic → message utilisateur clair, pas de Sentry (bruit inutile)
+    if (e.status === 429) {
+      return res.status(503).json({ error: "Le service est momentanément surchargé. Réessaie dans 30 secondes." });
+    }
     Sentry.captureException(e, { extra: { action: req.body?.action, customerId, plan } });
     console.error(e);
     res.status(500).json({ error: e.message });
