@@ -1,5 +1,9 @@
 import { Redis } from "@upstash/redis";
 import { sendNewsletterWelcomeEmail } from "../../lib/email";
+import { Resend } from "resend";
+
+const NOTIF_TO = "verticalclapapp@gmail.com";
+const FROM = "VerticalClap <hello@verticalclap.app>";
 
 function getRedis() {
   if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) return null;
@@ -39,5 +43,21 @@ export default async function handler(req, res) {
   }
 
   console.log("[newsletter] welcome email sent to", normalized, "lang:", lang);
+
+  // Notification interne si nouvelle inscription
+  if (isNew && process.env.RESEND_API_KEY) {
+    try {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      await resend.emails.send({
+        from: FROM,
+        to: NOTIF_TO,
+        subject: `📩 Nouvelle inscription newsletter — ${normalized}`,
+        html: `<p style="font-family:sans-serif;font-size:15px;">Nouvelle inscription : <strong>${normalized}</strong> (lang: ${lang})</p>`,
+      });
+    } catch (e) {
+      console.error("[newsletter] notif failed:", e.message);
+    }
+  }
+
   return res.json({ ok: true, already: !isNew });
 }
