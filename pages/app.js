@@ -41,7 +41,7 @@ const T = {
     spice: "Intensifier", subtle: "Subtil", simplify: "Épurer",
     revelation: "Révélation", revelation_sub: "Insère un secret explosif dans le script",
     variations_locked: "3 versions", variations: "3 versions du script",
-    shooting: "Tournage", social: "Distribution",
+    shooting: "Tournage",
     translate: "Traduire le script", translate_back: "↩ Original", translating: "Traduction…",
     export_pdf: "Exporter en PDF",
     saved: "séries sauvegardées", no_series: "Aucune série sauvegardée", generate_first: "Crée ta première série",
@@ -74,9 +74,6 @@ const T = {
     affiche_sec3_title: "03 — Générer l'image de couverture", affiche_sec3_sub: "Copie ce prompt et colle-le dans Midjourney, DALL-E (ChatGPT), Gemini ou Ideogram pour générer l'affiche.",
     affiche_copy: "Copier le prompt", affiche_tools: "Midjourney → /imagine + colle · ChatGPT → \"Génère cette image :\" + colle · Gemini → même chose",
     vc_presents: "VERTICAL CLAP PRESENTS",
-    social_title: "Distribution & Réseaux", social_loading: "Génération du contenu…",
-    social_tiktok_legend: "Légende de publication", social_copy: "Copier",
-    social_sms: "SMS entre personnages", social_comments: "Commentaires",
     gen_bible: "Création de la bible de la série…",
     gen_episodes: "Génération des épisodes…",
     gen_episodes_batch: "Épisodes %a–%b générés… (%c/%d)",
@@ -122,7 +119,7 @@ const T = {
     spice: "Intensify", subtle: "Subtle", simplify: "Strip down",
     revelation: "Revelation", revelation_sub: "Drop an explosive secret into the script",
     variations_locked: "3 versions", variations: "3 script versions",
-    shooting: "Shoot", social: "Distribute",
+    shooting: "Shoot",
     translate: "Translate script", translate_back: "↩ Original", translating: "Translating…",
     export_pdf: "Export as PDF",
     saved: "saved series", no_series: "No saved series", generate_first: "Create your first series",
@@ -155,9 +152,6 @@ const T = {
     affiche_sec3_title: "03 — Generate cover image", affiche_sec3_sub: "Copy this prompt and paste it into Midjourney, DALL-E (ChatGPT), Gemini or Ideogram to generate the poster.",
     affiche_copy: "Copy prompt", affiche_tools: "Midjourney → /imagine + paste · ChatGPT → \"Generate this image:\" + paste · Gemini → same",
     vc_presents: "VERTICAL CLAP PRESENTS",
-    social_title: "Distribution & Social", social_loading: "Generating content…",
-    social_tiktok_legend: "Publication caption", social_copy: "Copy",
-    social_sms: "SMS between characters", social_comments: "Comments",
     gen_bible: "Creating series bible…",
     gen_episodes: "Generating episodes…",
     gen_episodes_batch: "Episodes %a–%b generated… (%c/%d)",
@@ -1998,7 +1992,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   );
 }
 
-function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onStoryboard, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onSocial, onTranslate, t, lang, onUpgrade }) {
+function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onStoryboard, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onTranslate, t, lang, onUpgrade }) {
   const [showLangs, setShowLangs] = useState(false);
   const [translating, setTranslating] = useState(false);
   const [translated, setTranslated] = useState(null);
@@ -2127,7 +2121,6 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
               <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.shooting}</button>
               <button onClick={onStoryboard} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.storyboard_btn}</button>
-              <button onClick={onSocial} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.social}</button>
             </div>
             <button onClick={() => { if (translated) { setTranslated(null); setActiveLang(null); setShowLangs(false); } else { setShowLangs(s => !s); } }} disabled={translating} style={{ background: translated ? "var(--n)" : "var(--card)", color: translated ? "#fff" : "var(--tx)", border: `1.5px solid ${translated ? "var(--n)" : "var(--bo)"}`, padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: translating ? "wait" : "pointer", marginBottom: 6, fontFamily: "var(--sans)" }}>
               {translating ? t.translating : translated ? `${LANGS.find(l => l.code === activeLang)?.flag} ${t.translate_back}` : t.translate}
@@ -2282,75 +2275,6 @@ function AfficheView({ affiche, loading, bible, onBack, t }) {
   );
 }
 
-function SocialView({ social, loading, ep, bible, onBack, t }) {
-  return (
-    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-      <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_studio}</button>
-        <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>{t.social_title}</h2>
-        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre}</p>
-      </div>
-      <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
-        {loading ? (
-          <LoadingVC msg={t.social_loading} />
-        ) : social ? (
-          <>
-            {/* Légende TikTok */}
-            {social.legende && (
-              <div style={{ background: "linear-gradient(135deg, #ff0050, #ff6b6b)", borderRadius: 16, padding: 18, marginBottom: 20 }}>
-                <p style={{ fontSize: 15, fontWeight: 800, color: "rgba(255,255,255,0.9)", marginBottom: 8 }}>{t.social_tiktok_legend}</p>
-                <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", lineHeight: 1.5 }}>{social.legende}</p>
-                <button onClick={() => navigator.clipboard?.writeText(social.legende)} style={{ marginTop: 12, background: "rgba(255,255,255,0.2)", border: "none", color: "#fff", padding: "8px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.social_copy}</button>
-              </div>
-            )}
-            {/* SMS */}
-            {(social.sms || []).length > 0 && (
-              <div style={{ marginBottom: 20 }}>
-                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--tx)", marginBottom: 12 }}>{t.social_sms}</p>
-                <div style={{ background: "#1a1a1a", borderRadius: 16, padding: 16, display: "flex", flexDirection: "column", gap: 10 }}>
-                  {(social.sms || []).map((m, i) => {
-                    const isRight = i % 2 === 0;
-                    return (
-                      <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: isRight ? "flex-end" : "flex-start" }}>
-                        <p style={{ fontSize: 10, color: "#666", marginBottom: 3 }}>{isRight ? m.from : m.to} · {m.heure}</p>
-                        <div style={{ background: isRight ? "#007AFF" : "#2a2a2a", borderRadius: isRight ? "18px 18px 4px 18px" : "18px 18px 18px 4px", padding: "10px 14px", maxWidth: "80%" }}>
-                          <p style={{ fontSize: 14, color: "#fff", lineHeight: 1.4 }}>{m.texte}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-            {/* Commentaires TikTok */}
-            {(social.commentaires || []).length > 0 && (
-              <div>
-                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--tx)", marginBottom: 12 }}>{t.social_comments}</p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  {(social.commentaires || []).map((c, i) => (
-                    <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: "12px 14px", border: "1.5px solid var(--bo)", display: "flex", alignItems: "flex-start", gap: 10 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: "50%", background: `hsl(${(i * 60) % 360}, 60%, 55%)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                        <span style={{ fontSize: 14 }}>{c.reaction}</span>
-                      </div>
-                      <div style={{ flex: 1 }}>
-                        <p style={{ fontSize: 11, fontWeight: 700, color: "var(--r)", marginBottom: 3 }}>{c.user}</p>
-                        <p style={{ fontSize: 13, lineHeight: 1.5 }}>{c.texte}</p>
-                      </div>
-                      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
-                        <span style={{ fontSize: 16 }}>❤️</span>
-                        <span style={{ fontSize: 10, color: "var(--mt)", fontWeight: 700 }}>{c.likes >= 1000 ? `${(c.likes / 1000).toFixed(1)}k` : c.likes}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </>
-        ) : null}
-      </div>
-    </div>
-  );
-}
 
 function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
   const [playing, setPlaying] = useState(false);
@@ -3091,8 +3015,6 @@ export default function App() {
 
   const [variations, setVariations] = useState(null);
   const [loadingVariations, setLoadingVariations] = useState(false);
-  const [social, setSocial] = useState(null);
-  const [loadingSocial, setLoadingSocial] = useState(false);
   const [affiche, setAffiche] = useState(null);
   const [loadingAffiche, setLoadingAffiche] = useState(false);
   const [profils, setProfils] = useState(null);
@@ -3119,16 +3041,6 @@ export default function App() {
     setScreen("studio");
   };
 
-  const genSocial = async () => {
-    setSocial(null);
-    setLoadingSocial(true);
-    setScreen("social");
-    try {
-      const r = await gen("social", { ep: episodes[epIdx], bible, mode: state.mode, lang }, customerId);
-      setSocial(r);
-    } catch (e) { console.error(e); }
-    setLoadingSocial(false);
-  };
 
   const genAffiche = async () => {
     setAffiche(null);
@@ -3408,10 +3320,9 @@ export default function App() {
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} setPlan={setPlan} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} />}
       {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} onCalendrier={genCalendrier} onSaison2={genSaison2} t={t} lang={lang} onUpgrade={showUpgrade} />}
-      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onSocial={genSocial} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} onUpgrade={showUpgrade} />}
+      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} onUpgrade={showUpgrade} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
-      {screen === "social" && <SocialView social={social} loading={loadingSocial} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} />}
       {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
       {screen === "profils" && <ProfilsView profils={profils} loading={loadingProfils} bible={bible} onBack={() => setScreen("bible")} t={t} />}
       {screen === "calendrier" && <CalendrierView calendrier={calendrier} loading={loadingCalendrier} bible={bible} onBack={() => setScreen("bible")} t={t} />}
