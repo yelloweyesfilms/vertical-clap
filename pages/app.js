@@ -1841,11 +1841,11 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
             <p style={{ fontSize: 15, fontWeight: 800, color: "var(--tx)", marginBottom: 12 }}>{t.personnages}</p>
             {(bible.personnages || []).map((p, i) => (
               <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: 16, borderLeft: `4px solid ${i === 0 ? "var(--r)" : "var(--n)"}`, marginBottom: 10 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                  <span style={{ fontFamily: "var(--serif)", fontSize: 18, fontWeight: 700 }}>{p.nom}</span>
-                  <span style={{ fontSize: 11, color: i === 0 ? "var(--r)" : "var(--n)", fontWeight: 700, textTransform: "uppercase" }}>{p.role} · {p.age} ans</span>
+                <div style={{ marginBottom: 10 }}>
+                  <span style={{ fontFamily: "var(--serif)", fontSize: 18, fontWeight: 700, display: "block", marginBottom: 3 }}>{p.nom}</span>
+                  <span style={{ fontSize: 10, color: i === 0 ? "var(--r)" : "var(--n)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.4 }}>{p.role}{p.age ? ` · ${p.age} ans` : ""}</span>
                 </div>
-                <p style={{ fontSize: 13, color: "var(--mt)", lineHeight: 1.5, borderLeft: "2px solid #E85C3A22", paddingLeft: 8 }}>{p.secret}</p>
+                <p style={{ fontSize: 13, color: "var(--mt)", lineHeight: 1.5, borderLeft: "2px solid #E85C3A22", paddingLeft: 8, margin: 0 }}>{p.secret}</p>
               </div>
             ))}
             <div style={{ background: "rgba(232,92,58,0.08)", border: "1px solid rgba(232,92,58,0.2)", borderRadius: 12, padding: 16, marginBottom: 20, marginTop: 4 }}>
