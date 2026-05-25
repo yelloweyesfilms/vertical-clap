@@ -1978,39 +1978,40 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
               })()}
             </p>
             {(displayScript.scenes || []).map((s, i) => (
-              <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: 14, borderLeft: "3px solid var(--bo)", marginBottom: 10 }}>
+              <div key={i} style={{ background: "var(--card)", borderRadius: 12, padding: 14, borderLeft: "3px solid rgba(232,92,58,0.35)", marginBottom: 10, border: "1px solid var(--bo)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-                  <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", color: "var(--n)" }}>{s.perso}</p>
-                  {s.jeu && <span style={{ fontSize: 10, background: "var(--bo)", color: "var(--tx)", padding: "2px 8px", borderRadius: 20, fontStyle: "italic" }}>{s.jeu}</span>}
+                  <div style={{ width: 3, borderRadius: 2, background: "rgba(232,92,58,0.5)", alignSelf: "stretch", flexShrink: 0, minHeight: 16 }} />
+                  <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", color: "var(--tx)" }}>{s.perso}</p>
+                  {s.jeu && <span style={{ fontSize: 10, background: "rgba(255,255,255,0.08)", color: "var(--mt)", padding: "2px 8px", borderRadius: 20, fontStyle: "italic", border: "1px solid var(--bo)" }}>{s.jeu}</span>}
                 </div>
-                <p style={{ fontSize: 14, lineHeight: 1.55, marginBottom: 6, fontWeight: 500 }}>{s.dialogue}</p>
+                <p style={{ fontSize: 14, lineHeight: 1.6, marginBottom: 6, fontWeight: 500, color: "var(--tx)" }}>{s.dialogue}</p>
                 {s.voix_off && (
-                  <div style={{ background: "rgba(58,80,64,0.1)", border: "1px solid rgba(58,80,64,0.2)", borderRadius: 8, padding: "8px 10px", marginBottom: 6, display: "flex", alignItems: "flex-start", gap: 6 }}>
-                    <div style={{ width: 3, height: 3, borderRadius: "50%", background: "var(--n)", flexShrink: 0, marginTop: 5 }} />
-                    <p style={{ fontSize: 12, fontStyle: "italic", color: "var(--n)", lineHeight: 1.5 }}>{s.voix_off}</p>
+                  <div style={{ background: "rgba(168,85,247,0.07)", border: "1px solid rgba(168,85,247,0.18)", borderRadius: 8, padding: "8px 10px", marginBottom: 6, display: "flex", alignItems: "flex-start", gap: 6 }}>
+                    <span style={{ fontSize: 11, color: "#a855f7", flexShrink: 0, marginTop: 1 }}>VO</span>
+                    <p style={{ fontSize: 12, fontStyle: "italic", color: "var(--mt)", lineHeight: 1.5 }}>{s.voix_off}</p>
                   </div>
                 )}
-                <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {s.visuel_916}</p>
+                <p style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic", marginTop: 4 }}>[9:16] {s.visuel_916}</p>
               </div>
             ))}
-            <div style={{ background: "#1a1a2e", borderRadius: 14, padding: 16, marginBottom: 14 }}>
+            <div style={{ background: "var(--card)", border: "2px solid var(--r)", borderRadius: 14, padding: 16, marginBottom: 14 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                 <p style={{ fontSize: 15, fontWeight: 800, color: "var(--r)" }}>🎬 Cliffhanger</p>
-                <button onClick={() => onEdit("rewrite_ending")} disabled={loading} style={{ background: "rgba(255,255,255,0.08)", border: "none", color: "rgba(255,255,255,0.7)", padding: "5px 10px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>♻️ Nouveau</button>
+                <button onClick={() => onEdit("rewrite_ending")} disabled={loading} style={{ background: "rgba(232,92,58,0.1)", border: "1px solid rgba(232,92,58,0.25)", color: "var(--r)", padding: "5px 10px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>♻️ Nouveau</button>
               </div>
-              <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8, lineHeight: 1.4 }}>{displayScript.cliffhanger_scene?.texte}</p>
-              <p style={{ fontSize: 12, color: "var(--r)", fontStyle: "italic", marginBottom: displayScript.cliffhanger_scene?.label ? 10 : 0 }}>[9:16] {displayScript.cliffhanger_scene?.visuel_916}</p>
+              <p style={{ fontSize: 15, fontWeight: 700, color: "var(--tx)", marginBottom: 8, lineHeight: 1.4 }}>{displayScript.cliffhanger_scene?.texte}</p>
+              <p style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic", marginBottom: displayScript.cliffhanger_scene?.label ? 10 : 0 }}>[9:16] {displayScript.cliffhanger_scene?.visuel_916}</p>
               {displayScript.cliffhanger_scene?.label && (
                 <span style={{ display: "inline-block", background: "var(--r)", borderRadius: 6, padding: "6px 12px", fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: 1, textTransform: "uppercase" }}>{displayScript.cliffhanger_scene.label}</span>
               )}
             </div>
             {displayScript.choix && displayScript.choix.length === 2 && (
-              <div style={{ background: "linear-gradient(135deg, rgba(168,85,247,0.08), rgba(232,92,58,0.06))", border: "1px solid rgba(168,85,247,0.25)", borderRadius: 14, padding: 16, marginBottom: 14 }}>
-                <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--n)", marginBottom: 12 }}>🎮 {lang === "en" ? "Your choice" : "Ton choix"}</p>
+              <div style={{ background: "var(--card)", border: "1.5px solid rgba(168,85,247,0.3)", borderRadius: 14, padding: 16, marginBottom: 14 }}>
+                <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "#a855f7", marginBottom: 12 }}>🎮 {lang === "en" ? "Your choice" : "Ton choix"}</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   {displayScript.choix.map((c, i) => (
-                    <div key={i} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, padding: "12px 14px" }}>
-                      <p style={{ fontSize: 13, fontWeight: 700, color: i === 0 ? "var(--r)" : "var(--n)", marginBottom: 4 }}>{i === 0 ? "A" : "B"} — {c.label}</p>
+                    <div key={i} style={{ background: i === 0 ? "rgba(232,92,58,0.07)" : "rgba(168,85,247,0.07)", border: `1px solid ${i === 0 ? "rgba(232,92,58,0.2)" : "rgba(168,85,247,0.2)"}`, borderRadius: 10, padding: "12px 14px" }}>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: i === 0 ? "var(--r)" : "#a855f7", marginBottom: 4 }}>{i === 0 ? "A" : "B"} — {c.label}</p>
                       <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic", lineHeight: 1.4 }}>{c.consequence}</p>
                     </div>
                   ))}
@@ -2019,7 +2020,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
             )}
             <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
               {[["pimenter", t.spice], ["subtil", t.subtle], ["simplifier", t.simplify]].map(([k, l]) => (
-                <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "11px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: "var(--sans)", transition: "all .15s" }}>{l}</button>
+                <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "12px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 13, fontWeight: 700, fontFamily: "var(--sans)", color: "var(--tx)", transition: "all .15s" }}>{l}</button>
               ))}
             </div>
             <button onClick={() => onEdit("revelation")} disabled={loading} style={{ width: "100%", marginBottom: 10, padding: "14px 16px", borderRadius: 12, border: "none", background: "linear-gradient(135deg, #E85C3A, #c0392b)", color: "#fff", cursor: "pointer", fontSize: 14, fontWeight: 800, fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, boxShadow: "0 4px 18px rgba(232,92,58,0.35)" }}>
