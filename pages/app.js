@@ -1278,17 +1278,23 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             </button>
           </div>
         </div>
+        {/* Bannière fixe */}
+        <div style={{ margin: "8px -16px 8px", position: "relative", height: 100, overflow: "hidden" }}>
+          <img src="/studio.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 10%" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(9,9,15,0.2) 0%, rgba(9,9,15,0.6) 65%, var(--card) 100%)" }} />
+          <div style={{ position: "absolute", bottom: 8, left: 16 }}>
+            <p style={{ fontSize: 16, fontWeight: 900, color: "#fff", fontFamily: "var(--sans)", letterSpacing: -0.3, margin: 0 }}>{lang === "fr" ? "Crée ta série !" : "Create your series!"}</p>
+          </div>
+        </div>
         {/* Mode selector — Packs vs Mixeur */}
-        <div style={{ display: "flex", gap: 8 }}>
-          <button onClick={() => setCreationMode("mixeur")} style={{ flex: 1, padding: "8px 10px", borderRadius: 12, border: `2px solid ${creationMode === "mixeur" ? "var(--r)" : "var(--bo)"}`, background: creationMode === "mixeur" ? "rgba(232,92,58,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-            <span style={{ fontSize: 18 }}>🎛️</span>
+        <div style={{ display: "flex", gap: 6 }}>
+          <button onClick={() => setCreationMode("mixeur")} style={{ flex: 1, padding: "7px 10px", borderRadius: 10, border: `2px solid ${creationMode === "mixeur" ? "var(--r)" : "var(--bo)"}`, background: creationMode === "mixeur" ? "rgba(232,92,58,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+            <span style={{ fontSize: 15 }}>🎛️</span>
             <div style={{ fontSize: 12, fontWeight: 900, color: creationMode === "mixeur" ? "var(--r)" : "var(--tx)", textTransform: "uppercase", letterSpacing: "0.06em" }}>{lang === "fr" ? "Mixeur" : "Mixer"}</div>
-            <div style={{ fontSize: 9, color: "var(--mt)", textAlign: "center" }}>{lang === "fr" ? "Je configure" : "I set it up"}</div>
           </button>
-          <button onClick={() => setCreationMode("packs")} style={{ flex: 1, padding: "8px 10px", borderRadius: 12, border: `2px solid ${creationMode === "packs" ? "#a855f7" : "var(--bo)"}`, background: creationMode === "packs" ? "rgba(168,85,247,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-            <span style={{ fontSize: 18 }}>🎯</span>
+          <button onClick={() => setCreationMode("packs")} style={{ flex: 1, padding: "7px 10px", borderRadius: 10, border: `2px solid ${creationMode === "packs" ? "#a855f7" : "var(--bo)"}`, background: creationMode === "packs" ? "rgba(168,85,247,0.12)" : "var(--card)", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+            <span style={{ fontSize: 15 }}>🎯</span>
             <div style={{ fontSize: 12, fontWeight: 900, color: creationMode === "packs" ? "#a855f7" : "var(--tx)", textTransform: "uppercase", letterSpacing: "0.06em" }}>{lang === "fr" ? "Packs" : "Packs"}</div>
-            <div style={{ fontSize: 9, color: "var(--mt)", textAlign: "center" }}>{lang === "fr" ? "1 clic, c'est prêt" : "1-click ready"}</div>
           </button>
         </div>
       </div>
@@ -1308,14 +1314,6 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
       {/* ═══ MODE PACKS ═══ */}
       {creationMode === "packs" && (
         <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-          {/* Bannière scrollable */}
-          <div style={{ position: "relative", width: "100%", height: 140, overflow: "hidden" }}>
-            <img src="/studio.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 10%" }} />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(9,9,15,0.2) 0%, rgba(9,9,15,0.6) 65%, var(--bg) 100%)" }} />
-            <div style={{ position: "absolute", bottom: 10, left: 16 }}>
-              <p style={{ fontSize: 18, fontWeight: 900, color: "#fff", fontFamily: "var(--sans)", letterSpacing: -0.3 }}>{lang === "fr" ? "Crée ta série !" : "Create your series!"}</p>
-            </div>
-          </div>
           <div style={{ padding: "12px 16px 8px" }}>
             <p style={{ fontSize: 18, fontWeight: 900, color: "var(--tx)", fontFamily: "var(--sans)", letterSpacing: -0.5, marginBottom: 4 }}>
               {lang === "fr" ? "🎯 Tu veux pas te prendre la tête ?" : "🎯 Don't want to overthink it?"}
@@ -1356,14 +1354,6 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
 
       {/* Scrollable content per tab — seulement en mode Mixeur */}
       {creationMode === "mixeur" && <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-      {/* Bannière scrollable */}
-      <div style={{ position: "relative", width: "100%", height: 140, overflow: "hidden" }}>
-        <img src="/studio.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 10%" }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(9,9,15,0.2) 0%, rgba(9,9,15,0.6) 65%, var(--bg) 100%)" }} />
-        <div style={{ position: "absolute", bottom: 10, left: 16 }}>
-          <p style={{ fontSize: 18, fontWeight: 900, color: "#fff", fontFamily: "var(--sans)", letterSpacing: -0.3 }}>{lang === "fr" ? "Crée ta série !" : "Create your series!"}</p>
-        </div>
-      </div>
       <div style={{ padding: "16px 20px 8px", maxWidth: 520, margin: "0 auto" }}>
 
         {/* ═══ TAB: AMBIANCE ═══ */}
