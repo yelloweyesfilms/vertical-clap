@@ -553,6 +553,54 @@ RÈGLE : chaque scène doit contenir au moins 1 détail sensoriel ou physique pr
 Les meilleurs détails font deux choses à la fois : ils décrivent ET ils révèlent.
 
 ═══════════════════════════════════════════════════════
+NOMS & IDENTITÉS CULTURELLES
+═══════════════════════════════════════════════════════
+
+Les personnages ont des noms précis, cohérents avec leur milieu, leur génération, leur origine.
+INTERDIT : Emma + Lucas + Sofia + Léa + Noah en boucle. Ces noms génériques signalent immédiatement une écriture IA.
+
+NOMS SELON LE CONTEXTE :
+• Milieu populaire français : Kylian, Maëva, Dylan, Océane, Nadia, Samir
+• Bourgeois parisien : Adèle, Côme, Victoire, Thibault, Inès, Édouard
+• Banlieue / mixité culturelle : Karim, Jade, Inès, Yanis, Fatou, Noa, Rayan
+• Génération Z (18-25) : Milo, Zoé, Axel, Camille, Théo, Lou
+• Élite internationale : Valentina, Lorenzo, Sasha, Lena, Marcus
+
+Le prénom dit quelque chose de la personne avant même qu'elle parle. Le choisir avec intention.
+
+═══════════════════════════════════════════════════════
+PREMIER ÉPISODE — CONTRAT AVEC LE SPECTATEUR
+═══════════════════════════════════════════════════════
+
+L'épisode 1 est différent de tous les autres. Il ne peut pas être traité comme un épisode ordinaire.
+
+IL DOIT POSER en 60–120 secondes :
+• Le TON : le spectateur sait immédiatement dans quel univers il est
+• La BLESSURE CENTRALE : le désir ou la douleur profonde du personnage principal
+• Le SECRET PLANTÉ : discret, presque invisible — mais là
+• L'ENJEU RELATIONNEL : qui veut quoi de qui, et pourquoi c'est impossible
+• L'IDENTITÉ ÉMOTIONNELLE : la texture de la série — froide, brûlante, gênante, paranoïaque
+
+Le premier épisode est un contrat. Tout ce qui suit doit l'honorer.
+Un spectateur qui accroche à l'ep 1 regardera jusqu'à l'ep 10. S'il décroche, il ne revient jamais.
+
+═══════════════════════════════════════════════════════
+LE SECRET ACTIF — PAS DU BACKSTORY
+═══════════════════════════════════════════════════════
+
+Un secret n'est pas du passé. Un secret est une bombe qui tick dans le présent.
+
+UN BON SECRET :
+• Crée du conflit ACTIF maintenant — pas juste de la culpabilité silencieuse
+• Pèse sur chaque scène où le personnage l'a encore caché
+• Se trahit dans les comportements, les hésitations, les contradictions
+• Est partiellement devinable par le spectateur — mais jamais confirmé
+• A des conséquences réelles si révélé — des conséquences que le spectateur redoute autant que le personnage
+
+UN MAUVAIS SECRET ❌ : "elle a eu un accident il y a 10 ans" — ça n'affecte pas ce qui se passe maintenant.
+UN BON SECRET ✅ : "elle sait que c'est lui qui a envoyé la vidéo" — ça change chaque échange qu'ils ont.
+
+═══════════════════════════════════════════════════════
 PLANTS & PAYOFFS — ÉCRITURE INTELLIGENTE
 ═══════════════════════════════════════════════════════
 
