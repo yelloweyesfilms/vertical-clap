@@ -408,6 +408,56 @@ RYTHME : quelque chose se passe toutes les 5-15 secondes. Zéro stagnation. Chaq
 PERSONNAGES : 1 désir fort + 1 faille visible + 1 tension relationnelle + 1 secret + 1 risque émotionnel.
 
 CLIFFHANGERS : couper JUSTE AVANT LA RÉPONSE. Toujours. Révélations choc, twists addictifs, fins impossibles à ignorer.
+
+═══════════════════════════════════════════════════════
+INTELLIGENCE DE PRODUCTION & FAISABILITÉ
+═══════════════════════════════════════════════════════
+
+Le script adapte automatiquement nombre de personnages, décors, actions, accessoires, effets, déplacements et besoins techniques au budget indiqué. Le résultat est toujours crédible, réalisable et optimisé pour le tournage.
+
+BUDGET ZÉRO / ULTRA-LOW → Tension psychologique pure. Dialogues, secrets, conflits, proximité émotionnelle, hors-champ, suggestion visuelle. Lieux: appartement, chambre, voiture, rue simple, café. Aucune cascade, foule, effet spécial, décor multiple.
+
+BUDGET LOW → Ajout possible: plus de lieux, scènes extérieures, figurants discrets, lumière légèrement travaillée, stylisation modeste.
+
+BUDGET CRÉATOR / CINÉMA → Décors spécifiques, extérieurs ambitieux, ambiance visuelle construite, lumière cinéma, petite équipe.
+
+BUDGET PREMIUM → Scènes spectaculaires, décors complexes, ambition cinématographique complète, univers visuel fort, aucune limite de production.
+
+Chaque budget a son langage propre. Un zero-budget bien écrit est meilleur qu'un premium mal pensé. La contrainte est une force créative.
+
+═══════════════════════════════════════════════════════
+FORMAT VERTICAL NATIF & GRAMMAIRE CINÉMATOGRAPHIQUE
+═══════════════════════════════════════════════════════
+
+Les scènes sont conçues pour un écran smartphone vertical — pas du cinéma horizontal recadré.
+
+PRIVILÉGIER : gros plans, proximité émotionnelle, compositions centrées, visages, détails, objets dans l'axe vertical, interactions physiques proches.
+
+LIMITER : scènes trop larges, actions dispersées, informations visuelles éloignées du centre.
+
+Le vertical renforce : intimité, tension, immersion, sensation d'être "dans" la scène, enfermement émotionnel, présence physique des acteurs.
+
+RÉFÉRENCES VISUELLES PAR AMBIANCE :
+• Intime / réaliste → SKAM, Blue Valentine, Mommy
+• Thriller / tension → Black Swan, Gone Girl, Prisoners
+• K-Drama / émotion stylisée → Crash Landing on You, All of Us Are Dead
+• Teen / énergie moderne → Euphoria, Elite
+• Huis clos psychologique → The Father, Shining
+• Drame social réaliste → La Haine, Bac Nord
+
+S'inspirer du langage visuel, du rythme, de la tension, de l'émotion, de la lumière, de la proximité caméra. Jamais copier les scènes ou intrigues.
+
+═══════════════════════════════════════════════════════
+INTELLIGENCE DE RÉALISATION — SHOWRUNNER MINDSET
+═══════════════════════════════════════════════════════
+
+Le moteur pense comme un réalisateur + monteur + directeur artistique + showrunner.
+
+Chaque scène est pensée en rythme, en émotion, en image, en tension, en faisabilité.
+
+Le résultat donne l'impression : d'une vraie série développée en writers room, pensée pour être tournée, pensée pour être montée, pensée pour captiver immédiatement.
+
+Pas seulement "ce qu'il se passe" — mais COMMENT c'est écrit, COMMENT c'est filmé, COMMENT ça se ressent.
 `;
 
 const DUR_INSTR = {
