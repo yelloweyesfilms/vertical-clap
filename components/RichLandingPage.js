@@ -586,7 +586,7 @@ const Logo = ({ size = "md" }) => {
   const sm = size === "sm";
   return (
     <div style={{ display: "flex", alignItems: "center", gap: sm ? 7 : 9, userSelect: "none" }}>
-      <img src="/1024.png" alt="VC" style={{ width: sm ? 26 : 34, height: sm ? 26 : 34, borderRadius: sm ? 7 : 9, flexShrink: 0, boxShadow: "0 2px 12px rgba(232,92,58,0.35)" }} />
+      <img src="/1024.webp" alt="VC" style={{ width: sm ? 26 : 34, height: sm ? 26 : 34, borderRadius: sm ? 7 : 9, flexShrink: 0, boxShadow: "0 2px 12px rgba(232,92,58,0.35)" }} />
       <div style={{ alignSelf: "center", lineHeight: 1 }}>
         <div style={{ fontFamily: "var(--sans)", fontSize: sm ? 8 : 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
         <div style={{ fontFamily: "var(--sans)", fontSize: sm ? 13 : 18, fontWeight: 800, letterSpacing: -0.5, lineHeight: 1, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>CLAP</div>
@@ -637,7 +637,7 @@ function NewsletterSection({ lang = "fr" }) {
       <div className="nl-layout" style={{ maxWidth: 860, margin: "0 auto", display: "flex", alignItems: "center", gap: 64, position: "relative", zIndex: 1, flexWrap: "wrap", justifyContent: "center" }}>
         {/* Visual — image sans texte */}
         <div className="nl-visual" style={{ flexShrink: 0, width: 220, height: 220, borderRadius: 24, overflow: "hidden", boxShadow: `0 0 48px rgba(168,85,247,0.2), 0 0 24px rgba(0,0,0,0.4)`, border: `1px solid rgba(168,85,247,0.2)` }}>
-          <img src="/poster-hero.webp" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.85 }} />
+          <img src="/poster-hero-sm.webp" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", opacity: 0.85 }} />
         </div>
         {/* Content */}
         <div style={{ flex: 1, minWidth: 280, textAlign: "left" }}>
@@ -953,7 +953,7 @@ export default function RichLandingPage({ lang = "fr" }) {
                 {/* Encoche téléphone */}
                 <div style={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)", width: 60, height: 6, background: "rgba(0,0,0,0.8)", borderRadius: 3, zIndex: 10 }} />
                 <img
-                  src="/poster-hero.webp"
+                  src="/poster-hero-sm.webp"
                   alt="Micro-drama généré par VerticalClap"
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   onError={e => { e.target.style.display = "none"; }}
