@@ -774,7 +774,7 @@ export default async function handler(req, res) {
     // Limite de dépenses Anthropic (invalid_request_error usage limit)
     const isUsageLimit = e.status === 400 && (e.message?.includes("usage limit") || e.message?.includes("invalid_request_error"));
     if (isUsageLimit) {
-      return res.status(503).json({ error: "Limite API atteinte pour ce mois. Le service sera rétabli au 1er du mois prochain. Contactez le support si c'est urgent." });
+      return res.status(503).json({ error: "Le service est temporairement indisponible. Réessaie dans quelques heures." });
     }
     Sentry.captureException(e, { extra: { action: req.body?.action, customerId, plan } });
     console.error(e);
