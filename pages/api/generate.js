@@ -458,14 +458,14 @@ const MOCK_BIBLE = {
 };
 
 const MOCK_SCRIPT = {
-  hook_scene: { texte: "(MODE TEST) Léa entre dans le penthouse. Ses talons résonnent sur le marbre. Elle s'arrête — une photo d'elle trône sur le bureau. Prise il y a trois ans. Avant qu'elle postule.", visuel: "Gros plan mains tremblantes sur la photo. Zoom lent sur son visage figé." },
+  hook_scene: { texte: "(MODE TEST) Léa entre dans le penthouse. Ses talons résonnent sur le marbre. Elle s'arrête — une photo d'elle trône sur le bureau. Prise il y a trois ans. Avant qu'elle postule.", visuel_916: "Gros plan mains tremblantes sur la photo. Zoom lent sur son visage figé." },
   scenes: [
-    { personnage: "LÉA", texte: "Ce poste… vous m'avez cherchée. Pas l'inverse.", visuel: "Elle pose la photo. Regard droit. Pas de fuite." },
-    { personnage: "MARCUS", texte: "Tout le monde croit choisir. C'est mon préféré — cette illusion de liberté.", visuel: "Il verse deux verres. Ne la regarde pas encore." },
-    { personnage: "LÉA", texte: "Alors pourquoi moi ?", visuel: "Silence. Il se retourne enfin. Sourire imperceptible." },
-    { personnage: "MARCUS", texte: "Parce que vous êtes la seule à pouvoir finir ce que vous avez commencé.", visuel: "Contre-plongée. Il domine le cadre. Elle tient bon." },
+    { perso: "LÉA", dialogue: "Ce poste… vous m'avez cherchée. Pas l'inverse.", visuel_916: "Elle pose la photo. Regard droit. Pas de fuite.", jeu: "Voix ferme malgré la peur." },
+    { perso: "MARCUS", dialogue: "Tout le monde croit choisir. C'est mon préféré — cette illusion de liberté.", visuel_916: "Il verse deux verres. Ne la regarde pas encore.", jeu: "Dos tourné. Calme absolu." },
+    { perso: "LÉA", dialogue: "Alors pourquoi moi ?", visuel_916: "Silence. Il se retourne enfin. Sourire imperceptible.", jeu: "Elle attend, immobile." },
+    { perso: "MARCUS", dialogue: "Parce que vous êtes la seule à pouvoir finir ce que vous avez commencé.", visuel_916: "Contre-plongée. Il domine le cadre. Elle tient bon.", jeu: "Il s'avance lentement." },
   ],
-  cliffhanger_scene: { texte: "Léa ouvre son téléphone — message anonyme : 'Il sait pour ton père. Il a toujours su.'", visuel: "Écran illumine son visage dans le noir. Fondu au noir brutal." },
+  cliffhanger_scene: { texte: "Léa ouvre son téléphone — message anonyme : 'Il sait pour ton père. Il a toujours su.'", visuel_916: "Écran illumine son visage dans le noir. Fondu au noir brutal.", label: "QUI A ENVOYÉ CE MESSAGE ?" },
   choix: [
     { label: "A — Léa confronte Marcus maintenant", consequence: "Escalade immédiate, cartes sur table, plus de retour en arrière" },
     { label: "B — Léa fait semblant de ne rien savoir", consequence: "Elle joue le jeu, accumule les infos, prépare sa sortie" },
