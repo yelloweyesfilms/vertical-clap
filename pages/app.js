@@ -80,7 +80,6 @@ const T = {
     gen_episodes_batch: "Épisodes %a–%b générés… (%c/%d)",
     premium_variations: "Les variations sont réservées au plan Pro.",
     premium_calendrier: "Le calendrier éditorial est réservé au plan Pro (19€/mois).",
-    premium_saison2: "La préparation de la Saison 2 est réservée au plan Pro (19€/mois).",
     accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passe au plan Pro pour les générer sur tous tes épisodes.",
     loading_cartes: "Création des fiches personnages…",
     style_voixoff: "Narration intime",
@@ -93,8 +92,6 @@ const T = {
     storyboard_btn: "Découpage",
     loading_storyboard: "Création du découpage technique…",
     storyboard_title: "Découpage technique",
-    saison2_btn: "Saison 2",
-    loading_saison2: "Préparation de la saison 2…",
     accroches_tab: "Accroches",
     loading_accroches: "Génération des accroches TikTok…",
     gen_accroches: "Générer les accroches TikTok",
@@ -159,7 +156,6 @@ const T = {
     premium_titles: "Viral titles are reserved for Pro plan.",
     premium_variations: "Variations are reserved for Pro plan.",
     premium_calendrier: "The editorial calendar is reserved for the Pro plan (€19/month).",
-    premium_saison2: "Season 2 preparation is reserved for the Pro plan (€19/month).",
     accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passe au plan Pro pour les générer sur tous tes épisodes.",
     loading_cartes: "Creating character profiles…",
     style_voixoff: "Intimate narration",
@@ -172,8 +168,6 @@ const T = {
     storyboard_btn: "Shot List",
     loading_storyboard: "Creating shot list…",
     storyboard_title: "Shot List",
-    saison2_btn: "Season 2",
-    loading_saison2: "Preparing season 2…",
     accroches_tab: "Hooks",
     loading_accroches: "Generating TikTok hooks…",
     gen_accroches: "Generate TikTok hooks",
@@ -2000,14 +1994,13 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
   );
 }
 
-function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onStoryboard, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onTranslate, t, lang, onUpgrade, toggleLang, logout, isAdmin }) {
+function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onStoryboard, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onTranslate, t, lang, onUpgrade, toggleLang, logout, isAdmin, selectedChoix, onChoixSelect }) {
   const [showLangs, setShowLangs] = useState(false);
   const [translating, setTranslating] = useState(false);
   const [translated, setTranslated] = useState(null);
   const [activeLang, setActiveLang] = useState(null);
-  const [selectedChoix, setSelectedChoix] = useState(null);
 
-  useEffect(() => { setTranslated(null); setActiveLang(null); setShowLangs(false); setSelectedChoix(null); }, [ep?.numero]);
+  useEffect(() => { setTranslated(null); setActiveLang(null); setShowLangs(false); }, [ep?.numero]);
 
   const LANGS = [
     { code: "en", flag: "🇬🇧", label: "Anglais",   labelEn: "English"    },
@@ -2110,10 +2103,10 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
                 <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "#a855f7", marginBottom: 12 }}>🎮 {lang === "en" ? "Your choice" : "Ton choix"}</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   {displayScript.choix.map((c, i) => (
-                    <button key={i} onClick={() => setSelectedChoix(i)} style={{ background: selectedChoix === i ? (i === 0 ? "rgba(232,92,58,0.18)" : "rgba(168,85,247,0.18)") : (i === 0 ? "rgba(232,92,58,0.07)" : "rgba(168,85,247,0.07)"), border: `2px solid ${selectedChoix === i ? (i === 0 ? "var(--r)" : "#a855f7") : (i === 0 ? "rgba(232,92,58,0.2)" : "rgba(168,85,247,0.2)")}`, borderRadius: 10, padding: "12px 14px", cursor: "pointer", textAlign: "left", fontFamily: "var(--sans)", transition: "all .15s" }}>
+                    <button key={i} onClick={() => onChoixSelect && onChoixSelect(selectedChoix === i ? null : i)} style={{ background: selectedChoix === i ? (i === 0 ? "rgba(232,92,58,0.18)" : "rgba(168,85,247,0.18)") : (i === 0 ? "rgba(232,92,58,0.07)" : "rgba(168,85,247,0.07)"), border: `2px solid ${selectedChoix === i ? (i === 0 ? "var(--r)" : "#a855f7") : (i === 0 ? "rgba(232,92,58,0.2)" : "rgba(168,85,247,0.2)")}`, borderRadius: 10, padding: "12px 14px", cursor: "pointer", textAlign: "left", fontFamily: "var(--sans)", transition: "all .15s" }}>
                       <p style={{ fontSize: 13, fontWeight: 700, color: i === 0 ? "var(--r)" : "#a855f7", marginBottom: 4 }}>{i === 0 ? "A" : "B"} — {c.label}</p>
                       <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic", lineHeight: 1.4 }}>{c.consequence}</p>
-                      {selectedChoix === i && <p style={{ fontSize: 11, fontWeight: 700, color: i === 0 ? "var(--r)" : "#a855f7", marginTop: 6 }}>✓ {lang === "fr" ? "Choix sélectionné" : "Choice selected"}</p>}
+                      {selectedChoix === i && <p style={{ fontSize: 11, fontWeight: 700, color: i === 0 ? "var(--r)" : "#a855f7", marginTop: 6 }}>✓ {lang === "fr" ? "Choix retenu pour l'épisode suivant" : "Choice applied to next episode"}</p>}
                     </button>
                   ))}
                 </div>
@@ -2839,10 +2832,11 @@ function AppInner() {
   const t = T[lang];
   const opts = OPTS[lang];
 
-  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", budget: "smartphone", lieu: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ Vertical Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 }, dramaPremium: { emotion: null, rythme: null, narration: null, ton: null, tension: null }, remake: null, saison2: null, genreFormat: null });
+  const [state, setState] = useState({ mode: "fast", casting: OPTS.fr.casting[0], univers: OPTS.fr.univers_fast[0], secret: OPTS.fr.secret_fast[0], format: 10, duree: 60, genre: "", ambiance: "", ambianceVisuelle: "", budget: "smartphone", lieu: "", tropes: "", tropesSel: [], castingIA: [], castingMods: { physique: [], culture: [], aesthetic: [], blessure: [], aura: [] }, packId: null, style: "⚡ Vertical Drama", drama: { romance: 5, toxicite: 5, mystere: 4, humour: 2, violence: 3, spicy: 3 }, dramaPremium: { emotion: null, rythme: null, narration: null, ton: null, tension: null }, remake: null, genreFormat: null });
   const [bible, setBible] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [epIdx, setEpIdx] = useState(0);
+  const [selectedChoix, setSelectedChoix] = useState(null);
   const epReqRef = useRef(0);
   const [script, setScript] = useState(null);
   const [scripts, setScripts] = useState({});
@@ -2985,6 +2979,9 @@ function AppInner() {
 
   const openEp = async (idx) => {
     const reqId = ++epReqRef.current;
+    // Capture current choice before clearing it
+    const choixContext = selectedChoix !== null && script?.choix?.[selectedChoix] ? script.choix[selectedChoix] : null;
+    setSelectedChoix(null);
     setEpIdx(idx);
     setScreen("studio");
     setErr(null);
@@ -3000,7 +2997,7 @@ function AppInner() {
     setLoading(true);
     try {
       const bLevel = BUDGET_LEVELS.find(b => b.id === state.budget);
-      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, dramaPremium: state.dramaPremium, ambianceVisuelle: state.ambianceVisuelle || "", budgetInstr: bLevel?.scriptInstr || "", lang, isChoix: !!episodes[idx]?.has_choix, genreFormat: state.genreFormat || null }, customerId);
+      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, dramaPremium: state.dramaPremium, ambianceVisuelle: state.ambianceVisuelle || "", budgetInstr: bLevel?.scriptInstr || "", lang, isChoix: !!episodes[idx]?.has_choix, genreFormat: state.genreFormat || null, choixContext: choixContext || null }, customerId);
       if (epReqRef.current === reqId) {
         setScript(s);
         setScripts(prev => {
@@ -3096,168 +3093,190 @@ function AppInner() {
     const b = bible, ep = episodes[epIdx], s = script;
     if (!s) return;
 
+    const loadImgB64 = (url) => new Promise(resolve => {
+      const img = new Image(); img.crossOrigin = "anonymous";
+      img.onload = () => { const c = document.createElement("canvas"); c.width = img.width; c.height = img.height; c.getContext("2d").drawImage(img, 0, 0); resolve(c.toDataURL("image/png")); };
+      img.onerror = () => resolve(null);
+      img.src = url;
+    });
+    const logoB64 = await loadImgB64("/1024.webp");
+
     const doc = new jsPDF({ unit: "mm", format: "a4" });
-    const W = 210, margin = 18, contentW = W - margin * 2;
-    const RED = [232, 92, 58], DARK = [15, 26, 18], GRAY = [120, 120, 120];
-    let y = margin;
+    const W = 210, ML = 16, MR = 16, contentW = W - ML - MR;
+    const RED = [232, 92, 58], INK = [22, 22, 32], GRAY = [130, 130, 145], LGRAY = [200, 200, 210];
+    const BGRED = [255, 245, 241], BGDARK = [18, 18, 30];
+    let y = ML;
 
-    const lh = (size) => size * 0.53;
+    // ── helpers ──────────────────────────────────────────────────
+    const checkPage = (needed = 20) => { if (y + needed > 282) { doc.addPage(); y = ML; } };
+    const sp = (h = 5) => { y += h; };
+    const lh = (size) => size * 0.45 + 1.2;
 
-    const addText = (text, opts = {}) => {
-      const { size = 11, bold = false, color = [0, 0, 0], italic = false, align = "left", maxWidth = contentW } = opts;
+    const txt = (text, opts = {}) => {
+      const { size = 10.5, bold = false, italic = false, color = INK, align = "left", mw = contentW, x = ML } = opts;
+      if (!text) return;
       doc.setFontSize(size);
       doc.setFont("helvetica", bold && italic ? "bolditalic" : bold ? "bold" : italic ? "italic" : "normal");
       doc.setTextColor(...color);
-      const lines = doc.splitTextToSize(String(text || ""), maxWidth);
+      const lines = doc.splitTextToSize(String(text), mw);
       const lineH = lh(size);
-      if (y + lines.length * lineH > 278) { doc.addPage(); y = margin; }
-      doc.text(lines, align === "center" ? W / 2 : margin, y, { align });
-      y += lines.length * lineH + 2;
-      return lines.length * lineH + 2;
+      checkPage(lines.length * lineH + 2);
+      doc.text(lines, align === "center" ? W / 2 : x, y, { align });
+      y += lines.length * lineH + 1.5;
     };
 
-    const addSpace = (h = 4) => { y += h; };
-    const addLine = (color = [220, 220, 220]) => { doc.setDrawColor(...color); doc.line(margin, y, W - margin, y); addSpace(4); };
+    const rule = (color = LGRAY, thick = 0.3) => {
+      doc.setDrawColor(...color); doc.setLineWidth(thick);
+      doc.line(ML, y, W - MR, y); sp(4);
+    };
 
-    const calcBoxH = (items) => items.reduce((acc, { text, size, mw }) => {
-      const lines = doc.splitTextToSize(String(text || ""), mw || contentW - 8);
-      return acc + lines.length * lh(size) + 2;
-    }, 0);
-
-    const drawBox = (bgColor, height, rounded = true) => {
-      if (y + height > 278) { doc.addPage(); y = margin; }
+    const badge = (label, bgColor = RED) => {
+      doc.setFontSize(7); doc.setFont("helvetica", "bold");
+      const tw = doc.getTextWidth(label.toUpperCase());
+      const bw = tw + 10, bh = 5.5;
       doc.setFillColor(...bgColor);
-      if (rounded) doc.roundedRect(margin, y, contentW, height, 3, 3, "F");
-      else doc.rect(margin, y, contentW, height, "F");
-      y += 5;
+      doc.roundedRect(ML, y, bw, bh, 1.5, 1.5, "F");
+      doc.setTextColor(255, 255, 255);
+      doc.text(label.toUpperCase(), ML + 5, y + 3.8);
+      y += bh + 3;
+    };
+
+    const colorBlock = (bgColor, drawFn, padH = 5, padV = 6) => {
+      const savedY = y;
+      y += padV;
+      const innerY = y;
+      drawFn();
+      const blockH = y - savedY + padV;
+      y = savedY;
+      checkPage(blockH + 4);
+      doc.setFillColor(...bgColor);
+      doc.roundedRect(ML, y, contentW, blockH, 3, 3, "F");
+      y += padV;
+      drawFn();
+      y += padV;
     };
 
     const addWatermark = () => {
-      const pageCount = doc.getNumberOfPages();
-      for (let i = 1; i <= pageCount; i++) {
+      const n = doc.getNumberOfPages();
+      for (let i = 1; i <= n; i++) {
         doc.setPage(i);
         doc.saveGraphicsState();
-        doc.setGState(new doc.GState({ opacity: 0.06 }));
-        doc.setFontSize(36);
-        doc.setFont("helvetica", "bold");
-        doc.setTextColor(232, 92, 58);
+        doc.setGState(new doc.GState({ opacity: 0.05 }));
+        doc.setFontSize(40); doc.setFont("helvetica", "bold"); doc.setTextColor(232, 92, 58);
         doc.text("VERTICALCLAP", W / 2, 148, { align: "center", angle: 45 });
         doc.restoreGraphicsState();
-        doc.setFontSize(7.5);
-        doc.setFont("helvetica", "normal");
-        doc.setTextColor(180, 180, 180);
-        doc.text("verticalclap.com", W / 2, 293, { align: "center" });
+        // Footer
+        doc.setFontSize(7); doc.setFont("helvetica", "normal"); doc.setTextColor(...LGRAY);
+        doc.text(`verticalclap.com  ·  ${b.titre} — Ép. ${ep.numero}`, W / 2, 292, { align: "center" });
       }
     };
 
     const isEn = lang === "en";
 
-    // Header bar
+    // ── HEADER BAR ───────────────────────────────────────────────
     doc.setFillColor(...RED);
-    doc.rect(0, 0, W, 11, "F");
-    doc.setFontSize(7.5); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
-    doc.text("VERTICALCLAP", margin, 7.5);
-    doc.text(`${b.titre} — ${isEn ? "Ep." : "Ép."} ${ep.numero}`, W - margin, 7.5, { align: "right" });
-    y = 20;
+    doc.rect(0, 0, W, 13, "F");
+    if (logoB64) doc.addImage(logoB64, "PNG", ML, 1.5, 10, 10);
+    doc.setFontSize(8); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
+    doc.text("VERTICAL CLAP", ML + (logoB64 ? 13 : 0), 7.5);
+    doc.text(`${b.titre.toUpperCase()}  ·  ${isEn ? "EP." : "ÉP."} ${ep.numero}`, W - MR, 7.5, { align: "right" });
+    y = 21;
 
-    // Title block
-    addText(b.titre.toUpperCase(), { size: 8, bold: true, color: GRAY });
-    addSpace(1);
-    addText(ep.titre, { size: 20, bold: true });
-    addSpace(3);
-    addText(`« ${b.logline} »`, { size: 10, italic: true, color: GRAY });
-    addSpace(3);
-    addText(`${isEn ? "Episode" : "Épisode"} ${ep.numero} · ${DUR_LABEL[lang][state.duree]}`, { size: 9.5, bold: true, color: RED });
-    if (ep.cliffhanger) {
-      addSpace(2);
-      addText(`🎬 ${ep.cliffhanger}`, { size: 9, italic: true, color: GRAY });
-    }
-    addSpace(5);
-    addLine(RED);
+    // ── TITLE BLOCK ──────────────────────────────────────────────
+    txt(b.titre.toUpperCase(), { size: 7.5, bold: true, color: GRAY });
+    sp(1);
+    txt(ep.titre, { size: 22, bold: true, color: INK });
+    sp(2);
+    txt(`« ${b.logline} »`, { size: 9.5, italic: true, color: GRAY });
+    sp(3);
+    txt(`${isEn ? "Episode" : "Épisode"} ${ep.numero}  ·  ${DUR_LABEL[lang][state.duree]}  ·  ${(s.scenes || []).length} ${isEn ? "lines" : "répliques"}`, { size: 8.5, bold: true, color: RED });
+    if (ep.cliffhanger) { sp(1.5); txt(`${ep.cliffhanger}`, { size: 8.5, italic: true, color: GRAY }); }
+    sp(5); rule(RED, 0.6); sp(2);
 
-    // Hook box
-    addText(isEn ? "HOOK -- FIRST 3 SECONDS" : "HOOK -- 3 PREMIERES SECONDES", { size: 7.5, bold: true, color: RED });
-    addSpace(3);
-    const hookItems = [
-      { text: s.hook_scene?.texte, size: 13 },
-      { text: `[9:16] ${s.hook_scene?.visuel_916}`, size: 9 },
-    ];
-    const hookBoxH = calcBoxH(hookItems) + 14;
-    drawBox([255, 245, 242], hookBoxH);
-    addText(s.hook_scene?.texte, { size: 13, bold: true, maxWidth: contentW - 8 });
-    addSpace(2);
-    addText(`[9:16] ${s.hook_scene?.visuel_916}`, { size: 9, italic: true, color: RED, maxWidth: contentW - 8 });
-    y = Math.max(y, margin + hookBoxH);
-    addSpace(8);
+    // ── HOOK ────────────────────────────────────────────────────
+    badge(isEn ? "HOOK — FIRST 3 SECONDS" : "HOOK — 3 PREMIÈRES SECONDES");
+    colorBlock(BGRED, () => {
+      txt(s.hook_scene?.texte, { size: 12.5, bold: true, color: INK, mw: contentW - 10, x: ML + 4 });
+      sp(2);
+      txt(`[9:16]  ${s.hook_scene?.visuel_916}`, { size: 8.5, italic: true, color: RED, mw: contentW - 10, x: ML + 4 });
+    });
+    sp(7);
 
-    // Scenes
-    addText(`${isEn ? "SCRIPT" : "SCRIPT"} · ${DUR_LABEL[lang][state.duree]} · ${(s.scenes || []).length} ${isEn ? "lines" : "répliques"}`, { size: 7.5, bold: true, color: RED });
-    addSpace(4);
+    // ── SCENES ──────────────────────────────────────────────────
+    badge(isEn ? "SCRIPT" : "SCRIPT");
+    sp(2);
     (s.scenes || []).forEach((sc, i) => {
-      addText(sc.perso, { size: 9, bold: true, color: DARK });
-      if (sc.jeu) addText(sc.jeu, { size: 8, italic: true, color: GRAY });
-      addSpace(1);
-      addText(sc.dialogue, { size: 11.5 });
-      addSpace(2);
-      addText(`[9:16] ${sc.visuel_916}`, { size: 8.5, italic: true, color: GRAY });
-      addSpace(5);
-      if (i < (s.scenes || []).length - 1) addLine();
+      checkPage(24);
+      // Character name
+      txt(sc.perso.toUpperCase(), { size: 8, bold: true, color: RED });
+      if (sc.jeu) { txt(`(${sc.jeu})`, { size: 8, italic: true, color: GRAY }); }
+      sp(0.5);
+      txt(sc.dialogue, { size: 11, color: INK });
+      sp(1.5);
+      txt(`[9:16]  ${sc.visuel_916}`, { size: 8, italic: true, color: GRAY });
+      if (sc.voix_off) { sp(1); txt(`VO: ${sc.voix_off}`, { size: 8, italic: true, color: [140, 100, 200] }); }
+      sp(5);
+      if (i < (s.scenes || []).length - 1) {
+        doc.setDrawColor(...LGRAY); doc.setLineWidth(0.2);
+        doc.setLineDash([1.5, 2]);
+        doc.line(ML + 10, y, W - MR - 10, y);
+        doc.setLineDash([]);
+        sp(5);
+      }
     });
 
-    // Cliffhanger box
-    addSpace(4);
+    // ── CLIFFHANGER ─────────────────────────────────────────────
+    sp(4);
+    checkPage(40);
+    doc.setFillColor(...BGDARK);
+    const cliffStartY = y;
     const cliffLabel = s.cliffhanger_scene?.label || "";
-    const cliffItems = [
-      { text: "CLIFFHANGER", size: 7.5 },
-      { text: s.cliffhanger_scene?.texte, size: 13 },
-      { text: s.cliffhanger_scene?.visuel_916, size: 9 },
-    ];
-    const cliffBoxH = calcBoxH(cliffItems) + (cliffLabel ? 18 : 0) + 20;
-    drawBox(DARK, cliffBoxH);
-    addText("CLIFFHANGER", { size: 7.5, bold: true, color: RED });
-    addSpace(3);
-    addText(s.cliffhanger_scene?.texte, { size: 13, bold: true, color: [255, 255, 255], maxWidth: contentW - 8 });
-    addSpace(2);
-    addText(s.cliffhanger_scene?.visuel_916, { size: 9, italic: true, color: [255, 120, 90], maxWidth: contentW - 8 });
+    // measure height
+    doc.setFontSize(12.5); const cliffLines = doc.splitTextToSize(String(s.cliffhanger_scene?.texte || ""), contentW - 12);
+    doc.setFontSize(8.5); const visLines = doc.splitTextToSize(String(s.cliffhanger_scene?.visuel_916 || ""), contentW - 12);
+    const cliffH = 8 + cliffLines.length * lh(12.5) + 3 + visLines.length * lh(8.5) + (cliffLabel ? 12 : 0) + 10;
+    doc.roundedRect(ML, y, contentW, cliffH, 4, 4, "F");
+    // Red top accent
+    doc.setFillColor(...RED); doc.roundedRect(ML, y, contentW, 6, 4, 4, "F");
+    doc.rect(ML, y + 2, contentW, 4, "F");
+    y += 8;
+    txt(isEn ? "CLIFFHANGER" : "CLIFFHANGER", { size: 7.5, bold: true, color: [255, 180, 150] });
+    sp(2);
+    txt(s.cliffhanger_scene?.texte, { size: 12.5, bold: true, color: [255, 255, 255], mw: contentW - 12, x: ML + 4 });
+    sp(3);
+    txt(`[9:16]  ${s.cliffhanger_scene?.visuel_916}`, { size: 8.5, italic: true, color: [255, 140, 100], mw: contentW - 12, x: ML + 4 });
     if (cliffLabel) {
-      addSpace(5);
-      // Measure with correct font before drawing chip
-      doc.setFontSize(8); doc.setFont("helvetica", "bold");
-      const chipW = Math.min(doc.getTextWidth(cliffLabel.toUpperCase()) + 14, contentW);
-      const chipH = 8;
-      doc.setFillColor(...RED);
-      doc.roundedRect(margin, y, chipW, chipH, 2, 2, "F");
+      sp(4);
+      doc.setFontSize(7.5); doc.setFont("helvetica", "bold");
+      const cw = doc.getTextWidth(cliffLabel.toUpperCase()) + 12;
+      doc.setFillColor(...RED); doc.roundedRect(ML + 4, y, cw, 6.5, 2, 2, "F");
       doc.setTextColor(255, 255, 255);
-      doc.text(cliffLabel.toUpperCase(), margin + 7, y + 5.5);
-      y += chipH + 3;
+      doc.text(cliffLabel.toUpperCase(), ML + 10, y + 4.5);
+      y += 9;
     }
+    y = cliffStartY + cliffH + 3;
 
-    // Checklist
-    if (s.checklist && s.checklist.length > 0) {
-      addSpace(10);
-      addLine([200, 200, 200]);
-      addText(isEn ? "SHOOTING CHECKLIST" : "CHECKLIST TOURNAGE", { size: 7.5, bold: true, color: RED });
-      addSpace(4);
-      s.checklist.forEach(item => {
-        addText(`- ${item}`, { size: 9, color: GRAY });
-        addSpace(1);
-      });
-    }
-
-    // Characters
-    if (b.personnages && b.personnages.length > 0) {
-      addSpace(8);
-      addLine([200, 200, 200]);
-      addText(isEn ? "CHARACTERS" : "PERSONNAGES", { size: 7.5, bold: true, color: RED });
-      addSpace(4);
+    // ── CHARACTERS ──────────────────────────────────────────────
+    if (b.personnages?.length > 0) {
+      sp(10); rule(); sp(2);
+      badge(isEn ? "CHARACTERS" : "PERSONNAGES", [60, 60, 80]);
+      sp(2);
       b.personnages.forEach(p => {
-        addText(`${p.nom}${p.age ? ` (${p.age})` : ""} -- ${p.role || ""}`, { size: 9, bold: true });
-        if (p.secret) addText(`${isEn ? "Secret" : "Secret"}: ${p.secret}`, { size: 8.5, italic: true, color: GRAY });
-        addSpace(3);
+        txt(`${p.nom}${p.age ? `  (${p.age})` : ""}  —  ${p.role || ""}`, { size: 9.5, bold: true, color: INK });
+        if (p.secret) txt(`Secret : ${p.secret}`, { size: 8.5, italic: true, color: GRAY });
+        sp(4);
       });
     }
 
-    addSpace(12);
+    // ── CHECKLIST ───────────────────────────────────────────────
+    if (s.checklist?.length > 0) {
+      sp(6); rule(); sp(2);
+      badge(isEn ? "SHOOTING CHECKLIST" : "CHECKLIST TOURNAGE", [60, 60, 80]);
+      sp(2);
+      s.checklist.forEach(item => { txt(`☐  ${item}`, { size: 9, color: INK }); sp(1.5); });
+    }
+
+    sp(16);
     addWatermark();
     doc.save(`${b.titre.replace(/\s+/g, "_")}_ep${ep.numero}.pdf`);
   };
@@ -3323,7 +3342,7 @@ function AppInner() {
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} setPlan={setPlan} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} />}
       {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} t={t} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} />}
-      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} />}
+      {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} selectedChoix={selectedChoix} onChoixSelect={setSelectedChoix} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
       {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
