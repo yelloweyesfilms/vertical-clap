@@ -492,7 +492,12 @@ export default async function handler(req, res) {
   if (process.env.TEST_CODE && customerId === process.env.TEST_CODE) {
     const { action, payload } = req.body || {};
     await new Promise(r => setTimeout(r, 800)); // simule latence
-    if (action === "bible") return res.json({ ...MOCK_BIBLE, episodes: MOCK_BIBLE.episodes.slice(0, payload?.format || 5) });
+    if (action === "bible") return res.json(MOCK_BIBLE);
+    if (action === "episodes") {
+      const from = payload?.from || 1, to = payload?.to || 5;
+      const eps = MOCK_BIBLE.episodes.slice(from - 1, to).map((e, i) => ({ ...e, numero: from + i, has_choix: true }));
+      return res.json({ episodes: eps });
+    }
     if (action === "script") return res.json(MOCK_SCRIPT);
     if (action === "variations") return res.json(MOCK_VARIATIONS);
     if (action === "traduire") return res.json({ ...MOCK_SCRIPT, _translated: true });
