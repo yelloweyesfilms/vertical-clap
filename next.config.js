@@ -13,6 +13,12 @@ const nextConfig = {
           { key: 'Service-Worker-Allowed', value: '/' },
         ],
       },
+      {
+        source: '/:path*.(webp|png|jpg|jpeg|svg|ico|gif)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
     ];
   },
 };

@@ -901,7 +901,7 @@ async function gen(action, payload, customerId) {
 function LoadingVC({ msg }) {
   return (
     <div style={{ textAlign: "center", padding: "60px 0" }}>
-      <img src="/1024.png" alt="VC" style={{ width: 56, height: 56, borderRadius: 14, marginBottom: 16, animation: "pulse 1.5s infinite", boxShadow: "0 0 24px rgba(232,92,58,0.45)" }} />
+      <img src="/1024.webp" alt="VC" style={{ width: 56, height: 56, borderRadius: 14, marginBottom: 16, animation: "pulse 1.5s infinite", boxShadow: "0 0 24px rgba(232,92,58,0.45)" }} />
       {msg && <p style={{ fontSize: 14, color: "var(--mt)" }}>{msg}</p>}
     </div>
   );
@@ -910,7 +910,7 @@ function LoadingVC({ msg }) {
 function VCLogo() {
   return (
     <div style={{ userSelect: "none" }}>
-      <img src="/1024.png" alt="VC" style={{ width: 36, height: 36, borderRadius: "50%", flexShrink: 0, display: "block" }} onError={e => { e.target.style.display='none'; }} />
+      <img src="/1024.webp" alt="VC" style={{ width: 36, height: 36, borderRadius: "50%", flexShrink: 0, display: "block" }} onError={e => { e.target.style.display='none'; }} />
     </div>
   );
 }
@@ -1283,7 +1283,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
         </div>
         {/* Bannière fixe */}
         <div style={{ margin: "8px -16px 8px", position: "relative", height: 100, overflow: "hidden" }}>
-          <img src="/studio.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 10%" }} />
+          <img src="/studio.webp" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 10%" }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(9,9,15,0.2) 0%, rgba(9,9,15,0.6) 65%, var(--card) 100%)" }} />
           <div style={{ position: "absolute", bottom: 8, left: 16 }}>
             <p style={{ fontSize: 16, fontWeight: 900, color: "#fff", fontFamily: "var(--sans)", letterSpacing: -0.3, margin: 0 }}>{lang === "fr" ? "Crée ta série !" : "Create your series!"}</p>
@@ -2747,7 +2747,7 @@ function OnboardingOverlay({ lang, onDone }) {
       <div style={{ background: "var(--card)", borderRadius: "20px 20px 0 0", padding: "32px 24px 40px", maxWidth: 520, width: "100%", border: "1.5px solid var(--bo)", borderBottom: "none" }}>
         <div style={{ textAlign: "center", marginBottom: 24 }}>
           {step === 0 ? (
-            <img src="/1024.png" alt="VerticalClap" style={{ width: 80, height: 80, borderRadius: 20, marginBottom: 16, boxShadow: "0 8px 32px rgba(232,92,58,0.4)" }} />
+            <img src="/1024.webp" alt="VerticalClap" style={{ width: 80, height: 80, borderRadius: 20, marginBottom: 16, boxShadow: "0 8px 32px rgba(232,92,58,0.4)" }} />
           ) : (
             <div style={{ fontSize: 48, marginBottom: 16 }}>{current.emoji}</div>
           )}
@@ -3312,7 +3312,7 @@ function AppInner() {
             </>
           ) : (
             <>
-              <img src="/1024.png" alt="VC" style={{ width: 72, height: 72, borderRadius: 18, marginBottom: 24, animation: "pulse 1.5s infinite", boxShadow: "0 0 32px rgba(232,92,58,0.5)" }} />
+              <img src="/1024.webp" alt="VC" style={{ width: 72, height: 72, borderRadius: 18, marginBottom: 24, animation: "pulse 1.5s infinite", boxShadow: "0 0 32px rgba(232,92,58,0.5)" }} />
               <p style={{ fontSize: 15, color: "var(--mt)", marginBottom: 6 }}>{loadMsg}</p>
               <p style={{ fontSize: 11, color: "var(--bo)", letterSpacing: 1 }}>VERTICAL CLAP</p>
             </>

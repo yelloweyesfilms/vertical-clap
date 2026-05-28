@@ -222,7 +222,7 @@ export default function Exemples() {
         <div style={{ borderBottom: `1px solid ${BORDER}`, background: "rgba(9,9,15,0.95)", backdropFilter: "blur(12px)", position: "sticky", top: 0, zIndex: 50 }}>
           <nav className="ex-nav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 40px", maxWidth: 1100, margin: "0 auto" }}>
             <a href="/" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none" }}>
-              <img src="/1024.png" alt="VC" style={{ width: 32, height: 32, borderRadius: "50%" }} />
+              <img src="/1024.webp" alt="VC" style={{ width: 32, height: 32, borderRadius: "50%" }} />
               <div style={{ lineHeight: 1 }}>
                 <div style={{ fontSize: 8, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", marginBottom: 2 }}>VERTICAL</div>
                 <div style={{ fontSize: 14, fontWeight: 900, letterSpacing: "-0.02em", background: `linear-gradient(135deg, #ff8c42, ${RED})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>CLAP</div>
@@ -349,7 +349,7 @@ export default function Exemples() {
 
           {/* SCREENSHOT */}
           <div className="ex-screen" style={{ margin: "0 0 48px" }}>
-            <img src="/ecran.png" alt="Interface VerticalClap" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: `0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)`, border: `1px solid ${BORDER}` }} />
+            <img src="/ecran.webp" alt="Interface VerticalClap" style={{ width: "100%", display: "block", borderRadius: 20, boxShadow: `0 0 60px rgba(168,85,247,0.15), 0 32px 80px rgba(0,0,0,0.5)`, border: `1px solid ${BORDER}` }} />
           </div>
 
           {/* CTA */}
