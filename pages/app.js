@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { jsPDF } from "jspdf";
 
@@ -1137,6 +1138,8 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   const [customInputs, setCustomInputs] = useState({ casting: "", univers: "", secret: "" });
   const [castingCat, setCastingCat] = useState("romance");
   const [mixTab, setMixTab] = useState("format");
+  const mixScrollRef = useRef(null);
+  useEffect(() => { if (mixScrollRef.current) mixScrollRef.current.scrollTop = 0; }, [mixTab]);
   const [creationMode, setCreationMode] = useState("mixeur"); // "mixeur" | "packs"
   const [showHelp, setShowHelp] = useState(false);
 
@@ -1353,7 +1356,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
       )}
 
       {/* Scrollable content per tab — seulement en mode Mixeur */}
-      {creationMode === "mixeur" && <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
+      {creationMode === "mixeur" && <div ref={mixScrollRef} style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 8px", maxWidth: 520, margin: "0 auto" }}>
 
         {/* ═══ TAB: AMBIANCE ═══ */}
@@ -2772,7 +2775,7 @@ function OnboardingOverlay({ lang, onDone }) {
 }
 
 // ── MAIN APP ─────────────────────────────────────────────────
-export default function App() {
+function AppInner() {
   const router = useRouter();
   const [customerId, setCustomerId] = useState(null);
   const [plan, setPlan] = useState("standard");
@@ -3349,3 +3352,5 @@ export default function App() {
     </div>
   );
 }
+
+export default dynamic(() => Promise.resolve(AppInner), { ssr: false });
