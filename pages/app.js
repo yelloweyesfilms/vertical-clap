@@ -2002,8 +2002,9 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
   const [translating, setTranslating] = useState(false);
   const [translated, setTranslated] = useState(null);
   const [activeLang, setActiveLang] = useState(null);
+  const [selectedChoix, setSelectedChoix] = useState(null);
 
-  useEffect(() => { setTranslated(null); setActiveLang(null); setShowLangs(false); }, [ep?.numero]);
+  useEffect(() => { setTranslated(null); setActiveLang(null); setShowLangs(false); setSelectedChoix(null); }, [ep?.numero]);
 
   const LANGS = [
     { code: "en", flag: "🇬🇧", label: "Anglais",   labelEn: "English"    },
@@ -2106,10 +2107,11 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
                 <p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "#a855f7", marginBottom: 12 }}>🎮 {lang === "en" ? "Your choice" : "Ton choix"}</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   {displayScript.choix.map((c, i) => (
-                    <div key={i} style={{ background: i === 0 ? "rgba(232,92,58,0.07)" : "rgba(168,85,247,0.07)", border: `1px solid ${i === 0 ? "rgba(232,92,58,0.2)" : "rgba(168,85,247,0.2)"}`, borderRadius: 10, padding: "12px 14px" }}>
+                    <button key={i} onClick={() => setSelectedChoix(i)} style={{ background: selectedChoix === i ? (i === 0 ? "rgba(232,92,58,0.18)" : "rgba(168,85,247,0.18)") : (i === 0 ? "rgba(232,92,58,0.07)" : "rgba(168,85,247,0.07)"), border: `2px solid ${selectedChoix === i ? (i === 0 ? "var(--r)" : "#a855f7") : (i === 0 ? "rgba(232,92,58,0.2)" : "rgba(168,85,247,0.2)")}`, borderRadius: 10, padding: "12px 14px", cursor: "pointer", textAlign: "left", fontFamily: "var(--sans)", transition: "all .15s" }}>
                       <p style={{ fontSize: 13, fontWeight: 700, color: i === 0 ? "var(--r)" : "#a855f7", marginBottom: 4 }}>{i === 0 ? "A" : "B"} — {c.label}</p>
                       <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic", lineHeight: 1.4 }}>{c.consequence}</p>
-                    </div>
+                      {selectedChoix === i && <p style={{ fontSize: 11, fontWeight: 700, color: i === 0 ? "var(--r)" : "#a855f7", marginTop: 6 }}>✓ {lang === "fr" ? "Choix sélectionné" : "Choice selected"}</p>}
+                    </button>
                   ))}
                 </div>
               </div>
@@ -2147,7 +2149,17 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
               </div>
             )}
 
-            <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)", marginBottom: 10 }}>{t.export_pdf}</button>
+            <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)", marginBottom: 16 }}>{t.export_pdf}</button>
+
+            {/* Navigation épisodes — bas */}
+            <div style={{ display: "flex", alignItems: "center", gap: 8, borderTop: "1px solid var(--bo)", paddingTop: 16, marginBottom: 8 }}>
+              <button onClick={onPrev} disabled={epIdx === 0} style={{ flex: 1, background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 10, padding: "12px 8px", cursor: epIdx === 0 ? "not-allowed" : "pointer", fontSize: 13, fontWeight: 700, opacity: epIdx === 0 ? 0.3 : 1, color: "var(--tx)", fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+                ‹ {lang === "fr" ? "Épisode précédent" : "Previous episode"}
+              </button>
+              <button onClick={onNext} disabled={epIdx === totalEps - 1} style={{ flex: 1, background: epIdx === totalEps - 1 ? "var(--card)" : "var(--r)", border: "none", borderRadius: 10, padding: "12px 8px", cursor: epIdx === totalEps - 1 ? "not-allowed" : "pointer", fontSize: 13, fontWeight: 700, opacity: epIdx === totalEps - 1 ? 0.3 : 1, color: epIdx === totalEps - 1 ? "var(--tx)" : "#fff", fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+                {lang === "fr" ? "Épisode suivant" : "Next episode"} ›
+              </button>
+            </div>
           </>
         ) : null}
       </div>
