@@ -2180,42 +2180,37 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
   );
 }
 
-function VariationsView({ variations, loading, ep, onSelect, onBack }) {
+function VariationsView({ variations, loading, ep, onSelect, onBack, t, lang }) {
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>← Studio</button>
-        <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>3 versions</h2>
-        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre} — Choisis la meilleure</p>
+        <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>
+          {variations?.length || 4} {lang === "fr" ? "versions" : "versions"}
+        </h2>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre} — {lang === "fr" ? "Choisis la meilleure" : "Pick the best one"}</p>
       </div>
       <div style={{ padding: "0 20px 40px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
-          <LoadingVC msg="Génération de 3 versions en parallèle…" />
+          <LoadingVC msg={lang === "fr" ? "Génération de 4 versions en parallèle…" : "Generating 4 versions in parallel…"} />
         ) : (variations || []).map((v, i) => (
-          <div key={i} style={{ background: "var(--card)", borderRadius: 16, padding: 18, marginBottom: 16, border: "1.5px solid var(--bo)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-              <span style={{ fontSize: 16, fontWeight: 800 }}>{v.label}</span>
-              <button onClick={() => onSelect(v)} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
-                Choisir →
+          <div key={i} style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 12, border: "1.5px solid var(--bo)" }}>
+            {/* Header */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+              <span style={{ fontSize: 15, fontWeight: 800, color: "var(--tx)" }}>{v.label}</span>
+              <button onClick={() => onSelect(v)} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "7px 14px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>
+                {lang === "fr" ? "Choisir →" : "Select →"}
               </button>
             </div>
-            <div style={{ background: "#fff5f2", borderRadius: 10, padding: 12, marginBottom: 10 }}>
-              <p style={{ fontSize: 14, fontWeight: 700, color: "var(--r)", marginBottom: 6 }}>⚡ Hook</p>
-              <p style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.4, marginBottom: 4 }}>{v.hook_scene?.texte}</p>
-              {v.hook_scene?.visuel_916 && <p style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {v.hook_scene.visuel_916}</p>}
+            {/* Hook — 2 lignes max */}
+            <div style={{ borderLeft: "3px solid var(--r)", paddingLeft: 10, marginBottom: 10 }}>
+              <p style={{ fontSize: 10, fontWeight: 700, color: "var(--r)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>Hook</p>
+              <p style={{ fontSize: 13, fontWeight: 600, lineHeight: 1.4, color: "var(--tx)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{v.hook_scene?.texte}</p>
             </div>
-            {(v.scenes || []).slice(0, 2).map((s, j) => (
-              <div key={j} style={{ borderLeft: "2px solid var(--bo)", paddingLeft: 10, marginBottom: 8 }}>
-                <p style={{ fontSize: 12, fontWeight: 700, color: "var(--n)", textTransform: "uppercase", marginBottom: 3 }}>{s.perso} {s.jeu && <span style={{ fontStyle: "italic", fontWeight: 400, color: "var(--mt)" }}>· {s.jeu}</span>}</p>
-                <p style={{ fontSize: 13, lineHeight: 1.5, marginBottom: 3 }}>{s.dialogue}</p>
-                {s.visuel_916 && <p style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {s.visuel_916}</p>}
-              </div>
-            ))}
-            {(v.scenes || []).length > 2 && <p style={{ fontSize: 12, color: "var(--mt)", fontStyle: "italic" }}>+ {v.scenes.length - 2} réplique{v.scenes.length - 2 > 1 ? "s" : ""}…</p>}
-            <div style={{ background: "rgba(232,92,58,0.08)", border: "1px solid rgba(232,92,58,0.2)", borderRadius: 10, padding: 12, marginTop: 10 }}>
-              <p style={{ fontSize: 14, fontWeight: 700, color: "var(--r)", marginBottom: 6 }}>🎬 Cliffhanger</p>
-              <p style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)", lineHeight: 1.4, marginBottom: 4 }}>{v.cliffhanger_scene?.texte}</p>
-              {v.cliffhanger_scene?.visuel_916 && <p style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic" }}>[9:16] {v.cliffhanger_scene.visuel_916}</p>}
+            {/* Cliffhanger — 2 lignes max */}
+            <div style={{ borderLeft: "3px solid rgba(232,92,58,0.35)", paddingLeft: 10 }}>
+              <p style={{ fontSize: 10, fontWeight: 700, color: "var(--r)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4, opacity: 0.7 }}>Cliffhanger</p>
+              <p style={{ fontSize: 13, lineHeight: 1.4, color: "var(--mt)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{v.cliffhanger_scene?.texte}</p>
             </div>
           </div>
         ))}
@@ -3360,7 +3355,7 @@ function AppInner() {
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} />}
       {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} t={t} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} />}
       {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} selectedChoix={selectedChoix} onChoixSelect={setSelectedChoix} />}
-      {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} />}
+      {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} lang={lang} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
       {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
       {screen === "profils" && <ProfilsView profils={profils} loading={loadingProfils} bible={bible} onBack={() => setScreen("bible")} t={t} />}
