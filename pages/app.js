@@ -3337,8 +3337,9 @@ function AppInner() {
         <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 40, textAlign: "center" }}>
           {err ? (
             <>
-              <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#999", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 24 }}><span style={{ color: "#fff", fontSize: 20 }}>!</span></div>
-              <p style={{ color: "var(--r)", fontSize: 14, lineHeight: 1.7, marginBottom: 24, maxWidth: 340 }}>{err}</p>
+              <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#333", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 24 }}><span style={{ color: "#fff", fontSize: 28 }}>!</span></div>
+              <p style={{ color: "var(--tx)", fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Oups, une erreur est survenue</p>
+              <p style={{ color: "var(--mt)", fontSize: 13, lineHeight: 1.7, marginBottom: 24, maxWidth: 320 }}>{err}</p>
               <button onClick={() => setScreen("mix")} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "14px 28px", borderRadius: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>← Retour</button>
             </>
           ) : (
