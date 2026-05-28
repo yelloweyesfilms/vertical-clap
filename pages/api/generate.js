@@ -437,12 +437,67 @@ RÈGLES ABSOLUES: 1 événement toutes les 20 secondes. Phrases 10-20 mots. 2 ac
 CALIBRAGE MOTS STRICT: 520 à 580 mots au total (somme des dialogues + indications de jeu). Ni plus, ni moins.`,
 };
 
+const MOCK_BIBLE = {
+  titre: "TEST — Les Secrets du Penthouse",
+  genre: "Thriller psychologique",
+  logline: "Dans un immeuble de luxe, une assistante découvre que son patron milliardaire mène une double vie — et qu'elle en est la cible.",
+  univers: "Penthouse ultra-luxueux de Paris, 47ème étage, nuit permanente derrière les baies vitrées.",
+  ton: "Intense, oppressant, élégant",
+  personnages: [
+    { nom: "LÉA", role: "Assistante personnelle, 28 ans", secret: "Elle a infiltré le penthouse intentionnellement" },
+    { nom: "MARCUS", role: "PDG milliardaire, 45 ans", secret: "Il sait qui est vraiment Léa depuis le début" },
+    { nom: "DIANA", role: "Épouse de Marcus, sculptrice", secret: "Complice ou victime — impossible à dire" },
+  ],
+  episodes: [
+    { numero: 1, titre: "L'Invitation", teaser: "Léa reçoit l'offre d'emploi de sa vie. Trop parfaite pour être honnête.", pivot: "Elle trouve une photo d'elle dans le bureau de Marcus — prise il y a 3 ans." },
+    { numero: 2, titre: "Le Premier Mensonge", teaser: "Marcus teste Léa avec une mission impossible.", pivot: "Léa réussit — et Marcus sourit pour la première fois." },
+    { numero: 3, titre: "Diana", teaser: "L'épouse revient à l'improviste. Ses yeux disent tout.", pivot: "Diana glisse à Léa : 'Pars pendant que tu le peux encore.'" },
+    { numero: 4, titre: "Le Dossier Noir", teaser: "Léa trouve un dossier crypté. Son nom apparaît 47 fois.", pivot: "Coupure de courant. Quelqu'un est entré." },
+    { numero: 5, titre: "La Vérité Coûte Cher", teaser: "Marcus avoue — mais sa version change tout.", pivot: "Léa réalise que c'est elle qui manipule depuis le début." },
+  ],
+};
+
+const MOCK_SCRIPT = {
+  hook_scene: { texte: "(MODE TEST) Léa entre dans le penthouse. Ses talons résonnent sur le marbre. Elle s'arrête — une photo d'elle trône sur le bureau. Prise il y a trois ans. Avant qu'elle postule.", visuel: "Gros plan mains tremblantes sur la photo. Zoom lent sur son visage figé." },
+  scenes: [
+    { personnage: "LÉA", texte: "Ce poste… vous m'avez cherchée. Pas l'inverse.", visuel: "Elle pose la photo. Regard droit. Pas de fuite." },
+    { personnage: "MARCUS", texte: "Tout le monde croit choisir. C'est mon préféré — cette illusion de liberté.", visuel: "Il verse deux verres. Ne la regarde pas encore." },
+    { personnage: "LÉA", texte: "Alors pourquoi moi ?", visuel: "Silence. Il se retourne enfin. Sourire imperceptible." },
+    { personnage: "MARCUS", texte: "Parce que vous êtes la seule à pouvoir finir ce que vous avez commencé.", visuel: "Contre-plongée. Il domine le cadre. Elle tient bon." },
+  ],
+  cliffhanger_scene: { texte: "Léa ouvre son téléphone — message anonyme : 'Il sait pour ton père. Il a toujours su.'", visuel: "Écran illumine son visage dans le noir. Fondu au noir brutal." },
+  choix: [
+    { label: "A — Léa confronte Marcus maintenant", consequence: "Escalade immédiate, cartes sur table, plus de retour en arrière" },
+    { label: "B — Léa fait semblant de ne rien savoir", consequence: "Elle joue le jeu, accumule les infos, prépare sa sortie" },
+  ],
+};
+
+const MOCK_VARIATIONS = {
+  variations: [
+    { label: "⚡ Intense", hook_scene: { texte: "(TEST) La porte s'ouvre. Marcus est déjà là. Il attendait." }, cliffhanger_scene: { texte: "Le téléphone sonne. Numéro inconnu. 'Sortez maintenant.'" } },
+    { label: "🌫️ Subtil", hook_scene: { texte: "(TEST) Léa remarque le détail : son prénom, griffonné dans la marge d'un contrat vieux de 3 ans." }, cliffhanger_scene: { texte: "Diana laisse tomber sa clé. 'Gardez-la. Vous en aurez besoin.'" } },
+    { label: "⚡ Rapide", hook_scene: { texte: "(TEST) Flash. Photo. Trois ans. Son visage. Son bureau. Aujourd'hui." }, cliffhanger_scene: { texte: "Alarme. Porte verrouillée. Elle est piégée." } },
+    { label: "🌑 Sombre", hook_scene: { texte: "(TEST) Il ne l'a pas recrutée. Il l'a capturée. Depuis le début." }, cliffhanger_scene: { texte: "Elle comprend : elle n'est pas la chasseuse. Elle est le gibier." } },
+  ],
+};
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
 
   const sub = await requireSub(req, res);
   if (!sub) return;
   const { customerId, plan } = sub;
+
+  // Mode test — aucun appel API Claude
+  if (process.env.TEST_CODE && customerId === process.env.TEST_CODE) {
+    const { action, payload } = req.body || {};
+    await new Promise(r => setTimeout(r, 800)); // simule latence
+    if (action === "bible") return res.json({ ...MOCK_BIBLE, episodes: MOCK_BIBLE.episodes.slice(0, payload?.format || 5) });
+    if (action === "script") return res.json(MOCK_SCRIPT);
+    if (action === "variations") return res.json(MOCK_VARIATIONS);
+    if (action === "traduire") return res.json({ ...MOCK_SCRIPT, _translated: true });
+    return res.json({ message: "(TEST) Action simulée avec succès.", action });
+  }
 
   const { limited, count, max } = await checkRateLimit(customerId, plan);
   if (limited) {
