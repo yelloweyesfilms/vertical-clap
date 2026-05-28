@@ -2875,7 +2875,7 @@ function AppInner() {
     if (!router.isReady) return;
     const stored = localStorage.getItem("vs_customer");
     const { session_id, admin, preview } = router.query;
-    const ADMIN_IDS = ["vc-admin-sophie-2026"];
+    const ADMIN_IDS = ["vc-admin-sophie-2026", "vc-admin-test-2026"];
     if (admin && (admin === process.env.NEXT_PUBLIC_JETON_ADMIN || ADMIN_IDS.includes(admin))) {
       localStorage.setItem("vs_customer", admin);
       setCustomerId(admin);
