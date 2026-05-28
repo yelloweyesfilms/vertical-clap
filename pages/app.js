@@ -1996,6 +1996,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
 
 function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onStoryboard, onBack, onExport, onVariations, plan, onPrev, onNext, epIdx, totalEps, onTranslate, t, lang, onUpgrade, toggleLang, logout, isAdmin, selectedChoix, onChoixSelect }) {
   const [showLangs, setShowLangs] = useState(false);
+  const [showTools, setShowTools] = useState(false);
   const [translating, setTranslating] = useState(false);
   const [translated, setTranslated] = useState(null);
   const [activeLang, setActiveLang] = useState(null);
@@ -2112,40 +2113,56 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
                 </div>
               </div>
             )}
-            <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
-              {[["pimenter", t.spice], ["subtil", t.subtle], ["simplifier", t.simplify]].map(([k, l]) => (
-                <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "12px 6px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 13, fontWeight: 700, fontFamily: "var(--sans)", color: "var(--tx)", transition: "all .15s" }}>{l}</button>
-              ))}
-            </div>
-            <button onClick={() => onEdit("revelation")} disabled={loading} style={{ width: "100%", marginBottom: 10, padding: "14px 16px", borderRadius: 12, border: "none", background: "linear-gradient(135deg, #E85C3A, #c0392b)", color: "#fff", cursor: "pointer", fontSize: 14, fontWeight: 800, fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, boxShadow: "0 4px 18px rgba(232,92,58,0.35)" }}>
+            {/* ── ACTIONS PRINCIPALES ── */}
+            <button onClick={() => onEdit("revelation")} disabled={loading} style={{ width: "100%", marginBottom: 8, padding: "15px 16px", borderRadius: 12, border: "none", background: "linear-gradient(135deg, #E85C3A, #c0392b)", color: "#fff", cursor: "pointer", fontSize: 14, fontWeight: 800, fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, boxShadow: "0 4px 18px rgba(232,92,58,0.35)" }}>
               <span>{t.revelation}</span>
               <span style={{ fontSize: 11, fontWeight: 500, color: "rgba(255,255,255,0.85)" }}>— {t.revelation_sub}</span>
             </button>
-            <button onClick={plan === "standard" ? () => onUpgrade("variations") : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: `1.5px solid ${plan === "standard" ? "rgba(168,85,247,0.2)" : "var(--bo)"}`, padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", marginBottom: 10, fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
-              {plan === "standard" ? <><span>🔒</span><span>{t.variations_locked}</span><span style={{ fontSize: 10, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.25)", padding: "2px 7px", borderRadius: 6 }}>PRO</span></> : t.variations}
-            </button>
-            <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
-              <button onClick={onTournage} style={{ flex: 2, background: "var(--n)", color: "#fff", border: "none", padding: 15, borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.shooting}</button>
-              <button onClick={onStoryboard} style={{ flex: 1, background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 15, borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.storyboard_btn}</button>
-            </div>
-            <button onClick={() => { if (translated) { setTranslated(null); setActiveLang(null); setShowLangs(false); } else { setShowLangs(s => !s); } }} disabled={translating} style={{ background: translated ? "var(--n)" : "var(--card)", color: translated ? "#fff" : "var(--tx)", border: `1.5px solid ${translated ? "var(--n)" : "var(--bo)"}`, padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: translating ? "wait" : "pointer", marginBottom: 6, fontFamily: "var(--sans)" }}>
-              {translating ? t.translating : translated ? `${LANGS.find(l => l.code === activeLang)?.flag} ${t.translate_back}` : t.translate}
-            </button>
-            {showLangs && !translating && (
-              <div style={{ background: "var(--card)", borderRadius: 12, padding: 14, marginBottom: 6, border: "1.5px solid var(--bo)" }}>
-                <p style={{ fontSize: 13, fontWeight: 700, color: "var(--mt)", marginBottom: 10 }}>{t.choose_lang}</p>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                  {LANGS.map(l => (
-                    <button key={l.code} onClick={() => handleTranslate(l.code)} style={{ padding: "10px 12px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--bg)", cursor: "pointer", fontFamily: "var(--sans)", display: "flex", alignItems: "center", gap: 8, textAlign: "left" }}>
-                      <span style={{ fontSize: 20 }}>{l.flag}</span>
-                      <span style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)" }}>{lang === "en" ? l.labelEn : l.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
 
-            <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 14, borderRadius: 12, width: "100%", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)", marginBottom: 16 }}>{t.export_pdf}</button>
+            <button onClick={onTournage} style={{ width: "100%", background: "var(--n)", color: "#fff", border: "none", padding: "15px 16px", borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", marginBottom: 16 }}>{t.shooting}</button>
+
+            {/* ── ACTIONS SECONDAIRES COLLAPSIBLES ── */}
+            <div style={{ borderTop: "1px solid var(--bo)", paddingTop: 12, marginBottom: 8 }}>
+              <button onClick={() => setShowTools(s => !s)} style={{ width: "100%", background: "none", border: "none", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "4px 0 10px", cursor: "pointer", fontFamily: "var(--sans)" }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "var(--mt)", letterSpacing: "0.08em", textTransform: "uppercase" }}>{lang === "fr" ? "Affiner & exporter" : "Refine & export"}</span>
+                <span style={{ fontSize: 14, color: "var(--mt)", transform: showTools ? "rotate(180deg)" : "none", transition: "transform .2s" }}>▾</span>
+              </button>
+              {showTools && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {/* Dosages */}
+                  <div style={{ display: "flex", gap: 8 }}>
+                    {[["pimenter", t.spice], ["subtil", t.subtle], ["simplifier", t.simplify]].map(([k, l]) => (
+                      <button key={k} onClick={() => onEdit(k)} disabled={loading} style={{ flex: 1, padding: "11px 4px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--card)", cursor: "pointer", fontSize: 12, fontWeight: 700, fontFamily: "var(--sans)", color: "var(--tx)" }}>{l}</button>
+                    ))}
+                  </div>
+                  {/* Variations */}
+                  <button onClick={plan === "standard" ? () => onUpgrade("variations") : onVariations} disabled={loading} style={{ background: "var(--card)", color: plan === "standard" ? "var(--mt)" : "var(--tx)", border: `1.5px solid ${plan === "standard" ? "rgba(168,85,247,0.2)" : "var(--bo)"}`, padding: 13, borderRadius: 12, width: "100%", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+                    {plan === "standard" ? <><span>🔒</span><span>{t.variations_locked}</span><span style={{ fontSize: 10, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.25)", padding: "2px 7px", borderRadius: 6 }}>PRO</span></> : t.variations}
+                  </button>
+                  {/* Découpage */}
+                  <button onClick={onStoryboard} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 13, borderRadius: 12, width: "100%", fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.storyboard_btn}</button>
+                  {/* Traduction */}
+                  <button onClick={() => { if (translated) { setTranslated(null); setActiveLang(null); setShowLangs(false); } else { setShowLangs(s => !s); } }} disabled={translating} style={{ background: translated ? "var(--n)" : "var(--card)", color: translated ? "#fff" : "var(--tx)", border: `1.5px solid ${translated ? "var(--n)" : "var(--bo)"}`, padding: 13, borderRadius: 12, width: "100%", fontSize: 13, fontWeight: 600, cursor: translating ? "wait" : "pointer", fontFamily: "var(--sans)" }}>
+                    {translating ? t.translating : translated ? `${LANGS.find(l => l.code === activeLang)?.flag} ${t.translate_back}` : t.translate}
+                  </button>
+                  {showLangs && !translating && (
+                    <div style={{ background: "var(--card)", borderRadius: 12, padding: 14, border: "1.5px solid var(--bo)" }}>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: "var(--mt)", marginBottom: 10 }}>{t.choose_lang}</p>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                        {LANGS.map(l => (
+                          <button key={l.code} onClick={() => handleTranslate(l.code)} style={{ padding: "10px 12px", borderRadius: 10, border: "1.5px solid var(--bo)", background: "var(--bg)", cursor: "pointer", fontFamily: "var(--sans)", display: "flex", alignItems: "center", gap: 8, textAlign: "left" }}>
+                            <span style={{ fontSize: 20 }}>{l.flag}</span>
+                            <span style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)" }}>{lang === "en" ? l.labelEn : l.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {/* Export PDF */}
+                  <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 13, borderRadius: 12, width: "100%", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.export_pdf}</button>
+                </div>
+              )}
+            </div>
 
             {/* Navigation épisodes — bas */}
             <div style={{ display: "flex", alignItems: "center", gap: 8, borderTop: "1px solid var(--bo)", paddingTop: 16, marginBottom: 8 }}>
