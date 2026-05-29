@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     return res.json({ plan: "premium", active: true });
   }
 
-  const adminIds = ["vc-admin-sophie-2026"];
+  const adminIds = ["vc-admin-sophie-2026", "vc-admin-test-2026"];
   if (adminIds.includes(customerId)) {
     return res.json({ plan: "premium", active: true });
   }
