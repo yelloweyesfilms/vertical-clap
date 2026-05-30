@@ -1942,11 +1942,11 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
                     {carte ? (
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 12 }}>
                         <div style={{ background: "var(--bg)", borderRadius: 10, padding: "10px 12px" }}>
-                          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--mt)", marginBottom: 4 }}>Force</p>
+                          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--mt)", marginBottom: 4 }}>{lang === "fr" ? "Force" : "Strength"}</p>
                           <p style={{ fontSize: 13, fontWeight: 700 }}>{carte.force}</p>
                         </div>
                         <div style={{ background: "var(--bg)", borderRadius: 10, padding: "10px 12px" }}>
-                          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--mt)", marginBottom: 4 }}>Faiblesse</p>
+                          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--mt)", marginBottom: 4 }}>{lang === "fr" ? "Faiblesse" : "Weakness"}</p>
                           <p style={{ fontSize: 13, fontWeight: 700 }}>{carte.faiblesse}</p>
                         </div>
                       </div>
@@ -2387,7 +2387,7 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
         </div>
         {tab === "script" && <div style={{ display: "flex", padding: "0 16px 12px" }}>
           <button onClick={() => setPlaying(p => !p)} style={{ flex: 1, background: playing ? "#333" : "var(--r)", border: "none", cursor: "pointer", padding: "10px 18px", borderRadius: 8, fontSize: 14, fontWeight: 700, color: "#fff", fontFamily: "var(--sans)" }}>
-            {playing ? "⏸ Pause" : "▶ Démarrer"}
+            {playing ? "⏸ Pause" : (ll === "en" ? "▶ Start" : "▶ Démarrer")}
           </button>
         </div>}
       </div>
@@ -2397,7 +2397,7 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
         <div style={{ background: "#1a1a1a", padding: "16px 20px", flexShrink: 0, borderBottom: "1px solid #333" }}>
           <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 160 }}>
-              <p style={{ fontSize: 13, color: "#888", fontWeight: 700, letterSpacing: 0.5, marginBottom: 8 }}>Taille du texte — {fontSize}px</p>
+              <p style={{ fontSize: 13, color: "#888", fontWeight: 700, letterSpacing: 0.5, marginBottom: 8 }}>{ll === "en" ? `Font size — ${fontSize}px` : `Taille du texte — ${fontSize}px`}</p>
               <input type="range" min={18} max={44} value={fontSize} onChange={e => setFontSize(Number(e.target.value))}
                 style={{ width: "100%", accentColor: "var(--r)" }} />
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#555", marginTop: 4 }}>
@@ -2405,11 +2405,11 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
               </div>
             </div>
             <div style={{ flex: 1, minWidth: 160 }}>
-              <p style={{ fontSize: 13, color: "#888", fontWeight: 700, letterSpacing: 0.5, marginBottom: 8 }}>Vitesse — {speed}s</p>
+              <p style={{ fontSize: 13, color: "#888", fontWeight: 700, letterSpacing: 0.5, marginBottom: 8 }}>{ll === "en" ? `Speed — ${speed}s` : `Vitesse — ${speed}s`}</p>
               <input type="range" min={20} max={150} value={speed} onChange={e => setSpeed(Number(e.target.value))}
                 style={{ width: "100%", accentColor: "var(--r)" }} />
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#555", marginTop: 4 }}>
-                <span>⚡ Rapide</span><span>🐢 Lent</span>
+                <span>{ll === "en" ? "⚡ Fast" : "⚡ Rapide"}</span><span>{ll === "en" ? "🐢 Slow" : "🐢 Lent"}</span>
               </div>
             </div>
           </div>
@@ -3073,6 +3073,7 @@ function AppInner() {
       });
     } catch (e) {
       console.error(e);
+      setErr(e.message);
     }
     setLoading(false);
   };
@@ -3135,7 +3136,7 @@ function AppInner() {
 
 
   const exportScript = async () => {
-    const b = bible, ep = episodes[epIdx], s = script;
+    const b = bible, ep = episodes?.[epIdx], s = script;
     if (!s) return;
 
     const loadImgB64 = (url) => new Promise(resolve => {
