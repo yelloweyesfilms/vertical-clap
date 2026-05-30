@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
+import NextImage from "next/image";
 import { POSTS } from "../lib/posts";
 import { POSTS_EN } from "../lib/posts-en";
 
@@ -242,15 +242,6 @@ const COPY = {
       { user: "marc_prod", comment: "épisode 9 MAINTENANT je peux pas attendre", likes: "2.9k", color: VIO },
       { user: "créa.studio", comment: "comment ils écrivent aussi bien ?? 🔥", likes: "445", color: RED },
     ],
-    imgHero: "/banniere%20hero.webp",
-    imgCliffhangers: "/cliffhangers%20.webp",
-    imgBible: "/bible%20complete%20.webp",
-    imgScript: "/script%20%C3%A0%20l'%C3%A9cran.webp",
-    imgViral: "/serie%20virale.webp",
-    imgMixeur: "/le%20mixeur.webp",
-    imgCreateurs: "/les%20createurs.webp",
-    imgPipeline: "/pipeline.webp",
-    imgVariations: "/les%203%20variations.webp",
   },
   en: {
     studioBadge: "AI Studio · Micro-drama · Vertical Series",
@@ -481,15 +472,6 @@ const COPY = {
       { user: "marc_prod", comment: "episode 9 NOW i can't wait", likes: "2.9k", color: VIO },
       { user: "crea.studio", comment: "how do they write this well?? 🔥", likes: "445", color: RED },
     ],
-    imgHero: "/banniere%20hero.webp",
-    imgCliffhangers: "/cliffhangers%20.webp",
-    imgBible: "/bible%20complete%20.webp",
-    imgScript: "/script%20%C3%A0%20l'%C3%A9cran.webp",
-    imgViral: "/serie%20virale.webp",
-    imgMixeur: "/le%20mixeur.webp",
-    imgCreateurs: "/les%20createurs.webp",
-    imgPipeline: "/pipeline.webp",
-    imgVariations: "/les%203%20variations.webp",
   },
 };
 
@@ -1157,8 +1139,8 @@ export default function RichLandingPage({ lang = "fr" }) {
           {/* Bannière visuelle structure */}
           <Reveal>
           <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", marginBottom: 52, height: 280 }}>
-            <img
-              src={lang === "fr" ? "/la%20structure.webp" : "/la%20structure%20EN.webp"}
+            <NextImage
+              src={lang === "fr" ? "/la structure.webp" : "/la structure EN.webp"}
               alt=""
               aria-hidden="true"
               width={860}
@@ -1432,7 +1414,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 24, alignItems: "stretch" }}>
               {/* Image cinématique */}
               <div style={{ position: "relative", borderRadius: 24, overflow: "hidden", minHeight: 340, display: "flex", flexDirection: "column" }}>
-                <img src="/partout.webp" alt="" aria-hidden="true"
+                <NextImage src="/partout.webp" alt="" aria-hidden="true"
                   width={400} height={340} loading="lazy"
                   style={{ width: "100%", flex: 1, objectFit: "cover", objectPosition: "center center", display: "block", minHeight: 340 }} />
                 {/* Badge 9:16 */}
