@@ -1,6 +1,5 @@
 import "../styles/globals.css";
 import Head from "next/head";
-import Script from "next/script";
 import { useRouter } from "next/router";
 import { Space_Grotesk, Playfair_Display } from 'next/font/google';
 

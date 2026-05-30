@@ -9,6 +9,7 @@ export default function Home() {
       <Head>
         <title>VerticalClap — Crée tes micro-dramas 9:16 en 5 minutes avec l'IA</title>
         <meta name="description" content="Génère une série complète en 5 minutes : bible, scripts, hooks et cliffhangers prêts à tourner. Pour TikTok, Reels, Shorts et DramaBox. Studio IA pour créateurs de contenu." />
+        <link rel="preload" as="image" href="/poster-hero-sm.webp" />
         <link rel="canonical" href={SITE} />
         <link rel="alternate" hrefLang="fr" href={SITE} />
         <link rel="alternate" hrefLang="en" href={`${SITE}/en`} />

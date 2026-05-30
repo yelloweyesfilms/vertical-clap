@@ -10,8 +10,8 @@ const Logo = () => (
   <div style={{ display: "flex", alignItems: "center", gap: 9, userSelect: "none" }}>
     <img src="/1024.webp" alt="VC" style={{ width: 34, height: 34, borderRadius: "50%", flexShrink: 0, boxShadow: "0 2px 12px rgba(232,92,58,0.35)" }} onError={e => { e.target.style.display = "none"; }} />
     <div style={{ alignSelf: "center", lineHeight: 1 }}>
-      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
-      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 18, fontWeight: 800, letterSpacing: -0.5, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1 }}>CLAP</div>
+      <div style={{ fontFamily: "var(--sans)", fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
+      <div style={{ fontFamily: "var(--sans)", fontSize: 18, fontWeight: 800, letterSpacing: -0.5, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1 }}>CLAP</div>
     </div>
   </div>
 );
@@ -83,7 +83,7 @@ function FAQItem({ q, a }) {
         gap: 12,
       }}>
         <span style={{
-          fontFamily: "'Space Grotesk', sans-serif",
+          fontFamily: "var(--sans)",
           fontSize: 14,
           fontWeight: 600,
           color: "#fff",
@@ -101,7 +101,7 @@ function FAQItem({ q, a }) {
       {open && (
         <div style={{
           paddingBottom: 16,
-          fontFamily: "'Space Grotesk', sans-serif",
+          fontFamily: "var(--sans)",
           fontSize: 13,
           color: "rgba(255,255,255,0.65)",
           lineHeight: 1.6,
@@ -117,9 +117,6 @@ export default function Aide() {
       <Head>
         <title>Mode d'emploi — Vertical Clap</title>
         <meta name="description" content="Guide complet pour créer ta première série verticale avec Vertical Clap : étapes, budgets, FAQ et conseils." />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
@@ -127,7 +124,7 @@ export default function Aide() {
         background: DARK,
         minHeight: "100vh",
         color: "#fff",
-        fontFamily: "'Space Grotesk', sans-serif",
+        fontFamily: "var(--sans)",
       }}>
         {/* Header */}
         <header style={{
@@ -143,7 +140,7 @@ export default function Aide() {
           }}>
             <Logo />
             <Link href="/app" style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "var(--sans)",
               fontSize: 12,
               fontWeight: 600,
               color: "rgba(255,255,255,0.5)",
@@ -176,7 +173,7 @@ export default function Aide() {
               marginBottom: 20,
             }}>Guide</div>
             <h1 style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "var(--sans)",
               fontSize: "clamp(32px, 8vw, 48px)",
               fontWeight: 900,
               letterSpacing: -1.5,
@@ -201,7 +198,7 @@ export default function Aide() {
           {/* Les 5 étapes */}
           <section style={{ marginBottom: 48 }}>
             <h2 style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "var(--sans)",
               fontSize: 20,
               fontWeight: 800,
               letterSpacing: -0.5,
@@ -256,7 +253,7 @@ export default function Aide() {
           {/* Mixeur vs Packs */}
           <section style={{ marginBottom: 48 }}>
             <h2 style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "var(--sans)",
               fontSize: 20,
               fontWeight: 800,
               letterSpacing: -0.5,
@@ -294,7 +291,7 @@ export default function Aide() {
           {/* Les budgets */}
           <section style={{ marginBottom: 48 }}>
             <h2 style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "var(--sans)",
               fontSize: 20,
               fontWeight: 800,
               letterSpacing: -0.5,
@@ -332,7 +329,7 @@ export default function Aide() {
           {/* FAQ */}
           <section style={{ marginBottom: 48 }}>
             <h2 style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "var(--sans)",
               fontSize: 20,
               fontWeight: 800,
               letterSpacing: -0.5,
@@ -357,7 +354,7 @@ export default function Aide() {
           <a
             href="https://verticalclap.com/app"
             style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "var(--sans)",
               fontSize: 13,
               fontWeight: 600,
               color: RED,

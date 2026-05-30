@@ -9,6 +9,7 @@ export default function HomeEn() {
       <Head>
         <title>VerticalClap — Create 9:16 micro-dramas in 5 minutes with AI</title>
         <meta name="description" content="Generate a complete series in 5 minutes: bible, scripts, hooks and cliffhangers ready to shoot. For TikTok, Reels, Shorts and DramaBox. AI studio for content creators." />
+        <link rel="preload" as="image" href="/poster-hero-sm.webp" />
         <link rel="canonical" href={`${SITE}/en`} />
         <link rel="alternate" hrefLang="fr" href={SITE} />
         <link rel="alternate" hrefLang="en" href={`${SITE}/en`} />
