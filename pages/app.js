@@ -3267,28 +3267,30 @@ function AppInner() {
     doc.setFontSize(14); const cliffLines = doc.splitTextToSize(String(s.cliffhanger_scene?.texte || ""), contentW - 20);
     doc.setFontSize(8.5); const visLines = doc.splitTextToSize(String(s.cliffhanger_scene?.visuel_916 || ""), contentW - 20);
     const cliffH = 14 + cliffLines.length * lh(14) + 4 + visLines.length * lh(8.5) + (cliffLabel ? 14 : 0) + 10;
-    // fond sombre mais moins oppressant — charcoal profond
-    doc.setFillColor(20, 18, 32); doc.roundedRect(ML, y, contentW, cliffH, 5, 5, "F");
-    // barre gauche rouge (accent vertical)
-    doc.setFillColor(...RED); doc.roundedRect(ML, y, 4, cliffH, 2, 2, "F");
-    // label CLIFFHANGER en rouge clair
+    // fond blanc + bordure rouge épaisse (print-friendly)
+    doc.setFillColor(255, 255, 255); doc.roundedRect(ML, y, contentW, cliffH, 5, 5, "F");
+    doc.setDrawColor(...RED); doc.setLineWidth(1.5); doc.roundedRect(ML, y, contentW, cliffH, 5, 5, "S");
+    doc.setLineWidth(0.3);
+    // barre gauche rouge pleine
+    doc.setFillColor(...RED); doc.roundedRect(ML, y, 5, cliffH, 2, 2, "F");
+    // label CLIFFHANGER
     y += 5;
     doc.setFontSize(7); doc.setFont("helvetica", "bold");
     doc.setTextColor(...RED);
-    doc.text("— CLIFFHANGER", ML + 10, y + 3);
+    doc.text("— CLIFFHANGER", ML + 12, y + 3);
     y += 8;
-    // texte principal grand et blanc
-    txt(s.cliffhanger_scene?.texte, { size: 14, bold: true, color: [255, 255, 255], mw: contentW - 20, x: ML + 10 });
+    // texte principal grand et sombre (lisible à l'impression)
+    txt(s.cliffhanger_scene?.texte, { size: 14, bold: true, color: INK, mw: contentW - 20, x: ML + 12 });
     sp(3);
-    // direction visuelle en orange doux
-    txt(`[9:16]  ${s.cliffhanger_scene?.visuel_916}`, { size: 8, italic: true, color: [210, 130, 100], mw: contentW - 20, x: ML + 10 });
+    // direction visuelle en gris
+    txt(`[9:16]  ${s.cliffhanger_scene?.visuel_916}`, { size: 8, italic: true, color: GRAY, mw: contentW - 20, x: ML + 12 });
     if (cliffLabel) {
       sp(5);
       doc.setFontSize(7.5); doc.setFont("helvetica", "bold");
       const cw = doc.getTextWidth(cliffLabel.toUpperCase()) + 14;
-      doc.setFillColor(...RED); doc.roundedRect(ML + 10, y, cw, 7, 2, 2, "F");
+      doc.setFillColor(...RED); doc.roundedRect(ML + 12, y, cw, 7, 2, 2, "F");
       doc.setTextColor(255, 255, 255);
-      doc.text(cliffLabel.toUpperCase(), ML + 17, y + 5);
+      doc.text(cliffLabel.toUpperCase(), ML + 19, y + 5);
       y += 10;
     }
     y = Math.max(y, y) + 6;
