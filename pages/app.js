@@ -3214,7 +3214,7 @@ function AppInner() {
     doc.setFillColor(240, 240, 245); doc.roundedRect(ML, y, doc.getTextWidth(b.titre.toUpperCase()) + 14, 7, 3, 3, "F");
     doc.setFontSize(7); doc.setFont("helvetica", "bold"); doc.setTextColor(...GRAY);
     doc.text(b.titre.toUpperCase(), ML + 7, y + 5);
-    y += 11;
+    y += 16;
     // Episode title — grand et fort
     txt(ep.titre, { size: 26, bold: true, color: INK });
     sp(2);
