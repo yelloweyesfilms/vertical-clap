@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { jsPDF } from "jspdf";
 
 // ── CONFIG ──────────────────────────────────────────────────
 const OPTS = {
@@ -3128,6 +3127,7 @@ function AppInner() {
     });
     const logoB64 = await loadImgB64("/1024.webp");
 
+    const { jsPDF } = await import("jspdf");
     const doc = new jsPDF({ unit: "mm", format: "a4" });
     const W = 210, ML = 16, MR = 16, contentW = W - ML - MR;
     const RED = [232, 92, 58], INK = [22, 22, 32], GRAY = [130, 130, 145], LGRAY = [200, 200, 210];
