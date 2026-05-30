@@ -2310,9 +2310,10 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
   const [fontSize, setFontSize] = useState(28);
   const [speed, setSpeed] = useState(duree <= 60 ? 50 : duree <= 90 ? 70 : 90);
   const [showSettings, setShowSettings] = useState(false);
-  const [tab, setTab] = useState("script"); // "script" | "guide"
+  const [tab, setTab] = useState("script");
+  const [activeBudget, setActiveBudget] = useState(budget || "smartphone");
   const ll = lang === "en" ? "en" : "fr";
-  const bLevel = BUDGET_LEVELS.find(b => b.id === budget) || BUDGET_LEVELS[0];
+  const bLevel = BUDGET_LEVELS.find(b => b.id === activeBudget) || BUDGET_LEVELS[0];
   const guide = bLevel.guide[ll];
 
   if (!script) return (
@@ -2403,10 +2404,14 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
       {/* Zone Guide Prod */}
       {tab === "guide" && (
         <div style={{ flex: 1, overflowY: "auto", background: "#0a0a0f", padding: "20px 20px 40px" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 20, padding: "8px 16px", borderRadius: 100, background: `${bLevel.color}22`, border: `1.5px solid ${bLevel.color}` }}>
-            <span style={{ fontSize: 20 }}>{bLevel.emoji}</span>
-            <span style={{ fontSize: 14, fontWeight: 800, color: bLevel.color }}>{bLevel.label[ll]}</span>
-            <span style={{ fontSize: 11, color: "#888" }}>{bLevel.stars}</span>
+          {/* Sélecteur de budget */}
+          <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
+            {BUDGET_LEVELS.map(b => (
+              <button key={b.id} onClick={() => setActiveBudget(b.id)} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 2, padding: "10px 6px", borderRadius: 12, border: `2px solid ${activeBudget === b.id ? b.color : "#333"}`, background: activeBudget === b.id ? `${b.color}18` : "#111", cursor: "pointer", fontFamily: "var(--sans)", transition: "all .15s" }}>
+                <span style={{ fontSize: 18 }}>{b.emoji}</span>
+                <span style={{ fontSize: 10, fontWeight: 700, color: activeBudget === b.id ? b.color : "#666", textTransform: "uppercase", letterSpacing: 0.5 }}>{b.label[ll]}</span>
+              </button>
+            ))}
           </div>
           {guide?.equip?.length > 0 && (
             <div style={{ marginBottom: 20 }}>
