@@ -17,11 +17,13 @@ const Logo = () => (
 );
 
 const STEPS = [
-  { emoji: "💡", label: "IDÉE", desc: "Choisis ton genre, budget, univers, casting et secret central" },
-  { emoji: "📖", label: "BIBLE", desc: "L'IA génère le concept complet : titre, logline, personnages, tension" },
-  { emoji: "🎬", label: "ÉPISODES", desc: "La série entière est planifiée automatiquement (10 à 90 épisodes)" },
-  { emoji: "✍️", label: "SCRIPT", desc: "Génère le script de chaque épisode, modifie-le (pimenter, simplifier...)" },
-  { emoji: "🎥", label: "TOURNAGE", desc: "Checklist de tournage, storyboard, export PDF" },
+  { emoji: "💡", label: "IDÉE", desc: "Choisis ton genre, budget, univers, casting et secret central. Utilise les Packs pour tout configurer en 1 clic, ou le Mixeur pour tout personnaliser." },
+  { emoji: "📖", label: "BIBLE", desc: "L'IA génère le concept complet : titre, logline, personnages avec arcs, tension centrale. Les fiches Casting IA enrichissent chaque personnage avec force, faiblesse et citation." },
+  { emoji: "🎬", label: "ÉPISODES", desc: "La série entière est planifiée automatiquement (jusqu'à 90 épisodes). Chaque épisode a un hook, un titre et un cliffhanger calibré." },
+  { emoji: "✍️", label: "SCRIPT", desc: "Génère le script de chaque épisode : hook 3 sec, dialogues avec indications de jeu, cadrage 9:16, cliffhanger. Affine avec Pimenter / Subtil / Simplifier. Compare 3 versions différentes (Pro)." },
+  { emoji: "🎞️", label: "DÉCOUPAGE", desc: "Le Découpage technique génère plan par plan toute la mise en scène : type de plan, angle, mouvement caméra, durée en secondes. Parfait pour briefer ton équipe ou tourner seul·e." },
+  { emoji: "🎬", label: "MODE TOURNAGE", desc: "Transforme le script en téléprompteur plein écran auto-scroll. Règle la taille de texte et la vitesse de défilement. Tu poses ton téléphone, il défile au rythme choisi." },
+  { emoji: "📄", label: "EXPORT & PARTAGE", desc: "Export PDF complet : hook, script, cliffhanger, personnages + affiche de présentation générée par IA. Traduis ton script en 8 langues en 1 clic depuis le Studio." },
 ];
 
 const BUDGETS = [
@@ -49,19 +51,23 @@ const FAQS = [
   },
   {
     q: "Comment exporter mon script ?",
-    a: "Dans le Studio, bouton 'Exporter PDF' en bas. Le PDF inclut hook, dialogues, cliffhanger et les instructions de tournage 9:16.",
+    a: "Dans le Studio, ouvre '✦ Affiner & exporter' puis 'Exporter PDF'. Le PDF inclut hook, script complet, cliffhanger, personnages et une affiche de présentation générée par l'IA.",
+  },
+  {
+    q: "C'est quoi le Découpage technique ?",
+    a: "Un document de mise en scène généré par l'IA : chaque plan est décrit avec son type (gros plan, plan d'ensemble...), l'angle, le mouvement caméra et la durée en secondes. Tu peux l'imprimer ou l'envoyer à ton équipe.",
   },
   {
     q: "Quelle durée par épisode choisir ?",
-    a: "60s = format TikTok pur (130-150 mots). 90s = DramaBox / Reels (200-225 mots). 120s = YouTube Shorts / format cinéma mobile (270-300 mots).",
+    a: "60s = format TikTok pur (5 scènes). 90s = DramaBox / Reels (7 scènes). 120s = YouTube Shorts / format cinéma mobile (10 scènes).",
   },
   {
     q: "La série est sauvegardée automatiquement ?",
-    a: "Oui — chaque série générée est sauvegardée localement sur ton appareil. Retrouve-les depuis l'écran d'accueil avec le bouton 'Mes séries'.",
+    a: "Oui — chaque série est sauvegardée localement sur ton appareil. Retrouve-les depuis l'écran d'accueil avec le bouton 'Mes séries'.",
   },
   {
-    q: "Différence plan Créateur vs Premium ?",
-    a: "Créateur : jusqu'à 20 épisodes, fonctionnalités essentielles. Premium : jusqu'à 90 épisodes, casting avancé, identité visuelle, storyboard et variations de scripts.",
+    q: "Différence plan Créateur vs Pro ?",
+    a: "Créateur (9€) : jusqu'à 20 épisodes, toutes les fonctionnalités essentielles (Bible, Scripts, Mode Tournage, Découpage, Casting IA, PDF, Traduction). Pro (19€) : jusqu'à 90 épisodes + 3 variations de script par épisode + Direction Artistique avancée.",
   },
 ];
 
