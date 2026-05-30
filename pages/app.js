@@ -2955,6 +2955,16 @@ function AppInner() {
       const b = await gen("bible", { ...cleanState(state), lang, castingIA: castingIAInstr, ambianceVisuelle: avInstr, remakeInspiration }, customerId);
       setBible(b);
 
+      // Mode test : la bible contient déjà les épisodes
+      if (b._episodes && b._episodes.length > 0) {
+        setEpisodes(b._episodes);
+        setScripts({});
+        saveSerie(b, b._episodes, state, {});
+        setSavedCount(loadSaved().length);
+        setScreen("bible");
+        return;
+      }
+
       const totalBatches = Math.ceil(state.format / 10);
       const batches = [];
       for (let i = 0; i < state.format; i += 10) {

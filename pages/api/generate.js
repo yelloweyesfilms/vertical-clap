@@ -492,7 +492,13 @@ export default async function handler(req, res) {
   if (process.env.TEST_CODE && customerId === process.env.TEST_CODE) {
     const { action, payload } = req.body || {};
     await new Promise(r => setTimeout(r, 600));
-    if (action === "bible") return res.json(MOCK_BIBLE);
+    if (action === "bible") return res.json({ ...MOCK_BIBLE, _episodes: [
+      { numero: 1, titre: "L'Invitation", teaser: "Léa reçoit l'offre d'emploi de sa vie. Trop parfaite pour être honnête.", pivot: "Elle trouve une photo d'elle dans le bureau — prise 3 ans avant.", has_choix: true },
+      { numero: 2, titre: "Le Premier Mensonge", teaser: "Marcus teste Léa avec une mission impossible.", pivot: "Léa réussit — Marcus sourit pour la première fois.", has_choix: true },
+      { numero: 3, titre: "Diana", teaser: "L'épouse revient à l'improviste. Ses yeux disent tout.", pivot: "Diana glisse à Léa : 'Pars pendant que tu le peux.'", has_choix: true },
+      { numero: 4, titre: "Le Dossier Noir", teaser: "Léa trouve un dossier crypté. Son nom apparaît 47 fois.", pivot: "Coupure de courant. Quelqu'un est entré.", has_choix: true },
+      { numero: 5, titre: "La Vérité Coûte Cher", teaser: "Marcus avoue — mais sa version change tout.", pivot: "Léa réalise que c'est elle qui manipule depuis le début.", has_choix: true },
+    ]});
     if (action === "episodes") return res.json({ episodes: [
       { numero: 1, titre: "L'Invitation", teaser: "Léa reçoit l'offre d'emploi de sa vie. Trop parfaite pour être honnête.", pivot: "Elle trouve une photo d'elle dans le bureau — prise 3 ans avant.", has_choix: true },
       { numero: 2, titre: "Le Premier Mensonge", teaser: "Marcus teste Léa avec une mission impossible.", pivot: "Léa réussit — Marcus sourit pour la première fois.", has_choix: true },
