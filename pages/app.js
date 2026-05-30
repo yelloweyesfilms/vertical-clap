@@ -1179,11 +1179,17 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
     set({ [key]: CUSTOM_PREFIX + val });
   };
 
-  const HELP_STEPS = [
-    { emoji: "💡", label: "IDÉE", desc: "Genre, budget, univers, casting, secret central" },
-    { emoji: "📖", label: "BIBLE", desc: "L'IA génère le concept complet : titre, logline, persos, tension" },
+  const HELP_STEPS = lang === "en" ? [
+    { emoji: "💡", label: "IDEA",     desc: "Genre, budget, setting, casting, central secret" },
+    { emoji: "📖", label: "BIBLE",    desc: "AI generates the full concept: title, logline, characters, tension" },
+    { emoji: "🎬", label: "EPISODES", desc: "The full series planned automatically (10 to 90 episodes)" },
+    { emoji: "✍️", label: "SCRIPT",   desc: "Generate each script, edit it (Spice up, Simplify...)" },
+    { emoji: "🎥", label: "SHOOT",    desc: "Checklist, storyboard, PDF export" },
+  ] : [
+    { emoji: "💡", label: "IDÉE",     desc: "Genre, budget, univers, casting, secret central" },
+    { emoji: "📖", label: "BIBLE",    desc: "L'IA génère le concept complet : titre, logline, persos, tension" },
     { emoji: "🎬", label: "ÉPISODES", desc: "La série entière planifiée automatiquement (10 à 90 épisodes)" },
-    { emoji: "✍️", label: "SCRIPT", desc: "Génère chaque script, modifie-le (Pimenter, Simplifier...)" },
+    { emoji: "✍️", label: "SCRIPT",   desc: "Génère chaque script, modifie-le (Pimenter, Simplifier...)" },
     { emoji: "🎥", label: "TOURNAGE", desc: "Checklist, storyboard, export PDF" },
   ];
 
@@ -1218,7 +1224,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
             <h2 style={{
               fontFamily: "var(--sans)", fontSize: 17, fontWeight: 800,
               color: "var(--tx)", marginBottom: 20, letterSpacing: -0.3,
-            }}>Comment ça marche ?</h2>
+            }}>{lang === "en" ? "How does it work?" : "Comment ça marche ?"}</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
               {HELP_STEPS.map((step, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
@@ -1241,7 +1247,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
               color: "#E85C3A", textDecoration: "none",
               padding: "10px 0",
               borderTop: "1px solid #2a2a40",
-            }}>Guide complet →</a>
+            }}>{lang === "en" ? "Full guide →" : "Guide complet →"}</a>
           </div>
         </div>
       )}
@@ -2639,14 +2645,14 @@ function CalendrierView({ calendrier, loading, bible, onBack, t }) {
   );
 }
 
-function StoryboardView({ storyboard, loading, ep, bible, onBack, t }) {
+function StoryboardView({ storyboard, loading, ep, bible, onBack, t, lang }) {
   const shots = storyboard?.shots || [];
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
       <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
         <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_studio}</button>
         <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>{t.storyboard_title}</h2>
-        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>Ép. {ep?.numero} · {ep?.titre}</p>
+        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{lang === "en" ? "Ep." : "Ép."} {ep?.numero} · {ep?.titre}</p>
       </div>
       <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
         {loading ? (
@@ -3397,7 +3403,7 @@ function AppInner() {
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
       {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
       {screen === "profils" && <ProfilsView profils={profils} loading={loadingProfils} bible={bible} onBack={() => setScreen("bible")} t={t} />}
-      {screen === "storyboard" && <StoryboardView storyboard={storyboard} loading={loadingStoryboard} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} />}
+      {screen === "storyboard" && <StoryboardView storyboard={storyboard} loading={loadingStoryboard} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} lang={lang} />}
 
       {/* Top bar: lang toggle + logout — uniquement sur les écrans intermédiaires sans header propre */}
       {screen !== "tour" && screen !== "mix" && screen !== "bible" && screen !== "studio" && screen !== "variations" && screen !== "affiche" && screen !== "profils" && screen !== "storyboard" && (
