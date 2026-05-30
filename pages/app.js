@@ -1999,8 +1999,9 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
   const [translating, setTranslating] = useState(false);
   const [translated, setTranslated] = useState(null);
   const [activeLang, setActiveLang] = useState(null);
+  const [translateError, setTranslateError] = useState(null);
 
-  useEffect(() => { setTranslated(null); setActiveLang(null); setShowLangs(false); }, [ep?.numero]);
+  useEffect(() => { setTranslated(null); setActiveLang(null); setShowLangs(false); setTranslateError(null); }, [ep?.numero]);
 
   const LANGS = [
     { code: "en", flag: "🇬🇧", label: "Anglais",   labelEn: "English"    },
@@ -2017,10 +2018,16 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
     setTranslating(true);
     setActiveLang(code);
     setShowLangs(false);
+    setTranslateError(null);
     try {
       const r = await onTranslate(code);
+      if (!r || typeof r !== "object" || (!r.scenes && !r.hook_scene)) throw new Error("invalid_response");
       setTranslated(r);
-    } catch (e) { console.error(e); setActiveLang(null); }
+    } catch (e) {
+      console.error(e);
+      setActiveLang(null);
+      setTranslateError(lang === "fr" ? "La traduction a échoué. Réessaie dans quelques secondes." : "Translation failed. Please try again in a few seconds.");
+    }
     setTranslating(false);
   };
 
@@ -2067,7 +2074,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
                 const targets = { 60: [160, 200], 90: [250, 290], 120: [330, 380] };
                 const [min, max] = targets[duree] || [0, 999];
                 const ok = words >= min && words <= max;
-                return <span style={{ fontSize: 11, fontWeight: 700, color: ok ? "#4ade80" : "#f59e0b", background: ok ? "rgba(74,222,128,0.08)" : "rgba(245,158,11,0.08)", border: `1px solid ${ok ? "rgba(74,222,128,0.25)" : "rgba(245,158,11,0.3)"}`, borderRadius: 6, padding: "2px 8px" }}>{words} mots {ok ? "✓" : `(cible: ${min}-${max})`}</span>;
+                return <span style={{ fontSize: 11, fontWeight: 700, color: ok ? "#4ade80" : "#f59e0b", background: ok ? "rgba(74,222,128,0.08)" : "rgba(245,158,11,0.08)", border: `1px solid ${ok ? "rgba(74,222,128,0.25)" : "rgba(245,158,11,0.3)"}`, borderRadius: 6, padding: "2px 8px" }}>{words} {lang === "fr" ? "mots" : "words"} {ok ? "✓" : `(${lang === "fr" ? "cible" : "target"}: ${min}-${max})`}</span>;
               })()}
             </p>
             {(displayScript.scenes || []).map((s, i) => (
@@ -2144,6 +2151,9 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
                   <button onClick={() => { if (translated) { setTranslated(null); setActiveLang(null); setShowLangs(false); } else { setShowLangs(s => !s); } }} disabled={translating} style={{ background: translated ? "var(--n)" : "var(--card)", color: translated ? "#fff" : "var(--tx)", border: `1.5px solid ${translated ? "var(--n)" : "var(--bo)"}`, padding: 13, borderRadius: 12, width: "100%", fontSize: 13, fontWeight: 600, cursor: translating ? "wait" : "pointer", fontFamily: "var(--sans)" }}>
                     {translating ? t.translating : translated ? `${LANGS.find(l => l.code === activeLang)?.flag} ${t.translate_back}` : t.translate}
                   </button>
+                  {translateError && (
+                    <p style={{ fontSize: 13, color: "#f59e0b", margin: 0, padding: "8px 12px", background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.25)", borderRadius: 8 }}>{translateError}</p>
+                  )}
                   {showLangs && !translating && (
                     <div style={{ background: "var(--card)", borderRadius: 12, padding: 14, border: "1.5px solid var(--bo)" }}>
                       <p style={{ fontSize: 13, fontWeight: 700, color: "var(--mt)", marginBottom: 10 }}>{t.choose_lang}</p>
