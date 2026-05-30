@@ -2583,14 +2583,14 @@ function StoryboardView({ storyboard, loading, ep, bible, onBack, t, lang }) {
 function UpgradeModal({ feature, onClose, lang }) {
   const FEATURES = {
     fr: {
-      serie:       { title: "Plan Pro", desc: "Séries longues jusqu'à 90 épisodes, arcs narratifs complexes, direction artistique avancée.", perks: ["Jusqu'à 90 épisodes par série", "3 variations de script par épisode", "Tous les packs univers", "Calendrier éditorial", "Préparation Saison 2"] },
+      serie:       { title: "Plan Pro", desc: "Séries longues jusqu'à 90 épisodes, arcs narratifs complexes, direction artistique avancée.", perks: ["Jusqu'à 90 épisodes par série", "3 variations de script par épisode", "Tous les packs univers", "Accroches TikTok — tous les épisodes", "Préparation Saison 2"] },
       episodes:    { title: "Séries longues", desc: "Dépasse les 20 épisodes et construis des arcs narratifs de série complète.", perks: ["40, 60 ou 90 épisodes", "Arc narratif complet calculé", "Progression de tension optimisée"] },
       variations:  { title: "3 variations de script", desc: "Génère 3 versions différentes d'un même épisode pour choisir la meilleure.", perks: ["3 scripts par épisode", "Angles narratifs différents", "Choisir ou mixer les versions"] },
       saison2:     { title: "Saison 2", desc: "Prolonge ta série avec une saison 2 cohérente — nouveaux arcs, nouveau casting, nouvelles tensions.", perks: ["Bible Saison 2 complète", "Cohérence narrative garantie", "Nouveaux personnages et secrets"] },
       accroches:   { title: "Accroches complètes", desc: "Génère des légendes virales pour tous tes épisodes, pas seulement les 3 premiers.", perks: ["Légendes pour tous les épisodes", "Hashtags ciblés par épisode", "Copie en 1 clic"] },
     },
     en: {
-      serie:       { title: "Premium Series Mode", desc: "Long series up to 90 episodes, complex narrative arcs, advanced art direction.", perks: ["Up to 90 episodes per series", "3 script variations per episode", "All universe packs", "Editorial calendar", "Season 2 prep"] },
+      serie:       { title: "Premium Series Mode", desc: "Long series up to 90 episodes, complex narrative arcs, advanced art direction.", perks: ["Up to 90 episodes per series", "3 script variations per episode", "All universe packs", "TikTok hooks — all episodes", "Season 2 prep"] },
       episodes:    { title: "Long series", desc: "Go beyond 20 episodes and build full series narrative arcs.", perks: ["40, 60 or 90 episodes", "Full narrative arc calculated", "Optimized tension progression"] },
       variations:  { title: "3 script variations", desc: "Generate 3 different versions of the same episode to pick the best.", perks: ["3 scripts per episode", "Different narrative angles", "Mix or choose versions"] },
       saison2:     { title: "Season 2", desc: "Extend your series with a coherent season 2 — new arcs, new cast, new tensions.", perks: ["Full Season 2 bible", "Guaranteed narrative consistency", "New characters and secrets"] },

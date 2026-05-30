@@ -47,8 +47,9 @@ const FEATURES = [
   { label: "Packs univers Pro (Dark Romance, Psycho…)", std: false, prem: true },
   { label: "3 variations par script (Intense / Subtil / Épuré)", std: false, prem: true },
   { label: "Générateur de titres viraux", std: false, prem: true },
-  { label: "Calendrier éditorial", std: false, prem: true },
+  { label: "Accroches TikTok (légendes virales)", std: "3 / série", prem: "Toutes" },
   { label: "Saison 2 automatique", std: false, prem: true },
+  { label: "Casting IA — fiches personnages", std: true, prem: true },
   { label: "Guide Prod — tournage Zéro Budget", std: true, prem: true },
   { label: "Découpage technique plan par plan", std: true, prem: true },
   { label: "Mode Tournage + Téléprompteur", std: true, prem: true },
@@ -58,7 +59,7 @@ const FEATURES = [
 ];
 
 const FAQ = [
-  { q: "Quelle est la différence entre Creator et Pro ?", r: "Creator (9€/mois) permet de créer jusqu'à 20 épisodes par série avec tous les outils essentiels. Pro (19€/mois) débloque jusqu'à 90 épisodes, les packs univers avancés, 3 variations par script, le calendrier éditorial et la génération de Saison 2 automatique." },
+  { q: "Quelle est la différence entre Creator et Pro ?", r: "Creator (9€/mois) permet de créer jusqu'à 20 épisodes par série avec tous les outils essentiels (Bible, Scripts, Casting IA, Découpage, Mode Tournage, PDF, Traduction). Pro (19€/mois) débloque jusqu'à 90 épisodes, les packs univers avancés, 3 variations par script, les accroches TikTok complètes et la génération de Saison 2 automatique." },
   { q: "Puis-je passer de Creator à Pro à tout moment ?", r: "Oui, en un clic depuis ton espace Stripe. La différence de prix est proratisée automatiquement." },
   { q: "Puis-je annuler mon abonnement ?", r: "Oui, à tout moment depuis ton espace Stripe. Aucun engagement. Tu gardes l'accès jusqu'à la fin de la période payée." },
   { q: "L'abonnement annuel est-il remboursable ?", r: "Oui, dans les 7 jours suivant le débit annuel. Contacte-nous via le chat." },
@@ -126,7 +127,7 @@ export default function Tarifs() {
           "@type": "FAQPage",
           "mainEntity": [
             { "@type": "Question", "name": "Puis-je annuler à tout moment ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, sans frais ni engagement. Vous pouvez annuler depuis votre espace client à tout moment." } },
-            { "@type": "Question", "name": "Quelle est la différence entre Creator et Pro ?", "acceptedAnswer": { "@type": "Answer", "text": "Creator (9€/mois) génère des micro-dramas verticaux de 10 à 20 épisodes pour TikTok, Reels et Shorts. Pro (19€/mois) ajoute les séries longues jusqu'à 90 épisodes, 3 variations de script, direction artistique et calendrier éditorial." } },
+            { "@type": "Question", "name": "Quelle est la différence entre Creator et Pro ?", "acceptedAnswer": { "@type": "Answer", "text": "Creator (9€/mois) génère des micro-dramas verticaux de 10 à 20 épisodes avec Bible, Scripts, Casting IA, Découpage technique et Mode Tournage. Pro (19€/mois) ajoute les séries longues jusqu'à 90 épisodes, 3 variations de script, accroches TikTok complètes et Saison 2 automatique." } },
             { "@type": "Question", "name": "Y a-t-il un essai gratuit ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, vous pouvez générer votre première série gratuitement pour tester la plateforme avant de souscrire." } },
             { "@type": "Question", "name": "L'abonnement annuel est-il remboursable ?", "acceptedAnswer": { "@type": "Answer", "text": "L'abonnement annuel bénéficie d'un remboursement sous 14 jours si vous n'êtes pas satisfait." } },
           ]

@@ -47,8 +47,9 @@ const FEATURES = [
   { label: "Pro universe packs (Dark Romance, Psycho…)", std: false, prem: true },
   { label: "3 script versions (Intense / Subtle / Stripped)", std: false, prem: true },
   { label: "Viral title generator", std: false, prem: true },
-  { label: "Editorial calendar", std: false, prem: true },
+  { label: "TikTok hooks (viral captions)", std: "3 / series", prem: "All" },
   { label: "Automatic Season 2", std: false, prem: true },
+  { label: "AI Casting — character profile cards", std: true, prem: true },
   { label: "Prod Guide — Zero Budget shooting", std: true, prem: true },
   { label: "Shot-by-shot breakdown", std: true, prem: true },
   { label: "Shoot Mode + Teleprompter", std: true, prem: true },
@@ -58,7 +59,7 @@ const FEATURES = [
 ];
 
 const FAQ = [
-  { q: "What's the difference between Creator and Pro?", r: "Creator (€9/month) lets you create up to 20 episodes per series with all the essential tools. Pro (€19/month) unlocks up to 90 episodes, advanced universe packs, 3 script variations, the editorial calendar and automatic Season 2 generation." },
+  { q: "What's the difference between Creator and Pro?", r: "Creator (€9/month) lets you create up to 20 episodes per series with all the essential tools (Bible, Scripts, AI Casting, Shot List, Shoot Mode, PDF, Translation). Pro (€19/month) unlocks up to 90 episodes, advanced universe packs, 3 script variations, full TikTok hooks for all episodes, and automatic Season 2 generation." },
   { q: "Can I switch from Creator to Pro at any time?", r: "Yes, in one click from your Stripe dashboard. The price difference is prorated automatically." },
   { q: "Can I cancel my subscription?", r: "Yes, at any time from your Stripe dashboard. No commitment. You keep access until the end of the paid period." },
   { q: "Is the annual subscription refundable?", r: "Yes, within 7 days of the annual charge. Contact us via chat." },
