@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 const RED = "#E85C3A";
 const VIO = "#a855f7";
 const DARK = "#09090f";
@@ -17,6 +19,13 @@ const Logo = () => (
 );
 
 export default function NotFound() {
+  const router = useRouter();
+  const isEn = router.asPath?.startsWith("/en");
+
+  const home = isEn ? "/en" : "/";
+  const examples = isEn ? "/en/exemples" : "/exemples";
+  const pricing = isEn ? "/en/tarifs" : "/tarifs";
+
   return (
     <div style={{ minHeight: "100vh", background: DARK, display: "flex", alignItems: "center", justifyContent: "center", padding: "40px 24px", fontFamily: "'Space Grotesk', system-ui, sans-serif", color: TEXT }}>
       <style>{`
@@ -28,34 +37,36 @@ export default function NotFound() {
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 500, height: 500, background: `radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 65%)`, pointerEvents: "none" }} />
 
         <div style={{ position: "relative" }}>
-          <Logo />
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}>
+            <Logo />
+          </div>
 
           <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(80px, 20vw, 140px)", fontWeight: 900, lineHeight: 1, marginBottom: 8, background: `linear-gradient(135deg, ${RED} 30%, ${VIO})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
             404
           </div>
 
           <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(22px, 5vw, 32px)", fontWeight: 900, color: TEXT, marginBottom: 16, letterSpacing: -0.5 }}>
-            Cette page n'existe pas
+            {isEn ? "Page not found" : "Cette page n'existe pas"}
           </h1>
           <p style={{ fontSize: 15, color: MUTED, lineHeight: 1.7, marginBottom: 40 }}>
-            Le lien est peut-être cassé ou la page a été déplacée.<br />
-            Retourne au studio pour continuer à créer.
+            {isEn
+              ? <>The link may be broken or the page has moved.<br />Go back to the studio to keep creating.</>
+              : <>Le lien est peut-être cassé ou la page a été déplacée.<br />Retourne au studio pour continuer à créer.</>}
           </p>
 
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-            <a href="/" style={{ display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", textDecoration: "none", padding: "14px 28px", borderRadius: 12, fontSize: 15, fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 24px rgba(168,85,247,0.25)` }}>
-              Accueil →
+            <a href={home} style={{ display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", textDecoration: "none", padding: "14px 28px", borderRadius: 12, fontSize: 15, fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif", boxShadow: `0 0 24px rgba(168,85,247,0.25)` }}>
+              {isEn ? "Home →" : "Accueil →"}
             </a>
             <a href="/app" style={{ display: "inline-block", background: SURFACE, color: MUTED, textDecoration: "none", padding: "14px 28px", borderRadius: 12, fontSize: 15, fontWeight: 600, border: `1px solid ${BORDER}`, fontFamily: "'Space Grotesk', sans-serif" }}>
-              Mon studio
+              {isEn ? "My studio" : "Mon studio"}
             </a>
           </div>
 
           <div style={{ display: "flex", justifyContent: "center", gap: 20, marginTop: 40, flexWrap: "wrap" }}>
             {[
-              { href: "/exemples", label: "Exemples de séries" },
-              { href: "/tarifs", label: "Tarifs" },
-              { href: "/parrainage", label: "Parrainage" },
+              { href: examples, label: isEn ? "Series examples" : "Exemples de séries" },
+              { href: pricing, label: isEn ? "Pricing" : "Tarifs" },
             ].map(({ href, label }) => (
               <a key={href} href={href} style={{ fontSize: 13, color: MUTED, textDecoration: "none", fontWeight: 500 }}>
                 {label}
