@@ -3215,7 +3215,7 @@ function AppInner() {
         doc.restoreGraphicsState();
         // Footer
         doc.setFontSize(7); doc.setFont("helvetica", "normal"); doc.setTextColor(...LGRAY);
-        doc.text(`verticalclap.com  ·  ${b.titre} — Ép. ${ep.numero}`, W / 2, 292, { align: "center" });
+        doc.text(`verticalclap.com  ·  ${b.titre} — ${isEn ? "Ep." : "Ép."} ${ep.numero}`, W / 2, 292, { align: "center" });
       }
     };
 
@@ -3245,7 +3245,7 @@ function AppInner() {
     // Metadata pills
     doc.setFillColor(...RED); doc.roundedRect(ML, y, 70, 7, 3, 3, "F");
     doc.setFontSize(7.5); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
-    doc.text(`ÉP. ${ep.numero}  ·  ${DUR_LABEL[lang][state.duree]}  ·  ${(s.scenes || []).length} répliques`, ML + 5, y + 5);
+    doc.text(`${isEn ? "EP." : "ÉP."} ${ep.numero}  ·  ${DUR_LABEL[lang][state.duree]}  ·  ${(s.scenes || []).length} ${isEn ? "lines" : "répliques"}`, ML + 5, y + 5);
     y += 13;
     rule(RED, 0.8); sp(2);
 
@@ -3323,7 +3323,7 @@ function AppInner() {
       sp(2);
       b.personnages.forEach(p => {
         txt(`${p.nom}${p.age ? `  (${p.age})` : ""}  —  ${p.role || ""}`, { size: 9.5, bold: true, color: INK });
-        if (p.secret) txt(`Secret : ${p.secret}`, { size: 8.5, italic: true, color: GRAY });
+        if (p.secret) txt(`${isEn ? "Secret:" : "Secret :"} ${p.secret}`, { size: 8.5, italic: true, color: GRAY });
         sp(4);
       });
     }
