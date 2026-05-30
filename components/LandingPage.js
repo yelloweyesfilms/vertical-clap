@@ -87,7 +87,7 @@ export default function LandingPage({ lang = "en" }) {
         <p style={{ fontSize: "clamp(16px, 2vw, 20px)", color: "rgba(255,255,255,.55)", maxWidth: 520, margin: "0 auto 48px", lineHeight: 1.65 }}>{c.hero.sub}</p>
         {canceled && <p style={{ color: "#E85C3A", marginBottom: 20, fontSize: 14 }}>{lang === "fr" ? "Paiement annulé. Réessaie quand tu veux." : "Payment canceled. Try again whenever you're ready."}</p>}
         <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", marginBottom: 20 }}>
-          <a href="/exemples" className="cta-btn">{c.hero.cta1}</a>
+          <a href={lang === "en" ? "/en/exemples" : "/exemples"} className="cta-btn">{c.hero.cta1}</a>
           <a href="#tarifs" className="ghost-btn">{c.hero.cta2}</a>
         </div>
         <p style={{ color: "rgba(255,255,255,.22)", fontSize: 13 }}>{c.hero.disclaimer}</p>
