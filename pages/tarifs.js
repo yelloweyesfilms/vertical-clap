@@ -46,7 +46,6 @@ const FEATURES = [
   { label: "Packs univers Creator (K-Drama, Thriller…)", std: true, prem: true },
   { label: "Packs univers Pro (Dark Romance, Psycho…)", std: false, prem: true },
   { label: "3 variations par script (Intense / Subtil / Épuré)", std: false, prem: true },
-  { label: "Générateur de titres viraux", std: false, prem: true },
   { label: "Accroches TikTok (légendes virales)", std: "3 / série", prem: "Toutes" },
   { label: "Saison 2 automatique", std: false, prem: true },
   { label: "Casting IA — fiches personnages", std: true, prem: true },
@@ -312,7 +311,7 @@ export default function Tarifs() {
                 <div style={{ marginTop: 20, padding: "14px 16px", borderRadius: 12, background: `${RED}10`, border: `1px solid ${RED}25` }}>
                   <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.6 }}>
                     <span style={{ color: RED, fontWeight: 700 }}>Pas inclus : </span>
-                    90 épisodes · 3 variations · Titres viraux · Direction Artistique · Fiche de production
+                    90 épisodes · 3 variations · Direction Artistique · Fiche de production
                     {" "}<button onClick={() => setPlanTab("pro")} style={{ background: "none", border: "none", color: VIO, fontWeight: 700, cursor: "pointer", fontSize: 12, padding: 0 }}>→ Voir Pro</button>
                   </p>
                 </div>
@@ -351,7 +350,6 @@ export default function Tarifs() {
                     { t: "Jusqu'à 90 épisodes par série", hi: true },
                     { t: "Direction Artistique (émotion, rythme, narration…)", hi: true },
                     { t: "3 variations par script — Intense · Subtil · Rapide", hi: true },
-                    { t: "Générateur de titres viraux", hi: true },
                     { t: "Fiche technique de production", hi: true },
                     { t: "Scripts 9:16 prêts à tourner", hi: false },
                     { t: "Affiche IA (9:16)", hi: false },
@@ -369,7 +367,7 @@ export default function Tarifs() {
                 <div style={{ marginTop: 20, padding: "14px 16px", borderRadius: 12, background: `${VIO}08`, border: `1px solid ${VIO}20` }}>
                   <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.6 }}>
                     <span style={{ color: VIO, fontWeight: 700 }}>Tout Creator, plus : </span>
-                    Direction Artistique · 3 variations · Titres viraux · Fiche de production · 90 épisodes
+                    Direction Artistique · 3 variations · Fiche de production · 90 épisodes
                   </p>
                 </div>
               </div>

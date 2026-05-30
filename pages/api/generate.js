@@ -41,7 +41,7 @@ function setCached(key, data) {
 }
 
 
-const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "titres", "variations", "traduire", "production", "cartes", "social", "affiche", "storyboard", "accroches"];
+const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "variations", "traduire", "production", "cartes", "social", "affiche", "storyboard", "accroches"];
 const VALID_MODES = ["fast", "premium"];
 const VALID_DUREES = [60, 90, 120];
 const VALID_FORMATS = [10, 20, 40, 60, 90];
@@ -103,12 +103,6 @@ function validatePayload(action, payload) {
     if (!VALID_DUREES.includes(duree)) return "Durée invalide";
     if (!ep || typeof ep !== "object") return "Épisode invalide";
     if (!bible || typeof bible !== "object") return "Bible invalide";
-  } else if (action === "titres") {
-    const { titre, logline, pitch, mode } = payload;
-    if (!VALID_MODES.includes(mode)) return "Mode invalide";
-    if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
-    if (typeof logline !== "string" || logline.length > 500) return "Logline invalide";
-    if (pitch !== undefined && (typeof pitch !== "string" || pitch.length > 500)) return "Pitch invalide";
   } else if (action === "traduire") {
     const { script, langue } = payload;
     if (!script || typeof script !== "object") return "Script invalide";
@@ -517,9 +511,9 @@ export default async function handler(req, res) {
   }
 
   // Restrictions plan Standard
-  const PREMIUM_ACTIONS = ["variations", "titres"];
+  const PREMIUM_ACTIONS = ["variations"];
   if (plan === "standard" && PREMIUM_ACTIONS.includes(action)) {
-    return res.status(403).json({ error: isEn ? "This feature is reserved for the Pro plan. Upgrade to Pro to unlock variations and viral titles." : "Cette fonctionnalité est réservée au plan Pro. Passez à Pro pour débloquer les variations et les titres viraux." });
+    return res.status(403).json({ error: isEn ? "This feature is reserved for the Pro plan. Upgrade to Pro to unlock variations." : "Cette fonctionnalité est réservée au plan Pro. Passez à Pro pour débloquer les variations." });
   }
   if (plan === "standard" && action === "bible" && payload?.mode === "premium") {
     return res.status(403).json({ error: isEn ? "Series mode is reserved for the Pro plan." : "Le mode Série est réservé au plan Pro." });
@@ -695,18 +689,6 @@ export default async function handler(req, res) {
       ));
       trackAction("variations", customerId);
       return res.json({ variations: results.map((r, i) => ({ ...r, label: styles[i].label })) });
-    }
-
-    if (action === "titres") {
-      const { titre, logline, pitch, mode, lang } = payload;
-      const langInstr = buildLangInstr(lang);
-      const result = await callClaude(
-        `Tu es expert en viralité des contenus courts (TikTok, Reels, Shorts). Tu maîtrises les 5 patterns de titres qui stoppent le scroll:\nRÉVÉLATION: expose un secret ("Il mentait depuis le début")\nQUESTION: pose une question impossible à ignorer ("Et si elle savait tout?")\nIDENTITÉ: menace l'identité d'un personnage ("Plus jamais sa femme")\nSECRET: suggère un secret explosif ("Ton patron sait tout")\nTWIST: annonce un retournement ("C'était elle")\nRègles: titre 2-5 mots, jamais de point d'exclamation, score = probabilité de stopper le scroll (1-100).\nJSON uniquement.${langInstr}`,
-        `Série micro-drama 9:16. Titre actuel: "${titre}". Logline: ${logline}. Pitch: ${pitch || ""}.\nGénère 5 titres viraux — exactement un par pattern (RÉVÉLATION, QUESTION, IDENTITÉ, SECRET, TWIST).\nJSON: {"titres":[{"titre":"","score":95,"accroche":"en quoi ce titre arrête le scroll","pourquoi":"mécanisme psychologique exploité","pattern":"RÉVÉLATION"}]}`,
-        1000
-      );
-      trackAction("titres", customerId);
-      return res.json(result);
     }
 
     if (action === "traduire") {

@@ -46,7 +46,6 @@ const FEATURES = [
   { label: "Creator universe packs (K-Drama, Thriller…)", std: true, prem: true },
   { label: "Pro universe packs (Dark Romance, Psycho…)", std: false, prem: true },
   { label: "3 script versions (Intense / Subtle / Stripped)", std: false, prem: true },
-  { label: "Viral title generator", std: false, prem: true },
   { label: "TikTok hooks (viral captions)", std: "3 / series", prem: "All" },
   { label: "Automatic Season 2", std: false, prem: true },
   { label: "AI Casting — character profile cards", std: true, prem: true },
@@ -282,7 +281,7 @@ export default function TarifsEn() {
                 <div style={{ marginTop: 20, padding: "14px 16px", borderRadius: 12, background: `${RED}10`, border: `1px solid ${RED}25` }}>
                   <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.6 }}>
                     <span style={{ color: RED, fontWeight: 700 }}>Not included: </span>
-                    90 episodes · 3 variations · Viral titles · Art Direction · Production sheet
+                    90 episodes · 3 variations · Art Direction · Production sheet
                     {" "}<button onClick={() => setPlanTab("pro")} style={{ background: "none", border: "none", color: VIO, fontWeight: 700, cursor: "pointer", fontSize: 12, padding: 0 }}>→ See Pro</button>
                   </p>
                 </div>
@@ -320,7 +319,6 @@ export default function TarifsEn() {
                     { t: "Up to 90 episodes per series", hi: true },
                     { t: "Art Direction (emotion, rhythm, narration…)", hi: true },
                     { t: "3 script versions — Intense · Subtle · Fast", hi: true },
-                    { t: "Viral title generator", hi: true },
                     { t: "Production sheet", hi: true },
                     { t: "9:16 scripts ready to shoot", hi: false },
                     { t: "AI Poster (9:16)", hi: false },
@@ -338,7 +336,7 @@ export default function TarifsEn() {
                 <div style={{ marginTop: 20, padding: "14px 16px", borderRadius: 12, background: `${VIO}08`, border: `1px solid ${VIO}20` }}>
                   <p style={{ fontSize: 12, color: MUTED, lineHeight: 1.6 }}>
                     <span style={{ color: VIO, fontWeight: 700 }}>Everything in Creator, plus: </span>
-                    Art Direction · 3 variations · Viral titles · Production sheet · 90 episodes
+                    Art Direction · 3 variations · Production sheet · 90 episodes
                   </p>
                 </div>
               </div>
