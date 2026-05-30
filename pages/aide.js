@@ -115,9 +115,11 @@ export default function Aide() {
   return (
     <>
       <Head>
-        <title>Mode d'emploi — Vertical Clap</title>
+        <title>Mode d'emploi — VerticalClap</title>
         <meta name="description" content="Guide complet pour créer ta première série verticale avec Vertical Clap : étapes, budgets, FAQ et conseils." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://verticalclap.com/aide" />
+        <link rel="alternate" hrefLang="fr" href="https://verticalclap.com/aide" />
+        <link rel="alternate" hrefLang="en" href="https://verticalclap.com/en/aide" />
       </Head>
 
       <div style={{
@@ -367,7 +369,7 @@ export default function Aide() {
             marginTop: 12,
             fontSize: 11,
             color: "rgba(255,255,255,0.25)",
-          }}>© 2025 Vertical Clap</div>
+          }}>© 2026 VerticalClap</div>
         </footer>
       </div>
     </>

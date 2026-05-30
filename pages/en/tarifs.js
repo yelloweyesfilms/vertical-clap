@@ -436,8 +436,8 @@ export default function TarifsEn() {
           <div style={{ display: "flex", gap: 20, fontSize: 13, color: MUTED }}>
             <a href="/en">Home</a>
             <a href="/en/exemples">Examples</a>
-            <a href="/cgu">Terms</a>
-            <a href="/confidentialite">Privacy</a>
+            <a href="/en/cgu">Terms</a>
+            <a href="/en/confidentialite">Privacy</a>
           </div>
         </div>
       </div>

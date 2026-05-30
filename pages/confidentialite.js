@@ -8,8 +8,8 @@ const Logo = () => (
   <div style={{ display: "flex", alignItems: "center", gap: 9, userSelect: "none" }}>
     <img src="/1024.webp" alt="VC" style={{ width: 34, height: 34, borderRadius: "50%", flexShrink: 0, boxShadow: "0 2px 12px rgba(232,92,58,0.35)" }} onError={e => { e.target.style.display = "none"; }} />
     <div style={{ alignSelf: "center", lineHeight: 1 }}>
-      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
-      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 18, fontWeight: 800, letterSpacing: -0.5, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1 }}>CLAP</div>
+      <div style={{ fontFamily: "var(--sans)", fontSize: 10, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 2 }}>VERTICAL</div>
+      <div style={{ fontFamily: "var(--sans)", fontSize: 18, fontWeight: 800, letterSpacing: -0.5, background: "linear-gradient(135deg, #ff8c42, #E85C3A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1 }}>CLAP</div>
     </div>
   </div>
 );
@@ -17,7 +17,7 @@ const Logo = () => (
 function Section({ title, children }) {
   return (
     <div style={{ marginBottom: 32 }}>
-      <h2 style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 18, fontWeight: 700, color: "#f1f5f9", margin: "0 0 12px", letterSpacing: -0.3 }}>
+      <h2 style={{ fontFamily: "var(--serif)", fontSize: 18, fontWeight: 700, color: "#f1f5f9", margin: "0 0 12px", letterSpacing: -0.3 }}>
         {title}
       </h2>
       {children}
@@ -36,7 +36,7 @@ export default function Confidentialite() {
         <title>Politique de confidentialité — VerticalClap</title>
         <meta name="robots" content="noindex" />
       </Head>
-      <div style={{ minHeight: "100vh", background: DARK, color: "#f1f5f9", fontFamily: "'Space Grotesk',system-ui,sans-serif" }}>
+      <div style={{ minHeight: "100vh", background: DARK, color: "#f1f5f9", fontFamily: "var(--sans)" }}>
         {/* Nav */}
         <nav style={{ borderBottom: "1px solid #1e1e2e", padding: "16px 32px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <a href="/" style={{ textDecoration: "none" }}><Logo /></a>
@@ -51,7 +51,7 @@ export default function Confidentialite() {
           {/* Header */}
           <div style={{ marginBottom: 48 }}>
             <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "2px", textTransform: "uppercase", color: RED }}>Légal</span>
-            <h1 style={{ fontFamily: "'Playfair Display',Georgia,serif", fontSize: 36, fontWeight: 900, color: "#f1f5f9", margin: "10px 0 8px", letterSpacing: -1 }}>
+            <h1 style={{ fontFamily: "var(--serif)", fontSize: 36, fontWeight: 900, color: "#f1f5f9", margin: "10px 0 8px", letterSpacing: -1 }}>
               Politique de confidentialité
             </h1>
             <p style={{ fontSize: 13, color: "#475569" }}>Dernière mise à jour : 4 mai 2026</p>

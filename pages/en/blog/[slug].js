@@ -174,7 +174,7 @@ export default function BlogEnPost({ post, otherPosts }) {
             <a href="/en">Home</a>
             <a href="/en/blog">Blog</a>
             <a href="/en#tarifs">Pricing</a>
-            <a href="/cgu">Terms</a>
+            <a href="/en/cgu">Terms</a>
           </div>
         </div>
       </div>

@@ -202,9 +202,9 @@ export default function ContactEn() {
         <footer style={{ borderTop: "1px solid #1e1e2e", padding: "24px 32px", textAlign: "center" }}>
           <p style={{ fontSize: 12, color: "#475569", margin: 0 }}>
             © 2026 VerticalClap ·{" "}
-            <a href="/cgu" style={{ color: "#475569", textDecoration: "none" }}>Terms</a>
+            <a href="/en/cgu" style={{ color: "#475569", textDecoration: "none" }}>Terms</a>
             {" "}·{" "}
-            <a href="/confidentialite" style={{ color: "#475569", textDecoration: "none" }}>Privacy</a>
+            <a href="/en/confidentialite" style={{ color: "#475569", textDecoration: "none" }}>Privacy</a>
           </p>
         </footer>
 

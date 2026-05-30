@@ -96,7 +96,7 @@ export default function BlogEnIndex() {
             <a href="/en">Home</a>
             <a href="/en/exemples">Examples</a>
             <a href="/en/tarifs">Pricing</a>
-            <a href="/cgu">Terms</a>
+            <a href="/en/cgu">Terms</a>
           </div>
         </div>
       </div>
