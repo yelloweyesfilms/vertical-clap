@@ -1804,7 +1804,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
   );
 }
 
-function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, t, lang, onUpgrade, toggleLang, logout, isAdmin }) {
+function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, plan, onAffiche, loadingAffiche, t, lang, onUpgrade, toggleLang, logout, isAdmin }) {
   const [tab, setTab] = useState("bible");
   const [cartes, setCartes] = useState(null);
   const [loadingCartes, setLoadingCartes] = useState(false);
@@ -1881,7 +1881,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
           {showMore && (
             <div ref={moreRef} style={{ position: "absolute", right: 0, top: "calc(100% + 4px)", background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 14, zIndex: 50, minWidth: 180, overflow: "hidden", boxShadow: "0 8px 32px rgba(0,0,0,0.25)" }}>
               {[
-                { k: "affiche", l: t.poster_btn, emoji: "🎬", locked: false, onClick: () => { setShowMore(false); onAffiche(); } },
+                { k: "affiche", l: loadingAffiche ? "…" : t.poster_btn, emoji: "🎬", locked: false, onClick: () => { if (loadingAffiche) return; setShowMore(false); onAffiche(); } },
               ].map(({ k, l, emoji, locked, onClick }, idx, arr) => (
                 <button key={k} onClick={onClick}
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, width: "100%", padding: "13px 16px", border: "none", borderBottom: idx < arr.length - 1 ? "1px solid var(--bo)" : "none", background: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, color: locked ? "var(--mt)" : tab === k ? "var(--r)" : "var(--tx)", textAlign: "left", fontFamily: "var(--sans)", opacity: locked ? 0.75 : 1 }}>
@@ -2132,7 +2132,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
               <span style={{ fontSize: 11, fontWeight: 500, color: "rgba(255,255,255,0.85)" }}>— {t.revelation_sub}</span>
             </button>
 
-            <button onClick={onTournage} style={{ width: "100%", background: "var(--n)", color: "#fff", border: "none", padding: "15px 16px", borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", marginBottom: 16 }}>{t.shooting}</button>
+            <button onClick={onTournage} disabled={loading} style={{ width: "100%", background: "var(--n)", color: "#fff", border: "none", padding: "15px 16px", borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: loading ? "wait" : "pointer", fontFamily: "var(--sans)", marginBottom: 16, opacity: loading ? 0.6 : 1 }}>{t.shooting}</button>
 
             {/* ── ACTIONS SECONDAIRES COLLAPSIBLES ── */}
             <div style={{ marginBottom: 8 }}>
@@ -2153,7 +2153,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
                     {plan === "standard" ? <><span>🔒</span><span>{t.variations_locked}</span><span style={{ fontSize: 10, fontWeight: 700, color: "#a855f7", background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.25)", padding: "2px 7px", borderRadius: 6 }}>PRO</span></> : t.variations}
                   </button>
                   {/* Découpage */}
-                  <button onClick={onStoryboard} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 13, borderRadius: 12, width: "100%", fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.storyboard_btn}</button>
+                  <button onClick={onStoryboard} disabled={loading} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 13, borderRadius: 12, width: "100%", fontSize: 13, fontWeight: 700, cursor: loading ? "wait" : "pointer", fontFamily: "var(--sans)", opacity: loading ? 0.6 : 1 }}>{t.storyboard_btn}</button>
                   {/* Traduction */}
                   <button onClick={() => { if (translated) { setTranslated(null); setActiveLang(null); setShowLangs(false); } else { setShowLangs(s => !s); } }} disabled={translating} style={{ background: translated ? "var(--n)" : "var(--card)", color: translated ? "#fff" : "var(--tx)", border: `1.5px solid ${translated ? "var(--n)" : "var(--bo)"}`, padding: 13, borderRadius: 12, width: "100%", fontSize: 13, fontWeight: 600, cursor: translating ? "wait" : "pointer", fontFamily: "var(--sans)" }}>
                     {translating ? t.translating : translated ? `${LANGS.find(l => l.code === activeLang)?.flag} ${t.translate_back}` : t.translate}
@@ -2175,7 +2175,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
                     </div>
                   )}
                   {/* Export PDF */}
-                  <button onClick={onExport} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 13, borderRadius: 12, width: "100%", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.export_pdf}</button>
+                  <button onClick={onExport} disabled={loading} style={{ background: "var(--card)", color: "var(--tx)", border: "1.5px solid var(--bo)", padding: 13, borderRadius: 12, width: "100%", fontSize: 13, fontWeight: 600, cursor: loading ? "wait" : "pointer", fontFamily: "var(--sans)", opacity: loading ? 0.6 : 1 }}>{t.export_pdf}</button>
                 </div>
               )}
             </div>
@@ -2874,7 +2874,7 @@ function AppInner() {
   const [script, setScript] = useState(null);
   const [scripts, setScripts] = useState({});
   const [loading, setLoading] = useState(false);
-  const [loadMsg, setLoadMsg] = useState("Initialisation…");
+  const [loadMsg, setLoadMsg] = useState("");
   const [err, setErr] = useState(null);
 
   const set = (patch) => setState(prev => ({ ...prev, ...(typeof patch === "function" ? patch(prev) : patch) }));
@@ -3402,7 +3402,7 @@ function AppInner() {
 
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} setPlan={setPlan} />}
       {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} lang={lang} />}
-      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} t={t} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} />}
+      {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} loadingAffiche={loadingAffiche} t={t} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} />}
       {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} selectedChoix={selectedChoix} onChoixSelect={setSelectedChoix} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} lang={lang} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
