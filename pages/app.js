@@ -3222,14 +3222,14 @@ function AppInner() {
     if (logoB64) doc.addImage(logoB64, "PNG", ML, 1.5, 10, 10);
     doc.setFontSize(8); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
     doc.text("VERTICAL CLAP", ML + (logoB64 ? 13 : 0), 7.5);
-    doc.text(`${b.titre.toUpperCase()}  ·  ${isEn ? "EP." : "ÉP."} ${ep.numero}`, W - MR, 7.5, { align: "right" });
+    doc.text(`${(b.titre || "").toUpperCase()}  ·  ${isEn ? "EP." : "ÉP."} ${ep.numero}`, W - MR, 7.5, { align: "right" });
     y = 21;
 
     // ── TITLE BLOCK ──────────────────────────────────────────────
     // Série name pill
-    doc.setFillColor(240, 240, 245); doc.roundedRect(ML, y, doc.getTextWidth(b.titre.toUpperCase()) + 14, 7, 3, 3, "F");
+    doc.setFillColor(240, 240, 245); doc.roundedRect(ML, y, doc.getTextWidth((b.titre || "").toUpperCase()) + 14, 7, 3, 3, "F");
     doc.setFontSize(7); doc.setFont("helvetica", "bold"); doc.setTextColor(...GRAY);
-    doc.text(b.titre.toUpperCase(), ML + 7, y + 5);
+    doc.text((b.titre || "").toUpperCase(), ML + 7, y + 5);
     y += 16;
     // Episode title — grand et fort
     txt(ep.titre, { size: 26, bold: true, color: INK });
@@ -3259,7 +3259,7 @@ function AppInner() {
     (s.scenes || []).forEach((sc, i) => {
       checkPage(24);
       // Character name
-      txt(sc.perso.toUpperCase(), { size: 8, bold: true, color: RED });
+      txt((sc.perso || "").toUpperCase(), { size: 8, bold: true, color: RED });
       if (sc.jeu) { txt(`(${sc.jeu})`, { size: 8, italic: true, color: GRAY }); }
       sp(0.5);
       txt(sc.dialogue, { size: 11, color: INK });

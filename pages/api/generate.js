@@ -840,7 +840,9 @@ export default async function handler(req, res) {
       return res.status(503).json({ error: "Le service est momentanément surchargé. Réessaie dans 30 secondes." });
     }
     // Limite de dépenses Anthropic (invalid_request_error usage limit)
-    const isUsageLimit = e.status === 400 && (e.message?.includes("usage limit") || e.message?.includes("invalid_request_error"));
+    const errStr = String(e?.message || e || "");
+    const isUsageLimit = errStr.includes("usage limit") || errStr.includes("usage_limit") ||
+      ((e.status === 400 || e.statusCode === 400) && errStr.includes("invalid_request_error"));
     if (isUsageLimit) {
       return res.status(503).json({ error: "Le service est temporairement indisponible. Réessaie dans quelques heures." });
     }
