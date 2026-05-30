@@ -1,5 +1,5 @@
-chrome >= 91
+chrome >= 92
 firefox >= 90
-safari >= 15
-edge >= 91
+safari >= 15.4
+edge >= 92
 not dead

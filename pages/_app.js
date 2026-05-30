@@ -1,4 +1,3 @@
-import "../styles/globals.css";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Space_Grotesk, Playfair_Display } from 'next/font/google';
@@ -42,6 +41,7 @@ export default function App({ Component, pageProps }) {
         <meta name="theme-color" content="#09090f" />
         <meta name="msapplication-TileColor" content="#09090f" />
         <meta name="msapplication-TileImage" content="/windows/Square150x150Logo.scale-200.png" />
+        <style>{`*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}:root{--r:#E85C3A;--n:#6d28d9;--gold:#b8860b;--bg:#f4f3ef;--card:#ffffff;--tx:#0f0f1a;--mt:#52525b;--bo:#e2e1dc;--serif:var(--font-pd,Georgia,serif);--sans:var(--font-sg,system-ui,sans-serif)}[data-theme="dark"]{--bg:#0c0c12;--card:#13131e;--tx:#f1f5f9;--mt:#c4cfde;--bo:#2a2a40;--gold:#d4a843}html{scroll-behavior:smooth}body{font-family:var(--sans);background:var(--bg);color:var(--tx);-webkit-tap-highlight-color:transparent}a{color:inherit;text-decoration:none}button{cursor:pointer;font-family:var(--sans);touch-action:manipulation;-webkit-tap-highlight-color:transparent}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}.fade-in{animation:fadeUp .4s ease forwards}`}</style>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/ios/32.png" type="image/png" sizes="32x32" />
         <link rel="icon" type="image/png" sizes="32x32" href="/ios/32.png" />

@@ -81,7 +81,7 @@ export default function BlogIndex() {
                 onMouseEnter={e => e.currentTarget.style.borderColor = "rgba(168,85,247,0.3)"}
                 onMouseLeave={e => e.currentTarget.style.borderColor = BORDER}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-                  <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: post.categoryColor, background: `${post.categoryColor}12`, border: `1px solid ${post.categoryColor}25`, padding: "3px 10px", borderRadius: 6 }}>{post.category}</span>
+                  <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: post.categoryColor, background: `${post.categoryColor}15`, border: `1px solid ${post.categoryColor}30`, padding: "3px 10px", borderRadius: 6 }}>{post.category}</span>
                   <span style={{ fontSize: 12, color: MUTED }}>{new Date(post.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</span>
                   <span style={{ fontSize: 12, color: MUTED }}>· {post.readTime} de lecture</span>
                 </div>

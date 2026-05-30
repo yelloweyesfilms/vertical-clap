@@ -113,7 +113,7 @@ export default function BlogEnPost({ post, otherPosts }) {
 
         <div className="article-pad" style={{ padding: "72px 40px 0", maxWidth: 760, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
-            <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: post.categoryColor, background: `${post.categoryColor}12`, border: `1px solid ${post.categoryColor}25`, padding: "3px 10px", borderRadius: 6 }}>{post.category}</span>
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: post.categoryColor, background: `${post.categoryColor}15`, border: `1px solid ${post.categoryColor}30`, padding: "3px 10px", borderRadius: 6 }}>{post.category}</span>
             <span style={{ fontSize: 12, color: MUTED }}>{new Date(post.date).toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" })}</span>
             <span style={{ fontSize: 12, color: MUTED }}>· {post.readTime} read</span>
           </div>
@@ -158,7 +158,7 @@ export default function BlogEnPost({ post, otherPosts }) {
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 {otherPosts.map(p => (
                   <a key={p.slug} href={`/en/blog/${p.slug}`} style={{ display: "flex", alignItems: "center", gap: 16, padding: "20px 24px", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 16 }}>
-                    <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: p.categoryColor, flexShrink: 0 }}>{p.category}</span>
+                    <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: p.categoryColor, flexShrink: 0 }}>{p.category}</span>
                     <span style={{ fontSize: 15, fontWeight: 600, color: TEXT, flex: 1 }}>{p.title}</span>
                     <span style={{ color: VIO, fontSize: 14, flexShrink: 0 }}>→</span>
                   </a>
