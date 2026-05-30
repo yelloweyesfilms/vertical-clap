@@ -1667,7 +1667,7 @@ export default function RichLandingPage({ lang = "fr" }) {
             {(lang === "en" ? POSTS_EN : POSTS).slice(0, 3).map((post) => (
               <a key={post.slug} href={lang === "en" ? `/en/blog/${post.slug}` : `/blog/${post.slug}`} style={{ display: "flex", flexDirection: "column", background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 20, padding: "28px 24px", textDecoration: "none", color: "inherit", transition: "border-color .2s" }}>
                 <div style={{ marginBottom: 16 }}>
-                  <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: post.categoryColor, background: `${post.categoryColor}12`, border: `1px solid ${post.categoryColor}25`, padding: "3px 10px", borderRadius: 6 }}>{post.category}</span>
+                  <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: post.categoryColor, background: `${post.categoryColor}15`, border: `1px solid ${post.categoryColor}30`, padding: "3px 10px", borderRadius: 6 }}>{post.category}</span>
                 </div>
                 <h3 style={{ fontFamily: "var(--sans)", fontSize: 18, fontWeight: 900, color: TEXT, letterSpacing: -0.3, lineHeight: 1.3, marginBottom: 12, flex: 1 }}>{post.title}</h3>
                 <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.6, marginBottom: 20 }}>{post.description.slice(0, 100)}…</p>
