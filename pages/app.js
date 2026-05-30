@@ -2065,7 +2065,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
               <span>{t.script_label} · {DUR_LABEL[lang][duree]} · {(displayScript.scenes || []).length} {t.repliques}</span>
               {(() => {
                 const words = [displayScript.hook_scene?.texte, ...(displayScript.scenes || []).map(s => s.dialogue + " " + (s.jeu || "")), displayScript.cliffhanger_scene?.texte].filter(Boolean).join(" ").trim().split(/\s+/).filter(Boolean).length;
-                const targets = { 60: [130, 150], 90: [200, 225], 120: [270, 300] };
+                const targets = { 60: [160, 200], 90: [250, 290], 120: [330, 380] };
                 const [min, max] = targets[duree] || [0, 999];
                 const ok = words >= min && words <= max;
                 return <span style={{ fontSize: 11, fontWeight: 700, color: ok ? "#4ade80" : "#f59e0b", background: ok ? "rgba(74,222,128,0.08)" : "rgba(245,158,11,0.08)", border: `1px solid ${ok ? "rgba(74,222,128,0.25)" : "rgba(245,158,11,0.3)"}`, borderRadius: 6, padding: "2px 8px" }}>{words} mots {ok ? "✓" : `(cible: ${min}-${max})`}</span>;
