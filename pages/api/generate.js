@@ -41,7 +41,7 @@ function setCached(key, data) {
 }
 
 
-const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "variations", "traduire", "production", "cartes", "social", "affiche", "storyboard", "accroches"];
+const VALID_ACTIONS = ["bible", "episodes", "script", "edit", "variations", "traduire", "production", "cartes", "affiche", "storyboard", "accroches"];
 const VALID_MODES = ["fast", "premium"];
 const VALID_DUREES = [60, 90, 120];
 const VALID_FORMATS = [10, 20, 40, 60, 90];
@@ -117,11 +117,6 @@ function validatePayload(action, payload) {
     const { personnages, titre } = payload;
     if (!Array.isArray(personnages) || personnages.length === 0) return "Personnages invalides";
     if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
-  } else if (action === "social") {
-    const { ep, bible, mode } = payload;
-    if (!ep || typeof ep !== "object") return "Épisode invalide";
-    if (!bible || typeof bible !== "object") return "Bible invalide";
-    if (!VALID_MODES.includes(mode)) return "Mode invalide";
   } else if (action === "affiche") {
     const { titre, logline } = payload;
     if (typeof titre !== "string" || titre.length > 200) return "Titre invalide";
@@ -738,18 +733,6 @@ export default async function handler(req, res) {
         1200
       );
       trackAction("cartes", customerId);
-      return res.json(result);
-    }
-
-    if (action === "social") {
-      const { ep, bible, mode, lang } = payload;
-      const langInstr = buildLangInstr(lang);
-      const result = await callClaude(
-        `Tu es community manager TikTok spécialisé en micro-dramas viraux. JSON uniquement.${langInstr}`,
-        `Épisode ${ep.numero} "${ep.titre}" — série "${bible.titre}".\nLogline: ${bible.logline}.\nCliffhanger: ${ep.cliffhanger}.\n\nGénère:\n• 6 commentaires TikTok ultra-réalistes (mix réactions, théories, team A vs B, emojis, argot actuel)\n• 4 SMS entre personnages liés aux révélations de l'épisode (style iMessage, très courts)\n• 1 légende TikTok virale pour poster cet épisode (15 mots max + hashtags)\nJSON: {"commentaires":[{"user":"@pseudo","texte":"","likes":1200,"reaction":"😱"}],"sms":[{"from":"Prénom","to":"Prénom","texte":"","heure":"21:47"}],"legende":""}`,
-        900
-      );
-      trackAction("social", customerId);
       return res.json(result);
     }
 
