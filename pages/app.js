@@ -1846,7 +1846,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
           <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 13, color: "var(--mt)", cursor: "pointer", padding: 0, display: "flex", alignItems: "center", gap: 5, letterSpacing: 0.3 }}>{t.back_mixer}</button>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            {isAdmin && <button onClick={() => onUpgrade && onUpgrade("admin")} style={{ background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, borderRadius: 8, padding: "3px 8px", fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)" }}>👁 {plan === "standard" ? "Créateur" : "Premium"}</button>}
+            {isAdmin && <button onClick={() => onUpgrade && onUpgrade("admin")} style={{ background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, borderRadius: 8, padding: "3px 8px", fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)" }}>👁 {plan === "standard" ? (lang === "fr" ? "Créateur" : "Creator") : "Premium"}</button>}
             <button onClick={toggleLang} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, padding: "3px 8px", fontSize: 11, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)" }}>{lang === "fr" ? "EN" : "FR"}</button>
             <button onClick={logout} style={{ background: "none", border: "none", fontSize: 12, color: "var(--mt)", cursor: "pointer" }}>{t.logout}</button>
           </div>
@@ -2103,7 +2103,7 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
             <div style={{ background: "var(--card)", border: "2px solid var(--r)", borderRadius: 14, padding: 16, marginBottom: 14 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                 <p style={{ fontSize: 15, fontWeight: 800, color: "var(--r)" }}>🎬 Cliffhanger</p>
-                <button onClick={() => onEdit("rewrite_ending")} disabled={loading} style={{ background: "rgba(232,92,58,0.1)", border: "1px solid rgba(232,92,58,0.25)", color: "var(--r)", padding: "5px 10px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>♻️ Nouveau</button>
+                <button onClick={() => onEdit("rewrite_ending")} disabled={loading} style={{ background: "rgba(232,92,58,0.1)", border: "1px solid rgba(232,92,58,0.25)", color: "var(--r)", padding: "5px 10px", borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>♻️ {lang === "fr" ? "Nouveau" : "New"}</button>
               </div>
               <p style={{ fontSize: 15, fontWeight: 700, color: "var(--tx)", marginBottom: 8, lineHeight: 1.4 }}>{displayScript.cliffhanger_scene?.texte}</p>
               <p style={{ fontSize: 11, color: "var(--mt)", fontStyle: "italic", marginBottom: displayScript.cliffhanger_scene?.label ? 10 : 0 }}>[9:16] {displayScript.cliffhanger_scene?.visuel_916}</p>
@@ -2549,7 +2549,7 @@ function ProfilsView({ profils, loading, bible, onBack, t }) {
               {/* Posts */}
               {(p.posts || []).length > 0 && (
                 <div style={{ padding: "12px 16px 16px" }}>
-                  <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 10 }}>Posts récents</p>
+                  <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 10 }}>{lang === "fr" ? "Posts récents" : "Recent posts"}</p>
                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                     {p.posts.map((post, j) => (
                       <div key={j} style={{ background: "var(--bg)", borderRadius: 10, padding: "10px 12px", border: "1px solid var(--bo)" }}>
@@ -2587,7 +2587,7 @@ function CalendrierView({ calendrier, loading, bible, onBack, t }) {
           <>
             {data.strategie && (
               <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 20, border: "1.5px solid var(--bo)" }}>
-                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--r)", marginBottom: 8 }}>Stratégie</p>
+                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--r)", marginBottom: 8 }}>{lang === "fr" ? "Stratégie" : "Strategy"}</p>
                 <p style={{ fontSize: 13, lineHeight: 1.6 }}>{data.strategie}</p>
                 {data.plateformes && (
                   <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 10 }}>
@@ -3414,7 +3414,7 @@ function AppInner() {
         <div style={{ position: "absolute", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 10 }}>
           {isAdmin && (
             <button onClick={() => setPlan(p => p === "standard" ? "premium" : "standard")} style={{ background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, borderRadius: 8, padding: "3px 8px", fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>
-              👁 {plan === "standard" ? "Créateur" : "Premium"}
+              👁 {plan === "standard" ? (lang === "fr" ? "Créateur" : "Creator") : "Premium"}
             </button>
           )}
           <button onClick={toggleLang} style={{ background: "none", border: "1.5px solid var(--bo)", borderRadius: 8, padding: "3px 8px", fontSize: 11, fontWeight: 700, color: "var(--mt)", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>{lang === "fr" ? "EN" : "FR"}</button>
