@@ -77,6 +77,7 @@ const T = {
     gen_bible: "Création de la bible de la série…",
     gen_episodes: "Génération des épisodes…",
     gen_episodes_batch: "Épisodes %a–%b générés… (%c/%d)",
+    premium_titles: "Les titres viraux sont réservés au plan Pro.",
     premium_variations: "Les variations sont réservées au plan Pro.",
     premium_calendrier: "Le calendrier éditorial est réservé au plan Pro (19€/mois).",
     accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passe au plan Pro pour les générer sur tous tes épisodes.",
@@ -978,7 +979,7 @@ function deleteSerie(id) {
 }
 
 // ── ÉCRAN MES SÉRIES ─────────────────────────────────────────
-function MesSeriesView({ onLoad, onBack, t }) {
+function MesSeriesView({ onLoad, onBack, t, lang }) {
   const [series, setSeries] = useState(() => loadSaved());
 
   const handleDelete = (id) => {
@@ -1011,10 +1012,10 @@ function MesSeriesView({ onLoad, onBack, t }) {
                     {s.state.mode === "fast" ? "⚡ Fast" : "🎭 Premium"}
                   </span>
                   <span style={{ fontSize: 11, background: "var(--bo)", padding: "2px 8px", borderRadius: 4, color: "var(--mt)" }}>
-                    {s.episodes.length} ép.
+                    {s.episodes.length} {lang === "fr" ? "ép." : "ep."}
                   </span>
                   <span style={{ fontSize: 11, color: "var(--mt)" }}>
-                    {new Date(s.savedAt).toLocaleDateString("fr-FR")}
+                    {new Date(s.savedAt).toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")}
                   </span>
                 </div>
               </div>
@@ -3400,7 +3401,7 @@ function AppInner() {
       )}
 
       {screen === "mix" && <Mixeur state={state} set={set} onGen={generate} onMesSeries={() => setScreen("mes-series")} hasSeries={savedCount > 0} plan={plan} t={t} opts={opts} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} setPlan={setPlan} />}
-      {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} />}
+      {screen === "mes-series" && <MesSeriesView onLoad={loadSerie} onBack={() => setScreen("mix")} t={t} lang={lang} />}
       {screen === "bible" && bible && <BibleView bible={bible} episodes={episodes} mode={state.mode} duree={state.duree} onEp={openEp} onBack={() => setScreen("mix")} customerId={customerId} plan={plan} onAffiche={genAffiche} t={t} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} />}
       {screen === "studio" && <StudioView bible={bible} ep={episodes[epIdx]} script={script} loading={loading} duree={state.duree} onEdit={editScript} onTournage={() => setScreen("tour")} onStoryboard={genStoryboard} onBack={() => setScreen("bible")} onExport={exportScript} onVariations={genVariations} plan={plan} onPrev={() => openEp(epIdx - 1)} onNext={() => openEp(epIdx + 1)} epIdx={epIdx} totalEps={episodes.length} onTranslate={(langue) => gen("traduire", { script, langue, lang }, customerId)} t={t} lang={lang} onUpgrade={showUpgrade} toggleLang={toggleLang} logout={logout} isAdmin={isAdmin} selectedChoix={selectedChoix} onChoixSelect={setSelectedChoix} />}
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} lang={lang} />}
