@@ -155,7 +155,7 @@ const T = {
     premium_titles: "Viral titles are reserved for Pro plan.",
     premium_variations: "Variations are reserved for Pro plan.",
     premium_calendrier: "The editorial calendar is reserved for the Pro plan (€19/month).",
-    accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passe au plan Pro pour les générer sur tous tes épisodes.",
+    accroches_locked_hint: "The first 3 hooks are available. Upgrade to Pro to generate them for all your episodes.",
     loading_cartes: "Creating character profiles…",
     style_voixoff: "Intimate narration",
     voix_off_label: "Voice Over",
@@ -2318,8 +2318,8 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
   if (!script) return (
     <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "#000" }}>
       <div style={{ textAlign: "center" }}>
-        <p style={{ color: "#888", marginBottom: 20 }}>Script non disponible</p>
-        <button onClick={onBack} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "12px 24px", borderRadius: 10, cursor: "pointer", fontFamily: "var(--sans)", fontWeight: 700 }}>← Retour</button>
+        <p style={{ color: "#888", marginBottom: 20 }}>{lang === "fr" ? "Script non disponible" : "Script unavailable"}</p>
+        <button onClick={onBack} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "12px 24px", borderRadius: 10, cursor: "pointer", fontFamily: "var(--sans)", fontWeight: 700 }}>{t?.back || "← Back"}</button>
       </div>
     </div>
   );
@@ -2360,7 +2360,7 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
       {/* Barre du haut */}
       <div style={{ background: "#111", flexShrink: 0, zIndex: 10 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px" }}>
-          <button onClick={onBack} style={{ background: "none", border: "1px solid #333", color: "#aaa", cursor: "pointer", padding: "8px 12px", borderRadius: 8, fontFamily: "var(--sans)", fontSize: 13 }}>← Retour</button>
+          <button onClick={onBack} style={{ background: "none", border: "1px solid #333", color: "#aaa", cursor: "pointer", padding: "8px 12px", borderRadius: 8, fontFamily: "var(--sans)", fontSize: 13 }}>{t?.back || "← Back"}</button>
           <div style={{ display: "flex", gap: 6 }}>
             {[["script", t?.budget_teleprompter || "▶ Script"], ["guide", t?.budget_guide || "🎬 Guide Prod"]].map(([k, lbl]) => (
               <button key={k} onClick={() => setTab(k)} style={{ padding: "8px 14px", borderRadius: 8, border: "none", background: tab === k ? (k === "guide" ? bLevel.color : "var(--r)") : "#222", color: "#fff", cursor: "pointer", fontSize: 14, fontWeight: 700, fontFamily: "var(--sans)" }}>{lbl}</button>
@@ -2981,7 +2981,7 @@ function AppInner() {
           });
         batches.push(batchPromise);
       }
-      setLoadMsg(`Génération des ${state.format} épisodes…`);
+      setLoadMsg(t.gen_episodes);
       const results = await Promise.all(batches);
       const eps = results.flatMap(r => r.episodes || []);
       setEpisodes(eps);
@@ -3365,9 +3365,9 @@ function AppInner() {
           {err ? (
             <>
               <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#333", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 24 }}><span style={{ color: "#fff", fontSize: 28 }}>!</span></div>
-              <p style={{ color: "var(--tx)", fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Oups, une erreur est survenue</p>
+              <p style={{ color: "var(--tx)", fontSize: 15, fontWeight: 700, marginBottom: 8 }}>{lang === "fr" ? "Oups, une erreur est survenue" : "Oops, something went wrong"}</p>
               <p style={{ color: "var(--mt)", fontSize: 13, lineHeight: 1.7, marginBottom: 24, maxWidth: 320 }}>{err}</p>
-              <button onClick={() => setScreen("mix")} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "14px 28px", borderRadius: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>← Retour</button>
+              <button onClick={() => setScreen("mix")} style={{ background: "var(--r)", color: "#fff", border: "none", padding: "14px 28px", borderRadius: 12, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)" }}>{t.back}</button>
             </>
           ) : (
             <>
