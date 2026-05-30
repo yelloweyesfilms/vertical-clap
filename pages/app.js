@@ -2483,7 +2483,7 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
   );
 }
 
-function ProfilsView({ profils, loading, bible, onBack, t }) {
+function ProfilsView({ profils, loading, bible, onBack, t, lang }) {
   const data = profils?.profils || [];
   return (
     <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
@@ -2518,7 +2518,7 @@ function ProfilsView({ profils, loading, bible, onBack, t }) {
                   </div>
                   <div style={{ textAlign: "center" }}>
                     <p style={{ fontSize: 14, fontWeight: 800, color: "#fff" }}>{p.abonnements || "—"}</p>
-                    <p style={{ fontSize: 10, color: "rgba(255,255,255,0.7)" }}>abonnements</p>
+                    <p style={{ fontSize: 10, color: "rgba(255,255,255,0.7)" }}>{lang === "fr" ? "abonnements" : "following"}</p>
                   </div>
                   {p.posts && <div style={{ textAlign: "center" }}>
                     <p style={{ fontSize: 14, fontWeight: 800, color: "#fff" }}>{p.posts.length}</p>
@@ -3407,7 +3407,7 @@ function AppInner() {
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} lang={lang} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
       {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
-      {screen === "profils" && <ProfilsView profils={profils} loading={loadingProfils} bible={bible} onBack={() => setScreen("bible")} t={t} />}
+      {screen === "profils" && <ProfilsView profils={profils} loading={loadingProfils} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
       {screen === "storyboard" && <StoryboardView storyboard={storyboard} loading={loadingStoryboard} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} lang={lang} />}
 
       {/* Top bar: lang toggle + logout — uniquement sur les écrans intermédiaires sans header propre */}
