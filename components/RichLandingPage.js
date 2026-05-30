@@ -1356,9 +1356,22 @@ export default function RichLandingPage({ lang = "fr" }) {
           {/* Chiffres clés XXL + visuel packs */}
           <Reveal>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              {/* Image packs */}
-              <div style={{ borderRadius: 20, overflow: "hidden", background: "rgba(255,255,255,0.02)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <img src="/packsbis.webp" alt="" aria-hidden="true" width={860} height={400} loading="lazy" style={{ width: "100%", height: "auto", objectFit: "contain", display: "block" }} />
+              {/* Titre impactant packs */}
+              <div style={{ borderRadius: 20, border: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.02)", padding: "48px 40px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 600, height: 300, background: `radial-gradient(ellipse, rgba(232,92,58,0.06) 0%, transparent 65%)`, pointerEvents: "none" }} />
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: RED, marginBottom: 20 }}>
+                  {lang === "fr" ? "Le mixeur" : "The mixer"}
+                </p>
+                <h3 style={{ fontFamily: "var(--sans)", fontSize: "clamp(28px, 5vw, 64px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, color: TEXT, textTransform: "uppercase", margin: "0 0 8px" }}>
+                  {lang === "fr"
+                    ? <><span style={{ color: "rgba(255,255,255,0.2)" }}>12</span> univers<span style={{ color: BORDER }}> · </span><span style={{ color: "rgba(255,255,255,0.2)" }}>48</span> personnages</>
+                    : <><span style={{ color: "rgba(255,255,255,0.2)" }}>12</span> universes<span style={{ color: BORDER }}> · </span><span style={{ color: "rgba(255,255,255,0.2)" }}>48</span> characters</>}
+                </h3>
+                <h3 style={{ fontFamily: "var(--sans)", fontSize: "clamp(28px, 5vw, 64px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, textTransform: "uppercase", margin: "0 0 0", background: `linear-gradient(135deg, #ff8c42, ${RED})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                  {lang === "fr"
+                    ? <><span style={{ color: "rgba(255,255,255,0.2)", WebkitTextFillColor: "rgba(255,255,255,0.2)" }}>16</span> secrets · <span style={{ color: "rgba(255,255,255,0.2)", WebkitTextFillColor: "rgba(255,255,255,0.2)" }}>8</span> ambiances</>
+                    : <><span style={{ color: "rgba(255,255,255,0.2)", WebkitTextFillColor: "rgba(255,255,255,0.2)" }}>16</span> secrets · <span style={{ color: "rgba(255,255,255,0.2)", WebkitTextFillColor: "rgba(255,255,255,0.2)" }}>8</span> styles</>}
+                </h3>
               </div>
               {/* Stats */}
               <div className="mixeur-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2, background: BORDER, borderRadius: 20, overflow: "hidden" }}>
