@@ -720,10 +720,22 @@ export default async function handler(req, res) {
     if (action === "traduire") {
       const { script, langue } = payload;
       const noms = { en: "English", es: "Español", de: "Deutsch", pt: "Português", it: "Italiano", ar: "العربية", he: "עברית", zh: "中文" };
+      // Only translate the text fields, preserve all non-text fields to reduce token usage
+      const fieldsToTranslate = ["texte", "dialogue", "jeu", "visuel_916", "voix_off", "note", "label"];
+      const translateObj = (obj) => {
+        if (!obj || typeof obj !== "object") return obj;
+        if (Array.isArray(obj)) return obj.map(translateObj);
+        const result = {};
+        for (const [k, v] of Object.entries(obj)) {
+          result[k] = fieldsToTranslate.includes(k) && typeof v === "string" ? v : (typeof v === "object" ? translateObj(v) : v);
+        }
+        return result;
+      };
+      const scriptForTranslation = translateObj(script);
       const result = await callClaude(
-        `Tu es expert en adaptation de scripts micro-dramas 9:16 pour ${noms[langue]}.\nRègles strictes:\n• Préserve le ton, les émotions et l'intensité dramatique — pas de traduction littérale plate\n• Les indications de jeu (champ "jeu") doivent sonner naturel en ${noms[langue]}, adaptées culturellement\n• Les dialogues doivent avoir le même punch dans la langue cible — si nécessaire, reformule pour garder l'impact\n• Conserve exactement la même structure JSON, ne modifie aucune clé\n• JSON uniquement, aucun texte avant ou après`,
-        JSON.stringify(script),
-        2400
+        `You are an expert in adapting 9:16 micro-drama scripts to ${noms[langue]}.\nStrict rules:\n• Translate ONLY the string values in the JSON — preserve all keys and structure exactly\n• Preserve tone, emotions and dramatic intensity — no flat literal translations\n• Stage directions ("jeu" field) must sound natural and culturally adapted\n• Dialogues must have the same punch in the target language — rephrase if needed\n• Return ONLY valid JSON, no text before or after`,
+        JSON.stringify(scriptForTranslation),
+        4000
       );
       trackAction("traduction", customerId);
       return res.json(result);
