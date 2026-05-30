@@ -992,6 +992,8 @@ export default function RichLandingPage({ lang = "fr" }) {
                   { emoji: "🎬", text: "Mode Tournage — téléprompteur intégré" },
                   { emoji: "🎞️", text: "Découpage technique plan par plan" },
                   { emoji: "🎥", text: "Guide Prod — tournage Zéro Budget inclus" },
+                  { emoji: "📄", text: "Export PDF — script + affiche de présentation" },
+                  { emoji: "🌍", text: "Traduction en 8 langues en 1 clic" },
                   { emoji: "📱", text: "Format 9:16 natif — TikTok · Reels · Shorts" },
                 ] : [
                   { emoji: "📖", text: "Full bible generated in 30 seconds" },
@@ -999,6 +1001,8 @@ export default function RichLandingPage({ lang = "fr" }) {
                   { emoji: "🎬", text: "Shoot Mode — built-in teleprompter" },
                   { emoji: "🎞️", text: "Shot-by-shot technical breakdown" },
                   { emoji: "🎥", text: "Prod Guide — Zero Budget shooting included" },
+                  { emoji: "📄", text: "PDF export — script + presentation poster" },
+                  { emoji: "🌍", text: "Translation into 8 languages in 1 click" },
                   { emoji: "📱", text: "Native 9:16 — TikTok · Reels · Shorts" },
                 ]).map(({ emoji, text }) => (
                   <div key={text} style={{ display: "flex", alignItems: "center", gap: 14 }}>
