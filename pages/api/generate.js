@@ -513,26 +513,27 @@ export default async function handler(req, res) {
   }
 
   const { limited, count, max } = await checkRateLimit(customerId, plan);
+  const isEn = req.body?.payload?.lang === "en";
   if (limited) {
-    return res.status(429).json({ error: `Limite atteinte (${max} générations/heure). Réessayez dans quelques minutes.` });
+    return res.status(429).json({ error: isEn ? `Limit reached (${max} generations/hour). Try again in a few minutes.` : `Limite atteinte (${max} générations/heure). Réessayez dans quelques minutes.` });
   }
 
   const { action, payload } = req.body || {};
 
   if (!VALID_ACTIONS.includes(action)) {
-    return res.status(400).json({ error: "Action inconnue" });
+    return res.status(400).json({ error: isEn ? "Unknown action" : "Action inconnue" });
   }
 
   // Restrictions plan Standard
   const PREMIUM_ACTIONS = ["variations", "titres"];
   if (plan === "standard" && PREMIUM_ACTIONS.includes(action)) {
-    return res.status(403).json({ error: "Cette fonctionnalité est réservée au plan Pro. Passez à Pro pour débloquer les variations et les titres viraux." });
+    return res.status(403).json({ error: isEn ? "This feature is reserved for the Pro plan. Upgrade to Pro to unlock variations and viral titles." : "Cette fonctionnalité est réservée au plan Pro. Passez à Pro pour débloquer les variations et les titres viraux." });
   }
   if (plan === "standard" && action === "bible" && payload?.mode === "premium") {
-    return res.status(403).json({ error: "Le mode Série est réservé au plan Pro." });
+    return res.status(403).json({ error: isEn ? "Series mode is reserved for the Pro plan." : "Le mode Série est réservé au plan Pro." });
   }
   if (plan === "standard" && action === "bible" && payload?.format > 20) {
-    return res.status(403).json({ error: "Le plan Creator est limité à 20 épisodes. Passez à Pro pour créer jusqu'à 90 épisodes." });
+    return res.status(403).json({ error: isEn ? "The Creator plan is limited to 20 episodes. Upgrade to Pro to create up to 90 episodes." : "Le plan Creator est limité à 20 épisodes. Passez à Pro pour créer jusqu'à 90 épisodes." });
   }
 
   const validationError = validatePayload(action, payload);
@@ -838,14 +839,14 @@ export default async function handler(req, res) {
   } catch (e) {
     // Rate limit Anthropic → message utilisateur clair, pas de Sentry (bruit inutile)
     if (e.status === 429) {
-      return res.status(503).json({ error: "Le service est momentanément surchargé. Réessaie dans 30 secondes." });
+      return res.status(503).json({ error: isEn ? "Service temporarily overloaded. Try again in 30 seconds." : "Le service est momentanément surchargé. Réessaie dans 30 secondes." });
     }
     // Limite de dépenses Anthropic (invalid_request_error usage limit)
     const errStr = String(e?.message || e || "");
     const isUsageLimit = errStr.includes("usage limit") || errStr.includes("usage_limit") ||
       ((e.status === 400 || e.statusCode === 400) && errStr.includes("invalid_request_error"));
     if (isUsageLimit) {
-      return res.status(503).json({ error: "Le service est temporairement indisponible. Réessaie dans quelques heures." });
+      return res.status(503).json({ error: isEn ? "Service temporarily unavailable. Try again in a few hours." : "Le service est temporairement indisponible. Réessaie dans quelques heures." });
     }
     Sentry.captureException(e, { extra: { action: req.body?.action, customerId, plan } });
     console.error(e);
