@@ -3210,15 +3210,23 @@ function AppInner() {
     y = 21;
 
     // ── TITLE BLOCK ──────────────────────────────────────────────
-    txt(b.titre.toUpperCase(), { size: 7.5, bold: true, color: GRAY });
-    sp(1);
-    txt(ep.titre, { size: 22, bold: true, color: INK });
+    // Série name pill
+    doc.setFillColor(240, 240, 245); doc.roundedRect(ML, y, doc.getTextWidth(b.titre.toUpperCase()) + 14, 7, 3, 3, "F");
+    doc.setFontSize(7); doc.setFont("helvetica", "bold"); doc.setTextColor(...GRAY);
+    doc.text(b.titre.toUpperCase(), ML + 7, y + 5);
+    y += 11;
+    // Episode title — grand et fort
+    txt(ep.titre, { size: 26, bold: true, color: INK });
     sp(2);
-    txt(`« ${b.logline} »`, { size: 9.5, italic: true, color: GRAY });
+    // Logline
+    txt(`« ${b.logline} »`, { size: 9, italic: true, color: GRAY });
     sp(3);
-    txt(`${isEn ? "Episode" : "Épisode"} ${ep.numero}  ·  ${DUR_LABEL[lang][state.duree]}  ·  ${(s.scenes || []).length} ${isEn ? "lines" : "répliques"}`, { size: 8.5, bold: true, color: RED });
-    if (ep.cliffhanger) { sp(1.5); txt(`${ep.cliffhanger}`, { size: 8.5, italic: true, color: GRAY }); }
-    sp(5); rule(RED, 0.6); sp(2);
+    // Metadata pills
+    doc.setFillColor(...RED); doc.roundedRect(ML, y, 70, 7, 3, 3, "F");
+    doc.setFontSize(7.5); doc.setFont("helvetica", "bold"); doc.setTextColor(255, 255, 255);
+    doc.text(`ÉP. ${ep.numero}  ·  ${DUR_LABEL[lang][state.duree]}  ·  ${(s.scenes || []).length} répliques`, ML + 5, y + 5);
+    y += 13;
+    rule(RED, 0.8); sp(2);
 
     // ── HOOK ────────────────────────────────────────────────────
     badge(isEn ? "HOOK — FIRST 3 SECONDS" : "HOOK — 3 PREMIÈRES SECONDES");
@@ -3253,35 +3261,37 @@ function AppInner() {
     });
 
     // ── CLIFFHANGER ─────────────────────────────────────────────
-    sp(4);
-    checkPage(40);
-    doc.setFillColor(...BGDARK);
-    const cliffStartY = y;
+    sp(6);
+    checkPage(50);
     const cliffLabel = s.cliffhanger_scene?.label || "";
-    // measure height
-    doc.setFontSize(12.5); const cliffLines = doc.splitTextToSize(String(s.cliffhanger_scene?.texte || ""), contentW - 12);
-    doc.setFontSize(8.5); const visLines = doc.splitTextToSize(String(s.cliffhanger_scene?.visuel_916 || ""), contentW - 12);
-    const cliffH = 8 + cliffLines.length * lh(12.5) + 3 + visLines.length * lh(8.5) + (cliffLabel ? 12 : 0) + 10;
-    doc.roundedRect(ML, y, contentW, cliffH, 4, 4, "F");
-    // Red top accent
-    doc.setFillColor(...RED); doc.roundedRect(ML, y, contentW, 6, 4, 4, "F");
-    doc.rect(ML, y + 2, contentW, 4, "F");
+    doc.setFontSize(14); const cliffLines = doc.splitTextToSize(String(s.cliffhanger_scene?.texte || ""), contentW - 20);
+    doc.setFontSize(8.5); const visLines = doc.splitTextToSize(String(s.cliffhanger_scene?.visuel_916 || ""), contentW - 20);
+    const cliffH = 14 + cliffLines.length * lh(14) + 4 + visLines.length * lh(8.5) + (cliffLabel ? 14 : 0) + 10;
+    // fond sombre mais moins oppressant — charcoal profond
+    doc.setFillColor(20, 18, 32); doc.roundedRect(ML, y, contentW, cliffH, 5, 5, "F");
+    // barre gauche rouge (accent vertical)
+    doc.setFillColor(...RED); doc.roundedRect(ML, y, 4, cliffH, 2, 2, "F");
+    // label CLIFFHANGER en rouge clair
+    y += 5;
+    doc.setFontSize(7); doc.setFont("helvetica", "bold");
+    doc.setTextColor(...RED);
+    doc.text("— CLIFFHANGER", ML + 10, y + 3);
     y += 8;
-    txt(isEn ? "CLIFFHANGER" : "CLIFFHANGER", { size: 7.5, bold: true, color: [255, 180, 150] });
-    sp(2);
-    txt(s.cliffhanger_scene?.texte, { size: 12.5, bold: true, color: [255, 255, 255], mw: contentW - 12, x: ML + 4 });
+    // texte principal grand et blanc
+    txt(s.cliffhanger_scene?.texte, { size: 14, bold: true, color: [255, 255, 255], mw: contentW - 20, x: ML + 10 });
     sp(3);
-    txt(`[9:16]  ${s.cliffhanger_scene?.visuel_916}`, { size: 8.5, italic: true, color: [255, 140, 100], mw: contentW - 12, x: ML + 4 });
+    // direction visuelle en orange doux
+    txt(`[9:16]  ${s.cliffhanger_scene?.visuel_916}`, { size: 8, italic: true, color: [210, 130, 100], mw: contentW - 20, x: ML + 10 });
     if (cliffLabel) {
-      sp(4);
+      sp(5);
       doc.setFontSize(7.5); doc.setFont("helvetica", "bold");
-      const cw = doc.getTextWidth(cliffLabel.toUpperCase()) + 12;
-      doc.setFillColor(...RED); doc.roundedRect(ML + 4, y, cw, 6.5, 2, 2, "F");
+      const cw = doc.getTextWidth(cliffLabel.toUpperCase()) + 14;
+      doc.setFillColor(...RED); doc.roundedRect(ML + 10, y, cw, 7, 2, 2, "F");
       doc.setTextColor(255, 255, 255);
-      doc.text(cliffLabel.toUpperCase(), ML + 10, y + 4.5);
-      y += 9;
+      doc.text(cliffLabel.toUpperCase(), ML + 17, y + 5);
+      y += 10;
     }
-    y = cliffStartY + cliffH + 3;
+    y = Math.max(y, y) + 6;
 
     // ── CHARACTERS ──────────────────────────────────────────────
     if (b.personnages?.length > 0) {
