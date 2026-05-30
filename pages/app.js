@@ -1241,7 +1241,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
                 </div>
               ))}
             </div>
-            <a href="/aide" style={{
+            <a href={lang === "en" ? "/en/aide" : "/aide"} style={{
               display: "block", textAlign: "center",
               fontFamily: "var(--sans)", fontSize: 13, fontWeight: 700,
               color: "#E85C3A", textDecoration: "none",

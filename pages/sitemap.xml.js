@@ -19,6 +19,9 @@ export async function getServerSideProps({ res }) {
     // EN pages
     { path: "/en", freq: "weekly", priority: "0.9" },
     { path: "/en/exemples", freq: "weekly", priority: "0.8" },
+    { path: "/en/tarifs", freq: "weekly", priority: "0.9" },
+    { path: "/en/contact", freq: "yearly", priority: "0.4" },
+    { path: "/en/aide", freq: "yearly", priority: "0.4" },
     { path: "/en/blog", freq: "weekly", priority: "0.7" },
     ...POSTS_EN.map(p => ({ path: `/en/blog/${p.slug}`, freq: "monthly", priority: "0.6" })),
   ];
