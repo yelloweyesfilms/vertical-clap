@@ -3039,7 +3039,10 @@ function AppInner() {
     setLoading(true);
     try {
       const bLevel = BUDGET_LEVELS.find(b => b.id === state.budget);
-      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, dramaPremium: state.dramaPremium, ambianceVisuelle: state.ambianceVisuelle || "", budgetInstr: bLevel?.scriptInstr || "", lang, isChoix: !!episodes[idx]?.has_choix, genreFormat: state.genreFormat || null, choixContext: choixContext || null }, customerId);
+      const avPresetScript = AMBIANCE_VIS.find(x => x.id === state.ambianceVisuelle);
+      const avInstrScript = avPresetScript ? (avPresetScript.instr[lang === "en" ? "en" : "fr"]) : "";
+      const tropesScript = cleanState(state).tropes || "";
+      const s = await gen("script", { ep: episodes[idx], bible, mode: state.mode, duree: state.duree, style: state.style, drama: state.drama, dramaPremium: state.dramaPremium, ambianceVisuelle: avInstrScript, budgetInstr: bLevel?.scriptInstr || "", tropes: tropesScript, lang, isChoix: !!episodes[idx]?.has_choix, genreFormat: state.genreFormat || null, choixContext: choixContext || null }, customerId);
       if (epReqRef.current === reqId) {
         setScript(s);
         setScripts(prev => {

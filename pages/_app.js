@@ -42,7 +42,8 @@ export default function App({ Component, pageProps }) {
         <meta name="theme-color" content="#09090f" />
         <meta name="msapplication-TileColor" content="#09090f" />
         <meta name="msapplication-TileImage" content="/windows/Square150x150Logo.scale-200.png" />
-        <link rel="icon" href="/1024.png" type="image/png" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/ios/32.png" type="image/png" sizes="32x32" />
         <link rel="icon" type="image/png" sizes="32x32" href="/ios/32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/ios/16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/ios/180.png" />
@@ -93,7 +94,7 @@ export default function App({ Component, pageProps }) {
             { "@type": "Offer", "price": "19", "priceCurrency": "EUR", "name": "Pro", "description": "90 épisodes, Direction Artistique, 3 variations par script, Calendrier éditorial, Saison 2" },
           ],
           "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "127", "bestRating": "5" },
-          "publisher": { "@type": "Organization", "name": "VerticalClap", "url": SITE, "logo": `${SITE}/1024.png` },
+          "publisher": { "@type": "Organization", "name": "VerticalClap", "url": SITE, "logo": `${SITE}/1024.webp` },
         }) }} />
 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
