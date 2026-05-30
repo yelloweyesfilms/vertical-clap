@@ -230,7 +230,7 @@ export default function ExemplesEn() {
                 <div style={{ fontSize: 14, fontWeight: 900, letterSpacing: "-0.02em", background: `linear-gradient(135deg, #ff8c42, ${RED})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>CLAP</div>
               </div>
             </a>
-            <a href="/tarifs" style={{ background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "10px 22px", borderRadius: 10, fontWeight: 700, fontSize: 13, textDecoration: "none", letterSpacing: 0.2 }}>
+            <a href="/en/tarifs" style={{ background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "10px 22px", borderRadius: 10, fontWeight: 700, fontSize: 13, textDecoration: "none", letterSpacing: 0.2 }}>
               Get started →
             </a>
           </nav>
@@ -365,10 +365,10 @@ export default function ExemplesEn() {
               Full bible, scripts ready to shoot, hooks and cliffhangers — all generated in under 5 minutes.
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              <a href="/tarifs" style={{ display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "16px 36px", borderRadius: 14, fontWeight: 800, fontSize: 15, textDecoration: "none", letterSpacing: -0.2, boxShadow: `0 0 32px rgba(168,85,247,0.3)` }}>
+              <a href="/en/tarifs" style={{ display: "inline-block", background: `linear-gradient(135deg, ${RED}, ${VIO})`, color: "#fff", padding: "16px 36px", borderRadius: 14, fontWeight: 800, fontSize: 15, textDecoration: "none", letterSpacing: -0.2, boxShadow: `0 0 32px rgba(168,85,247,0.3)` }}>
                 Start creating →
               </a>
-              <a href="/tarifs" style={{ display: "inline-block", background: "rgba(255,255,255,0.05)", color: MUTED, padding: "16px 28px", borderRadius: 14, fontWeight: 600, fontSize: 14, textDecoration: "none", border: `1px solid ${BORDER}` }}>
+              <a href="/en/tarifs" style={{ display: "inline-block", background: "rgba(255,255,255,0.05)", color: MUTED, padding: "16px 28px", borderRadius: 14, fontWeight: 600, fontSize: 14, textDecoration: "none", border: `1px solid ${BORDER}` }}>
                 View pricing
               </a>
             </div>
