@@ -1434,7 +1434,7 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
               <div style={{ background: "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 12, padding: "10px 14px", marginBottom: 14, display: "flex", alignItems: "center", gap: 10 }}>
                 <span style={{ fontSize: 22 }}>{compat.type}</span>
                 <div>
-                  <p style={{ fontSize: 13, fontWeight: 700, color: "var(--mt)", marginBottom: 2 }}>Compatibilité IA</p>
+                  <p style={{ fontSize: 13, fontWeight: 700, color: "var(--mt)", marginBottom: 2 }}>{lang === "fr" ? "Compatibilité IA" : "AI Compatibility"}</p>
                   <p style={{ fontSize: 13, fontWeight: 700, color: "var(--tx)" }}>{compat.label}</p>
                 </div>
               </div>
@@ -1853,7 +1853,7 @@ function BibleView({ bible, episodes, mode, duree, onEp, onBack, customerId, pla
         </div>
         <div style={{ marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--r)" }}>
-            {mode === "fast" ? "VERTICAL DRAMA" : "SÉRIE PREMIUM"}
+            {mode === "fast" ? "VERTICAL DRAMA" : (lang === "fr" ? "SÉRIE PREMIUM" : "PREMIUM SERIES")}
           </span>
           <span style={{ color: "var(--bo)" }}>·</span>
           <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "var(--mt)" }}>
@@ -3093,7 +3093,7 @@ function AppInner() {
     try {
       const r = await gen("variations", { ep: episodes[epIdx], bible, mode: state.mode, duree: state.duree, lang }, customerId);
       setVariations(r.variations || []);
-    } catch (e) { console.error(e); }
+    } catch (e) { console.error(e); setScreen("studio"); }
     setLoadingVariations(false);
   };
 
@@ -3110,7 +3110,7 @@ function AppInner() {
     try {
       const r = await gen("affiche", { titre: bible.titre, logline: bible.logline, personnages: bible.personnages || [], genre: state.genre, ambiance: state.ambiance, lang }, customerId);
       setAffiche(r);
-    } catch (e) { console.error(e); }
+    } catch (e) { console.error(e); setScreen("bible"); }
     setLoadingAffiche(false);
   };
 
@@ -3119,7 +3119,7 @@ function AppInner() {
     try {
       const r = await gen("profils", { titre: bible.titre, personnages: bible.personnages || [], genre: state.genre, lang }, customerId);
       setProfils(r);
-    } catch(e) { console.error(e); }
+    } catch(e) { console.error(e); setScreen("bible"); }
     setLoadingProfils(false);
   };
 
@@ -3128,7 +3128,7 @@ function AppInner() {
     try {
       const r = await gen("storyboard", { ep: episodes[epIdx], script, bible, lang }, customerId);
       setStoryboard(r);
-    } catch(e) { console.error(e); }
+    } catch(e) { console.error(e); setScreen("studio"); }
     setLoadingStoryboard(false);
   };
 
