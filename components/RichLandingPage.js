@@ -1356,22 +1356,22 @@ export default function RichLandingPage({ lang = "fr" }) {
           {/* Chiffres clés XXL + visuel packs */}
           <Reveal>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              {/* Titre impactant packs */}
+              {/* Accroche mixeur */}
               <div style={{ borderRadius: 20, border: `1px solid ${BORDER}`, background: "rgba(255,255,255,0.02)", padding: "48px 40px", textAlign: "center", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 600, height: 300, background: `radial-gradient(ellipse, rgba(232,92,58,0.06) 0%, transparent 65%)`, pointerEvents: "none" }} />
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: RED, marginBottom: 20 }}>
+                <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 600, height: 300, background: `radial-gradient(ellipse, rgba(168,85,247,0.06) 0%, transparent 65%)`, pointerEvents: "none" }} />
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: VIO, marginBottom: 20 }}>
                   {lang === "fr" ? "Le mixeur" : "The mixer"}
                 </p>
-                <h3 style={{ fontFamily: "var(--sans)", fontSize: "clamp(28px, 5vw, 64px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, color: TEXT, textTransform: "uppercase", margin: "0 0 8px" }}>
+                <h3 style={{ fontFamily: "var(--serif)", fontSize: "clamp(26px, 4vw, 52px)", fontWeight: 900, letterSpacing: -1, lineHeight: 1.1, color: TEXT, margin: "0 0 16px", fontStyle: "italic" }}>
                   {lang === "fr"
-                    ? <><span style={{ color: "rgba(255,255,255,0.2)" }}>12</span> univers<span style={{ color: BORDER }}> · </span><span style={{ color: "rgba(255,255,255,0.2)" }}>48</span> personnages</>
-                    : <><span style={{ color: "rgba(255,255,255,0.2)" }}>12</span> universes<span style={{ color: BORDER }}> · </span><span style={{ color: "rgba(255,255,255,0.2)" }}>48</span> characters</>}
+                    ? <>{`"`}Ton histoire ne ressemblera<br />à <span style={{ background: `linear-gradient(135deg, #ff8c42, ${RED})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>aucune autre.</span>{`"`}</>
+                    : <>{`"`}Your story will look like<br /><span style={{ background: `linear-gradient(135deg, #ff8c42, ${RED})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>no other.</span>{`"`}</>}
                 </h3>
-                <h3 style={{ fontFamily: "var(--sans)", fontSize: "clamp(28px, 5vw, 64px)", fontWeight: 900, letterSpacing: -2, lineHeight: 1.05, textTransform: "uppercase", margin: "0 0 0", background: `linear-gradient(135deg, #ff8c42, ${RED})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                <p style={{ color: MUTED, fontSize: 15, margin: 0 }}>
                   {lang === "fr"
-                    ? <><span style={{ color: "rgba(255,255,255,0.2)", WebkitTextFillColor: "rgba(255,255,255,0.2)" }}>16</span> secrets · <span style={{ color: "rgba(255,255,255,0.2)", WebkitTextFillColor: "rgba(255,255,255,0.2)" }}>8</span> ambiances</>
-                    : <><span style={{ color: "rgba(255,255,255,0.2)", WebkitTextFillColor: "rgba(255,255,255,0.2)" }}>16</span> secrets · <span style={{ color: "rgba(255,255,255,0.2)", WebkitTextFillColor: "rgba(255,255,255,0.2)" }}>8</span> styles</>}
-                </h3>
+                    ? "Des milliers de combinaisons possibles. Une seule série : la tienne."
+                    : "Thousands of possible combinations. One series: yours."}
+                </p>
               </div>
               {/* Stats */}
               <div className="mixeur-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2, background: BORDER, borderRadius: 20, overflow: "hidden" }}>
