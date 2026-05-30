@@ -1640,8 +1640,8 @@ function Mixeur({ state, set, onGen, onMesSeries, hasSeries, plan, t, opts, lang
               return (
                 <div key={f} style={{ flex: 1 }}>
                   <Chip
-                    label={`${f} ép.`}
-                    sub={lockedPlan ? "🔒 PRO" : inactiveSerie ? "Série →" : `${Math.round(f * state.duree / 60)} min`}
+                    label={`${f} ${lang === "fr" ? "ép." : "ep."}`}
+                    sub={lockedPlan ? "🔒 PRO" : inactiveSerie ? (lang === "fr" ? "Série →" : "Series →") : `${Math.round(f * state.duree / 60)} min`}
                     block
                     active={state.format === f && state.mode === (f > 20 ? "premium" : state.mode)}
                     onClick={handleClick}
