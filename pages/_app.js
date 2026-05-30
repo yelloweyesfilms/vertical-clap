@@ -89,7 +89,7 @@ export default function App({ Component, pageProps }) {
           "inLanguage": ["fr", "en"],
           "offers": [
             { "@type": "Offer", "price": "9", "priceCurrency": "EUR", "name": "Creator", "description": "Bible + scripts 9:16 générés par IA, 20 épisodes par série, Mode Tournage, Guide Prod" },
-            { "@type": "Offer", "price": "19", "priceCurrency": "EUR", "name": "Pro", "description": "90 épisodes, Direction Artistique, 3 variations par script, Calendrier éditorial, Saison 2" },
+            { "@type": "Offer", "price": "19", "priceCurrency": "EUR", "name": "Pro", "description": "90 épisodes, Direction Artistique, 3 variations par script, Découpage technique, Casting IA, Saison 2" },
           ],
           "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "127", "bestRating": "5" },
           "publisher": { "@type": "Organization", "name": "VerticalClap", "url": SITE, "logo": `${SITE}/1024.webp` },

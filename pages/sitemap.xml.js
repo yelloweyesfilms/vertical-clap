@@ -16,6 +16,7 @@ export async function getServerSideProps({ res }) {
     { path: "/cgu", freq: "yearly", priority: "0.3" },
     { path: "/confidentialite", freq: "yearly", priority: "0.3" },
     { path: "/contact", freq: "yearly", priority: "0.4" },
+    { path: "/aide", freq: "monthly", priority: "0.6" },
     // EN pages
     { path: "/en", freq: "weekly", priority: "0.9" },
     { path: "/en/exemples", freq: "weekly", priority: "0.8" },
