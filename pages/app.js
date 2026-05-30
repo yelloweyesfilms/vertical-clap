@@ -2122,10 +2122,10 @@ function StudioView({ bible, ep, script, loading, duree, onEdit, onTournage, onS
             <button onClick={onTournage} style={{ width: "100%", background: "var(--n)", color: "#fff", border: "none", padding: "15px 16px", borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "var(--sans)", marginBottom: 16 }}>{t.shooting}</button>
 
             {/* ── ACTIONS SECONDAIRES COLLAPSIBLES ── */}
-            <div style={{ borderTop: "1px solid var(--bo)", paddingTop: 12, marginBottom: 8 }}>
-              <button onClick={() => setShowTools(s => !s)} style={{ width: "100%", background: "none", border: "none", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "4px 0 10px", cursor: "pointer", fontFamily: "var(--sans)" }}>
-                <span style={{ fontSize: 12, fontWeight: 700, color: "var(--mt)", letterSpacing: "0.08em", textTransform: "uppercase" }}>{lang === "fr" ? "Affiner & exporter" : "Refine & export"}</span>
-                <span style={{ fontSize: 14, color: "var(--mt)", transform: showTools ? "rotate(180deg)" : "none", transition: "transform .2s" }}>▾</span>
+            <div style={{ marginBottom: 8 }}>
+              <button onClick={() => setShowTools(s => !s)} style={{ width: "100%", background: showTools ? "rgba(255,255,255,0.06)" : "var(--card)", border: "1.5px solid var(--bo)", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "13px 16px", cursor: "pointer", fontFamily: "var(--sans)", marginBottom: showTools ? 10 : 0 }}>
+                <span style={{ fontSize: 14, fontWeight: 800, color: "var(--tx)", letterSpacing: "-0.01em" }}>{lang === "fr" ? "✦ Affiner & exporter" : "✦ Refine & export"}</span>
+                <span style={{ fontSize: 16, color: "var(--mt)", transform: showTools ? "rotate(180deg)" : "none", transition: "transform .2s" }}>▾</span>
               </button>
               {showTools && (
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
