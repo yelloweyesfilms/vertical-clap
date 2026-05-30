@@ -79,16 +79,10 @@ const T = {
     gen_episodes_batch: "Épisodes %a–%b générés… (%c/%d)",
     premium_titles: "Les titres viraux sont réservés au plan Pro.",
     premium_variations: "Les variations sont réservées au plan Pro.",
-    premium_calendrier: "Le calendrier éditorial est réservé au plan Pro (19€/mois).",
     accroches_locked_hint: "Les 3 premières accroches sont disponibles. Passe au plan Pro pour les générer sur tous tes épisodes.",
     loading_cartes: "Création des fiches personnages…",
     style_voixoff: "Narration intime",
     voix_off_label: "Voix Off",
-    loading_profils: "Création des profils réseaux…",
-    profils_title: "Profils Réseaux",
-    calendrier_btn: "Calendrier",
-    loading_calendrier: "Création du calendrier éditorial…",
-    calendrier_title: "Calendrier Éditorial",
     storyboard_btn: "Découpage",
     loading_storyboard: "Création du découpage technique…",
     storyboard_title: "Découpage technique",
@@ -155,16 +149,10 @@ const T = {
     gen_episodes_batch: "Episodes %a–%b generated… (%c/%d)",
     premium_titles: "Viral titles are reserved for Pro plan.",
     premium_variations: "Variations are reserved for Pro plan.",
-    premium_calendrier: "The editorial calendar is reserved for the Pro plan (€19/month).",
     accroches_locked_hint: "The first 3 hooks are available. Upgrade to Pro to generate them for all your episodes.",
     loading_cartes: "Creating character profiles…",
     style_voixoff: "Intimate narration",
     voix_off_label: "Voice Over",
-    loading_profils: "Creating social profiles…",
-    profils_title: "Social Profiles",
-    calendrier_btn: "Calendar",
-    loading_calendrier: "Creating editorial calendar…",
-    calendrier_title: "Editorial Calendar",
     storyboard_btn: "Shot List",
     loading_storyboard: "Creating shot list…",
     storyboard_title: "Shot List",
@@ -2483,169 +2471,6 @@ function TournageView({ script, ep, duree, onBack, budget, lang, t }) {
   );
 }
 
-function ProfilsView({ profils, loading, bible, onBack, t, lang }) {
-  const data = profils?.profils || [];
-  return (
-    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-      <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_bible}</button>
-        <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>{t.profils_title}</h2>
-        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{bible?.titre}</p>
-      </div>
-      <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
-        {loading ? (
-          <LoadingVC msg={t.loading_profils} />
-        ) : data.map((p, i) => {
-          const couleur = p.couleur || (i === 0 ? "#E85C3A" : "#3a5040");
-          return (
-            <div key={i} style={{ background: "var(--card)", borderRadius: 20, overflow: "hidden", marginBottom: 20, border: `2px solid ${couleur}33` }}>
-              {/* Header Instagram */}
-              <div style={{ background: couleur, padding: "20px 18px 16px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 12 }}>
-                  <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(255,255,255,0.25)", border: "3px solid rgba(255,255,255,0.5)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <span style={{ fontSize: 22 }}>👤</span>
-                  </div>
-                  <div>
-                    <p style={{ fontSize: 15, fontWeight: 800, color: "#fff", marginBottom: 2 }}>{p.nom}</p>
-                    <p style={{ fontSize: 13, color: "rgba(255,255,255,0.8)" }}>{p.pseudo}</p>
-                  </div>
-                </div>
-                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.9)", lineHeight: 1.5, marginBottom: 12 }}>{p.bio}</p>
-                <div style={{ display: "flex", gap: 20 }}>
-                  <div style={{ textAlign: "center" }}>
-                    <p style={{ fontSize: 14, fontWeight: 800, color: "#fff" }}>{p.followers}</p>
-                    <p style={{ fontSize: 10, color: "rgba(255,255,255,0.7)" }}>followers</p>
-                  </div>
-                  <div style={{ textAlign: "center" }}>
-                    <p style={{ fontSize: 14, fontWeight: 800, color: "#fff" }}>{p.abonnements || "—"}</p>
-                    <p style={{ fontSize: 10, color: "rgba(255,255,255,0.7)" }}>{lang === "fr" ? "abonnements" : "following"}</p>
-                  </div>
-                  {p.posts && <div style={{ textAlign: "center" }}>
-                    <p style={{ fontSize: 14, fontWeight: 800, color: "#fff" }}>{p.posts.length}</p>
-                    <p style={{ fontSize: 10, color: "rgba(255,255,255,0.7)" }}>posts</p>
-                  </div>}
-                </div>
-              </div>
-              {/* Story & Highlight */}
-              {(p.story || p.highlight) && (
-                <div style={{ padding: "12px 16px 0", display: "flex", gap: 10 }}>
-                  {p.story && (
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-                      <div style={{ width: 52, height: 52, borderRadius: "50%", border: `2px solid ${couleur}`, display: "flex", alignItems: "center", justifyContent: "center", background: `${couleur}11` }}>
-                        <span style={{ fontSize: 20 }}>📸</span>
-                      </div>
-                      <p style={{ fontSize: 9, color: "var(--mt)", textAlign: "center", maxWidth: 60, lineHeight: 1.2 }}>{p.story}</p>
-                    </div>
-                  )}
-                  {p.highlight && (
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-                      <div style={{ width: 52, height: 52, borderRadius: "50%", border: "2px solid var(--bo)", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
-                        <span style={{ fontSize: 20 }}>⭐</span>
-                      </div>
-                      <p style={{ fontSize: 9, color: "var(--mt)", textAlign: "center", maxWidth: 60, lineHeight: 1.2 }}>{p.highlight}</p>
-                    </div>
-                  )}
-                </div>
-              )}
-              {/* Posts */}
-              {(p.posts || []).length > 0 && (
-                <div style={{ padding: "12px 16px 16px" }}>
-                  <p style={{ fontSize: 14, fontWeight: 700, color: "var(--mt)", marginBottom: 10 }}>{lang === "fr" ? "Posts récents" : "Recent posts"}</p>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                    {p.posts.map((post, j) => (
-                      <div key={j} style={{ background: "var(--bg)", borderRadius: 10, padding: "10px 12px", border: "1px solid var(--bo)" }}>
-                        <p style={{ fontSize: 13, lineHeight: 1.5, marginBottom: 6 }}>{post.caption}</p>
-                        <div style={{ display: "flex", gap: 12 }}>
-                          <span style={{ fontSize: 11, color: "var(--mt)" }}>❤️ {post.likes}</span>
-                          {post.commentaires && <span style={{ fontSize: 11, color: "var(--mt)" }}>💬 {post.commentaires}</span>}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function CalendrierView({ calendrier, loading, bible, onBack, t }) {
-  const data = calendrier;
-  return (
-    <div style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch" }}>
-      <div style={{ padding: "16px 20px 0", maxWidth: 520, margin: "0 auto" }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", fontSize: 14, color: "var(--mt)", marginBottom: 14, cursor: "pointer", padding: 0 }}>{t.back_bible}</button>
-        <h2 style={{ fontFamily: "var(--sans)", fontSize: 14, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>{t.calendrier_title}</h2>
-        <p style={{ fontSize: 13, color: "var(--mt)", marginBottom: 20 }}>{bible?.titre}</p>
-      </div>
-      <div style={{ padding: "0 20px 60px", maxWidth: 520, margin: "0 auto" }}>
-        {loading ? (
-          <LoadingVC msg={t.loading_calendrier} />
-        ) : data ? (
-          <>
-            {data.strategie && (
-              <div style={{ background: "var(--card)", borderRadius: 14, padding: 16, marginBottom: 20, border: "1.5px solid var(--bo)" }}>
-                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--r)", marginBottom: 8 }}>{lang === "fr" ? "Stratégie" : "Strategy"}</p>
-                <p style={{ fontSize: 13, lineHeight: 1.6 }}>{data.strategie}</p>
-                {data.plateformes && (
-                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 10 }}>
-                    {data.plateformes.map((pl, i) => (
-                      <span key={i} style={{ fontSize: 11, padding: "3px 10px", borderRadius: 20, background: "var(--r)", color: "#fff", fontWeight: 700 }}>{pl}</span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-            {(data.semaines || []).map((sem, i) => (
-              <div key={i} style={{ marginBottom: 20 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-                  <div style={{ width: 36, height: 36, borderRadius: 9, background: "var(--r)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <span style={{ fontSize: 12, fontWeight: 900, color: "#fff" }}>S{sem.semaine}</span>
-                  </div>
-                  <div>
-                    <p style={{ fontSize: 14, fontWeight: 800 }}>Semaine {sem.semaine}</p>
-                    {sem.theme && <p style={{ fontSize: 11, color: "var(--mt)" }}>{sem.theme}</p>}
-                  </div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  {(sem.episodes || []).map((ep, j) => (
-                    <div key={j} style={{ background: "var(--card)", borderRadius: 12, padding: "12px 14px", border: "1.5px solid var(--bo)" }}>
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                          <span style={{ fontSize: 11, background: "var(--r)", color: "#fff", padding: "2px 8px", borderRadius: 6, fontWeight: 700 }}>Ép. {ep.numero}</span>
-                          <span style={{ fontSize: 12, fontWeight: 700 }}>{ep.jour} {ep.heure}</span>
-                        </div>
-                        <span style={{ fontSize: 11, background: "var(--n)", color: "#fff", padding: "2px 8px", borderRadius: 6, fontWeight: 700 }}>{ep.plateforme}</span>
-                      </div>
-                      {ep.legende && <p style={{ fontSize: 13, lineHeight: 1.5, marginBottom: 8 }}>{ep.legende}</p>}
-                      {(ep.hashtags || []).length > 0 && (
-                        <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-                          {ep.hashtags.map((h, k) => (
-                            <span key={k} style={{ fontSize: 10, color: "var(--n)", fontWeight: 600 }}>{h}</span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-            {data.conseil && (
-              <div style={{ background: "linear-gradient(135deg, var(--n), #2a5040)", borderRadius: 14, padding: 16, marginTop: 8 }}>
-                <p style={{ fontSize: 14, fontWeight: 800, color: "rgba(255,255,255,0.9)", marginBottom: 8 }}>Pro tip</p>
-                <p style={{ fontSize: 13, color: "#fff", lineHeight: 1.6 }}>{data.conseil}</p>
-              </div>
-            )}
-          </>
-        ) : null}
-      </div>
-    </div>
-  );
-}
-
 function StoryboardView({ storyboard, loading, ep, bible, onBack, t, lang }) {
   const shots = storyboard?.shots || [];
   return (
@@ -2694,7 +2519,6 @@ function UpgradeModal({ feature, onClose, lang }) {
       serie:       { title: "Plan Pro", desc: "Séries longues jusqu'à 90 épisodes, arcs narratifs complexes, direction artistique avancée.", perks: ["Jusqu'à 90 épisodes par série", "3 variations de script par épisode", "Tous les packs univers", "Calendrier éditorial", "Préparation Saison 2"] },
       episodes:    { title: "Séries longues", desc: "Dépasse les 20 épisodes et construis des arcs narratifs de série complète.", perks: ["40, 60 ou 90 épisodes", "Arc narratif complet calculé", "Progression de tension optimisée"] },
       variations:  { title: "3 variations de script", desc: "Génère 3 versions différentes d'un même épisode pour choisir la meilleure.", perks: ["3 scripts par épisode", "Angles narratifs différents", "Choisir ou mixer les versions"] },
-      calendrier:  { title: "Calendrier éditorial", desc: "Un plan de publication semaine par semaine avec légendes et hashtags par plateforme.", perks: ["Planning semaine par semaine", "Légendes virales par plateforme", "TikTok, Reels, Shorts, Vertical"] },
       saison2:     { title: "Saison 2", desc: "Prolonge ta série avec une saison 2 cohérente — nouveaux arcs, nouveau casting, nouvelles tensions.", perks: ["Bible Saison 2 complète", "Cohérence narrative garantie", "Nouveaux personnages et secrets"] },
       accroches:   { title: "Accroches complètes", desc: "Génère des légendes virales pour tous tes épisodes, pas seulement les 3 premiers.", perks: ["Légendes pour tous les épisodes", "Hashtags ciblés par épisode", "Copie en 1 clic"] },
     },
@@ -2702,7 +2526,6 @@ function UpgradeModal({ feature, onClose, lang }) {
       serie:       { title: "Premium Series Mode", desc: "Long series up to 90 episodes, complex narrative arcs, advanced art direction.", perks: ["Up to 90 episodes per series", "3 script variations per episode", "All universe packs", "Editorial calendar", "Season 2 prep"] },
       episodes:    { title: "Long series", desc: "Go beyond 20 episodes and build full series narrative arcs.", perks: ["40, 60 or 90 episodes", "Full narrative arc calculated", "Optimized tension progression"] },
       variations:  { title: "3 script variations", desc: "Generate 3 different versions of the same episode to pick the best.", perks: ["3 scripts per episode", "Different narrative angles", "Mix or choose versions"] },
-      calendrier:  { title: "Editorial calendar", desc: "A week-by-week publishing plan with captions and hashtags per platform.", perks: ["Week-by-week schedule", "Viral captions per platform", "TikTok, Reels, Shorts, Vertical"] },
       saison2:     { title: "Season 2", desc: "Extend your series with a coherent season 2 — new arcs, new cast, new tensions.", perks: ["Full Season 2 bible", "Guaranteed narrative consistency", "New characters and secrets"] },
       accroches:   { title: "Full hooks", desc: "Generate viral captions for all your episodes, not just the first 3.", perks: ["Captions for all episodes", "Targeted hashtags per episode", "1-click copy"] },
     },
@@ -3083,8 +2906,6 @@ function AppInner() {
   const [loadingVariations, setLoadingVariations] = useState(false);
   const [affiche, setAffiche] = useState(null);
   const [loadingAffiche, setLoadingAffiche] = useState(false);
-  const [profils, setProfils] = useState(null);
-  const [loadingProfils, setLoadingProfils] = useState(false);
   const [storyboard, setStoryboard] = useState(null);
   const [loadingStoryboard, setLoadingStoryboard] = useState(false);
 
@@ -3114,15 +2935,6 @@ function AppInner() {
       setAffiche(r);
     } catch (e) { console.error(e); setScreen("bible"); }
     setLoadingAffiche(false);
-  };
-
-  const genProfils = async () => {
-    setProfils(null); setLoadingProfils(true); setScreen("profils");
-    try {
-      const r = await gen("profils", { titre: bible.titre, personnages: bible.personnages || [], genre: state.genre, lang }, customerId);
-      setProfils(r);
-    } catch(e) { console.error(e); setScreen("bible"); }
-    setLoadingProfils(false);
   };
 
   const genStoryboard = async () => {
@@ -3407,11 +3219,10 @@ function AppInner() {
       {screen === "variations" && <VariationsView variations={variations} loading={loadingVariations} ep={episodes[epIdx]} onSelect={selectVariation} onBack={() => setScreen("studio")} t={t} lang={lang} />}
       {screen === "tour" && <TournageView script={script} ep={episodes[epIdx]} duree={state.duree} onBack={() => setScreen("studio")} budget={state.budget} lang={lang} t={t} />}
       {screen === "affiche" && <AfficheView affiche={affiche} loading={loadingAffiche} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
-      {screen === "profils" && <ProfilsView profils={profils} loading={loadingProfils} bible={bible} onBack={() => setScreen("bible")} t={t} lang={lang} />}
       {screen === "storyboard" && <StoryboardView storyboard={storyboard} loading={loadingStoryboard} ep={episodes[epIdx]} bible={bible} onBack={() => setScreen("studio")} t={t} lang={lang} />}
 
       {/* Top bar: lang toggle + logout — uniquement sur les écrans intermédiaires sans header propre */}
-      {screen !== "tour" && screen !== "mix" && screen !== "bible" && screen !== "studio" && screen !== "variations" && screen !== "affiche" && screen !== "profils" && screen !== "storyboard" && (
+      {screen !== "tour" && screen !== "mix" && screen !== "bible" && screen !== "studio" && screen !== "variations" && screen !== "affiche" && screen !== "storyboard" && (
         <div style={{ position: "absolute", top: 14, right: 20, zIndex: 100, display: "flex", alignItems: "center", gap: 10 }}>
           {isAdmin && (
             <button onClick={() => setPlan(p => p === "standard" ? "premium" : "standard")} style={{ background: plan === "standard" ? "rgba(232,92,58,0.12)" : "rgba(168,85,247,0.12)", border: `1px solid ${plan === "standard" ? "rgba(232,92,58,0.3)" : "rgba(168,85,247,0.3)"}`, borderRadius: 8, padding: "3px 8px", fontSize: 10, fontWeight: 700, color: plan === "standard" ? "#E85C3A" : "#a855f7", cursor: "pointer", fontFamily: "var(--sans)", letterSpacing: 0.5 }}>
