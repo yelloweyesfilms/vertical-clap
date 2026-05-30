@@ -993,9 +993,9 @@ export default function RichLandingPage({ lang = "fr" }) {
                   { emoji: "🎞️", text: "Découpage technique — chaque plan, chaque angle" },
                   { emoji: "🔀", text: "3 versions du script — choisis la meilleure" },
                   { emoji: "🎥", text: "Guide Prod — tournage Zéro Budget inclus" },
+                  { emoji: "🎭", text: "Casting IA — fiches personnages complètes" },
                   { emoji: "📄", text: "Export PDF — script + affiche de présentation" },
                   { emoji: "🌍", text: "Traduction en 8 langues en 1 clic" },
-                  { emoji: "📱", text: "Format 9:16 natif — TikTok · Reels · Shorts" },
                 ] : [
                   { emoji: "📖", text: "Full bible generated in 30 seconds" },
                   { emoji: "✍️", text: "Scripts with hook, dialogue and cliffhanger" },
@@ -1003,9 +1003,9 @@ export default function RichLandingPage({ lang = "fr" }) {
                   { emoji: "🎞️", text: "Shot list — every shot, every angle" },
                   { emoji: "🔀", text: "3 script versions — pick the best one" },
                   { emoji: "🎥", text: "Prod Guide — Zero Budget shooting included" },
+                  { emoji: "🎭", text: "AI Casting — full character profiles" },
                   { emoji: "📄", text: "PDF export — script + presentation poster" },
                   { emoji: "🌍", text: "Translation into 8 languages in 1 click" },
-                  { emoji: "📱", text: "Native 9:16 — TikTok · Reels · Shorts" },
                 ]).map(({ emoji, text }) => (
                   <div key={text} style={{ display: "flex", alignItems: "center", gap: 14 }}>
                     <span style={{ fontSize: 20, flexShrink: 0 }}>{emoji}</span>
